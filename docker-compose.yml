@@ -15,7 +15,7 @@ services:
       DB_HOST: mysql
       DB_DATABASE: bard-erp
       DB_USERNAME: bard
-      DB_PASSWORD: bs23
+      DB_PASSWORD: bs@2345678
   mysql:
     image: mysql:5.7
     ports:
