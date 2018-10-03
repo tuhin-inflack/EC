@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: bard-erp
+    ports:
+      - 8080:80
+    volumes:
+      - .:/src/erp
+    links:
+      - mysql
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: bard-erp
+      DB_USERNAME: bard
+      DB_PASSWORD: bs23
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_DATABASE: bard-erp
+      MYSQL_USER: bard
+      MYSQL_PASSWORD: bs@2345678
+      MYSQL_ROOT_PASSWORD: bs@2345678
