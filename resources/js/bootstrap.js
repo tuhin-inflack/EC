@@ -1,4 +1,4 @@
-
+php artisan make:auth
 window._ = require('lodash');
 window.Popper = require('popper.js').default;
 

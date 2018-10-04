@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::prefix('hrm')->group(function() {
+    Route::get('/', 'HRMController@index');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
