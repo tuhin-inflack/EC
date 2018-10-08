@@ -15,7 +15,11 @@ class CreateAccountHeadsTable extends Migration
     {
         Schema::create('account_heads', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('parent_id');
+            $table->string('name', 120);
+            $table->string('code', 20);
+            $table->tinyInteger('head_type');
+            $table->text('description');
             $table->timestamps();
         });
     }
