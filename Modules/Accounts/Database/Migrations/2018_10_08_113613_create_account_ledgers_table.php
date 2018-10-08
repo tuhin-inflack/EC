@@ -15,7 +15,15 @@ class CreateAccountLedgersTable extends Migration
     {
         Schema::create('account_ledgers', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('account_head_id');
+            $table->string('name', 120);
+            $table->string('code', 20);
+            $table->string('opening_balance_type', 4);
+            $table->double('opening_balance', 10, 2);
+            $table->double('closing_balance', 10, 2);
+            $table->tinyInteger('account_type');
+            $table->boolean('reconciliation');
+            $table->text('description');
             $table->timestamps();
         });
     }
