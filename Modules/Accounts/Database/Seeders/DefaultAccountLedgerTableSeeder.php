@@ -5,7 +5,7 @@ namespace Modules\Accounts\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
-class AccountsDatabaseSeeder extends Seeder
+class DefaultAccountLedgerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,9 +14,6 @@ class AccountsDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
 
-         $this->call(DefaultAccountHeadsTableSeeder::class);
-//         $this->call(DefaultAccountLedgerTableSeeder::class);
     }
 }
