@@ -15,7 +15,7 @@ class CreateHostelsTable extends Migration
     {
         Schema::create('hostels', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('shortcode');
+            $table->string('shortcode', 20)->unique();
             $table->string('name');
             $table->integer('total_room');
             $table->integer('total_seat');
