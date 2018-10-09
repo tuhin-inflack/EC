@@ -12,6 +12,10 @@ services:
     links:
       - mysql
     environment:
+      APP_NAME: BARD ERP
+      APP_ENV: development
+      APP_DEBUG: "true"
+      APP_URL: "http://localhost:8080"
       DB_HOST: mysql
       DB_DATABASE: bard-erp
       DB_USERNAME: bard

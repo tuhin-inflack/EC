@@ -9,11 +9,12 @@
 namespace App\Repositories;
 
 
+use App\Repositories\Contracts\RepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use App\Repositories\Contracts\Repository;
 
-abstract class AbstractBaseRepository implements Repository
+
+abstract class AbstractBaseRepository implements RepositoryInterface
 {
     /**
      * Name of the Model with absolute namespace
