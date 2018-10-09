@@ -17,8 +17,8 @@ class CreateRoomsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('hostel_id');
             $table->unsignedInteger('room_type_id');
-            $table->string('shortcode');
-            $table->integer('level');
+            $table->string('shortcode', 20);
+            $table->unsignedInteger('level');
             $table->timestamps();
         });
     }
