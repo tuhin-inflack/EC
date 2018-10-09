@@ -11,7 +11,7 @@ namespace App\Repositories\Contracts;
 use Illuminate\Database\Eloquent\Model;
 
 
-interface Repository
+interface RepositoryInterface
 {
     /**
      * Find a resource by id

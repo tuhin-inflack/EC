@@ -10,7 +10,7 @@ namespace App\Repositories;
 
 
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Entities\User;
 
 class UserRepository extends AbstractBaseRepository
 {
