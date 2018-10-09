@@ -17,7 +17,7 @@ class CreateHostelRoomTypeRatesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('hostel_id');
             $table->unsignedInteger('room_type_id');
-            $table->decimal('rate');
+            $table->decimal('rate', 10, 2);
             $table->timestamps();
         });
     }
