@@ -7,16 +7,14 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    protected $userRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->userRepository = $userRepository;
     }
 
     /**
@@ -26,9 +24,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = $this->userRepository->getLoggedInUser();
-        return $user;
-
-//        return view('home');
+        return view('home');
     }
 }
