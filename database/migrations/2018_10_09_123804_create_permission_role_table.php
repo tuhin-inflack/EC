@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomInventoriesTable extends Migration
+class CreatePermissionRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateRoomInventoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_inventories', function (Blueprint $table) {
+        Schema::create('permission_role', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('room_type_id');
-            $table->string('item_name');
-            $table->unsignedInteger('quantity');
+            $table->integer('permission_id')->unsigned();
+            $table->integer('role_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateRoomInventoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('room_inventories');
+        Schema::dropIfExists('permission_role');
     }
 }
