@@ -9,22 +9,34 @@
 namespace Modules\HM\Services;
 
 
+use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomTypeRepository;
 
 class RoomTypeService
 {
-    protected $roomTypeRepository;
+    private $roomTypeRepository;
 
     /**
      * RoomTypeService constructor.
+     * @param RoomTypeRepository $roomTypeRepository
      */
-    public function __construct()
+    public function __construct(RoomTypeRepository $roomTypeRepository)
     {
-        $this->roomTypeRepository = new RoomTypeRepository();
+        $this->roomTypeRepository = $roomTypeRepository;
+    }
+
+    public function getAll()
+    {
+//        return $this->roomTypeRepository->
     }
 
     public function store(array $data)
     {
         return $this->roomTypeRepository->save($data);
+    }
+
+    public function update(RoomType $roomType, array $data)
+    {
+        return $this->roomTypeRepository->update($roomType, $data);
     }
 }

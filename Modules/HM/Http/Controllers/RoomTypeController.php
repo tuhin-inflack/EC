@@ -5,17 +5,33 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Entities\RoomType;
+use Modules\HM\Http\Requests\CreateRoomTypeRequest;
+use Modules\HM\Http\Requests\UpdateRoomTypeRequest;
 use Modules\HM\Services\RoomTypeService;
 
 class RoomTypeController extends Controller
 {
+    private $roomTypeService;
+
+    /**
+     * RoomTypeController constructor.
+     * @param RoomTypeService $roomTypeService
+     */
+    public function __construct(RoomTypeService $roomTypeService)
+    {
+        $this->roomTypeService = $roomTypeService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('hm::index');
+        $roomTypes = $this->roomTypeService->getAll();
+
+        return view('hm::room-type.index');
     }
 
     /**
@@ -24,7 +40,7 @@ class RoomTypeController extends Controller
      */
     public function create()
     {
-        return view('hm::create');
+        return view('hm::room-type.create');
     }
 
     /**
@@ -32,10 +48,11 @@ class RoomTypeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateRoomTypeRequest $request)
     {
-        $roomTypeService = new RoomTypeService();
-        return $roomTypeService->store($request->all());
+        $this->roomTypeService->store($request->all());
+
+        return view('hm::room-type.index');
     }
 
     /**
@@ -58,11 +75,13 @@ class RoomTypeController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateRoomTypeRequest $request
+     * @param RoomType $roomType
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateRoomTypeRequest $request, RoomType $roomType)
     {
+        $this->roomTypeService->update($roomType, $request->all());
     }
 
     /**
