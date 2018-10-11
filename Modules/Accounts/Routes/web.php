@@ -13,4 +13,7 @@
 
 Route::prefix('accounts')->group(function() {
     Route::get('/', 'AccountsController@index');
+
+    Route::get('/account-head', 'AccountHeadController@create');
+    Route::post('/account-head', 'AccountHeadController@store');
 });
