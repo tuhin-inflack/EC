@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 
+/**
+ * Class AbstractBaseRepository
+ * @package App\Repositories
+ */
 abstract class AbstractBaseRepository implements RepositoryInterface
 {
     /**
@@ -73,41 +77,80 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      * Find a resource by id
      *
      * @param $id
+     * @param null $relation
      * @return Model|null
      */
-    public function findOne($id)
+    public function findOne($id, $relation = null)
     {
-        return $this->findOneBy(['id' => $id]);
+        return $this->findOneBy(['id' => $id], $relation);
     }
 
     /**
      * Find a resource by criteria
      *
      * @param array $criteria
+     * @param null $relation
      * @return Model|null
      */
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria, $relation = null)
     {
-        return $this->model->where($criteria)->first();
+        return $this->prepareModelForRelationAndOrder($relation)->where($criteria)->first();
     }
 
     /**
      * Search All resources by criteria
      *
      * @param array $searchCriteria
+     * @param null $relation
+     * @param array|null $orderBy
      * @return Collection
      */
-    public function findBy(array $searchCriteria = [])
+    public function findBy(array $searchCriteria = [], $relation = null, array $orderBy = null)
     {
+        $model = $this->prepareModelForRelationAndOrder($relation, $orderBy);
         $limit = !empty($searchCriteria['per_page']) ? (int)$searchCriteria['per_page'] : 15; // it's needed for pagination
 
-        $queryBuilder = $this->model->where(function ($query) use ($searchCriteria) {
+        $queryBuilder = $model->where(function ($query) use ($searchCriteria) {
 
             $this->applySearchCriteriaInQueryBuilder($query, $searchCriteria);
         }
         );
+        if (!empty($searchCriteria['per_page'])) {
+            return $queryBuilder->paginate($limit);
+        }
+        return $queryBuilder->get();
+    }
 
-        return $queryBuilder->paginate($limit);
+
+    /**
+     * Apply condition on query builder based on search criteria
+     *
+     * @param Object $queryBuilder
+     * @param array $searchCriteria
+     * @return mixed
+     */
+    protected function applySearchCriteriaInQueryBuilder($queryBuilder, array $searchCriteria = [])
+    {
+
+        foreach ($searchCriteria as $key => $value) {
+
+            //skip pagination related query params
+            if (in_array($key, ['page', 'per_page'])) {
+                continue;
+            }
+
+            //we can pass multiple params for a filter with commas
+            $allValues = explode(',', $value);
+
+            if (count($allValues) > 1) {
+                $queryBuilder->whereIn($key, $allValues);
+            } else {
+                $operator = '=';
+                $queryBuilder->where($key, $operator, $value);
+            }
+        }
+
+        return $queryBuilder;
     }
 
     /**
@@ -117,10 +160,39 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      * @param array $values
      * @return Collection
      */
-    public function findIn($key, array $values)
+    public function findIn($key, array $values, $relation = null, array $orderBy = null)
     {
-        return $this->model->whereIn($key, $values)->get();
+        return $this->prepareModelForRelationAndOrder($relation, $orderBy)->whereIn($key, $values)->get();
     }
+
+
+    /**
+     * @param null $perPage
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     */
+    public function findAll($perPage = null, $relation = null, array $orderBy = null)
+    {
+        $model = $this->prepareModelForRelationAndOrder($relation, $orderBy);
+        if ($perPage) {
+            return $model->paginate($perPage);
+        }
+
+        return $model->get();
+    }
+
+    /**
+     * @param $id
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|Collection|Model|Model[]|mixed
+     */
+    public function findOrFail($id, $relation = null, array $orderBy = null)
+    {
+        return $this->prepareModelForRelationAndOrder($relation, $orderBy)->findOrFail($id);
+    }
+
 
     /**
      * Save a resource
@@ -163,5 +235,22 @@ abstract class AbstractBaseRepository implements RepositoryInterface
     public function delete(Model $model)
     {
         return $model->delete();
+    }
+
+    /**
+     * @param $relation
+     * @param array|null $orderBy
+     * @return \Illuminate\Database\Eloquent\Builder|Model
+     */
+    private function prepareModelForRelationAndOrder($relation, array $orderBy = null)
+    {
+        $model = $this->model;
+        if ($relation) {
+            $model =  $model->with($relation);
+        }
+        if ($orderBy) {
+            $model = $model->orderBy($orderBy['column'], $orderBy['direction']);
+        }
+        return $model;
     }
 }

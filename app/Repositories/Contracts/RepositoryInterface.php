@@ -11,15 +11,20 @@ namespace App\Repositories\Contracts;
 use Illuminate\Database\Eloquent\Model;
 
 
+/**
+ * Interface RepositoryInterface
+ * @package App\Repositories\Contracts
+ */
 interface RepositoryInterface
 {
     /**
      * Find a resource by id
      *
      * @param $id
+     * @param $relation
      * @return Model|null
      */
-    public function findOne($id);
+    public function findOne($id, $relation);
 
     /**
      * Find a resource by criteria
@@ -27,24 +32,45 @@ interface RepositoryInterface
      * @param array $criteria
      * @return Model|null
      */
-    public function findOneBy(array $criteria);
+    public function findOneBy(array $criteria, $relation);
 
     /**
      * Search All resources by criteria
      *
      * @param array $searchCriteria
+     * @param null $relation
+     * @param array|null $orderBy
      * @return Collection
      */
-    public function findBy(array $searchCriteria = []);
+    public function findBy(array $searchCriteria = [], $relation = null, array $orderBy = null);
 
     /**
      * Search All resources by any values of a key
      *
      * @param string $key
      * @param array $values
+     * @param null $relation
+     * @param array|null $orderBy
      * @return Collection
      */
-    public function findIn($key, array $values);
+    public function findIn($key, array $values, $relation = null, array $orderBy = null);
+
+    /**
+     * @param null $perPage
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return Collection
+     */
+    public function findAll($perPage = null, $relation = null, array $orderBy = null);
+
+
+    /**
+     * @param $id
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return mixed
+     */
+    public function findOrFail($id, $relation = null, array $orderBy = null);
 
     /**
      * Save a resource
