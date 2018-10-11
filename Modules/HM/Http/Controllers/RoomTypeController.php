@@ -5,6 +5,7 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Http\Requests\CreateRoomTypeRequest;
 use Modules\HM\Http\Requests\UpdateRoomTypeRequest;
@@ -31,7 +32,7 @@ class RoomTypeController extends Controller
     {
         $roomTypes = $this->roomTypeService->getAll();
 
-        return view('hm::room-type.index');
+        return view('hm::room-type.index', compact('roomTypes'));
     }
 
     /**
@@ -45,14 +46,15 @@ class RoomTypeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param CreateRoomTypeRequest $request
      * @return Response
      */
     public function store(CreateRoomTypeRequest $request)
     {
         $this->roomTypeService->store($request->all());
+        Session::flash('message', 'Room Type stored successfully!');
 
-        return view('hm::room-type.index');
+        return redirect()->route('room-types.index');
     }
 
     /**
@@ -66,11 +68,12 @@ class RoomTypeController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param RoomType $roomType
      * @return Response
      */
-    public function edit()
+    public function edit(RoomType $roomType)
     {
-        return view('hm::edit');
+        return view('hm::room-type.edit', compact('roomType'));
     }
 
     /**
@@ -82,13 +85,21 @@ class RoomTypeController extends Controller
     public function update(UpdateRoomTypeRequest $request, RoomType $roomType)
     {
         $this->roomTypeService->update($roomType, $request->all());
+        Session::flash('message', 'Room Type updated successfully!');
+
+        return redirect()->route('room-types.index');
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param RoomType $roomType
      * @return Response
      */
-    public function destroy()
+    public function destroy(RoomType $roomType)
     {
+        $this->roomTypeService->delete($roomType);
+        Session::flash('message', 'Room Type deleted successfully!');
+
+        return redirect()->route('room-types.index');
     }
 }

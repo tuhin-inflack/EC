@@ -27,7 +27,7 @@ class RoomTypeService
 
     public function getAll()
     {
-//        return $this->roomTypeRepository->
+        return $this->roomTypeRepository->findAll(3);
     }
 
     public function store(array $data)
@@ -38,5 +38,10 @@ class RoomTypeService
     public function update(RoomType $roomType, array $data)
     {
         return $this->roomTypeRepository->update($roomType, $data);
+    }
+
+    public function delete(RoomType $roomType)
+    {
+        return $this->roomTypeRepository->delete($roomType);
     }
 }

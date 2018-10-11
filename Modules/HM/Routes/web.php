@@ -15,9 +15,12 @@ Route::prefix('hm')->group(function() {
     Route::get('/', 'HMController@index');
 
     Route::prefix('room-types')->group(function () {
-        Route::get('/', 'RoomTypeController@index');
-        Route::get('create', 'RoomTypeController@create');
-        Route::post('/', 'RoomTypeController@store')->name('Store-room-type');
+        Route::get('/', 'RoomTypeController@index')->name('room-types.index');
+        Route::get('create', 'RoomTypeController@create')->name('room-types.create');
+        Route::post('/', 'RoomTypeController@store')->name('room-types.store');
+        Route::get('edit/{roomType}', 'RoomTypeController@edit')->name('room-types.edit');
+        Route::put('{roomType}', 'RoomTypeController@update')->name('room-types.update');
+        Route::delete('{roomType}', 'RoomTypeController@destroy')->name('room-types.destroy');
     });
 });
 

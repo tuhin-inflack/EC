@@ -8,25 +8,53 @@
                     <div class="card-header">Room Types</div>
 
                     <div class="card-body">
+                        @if(Session::get('message'))
+                            <h4>
+                                {{Session::get('message')}}
+                            </h4>
+                        @endif
+
+                        <div class="float-right">
+                            <a href="{{ route('room-types.create') }}" class="btn btn-primary">Create Room Type</a>
+                        </div>
+                        
                         <table class="table table-bordered table-striped">
-                                <thead>
+                            <thead>
+                            <tr>
+                                <th scope="col">SL</th>
+                                <th scope="col">Room Type</th>
+                                <th scope="col">Seat Capacity</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($roomTypes as $roomType)
                                 <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Room Type</th>
-                                    <th scope="col">Seat Capacity</th>
-                                    <th scope="col">Actions</th>
+                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td>{{ $roomType->name }}</td>
+                                    <td>{{ $roomType->capacity }}</td>
+                                    <td>
+                                        <a href="{{ route('room-types.edit', $roomType->id) }}" class="btn btn-primary">Edit</a>
+                                        {!! Form::open([
+                                                'method'=>'DELETE',
+                                                'url' => route('room-types.destroy', $roomType->id),
+                                                'style' => 'display:inline'
+                                                ]) !!}
+                                        {!! Form::button('Delete', array(
+                                        'type' => 'submit',
+                                        'class' => 'btn btn-danger',
+                                        'title' => 'Delete the room type',
+                                        'onclick'=>'return confirm("Confirm delete?")',
+                                        )) !!}
+                                        {!! Form::close() !!}
+                                    </td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach()
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Mark</td>
-                                    <td>Otto</td>
-                                    <td>@mdo</td>
-                                </tr>
-                                </tbody>
+                            @endforeach
+                            </tbody>
                         </table>
+                        <div class="float-right">
+                            {{ $roomTypes->links() }}
+                        </div>
                     </div>
                 </div>
             </div>
