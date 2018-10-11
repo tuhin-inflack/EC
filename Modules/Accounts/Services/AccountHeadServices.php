@@ -26,7 +26,6 @@ class AccountHeadServices
     public function getAll()
     {
         return $this->accountHeadRepository->findAll();
-//        return $this->accountHeadRepository->findAll();
     }
 
     public function store(array $data)
