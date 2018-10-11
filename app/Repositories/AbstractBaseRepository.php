@@ -159,6 +159,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      *
      * @param Model $model
      * @return mixed
+     * @throws \Exception
      */
     public function delete(Model $model)
     {

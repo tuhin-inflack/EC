@@ -13,4 +13,11 @@
 
 Route::prefix('hm')->group(function() {
     Route::get('/', 'HMController@index');
+
+    Route::prefix('room-types')->group(function () {
+        Route::get('/', 'RoomTypeController@index');
+        Route::get('create', 'RoomTypeController@create');
+        Route::post('/', 'RoomTypeController@store')->name('Store-room-type');
+    });
 });
+
