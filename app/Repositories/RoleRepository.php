@@ -8,7 +8,9 @@
 
 namespace App\Repositories;
 
+use App\Entities\Role;
+
 class RoleRepository extends AbstractBaseRepository
 {
-
+    protected $modelName = Role::class;
 }
