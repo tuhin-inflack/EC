@@ -16,7 +16,7 @@
                                     <input type="text"
                                            value="{{ old('name') }}"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" autofocus/>
+                                           name="name" autofocus required/>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                                     <input type="text"
                                            value="{{ old('capacity') }}"
                                            class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}"
-                                           name="capacity"/>
+                                           name="capacity" required/>
 
                                     @if ($errors->has('capacity'))
                                         <span class="invalid-feedback" role="alert">
