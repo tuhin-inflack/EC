@@ -1,9 +1,7 @@
 @extends('accounts::layouts.master')
 
 @section('content')
-    <h1>Hello World</h1>
+    <H1>Accounts</H1>
 
-    <p>
-        This view is loaded from module: {!! config('accounts.name') !!}
-    </p>
+    <p>Accounting parts line Chart of Account & Auto Voucher</p>
 @stop

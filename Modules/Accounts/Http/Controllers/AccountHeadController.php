@@ -5,9 +5,22 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
+use Modules\Accounts\Services\AccountHeadServices;
 
 class AccountHeadController extends Controller
 {
+    private $accountHeadServices;
+
+    /**
+     * AccountHeadController constructor.
+     * @param AccountHeadServices $accountHeadServices
+     */
+    public function __construct(AccountHeadServices $accountHeadServices)
+    {
+        $this->accountHeadServices = $accountHeadServices;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -23,7 +36,8 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
-        return view('accounts::create');
+        return $this->accountHeadServices->getAll();
+        //return view('accounts::account-head.create')->with();
     }
 
     /**
@@ -31,8 +45,9 @@ class AccountHeadController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateAccountHeadPostRequest $request)
     {
+        return $request;
     }
 
     /**

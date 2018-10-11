@@ -23,7 +23,6 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
-        echo "";
         return view('accounts::create');
     }
 
