@@ -1,4 +1,4 @@
-@extends('accounts::layouts.master')
+@extends('layouts.app')
 
 @section('content')
     <form action="{{ url('accounts/account-head') }}" method="post" role="form" id="add_form">
@@ -8,7 +8,9 @@
 
         <div class="form-group">
             <label>Account Parent Head</label>
-            <select name="parent_id">
+            {{-- Form::select('parent_id', $coa) --}}
+
+            <select class="form-control" name="parent_id">
                 <option value="1">Assets</option>
                 <option value="2">Liability</option>
                 <option value="3">Income</option>
@@ -27,18 +29,8 @@
         </div>
 
         <div class="form-group">
-            <label>Account Head Type</label>
-            <select name="head_type">
-                <option value="1">Assets</option>
-                <option value="2">Liability</option>
-                <option value="3">Income</option>
-                <option value="4">Expense</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label>Account Head Type</label>
-            <textarea name="description" rows="2"></textarea>
+            <label>Account Head Description</label>
+            <textarea class="form-control" name="description" rows="2"></textarea>
         </div>
 
     </div>
