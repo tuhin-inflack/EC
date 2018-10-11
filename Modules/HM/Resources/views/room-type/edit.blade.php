@@ -5,16 +5,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Create Room Type</div>
+                    <div class="card-header">Update Room Type</div>
                     <div class="card-body">
-                        <form action="{{ route('room-types.store') }}" method="post">
+                        <form action="{{ route('room-types.update', $roomType->id) }}" method="post">
+                            @method('PUT')
                             @csrf
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-md-right">Room Type Name</label>
 
                                 <div class="col-md-6">
                                     <input type="text"
-                                           value="{{ old('name') }}"
+                                           value="{{ old('name') ?: $roomType->name }}"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                            name="name" autofocus/>
 
@@ -30,7 +31,7 @@
 
                                 <div class="col-md-6">
                                     <input type="text"
-                                           value="{{ old('capacity') }}"
+                                           value="{{ old('capacity') ?: $roomType->capacity }}"
                                            class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}"
                                            name="capacity"/>
 
