@@ -15,8 +15,4 @@ use Modules\Accounts\Entities\AccountHead;
 class AccountHeadRepository extends AbstractBaseRepository
 {
     protected $modelName = AccountHead::class;
-
-    public function findAll(){
-        return $this->model->all();
-    }
 }

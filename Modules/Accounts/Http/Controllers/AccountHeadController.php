@@ -37,7 +37,7 @@ class AccountHeadController extends Controller
     public function create()
     {
         $chart_of_accounts = $this->accountHeadServices->getAll();
-        return view('accounts::account-head.create')->with('coa', $chart_of_accounts);
+        return view('accounts::account-head.create')->with('chart_of_accounts', $chart_of_accounts);
     }
 
     /**
