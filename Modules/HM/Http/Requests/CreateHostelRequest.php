@@ -16,6 +16,7 @@ class CreateHostelRequest extends FormRequest
         return [
             'shortcode' => 'required|unique:hostels|max:20',
             'name' => 'required',
+            'level' => 'required|numeric',
             'total_room' => 'required|numeric|min:1',
             'total_seat' => 'required|numeric|min:1'
         ];
