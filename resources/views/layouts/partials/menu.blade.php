@@ -8,6 +8,12 @@
                         <span class="menu-title"
                               data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
+                <li class=" nav-item">
+                    <a href="{{ url('/user/role') }}">
+                        <i class="la la-home"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Role Management</span></a>
+                </li>
             </ul>
         @endauth
     </div>
