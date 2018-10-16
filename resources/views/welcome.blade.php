@@ -5,11 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description"
-          content="Modern admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities with bitcoin dashboard.">
+          content="BARD ERP Solution.">
     <meta name="keywords"
-          content="admin template, modern admin template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
-    <meta name="author" content="PIXINVENT">
-    <title>BARD ERP</title>
+    content="BARD ERP Solution">
+    <meta name="author" content="Brain Station - 23 & Inflack Limited.">
+
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- title -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
     <link rel="apple-touch-icon" href="{{ asset('theme/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('theme/images/ico/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
@@ -48,8 +53,7 @@
 </div>--}}
 <div class="container">
     <div id="crypto-stats-3" class="row" style="margin-top: 32px">
-        @foreach(array_chunk(array_keys(\Nwidart\Modules\Facades\Module::all()), 2) as $modules)
-            @foreach($modules as $module)
+            @foreach(array_keys(\Nwidart\Modules\Facades\Module::all()) as $module)
                 <div class="col-xl-4 col-12">
                     <div class="card crypto-card-3 pull-up">
                         <div class="card-content">
@@ -62,17 +66,12 @@
                                         <h4>{{ $module }}</h4>
                                         <h6 class="text-muted">{{ $module }}</h6>
                                     </div>
-                                    {{--<div class="col-5 text-right">
-                                        <h4>$9,980</h4>
-                                        <h6 class="success darken-4">31% <i class="la la-arrow-up"></i></h6>
-                                    </div>--}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             @endforeach
-        @endforeach
     </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
@@ -81,7 +80,7 @@
 <script src="{{ asset('theme/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
-<script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
+{{--<script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>--}}
 {{--<script src="{{ asset('theme/vcendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>--}}
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN MODERN JS-->
