@@ -1,94 +1,95 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description"
+          content="BARD ERP Solution.">
+    <meta name="keywords"
+    content="BARD ERP Solution">
+    <meta name="author" content="Brain Station - 23 & Inflack Limited.">
 
-        <title>Laravel</title>
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <!-- title -->
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Welcome to BARD ERP
-                </div>
-
-                <div class="links">
-                    <a href="#">HRM</a>
-                    <a href="#">Accounts</a>
-                    <a href="#">Hostel Management</a>
-                    <a href="#">Project Management</a>
-                </div>
-            </div>
+    <link rel="apple-touch-icon" href="{{ asset('theme/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
+          rel="stylesheet">
+    <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css"
+          rel="stylesheet">
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/vendors.css') }}">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN MODERN CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/app.css') }}">
+    <!-- END MODERN CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/core/menu/menu-types/vertical-menu.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/core/colors/palette-gradient.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/cryptocoins/cryptocoins.css') }}">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
+    <!-- END Custom CSS-->
+</head>
+<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
+      data-open="click" data-menu="vertical-menu" data-col="2-columns">
+<!-- fixed-top-->
+@include('layouts.partials.fixed_top')
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+{{--@include('layouts.partials.menu')--}}
+{{--<div class="app-content content">
+    <div class="content-wrapper">
+        <div class="content-header row">
         </div>
-    </body>
+        <div class="content-body">
+
+        </div>
+    </div>
+</div>--}}
+<div class="container">
+    <div id="crypto-stats-3" class="row" style="margin-top: 32px">
+            @foreach(array_keys(\Nwidart\Modules\Facades\Module::all()) as $module)
+                <div class="col-xl-4 col-12">
+                    <div class="card crypto-card-3 pull-up">
+                        <div class="card-content">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
+                                    </div>
+                                    <div class="col-5 pl-2">
+                                        <h4>{{ $module }}</h4>
+                                        <h6 class="text-muted">{{ $module }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+    </div>
+</div>
+<!-- ////////////////////////////////////////////////////////////////////////////-->
+{{--@include('layouts.partials.footer')--}}
+<!-- BEGIN VENDOR JS-->
+<script src="{{ asset('theme/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
+<!-- BEGIN VENDOR JS-->
+<!-- BEGIN PAGE VENDOR JS-->
+{{--<script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>--}}
+{{--<script src="{{ asset('theme/vcendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>--}}
+<!-- END PAGE VENDOR JS-->
+<!-- BEGIN MODERN JS-->
+<script src="{{ asset('theme/js/core/app-menu.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/js/core/app.js') }}" type="text/javascript"></script>
+{{--<script src="{{ asset('theme/js/scripts/customizer.js') }}" type="text/javascript"></script>--}}
+<!-- END MODERN JS-->
+<!-- BEGIN PAGE LEVEL JS-->
+{{--<script src="{{ asset('theme/js/scripts/pages/dashboard-crypto.js') }}" type="text/javascript"></script>--}}
+<!-- END PAGE LEVEL JS-->
+</body>
 </html>
