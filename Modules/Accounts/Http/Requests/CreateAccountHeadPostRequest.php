@@ -17,7 +17,7 @@ class CreateAccountHeadPostRequest extends FormRequest
             'parent_id' => 'required',
             'name' => 'required|max:255',
             'code' => 'required|unique:code',
-            'head_type' => 'required',
+//            'head_type' => 'required',
         ];
     }
 
