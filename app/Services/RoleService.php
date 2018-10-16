@@ -41,4 +41,9 @@ class RoleService
         return new Response("Role has been created successfully");
     }
 
+    public function getRole($id)
+    {
+        return $this->roleRepository->findOrFail($id, 'permissions');
+    }
+
 }
