@@ -27,7 +27,9 @@ class AccountHeadController extends Controller
      */
     public function index()
     {
-        return view('accounts::index');
+        $accountHeads = $this->accountHeadServices->getAll();
+
+        return view('accounts::account-head.index', compact('accountHeads'));
     }
 
     /**

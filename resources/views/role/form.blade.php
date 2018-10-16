@@ -28,7 +28,7 @@
         </div>
         <div class="form-group form-float">
             <div class="form-line">
-                {{ Form::select("permissions", $permissions, null, ["class"=>"form-control show-tick", "id"=>"permissions",
+                {{ Form::select("head_type", , null, ["class"=>"form-control show-tick", "id"=>"permissions",
                  'multiple','name'=>'permissions[]', 'required'=>true]) }}
             </div>
             @if ($errors->has('permissions'))
