@@ -50,16 +50,15 @@
                                             <td>{{$role->description}}</td>
                                             <td>
                                                 <a href="{{URL::to( '/user/role/'.$role->id)}}" class="btn btn-info">
-                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Details
+                                                    Details
                                                 </a>
-                                                <a href="{{URL::to( '/user/role/'.$role->id.'/edit')}}" class="btn btn-primary">
-                                                    <i class="material-icons" aria-hidden="true">edit</i>&nbsp;Edit</a>
+                                                <a href="{{URL::to( '/user/role/'.$role->id.'/edit')}}" class="btn btn-primary">Edit</a>
                                                 {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => [ '/user/role', $role->id],
                                                 'style' => 'display:inline'
                                                 ]) !!}
-                                                {!! Form::button('<i class="material-icons" aria-hidden="true">delete</i> ', array(
+                                                {!! Form::button('Delete ', array(
                                                 'type' => 'submit',
                                                 'class' => 'btn btn-danger',
                                                 'title' => 'Delete the role',
