@@ -17,6 +17,7 @@ class HostelController extends Controller
 
     /**
      * HostelController constructor.
+     * @param HostelService $hostelService
      */
     public function __construct(HostelService $hostelService)
     {
@@ -67,6 +68,7 @@ class HostelController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param Hostel $hostel
      * @return Response
      */
     public function edit(Hostel $hostel)
@@ -77,6 +79,7 @@ class HostelController extends Controller
     /**
      * Update the specified resource in storage.
      * @param UpdateHostelRequest $request
+     * @param Hostel $hostel
      * @return void
      */
     public function update(UpdateHostelRequest $request, Hostel $hostel)
@@ -89,6 +92,7 @@ class HostelController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Hostel $hostel
      * @return Response
      */
     public function destroy(Hostel $hostel)
