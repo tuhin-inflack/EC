@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hostel extends Model
 {
-    protected $fillable = ['shortcode', 'name', 'total_room', 'total_seat'];
+    protected $fillable = ['shortcode', 'name', 'level', 'total_room', 'total_seat'];
+
+    public function roomTypes()
+    {
+        return $this->hasMany(RoomType::class);
+    }
 }

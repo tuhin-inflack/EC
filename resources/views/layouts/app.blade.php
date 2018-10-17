@@ -35,9 +35,13 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/core/colors/palette-gradient.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/cryptocoins/cryptocoins.css') }}">
     <!-- END Page Level CSS-->
+    <!-- BEGIN Pick a Date CSS -->
+
+    <!-- END Pick a Date CSS-->
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
     <!-- END Custom CSS-->
+    @stack('page-css')
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
       data-open="click" data-menu="vertical-menu" data-col="2-columns">
