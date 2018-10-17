@@ -18,7 +18,10 @@ class CreateHostelRequest extends FormRequest
             'name' => 'required',
             'level' => 'required|numeric',
             'total_room' => 'required|numeric|min:1',
-            'total_seat' => 'required|numeric|min:1'
+            'total_seat' => 'required|numeric|min:1',
+            'room_types.*.name' => 'required|max:100',
+            'room_types.*.capacity' => 'required|numeric|min:1',
+            'room_types.*.rate' => 'required|numeric|min:1',
         ];
     }
 
