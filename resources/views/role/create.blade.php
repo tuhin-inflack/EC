@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <div class="card">
+    <section id="role-form-layouts">
             @include('role.form')
-        </div>
-    </div>
+    </section>
 @endsection
