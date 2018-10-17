@@ -10,6 +10,7 @@ use Modules\HM\Entities\Hostel;
 use Modules\HM\Http\Requests\CreateHostelRequest;
 use Modules\HM\Http\Requests\UpdateHostelRequest;
 use Modules\HM\Services\HostelService;
+use Modules\HM\Services\RoomTypeService;
 
 class HostelController extends Controller
 {

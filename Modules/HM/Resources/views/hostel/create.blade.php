@@ -47,7 +47,7 @@
                                     <input type="text"
                                            value="{{ old('level') }}"
                                            class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
-                                           name="name" required/>
+                                           name="level" required/>
 
                                     @if ($errors->has('level'))
                                         <span class="invalid-feedback" role="alert">
@@ -93,10 +93,9 @@
                                 <b class="col-sm-4 col-form-label text-md-right"><u>Room Details</u></b>
                             </div>
 
-
                             <div class="form-group row">
                                 <div class="col-md-6 offset-sm-4">
-                                    <a class="pull-right" href="javascript:void(0)" onclick="addRow()">+ Add room
+                                    <a class="pull-right" href="javascript:void(0)" onclick="addRow()">+ More room
                                         type</a>
                                 </div>
                                 <table id="rt-table" class="col-md-6 offset-md-4" style="">
@@ -104,6 +103,7 @@
                                     <tr>
                                         <th width="10%">SL</th>
                                         <th>Room Type</th>
+                                        <th>Capacity</th>
                                         <th colspan="2">Rate</th>
                                     </tr>
                                     </thead>
@@ -112,28 +112,46 @@
                                         <td width="10%">
                                             1
                                         </td>
-                                        <td width="40%">
-                                            <select class="custom-select">
-                                                <option selected>Choose...</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
-                                            </select>
-                                        </td>
-                                        <td width="40%">
+                                        <td width="26.7%">
                                             <input type="text"
-                                                   value="{{ old('shortcode') }}"
-                                                   class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
-                                                   name="shortcode" autofocus required/>
+                                                   value="{{ old('room_types.0.name') }}"
+                                                   class="form-control{{ $errors->has('room_types.0.name') ? ' is-invalid' : '' }}"
+                                                   name="room_types[0][name]" required/>
 
-                                            @if ($errors->has('shortcode'))
+                                            @if ($errors->has('room_types.0.name'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('shortcode') }}</strong>
+                                                    <strong>{{ $errors->first('room_types.0.name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td width="26.7%">
+                                            <input type="text"
+                                                   value="{{ old('room_types.0.capacity') }}"
+                                                   class="form-control{{ $errors->has('room_types.0.capacity') ? ' is-invalid' : '' }}"
+                                                   name="room_types[0][capacity]" required/>
+
+                                            @if ($errors->has('room_types.0.capacity'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('room_types.0.capacity') }}</strong>
+                                                </span>
+                                            @endif
+                                        </td>
+                                        <td width="26.7%">
+                                            <input type="text"
+                                                   value="{{ old('room_types.0.rate') }}"
+                                                   class="form-control{{ $errors->has('room_types.0.rate') ? ' is-invalid' : '' }}"
+                                                   name="room_types[0][rate]" required/>
+
+                                            @if ($errors->has('room_types.0.rate'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('room_types.0.rate') }}</strong>
                                                 </span>
                                             @endif
                                         </td>
                                         <td width="10%">
-                                            <button type="button" class="btn btn-sm btn-danger" onclick="deleteRow(event)">X</button>
+                                            <button type="button" class="btn btn-sm btn-danger"
+                                                    onclick="deleteRow(event)">X
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -159,32 +177,31 @@
     <script>
         function addRow() {
             let rowIndex = $('#rt-table tr').length;
+            let roomTypeIndex = rowIndex - 1;
             $('#rt-table tr:last').after(`
                 <tr>
                     <td width="10%">
                         ${rowIndex}
                     </td>
-                    <td width="40%">
-                        <select class="custom-select">
-                            <option selected>Choose...</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
-                    </td>
-                    <td width="40%">
+                    <td width="26.7%">
                         <input type="text"
-                               value="{{ old('shortcode') }}"
-                               class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
-                               name="shortcode" autofocus required/>
-                        @if ($errors->has('shortcode'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('shortcode') }}</strong>
-                            </span>
-                        @endif
+                               class="form-control"
+                               name="room_types[${roomTypeIndex}][name]" required/>
+                    </td>
+                    <td width="26.7%">
+                        <input type="text"
+                               class="form-control"
+                               name="room_types[${roomTypeIndex}][capacity]" required/>
+                    </td>
+                    <td width="26.7%">
+                        <input type="text"
+                               class="form-control"
+                               name="room_types[${roomTypeIndex}][rate]" required/>
                     </td>
                     <td width="10%">
-                        <button type="button" class="btn btn-sm btn-danger" onclick="deleteRow(event)">X</button>
+                        <button type="button" class="btn btn-sm btn-danger"
+                                onclick="deleteRow(event)">X
+                        </button>
                     </td>
                 </tr>
             `)
@@ -193,8 +210,13 @@
         function deleteRow(event) {
             $(event.target).parents('tr').remove();
 
-            $('#rt-table tbody tr td:first-child').each(function (index) {
-                $(this).html(index + 1);
+            $('#rt-table tbody tr ').each(function (index) {
+                let rowIndex = index + 1;
+                $(this).children('td:first-child').html(rowIndex);
+                // index room types inputs
+                $(this).children('td:nth-child(2)').children().attr('name', `room_types[${index}][name]`);
+                $(this).children('td:nth-child(3)').children().attr('name', `room_types[${index}][capacity]`);
+                $(this).children('td:nth-child(4)').children().attr('name', `room_types[${index}][rate]`);
             });
         }
     </script>

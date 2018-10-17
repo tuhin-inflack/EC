@@ -16,9 +16,9 @@ class CreateRoomTypesTable extends Migration
         Schema::create('room_types', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('hostel_id');
-            $table->string('name')->unique();
+            $table->string('name', 100);
             $table->unsignedInteger('capacity');
-            $table->decimal('rate', 10, 2);
+            $table->unsignedDecimal('rate', 10, 2);
             $table->timestamps();
         });
     }
