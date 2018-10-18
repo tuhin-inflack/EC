@@ -28,6 +28,13 @@ class AccountHeadServices
         return $this->accountHeadRepository->findAll(10);
     }
 
+    public function getHeads()
+    {
+        $heads = $this->accountHeadRepository->getHeadsForOptions();
+
+        return array_column($heads, 'name_code', 'id');
+    }
+
     public function store(array $data)
     {
         return $this->accountHeadRepository->save($data);
