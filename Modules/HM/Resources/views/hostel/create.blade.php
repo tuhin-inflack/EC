@@ -93,8 +93,8 @@
                                 <b class="col-sm-4 col-form-label text-md-right"><u>Room Details</u></b>
                             </div>
 
-                            <div class="repeater-default col-md-6 offset-sm-4 row">
-                                <div class="mb-1 col-sm-12 col-md-3">
+                            <div class="repeater-default col-md-6 offset-sm-3 row">
+                                <div class="mb-1 col-sm-12 col-md-4">
                                     <label for="bio" class="cursor-pointer">Room Type</label>
                                 </div>
                                 <div class="mb-1 col-sm-12 col-md-3">
@@ -103,14 +103,14 @@
                                 <div class="mb-1 col-sm-12 col-md-3">
                                     <label for="bio" class="cursor-pointer">Rate</label>
                                 </div>
-                                <div class="mb-1 col-sm-12 col-md-3">
+                                <div class="mb-1 col-sm-12 col-md-2">
                                     <button type="button" data-repeater-create class="btn btn-sm btn-outline-info">
                                         <i class="ft-plus"></i> More room type
                                     </button>
                                 </div>
                                 <div data-repeater-list="room_types">
                                     <div data-repeater-item class="row">
-                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <div class="form-group mb-1 col-sm-12 col-md-4">
                                             <input type="text" name="name" class="form-control">
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -119,8 +119,8 @@
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <input type="text" name="rate" class="form-control">
                                         </div>
-                                        <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-3">
-                                            <button type="button" class="btn btn-outline-danger btn-"
+                                        <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                            <button type="button" class="btn btn-outline-danger"
                                                     data-repeater-delete><i class="ft-x"></i>
                                             </button>
                                         </div>
