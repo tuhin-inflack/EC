@@ -1,46 +1,71 @@
-<div class="row">
-    <h3 class="col-md-6 offset-2">
-        Create New Role
-    </h3>
-</div>
-<div class="row">
-    <div class="col-md-6 offset-md-2">
-        {!! Form::open(['url' =>  '/user/role']) !!}
+<div class="row match-height">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title" id="basic-layout-form">Role Creation</h4>
+                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                <div class="heading-elements">
+                    <ul class="list-inline mb-0">
+                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
+                    </ul>
+                </div>
+            </div>
+            <div class="card-content collapse show">
+                <div class="card-body">
+                    {!! Form::open(['url' =>  '/user/role', 'class' => 'form']) !!}
+                    <div class="form-body">
+                        <h4 class="form-section"><i class="ft-user"></i> User Role Form</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name" class="form-label">Role Name</label>
+                                    <input name="name" type="text" id="name" value="{{ old('name') }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                           placeholder="eg. ROLE_ADMIN" required>
+                                    @if ($errors->has('name'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
 
-        <div class="form-group form-float">
-            <div class="form-line">
-                <input name="name" type="text" id="name" class="form-control" required>
-                <label class="form-label"><span style="color: red">*</span> Name eg: ROLE_ADMIN</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="description" class="form-label">Description</label>
+                                    <input name="description" type="text" value="{{ old('description') }}" id="description" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="permissions" class="form-label">Select permissions</label>
+                                    {{ Form::select("permissions", $permissions, null, ["class"=>"form-control select2", "id"=>"permissions",
+                                     'multiple' => 'multiple', 'name'=>'permissions[]', 'required'=>true]) }}
+                                    @if ($errors->has('permissions'))
+                                        <span class="invalid-feedback">
+                                            <strong>{{ $errors->first('permissions') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="la la-check-square-o"></i> Save
+                            </button>
+                            <a class="btn btn-warning mr-1" role="button" href="{{url('/user/role')}}">
+                                <i class="ft-x"></i> Cancel
+                            </a>
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+
             </div>
-            @if ($errors->has('name'))
-                <label id="name-error" class="error" for="name">{{ $errors->first('name') }}</label>
-            @endif
         </div>
-        <div class="form-group form-float">
-            <div class="form-line">
-                <input name="description" type="textarea" id="description" class="form-control" required>
-                <label class="form-label"><span style="color: red">*</span> Description</label>
-            </div>
-            @if ($errors->has('description'))
-                <label id="description-error" class="error"
-                       for="description">{{ $errors->first('description') }}</label>
-            @endif
-        </div>
-        <div class="form-group form-float">
-            <div class="form-line">
-                {{ Form::select("permissions", $permissions, null, ["class"=>"form-control show-tick", "id"=>"permissions",
-                 'multiple','name'=>'permissions[]', 'required'=>true]) }}
-            </div>
-            @if ($errors->has('permissions'))
-                <label id="permissions-error" class="error"
-                       for="permissions">{{ $errors->first('permissions') }}</label>
-            @endif
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-block btn-lg btn-success waves-effect">
-                <span>Create</span>
-            </button>
-        </div>
-        {!! Form::close() !!}
     </div>
 </div>

@@ -69,7 +69,8 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = $this->roleService->getRole($id);
+        return view('role.show', compact('role'));
     }
 
     /**
@@ -80,7 +81,9 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = $this->roleService->getRole($id);
+        $permissions = $this->permissionService->getPermissions();
+        return view('role.edit', compact('role', 'permissions'));
     }
 
     /**
@@ -92,7 +95,13 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = $this->roleService->getRole($id);
+        $role->update($request->toArray());
+        $role->permissions()->sync($request->permissions);
+
+        Session::flash('message', 'Role has been updated successfully');
+
+        return redirect('/user/role');
     }
 
     /**
@@ -103,6 +112,11 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $role = $this->roleService->getRole($id);
+        $role->permissions()->detach();
+        $role->users()->detach();
+        $role->delete();
+        Session::flash('message', 'Role has been deleted successfully');
+        return redirect('/user/role');
     }
 }
