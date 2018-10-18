@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="col-5 pl-2">
                                         <h4>{{ $module }}</h4>
-                                        <h6 class="text-muted">{{ $module }}</h6>
+                                        <h6 class="text-muted"><a href="{{url(strtolower($module)).'/'}}">{{ $module }}</a></h6>
                                     </div>
                                 </div>
                             </div>
