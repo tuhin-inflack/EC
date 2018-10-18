@@ -15,7 +15,7 @@ class CreateEmployeePersonalInfosTable extends Migration
     {
         Schema::create('employee_personal_info', function (Blueprint $table) {
             $table->increments('id');
-	        $table->unsignedInteger('employee_id')->nullable();
+	        $table->unsignedInteger('employee_id');
             $table->string('father_name')->nullable();
             $table->string('mother_name')->nullable();
             $table->string('title')->nullable();

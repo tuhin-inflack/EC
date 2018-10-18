@@ -11,14 +11,15 @@ class CreateEmployeeGeneralInfosTable extends Migration {
 	 * @return void
 	 */
 	public function up() {
-		Schema::create( 'employee_general_info', function ( Blueprint $table ) {
+		Schema::create( 'employees', function ( Blueprint $table ) {
 			$table->increments( 'id' );
-			$table->string( 'name' )->nullable();
-			$table->string('email')->nullable();
-			$table->enum( 'gender', [ 'male', 'female', 'Both' ] )->nullable();
-			$table->unsignedInteger('department_id')->nullable();
-			$table->unsignedInteger('designation_id')->nullable();
-			$table->enum( 'status', [ 'present', 'leave' ] )->nullable();
+			$table->string('employee_id')->unique();
+			$table->string( 'name' );
+			$table->string('email')->unique();
+			$table->enum( 'gender', [ 'male', 'female', 'Both' ] );
+			$table->unsignedInteger('department_id');
+			$table->unsignedInteger('designation_id');
+			$table->enum( 'status', [ 'present', 'leave' ] )->default('present');
 			$table->integer('tel_office')->nullable();
 			$table->integer('tel_home')->nullable();
 			$table->integer('mobile_one')->nullable();
@@ -34,6 +35,6 @@ class CreateEmployeeGeneralInfosTable extends Migration {
 	 * @return void
 	 */
 	public function down() {
-		Schema::dropIfExists( 'employee_general_info' );
+		Schema::dropIfExists( 'employees' );
 	}
 }

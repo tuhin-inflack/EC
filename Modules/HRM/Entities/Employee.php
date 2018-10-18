@@ -4,8 +4,8 @@ namespace Modules\HRM\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeGeneralInfo extends Model
+class Employee extends Model
 {
-	protected $table = "employee_general_info";
+	protected $table = "employees";
     protected $fillable = [];
 }

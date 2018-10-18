@@ -15,13 +15,13 @@ class CreateEmployeePublicationsTable extends Migration
     {
         Schema::create('employee_publications', function (Blueprint $table) {
             $table->increments('id');
-	        $table->unsignedInteger('employee_id')->nullable();
+	        $table->unsignedInteger('employee_id');
             $table->string('type_of_publication')->nullable();
-            $table->string('author_name')->nullable();
-            $table->string('publication_title')->nullable();
-            $table->string('publication_company')->nullable();
+            $table->string('author_name');
+            $table->string('publication_title');
+            $table->string('publication_company');
             $table->string('publication_company_location')->nullable();
-            $table->string('published_date')->nullable();
+            $table->date('published_date');
             $table->string('source_link')->nullable();
             $table->timestamps();
             $table->softDeletes();
