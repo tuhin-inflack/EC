@@ -2,7 +2,7 @@
 
 @section('master')
 
-    @include('accounts::layouts.partials.menu')
+    @include('layouts.partials.menu')
 
     <div class="app-content content">
         <div class="content-wrapper">
