@@ -1,55 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ url('accounts/account-head') }}" method="post" role="form" id="add_form">
-        {{--@method('PUT')--}}
-        @csrf
-        <div class="modal-body has-padding">
-
-            <div class="form-group">
-                <label>Account Parent Head</label>
-                {{-- Form::select('parent_id', $coa) --}}
-
-                <select class="form-control" name="parent_id">
-                    <option value="1">Assets</option>
-                    <option value="2">Liability</option>
-                    <option value="3">Income</option>
-                    <option value="4">Expense</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>Account Head Name</label>
-                <input type="text" placeholder="e.g. Fixed Assets" class="form-control" name="name">
-            </div>
-
-            <div class="form-group">
-                <label>Account Head Code</label>
-                <input type="text" placeholder="e.g. A0001" class="form-control" name="code">
-            </div>
-
-
-
-            <div class="form-group">
-                <label>Account Head Description</label>
-                <textarea class="form-control" name="description" rows="2"></textarea>
-            </div>
-
-        </div>
-        <div class="modal-footer">
-            {{--<button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>--}}
-            <button type="submit" class="btn btn-primary">Submit </button>
-        </div>
-    </form>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Create Account Head</div>
                     <div class="card-body">
-                        <form action="{{ route('account-head.store') }}" method="post">
+                        <form action="{{ route('account-head.store') }}" method="post" role="form" id="add_form">
                             @csrf
+                            <div class="form-group row">
+                                <label class="col-sm-4 col-form-label text-md-right">Account Parent Head</label>
+                                {{-- Form::select('parent_id', $coa) --}}
+
+                                <div class="col-md-6">
+
+{{--                                     {{ Form::select('parent_id', ['L' => 'Large', 'S' => 'Small'] , null, array('class' => 'form-control'))  }}--}}
+                                     {{ Form::select('parent_id', $chartOfAccounts , null, array('class' => 'form-control'))  }}
+
+                                    {{--<select class="form-control" name="parent_id">--}}
+                                        {{--<option value="1">Assets</option>--}}
+                                        {{--<option value="2">Liability</option>--}}
+                                        {{--<option value="3">Income</option>--}}
+                                        {{--<option value="4">Expense</option>--}}
+                                    {{--</select>--}}
+
+                                    @if ($errors->has('parent_id'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('parent_id') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head Name</label>
 
@@ -86,11 +69,6 @@
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head Type</label>
 
                                 <div class="col-md-6">
-                                    <input type="text"
-                                           value="{{ old('name') }}"
-                                           class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" autofocus required/>
-
                                     <select class="form-control" name="head_type">
                                         <option value="1">Assets</option>
                                         <option value="2">Liability</option>
@@ -98,35 +76,27 @@
                                         <option value="4">Expense</option>
                                     </select>
 
-                                    {{ Form::select("head_type", $permissions, null, ["class"=>"form-control show-tick", "id"=>"permissions",
-                                         'multiple','name'=>'permissions[]', 'required'=>true]) }}
-
-
-                                    @if ($errors->has('name'))
+                                    @if ($errors->has('head_type'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('head_type') }}</strong>
                                         </span>
                                     @endif
-
-                                    @if ($errors->has('permissions'))
-                                        <label id="permissions-error" class="error"
-                                               for="permissions">{{ $errors->first('permissions') }}</label>
-                                    @endif
-
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Seat Capacity</label>
+                                <label class="col-sm-4 col-form-label text-md-right">Description</label>
 
                                 <div class="col-md-6">
-                                    <input type="text"
-                                           value="{{ old('capacity') }}"
-                                           class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}"
-                                           name="capacity" required/>
+                                    <textarea
+                                            rows="2"
+                                            name="description"
+                                            class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}">
+                                        {{ old('description') }}
+                                    </textarea>
 
-                                    @if ($errors->has('capacity'))
+                                    @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('capacity') }}</strong>
+                                            <strong>{{ $errors->first('description') }}</strong>
                                         </span>
                                     @endif
                                 </div>

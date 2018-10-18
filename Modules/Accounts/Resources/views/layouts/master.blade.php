@@ -1,19 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Module Accounts</title>
+@extends('layouts.app')
 
-       {{-- Laravel Mix - CSS File --}}
-       {{-- <link rel="stylesheet" href="{{ mix('css/accounts.css') }}"> --}}
+@section('master')
 
-    </head>
-    <body>
-        @yield('content')
+    @include('accounts::layouts.partials.menu')
 
-        {{-- Laravel Mix - JS File --}}
-        {{-- <script src="{{ mix('js/accounts.js') }}"></script> --}}
-    </body>
-</html>
+    <div class="app-content content">
+        <div class="content-wrapper">
+            <div class="content-header row">
+            </div>
+            <div class="content-body">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+@endsection
