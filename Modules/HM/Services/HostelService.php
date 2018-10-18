@@ -46,6 +46,13 @@ class HostelService
 
     public function update(Hostel $hostel, array $data)
     {
+        $roomTypeCollection = collect($data['room_types']);
+        $roomTypeCollection->map(function ($roomType) use ($hostel) {
+            $hostel->roomTypes()
+                ->updateOrCreate(['id' => $roomType['id'], 'hostel_id' => $hostel->id],
+                    array_merge($roomType, ['hostel_id' => $hostel->id]));
+        });
+
         return $this->hostelRepository->update($hostel, $data);
     }
 
