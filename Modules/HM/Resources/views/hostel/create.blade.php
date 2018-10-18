@@ -93,69 +93,39 @@
                                 <b class="col-sm-4 col-form-label text-md-right"><u>Room Details</u></b>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-6 offset-sm-4">
-                                    <a class="pull-right" href="javascript:void(0)" onclick="addRow()">+ More room
-                                        type</a>
+                            <div class="repeater-default col-md-6 offset-sm-4 row">
+                                <div class="mb-1 col-sm-12 col-md-3">
+                                    <label for="bio" class="cursor-pointer">Room Type</label>
                                 </div>
-                                <table id="rt-table" class="col-md-6 offset-md-4" style="">
-                                    <thead>
-                                    <tr>
-                                        <th width="10%">SL</th>
-                                        <th>Room Type</th>
-                                        <th>Capacity</th>
-                                        <th colspan="2">Rate</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td width="10%">
-                                            1
-                                        </td>
-                                        <td width="26.7%">
-                                            <input type="text"
-                                                   value="{{ old('room_types.0.name') }}"
-                                                   class="form-control{{ $errors->has('room_types.0.name') ? ' is-invalid' : '' }}"
-                                                   name="room_types[0][name]" required/>
-
-                                            @if ($errors->has('room_types.0.name'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('room_types.0.name') }}</strong>
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td width="26.7%">
-                                            <input type="text"
-                                                   value="{{ old('room_types.0.capacity') }}"
-                                                   class="form-control{{ $errors->has('room_types.0.capacity') ? ' is-invalid' : '' }}"
-                                                   name="room_types[0][capacity]" required/>
-
-                                            @if ($errors->has('room_types.0.capacity'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('room_types.0.capacity') }}</strong>
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td width="26.7%">
-                                            <input type="text"
-                                                   value="{{ old('room_types.0.rate') }}"
-                                                   class="form-control{{ $errors->has('room_types.0.rate') ? ' is-invalid' : '' }}"
-                                                   name="room_types[0][rate]" required/>
-
-                                            @if ($errors->has('room_types.0.rate'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('room_types.0.rate') }}</strong>
-                                                </span>
-                                            @endif
-                                        </td>
-                                        <td width="10%">
-                                            <button type="button" class="btn btn-sm btn-danger"
-                                                    onclick="deleteRow(event)">X
+                                <div class="mb-1 col-sm-12 col-md-3">
+                                    <label for="bio" class="cursor-pointer">Capacity</label>
+                                </div>
+                                <div class="mb-1 col-sm-12 col-md-3">
+                                    <label for="bio" class="cursor-pointer">Rate</label>
+                                </div>
+                                <div class="mb-1 col-sm-12 col-md-3">
+                                    <button type="button" data-repeater-create class="btn btn-sm btn-outline-info">
+                                        <i class="ft-plus"></i> More room type
+                                    </button>
+                                </div>
+                                <div data-repeater-list="room_types">
+                                    <div data-repeater-item class="row">
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <input type="text" name="name" class="form-control">
+                                        </div>
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <input type="text" name="capacity" class="form-control">
+                                        </div>
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <input type="text" name="rate" class="form-control">
+                                        </div>
+                                        <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-3">
+                                            <button type="button" class="btn btn-outline-danger btn-"
+                                                    data-repeater-delete><i class="ft-x"></i>
                                             </button>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group row mb-0">
@@ -174,50 +144,7 @@
 @endsection
 
 @push('page-js')
-    <script>
-        function addRow() {
-            let rowIndex = $('#rt-table tr').length;
-            let roomTypeIndex = rowIndex - 1;
-            $('#rt-table tr:last').after(`
-                <tr>
-                    <td width="10%">
-                        ${rowIndex}
-                    </td>
-                    <td width="26.7%">
-                        <input type="text"
-                               class="form-control"
-                               name="room_types[${roomTypeIndex}][name]" required/>
-                    </td>
-                    <td width="26.7%">
-                        <input type="text"
-                               class="form-control"
-                               name="room_types[${roomTypeIndex}][capacity]" required/>
-                    </td>
-                    <td width="26.7%">
-                        <input type="text"
-                               class="form-control"
-                               name="room_types[${roomTypeIndex}][rate]" required/>
-                    </td>
-                    <td width="10%">
-                        <button type="button" class="btn btn-sm btn-danger"
-                                onclick="deleteRow(event)">X
-                        </button>
-                    </td>
-                </tr>
-            `)
-        }
-
-        function deleteRow(event) {
-            $(event.target).parents('tr').remove();
-
-            $('#rt-table tbody tr ').each(function (index) {
-                let rowIndex = index + 1;
-                $(this).children('td:first-child').html(rowIndex);
-                // index room types inputs
-                $(this).children('td:nth-child(2)').children().attr('name', `room_types[${index}][name]`);
-                $(this).children('td:nth-child(3)').children().attr('name', `room_types[${index}][capacity]`);
-                $(this).children('td:nth-child(4)').children().attr('name', `room_types[${index}][rate]`);
-            });
-        }
-    </script>
+    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
 @endpush

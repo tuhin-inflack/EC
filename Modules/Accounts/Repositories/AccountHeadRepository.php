@@ -8,11 +8,30 @@
 
 namespace Modules\Accounts\Repositories;
 
-
 use App\Repositories\AbstractBaseRepository;
+use Illuminate\Support\Facades\DB;
 use Modules\Accounts\Entities\AccountHead;
 
 class AccountHeadRepository extends AbstractBaseRepository
 {
     protected $modelName = AccountHead::class;
+
+
+    /**
+     * @param null $selected
+     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     */
+    public function findSelected($selected = null)
+    {
+        return $this->model->select($selected)->get();
+    }
+
+    /**
+     * @param null $selected
+     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     */
+    public function getHeadsForOptions()
+    {
+        return $this->model->select('id', DB::raw('CONCAT(code, " - ", name) as name_code'))->get()->toArray();
+    }
 }
