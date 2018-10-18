@@ -1,17 +1,9 @@
 @extends('layouts.app')
 
-@section('master')
-
+@section('menu')
     @include('layouts.partials.menu')
+@endsection
 
-    <div class="app-content content">
-        <div class="content-wrapper">
-            <div class="content-header row">
-            </div>
-            <div class="content-body">
-                @yield('content')
-            </div>
-        </div>
-    </div>
-
+@section('app-content')
+    @yield('content')
 @endsection
