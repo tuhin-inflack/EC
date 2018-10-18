@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('accounts::layouts.master')
 
 @section('content')
     <H1>Accounts</H1>
