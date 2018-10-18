@@ -48,7 +48,9 @@
 <!-- fixed-top-->
 @include('layouts.partials.fixed_top')
 <!-- ////////////////////////////////////////////////////////////////////////////-->
-@include('layouts.partials.menu')
+
+{{--@include('layouts.partials.menu')--}}
+@yield('menu')
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-header row">
@@ -58,6 +60,7 @@
         </div>
     </div>
 </div>
+
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 @include('layouts.partials.footer')
 <!-- BEGIN VENDOR JS-->
