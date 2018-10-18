@@ -15,13 +15,13 @@ class CreateEmployeeTrainingsTable extends Migration
     {
         Schema::create('employee_trainings', function (Blueprint $table) {
             $table->increments('id');
-	        $table->unsignedInteger('employee_id')->nullable();
-            $table->string('course_name')->nullable();
-            $table->string('organization_name')->nullable();
+	        $table->unsignedInteger('employee_id');
+            $table->string('course_name');
+            $table->string('organization_name');
             $table->string('duration')->nullable();
             $table->year('training_year')->nullable();
             $table->string('organization_country')->nullable();
-            $table->string('result')->nullable();
+            $table->string('result');
             $table->string('achievement')->nullable();
 
             $table->timestamps();
