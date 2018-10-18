@@ -10,6 +10,7 @@ use Modules\HM\Entities\Hostel;
 use Modules\HM\Http\Requests\CreateHostelRequest;
 use Modules\HM\Http\Requests\UpdateHostelRequest;
 use Modules\HM\Services\HostelService;
+use Modules\HM\Services\RoomTypeService;
 
 class HostelController extends Controller
 {
@@ -17,6 +18,7 @@ class HostelController extends Controller
 
     /**
      * HostelController constructor.
+     * @param HostelService $hostelService
      */
     public function __construct(HostelService $hostelService)
     {
@@ -67,6 +69,7 @@ class HostelController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param Hostel $hostel
      * @return Response
      */
     public function edit(Hostel $hostel)
@@ -77,6 +80,7 @@ class HostelController extends Controller
     /**
      * Update the specified resource in storage.
      * @param UpdateHostelRequest $request
+     * @param Hostel $hostel
      * @return void
      */
     public function update(UpdateHostelRequest $request, Hostel $hostel)
@@ -89,6 +93,7 @@ class HostelController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Hostel $hostel
      * @return Response
      */
     public function destroy(Hostel $hostel)
