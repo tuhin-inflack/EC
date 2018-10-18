@@ -1,82 +1,77 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
+    <section id="role-list">
+        <div class="row">
+            <div class="col-12">
                 <div class="card">
-                    <div class="card-header">Role Management</div>
+                    <div class="card-header">
+                        <h4 class="card-title">Role List</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <a href="{{url('/user/role/create')}}" class="btn btn-primary btn-sm"><i
+                                    class="ft-plus white"></i> New Role</a>
+                            <a href="{{url('/user/role/create')}}" class="btn btn-warning btn-sm"> <i
+                                    class="ft-download white"></i></a>
 
-                    <div class="card-body">
-                        @if(Session::get('message'))
-                            <h4>
-                                {{Session::get('message')}}
-                            </h4>
-                        @endif
-                        <div class="row">
-                            <h3 class="col-md-6">
-                                User Role List
-                            </h3>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <a href="{{url( '/user/role/create')}}" class="btn btn-primary waves-effect">
-                                    <span>Create New Role</span>
-                                </a>
-                            </div>
-                        </div>
-                        @if($roles->isEmpty())
-                            <div class="row">
-                                <div class="col-md-8 col-md-offset-1"><h4>No Roles Available</h4></div>
-                            </div>
-                        @else
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard">
 
-                            <div class="body table-responsive">
-                                <table class="table">
-                                    <thead>
+                            @if(Session::get('message'))
+                                <h4>
+                                    {{Session::get('message')}}
+                                </h4>
+                            @endif
+                            <table class="table table-striped table-bordered alt-pagination">
+                                <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php $index = 1; ?>
+                                @foreach($roles as $role)
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Action</th>
+                                        <th scope="row">{{$index}}</th>
+                                        <td>{{$role->name}}</td>
+                                        <td>{{$role->description}}</td>
+                                        <td>
+                                            <span class="dropdown">
+                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
+                                              <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                <a href="{{URL::to( '/user/role/'.$role->id)}}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{URL::to( '/user/role/'.$role->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                <div class="dropdown-divider"></div>
+                                                  {!! Form::open([
+                                      'method'=>'DELETE',
+                                      'url' => [ '/user/role', $role->id],
+                                      'style' => 'display:inline'
+                                      ]) !!}
+                                                  {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                  'type' => 'submit',
+                                                  'class' => 'dropdown-item',
+                                                  'title' => 'Delete the role',
+                                                  'onclick'=>'return confirm("Confirm delete?")',
+                                                  )) !!}
+                                                  {!! Form::close() !!}
+                                              </span>
+                                            </span>
+                                        </td>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $index = 1; ?>
-                                    @foreach($roles as $role)
-                                        <tr>
-                                            <th scope="row">{{$index}}</th>
-                                            <td>{{$role->name}}</td>
-                                            <td>{{$role->description}}</td>
-                                            <td>
-                                                <a href="{{URL::to( '/user/role/'.$role->id)}}" class="btn btn-info">
-                                                    <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;Details
-                                                </a>
-                                                <a href="{{URL::to( '/user/role/'.$role->id.'/edit')}}" class="btn btn-primary">
-                                                    <i class="material-icons" aria-hidden="true">edit</i>&nbsp;Edit</a>
-                                                {!! Form::open([
-                                                'method'=>'DELETE',
-                                                'url' => [ '/user/role', $role->id],
-                                                'style' => 'display:inline'
-                                                ]) !!}
-                                                {!! Form::button('<i class="material-icons" aria-hidden="true">delete</i> ', array(
-                                                'type' => 'submit',
-                                                'class' => 'btn btn-danger',
-                                                'title' => 'Delete the role',
-                                                'onclick'=>'return confirm("Confirm delete?")',
-                                                )) !!}
-                                                {!! Form::close() !!}
-                                            </td>
-                                        </tr>
-                                        <?php $index++; ?>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        @endif
+                                    <?php $index++; ?>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

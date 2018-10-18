@@ -15,8 +15,10 @@ class CreateRoomTypesTable extends Migration
     {
         Schema::create('room_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->unsignedInteger('hostel_id');
+            $table->string('name', 100);
             $table->unsignedInteger('capacity');
+            $table->unsignedDecimal('rate', 10, 2);
             $table->timestamps();
         });
     }

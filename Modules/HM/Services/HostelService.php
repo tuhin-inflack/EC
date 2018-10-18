@@ -10,6 +10,7 @@ namespace Modules\HM\Services;
 
 
 use Modules\HM\Entities\Hostel;
+use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\HostelRepository;
 
 class HostelService
@@ -32,7 +33,15 @@ class HostelService
 
     public function store(array $data)
     {
-        return $this->hostelRepository->save($data);
+        $roomTypesCollection = collect($data['room_types']);
+        $roomTypes = $roomTypesCollection->map(function ($roomType) {
+            return new RoomType($roomType);
+        });
+
+        $hostel = $this->hostelRepository->save($data);
+        $hostel->roomTypes()->saveMany($roomTypes);
+
+        return $hostel;
     }
 
     public function update(Hostel $hostel, array $data)
