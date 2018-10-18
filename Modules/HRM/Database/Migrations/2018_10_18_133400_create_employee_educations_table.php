@@ -15,6 +15,7 @@ class CreateEmployeeEducationsTable extends Migration
     {
         Schema::create('employee_educations', function (Blueprint $table) {
             $table->increments('id');
+	        $table->unsignedInteger('employee_id')->nullable();
             $table->string('institute_name')->nullable();
             $table->string('degree_name')->nullable();
             $table->string('department')->nullable();
