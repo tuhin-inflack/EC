@@ -14,16 +14,7 @@
                                 {{-- Form::select('parent_id', $coa) --}}
 
                                 <div class="col-md-6">
-
-{{--                                     {{ Form::select('parent_id', ['L' => 'Large', 'S' => 'Small'] , null, array('class' => 'form-control'))  }}--}}
-                                     {{ Form::select('parent_id', $chartOfAccounts , null, array('class' => 'form-control'))  }}
-
-                                    {{--<select class="form-control" name="parent_id">--}}
-                                        {{--<option value="1">Assets</option>--}}
-                                        {{--<option value="2">Liability</option>--}}
-                                        {{--<option value="3">Income</option>--}}
-                                        {{--<option value="4">Expense</option>--}}
-                                    {{--</select>--}}
+                                    {{ Form::select('parent_id', $chartOfAccounts , null, array('class' => 'form-control' . ($errors->has('parent_id') ? ' is-invalid' : '') )) }}
 
                                     @if ($errors->has('parent_id'))
                                         <span class="invalid-feedback" role="alert">
@@ -69,12 +60,7 @@
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head Type</label>
 
                                 <div class="col-md-6">
-                                    <select class="form-control" name="head_type">
-                                        <option value="1">Assets</option>
-                                        <option value="2">Liability</option>
-                                        <option value="3">Income</option>
-                                        <option value="4">Expense</option>
-                                    </select>
+                                    {{ Form::select('head_type', ['1' => 'Assets', '2' => 'Liability', '3' => 'Income', '4' => 'Expense'] , null, array('class' => 'form-control' . ($errors->has('head_type') ? ' is-invalid' : '') )) }}
 
                                     @if ($errors->has('head_type'))
                                         <span class="invalid-feedback" role="alert">
@@ -90,9 +76,7 @@
                                     <textarea
                                             rows="2"
                                             name="description"
-                                            class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}">
-                                        {{ old('description') }}
-                                    </textarea>
+                                            class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}">{{ old('description') }}</textarea>
 
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">

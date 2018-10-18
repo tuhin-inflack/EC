@@ -35,15 +35,24 @@ class AccountHeadServices
         return array_column($heads, 'name_code', 'id');
     }
 
+    public function getHead($id)
+    {
+        return $this->accountHeadRepository->findOrFail($id);
+    }
+
     public function store(array $data)
     {
         return $this->accountHeadRepository->save($data);
     }
 
-    public function update(array $data)
+    public function update($id, array $data)
     {
+        return $this->accountHeadRepository->updateModel($id, $data);
+    }
 
-        return $this->accountHeadRepository->update($data);
+    public function delete($id)
+    {
+        return $this->accountHeadRepository->deleteModel($id);
     }
 
 }
