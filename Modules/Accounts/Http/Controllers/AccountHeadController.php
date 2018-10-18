@@ -38,8 +38,9 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
-        $chart_of_accounts = $this->accountHeadServices->getAll();
-        return view('accounts::account-head.create')->with('chart_of_accounts', $chart_of_accounts);
+        $chartOfAccounts = $this->accountHeadServices->getHeads();
+
+        return view('accounts::account-head.create', compact('chartOfAccounts'));
     }
 
     /**
@@ -47,7 +48,7 @@ class AccountHeadController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateAccountHeadPostRequest $request)
     {
         return $request;
     }
