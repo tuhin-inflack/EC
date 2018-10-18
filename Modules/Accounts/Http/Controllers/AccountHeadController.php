@@ -5,6 +5,7 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
 use Modules\Accounts\Services\AccountHeadServices;
 
@@ -50,7 +51,10 @@ class AccountHeadController extends Controller
      */
     public function store(CreateAccountHeadPostRequest $request)
     {
-        return $request;
+        $this->accountHeadServices->store($request->all());
+        Session::flash('message', 'Account Head stored successfully!');
+
+        return redirect()->route('account-head.index');
     }
 
     /**
