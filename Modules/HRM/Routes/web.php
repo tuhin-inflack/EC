@@ -13,4 +13,7 @@
 
 Route::prefix('hrm')->group(function() {
     Route::get('/', 'HRMController@index');
+	Route::resources([
+		'employee' => 'EmployeeController',
+	]);
 });

@@ -10,14 +10,14 @@
                                                                                   data-i18n="nav.navbars.main">Employee</span></a>
                     <ul class="menu-content">
 
-                        <li class=" nav-item">
+                        <li class="nav-item @yield('employee_create')">
                             <a href="{{ url('hrm/employee/create') }}">
                                 <i class="la la-user-plus"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">Add New Employee</span>
                             </a>
                         </li>
 
-                        <li class=" nav-item">
+                        <li class="nav-item @yield('employee_list')">
                             <a href="{{ url('hrm/employee') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">List of Employee</span>
