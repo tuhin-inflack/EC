@@ -19,7 +19,7 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             <form action="{{ route('hostels.store') }}" method="post">
-                                <h4 class="form-section"><i class="ft-home"></i>Hostel Form</h4>
+                                <h4 class="form-section"><i class="la  la-building-o"></i>Hostel Form</h4>
                                 @csrf
                                 <div class="form-group row">
                                     <label class="col-sm-4 col-form-label text-md-right">Shortcode</label>
