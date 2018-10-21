@@ -18,8 +18,8 @@ Route::prefix('accounts')->group(function() {
         Route::get('/', 'AccountHeadController@index')->name('account-head.index');
         Route::get('create', 'AccountHeadController@create')->name('account-head.create');
         Route::post('/', 'AccountHeadController@store')->name('account-head.store');
-        Route::get('{accountHead}/edit', 'AccountHeadController@edit')->name('account-head.edit');
-        Route::put('{accountHead}', 'AccountHeadController@update')->name('account-head.update');
-        Route::delete('{accountHead}', 'AccountHeadController@destroy')->name('account-head.destroy');
+        Route::get('edit/{id}', 'AccountHeadController@edit')->name('account-head.edit');
+        Route::put('update/{id}', 'AccountHeadController@update')->name('account-head.update');
+        Route::delete('delete/{id}', 'AccountHeadController@destroy')->name('account-head.destroy');
     });
 });

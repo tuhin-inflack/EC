@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="card">
                     <div class="card-header">Account Heads</div>
 
@@ -17,7 +17,7 @@
                         <div class="float-right">
                             <a href="{{ route('account-head.create') }}" class="btn btn-primary">Create Account Head</a>
                         </div>
-                        
+
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
@@ -38,7 +38,8 @@
                                     <td>{{ $accountHead->code }}</td>
                                     <td>{{ $accountHead->description }}</td>
                                     <td>
-                                        <a href="{{ route('account-head.edit', $accountHead->id) }}" class="btn btn-primary">Edit</a>
+                                        <a href="{{ route('account-head.edit', $accountHead->id) }}"
+                                           class="btn btn-primary">Edit</a>
                                         {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => route('account-head.destroy', $accountHead->id),

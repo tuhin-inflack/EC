@@ -34,4 +34,23 @@ class AccountHeadRepository extends AbstractBaseRepository
     {
         return $this->model->select('id', DB::raw('CONCAT(code, " - ", name) as name_code'))->get()->toArray();
     }
+
+    /**
+     * @param null $selected
+     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     */
+    public function updateModel($id, array $data)
+    {
+        return $this->update($this->model->find($id), $data);
+    }
+
+
+    /**
+     * @param null $selected
+     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     */
+    public function deleteModel($id)
+    {
+        return $this->delete($this->model->find($id));
+    }
 }
