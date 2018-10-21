@@ -34,10 +34,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php $index = 1; ?>
                                 @foreach($roles as $role)
                                     <tr>
-                                        <th scope="row">{{$index}}</th>
+                                        <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{$role->name}}</td>
                                         <td>{{$role->description}}</td>
                                         <td>
@@ -64,7 +63,6 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <?php $index++; ?>
                                 @endforeach
                                 </tbody>
                             </table>
