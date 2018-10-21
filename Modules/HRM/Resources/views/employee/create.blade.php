@@ -51,18 +51,23 @@
 
                 </ul>
                 <div class="tab-content px-1 pt-1">
-                    <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab" aria-expanded="true">
-                        @include('hrm::layouts.partials.employee.form.general-info')
+                    <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
+                         aria-expanded="true">
+                        {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
+                        @include('hrm::layouts.partials.employee.form.form-general-info')
+                        {!! Form::close() !!}
                     </div>
                     <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
-                        <p>Personal Info</p>
+                        {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
+                        @include('hrm::layouts.partials.employee.form.form-personal-info')
+                        {!! Form::close() !!}
                     </div>
 
                     <div class="tab-pane" id="education" role="tabpanel"
                          aria-labelledby="education-tab"
                          aria-expanded="false">
-                        <p>Education</p>
+
                     </div>
                     <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                          aria-expanded="false">

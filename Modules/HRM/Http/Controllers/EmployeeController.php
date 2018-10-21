@@ -22,10 +22,11 @@ class EmployeeController extends Controller {
 	 */
 	public function create() {
 		$data = [
-			'departments' => [ 'HR', 'Accounts', 'Marketing' ],
-			'designations' => ['JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer'],
-			'genders' => ['male' => 'Male', 'female'=> 'Female', 'both'=> 'Both'],
-			'statuses' => ['present', 'on leave'],
+			'departments'  => [ 'HR', 'Accounts', 'Marketing' ],
+			'designations' => [ 'JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer' ],
+			'genders'      => [ 'male' => 'Male', 'female' => 'Female', 'both' => 'Both' ],
+			'statuses'     => [ 'present', 'on leave' ],
+			'marital_statuses' => ['Married', 'Unmarried'],
 		];
 
 		return view( 'hrm::employee.create', $data );
@@ -39,6 +40,10 @@ class EmployeeController extends Controller {
 	 * @return Response
 	 */
 	public function store( Request $request ) {
+		dd( $request );
+	}
+
+	public function storeGeneralInfo(Request $request) {
 		dd($request);
 	}
 
