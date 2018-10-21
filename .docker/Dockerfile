@@ -5,6 +5,6 @@ COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
 RUN docker-php-ext-install mbstring pdo pdo_mysql mysqli
 
-RUN chown -R www-data:www-data /src/erp \
+RUN chown -R www-data:www-data /src \
     && a2enmod rewrite
 

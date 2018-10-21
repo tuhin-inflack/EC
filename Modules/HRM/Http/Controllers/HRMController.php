@@ -14,7 +14,9 @@ class HRMController extends Controller
      */
     public function index()
     {
+
         return view('hrm::index');
+
     }
 
     /**

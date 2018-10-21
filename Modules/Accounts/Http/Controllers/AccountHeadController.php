@@ -5,7 +5,9 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
+use Modules\Accounts\Http\Requests\UpdateAccountHeadPostRequest;
 use Modules\Accounts\Services\AccountHeadServices;
 
 class AccountHeadController extends Controller
@@ -51,6 +53,10 @@ class AccountHeadController extends Controller
     public function store(CreateAccountHeadPostRequest $request)
     {
         return $request;
+        $this->accountHeadServices->store($request->all());
+        Session::flash('message', 'Account Head stored successfully!');
+
+        return redirect()->route('account-head.index');
     }
 
     /**
@@ -66,9 +72,12 @@ class AccountHeadController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($id)
     {
-        return view('accounts::edit');
+        $head = $this->accountHeadServices->getHead($id);
+        $chartOfAccounts = $this->accountHeadServices->getHeads();
+
+        return view('accounts::account-head.edit', compact('head', 'chartOfAccounts'));
     }
 
     /**
@@ -76,15 +85,24 @@ class AccountHeadController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateAccountHeadPostRequest $request, $id)
     {
+        $this->accountHeadServices->update($id, $request->all());
+        Session::flash('message', 'Account Head updated successfully!');
+
+        return redirect()->route('account-head.index');
     }
 
     /**
      * Remove the specified resource from storage.
+     * @param $id
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $this->accountHeadServices->delete($id);
+        Session::flash('message', 'Account Head deleted successfully!');
+
+        return redirect()->route('account-head.index');
     }
 }

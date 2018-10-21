@@ -13,7 +13,7 @@ class UpdateRoleRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class UpdateRoleRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255|unique:roles,name,' . $this->user()->id,
+            'name' => 'required|string|max:255|unique:roles,name,' . $this->route()->parameters['role'],
         ];
     }
 }

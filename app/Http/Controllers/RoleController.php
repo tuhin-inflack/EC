@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRoleRequest;
+use App\Http\Requests\UpdateRoleRequest;
 use App\Services\PermissionService;
 use App\Services\RoleService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class RoleController extends Controller
@@ -93,7 +93,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRoleRequest $request, $id)
     {
         $role = $this->roleService->getRole($id);
         $role->update($request->toArray());
