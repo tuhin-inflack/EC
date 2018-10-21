@@ -1,6 +1,8 @@
+@extends('layouts.app')
+@section('title', 'Add new employee ')
 @section("employee_create", 'active')
 
-@extends('layouts.app')
+
 
 @section('menu')
     @include('hrm::layouts.partials.menu')
@@ -49,23 +51,14 @@
 
                 </ul>
                 <div class="tab-content px-1 pt-1">
-                    <div role="tabpanel" class="tab-pane active show" id="general"
-                         aria-labelledby="general-tab"
-                         aria-expanded="true">
-                        <p>General Info</p>
+                    <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab" aria-expanded="true">
+                        @include('hrm::layouts.partials.employee.form.general-info')
                     </div>
                     <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
                         <p>Personal Info</p>
                     </div>
-                    <div class="tab-pane" id="dropdownOptIcon21" role="tabpanel"
-                         aria-labelledby="dropdownOptIcon21-tab1"
-                         aria-expanded="false">
-                        <p>Fruitcake marshmallow donut wafer pastry chocolate topping
-                            cake. Powder powder gummi bears jelly beans. Gingerbread
-                            cake chocolate lollipop. Jelly oat cake pastry marshmallow
-                            sesame snaps.</p>
-                    </div>
+
                     <div class="tab-pane" id="education" role="tabpanel"
                          aria-labelledby="education-tab"
                          aria-expanded="false">
