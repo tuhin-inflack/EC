@@ -9,6 +9,7 @@ services:
       - 8080:80
     volumes:
       - .:/src/erp
+      - ../uploads:/src/uploads
     links:
       - mysql
     environment:
@@ -20,6 +21,7 @@ services:
       DB_DATABASE: bard-erp
       DB_USERNAME: bard
       DB_PASSWORD: bs@2345678
+      UPLOAD_BASE_PATH: /src/uploads
   mysql:
     image: mysql:5.7
     ports:
