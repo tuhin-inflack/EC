@@ -49,7 +49,7 @@ class HostelService
         $roomTypeCollection = collect($data['room_types']);
         $roomTypeCollection->map(function ($roomType) use ($hostel) {
             $hostel->roomTypes()
-                ->updateOrCreate(['id' => $roomType['id'], 'hostel_id' => $hostel->id],
+                ->updateOrCreate(['id' => $roomType['id']],
                     array_merge($roomType, ['hostel_id' => $hostel->id]));
         });
 
