@@ -19,7 +19,7 @@ class CreateAccountHeadsTable extends Migration
             $table->string('name', 120);
             $table->string('code', 20);
             $table->tinyInteger('head_type');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
