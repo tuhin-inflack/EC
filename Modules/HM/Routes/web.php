@@ -19,6 +19,7 @@ Route::prefix('hm')->group(function() {
         Route::get('create', 'HostelController@create')->name('hostels.create');
         Route::post('/', 'HostelController@store')->name('hostels.store');
         Route::get('{hostel}/edit', 'HostelController@edit')->name('hostels.edit');
+        Route::get('{hostel}', 'HostelController@show')->name('hostels.show');
         Route::put('{hostel}', 'HostelController@update')->name('hostels.update');
         Route::delete('{hostel}', 'HostelController@destroy')->name('hostels.destroy');
     });

@@ -27,7 +27,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $permissions = $this->permissionService->getPermissions();
+        $permissions = $this->permissionService->findAll();
         return view('permission.index', compact('permissions'));
     }
 
@@ -52,5 +52,16 @@ class PermissionController extends Controller
         $response = $this->permissionService->store($request['model_name']);
         Session::flash('message', $response->getContent());
         return redirect('/user/permission');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $permission = $this->permissionService->delete($id);
     }
 }

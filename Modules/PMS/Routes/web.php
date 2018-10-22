@@ -12,10 +12,13 @@
 */
 
 Route::prefix('pms')->group(function() {
-    Route::get('/', 'PMSController@index');
+    Route::get('/', 'PMSController@index')->name('pms');
 
     Route::prefix('project-requests')->group(function () {
         Route::get('/','ProjectRequestController@index')->name('project_request.index');
         Route::get('/create','ProjectRequestController@create')->name('project_request.create');
+        Route::post('/','ProjectRequestController@store')->name('project_request.store');
+        Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project_request.edit');
+        Route::delete('{projectRequest}', 'ProjectRequestController@destroy')->name('project_request.destroy');
     });
 });

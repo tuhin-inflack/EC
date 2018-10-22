@@ -10,10 +10,13 @@ namespace App\Services;
 
 
 use App\Repositories\PermissionRepository;
+use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
 
 class PermissionService
 {
+    use CrudTrait;
+
     private $permissionRepository;
     private const PERMISSIONS = ['view', 'create', 'update', 'delete'];
 
@@ -24,6 +27,7 @@ class PermissionService
     public function __construct(PermissionRepository $permissionRepository)
     {
         $this->permissionRepository = $permissionRepository;
+        $this->setActionRepository($this->permissionRepository);
     }
 
     public function getPermissions()
@@ -32,6 +36,7 @@ class PermissionService
         return $permissions;
     }
 
+
     public function store($modelName)
     {
         //Create permission for crud operations at a time
@@ -39,5 +44,15 @@ class PermissionService
             $this->permissionRepository->create($modelName, $permission);
         }
         return new Response("Permissions have been created successfully");
+    }
+
+    public function destroy($id)
+    {
+        $permission = $this->findOrFail($id);
+        DB::transaction(function () use ($permission) {
+           $permission->detach('roles');
+           $permission->delete();
+        });
+        return new Response("Permissions have been deleted successfully");
     }
 }
