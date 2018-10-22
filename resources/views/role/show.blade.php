@@ -1,4 +1,5 @@
 @extends('layouts.master')
+@section('title', 'Role details')
 
 @section('content')
     <div class="row">

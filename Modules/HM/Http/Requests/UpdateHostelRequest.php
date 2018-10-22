@@ -18,6 +18,7 @@ class UpdateHostelRequest extends FormRequest
             'name' => 'required',
             'total_room' => 'required|numeric|min:1',
             'total_seat' => 'required|numeric|min:1',
+            'room_types' => 'required',
             'room_types.*.name' => 'required|max:100',
             'room_types.*.capacity' => 'required|numeric|min:1',
             'room_types.*.rate' => 'required|numeric|min:1',

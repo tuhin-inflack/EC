@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('hm::layouts.master')
 
 @section('content')
     <div class="container">
@@ -49,21 +49,21 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="#"
+                                                <a href="{{ route('hostels.show', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
                                                 <a href="{{ route('hostels.edit', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                     {!! Form::open([
-                                                    'method'=>'DELETE',
-                                                    'url' => route('hostels.destroy', $hostel->id),
-                                                    'style' => 'display:inline'
+                                                        'method'=>'DELETE',
+                                                        'url' => route('hostels.destroy', $hostel->id),
+                                                        'style' => 'display:inline'
                                                     ]) !!}
                                                     {!! Form::button('<i class="ft-trash"></i> Delete ', array(
-                                                    'type' => 'submit',
-                                                    'class' => 'dropdown-item',
-                                                    'title' => 'Delete the hostel',
-                                                    'onclick'=>'return confirm("Confirm delete?")',
+                                                        'type' => 'submit',
+                                                        'class' => 'dropdown-item',
+                                                        'title' => 'Delete the hostel',
+                                                        'onclick'=>'return confirm("Confirm delete?")',
                                                     )) !!}
                                                     {!! Form::close() !!}
                                                 </span>
@@ -74,10 +74,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-                        {{--<div class="float-right">--}}
-                        {{--{{ $hostels->links() }}--}}
-                        {{--</div>--}}
                     </div>
                 </div>
             </div>

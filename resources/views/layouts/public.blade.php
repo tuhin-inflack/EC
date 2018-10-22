@@ -36,10 +36,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
     <!-- END Custom CSS-->
 </head>
-<body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"
-      data-open="click" data-menu="vertical-menu" data-col="2-columns">
+<body class="vertical-layout 2-columns fixed-navbar"
+      data-open="click" data-col="2-columns">
 <!-- fixed-top-->
-@include('layouts.partials.fixed_top')
+@include('layouts.partials.public_fixed_top')
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="app-content content">
     <div class="content-wrapper">
