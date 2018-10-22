@@ -9,7 +9,7 @@
 namespace Modules\Accounts\Services;
 
 
-use Modules\Accounts\Repositories\AccountHeadRepository;
+use Modules\Accounts\Repositories\EmployeeServices;
 
 class AccountHeadServices
 {
@@ -18,7 +18,7 @@ class AccountHeadServices
     /**
      * AccountHeadServices constructor.
      */
-    public function __construct(AccountHeadRepository $accountHeadRepository)
+    public function __construct(EmployeeServices $accountHeadRepository)
     {
        $this->accountHeadRepository  = $accountHeadRepository;
     }
