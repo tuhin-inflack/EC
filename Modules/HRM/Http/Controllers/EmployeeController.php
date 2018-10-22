@@ -42,11 +42,11 @@ class EmployeeController extends Controller {
 	 * @return Response
 	 */
 	public function store( Request $request ) {
-		dd( $request );
+
 	}
 
 	public function storeGeneralInfo(Request $request) {
-		dd($request);
+		$this->EmployeeServices->storeGeneralInfo($request->all());
 	}
 
 	/**
