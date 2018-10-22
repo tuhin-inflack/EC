@@ -19,14 +19,21 @@
 
                     <div class="card-content collapse show">
                         <div class="card-body">
+                            @if($errors->has('room_types'))
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                    {{ $errors->first('room_types') }}
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            @endif
                             <form action="{{ route('hostels.update', $hostel->id) }}" method="post">
                                 <h4 class="form-section"><i class="ft-home"></i>Hostel Edit Form</h4>
                                 @method('PUT')
                                 @csrf
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-md-right">Shortcode</label>
-
-                                    <div class="col-md-6">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="form-group row">
+                                        <label class="form-label">Shortcode</label>
                                         <input type="text"
                                                value="{{ old('shortcode') ?: $hostel->shortcode }}"
                                                class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
@@ -38,10 +45,10 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-md-right">Name</label>
 
-                                    <div class="col-md-6">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="form-group row">
+                                        <label class="form-label">Name</label>
                                         <input type="text"
                                                value="{{ old('name') ?: $hostel->name }}"
                                                class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
@@ -54,10 +61,26 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-md-right">Total Room</label>
 
-                                    <div class="col-md-6">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="form-group row">
+                                        <label class="form-label">Level</label>
+                                        <input type="text"
+                                               value="{{ old('level') ?: $hostel->level }}"
+                                               class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
+                                               name="level" required/>
+
+                                        @if ($errors->has('level'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('level') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="form-group row">
+                                        <label class="form-label">Total Room</label>
                                         <input type="text"
                                                value="{{ old('total_room') ?: $hostel->total_room }}"
                                                class="form-control{{ $errors->has('total_room') ? ' is-invalid' : '' }}"
@@ -70,10 +93,10 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 col-form-label text-md-right">Total Seat</label>
 
-                                    <div class="col-md-6">
+                                <div class="col-md-6 offset-md-3">
+                                    <div class="form-group row">
+                                        <label class="form-label">Total Seat</label>
                                         <input type="text"
                                                value="{{ old('total_seat') ?: $hostel->total_seat }}"
                                                class="form-control{{ $errors->has('total_seat') ? ' is-invalid' : '' }}"
@@ -107,42 +130,94 @@
                                         </button>
                                     </div>
                                     <div data-repeater-list="room_types">
-                                        @foreach($hostel->roomTypes as $roomType)
-                                            <div data-repeater-item class="row">
-                                                <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                    <input type="hidden" id="room-type-id" name="id"
-                                                           value="{{ $roomType->id }}"/>
-                                                    <input type="hidden" name="hostel_id" value="{{ $hostel->id }}"/>
-                                                    <input type="text" name="name"
-                                                           value="{{ old('room_type.name') ?: $roomType->name }}"
-                                                           class="form-control">
+                                        @if(old('room_types'))
+                                            @foreach(old('room_types') as $oldInput)
+                                                <div data-repeater-item class="row">
+                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                        <input type="hidden" id="room-type-id" name="id"
+                                                               value="{{ $oldInput['id'] }}"/>
+                                                        <input type="hidden" name="hostel_id"
+                                                               value="{{ $oldInput['hostel_id'] }}"/>
+                                                        <input type="text"
+                                                               value="{{ $oldInput['name'] }}"
+                                                               class="form-control{{ $errors->has('room_types.'.$loop->index.'.name') ? ' is-invalid' : '' }}"
+                                                               name="name" required/>
+
+                                                        @if ($errors->has('room_types.'.$loop->index.'.name'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.name') }}</strong>
+                                                    </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                        <input type="text"
+                                                               value="{{ $oldInput['capacity'] }}"
+                                                               class="form-control{{ $errors->has('room_types.'.$loop->index.'.capacity') ? ' is-invalid' : '' }}"
+                                                               name="capacity" required/>
+
+                                                        @if ($errors->has('room_types.'.$loop->index.'.capacity'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.capacity') }}</strong>
+                                                    </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                        <input type="text"
+                                                               value="{{ $oldInput['rate'] }}"
+                                                               class="form-control{{ $errors->has('room_types.'.$loop->index.'.rate') ? ' is-invalid' : '' }}"
+                                                               name="rate" required/>
+
+                                                        @if ($errors->has('room_types.'.$loop->index.'.rate'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.rate') }}</strong>
+                                                    </span>
+                                                        @endif
+                                                    </div>
+                                                    <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                                data-repeater-delete><i class="ft-x"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                    <input type="text" name="capacity"
-                                                           value="{{ old('room_type.capacity') ?: $roomType->capacity }}"
-                                                           class="form-control">
+                                            @endforeach
+                                        @else
+                                            @foreach($hostel->roomTypes as $roomType)
+                                                <div data-repeater-item class="row">
+                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                        <input type="hidden" id="room-type-id" name="id"
+                                                               value="{{ $roomType->id }}"/>
+                                                        <input type="hidden" name="hostel_id"
+                                                               value="{{ $hostel->id }}"/>
+                                                        <input type="text" name="name"
+                                                               value="{{ old('room_type.name') ?: $roomType->name }}"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                        <input type="text" name="capacity"
+                                                               value="{{ old('room_type.capacity') ?: $roomType->capacity }}"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                        <input type="text" name="rate"
+                                                               value="{{ old('room_type.rate') ?: $roomType->rate }}"
+                                                               class="form-control">
+                                                    </div>
+                                                    <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                                data-repeater-delete>
+                                                            <i class="ft-x"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                    <input type="text" name="rate"
-                                                           value="{{ old('room_type.rate') ?: $roomType->rate }}"
-                                                           class="form-control">
-                                                </div>
-                                                <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
-                                                    <button type="button" class="btn btn-outline-danger"
-                                                            data-repeater-delete>
-                                                        <i class="ft-x"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        @endforeach
+                                            @endforeach
+                                        @endif
                                     </div>
                                 </div>
 
                                 <div class="form-group row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button class="btn btn-primary" type="submit">Save</button>
-
-                                        <button class="btn btn-default" type="reset">Cancel</button>
+                                        <a href="{{ route('hostels.index') }}" class="btn btn-warning">Cancel</a>
                                     </div>
                                 </div>
                             </form>
@@ -166,13 +241,15 @@
         $(document).ready(function () {
             $('.repeater-room-types').repeater({
                 show: function () {
+                    $('div:hidden[data-repeater-item]').remove();
+
                     let index = $('div[data-repeater-item]').length;
 
                     $('div[data-repeater-list="room_types"]').append(`
                         <div data-repeater-item class="row">
                             <div class="form-group mb-1 col-sm-12 col-md-4">
-                                <input type="hidden" id="room-type-id" name="room_types[${index}][id]" value>
-                                <input type="hidden" name="room_types[${index}][hostel_id]" value>
+                                <input type="hidden" id="room-type-id" name="room_types[${index}][id]" value="">
+                                <input type="hidden" name="room_types[${index}][hostel_id]" value="">
                                 <input type="text" name="room_types[${index}][name]" class="form-control">
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
