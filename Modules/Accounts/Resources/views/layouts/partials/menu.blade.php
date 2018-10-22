@@ -14,6 +14,12 @@
                         <span class="menu-title"
                               data-i18n="nav.dash.main">Account Head</span></a>
                 </li>
+                <li class=" nav-item">
+                    <a href="{{ url('accounts/account-ledger') }}">
+                        <i class="la la-tags"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Account Ledger</span></a>
+                </li>
             </ul>
         @endauth
     </div>

@@ -14,7 +14,7 @@
                                 {{-- Form::select('parent_id', $coa) --}}
 
                                 <div class="col-md-6">
-                                    {{ Form::select('parent_id', $chartOfAccounts , null, array('class' => 'form-control' . ($errors->has('parent_id') ? ' is-invalid' : '') )) }}
+                                    {{ Form::select('parent_id', $accountsHeads, null, array('class' => 'form-control' . ($errors->has('parent_id') ? ' is-invalid' : '') )) }}
 
                                     @if ($errors->has('parent_id'))
                                         <span class="invalid-feedback" role="alert">
