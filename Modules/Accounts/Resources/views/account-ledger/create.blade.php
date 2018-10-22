@@ -1,4 +1,6 @@
 @extends('accounts::layouts.master')
+@section('title', 'Create Account Ledger')
+@section("account_ledger", 'active')
 
 @section('content')
     <div class="container">
@@ -72,7 +74,7 @@
                                     @endif
                                 </div>
                                 <div class="col-md-2">
-                                    {{ Form::select('opening_balance_type', ['D' => 'Debit', 'C' => 'Credit'] , null, array('class' => 'form-control')) }}
+                                    {{ Form::select('opening_balance_type', ['D' => 'Dr.', 'C' => 'Cr.'] , null, array('class' => 'form-control')) }}
                                 </div>
                                 {{--<samp>Assets / Expenses always have Dr balance and Liabilities / Incomes always have Cr balance.</samp>--}}
                             </div>
@@ -108,12 +110,18 @@
                                     <label>Reconciliation <input type="checkbox" class="form-control" name="reconciliation" value="1"></label>
                                 </div>
                             </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button class="btn btn-primary" type="submit">Save</button>
 
-                                    <button class="btn btn-default" type="reset">Cancel</button>
+                            <div class="form-actions col-md-12 ">
+                                <div class="pull-right">
+                                    {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
+                                    <a href="{{ url('/hrm/employee') }}">
+                                        <button type="button" class="btn btn-warning mr-1">
+                                            <i class="la la-times"></i> Cancel
+                                        </button>
+                                    </a>
+
                                 </div>
+
                             </div>
                         </form>
                     </div>

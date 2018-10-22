@@ -1,4 +1,6 @@
 @extends('accounts::layouts.master')
+@section('title', 'Account Head List')
+@section("account_head", 'active')
 
 @section('content')
     <div class="container">
@@ -22,7 +24,7 @@
                             <thead>
                             <tr>
                                 <th scope="col">SL</th>
-                                <th scope="col">Parent</th>
+                                {{--<th scope="col">Parent</th>--}}
                                 <th scope="col">Name</th>
                                 <th scope="col">Code</th>
                                 <th scope="col">Description</th>
@@ -33,7 +35,7 @@
                             @foreach($accountHeads as $accountHead)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    <td>{{ $accountHead->parent_id }}</td>
+                                    {{--<td>{{ $accountHead->parent_id }}</td>--}}
                                     <td>{{ $accountHead->name }}</td>
                                     <td>{{ $accountHead->code }}</td>
                                     <td>{{ $accountHead->description }}</td>
