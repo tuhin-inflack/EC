@@ -11,10 +11,15 @@ namespace App\Services;
 
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
+use App\Traits\CrudTrait;
+use App\Traits\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class RoleService
 {
+    use CrudTrait;
+
     private $roleRepository;
     private $permissionRepository;
 
@@ -27,23 +32,44 @@ class RoleService
     {
         $this->roleRepository = $roleRepository;
         $this->permissionRepository = $permissionRepository;
+        $this->setActionRepository($this->roleRepository);
     }
 
     public function getRolesWithPermission()
     {
-        return $this->roleRepository->findAll(null, 'permissions', ['column'=>'id', 'direction' => 'desc']);
+        return $this->findAll(null, 'permissions', ['column'=>'id', 'direction' => 'desc']);
     }
 
     public function store(array $data)
     {
-        $role = $this->roleRepository->save($data);
-        $role->permissions()->attach($data['permissions']);
+        DB::transaction(function () use ($data){
+            $role = $this->save($data);
+            $role->permissions()->attach($data['permissions']);
+        });
+
         return new Response("Role has been created successfully");
     }
 
-    public function getRole($id)
+    public function updateRole($id, array $data)
     {
-        return $this->roleRepository->findOrFail($id, 'permissions');
+        $role = $this->findOrFail($id);
+        DB::transaction(function () use ($role, $data) {
+            $this->update($role, $data);
+            $role->permissions()->sync($data['permissions']);
+        });
+        return new Response("Role has been updated successfully");
+    }
+
+    public function destroy($id)
+    {
+        $role = $this->roleService->findOrFail($id);
+        DB::transaction(function () use ($role) {
+            $role->permissions()->detach();
+            $role->users()->detach();
+            $role->delete();
+        });
+
+        return new Response("Role has been deleted successfully");
     }
 
 }

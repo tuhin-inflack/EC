@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="col-5 pl-2">
                                         <h4>Admin</h4>
-                                        <h6 class="text-muted"><a href="{{url('/user/role')}}">Administration</a></h6>
+                                        <h6 class="text-muted"><a href="{{url('/home')}}">Administration</a></h6>
                                     </div>
                                 </div>
                             </div>
