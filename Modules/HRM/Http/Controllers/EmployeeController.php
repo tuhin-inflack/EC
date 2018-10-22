@@ -5,8 +5,17 @@ namespace Modules\HRM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HRM\Services\EmployeeServices;
 
 class EmployeeController extends Controller {
+
+	private $EmployeeServices;
+
+	public function __construct(EmployeeServices $services) {
+		$this->EmployeeServices = $services;
+	}
+
+
 	/**
 	 * Display a listing of the resource.
 	 * @return Response
@@ -21,14 +30,7 @@ class EmployeeController extends Controller {
 	 * @return Response
 	 */
 	public function create() {
-		$data = [
-			'departments'  => [ 'HR', 'Accounts', 'Marketing' ],
-			'designations' => [ 'JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer' ],
-			'genders'      => [ 'male' => 'Male', 'female' => 'Female', 'both' => 'Both' ],
-			'statuses'     => [ 'present', 'on leave' ],
-			'marital_statuses' => ['Married', 'Unmarried'],
-		];
-
+		$data = $this->EmployeeServices->getFormCreationData();
 		return view( 'hrm::employee.create', $data );
 	}
 
@@ -40,11 +42,11 @@ class EmployeeController extends Controller {
 	 * @return Response
 	 */
 	public function store( Request $request ) {
-		dd( $request );
+
 	}
 
 	public function storeGeneralInfo(Request $request) {
-		dd($request);
+		$this->EmployeeServices->storeGeneralInfo($request->all());
 	}
 
 	/**
