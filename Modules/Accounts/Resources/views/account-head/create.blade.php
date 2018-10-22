@@ -1,4 +1,6 @@
 @extends('accounts::layouts.master')
+@section('title', 'Edit Account Head')
+@section("account_head", 'active')
 
 @section('content')
     <div class="container">

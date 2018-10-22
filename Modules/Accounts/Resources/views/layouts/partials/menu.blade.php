@@ -2,19 +2,19 @@
     <div class="main-menu-content">
         @auth
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item">
+                <li class="nav-item @yield('dashboard')">
                     <a href="{{ route('accounts') }}">
                         <i class="la la-home"></i>
                         <span class="menu-title"
                               data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
-                <li class=" nav-item">
+                <li class="nav-item @yield('account_head')">
                     <a href="{{ url('accounts/account-head') }}">
                         <i class="la la-tag"></i>
                         <span class="menu-title"
                               data-i18n="nav.dash.main">Account Head</span></a>
                 </li>
-                <li class=" nav-item">
+                <li class="nav-item @yield('account_ledger')">
                     <a href="{{ url('accounts/account-ledger') }}">
                         <i class="la la-tags"></i>
                         <span class="menu-title"

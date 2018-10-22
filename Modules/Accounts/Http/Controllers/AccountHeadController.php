@@ -52,7 +52,6 @@ class AccountHeadController extends Controller
      */
     public function store(CreateAccountHeadPostRequest $request)
     {
-        return $request;
         $this->accountHeadServices->store($request->all());
         Session::flash('message', 'Account Head stored successfully!');
 
