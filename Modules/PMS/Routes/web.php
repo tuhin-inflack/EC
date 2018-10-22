@@ -19,6 +19,7 @@ Route::prefix('pms')->group(function() {
         Route::get('/create','ProjectRequestController@create')->name('project_request.create');
         Route::post('/','ProjectRequestController@store')->name('project_request.store');
         Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project_request.edit');
+        Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project_request.update');
         Route::delete('{projectRequest}', 'ProjectRequestController@destroy')->name('project_request.destroy');
     });
 });

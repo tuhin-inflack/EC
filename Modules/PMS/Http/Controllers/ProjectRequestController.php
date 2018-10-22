@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
+use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Storage;
 
@@ -85,8 +86,16 @@ class ProjectRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateProjectRequestRequest $request, ProjectRequest $projectRequest)
     {
+        $filename = $request->file('attachment');
+        $path = Storage::disk('internal')->put('PMS', $filename);
+
+        $data = array_merge($request->all(), ['attachment' => $path]);
+        $this->projectRequestService->update($projectRequest, $data);
+        Session::flash('message', 'Project Request updated successfully');
+
+        return redirect()->route('project_request.index');
     }
 
     /**

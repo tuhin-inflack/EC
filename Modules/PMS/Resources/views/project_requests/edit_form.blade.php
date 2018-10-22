@@ -15,9 +15,10 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <form novalidate action="{{ route('project_request.store')  }}" method="post"
+                    <form novalidate action="{{ route('project_request.update',$projectRequest->id)  }}" method="post"
                           enctype="multipart/form-data">
                         {{ csrf_field() }}
+                        @method('PUT')
                         @csrf
                         <div class="form-body">
                             <h4 class="form-section"><i class="la la-briefcase"></i> Project Proposal Request Update Form</h4>
@@ -75,9 +76,9 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Attachment</label>
+                                        <label for="attachment" class="form-label">Attachment</label>
                                         <input type="file" value=""
                                                class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}"
                                                name="attachment" autofocus required/>
@@ -86,6 +87,13 @@
                                             <strong>{{ $errors->first('attachment') }}</strong>
                                         </span>
                                         @endif
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        {{ $projectRequest->attachment  }}
                                     </div>
 
                                 </div>
