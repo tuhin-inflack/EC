@@ -22,4 +22,13 @@ Route::prefix('accounts')->group(function() {
         Route::put('update/{id}', 'AccountHeadController@update')->name('account-head.update');
         Route::delete('delete/{id}', 'AccountHeadController@destroy')->name('account-head.destroy');
     });
+
+    Route::prefix('account-ledger')->group(function () {
+        Route::get('/', 'AccountLedgerController@index')->name('account-ledger.index');
+        Route::get('create', 'AccountLedgerController@create')->name('account-ledger.create');
+        Route::post('/', 'AccountLedgerController@store')->name('account-ledger.store');
+        Route::get('edit/{id}', 'AccountLedgerController@edit')->name('account-ledger.edit');
+        Route::put('update/{id}', 'AccountLedgerController@update')->name('account-ledger.update');
+        Route::delete('delete/{id}', 'AccountLedgerController@destroy')->name('account-ledger.destroy');
+    });
 });

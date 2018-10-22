@@ -39,7 +39,7 @@ class AccountHeadRepository extends AbstractBaseRepository
      * @param null $selected
      * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
      */
-    public function updateModel($id, array $data)
+    public function updateHead($id, array $data)
     {
         return $this->update($this->model->find($id), $data);
     }
@@ -49,7 +49,7 @@ class AccountHeadRepository extends AbstractBaseRepository
      * @param null $selected
      * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
      */
-    public function deleteModel($id)
+    public function deleteHead($id)
     {
         return $this->delete($this->model->find($id));
     }

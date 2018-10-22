@@ -5,16 +5,35 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
+use Modules\Accounts\Services\AccountHeadServices;
+use Modules\Accounts\Services\AccountLedgerServices;
 
 class AccountLedgerController extends Controller
 {
+
+    private $accountHeadServices;
+    private $accountLedgerServices;
+
+    /**
+     * AccountLedgerController constructor.
+     * @param AccountLedgerServices $accountLedgerServices
+     */
+    public function __construct(AccountHeadServices $accountHeadServices, AccountLedgerServices $accountLedgerServices)
+    {
+        $this->accountHeadServices = $accountHeadServices;
+        $this->accountLedgerServices = $accountLedgerServices;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('accounts::index');
+        $accountLedgers = $this->accountLedgerServices->getAll();
+
+        return view('accounts::account-ledger.index', compact('accountLedgers'));
     }
 
     /**
@@ -23,7 +42,9 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
-        return view('accounts::create');
+        $accountsHeads = $this->accountHeadServices->getHeads();
+
+        return view('accounts::account-ledger.create', compact('accountsHeads'));
     }
 
     /**

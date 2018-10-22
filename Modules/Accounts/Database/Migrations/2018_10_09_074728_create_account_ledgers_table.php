@@ -19,11 +19,11 @@ class CreateAccountLedgersTable extends Migration
             $table->string('name', 120);
             $table->string('code', 20);
             $table->string('opening_balance_type', 4);
-            $table->double('opening_balance', 10, 2);
-            $table->double('closing_balance', 10, 2);
-            $table->tinyInteger('account_type');
-            $table->boolean('reconciliation');
-            $table->text('description');
+            $table->double('opening_balance', 10, 2)->default(0);
+            $table->double('closing_balance', 10, 2)->default(0);
+            $table->string('account_type', 20);
+            $table->boolean('reconciliation')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
