@@ -1,4 +1,6 @@
 @extends('pms::layouts.master')
+@section('title', 'All Project Proposal Request ')
+@section("request_list", 'active')
 
 @section('content')
     <section id="role-list">
@@ -47,7 +49,7 @@
                                             <td>{{ $projectRequest->end_date }}</td>
 
                                             <td>
-                                                {{ $projectRequest->attachment }}
+                                                <a href="" onclick="myFunction()">Attachment </a>
 
                                             </td>
                                             <td>
@@ -95,3 +97,10 @@
         </div>
     </section>
 @endsection
+@push('page-js')
+    <script>
+        function myFunction() {
+            alert("Download process is in under development");
+        }
+    </script>
+@endpush
