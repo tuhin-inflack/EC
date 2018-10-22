@@ -63,7 +63,6 @@ interface RepositoryInterface
      */
     public function findAll($perPage = null, $relation = null, array $orderBy = null);
 
-
     /**
      * @param $id
      * @param null $relation
