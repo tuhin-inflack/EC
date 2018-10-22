@@ -74,7 +74,6 @@
 
     <hr>
 
-
     <div class="form-actions col-md-12 ">
         <div class="pull-right">
             {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}

@@ -54,25 +54,28 @@
                     <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
                          aria-expanded="true">
                         {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.form-general-info')
+                        @include('hrm::layouts.partials.employee.form.general-info')
                         {!! Form::close() !!}
                     </div>
                     <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.form-personal-info')
+                        @include('hrm::layouts.partials.employee.form.personal-info')
                         {!! Form::close() !!}
                     </div>
 
                     <div class="tab-pane" id="education" role="tabpanel"
                          aria-labelledby="education-tab"
                          aria-expanded="false">
-
+                        {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
+                        @include('hrm::layouts.partials.employee.form.education-info')
+                        {!! Form::close() !!}
                     </div>
                     <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                          aria-expanded="false">
-                        <p>Training
-                        </p>
+                        {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
+                        @include('hrm::layouts.partials.employee.form.training-info')
+                        {!! Form::close() !!}
                     </div>
 
                     <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
