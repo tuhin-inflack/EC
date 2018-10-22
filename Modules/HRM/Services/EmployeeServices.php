@@ -28,4 +28,8 @@ class EmployeeServices {
 
 		return $data;
 	}
+
+	public function storeGeneralInfo( $data = [] ) {
+		return $this->EmployeeRepository->save( $data );
+	}
 }

@@ -1,12 +1,8 @@
-@extends('layouts.app')
+@extends('hrm::layouts.master')
 @section('title', 'Add new employee ')
 @section("employee_create", 'active')
 
 
-
-@section('menu')
-    @include('hrm::layouts.partials.menu')
-@endsection
 @section("content")
     <div class="col-xl-12 col-lg-12">
         <div class="card">
