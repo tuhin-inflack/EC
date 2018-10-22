@@ -43,6 +43,14 @@
 		max: [2016,10,30]
 	});
 
+    $('.pickadate-format-db').pickadate({
+        // Escape any 'rule' characters with an exclamation mark (!).
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'YYYY-MM-DD',
+        hiddenPrefix: 'prefix__',
+        hiddenSuffix: '__suffix'
+    });
+
 	// Format options
 	$('.pickadate-format').pickadate({
 		// Escape any 'rule' characters with an exclamation mark (!).
