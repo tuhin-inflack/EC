@@ -2,16 +2,18 @@
 
 namespace Modules\HRM\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeServices;
 
 class EmployeeController extends Controller {
 
 	private $EmployeeServices;
 
-	public function __construct(EmployeeServices $services) {
+	public function __construct( EmployeeServices $services ) {
 		$this->EmployeeServices = $services;
 	}
 
@@ -31,6 +33,7 @@ class EmployeeController extends Controller {
 	 */
 	public function create() {
 		$data = $this->EmployeeServices->getFormCreationData();
+
 		return view( 'hrm::employee.create', $data );
 	}
 
@@ -45,8 +48,12 @@ class EmployeeController extends Controller {
 
 	}
 
-	public function storeGeneralInfo(Request $request) {
-		$this->EmployeeServices->storeGeneralInfo($request->all());
+	public function storeGeneralInfo( Request $request ) {
+		$employee_general_info = $this->EmployeeServices->storeGeneralInfo( $request->all() );
+		Session::flash( 'message', 'Employee general information saved successfully!' );
+//		dd($employee_general_info);
+
+		return redirect( )->route('employee.create', ['general_info' => $employee_general_info]);
 	}
 
 	/**
