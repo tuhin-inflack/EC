@@ -80,8 +80,9 @@
 
                     <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                          aria-expanded="false">
-                        <p>Publication
-                        </p>
+                        {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}
+                        @include('hrm::layouts.partials.employee.form.publication-info')
+                        {!! Form::close() !!}
                     </div>
 
                     <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
