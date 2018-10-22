@@ -11,9 +11,16 @@
 |
 */
 
-Route::prefix('hrm')->group(function() {
-    Route::get('/', 'HRMController@index');
-	Route::resources([
-		'employee' => 'EmployeeController',
-	]);
-});
+Route::prefix( 'hrm' )->group( function () {
+	Route::get( '/', 'HRMController@index' );
+
+//	Route for employee
+	Route::resources( [ 'employee' => 'EmployeeController', ] );
+	Route::prefix( 'employee' )->group( function () {
+		Route::post( 'general-info', 'EmployeeController@storeGeneralInfo' );
+		Route::post( 'personal-info', 'EmployeeController@storePersonalInfo' );
+		Route::post( 'educational-info', 'EmployeeController@storeEducationalInfo' );
+	} );
+
+
+} );

@@ -100,6 +100,6 @@ class RoomTypeController extends Controller
         $this->roomTypeService->delete($roomType);
         Session::flash('message', 'Room Type deleted successfully!');
 
-        return redirect()->route('room-types.index');
+        return redirect()->back();
     }
 }
