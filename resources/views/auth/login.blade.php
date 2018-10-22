@@ -1,71 +1,68 @@
 @extends('layouts.public')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login to the ERP System') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
+    <section class="flexbox-container">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <div class="col-md-4 col-10 box-shadow-2 p-0">
+                <div class="card border-grey border-lighten-3 m-0">
+                    <div class="card-header border-0">
+                        <div class="card-title text-center">
+                            <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/logo.png') }}">
+                            <h3>বাংলাদেশ পল্লী উন্নয়ন একাডেমি (বার্ড), কুমিল্লা</h3>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2">
+                            <span>Provide Your Account Details</span>
+                        </p>
+                        <div class="card-body pt-0">
+                            <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input id="email" type="email"
+                                           class="input-lg form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                           name="email" value="{{ old('email') }}" placeholder="Enter email"
+                                           required autofocus>
+                                    <div class="form-control-position">
+                                        <i class="la la-user"></i>
+                                    </div>
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
+                                    @endif
+                                </fieldset>
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input id="password" type="password"
+                                           class="input-lg form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                           name="password" placeholder="Enter password" required>
+                                    <div class="form-control-position">
+                                        <i class="la la-key"></i>
+                                    </div>
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                                @endif
-                            </div>
-                        </div>
+                                    @endif
 
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                </fieldset>
+                                <button type="submit" class="btn btn-info btn-lg btn-block"><i
+                                        class="ft-unlock"></i> Login
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                        <div class="card-body pb-0">
+                            <p class="text-center">
+                                <a class="card-link" href="{{ route('password.request') }}">
+                                    {{ __('Recover Password?') }}
+                                </a>
+                            <p class="text-center">New to BARD ERP?
+                                <a class="card-link" href="{{ route('register') }}">{{ __('Create Account') }}</a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
 @endsection

@@ -62,9 +62,9 @@ class HostelController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Hostel $hostel)
     {
-        return view('hm::show');
+        return view('hm::hostel.show', compact('hostel'));
     }
 
     /**

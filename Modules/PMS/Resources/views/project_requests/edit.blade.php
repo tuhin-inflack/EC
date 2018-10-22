@@ -8,7 +8,7 @@
 
 @section('content')
 
-    @include('pms::project_requests.form')
+    @include('pms::project_requests.edit_form')
 
 @endsection
 
