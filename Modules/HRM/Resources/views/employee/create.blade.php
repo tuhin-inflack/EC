@@ -4,8 +4,18 @@
 
 
 @section("content")
+    @if(isset($general_info))
+        {{ dd($general_info) }}
+    @else
+        {{ 'try' }}
+    @endif
     <div class="col-xl-12 col-lg-12">
         <div class="card">
+            @if(Session::has('message'))
+                <div class="alert alert-success text-center">
+                    {{Session::get('message')}}
+                </div>
+            @endif
             <div class="card-header">
                 <h4 class="card-title">Add new employee </h4>
             </div>
@@ -51,7 +61,7 @@
                     <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
                          aria-expanded="true">
                         {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.general-info')
+                        @include('hrm::employee.form.general-info')
                         {!! Form::close() !!}
                     </div>
 
@@ -59,14 +69,14 @@
                     <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.personal-info')
+                        @include('hrm::employee.form.personal-info')
                         {!! Form::close() !!}
                     </div>
 
                     <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.education-info')
+                        @include('hrm::employee.form.education-info')
                         {!! Form::close() !!}
                     </div>
 
@@ -74,7 +84,7 @@
                     <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.training-info')
+                        @include('hrm::employee.form.training-info')
                         {!! Form::close() !!}
                     </div>
 
@@ -82,7 +92,7 @@
                     <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.publication-info')
+                        @include('hrm::employee.form.publication-info')
                         {!! Form::close() !!}
                     </div>
 
@@ -90,7 +100,7 @@
                     <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                          aria-expanded="false">
                         {!! Form::open(['url' => 'hrm/employee/research-info', 'class'=>'form']) !!}
-                        @include('hrm::layouts.partials.employee.form.research-info')
+                        @include('hrm::employee.form.research-info')
                         {!! Form::close() !!}
                     </div>
                 </div>
