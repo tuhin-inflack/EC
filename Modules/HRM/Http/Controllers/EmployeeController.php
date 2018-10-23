@@ -31,8 +31,12 @@ class EmployeeController extends Controller {
 	 * Show the form for creating a new resource.
 	 * @return Response
 	 */
-	public function create() {
-		$data = $this->EmployeeServices->getFormCreationData();
+	public function create( Request $request)
+	{
+
+		$data                = $this->EmployeeServices->getFormCreationData();
+		if(!empty($request->general_info))
+		$data['employee_id'] = $request->general_info;
 
 		return view( 'hrm::employee.create', $data );
 	}
@@ -51,9 +55,10 @@ class EmployeeController extends Controller {
 	public function storeGeneralInfo( Request $request ) {
 		$employee_general_info = $this->EmployeeServices->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', 'Employee general information saved successfully!' );
+
 //		dd($employee_general_info);
 
-		return redirect( )->route('employee.create', ['general_info' => $employee_general_info]);
+		return redirect()->route( 'employee.create', [ 'general_info' => $employee_general_info ] );
 	}
 
 	/**

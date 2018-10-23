@@ -4,13 +4,16 @@
 
 
 @section("content")
-    @if(isset($general_info))
-        {{ dd($general_info) }}
-    @else
-        {{ 'try' }}
-    @endif
+
+
+    @php
+
+        $tab_action = isset($employee_id) ? '' : 'disabled';
+        $employee_id = isset($employee_id) ? $employee_id : '';
+    @endphp
     <div class="col-xl-12 col-lg-12">
         <div class="card">
+
             @if(Session::has('message'))
                 <div class="alert alert-success text-center">
                     {{Session::get('message')}}
@@ -25,30 +28,30 @@
                         <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
                            aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="personal-tab" data-toggle="tab" href="#personal"
+                    <li class="nav-item ">
+                        <a class="nav-link {{ $tab_action }} " id="personal-tab" data-toggle="tab" href="#personal"
                            aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i> Personal</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="education-tab" data-toggle="tab" href="#education"
+                        <a class="nav-link {{ $tab_action }}" id="education-tab" data-toggle="tab" href="#education"
                            aria-controls="linkIcon12"
                            aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" id="training-tab" data-toggle="tab" href="#training"
+                        <a class="nav-link {{ $tab_action }}" id="training-tab" data-toggle="tab" href="#training"
                            aria-controls="linkIcon12"
                            aria-expanded="false"><i class="la la-book"></i> Training</a>
                     </li>
 
 
                     <li class="nav-item">
-                        <a class="nav-link" id="publication-tab" data-toggle="tab" href="#publication"
+                        <a class="nav-link {{ $tab_action }}" id="publication-tab" data-toggle="tab" href="#publication"
                            aria-controls="linkIcon12"
                            aria-expanded="false"><i class="la la-paperclip"></i> Publication</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="research-tab" data-toggle="tab" href="#research"
+                        <a class="nav-link {{ $tab_action }}" id="research-tab" data-toggle="tab" href="#research"
                            aria-controls="linkIcon12"
                            aria-expanded="false"><i class="la la-bookmark"></i> Research</a>
                     </li>
