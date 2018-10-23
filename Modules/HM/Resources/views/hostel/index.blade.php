@@ -28,6 +28,7 @@
                                     <th scope="col">SL</th>
                                     <th scope="col">Short code</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Level</th>
                                     <th scope="col">Total room</th>
                                     <th scope="col">Total seat</th>
                                     <th scope="col">Action</th>
@@ -39,6 +40,7 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $hostel->shortcode }}</td>
                                         <td>{{ $hostel->name }}</td>
+                                        <td>{{ $hostel->level }}</td>
                                         <td>{{ $hostel->total_room }}</td>
                                         <td>{{ $hostel->total_seat }}</td>
                                         <td>
