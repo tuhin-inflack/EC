@@ -19,7 +19,7 @@ Route::prefix( 'hrm' )->group( function () {
 	Route::prefix( 'employee' )->group( function () {
 		Route::post( 'general-info', 'EmployeeController@storeGeneralInfo' );
 		Route::post( 'personal-info', 'EmployeeController@storePersonalInfo' );
-		Route::post( 'educational-info', 'EmployeeController@storeEducationalInfo' );
+		Route::post( 'education_info', 'EmployeeController@storeEducationalInfo' );
 	} );
 
 

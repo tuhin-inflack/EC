@@ -10,8 +10,8 @@ namespace Modules\HRM\Repositories;
 
 use App\Repositories\AbstractBaseRepository;
 use Illuminate\Support\Facades\DB;
-use Modules\HRM\Entities\Employee;
+use Modules\HRM\Entities\EmployeePersonalInfo;
 
-class EmployeeRepository extends AbstractBaseRepository {
-	public $modelName = Employee::class;
+class EmployeePersonalInfoRepository extends AbstractBaseRepository {
+	protected $modelName = EmployeePersonalInfo::class;
 }
