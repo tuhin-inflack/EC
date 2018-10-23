@@ -47,12 +47,12 @@ class AccountHeadServices
 
     public function update($id, array $data)
     {
-        return $this->accountHeadRepository->updateModel($id, $data);
+        return $this->accountHeadRepository->updateHead($id, $data);
     }
 
     public function delete($id)
     {
-        return $this->accountHeadRepository->deleteModel($id);
+        return $this->accountHeadRepository->deleteHead($id);
     }
 
 }

@@ -112,6 +112,13 @@ class ProjectRequestController extends Controller
 
     public function approve(ProjectRequest $projectRequest)
     {
-        return $projectRequest;
+        $id = $this->projectRequestService->requestApprove($projectRequest);
+        return redirect()->route('project_request.index');
+    }
+
+    public function reject(ProjectRequest $projectRequest)
+    {
+        $id = $this->projectRequestService->requestReject($projectRequest);
+        return redirect()->route('project_request.index');
     }
 }

@@ -21,7 +21,7 @@
                         <button class="btn btn-danger dropdown-toggle round btn-glow px-2" id="dropdownBreadcrumbButton" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-top: 10px;">Actions</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownBreadcrumbButton" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 40px, 0px); top: 0px; left: 0px; will-change: transform;">
                             <a class="dropdown-item" href="{{ route('project_request.approve',$projectRequest->id) }}"><i class="ft-check-circle"></i> Approve</a>
-                            <a class="dropdown-item" href="#"><i class="ft-x-circle"></i> Reject</a>
+                            <a class="dropdown-item" href="{{ route('project_request.reject',$projectRequest->id) }}"><i class="ft-x-circle"></i> Reject</a>
 
 
                         </div>

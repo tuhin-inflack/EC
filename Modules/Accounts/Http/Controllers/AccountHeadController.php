@@ -40,9 +40,9 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
-        $chartOfAccounts = $this->accountHeadServices->getHeads();
+        $accountsHeads = $this->accountHeadServices->getHeads();
 
-        return view('accounts::account-head.create', compact('chartOfAccounts'));
+        return view('accounts::account-head.create', compact('accountsHeads'));
     }
 
     /**
@@ -52,7 +52,6 @@ class AccountHeadController extends Controller
      */
     public function store(CreateAccountHeadPostRequest $request)
     {
-        return $request;
         $this->accountHeadServices->store($request->all());
         Session::flash('message', 'Account Head stored successfully!');
 
@@ -75,9 +74,9 @@ class AccountHeadController extends Controller
     public function edit($id)
     {
         $head = $this->accountHeadServices->getHead($id);
-        $chartOfAccounts = $this->accountHeadServices->getHeads();
+        $accountsHeads = $this->accountHeadServices->getHeads();
 
-        return view('accounts::account-head.edit', compact('head', 'chartOfAccounts'));
+        return view('accounts::account-head.edit', compact('head', 'accountsHeads'));
     }
 
     /**

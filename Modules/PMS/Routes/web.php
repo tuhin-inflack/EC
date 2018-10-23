@@ -23,6 +23,7 @@ Route::prefix('pms')->group(function() {
         Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project_request.update');
         Route::delete('{projectRequest}', 'ProjectRequestController@destroy')->name('project_request.destroy');
         Route::get('{projectRequest}/approve','ProjectRequestController@approve')->name('project_request.approve');
+        Route::get('{projectRequest}/reject','ProjectRequestController@reject')->name('project_request.reject');
 
     });
 });
