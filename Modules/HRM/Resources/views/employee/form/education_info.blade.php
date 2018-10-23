@@ -22,7 +22,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('passing_year', 'Passing Year') }}
-            {{ Form::date('passing_year',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::number('passing_year',  null, ['class' => 'form-control', 'placeholder' => '']) }}
         </div>
     </div>
 
@@ -46,7 +46,7 @@
         </div>
     </div>
 
-
+    {{ Form::hidden('employee_id', $employee_id) }}
     <hr>
 
     <div class="form-actions col-md-12 ">

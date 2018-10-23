@@ -39,8 +39,8 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {{ Form::label('expiration_date_of_current_position', 'Current Position Expire Date') }}
-            {{ Form::date('expiration_date_of_current_position',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::label('current_position_expire_date', 'Current Position Expire Date') }}
+            {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
         </div>
     </div>
     <div class="col-md-6">
@@ -70,7 +70,7 @@
         </div>
     </div>
 
-
+    {{ Form::hidden('employee_id', $employee_id) }}
 
     <hr>
 
