@@ -70,7 +70,7 @@
         </div>
     </div>
 
-
+    {{--{{ Form::hidden('employee_id', $employee_id) }}--}}
 
     <hr>
 
