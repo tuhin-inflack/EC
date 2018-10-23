@@ -1,6 +1,5 @@
 @extends('accounts::layouts.master')
 @section('title', 'Accounts')
-@section("dashboard", 'active')
 
 @section('content')
     <H1>Accounts</H1>

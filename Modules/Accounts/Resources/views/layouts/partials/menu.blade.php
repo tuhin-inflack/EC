@@ -1,24 +1,57 @@
-<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="main-menu-content">
         @auth
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class="nav-item @yield('dashboard')">
+                <li class="{{ is_active_route('accounts') }}">
                     <a href="{{ route('accounts') }}">
                         <i class="la la-home"></i>
-                        <span class="menu-title"
-                              data-i18n="nav.dash.main">Dashboard</span></a>
+                        <span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
-                <li class="nav-item @yield('account_head')">
-                    <a href="{{ url('accounts/account-head') }}">
-                        <i class="la la-tag"></i>
-                        <span class="menu-title"
-                              data-i18n="nav.dash.main">Account Head</span></a>
+                <li class="{{ is_active_route('account-head.create') }}">
+                    <a href="{{ route('account-head.create') }}">
+                        <i class="la la-plus-circle"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Create Account Head</span></a>
                 </li>
-                <li class="nav-item @yield('account_ledger')">
-                    <a href="{{ url('accounts/account-ledger') }}">
-                        <i class="la la-tags"></i>
-                        <span class="menu-title"
-                              data-i18n="nav.dash.main">Account Ledger</span></a>
+                <li class=" nav-item">
+                    <a href="#">
+                        <i class="la la-folder-o"></i>
+                        <span class="menu-title" data-i18n="nav.navbars.main">Account Head</span>
+                    </a>
+                    <ul class="menu-content">
+
+                        <li class="{{ is_active_route('account-head.create') }}">
+                            <a href="{{ route('account-head.create') }}">
+                                <i class="la la-plus-circle"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Create Account Head</span></a>
+                        </li>
+
+                        <li class="{{ is_active_route('account-head.index') }}">
+                            <a href="{{ route('account-head.index') }}">
+                                <i class="la la-list"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Account Head</span></a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class=" nav-item">
+                    <a href="#">
+                        <i class="la la-files-o"></i>
+                        <span class="menu-title" data-i18n="nav.navbars.main">Account Ledger</span>
+                    </a>
+                    <ul class="menu-content">
+
+                        <li class="{{ is_active_route('account-ledger.create') }}">
+                            <a href="{{ route('account-ledger.create') }}">
+                                <i class="la la-plus-circle"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Create Account Ledger</span></a>
+                        </li>
+                        <li class="{{ is_active_route('account-ledger.index') }}">
+                            <a href="{{ route('account-ledger.index') }}">
+                                <i class="la la-list"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Account Ledger</span></a>
+                        </li>
+
+                    </ul>
                 </li>
             </ul>
         @endauth

@@ -29,4 +29,24 @@ class AccountLedgerServices
         return $this->accountLedgerRepository->findAll(10);
     }
 
+    public function getLedger($id)
+    {
+        return $this->accountLedgerRepository->findOrFail($id);
+    }
+
+    public function store(array $data)
+    {
+        return $this->accountLedgerRepository->save($data);
+    }
+
+    public function update($id, array $data)
+    {
+        return $this->accountLedgerRepository->updateLedger($id, $data);
+    }
+
+    public function delete($id)
+    {
+        return $this->accountLedgerRepository->deleteLedger($id);
+    }
+
 }

@@ -14,7 +14,23 @@ class UpdateAccountLedgerPostRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'account_head_id' => 'required',
+            'name' => 'required|max:255|unique:account_ledgers,name,' . $this->id,
+            'code' => 'required|unique:account_ledgers,code,' . $this->id,
+            'opening_balance_type' => 'required|max:2',
+            'opening_balance' => 'numeric|min:0',
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'opening_balance.min'  => 'Opening balance can\'t be negative',
         ];
     }
 

@@ -1,6 +1,5 @@
 @extends('accounts::layouts.master')
 @section('title', 'Account Ledger List')
-@section("account_ledger", 'active')
 
 @section('content')
     <div class="container">
