@@ -10,14 +10,13 @@
                                                                                   data-i18n="nav.navbars.main">Project Proposal</span></a>
                     <ul class="menu-content">
 
-                        <li class="nav-item @yield('proposal_create')">
+                        <li class="{{ is_active_route('project_request.create') }}">
                             <a href="{{ route('project_request.create') }}">
                                 <i class="la la-plus-circle"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">Create Project Proposal</span>
                             </a>
                         </li>
-
-                        <li class="nav-item @yield('request_list')">
+                        <li class="{{ is_active_route('project_request.index') }}">
                             <a href="{{ route('project_request.index') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">List of Project Proposal Request</span>

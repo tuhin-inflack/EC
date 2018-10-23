@@ -16,7 +16,7 @@ class CreateProjectRequestRequest extends FormRequest
         return [
             'send_to' => 'required|email',
             'end_date' => 'required',
-            'message' => 'required|max:20',
+            'message' => 'required|max:200',
             'attachment' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
         ];
     }

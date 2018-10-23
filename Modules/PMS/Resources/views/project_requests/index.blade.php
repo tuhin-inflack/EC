@@ -1,6 +1,5 @@
 @extends('pms::layouts.master')
 @section('title', 'All Project Proposal Request ')
-@section("request_list", 'active')
 
 @section('content')
     <section id="role-list">
@@ -49,7 +48,9 @@
                                             <td>{{ $projectRequest->end_date }}</td>
 
                                             <td>
-                                                <a href="" onclick="myFunction()">Attachment </a>
+                                                {{  $exists = Storage::disk('internal')->exists($projectRequest->attachment) }}
+
+                                                <a href="" onclick="attachmentDev()">Attachment </a>
 
                                             </td>
                                             <td>
@@ -66,7 +67,8 @@
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{ route('project_request.show',$projectRequest->id) }}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+
                                                 <a href="{{ route('project_request.edit', $projectRequest->id)  }}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
@@ -99,7 +101,7 @@
 @endsection
 @push('page-js')
     <script>
-        function myFunction() {
+        function attachmentDev() {
             alert("Download process is in under development");
         }
     </script>

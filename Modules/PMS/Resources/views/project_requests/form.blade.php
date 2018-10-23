@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <form novalidate action="{{ route('project_request.store')  }}" method="post"
                           enctype="multipart/form-data">
-                        {{ csrf_field() }}
+                        
                         @csrf
                         <div class="form-body">
                             <h4 class="form-section"><i class="la la-briefcase"></i> Project Proposal Request Form</h4>

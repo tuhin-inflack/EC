@@ -66,9 +66,9 @@ class ProjectRequestController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::show');
+        return view('pms::project_requests.show',compact('projectRequest'));
     }
 
     /**
@@ -108,5 +108,10 @@ class ProjectRequestController extends Controller
         Session::flash('message', 'Proposal deleted successfully');
 
         return redirect()->route('project_request.index');
+    }
+
+    public function approve(ProjectRequest $projectRequest)
+    {
+        return $projectRequest;
     }
 }
