@@ -1,6 +1,5 @@
 @extends('pms::layouts.master')
 @section('title', 'Add New Project Proposal Request ')
-@section("proposal_create", 'active')
 
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">

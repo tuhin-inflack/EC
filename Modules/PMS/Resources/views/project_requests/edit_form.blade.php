@@ -17,7 +17,6 @@
                 <div class="card-body">
                     <form novalidate action="{{ route('project_request.update',$projectRequest->id)  }}" method="post"
                           enctype="multipart/form-data">
-                        {{ csrf_field() }}
                         @method('PUT')
                         @csrf
                         <div class="form-body">
@@ -93,7 +92,7 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ $projectRequest->attachment  }}
+                                        <label></label>
                                     </div>
 
                                 </div>
