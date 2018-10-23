@@ -21,7 +21,7 @@ class CreateAccountLedgersTable extends Migration
             $table->string('opening_balance_type', 4);
             $table->double('opening_balance', 10, 2)->default(0);
             $table->double('closing_balance', 10, 2)->default(0);
-            $table->string('account_type', 20);
+            $table->string('account_type', 20)->nullable();
             $table->boolean('reconciliation')->default(0);
             $table->text('description')->nullable();
             $table->timestamps();

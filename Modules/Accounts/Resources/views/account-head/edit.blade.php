@@ -1,6 +1,5 @@
 @extends('accounts::layouts.master')
 @section('title', 'Update Account Head')
-@section("account_head", 'active')
 
 @section('content')
     <div class="container">
@@ -89,11 +88,14 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button class="btn btn-primary" type="submit">Update</button>
-
-                                    <button class="btn btn-default" type="reset">Cancel</button>
+                            <div class="form-actions col-md-12 ">
+                                <div class="pull-right">
+                                    {{ Form::button('<i class="la la-check-square-o"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
+                                    <a href="{{ route('account-head.index')  }}">
+                                        <button type="button" class="btn btn-warning mr-1">
+                                            <i class="la la-times"></i> Cancel
+                                        </button>
+                                    </a>
                                 </div>
                             </div>
                         </form>

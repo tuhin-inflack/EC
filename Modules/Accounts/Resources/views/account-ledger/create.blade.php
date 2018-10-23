@@ -1,6 +1,5 @@
 @extends('accounts::layouts.master')
 @section('title', 'Create Account Ledger')
-@section("account_ledger", 'active')
 
 @section('content')
     <div class="container">
@@ -114,14 +113,12 @@
                             <div class="form-actions col-md-12 ">
                                 <div class="pull-right">
                                     {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                    <a href="{{ url('/hrm/employee') }}">
+                                    <a href="{{ route('account-ledger.index') }}">
                                         <button type="button" class="btn btn-warning mr-1">
                                             <i class="la la-times"></i> Cancel
                                         </button>
                                     </a>
-
                                 </div>
-
                             </div>
                         </form>
                     </div>

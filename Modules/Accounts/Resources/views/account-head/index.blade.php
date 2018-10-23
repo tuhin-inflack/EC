@@ -1,6 +1,5 @@
 @extends('accounts::layouts.master')
 @section('title', 'Account Head List')
-@section("account_head", 'active')
 
 @section('content')
     <div class="container">
