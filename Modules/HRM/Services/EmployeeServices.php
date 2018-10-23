@@ -8,13 +8,19 @@
 
 namespace Modules\HRM\Services;
 
+use Modules\HRM\Repositories\EmployeeEducationRepository;
+use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices {
 	private $EmployeeRepository;
+	private $EmployeePersonalInfoRepository;
+	private $EmployeeEducationRepository;
 
-	public function __construct( EmployeeRepository $employee_repository ) {
-		$this->EmployeeRepository = $employee_repository;
+	public function __construct( EmployeeRepository $employee_r, EmployeePersonalInfoRepository $e_personal_i_r, EmployeeEducationRepository $e_education ) {
+		$this->EmployeeRepository             = $employee_r;
+		$this->EmployeePersonalInfoRepository = $e_personal_i_r;
+		$this->EmployeeEducationRepository = $e_education;
 	}
 
 	public function getFormCreationData() {
@@ -32,4 +38,14 @@ class EmployeeServices {
 	public function storeGeneralInfo( $data = [] ) {
 		return $this->EmployeeRepository->save( $data );
 	}
+
+	public function storePersonalInfo( $data = [] ) {
+		return $this->EmployeePersonalInfoRepository->save( $data );
+	}
+
+	public function storeEducationalInfo( $data = [] ) {
+		return $this->EmployeeEducationRepository->save( $data );
+	}
+
+
 }

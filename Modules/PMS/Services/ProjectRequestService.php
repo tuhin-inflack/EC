@@ -49,4 +49,14 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->delete($projectRequest);
     }
+
+    public function requestApprove(ProjectRequest $projectRequest)
+    {
+        return $this->projectRequestRepository->approveProjectProposal($projectRequest);
+    }
+
+    public function requestReject(ProjectRequest $projectRequest)
+    {
+        return $this->projectRequestRepository->rejectProjectProposal($projectRequest);
+    }
 }

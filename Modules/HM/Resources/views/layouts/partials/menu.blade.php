@@ -7,12 +7,12 @@
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Hostel</span></a>
                 <ul class="menu-content">
-                    <li><a href="{{ route('hostels.index') }}">
+                    <li class="{{ is_active_route('hostels.index') }}"><a href="{{ route('hostels.index') }}">
                             <i class="la la-list"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">List</span></a>
                     </li>
-                    <li><a href="{{ route('hostels.create') }}">
+                    <li class="{{ is_active_route('hostels.create') }}"><a href="{{ route('hostels.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">Create</span></a>

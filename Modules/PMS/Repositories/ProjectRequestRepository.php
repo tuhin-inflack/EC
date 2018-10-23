@@ -15,4 +15,22 @@ use Modules\PMS\Entities\ProjectRequest;
 class ProjectRequestRepository extends AbstractBaseRepository
 {
     protected $modelName = ProjectRequest::class;
+
+    public function approveProjectProposal($projectRequest)
+    {
+        $status  = $projectRequest->status;
+        $id = $projectRequest->id;
+        return ProjectRequest::where('id', $id)
+            ->update(['status' => 1]);
+
+    }
+
+    public function rejectProjectProposal($projectRequest)
+    {
+        $status  = $projectRequest->status;
+        $id = $projectRequest->id;
+        return ProjectRequest::where('id', $id)
+            ->update(['status' => 2]);
+
+    }
 }
