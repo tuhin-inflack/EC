@@ -69,7 +69,7 @@
     </div>
     {{--form repeater end--}}
     <div class="col-md-12">
-        <button id="AddMore" type="button" data-repeater-create="" class="btn btn-primary"><i class="ft-plus"></i>
+        <button  type="button" data-repeater-create="" class="btn btn-primary addMore"><i class="ft-plus"></i>
             Add More
         </button>
     </div>
