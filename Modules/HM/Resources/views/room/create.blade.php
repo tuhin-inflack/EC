@@ -82,7 +82,7 @@
                                 </div>
 
                                 <div class="repeater-room-inventories">
-                                    <div data-repeater-list="rooms">
+                                    <div data-repeater-list="inventories">
                                         <div class="row col-md-6 offset-md-3">
                                             <div class="mb-1 col-sm-12 col-md-5">
                                                 <label>Item name</label>
@@ -91,29 +91,29 @@
                                                 <label>Quantity</label>
                                             </div>
                                         </div>
-                                        @if(old('rooms'))
-                                            @foreach(old('rooms') as $oldInput)
+                                        @if(old('inventories'))
+                                            @foreach(old('inventories') as $oldInput)
                                                 <div data-repeater-item>
                                                     <div class="row col-md-6 offset-md-3">
                                                         <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                            <input type="text" value="{{ $oldInput['name'] }}"
-                                                                   class="form-control {{ $errors->has('rooms.' . $loop->index . '.name') ? 'is-invalid' : '' }}"
+                                                            <input type="text" value="{{ $oldInput['item_name'] }}"
+                                                                   class="form-control {{ $errors->has('inventories.' . $loop->index . '.item_name') ? 'is-invalid' : '' }}"
                                                                    name="name">
 
-                                                            @if($errors->has('rooms.' . $loop->index . '.name'))
+                                                            @if($errors->has('inventories.' . $loop->index . '.item_name'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('rooms.' . $loop->index . '.name') }}</strong>
+                                                                    <strong>{{ $errors->first('inventories.' . $loop->index . '.item_name') }}</strong>
                                                                 </span>
                                                             @endif
                                                         </div>
                                                         <div class="form-group mb-1 col-sm-12 col-md-5">
                                                             <input type="text" value="{{ $oldInput['quantity'] }}"
-                                                                   class="form-control {{ $errors->has('rooms.' . $loop->index . '.quantity') ? 'is-invalid' : '' }}"
+                                                                   class="form-control {{ $errors->has('inventories.' . $loop->index . '.quantity') ? 'is-invalid' : '' }}"
                                                                    name="quantity">
 
-                                                            @if($errors->has('rooms.' . $loop->index . '.quantity'))
+                                                            @if($errors->has('inventories.' . $loop->index . '.quantity'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('rooms.' . $loop->index . '.quantity') }}</strong>
+                                                                    <strong>{{ $errors->first('inventories.' . $loop->index . '.quantity') }}</strong>
                                                                 </span>
                                                             @endif
                                                         </div>
@@ -129,7 +129,7 @@
                                             <div data-repeater-item>
                                                 <div class="row col-md-6 offset-md-3">
                                                     <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                        <input type="text" class="form-control" name="name">
+                                                        <input type="text" class="form-control" name="item_name">
                                                     </div>
                                                     <div class="form-group mb-1 col-sm-12 col-md-5">
                                                         <input type="text" class="form-control" name="quantity">

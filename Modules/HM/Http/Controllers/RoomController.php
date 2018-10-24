@@ -5,11 +5,27 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\Hostel;
 use Modules\HM\Http\Requests\CreateHostelRoomRequest;
+use Modules\HM\Services\RoomService;
 
-class HostelRoomController extends Controller
+class RoomController extends Controller
 {
+    /**
+     * @var RoomService
+     */
+    private $roomService;
+
+    /**
+     * RoomController constructor.
+     * @param RoomService $roomService
+     */
+    public function __construct(RoomService $roomService)
+    {
+        $this->roomService = $roomService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -21,6 +37,7 @@ class HostelRoomController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param Hostel $hostel
      * @return Response
      */
     public function create(Hostel $hostel)
@@ -35,7 +52,10 @@ class HostelRoomController extends Controller
      */
     public function store(CreateHostelRoomRequest $request)
     {
-        return $request->all();
+        $this->roomService->store($request->all());
+        Session::flash('message', 'Successfully stored room information');
+
+        return redirect()->back();
     }
 
     /**
