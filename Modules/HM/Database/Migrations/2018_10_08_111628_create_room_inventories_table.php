@@ -15,7 +15,7 @@ class CreateRoomInventoriesTable extends Migration
     {
         Schema::create('room_inventories', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('room_type_id');
+            $table->unsignedInteger('room_id');
             $table->string('item_name');
             $table->unsignedInteger('quantity');
             $table->timestamps();

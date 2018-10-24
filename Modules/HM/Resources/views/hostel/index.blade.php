@@ -15,12 +15,6 @@
                     </div>
 
                     <div class="card-body">
-                        @if(Session::get('message'))
-                            <h4>
-                                {{Session::get('message')}}
-                            </h4>
-                        @endif
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
@@ -53,6 +47,8 @@
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('hostels.show', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{ route('hostel-rooms.create', $hostel->id) }}"
+                                                   class="dropdown-item"><i class="ft-plus"></i> Add room</a>
                                                 <a href="{{ route('hostels.edit', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
