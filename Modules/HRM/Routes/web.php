@@ -22,6 +22,7 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::post( 'education_info', 'EmployeeController@storeEducationalInfo' );
 		Route::post( 'training_info', 'EmployeeController@storeTrainingInfo' );
 		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
+		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );
 	} );
 
 

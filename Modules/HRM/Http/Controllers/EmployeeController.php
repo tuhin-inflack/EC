@@ -85,6 +85,9 @@ class EmployeeController extends Controller {
 		dd($request->publication);
 	}
 
+	public function storeResearchInfo(Request $request){
+		dd($request->research);
+	}
 
 	/**
 	 * Show the specified resource.
