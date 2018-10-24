@@ -13,6 +13,11 @@ class Room extends Model
         return $this->belongsTo(Hostel::class);
     }
 
+    public function roomType()
+    {
+        return $this->belongsTo(RoomType::class);
+    }
+
     public function inventories()
     {
         return $this->hasMany(RoomInventory::class);
