@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostel Room Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">Hostel Details</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -18,30 +18,61 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
+                            <div class="row justify-content-center">
+                                <div class="col-md-6 text-md-right">
+                                    <b>Shortcode:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $hostel->shortcode }}
+                                </div>
+                                <div class="col-md-6 text-md-right">
+                                    <b>Name:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $hostel->name }}
+                                </div>
+                                <div class="col-md-6 text-md-right">
+                                    <b>Level:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $hostel->level }}
+                                </div>
+                                <div class="col-md-6 text-md-right">
+                                    <b>Total room:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $hostel->total_room }}
+                                </div>
+                                <div class="col-md-6 text-md-right">
+                                    <b>Total Seat:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ $hostel->total_seat }}
+                                </div>
+                            </div>
+
+                            <hr>
+
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
+                                <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th class="text-center"
-                                            colspan="{{ ceil($hostel->total_room / $hostel->level) + 1 }}">{{ $hostel->name }} ({{ $hostel->shortcode }})</th>
+                                        <th colspan="3" class="text-center">Room Details</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Capacity</th>
+                                        <th>Rate</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @php
-                                        $width =  (85 / ceil($hostel->total_room / $hostel->level))
-                                    @endphp
-
-                                    @for($level = $hostel->level; $level >= 0; $level--)
+                                    @foreach($hostel->roomTypes as $roomType)
                                         <tr>
-                                            <td width="15%">F - {{ $level }}</td>
-                                            @for($room = 0; $room < ceil($hostel->total_room / $hostel->level); $room++)
-                                                <td width="{{ $width }}%">
-                                                    <input type="checkbox" name="level">
-                                                    {{ $level . ', ' . $room }}
-                                                </td>
-                                            @endfor
+                                            <td>{{ $roomType->name }}</td>
+                                            <td>{{ $roomType->capacity }}</td>
+                                            <td>{{ $roomType->rate }}</td>
                                         </tr>
-                                    @endfor
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -52,3 +83,6 @@
         </div>
     </div>
 @endsection
+@push('page-js')
+
+@endpush
