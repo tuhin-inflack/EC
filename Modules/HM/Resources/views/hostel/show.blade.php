@@ -57,6 +57,32 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
+                                        <th colspan="4" class="text-center">Rooms</th>
+                                    </tr>
+                                    <tr>
+                                        <th>Shortcode</th>
+                                        <th>Room Type</th>
+                                        <th>Level</th>
+                                        <th>Items</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($hostel->rooms as $room)
+                                        <tr>
+                                            <td>{{ $room->shortcode }}</td>
+                                            <td>{{ $room->roomType->name }}</td>
+                                            <td>{{ $room->level }}</td>
+                                            <td>{{ $room->inventories->count() }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
                                         <th colspan="3" class="text-center">Room Details</th>
                                     </tr>
                                     <tr>
