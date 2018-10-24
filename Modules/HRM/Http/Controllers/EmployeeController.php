@@ -77,8 +77,12 @@ class EmployeeController extends Controller {
 
 	}
 
-	public function storeTrainingInfo(Request $request) {
-		dd($request->training);
+	public function storeTrainingInfo( Request $request ) {
+		dd( $request->training );
+	}
+
+	public function storePublicationInfo( Request $request ) {
+		dd($request->publication);
 	}
 
 

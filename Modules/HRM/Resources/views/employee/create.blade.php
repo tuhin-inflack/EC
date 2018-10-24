@@ -113,7 +113,7 @@
                         <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                              aria-expanded="false">
 
-                            {!! Form::open(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/publication_info', 'class'=>'form']) !!}
                             @include('hrm::employee.form.publication_info')
                             {!! Form::close() !!}
                         </div>
@@ -139,8 +139,9 @@
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
+        console.log(employee_id);
         $(document).ready(function () {
-            $('#AddMore').click(function () {
+            $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id) ;
             });
         })
