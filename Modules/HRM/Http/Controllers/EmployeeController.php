@@ -68,7 +68,9 @@ class EmployeeController extends Controller {
 	}
 
 	public function storeEducationalInfo( Request $request ) {
-		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $request->all() );
+		$education_data = $request->education;
+//		dd($education_data);
+		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $education_data );
 		Session::flash( 'message', 'Employee Educational information saved successfully!' );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] );
