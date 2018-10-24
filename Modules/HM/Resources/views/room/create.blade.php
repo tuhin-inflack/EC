@@ -18,9 +18,9 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('rooms.store') }}" method="post">
+                            <form novalidate action="{{ route('rooms.store') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="hostel_id" value="{{ $hostel->id }}" />
+                                <input type="hidden" name="hostel_id" value="{{ $hostel->id }}"/>
                                 <h4 class="form-section"><i class="la  la-building-o"></i>Room Form</h4>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -42,7 +42,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Room Type</label>
-                                            <select class="form-control" name="room_type_id" id="">
+                                            <select class="form-control {{ $errors->has('room_type_id') ? 'is-invalid' : '' }}"
+                                                    name="room_type_id" id="" required>
                                                 <option selected disabled="">Select room type</option>
                                                 @foreach($hostel->roomTypes as $roomType)
                                                     <option value="{{ $roomType->id }}">{{ $roomType->name }}</option>
@@ -51,8 +52,8 @@
 
                                             @if ($errors->has('room_type_id'))
                                                 <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('room_type_id') }}</strong>
-                                            </span>
+                                                    <strong>{{ $errors->first('room_type_id') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
@@ -76,11 +77,11 @@
                                     </div>
                                 </div>
 
-                                    <div class="form-group row">
+                                <div class="form-group row">
                                     <b class="col-sm-4 col-form-label text-md-right"><u>Room Inventories</u></b>
                                 </div>
 
-                                <div class="repeater-default">
+                                <div class="repeater-room-inventories">
                                     <div data-repeater-list="rooms">
                                         <div class="row col-md-6 offset-md-3">
                                             <div class="mb-1 col-sm-12 col-md-5">
@@ -90,25 +91,62 @@
                                                 <label>Quantity</label>
                                             </div>
                                         </div>
-                                        <div data-repeater-item>
-                                            <div class="row col-md-6 offset-md-3">
-                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <input type="text" class="form-control" name="name">
+                                        @if(old('rooms'))
+                                            @foreach(old('rooms') as $oldInput)
+                                                <div data-repeater-item>
+                                                    <div class="row col-md-6 offset-md-3">
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <input type="text" value="{{ $oldInput['name'] }}"
+                                                                   class="form-control {{ $errors->has('rooms.' . $loop->index . '.name') ? 'is-invalid' : '' }}"
+                                                                   name="name">
+
+                                                            @if($errors->has('rooms.' . $loop->index . '.name'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('rooms.' . $loop->index . '.name') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <input type="text" value="{{ $oldInput['quantity'] }}"
+                                                                   class="form-control {{ $errors->has('rooms.' . $loop->index . '.quantity') ? 'is-invalid' : '' }}"
+                                                                   name="quantity">
+
+                                                            @if($errors->has('rooms.' . $loop->index . '.quantity'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('rooms.' . $loop->index . '.quantity') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                    data-repeater-delete><i class="ft-x"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <input type="text" class="form-control" name="quantity">
-                                                </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                    <button type="button" class="btn btn-outline-danger"
-                                                            data-repeater-delete><i class="ft-x"></i>
-                                                    </button>
+                                            @endforeach
+                                        @else
+                                            <div data-repeater-item>
+                                                <div class="row col-md-6 offset-md-3">
+                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                        <input type="text" class="form-control" name="name">
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                        <input type="text" class="form-control" name="quantity">
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                        <button type="button" class="btn btn-outline-danger"
+                                                                data-repeater-delete><i class="ft-x"></i>
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     </div>
                                     <div class="form-group overflow-hidden">
                                         <div class="col-12">
-                                            <button type="button" data-repeater-create class="float-right btn btn-sm btn-primary">
+                                            <button type="button" data-repeater-create
+                                                    class="float-right btn btn-sm btn-primary">
                                                 <i class="ft-plus"></i> More room item
                                             </button>
                                         </div>
@@ -137,4 +175,19 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $('.repeater-room-inventories').repeater({
+                show: function () {
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
+                    $(this).slideDown();
+                },
+            });
+        });
+    </script>
 @endpush

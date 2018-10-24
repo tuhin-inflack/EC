@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\HM\Entities\Hostel;
+use Modules\HM\Http\Requests\CreateHostelRoomRequest;
 
 class HostelRoomController extends Controller
 {
@@ -29,10 +30,10 @@ class HostelRoomController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * @param CreateHostelRoomRequest $request
+     * @return array
      */
-    public function store(Request $request)
+    public function store(CreateHostelRoomRequest $request)
     {
         return $request->all();
     }
