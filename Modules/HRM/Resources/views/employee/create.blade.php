@@ -11,15 +11,16 @@
     <div class="col-xl-12 col-lg-12">
         <div class="card">
 
-            @if(Session::has('message'))
-                <div class="alert alert-success text-center">
-                    {{Session::get('message')}}
-                </div>
-            @endif
             {{--<div class="card-header">--}}
             {{--<h4 class="card-title">Add new employee </h4>--}}
             {{--</div>--}}
             <div class="card-header">
+
+                @if(Session::has('message'))
+                    <div class="alert alert-success text-center">
+                        {{Session::get('message')}}
+                    </div>
+                @endif
                 <h4 class="card-title" id="repeat-form">Add New Employee</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
@@ -103,7 +104,7 @@
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/training_info', 'class'=>'form']) !!}
                             @include('hrm::employee.form.training_info')
                             {!! Form::close() !!}
                         </div>
@@ -138,7 +139,6 @@
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
-        console.log(employee_id);
         $(document).ready(function () {
             $('#AddMore').click(function () {
                 $('.EmployeeId').val(employee_id) ;
