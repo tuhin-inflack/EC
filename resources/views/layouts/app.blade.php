@@ -54,11 +54,6 @@
 <div class="app-content content">
     <div class="content-wrapper">
         <div class="content-header row">
-            @if(Session::get('message'))
-                <h4>
-                    {{Session::get('message')}}
-                </h4>
-            @endif
         </div>
         <div class="content-body">
             @yield('content')

@@ -25,11 +25,11 @@
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Room</span></a>
                 <ul class="menu-content">
-                    {{--<li class="{{ is_active_route('rooms.index') }}"><a href="{{ route('rooms.index') }}">
-                            <i class="la la-list"></i>
+                    <li class="{{ is_active_route('rooms.index') }}"><a href="{{ route('rooms.index') }}">
+                        <i class="la la-list"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">List</span></a>
-                    </li>--}}
+                    </li>
                     {{--<li class="{{ is_active_route('rooms.create') }}"><a href="{{ route('rooms.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"

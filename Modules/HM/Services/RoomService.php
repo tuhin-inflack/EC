@@ -9,6 +9,7 @@
 namespace Modules\HM\Services;
 
 
+use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomInventory;
 use Modules\HM\Repositories\RoomRepository;
 
@@ -28,6 +29,11 @@ class RoomService
         $this->roomRepository = $roomRepository;
     }
 
+    public function getAll()
+    {
+        return $this->roomRepository->findAll();
+    }
+
     public function store(array $data)
     {
         $room = $this->roomRepository->save($data);
@@ -37,5 +43,10 @@ class RoomService
         });
 
         return $room->inventories()->saveMany($roomInventories);
+    }
+
+    public function delete(Room $room)
+    {
+        return $this->roomRepository->delete($room);
     }
 }

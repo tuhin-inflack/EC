@@ -38,7 +38,9 @@ Route::prefix('hm')->group(function() {
     });
 
     Route::prefix('rooms')->group(function () {
+        Route::get('/', 'RoomController@index')->name('rooms.index');
         Route::post('/', 'RoomController@store')->name('rooms.store');
+        Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
     });
 });
 
