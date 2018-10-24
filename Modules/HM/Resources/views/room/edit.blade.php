@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostel Room Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">Hostel Room Edit</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -18,16 +18,17 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('rooms.store') }}" method="post">
+                            <form action="{{ route('rooms.update', $room->id) }}" method="post">
+                                @method('PUT')
                                 @csrf
-                                <input type="hidden" name="hostel_id" value="{{ $hostel->id }}"/>
+                                <input type="hidden" name="hostel_id" value="{{ $room->hostel->id }}"/>
                                 <h4 class="form-section"><i class="la  la-building-o"></i>Room Form</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label class="form-label">Shortcode</label>
                                             <input type="text"
-                                                   value="{{ old('shortcode') }}"
+                                                   value="{{ old('shortcode') ?: $room->shortcode }}"
                                                    class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
                                                    name="shortcode" autofocus required/>
 
@@ -43,10 +44,10 @@
                                         <div class="form-group">
                                             <label class="form-label">Room Type</label>
                                             <select class="form-control {{ $errors->has('room_type_id') ? 'is-invalid' : '' }}"
-                                                    name="room_type_id" id="" required>
+                                                    name="room_type_id" required>
                                                 <option selected disabled="">Select room type</option>
-                                                @foreach($hostel->roomTypes as $roomType)
-                                                    <option value="{{ $roomType->id }}" {{ old('room_type_id') == $roomType->id ? 'selected' : '' }}>{{ $roomType->name }}</option>
+                                                @foreach($room->hostel->roomTypes as $roomType)
+                                                    <option value="{{ $roomType->id }}" {{ $roomType->id == $room->room_type_id ? 'selected' : '' }}>{{ $roomType->name }}</option>
                                                 @endforeach
                                             </select>
 
@@ -64,10 +65,10 @@
                                         <div class="form-group">
                                             <label class="form-label">Level</label>
                                             <input type="number"
-                                                   value="{{ old('level') }}"
+                                                   value="{{ old('level') ?: $room->level }}"
                                                    min="1"
                                                    class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
-                                                   name="level" autofocus required/>
+                                                   name="level" required/>
 
                                             @if ($errors->has('level'))
                                                 <span class="invalid-feedback" role="alert">
@@ -95,6 +96,8 @@
                                         @if(old('inventories'))
                                             @foreach(old('inventories') as $oldInput)
                                                 <div data-repeater-item>
+                                                    <input type="hidden" id="room-inventory-id" name="id" value="{{ $oldInput['id'] }}"/>
+                                                    <input type="hidden" name="room_id" value="{{ $oldInput['hostel_id'] }}"/>
                                                     <div class="row col-md-6 offset-md-3">
                                                         <div class="form-group mb-1 col-sm-12 col-md-5">
                                                             <input type="text" value="{{ $oldInput['item_name'] }}"
@@ -128,22 +131,28 @@
                                                 </div>
                                             @endforeach
                                         @else
-                                            <div data-repeater-item>
-                                                <div class="row col-md-6 offset-md-3">
-                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                        <input type="text" class="form-control" name="item_name">
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                        <input type="number" min="1" class="form-control"
-                                                               name="quantity">
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                        <button type="button" class="btn btn-outline-danger"
-                                                                data-repeater-delete><i class="ft-x"></i>
-                                                        </button>
+                                            @foreach($room->inventories as $inventory)
+                                                <div data-repeater-item>
+                                                    <input type="hidden" id="room-invetory-id" name="id" value="{{ $inventory->id }}"/>
+                                                    <input type="hidden" name="room_id" value="{{ $room->id }}"/>
+                                                    <div class="row col-md-6 offset-md-3">
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <input type="text" value="{{ $inventory->item_name }}"
+                                                                   class="form-control" name="item_name">
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <input type="number" value="{{ $inventory->quantity }}"
+                                                                   min="1" class="form-control"
+                                                                   name="quantity">
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                    data-repeater-delete><i class="ft-x"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            @endforeach
                                         @endif
                                     </div>
                                     <div class="form-group overflow-hidden">
@@ -165,6 +174,10 @@
                                            class="btn btn-warning">Cancel</a>
                                     </div>
                                 </div>
+                            </form>
+                            <form id="room-inventory-delete" method="POST">
+                                @csrf
+                                @method('DELETE')
                             </form>
                         </div>
                     </div>

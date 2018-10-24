@@ -50,7 +50,7 @@
                                                        class="dropdown-menu mt-1 dropdown-menu-right">
                                                  <a href="#"
                                                     class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                 <a href="#"
+                                                 <a href="{{ route('rooms.edit', $room->id) }}"
                                                     class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                  <div class="dropdown-divider"></div>
                                                      {!! Form::open([
