@@ -47,6 +47,7 @@ class RoomService
 
     public function delete(Room $room)
     {
+        $room->inventories()->delete();
         return $this->roomRepository->delete($room);
     }
 }
