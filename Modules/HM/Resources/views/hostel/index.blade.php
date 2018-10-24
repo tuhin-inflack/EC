@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Hostels List</h4>
+                        <h4 class="card-title">Rooms List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{ route('hostels.create') }}" class="btn btn-primary btn-sm"><i
@@ -20,7 +20,6 @@
                                 {{Session::get('message')}}
                             </h4>
                         @endif
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
@@ -53,6 +52,8 @@
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('hostels.show', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{ route('hostel-rooms.create', $hostel->id) }}"
+                                                   class="dropdown-item"><i class="ft-plus"></i> Add room</a>
                                                 <a href="{{ route('hostels.edit', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
