@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\Hostel;
+use Modules\HM\Entities\Room;
 use Modules\HM\Http\Requests\CreateHostelRoomRequest;
 use Modules\HM\Services\RoomService;
 
@@ -32,7 +33,9 @@ class RoomController extends Controller
      */
     public function index()
     {
-        return view('hm::index');
+        $rooms = $this->roomService->getAll();
+
+        return view('hm::room.index', compact('rooms'));
     }
 
     /**
@@ -87,9 +90,14 @@ class RoomController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     * @param Room $room
      * @return Response
      */
-    public function destroy()
+    public function destroy(Room $room)
     {
+        $this->roomService->delete($room);
+        Session::flash('message', 'Room deleted successfully');
+
+        return redirect()->back();
     }
 }
