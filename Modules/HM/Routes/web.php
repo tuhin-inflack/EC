@@ -24,7 +24,7 @@ Route::prefix('hm')->group(function() {
         Route::delete('{hostel}', 'HostelController@destroy')->name('hostels.destroy');
 
         // hostel rooms
-        Route::get('{hostel}/rooms/create', 'HostelRoomController@create')->name('hostel-rooms.create');
+        Route::get('{hostel}/rooms/create', 'RoomController@create')->name('hostel-rooms.create');
 
     });
 
@@ -38,7 +38,7 @@ Route::prefix('hm')->group(function() {
     });
 
     Route::prefix('rooms')->group(function () {
-        Route::post('/', 'HostelRoomController@store')->name('rooms.store');
+        Route::post('/', 'RoomController@store')->name('rooms.store');
     });
 });
 

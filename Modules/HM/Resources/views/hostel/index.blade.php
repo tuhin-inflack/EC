@@ -15,12 +15,6 @@
                     </div>
 
                     <div class="card-body">
-                        @if(Session::get('message'))
-                            <h4>
-                                {{Session::get('message')}}
-                            </h4>
-                        @endif
-
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
