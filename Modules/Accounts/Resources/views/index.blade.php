@@ -1,4 +1,5 @@
 @extends('accounts::layouts.master')
+@section('title', 'Accounts')
 
 @section('content')
     <H1>Accounts</H1>
@@ -13,7 +14,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
-                                    <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
+                                    <h1><i class="la la-tag warning font-large-2"></i></h1>
                                 </div>
                                 <div class="col-10 pl-2">
                                     <h4>Account Head</h4>
@@ -30,8 +31,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
-                                    {{--<h1><i class="cc BT warning font-large-2" title="BTC"></i></h1>--}}
-                                    <h1><i class="la la-tag warning font-large-2"></i></h1>
+                                    <h1><i class="la la-tags warning font-large-2"></i></h1>
                                 </div>
                                 <div class="col-10 pl-2">
                                     <h4>Account Ledger</h4>

@@ -1,12 +1,12 @@
 @extends('accounts::layouts.master')
-@section('title', 'Account Head List')
+@section('title', 'Account Ledger List')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card">
-                    <div class="card-header">Account Heads</div>
+                    <div class="card-header">Account Ledger</div>
 
                     <div class="card-body">
                         @if(Session::get('message'))
@@ -16,14 +16,14 @@
                         @endif
 
                         <div class="float-right">
-                            <a href="{{ route('account-head.create') }}" class="btn btn-primary">Create Account Head</a>
+                            <a href="{{ route('account-ledger.create') }}" class="btn btn-primary">Create Account Ledger</a>
                         </div>
 
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">SL</th>
-                                {{--<th scope="col">Parent</th>--}}
+                                <th scope="col">Head Name</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Code</th>
                                 <th scope="col">Description</th>
@@ -31,25 +31,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($accountHeads as $accountHead)
+                            @foreach($accountLedgers as $accountLedger)
                                 <tr>
                                     <th scope="row">{{ $loop->iteration }}</th>
-                                    {{--<td>{{ $accountHead->parent_id }}</td>--}}
-                                    <td>{{ $accountHead->name }}</td>
-                                    <td>{{ $accountHead->code }}</td>
-                                    <td>{{ $accountHead->description }}</td>
+                                    <td>{{ $accountLedger->account_head_id }}</td>
+                                    <td>{{ $accountLedger->name }}</td>
+                                    <td>{{ $accountLedger->code }}</td>
+                                    <td>{{ $accountLedger->description }}</td>
                                     <td>
-                                        <a href="{{ route('account-head.edit', $accountHead->id) }}"
+                                        <a href="{{ route('account-ledger.edit', $accountLedger->id) }}"
                                            class="btn btn-primary">Edit</a>
                                         {!! Form::open([
                                                 'method'=>'DELETE',
-                                                'url' => route('account-head.destroy', $accountHead->id),
+                                                'url' => route('account-ledger.destroy', $accountLedger->id),
                                                 'style' => 'display:inline'
                                                 ]) !!}
                                         {!! Form::button('Delete', array(
                                         'type' => 'submit',
                                         'class' => 'btn btn-danger',
-                                        'title' => 'Delete the Account Head',
+                                        'title' => 'Delete the Account Ledger',
                                         'onclick'=>'return confirm("Confirm delete?")',
                                         )) !!}
                                         {!! Form::close() !!}
@@ -59,7 +59,7 @@
                             </tbody>
                         </table>
                         <div class="float-right">
-                            {{ $accountHeads->links() }}
+                            {{ $accountLedgers->links() }}
                         </div>
                     </div>
                 </div>
