@@ -23,6 +23,13 @@
                             </a>
                         </li>
 
+                        <li class="{{ is_active_route('project_request.forwardList') }}">
+                            <a href="{{ route('project_request.forwardList') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Proposal Forwarded List</span>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
             </ul>

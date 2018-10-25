@@ -24,6 +24,9 @@ Route::prefix('pms')->group(function() {
         Route::delete('{projectRequest}', 'ProjectRequestController@destroy')->name('project_request.destroy');
         Route::get('{projectRequest}/approve','ProjectRequestController@approve')->name('project_request.approve');
         Route::get('{projectRequest}/reject','ProjectRequestController@reject')->name('project_request.reject');
+        Route::get('{projectRequest}/forward','ProjectRequestController@forward')->name('project_request.forward');
+        Route::post('forward-store','ProjectRequestController@forward_store')->name('project_request.forward_store');
 
     });
+        Route::get('proposal-forward-list','ProjectRequestController@forwardList')->name('project_request.forwardList');
 });

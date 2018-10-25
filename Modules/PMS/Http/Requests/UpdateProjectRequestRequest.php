@@ -16,7 +16,8 @@ class UpdateProjectRequestRequest extends FormRequest
         return [
             'send_to' => 'required|email',
             'end_date' => 'required',
-            'message' => 'required|max:20',
+            'title' => 'required|max:100',
+            'message' => 'required|max:200',
             'attachment' => 'image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }

@@ -27,7 +27,7 @@
                             @endif
                             <div class="table-responsive">
 
-                                <table class="table table-striped table-bordered alt-pagination">
+                                {{--<table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
                                         <th scope="col">SL</th>
@@ -92,7 +92,7 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                </table>
+                                </table>--}}
                             </div>
                         </div>
                     </div>

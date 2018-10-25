@@ -61,6 +61,21 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="name" class="form-label">Send To</label>
+                                        <input type="text"
+                                               value="{{ old('title') ?: $projectRequest->title }}"
+                                               class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                               name="title" autofocus required/>
+                                        @if ($errors->has('title'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label for="name" class="form-label">Message</label>
                                         <textarea name="message"
                                                   class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
@@ -101,7 +116,7 @@
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="la la-check-square-o"></i> Save
+                                    <i class="la la-check-square-o"></i> Update
                                 </button>
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('project_request.index')}}">
                                     <i class="ft-x"></i> Cancel
