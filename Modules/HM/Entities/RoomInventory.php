@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomInventory extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['room_id', 'item_name', 'quantity'];
 }
