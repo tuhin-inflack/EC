@@ -61,7 +61,7 @@ class ProjectRequestController extends Controller
 
 
         $this->projectRequestService->store($data);
-        Session::flash('message', 'Project request stored successfully');
+        Session::flash('success', 'Project request stored successfully');
         return redirect()->route('project_request.index');
     }
 
@@ -97,7 +97,7 @@ class ProjectRequestController extends Controller
 
         $data = array_merge($request->all(), ['attachment' => $path]);
         $this->projectRequestService->update($projectRequest, $data);
-        Session::flash('message', 'Project Request updated successfully');
+        Session::flash('success', 'Project Request updated successfully');
 
         return redirect()->route('project_request.index');
     }
@@ -109,7 +109,7 @@ class ProjectRequestController extends Controller
     public function destroy(ProjectRequest $projectRequest)
     {
         $this->projectRequestService->delete($projectRequest);
-        Session::flash('message', 'Proposal deleted successfully');
+        Session::flash('success', 'Proposal deleted successfully');
 
         return redirect()->route('project_request.index');
     }
@@ -137,14 +137,20 @@ class ProjectRequestController extends Controller
     {
 
         $this->projectRequestService->storeForward($request);
-        Session::flash('message', 'Proposal forwarded successfully');
 
-        return redirect()->route('project_request.index');
+        return redirect()->route('project_request.index')->with('success', 'Proposal forwarded successfully');
     }
 
     public function forwardList()
     {
-        $lists = ProjectRequestForward::all();
+
+        /*$forwardedLists = ProjectRequestForward::with('projectRequest')->get();
+
+        return $forwardedLists;*/
+
+        $lists = $this->projectRequestService->getForwardList();
+        /*return $lists[1]['project_request']['title'];*/
+
         return view('pms::project_requests.forward_list',compact('lists'));
     }
 }

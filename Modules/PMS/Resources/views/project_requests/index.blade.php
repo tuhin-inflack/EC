@@ -20,11 +20,6 @@
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
 
-                            @if(Session::get('message'))
-                                <h4>
-                                    {{Session::get('message')}}
-                                </h4>
-                            @endif
                             <div class="table-responsive">
 
                                 <table class="table table-striped table-bordered alt-pagination">
