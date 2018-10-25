@@ -20,7 +20,7 @@ class EmployeeServices {
 	public function __construct( EmployeeRepository $employee_r, EmployeePersonalInfoRepository $e_personal_i_r, EmployeeEducationRepository $e_education ) {
 		$this->EmployeeRepository             = $employee_r;
 		$this->EmployeePersonalInfoRepository = $e_personal_i_r;
-		$this->EmployeeEducationRepository = $e_education;
+		$this->EmployeeEducationRepository    = $e_education;
 	}
 
 	public function getFormCreationData() {
@@ -44,7 +44,14 @@ class EmployeeServices {
 	}
 
 	public function storeEducationalInfo( $data = [] ) {
-		return $this->EmployeeEducationRepository->save( $data );
+//		dd($data);
+		if ( is_array( $data ) ) {
+			foreach ( $data as $item ) {
+				$education = $this->EmployeeEducationRepository->save( $item );
+			}
+			return $education;
+		}
+
 	}
 
 
