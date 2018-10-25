@@ -11,7 +11,7 @@ namespace Modules\Accounts\Services;
 
 use Modules\Accounts\Repositories\AccountHeadRepository;
 
-class AccountHeadServices
+class AccountHeadService
 {
     protected $accountHeadRepository;
 

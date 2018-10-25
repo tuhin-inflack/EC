@@ -11,7 +11,7 @@ namespace Modules\Accounts\Services;
 
 use Modules\Accounts\Repositories\AccountLedgerRepository;
 
-class AccountLedgerServices
+class AccountLedgerService
 {
 
     protected $accountLedgerRepository;

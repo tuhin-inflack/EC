@@ -6,26 +6,25 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Modules\Accounts\Http\Requests\CreateAccountLedgerPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountLedgerPostRequest;
-use Modules\Accounts\Services\AccountHeadServices;
-use Modules\Accounts\Services\AccountLedgerServices;
+use Modules\Accounts\Services\AccountHeadService;
+use Modules\Accounts\Services\AccountLedgerService;
 
 class AccountLedgerController extends Controller
 {
 
-    private $accountHeadServices;
-    private $accountLedgerServices;
+    private $accountHeadService;
+    private $accountLedgerService;
 
     /**
      * AccountLedgerController constructor.
-     * @param AccountLedgerServices $accountLedgerServices
+     * @param AccountHeadService $accountLedgerServices
      */
-    public function __construct(AccountHeadServices $accountHeadServices, AccountLedgerServices $accountLedgerServices)
+    public function __construct(AccountHeadService $accountHeadService, AccountLedgerService $accountLedgerService)
     {
-        $this->accountHeadServices = $accountHeadServices;
-        $this->accountLedgerServices = $accountLedgerServices;
+        $this->accountHeadService = $accountHeadService;
+        $this->accountLedgerService = $accountLedgerService;
     }
 
     /**
@@ -34,7 +33,7 @@ class AccountLedgerController extends Controller
      */
     public function index()
     {
-        $accountLedgers = $this->accountLedgerServices->getAll();
+        $accountLedgers = $this->accountLedgerService->getAll();
 
         return view('accounts::account-ledger.index', compact('accountLedgers'));
     }
@@ -45,7 +44,7 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
-        $accountsHeads = $this->accountHeadServices->getHeads();
+        $accountsHeads = $this->accountHeadService->getHeads();
 
         return view('accounts::account-ledger.create', compact('accountsHeads'));
     }
@@ -57,10 +56,9 @@ class AccountLedgerController extends Controller
      */
     public function store(CreateAccountLedgerPostRequest $request)
     {
-        $this->accountLedgerServices->store($request->all());
-        Session::flash('message', 'Account Ledger stored successfully!');
+        $this->accountLedgerService->store($request->all());
 
-        return redirect()->route('account-ledger.index');
+        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger stored successfully!');
     }
 
     /**
@@ -78,8 +76,8 @@ class AccountLedgerController extends Controller
      */
     public function edit($id)
     {
-        $ledger = $this->accountLedgerServices->getLedger($id);
-        $accountsHeads = $this->accountHeadServices->getHeads();
+        $ledger = $this->accountLedgerService->getLedger($id);
+        $accountsHeads = $this->accountHeadService->getHeads();
 
         return view('accounts::account-ledger.edit', compact('ledger', 'accountsHeads'));
     }
@@ -91,10 +89,9 @@ class AccountLedgerController extends Controller
      */
     public function update(UpdateAccountLedgerPostRequest $request, $id)
     {
-        $this->accountLedgerServices->update($id, $request->all());
-        Session::flash('message', 'Account Ledger updated successfully!');
+        $this->accountLedgerService->update($id, $request->all());
 
-        return redirect()->route('account-ledger.index');
+        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger updated successfully!');
     }
 
     /**
@@ -103,9 +100,8 @@ class AccountLedgerController extends Controller
      */
     public function destroy($id)
     {
-        $this->accountLedgerServices->delete($id);
-        Session::flash('message', 'Account Ledger deleted successfully!');
+        $this->accountLedgerService->delete($id);
 
-        return redirect()->route('account-ledger.index');
+        return redirect()->route('account-ledger.index')->with('warning', 'Account Ledger deleted successfully!');
     }
 }
