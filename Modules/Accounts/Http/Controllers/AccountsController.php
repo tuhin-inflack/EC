@@ -5,6 +5,7 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class AccountsController extends Controller
 {
@@ -18,55 +19,11 @@ class AccountsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Display the Multi Tier Chart of Account.
      * @return Response
      */
-    public function create()
+    public function chartOfAccount()
     {
-        return view('accounts::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('accounts::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('accounts::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return view('accounts::account.chart_of_account')->with('message', 'New Group Added');
     }
 }
