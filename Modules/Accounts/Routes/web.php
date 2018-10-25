@@ -13,6 +13,7 @@
 
 Route::prefix('accounts')->group(function() {
     Route::get('/', 'AccountsController@index')->name('accounts');
+    Route::get('/chart-of-account', 'AccountsController@chartOfAccount')->name('accounts.chart-of-account');
 
     Route::prefix('account-head')->group(function () {
         Route::get('/', 'AccountHeadController@index')->name('account-head.index');
