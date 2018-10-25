@@ -64,4 +64,9 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->forwardProjectRequestStore($data);
     }
+
+    public function getForwardList()
+    {
+        return $this->projectRequestRepository->getAllForwardList();
+    }
 }
