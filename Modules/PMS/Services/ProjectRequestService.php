@@ -59,4 +59,9 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->rejectProjectProposal($projectRequest);
     }
+
+    public function storeForward($data)
+    {
+        return $this->projectRequestRepository->forwardProjectRequestStore($data);
+    }
 }

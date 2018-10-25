@@ -17,6 +17,7 @@ class CreateProjectRequestsTable extends Migration
             $table->increments('id');
             $table->string('send_to');
             $table->date('end_date');
+            $table->string('title');
             $table->text('message');
             $table->string('attachment');
             $table->tinyInteger('status');

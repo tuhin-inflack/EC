@@ -7,10 +7,13 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\ProjectRequest;
+use Modules\PMS\Entities\ProjectRequestForward;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
 use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
+use Modules\PMS\Http\Requests\ProjectRequestForwardRequest;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Storage;
+use App\Entities\User;
 
 class ProjectRequestController extends Controller
 {
@@ -68,6 +71,7 @@ class ProjectRequestController extends Controller
      */
     public function show(ProjectRequest $projectRequest)
     {
+
         return view('pms::project_requests.show',compact('projectRequest'));
     }
 
@@ -112,13 +116,35 @@ class ProjectRequestController extends Controller
 
     public function approve(ProjectRequest $projectRequest)
     {
-        $id = $this->projectRequestService->requestApprove($projectRequest);
+        $this->projectRequestService->requestApprove($projectRequest);
         return redirect()->route('project_request.index');
     }
 
     public function reject(ProjectRequest $projectRequest)
     {
-        $id = $this->projectRequestService->requestReject($projectRequest);
+        $this->projectRequestService->requestReject($projectRequest);
         return redirect()->route('project_request.index');
+    }
+
+    public function forward(ProjectRequest $projectRequest)
+    {
+        $users = User::all();
+
+        return view('pms::project_requests.forward',compact('projectRequest','users'));
+    }
+
+    public function forward_store(ProjectRequestForwardRequest $request)
+    {
+
+        $this->projectRequestService->storeForward($request);
+        Session::flash('message', 'Proposal forwarded successfully');
+
+        return redirect()->route('project_request.index');
+    }
+
+    public function forwardList()
+    {
+        $lists = ProjectRequestForward::all();
+        return view('pms::project_requests.forward_list',compact('lists'));
     }
 }

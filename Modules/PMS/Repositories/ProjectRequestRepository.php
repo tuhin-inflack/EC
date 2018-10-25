@@ -10,6 +10,8 @@ namespace Modules\PMS\Repositories;
 
 use App\Repositories\AbstractBaseRepository;
 use Modules\PMS\Entities\ProjectRequest;
+use Modules\PMS\Entities\ProjectRequestForward;
+
 
 
 class ProjectRequestRepository extends AbstractBaseRepository
@@ -32,5 +34,21 @@ class ProjectRequestRepository extends AbstractBaseRepository
         return ProjectRequest::where('id', $id)
             ->update(['status' => 2]);
 
+    }
+
+    public function forwardProjectRequestStore($data)
+    {
+        $users = $data['forward_to'];
+        $id = $data['project_request_id'];
+
+        foreach ($users as $user) {
+            if(!empty($user))
+            {
+                ProjectRequestForward::create([
+                    'forward_to' => $user,
+                    'project_request_id'   => $id
+                ]);
+            }
+        }
     }
 }

@@ -61,6 +61,24 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="name" class="form-label">Title</label>
+                                        <div class="input-group">
+
+                                            <input type="text"
+                                                   value="{{ old('title') }}"
+                                                   class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                                   name="title" autofocus required/>
+                                            @if ($errors->has('title'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label for="name" class="form-label">Message</label>
                                         <textarea name="message"
                                                   class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
