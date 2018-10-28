@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <form novalidate action="{{ route('project_request.store')  }}" method="post"
                           enctype="multipart/form-data">
-                        {{ csrf_field() }}
+                        
                         @csrf
                         <div class="form-body">
                             <h4 class="form-section"><i class="la la-briefcase"></i> Project Proposal Request Form</h4>
@@ -53,6 +53,24 @@
                                             @if ($errors->has('end_date'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('end_date') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label">Title</label>
+                                        <div class="input-group">
+
+                                            <input type="text"
+                                                   value="{{ old('title') }}"
+                                                   class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                                   name="title" autofocus required/>
+                                            @if ($errors->has('title'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('title') }}</strong>
                                                 </span>
                                             @endif
                                         </div>

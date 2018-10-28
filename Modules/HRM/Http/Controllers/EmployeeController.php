@@ -68,13 +68,19 @@ class EmployeeController extends Controller {
 	}
 
 	public function storeEducationalInfo( Request $request ) {
+<<<<<<< HEAD
+		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $request->all() );
+=======
 		$education_data = $request->education;
 //		dd($education_data);
 		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $education_data );
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 		Session::flash( 'message', 'Employee Educational information saved successfully!' );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] );
 
+<<<<<<< HEAD
+=======
 	}
 
 	public function storeTrainingInfo( Request $request ) {
@@ -87,7 +93,10 @@ class EmployeeController extends Controller {
 
 	public function storeResearchInfo(Request $request){
 		dd($request->research);
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 	}
+
+
 
 	/**
 	 * Show the specified resource.

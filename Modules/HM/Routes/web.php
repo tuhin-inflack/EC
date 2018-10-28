@@ -40,6 +40,8 @@ Route::prefix('hm')->group(function() {
     Route::prefix('rooms')->group(function () {
         Route::get('/', 'RoomController@index')->name('rooms.index');
         Route::post('/', 'RoomController@store')->name('rooms.store');
+        Route::get('{room}/edit', 'RoomController@edit')->name('rooms.edit');
+        Route::put('{room}', 'RoomController@update')->name('rooms.update');
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
     });
 });

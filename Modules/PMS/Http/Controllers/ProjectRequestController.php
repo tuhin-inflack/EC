@@ -7,9 +7,13 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\ProjectRequest;
+use Modules\PMS\Entities\ProjectRequestForward;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
+use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
+use Modules\PMS\Http\Requests\ProjectRequestForwardRequest;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Storage;
+use App\Entities\User;
 
 class ProjectRequestController extends Controller
 {
@@ -57,7 +61,7 @@ class ProjectRequestController extends Controller
 
 
         $this->projectRequestService->store($data);
-        Session::flash('message', 'Project request stored successfully');
+        Session::flash('success', 'Project request stored successfully');
         return redirect()->route('project_request.index');
     }
 
@@ -65,9 +69,10 @@ class ProjectRequestController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::show');
+
+        return view('pms::project_requests.show',compact('projectRequest'));
     }
 
     /**
@@ -85,8 +90,16 @@ class ProjectRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateProjectRequestRequest $request, ProjectRequest $projectRequest)
     {
+        $filename = $request->file('attachment');
+        $path = Storage::disk('internal')->put('PMS', $filename);
+
+        $data = array_merge($request->all(), ['attachment' => $path]);
+        $this->projectRequestService->update($projectRequest, $data);
+        Session::flash('success', 'Project Request updated successfully');
+
+        return redirect()->route('project_request.index');
     }
 
     /**
@@ -96,8 +109,48 @@ class ProjectRequestController extends Controller
     public function destroy(ProjectRequest $projectRequest)
     {
         $this->projectRequestService->delete($projectRequest);
-        Session::flash('message', 'Proposal deleted successfully');
+        Session::flash('success', 'Proposal deleted successfully');
 
         return redirect()->route('project_request.index');
+    }
+
+    public function approve(ProjectRequest $projectRequest)
+    {
+        $this->projectRequestService->requestApprove($projectRequest);
+        return redirect()->route('project_request.index');
+    }
+
+    public function reject(ProjectRequest $projectRequest)
+    {
+        $this->projectRequestService->requestReject($projectRequest);
+        return redirect()->route('project_request.index');
+    }
+
+    public function forward(ProjectRequest $projectRequest)
+    {
+        $users = User::all();
+
+        return view('pms::project_requests.forward',compact('projectRequest','users'));
+    }
+
+    public function forward_store(ProjectRequestForwardRequest $request)
+    {
+
+        $this->projectRequestService->storeForward($request);
+
+        return redirect()->route('project_request.index')->with('success', 'Proposal forwarded successfully');
+    }
+
+    public function forwardList()
+    {
+
+        /*$forwardedLists = ProjectRequestForward::with('projectRequest')->get();
+
+        return $forwardedLists;*/
+
+        $lists = $this->projectRequestService->getForwardList();
+        /*return $lists[1]['project_request']['title'];*/
+
+        return view('pms::project_requests.forward_list',compact('lists'));
     }
 }
