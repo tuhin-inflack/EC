@@ -13,20 +13,18 @@ use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices {
-	private $EmployeeRepository;
-	private $EmployeePersonalInfoRepository;
-	private $EmployeeEducationRepository;
+	private $employeeRepository;
+	private $employeePersonalInfoRepository;
+	private $employeeEducationRepository;
 
-	public function __construct( EmployeeRepository $employee_r, EmployeePersonalInfoRepository $e_personal_i_r, EmployeeEducationRepository $e_education ) {
-		$this->EmployeeRepository             = $employee_r;
-		$this->EmployeePersonalInfoRepository = $e_personal_i_r;
-
-		$this->EmployeeEducationRepository = $e_education;
+	public function __construct( EmployeeRepository $employeeRepository, EmployeePersonalInfoRepository $employeePersonalInfoRepository, EmployeeEducationRepository $employeeEducationRepository ) {
+		$this->employeeRepository             = $employeeRepository;
+		$this->employeePersonalInfoRepository = $employeePersonalInfoRepository;
+		$this->employeeEducationRepository = $employeeEducationRepository;
 	}
 
 	public function getFormCreationData() {
 		$data = [
-			'departments'      => [ 'HR', 'Accounts', 'Marketing' ],
 			'designations'     => [ 'JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer' ],
 			'genders'          => [ 'male' => 'Male', 'female' => 'Female', 'both' => 'Both' ],
 			'statuses'         => [ 'present', 'on leave' ],
@@ -37,19 +35,17 @@ class EmployeeServices {
 	}
 
 	public function storeGeneralInfo( $data = [] ) {
-		return $this->EmployeeRepository->save( $data );
+		return $this->employeeRepository->save( $data );
 	}
 
 	public function storePersonalInfo( $data = [] ) {
-		return $this->EmployeePersonalInfoRepository->save( $data );
+		return $this->employeePersonalInfoRepository->save( $data );
 	}
 
 	public function storeEducationalInfo( $data = [] ) {
-
-//		dd($data);
 		if ( is_array( $data ) ) {
 			foreach ( $data as $item ) {
-				$education = $this->EmployeeEducationRepository->save( $item );
+				$education = $this->employeeEducationRepository->save( $item );
 			}
 			return $education;
 		}
