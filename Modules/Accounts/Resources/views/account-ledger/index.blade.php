@@ -9,11 +9,6 @@
                     <div class="card-header">Account Ledger</div>
 
                     <div class="card-body">
-                        @if(Session::get('message'))
-                            <h4>
-                                {{Session::get('message')}}
-                            </h4>
-                        @endif
 
                         <div class="float-right">
                             <a href="{{ route('account-ledger.create') }}" class="btn btn-primary">Create Account Ledger</a>
