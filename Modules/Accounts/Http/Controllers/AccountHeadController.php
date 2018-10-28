@@ -8,19 +8,19 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountHeadPostRequest;
-use Modules\Accounts\Services\AccountHeadServices;
+use Modules\Accounts\Services\AccountHeadService;
 
 class AccountHeadController extends Controller
 {
-    private $accountHeadServices;
+    private $accountHeadService;
 
     /**
      * AccountHeadController constructor.
-     * @param AccountHeadServices $accountHeadServices
+     * @param AccountHeadService $accountHeadServices
      */
-    public function __construct(AccountHeadServices $accountHeadServices)
+    public function __construct(AccountHeadService $accountHeadService)
     {
-        $this->accountHeadServices = $accountHeadServices;
+        $this->accountHeadService = $accountHeadService;
     }
 
     /**
@@ -29,7 +29,7 @@ class AccountHeadController extends Controller
      */
     public function index()
     {
-        $accountHeads = $this->accountHeadServices->getAll();
+        $accountHeads = $this->accountHeadService->getAll();
 
         return view('accounts::account-head.index', compact('accountHeads'));
     }
@@ -40,7 +40,11 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
+<<<<<<< HEAD
         $accountsHeads = $this->accountHeadServices->getHeads();
+=======
+        $accountsHeads = $this->accountHeadService->getHeads();
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 
         return view('accounts::account-head.create', compact('accountsHeads'));
     }
@@ -52,10 +56,14 @@ class AccountHeadController extends Controller
      */
     public function store(CreateAccountHeadPostRequest $request)
     {
+<<<<<<< HEAD
         $this->accountHeadServices->store($request->all());
         Session::flash('message', 'Account Head stored successfully!');
+=======
+        $this->accountHeadService->store($request->all());
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 
-        return redirect()->route('account-head.index');
+        return redirect()->route('account-head.index')->with('success', 'Account Head stored successfully!');
     }
 
     /**
@@ -73,8 +81,13 @@ class AccountHeadController extends Controller
      */
     public function edit($id)
     {
+<<<<<<< HEAD
         $head = $this->accountHeadServices->getHead($id);
         $accountsHeads = $this->accountHeadServices->getHeads();
+=======
+        $head = $this->accountHeadService->getHead($id);
+        $accountsHeads = $this->accountHeadService->getHeads();
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 
         return view('accounts::account-head.edit', compact('head', 'accountsHeads'));
     }
@@ -86,10 +99,9 @@ class AccountHeadController extends Controller
      */
     public function update(UpdateAccountHeadPostRequest $request, $id)
     {
-        $this->accountHeadServices->update($id, $request->all());
-        Session::flash('message', 'Account Head updated successfully!');
+        $this->accountHeadService->update($id, $request->all());
 
-        return redirect()->route('account-head.index');
+        return redirect()->route('account-head.index')->with('success', 'Account Head updated successfully!');
     }
 
     /**
@@ -99,9 +111,8 @@ class AccountHeadController extends Controller
      */
     public function destroy($id)
     {
-        $this->accountHeadServices->delete($id);
-        Session::flash('message', 'Account Head deleted successfully!');
+        $this->accountHeadService->delete($id);
 
-        return redirect()->route('account-head.index');
+        return redirect()->route('account-head.index')->with('warning', 'Account Head deleted successfully!');
     }
 }

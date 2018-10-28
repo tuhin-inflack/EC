@@ -1,4 +1,5 @@
 @extends('pms::layouts.master')
+@section('title', 'All Project Proposal Request ')
 
 @section('content')
     <section id="role-list">
@@ -19,11 +20,6 @@
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
 
-                            @if(Session::get('message'))
-                                <h4>
-                                    {{Session::get('message')}}
-                                </h4>
-                            @endif
                             <div class="table-responsive">
 
                                 <table class="table table-striped table-bordered alt-pagination">
@@ -31,6 +27,7 @@
                                     <tr>
                                         <th scope="col">SL</th>
                                         <th scope="col">Send to</th>
+                                        <th scope="col">Title</th>
                                         <th scope="col">Message</th>
                                         <th scope="col">Last date</th>
                                         <th scope="col">Attachment</th>
@@ -43,11 +40,14 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $projectRequest->send_to }}</td>
+                                            <td>{{ $projectRequest->title }}</td>
                                             <td>{{ $projectRequest->message }}</td>
                                             <td>{{ $projectRequest->end_date }}</td>
 
                                             <td>
-                                                {{ $projectRequest->attachment }}
+                                                {{  $exists = Storage::disk('internal')->exists($projectRequest->attachment) }}
+
+                                                <a href="" onclick="attachmentDev()">Attachment </a>
 
                                             </td>
                                             <td>
@@ -64,7 +64,8 @@
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{ route('project_request.show',$projectRequest->id) }}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+
                                                 <a href="{{ route('project_request.edit', $projectRequest->id)  }}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
@@ -95,3 +96,10 @@
         </div>
     </section>
 @endsection
+@push('page-js')
+    <script>
+        function attachmentDev() {
+            alert("Download process is in under development");
+        }
+    </script>
+@endpush
