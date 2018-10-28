@@ -44,5 +44,9 @@ Route::prefix('hm')->group(function() {
         Route::put('{room}', 'RoomController@update')->name('rooms.update');
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
     });
+
+    Route::prefix('room-inventories')->group(function () {
+        Route::delete('{roomInventory}', 'RoomInventoryController@destroy')->name('room-inventories.destroy');
+    });
 });
 
