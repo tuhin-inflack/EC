@@ -7,10 +7,17 @@
                         <i class="la la-home"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
+<<<<<<< HEAD
+                <li class="{{ is_active_route('account-head.create') }}">
+                    <a href="{{ route('account-head.create') }}">
+                        <i class="la la-plus-circle"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Create Account Head</span></a>
+=======
                 <li class="{{ is_active_route('accounts.chart-of-account') }}">
                     <a href="{{ route('accounts.chart-of-account') }}">
                         <i class="la la-bars"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">Char of Account</span></a>
+>>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
                 </li>
                 <li class=" nav-item">
                     <a href="#">

@@ -72,20 +72,23 @@ class RoomController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param Room $room
      * @return Response
      */
-    public function edit()
+    public function edit(Room $room)
     {
-        return view('hm::edit');
+        return view('hm::room.edit', compact('room'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @param Room $room
+     * @return void
      */
-    public function update(Request $request)
+    public function update(Request $request, Room $room)
     {
+        return $request->all();
     }
 
     /**

@@ -15,9 +15,9 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <form novalidate action="{{ route('project_request.store')  }}" method="post"
+                    <form novalidate action="{{ route('project_request.update',$projectRequest->id)  }}" method="post"
                           enctype="multipart/form-data">
-                        {{ csrf_field() }}
+                        @method('PUT')
                         @csrf
                         <div class="form-body">
                             <h4 class="form-section"><i class="la la-briefcase"></i> Project Proposal Request Update Form</h4>
@@ -61,6 +61,21 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label for="name" class="form-label">Send To</label>
+                                        <input type="text"
+                                               value="{{ old('title') ?: $projectRequest->title }}"
+                                               class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                               name="title" autofocus required/>
+                                        @if ($errors->has('title'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label for="name" class="form-label">Message</label>
                                         <textarea name="message"
                                                   class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
@@ -75,9 +90,9 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="name" class="form-label">Attachment</label>
+                                        <label for="attachment" class="form-label">Attachment</label>
                                         <input type="file" value=""
                                                class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}"
                                                name="attachment" autofocus required/>
@@ -89,12 +104,19 @@
                                     </div>
 
                                 </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label></label>
+                                    </div>
+
+                                </div>
                                 <input type="hidden" name="status" value="0">
                             </div>
 
                             <div class="form-actions">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="la la-check-square-o"></i> Save
+                                    <i class="la la-check-square-o"></i> Update
                                 </button>
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('project_request.index')}}">
                                     <i class="ft-x"></i> Cancel
