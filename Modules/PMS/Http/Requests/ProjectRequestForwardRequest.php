@@ -4,7 +4,7 @@ namespace Modules\PMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateProjectRequestRequest extends FormRequest
+class ProjectRequestForwardRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,11 +14,7 @@ class CreateProjectRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'send_to' => 'required|email',
-            'end_date' => 'required',
-            'title' => 'required|max:100',
-            'message' => 'required|max:200',
-            'attachment' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
+            'forward_to' => 'required',
         ];
     }
 

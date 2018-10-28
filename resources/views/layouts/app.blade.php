@@ -56,6 +56,7 @@
         <div class="content-header row">
         </div>
         <div class="content-body">
+            @include('layouts.partials.alert_message')
             @yield('content')
         </div>
     </div>
