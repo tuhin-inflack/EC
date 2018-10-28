@@ -133,7 +133,7 @@
                                         @else
                                             @foreach($room->inventories as $inventory)
                                                 <div data-repeater-item>
-                                                    <input type="hidden" id="room-invetory-id" name="id" value="{{ $inventory->id }}"/>
+                                                    <input type="hidden" id="room-inventory-id" name="id" value="{{ $inventory->id }}"/>
                                                     <input type="hidden" name="room_id" value="{{ $room->id }}"/>
                                                     <div class="row col-md-6 offset-md-3">
                                                         <div class="form-group mb-1 col-sm-12 col-md-5">
@@ -170,7 +170,7 @@
                                 <div class="form-group row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button class="btn btn-primary" type="submit">Save</button>
-                                        <a href="{{ route('hostels.index') }}"
+                                        <a href="{{ route('rooms.index') }}"
                                            class="btn btn-warning">Cancel</a>
                                     </div>
                                 </div>
@@ -203,6 +203,19 @@
 
                     $(this).slideDown();
                 },
+                hide: function (deleteElement) {
+                    let roomInventoryId = $(this).find('#room-inventory-id').val();
+
+                    if (roomInventoryId) {
+                        if (confirm('Are you sure you want to delete this element?')) {
+                            $('#room-inventory-delete').attr('action', `/hm/room-inventories/${roomInventoryId}`);
+                            $('#room-inventory-delete').submit();
+                            $(this).slideUp(deleteElement);
+                        }
+                    } else {
+                        $(this).slideUp(deleteElement);
+                    }
+                }
             });
         });
     </script>
