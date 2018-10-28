@@ -1,14 +1,8 @@
 @extends('hrm::layouts.master')
 @section('title', 'Add new employee ')
-@section("employee_create", 'active')
-
 
 @section("content")
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
     @php
         $tab_action = isset($employee_id) ? '' : 'disabled';
         $employee_id = isset($employee_id) ? $employee_id : '';
