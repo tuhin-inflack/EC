@@ -54,33 +54,27 @@ class EmployeeController extends Controller {
 
 	public function storeGeneralInfo( Request $request ) {
 		$employee_general_info = $this->EmployeeServices->storeGeneralInfo( $request->all() );
-		Session::flash( 'message', 'Employee general information saved successfully!' );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] )
+            ->with('success', 'Employee general information saved successfully!');
 	}
 
 	public function storePersonalInfo( Request $request ) {
 		$employee_personal_info = $this->EmployeeServices->storePersonalInfo( $request->all() );
-		Session::flash( 'message', 'Employee personal information saved successfully!' );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_personal_info['employee_id'] ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $employee_personal_info['employee_id'] ] )
+            ->with('success', 'Employee personal information saved successfully!');
 
 	}
 
-	public function storeEducationalInfo( Request $request ) {
-<<<<<<< HEAD
-		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $request->all() );
-=======
+	public function storeEducationalInfo( Request $request )
+    {
 		$education_data = $request->education;
 //		dd($education_data);
 		$employee_education_info = $this->EmployeeServices->storeEducationalInfo( $education_data );
->>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
-		Session::flash( 'message', 'Employee Educational information saved successfully!' );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] );
-
-<<<<<<< HEAD
-=======
+		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
+            ->with('success', 'Employee Educational information saved successfully!');
 	}
 
 	public function storeTrainingInfo( Request $request ) {
@@ -93,7 +87,6 @@ class EmployeeController extends Controller {
 
 	public function storeResearchInfo(Request $request){
 		dd($request->research);
->>>>>>> 1637a374d4cd8b7cc7f8f82d272599c10a60054e
 	}
 
 
