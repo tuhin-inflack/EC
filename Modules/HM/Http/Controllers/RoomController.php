@@ -88,7 +88,10 @@ class RoomController extends Controller
      */
     public function update(Request $request, Room $room)
     {
-        return $request->all();
+        $this->roomService->update($room, $request->all());
+        Session::flash('message', 'Successfully updated room information');
+
+        return redirect()->route('rooms.index');
     }
 
     /**

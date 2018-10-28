@@ -45,6 +45,18 @@ class RoomService
         return $room->inventories()->saveMany($roomInventories);
     }
 
+    public function update(Room $room, array $data)
+    {
+        $roomInventoryCollection = collect($data['inventories']);
+        $roomInventoryCollection->map(function ($roomInventory) use ($room) {
+            $room->inventories()
+                ->updateOrCreate(['id' => $roomInventory['id']],
+                    array_merge($roomInventory, ['room_id' => $room->id]));
+        });
+
+        return $this->roomRepository->update($room, $data);
+    }
+
     public function delete(Room $room)
     {
         $room->inventories()->delete();
