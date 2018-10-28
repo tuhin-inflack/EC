@@ -14,7 +14,7 @@
                             <a href="{{ route('account-head.create') }}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> Create Account Head</a>
                             <a href="{{ route('account-ledger.create') }}" class="btn btn-warning btn-sm"> <i
-                                        class="ft-download white"></i> Create Account Ledger</a>
+                                        class="ft-plus white"></i> Create Account Ledger</a>
                         </div>
                     </div>
 

@@ -9,7 +9,7 @@
                 </li>
                 <li class="{{ is_active_route('accounts.chart-of-account') }}">
                     <a href="{{ route('accounts.chart-of-account') }}">
-                        <i class="la la-plus-circle"></i>
+                        <i class="la la-bars"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">Char of Account</span></a>
                 </li>
                 <li class=" nav-item">
