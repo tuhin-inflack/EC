@@ -39,7 +39,7 @@
 <body class="vertical-layout 2-columns fixed-navbar"
       data-open="click" data-col="2-columns">
 <!-- fixed-top-->
-@include('layouts.partials.public_fixed_top')
+
 <!-- ////////////////////////////////////////////////////////////////////////////-->
 <div class="app-content content">
     <div class="content-wrapper">
