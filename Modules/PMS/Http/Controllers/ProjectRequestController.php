@@ -21,7 +21,7 @@ class ProjectRequestController extends Controller
 
     /**
      * ProjectRequestController constructor.
-     * @param ProjectRequestService $hostelService
+     * @param ProjectRequestService $projectRequestService
      */
     public function __construct(ProjectRequestService $projectRequestService)
     {
@@ -143,12 +143,7 @@ class ProjectRequestController extends Controller
 
     public function forwardList()
     {
-
-        /*$forwardedLists = ProjectRequestForward::with('projectRequest')->get();
-
-        return $forwardedLists;*/
-
-        $lists = $this->projectRequestService->getForwardList();
+        return $this->projectRequestService->getForwardList();
         /*return $lists[1]['project_request']['title'];*/
 
         return view('pms::project_requests.forward_list',compact('lists'));

@@ -38,7 +38,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $list['project_request']['title'] }}</td>
-                                            <td>{{ $list['forward_to']}}</td>
+                                            <td>{{ $list['user']['email']}}</td>
                                             <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
