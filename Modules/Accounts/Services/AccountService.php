@@ -26,4 +26,18 @@ class AccountService
         $this->accountLedgerRepository = $accountLedgerRepository;
     }
 
+    public function getAllAccountList($mark = NULL){
+//        $group = array();
+//        $list = '';
+//
+//        $main_groups = self::getMainParentGroups();
+
+        return '<tr>
+                <td></td>       
+                <td></td>       
+                <td></td>       
+                <td></td>       
+            </tr>';
+    }
+
 }
