@@ -240,14 +240,14 @@ abstract class AbstractBaseRepository implements RepositoryInterface
 
     /**
      * @param $relation
-     * @param array|null $orderBy
+     * @param array|null $orderBy [[Column], [Direction]]
      * @return \Illuminate\Database\Eloquent\Builder|Model
      */
     private function prepareModelForRelationAndOrder($relation, array $orderBy = null)
     {
         $model = $this->model;
         if ($relation) {
-            $model =  $model->with($relation);
+            $model = $model->with($relation);
         }
         if ($orderBy) {
             $model = $model->orderBy($orderBy['column'], $orderBy['direction']);
