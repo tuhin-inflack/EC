@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRequestForwardTable extends Migration
+class CreateEmployeeDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateProjectRequestForwardTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_request_forward', function (Blueprint $table) {
+        Schema::create('employee_departments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_request_id')->unsigned();
-            $table->integer('forward_to')->unsigned();
+            $table->string('name');
+            $table->string('department_code');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
-
-
 
     /**
      * Reverse the migrations.
@@ -30,6 +29,6 @@ class CreateProjectRequestForwardTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_request_forward');
+        Schema::dropIfExists('employee_departments');
     }
 }

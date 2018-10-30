@@ -52,8 +52,4 @@ class ProjectRequestRepository extends AbstractBaseRepository
         }
     }
 
-    public function getAllForwardList()
-    {
-        return ProjectRequestForward::with('projectRequest')->get()->toArray();
-    }
 }

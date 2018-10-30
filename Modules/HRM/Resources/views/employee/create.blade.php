@@ -1,6 +1,6 @@
 @extends('hrm::layouts.master')
 @section('title', 'Add new employee ')
-@section("employee_create", 'active')
+{{--@section("employee_create", 'active')--}}
 
 
 @section("content")
@@ -78,8 +78,6 @@
 
                     </ul>
                     <div class="tab-content px-1 pt-1">
-
-
                         <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
                             {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
