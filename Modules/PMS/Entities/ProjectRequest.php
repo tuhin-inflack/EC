@@ -12,6 +12,4 @@ class ProjectRequest extends Model
     {
         return $this->hasMany('Modules\PMS\Entities\ProjectRequestForward');
     }
-
-
 }
