@@ -1,5 +1,5 @@
 @extends('accounts::layouts.master')
-@section('title', 'Edit Account Head')
+@section('title', 'Create Account Head')
 
 @section('content')
     <div class="container">

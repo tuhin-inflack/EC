@@ -5,7 +5,6 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountHeadPostRequest;
 use Modules\Accounts\Services\AccountHeadService;
@@ -52,18 +51,9 @@ class AccountHeadController extends Controller
      */
     public function store(CreateAccountHeadPostRequest $request)
     {
-        $this->accountHeadService->store($request->all());
+        $response = $this->accountHeadService->store($request->all());
 
-        return redirect()->route('account-head.index')->with('success', 'Account Head stored successfully!');
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('accounts::show');
+        return redirect()->route('account-head.index')->with('message', $response->getContent());
     }
 
     /**
@@ -85,9 +75,9 @@ class AccountHeadController extends Controller
      */
     public function update(UpdateAccountHeadPostRequest $request, $id)
     {
-        $this->accountHeadService->update($id, $request->all());
+        $response = $this->accountHeadService->update($id, $request->all());
 
-        return redirect()->route('account-head.index')->with('success', 'Account Head updated successfully!');
+        return redirect()->route('account-head.index')->with('message', $response->getContent());
     }
 
     /**
@@ -97,8 +87,8 @@ class AccountHeadController extends Controller
      */
     public function destroy($id)
     {
-        $this->accountHeadService->delete($id);
+        $response = $this->accountHeadService->delete($id);
 
-        return redirect()->route('account-head.index')->with('warning', 'Account Head deleted successfully!');
+        return redirect()->route('account-head.index')->with('message', $response->getContent());
     }
 }
