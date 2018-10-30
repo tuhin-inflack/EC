@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Entities\ProjectRequestForward;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
@@ -34,8 +35,7 @@ class ProjectRequestController extends Controller
     public function index()
     {
         $projectRequests = $this->projectRequestService->getAll();
-
-        return view('pms::project_requests.index', compact('projectRequests'));
+        return view('pms::project-request.index', compact('projectRequests'));
     }
 
     /**
@@ -44,25 +44,21 @@ class ProjectRequestController extends Controller
      */
     public function create()
     {
-        return view('pms::project_requests.create');
+        return view('pms::project-request.create');
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param  ProjectRequest $request
      * @return Response
      */
     public function store(CreateProjectRequestRequest $request)
     {
         $filename = $request->file('attachment');
         $path = Storage::disk('internal')->put('PMS', $filename);
-
         $data = array_merge($request->all(), ['attachment' => $path]);
-
-
-        $this->projectRequestService->store($data);
-        Session::flash('success', 'Project request stored successfully');
-        return redirect()->route('project_request.index');
+        $response = $this->projectRequestService->store($data);
+        return redirect()->route('project-request.index')->with('message', $response->getContent());
     }
 
     /**
@@ -71,8 +67,7 @@ class ProjectRequestController extends Controller
      */
     public function show(ProjectRequest $projectRequest)
     {
-
-        return view('pms::project_requests.show',compact('projectRequest'));
+        return view('pms::project-request.show',compact('projectRequest'));
     }
 
     /**
@@ -87,7 +82,7 @@ class ProjectRequestController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param  ProjectRequest $request
      * @return Response
      */
     public function update(UpdateProjectRequestRequest $request, ProjectRequest $projectRequest)
@@ -111,11 +106,12 @@ class ProjectRequestController extends Controller
         $this->projectRequestService->delete($projectRequest);
         Session::flash('success', 'Proposal deleted successfully');
 
-        return redirect()->route('project_request.index');
+        return redirect()->route('project-request.index');
     }
 
-    public function approve(ProjectRequest $projectRequest)
+    public function statusUpdate(ProjectRequest $projectRequest)
     {
+        return $projectRequest;
         $this->projectRequestService->requestApprove($projectRequest);
         return redirect()->route('project_request.index');
     }
