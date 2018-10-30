@@ -12,7 +12,6 @@ namespace App\Services;
 use App\Repositories\PermissionRepository;
 use App\Repositories\RoleRepository;
 use App\Traits\CrudTrait;
-use App\Traits\Model;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
@@ -62,7 +61,7 @@ class RoleService
 
     public function destroy($id)
     {
-        $role = $this->roleService->findOrFail($id);
+        $role = $this->findOrFail($id);
         DB::transaction(function () use ($role) {
             $role->permissions()->detach();
             $role->users()->detach();
