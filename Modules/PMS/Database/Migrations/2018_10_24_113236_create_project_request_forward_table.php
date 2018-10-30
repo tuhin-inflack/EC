@@ -16,12 +16,8 @@ class CreateProjectRequestForwardTable extends Migration
         Schema::create('project_request_forward', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_request_id')->unsigned();
-            $table->string('forward_to');
+            $table->integer('forward_to')->unsigned();
             $table->timestamps();
-        });
-
-        Schema::table('project_request_forward', function($table) {
-            $table->foreign('project_request_id')->references('id')->on('project_requests');
         });
     }
 
