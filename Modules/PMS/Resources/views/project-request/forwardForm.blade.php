@@ -35,7 +35,7 @@
                                     <select class="select2 form-control{{ $errors->has('forward_to') ? ' is-invalid' : '' }}" multiple="multiple" name="forward_to[]" id="id_h5_multi" style="width: 685px;">
 
                                         @foreach($users as $user)
-                                            <option value="{{ $user->email  }}">{{ $user->email  }}</option>
+                                            <option value="{{ $user->id  }}">{{ $user->email  }}</option>
                                         @endforeach
 
                                     </select>

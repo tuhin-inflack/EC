@@ -22,7 +22,7 @@ class ProjectRequestRepository extends AbstractBaseRepository
     {
         $status  = $projectRequest->status;
         $id = $projectRequest->id;
-        return ProjectRequest::where('id', $id)
+        return $this->modelName->where('id', $id)
             ->update(['status' => 1]);
 
     }
@@ -52,8 +52,4 @@ class ProjectRequestRepository extends AbstractBaseRepository
         }
     }
 
-    public function getAllForwardList()
-    {
-        return ProjectRequestForward::with('projectRequest')->get()->toArray();
-    }
 }
