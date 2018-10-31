@@ -9,6 +9,7 @@
 namespace Modules\Accounts\Services;
 
 
+use Illuminate\Http\Response;
 use Modules\Accounts\Repositories\AccountHeadRepository;
 
 class AccountHeadService
@@ -42,17 +43,22 @@ class AccountHeadService
 
     public function store(array $data)
     {
-        return $this->accountHeadRepository->save($data);
+        $this->accountHeadRepository->save($data);
+
+        return new Response('Account Head stored successfully!', Response::HTTP_OK);
     }
 
     public function update($id, array $data)
     {
-        return $this->accountHeadRepository->updateHead($id, $data);
+        $this->accountHeadRepository->updateHead($id, $data);
+
+        return new Response('Account Head updated successfully!', Response::HTTP_OK);
     }
 
     public function delete($id)
     {
-        return $this->accountHeadRepository->deleteHead($id);
+        $this->accountHeadRepository->deleteHead($id);
+        return new Response('Account Head deleted successfully!', Response::HTTP_OK);
     }
 
 }

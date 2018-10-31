@@ -27,11 +27,15 @@ class AccountService
     }
 
     public function getAllAccountList($mark = NULL){
-//        $group = array();
-//        $list = '';
-//
-//        $main_groups = self::getMainParentGroups();
+        $heads = array();
+        $list = '';
 
+        $main_heads = $this->accountHeadRepository->getMainParentHeads();
+        echo "<pre>";
+        print_r($main_heads);
+        echo "<pre>";
+
+        die();
         return '<tr>
                 <td></td>       
                 <td></td>       

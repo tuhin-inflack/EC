@@ -15,10 +15,7 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <form novalidate action="{{ route('project_request.store')  }}" method="post"
-                          enctype="multipart/form-data">
-                        
-                        @csrf
+                    {!! Form::open(['route' => 'project-request.store','enctype' => 'multipart/form-data','method' => 'POST']) !!}
                         <div class="form-body">
                             <h4 class="form-section"><i class="la la-briefcase"></i> Project Proposal Request Form</h4>
                             <div class="row">
@@ -114,12 +111,12 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="la la-check-square-o"></i> Save
                                 </button>
-                                <a class="btn btn-warning mr-1" role="button" href="{{route('project_request.index')}}">
+                                <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
                                     <i class="ft-x"></i> Cancel
                                 </a>
                             </div>
                         </div>
-                    </form>
+                    {!! Form::close() !!}
                 </div>
 
             </div>
