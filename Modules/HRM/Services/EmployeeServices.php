@@ -25,6 +25,7 @@ class EmployeeServices {
 
 	public function getFormCreationData() {
 		$data = [
+			'departments' => ['one', 'two'],
 			'designations'     => [ 'JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer' ],
 			'genders'          => [ 'male' => 'Male', 'female' => 'Female', 'both' => 'Both' ],
 			'statuses'         => [ 'present', 'on leave' ],

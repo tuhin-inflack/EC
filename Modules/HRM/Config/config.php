@@ -1,5 +1,11 @@
 <?php
 
 return [
-    'name' => 'HRM'
+	'name' => 'HRM'
+];
+
+return [
+	'test' => [
+		'best',
+	],
 ];

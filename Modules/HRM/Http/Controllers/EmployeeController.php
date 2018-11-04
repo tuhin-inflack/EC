@@ -8,16 +8,19 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeDepartmentService;
+use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeServices;
 
 class EmployeeController extends Controller {
 
 	private $employeeService;
 	private $employeeDepartmentService;
+	private $employeeDesignationService;
 
-	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService ) {
-		$this->employeeService    = $employeeServices;
-		$this->employeeDepartmentService = $employeeDepartmentService;
+	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
+		$this->employeeService            = $employeeServices;
+		$this->employeeDepartmentService  = $employeeDepartmentService;
+		$this->employeeDesignationService = $employeeDesignationService;
 	}
 
 
@@ -36,14 +39,15 @@ class EmployeeController extends Controller {
 	 */
 	public function create( Request $request ) {
 
-		$data = $this->employeeService->getFormCreationData();
+		$data        = $this->employeeService->getFormCreationData();
 		$departments = $this->employeeDepartmentService->getEmployeeDepartments();
+		$designations = $this->employeeDesignationService->getEmployeeDesignations();
 
 		if ( ! empty( $request->employee ) ) {
 			$employee_id = $request->employee;
 		}
 
-		return view( 'hrm::employee.create', compact('departments', 'employee_id') );
+		return view( 'hrm::employee.create', compact( 'departments', 'employee_id', 'data' ) );
 	}
 
 	/**
