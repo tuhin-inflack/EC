@@ -9,8 +9,9 @@
 namespace Modules\HRM\Repositories;
 
 
+use App\Repositories\AbstractBaseRepository;
 use Modules\HRM\Entities\EmployeeDesignation;
 
-class EmployeeDesignationRepository {
-protected $tableName = EmployeeDesignation::class;
+class EmployeeDesignationRepository  extends AbstractBaseRepository{
+	protected $modelName = EmployeeDesignation::class;
 }

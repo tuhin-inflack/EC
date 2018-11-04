@@ -15,7 +15,7 @@ class EmployeeDepartmentsTableSeeder extends Seeder {
 	 */
 	public function run() {
 		Model::unguard();
-		$data = [
+		$dummyDepartments = [
 			[
 				'name'            => 'Accounts',
 				'department_code' => 'AC',
@@ -38,8 +38,8 @@ class EmployeeDepartmentsTableSeeder extends Seeder {
 			],
 
 		];
-		foreach ($data as $item){
-			EmployeeDepartment::create( $item );
+		foreach ($dummyDepartments as $department){
+			EmployeeDepartment::create( $department );
 		}
 	}
 }
