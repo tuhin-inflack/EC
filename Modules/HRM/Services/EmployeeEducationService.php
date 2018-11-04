@@ -18,12 +18,12 @@ class EmployeeEducationService {
 		$this->employeeEducationRepository = $employeeEducationRepository;
 	}
 
-	public function storeEducationalInfo( $data = [] ) {
-		if ( is_array( $data ) ) {
-			foreach ( $data as $item ) {
-				$education = $this->employeeEducationRepository->save( $item );
-			}
-			return $education;
+	public function storeEducationalInfo( $data = null ) {
+
+		foreach ( $data as $item ) {
+			$education = $this->employeeEducationRepository->save( $item );
 		}
+
+		return $education;
 	}
 }
