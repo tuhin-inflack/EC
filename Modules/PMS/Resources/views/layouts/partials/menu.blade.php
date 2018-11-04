@@ -10,21 +10,21 @@
                                                                                   data-i18n="nav.navbars.main">Project Proposal</span></a>
                     <ul class="menu-content">
 
-                        <li class="{{ is_active_route('project_request.create') }}">
-                            <a href="{{ route('project_request.create') }}">
+                        <li class="{{ is_active_route('project-request.create') }}">
+                            <a href="{{ route('project-request.create') }}">
                                 <i class="la la-plus-circle"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">Create Project Proposal</span>
                             </a>
                         </li>
-                        <li class="{{ is_active_route('project_request.index') }}">
-                            <a href="{{ route('project_request.index') }}">
+                        <li class="{{ is_active_route('project-request.index') }}">
+                            <a href="{{ route('project-request.index') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">List of Project Proposal Request</span>
                             </a>
                         </li>
 
-                        <li class="{{ is_active_route('project_request.forwardList') }}">
-                            <a href="{{ route('project_request.forwardList') }}">
+                        <li class="{{ is_active_route('project-request-forwards.index') }}">
+                            <a href="{{ route('project-request-forwards.index') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">Proposal Forwarded List</span>
                             </a>

@@ -8,7 +8,9 @@
 
 namespace Modules\PMS\Services;
 
+use Illuminate\Http\Response;
 use Modules\PMS\Entities\ProjectRequest;
+
 use Modules\PMS\Repositories\ProjectRequestRepository;
 
 
@@ -33,9 +35,9 @@ class ProjectRequestService
 
     public function store(array $data)
     {
-        $projectRequest = $this->projectRequestRepository->save($data);
+        $this->projectRequestRepository->save($data);
 
-        return $projectRequest;
+        return new Response('Project Proposal Request stored successfully!',Response::HTTP_OK);
     }
 
     public function update(ProjectRequest $projectRequest, array $data)
@@ -47,6 +49,8 @@ class ProjectRequestService
 
     public function delete(ProjectRequest $projectRequest)
     {
+        $projectRequest->requestForwards()->delete();
+
         return $this->projectRequestRepository->delete($projectRequest);
     }
 
@@ -67,6 +71,6 @@ class ProjectRequestService
 
     public function getForwardList()
     {
-        return $this->projectRequestRepository->getAllForwardList();
+        return $this->projectRequestRepository->findAll(null, ['requestForwards']);
     }
 }

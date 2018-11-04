@@ -26,4 +26,22 @@ class AccountService
         $this->accountLedgerRepository = $accountLedgerRepository;
     }
 
+    public function getAllAccountList($mark = NULL){
+        $heads = array();
+        $list = '';
+
+        $main_heads = $this->accountHeadRepository->getMainParentHeads();
+        echo "<pre>";
+        print_r($main_heads);
+        echo "<pre>";
+
+        die();
+        return '<tr>
+                <td></td>       
+                <td></td>       
+                <td></td>       
+                <td></td>       
+            </tr>';
+    }
+
 }

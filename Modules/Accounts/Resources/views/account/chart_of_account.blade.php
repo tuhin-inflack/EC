@@ -23,16 +23,14 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th scope="col">SL</th>
-                                {{--<th scope="col">Parent</th>--}}
-                                <th scope="col">Name</th>
-                                <th scope="col">Code</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">Accounts</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Opening Balance</th>
                                 <th scope="col">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-
+                                {!! $chart_of_account !!}
                             </tbody>
                         </table>
                         <div class="float-right">
