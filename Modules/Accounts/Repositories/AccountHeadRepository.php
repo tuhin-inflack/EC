@@ -17,19 +17,8 @@ class AccountHeadRepository extends AbstractBaseRepository
 {
     protected $modelName = AccountHead::class;
 
-
     /**
      * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
-     */
-    public function findSelected($selected = null)
-    {
-        return $this->model->select($selected)->get();
-    }
-
-    /**
-     * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
      */
     public function getHeadsForOptions()
     {
@@ -38,12 +27,17 @@ class AccountHeadRepository extends AbstractBaseRepository
 
     public function getMainParentHeads()
     {
-        return $this->findBy(['parent_id' => AccountConstant::PARENT])->toArray();
+        return $this->findBy(['parent_id' => AccountConstant::PARENT]);
+    }
+
+    public function getChildHead($head)
+    {
+        return $this->findBy(['parent_id' => $head]);
     }
 
     /**
-     * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     * @param int $id
+     * @param array $data
      */
     public function updateHead($id, array $data)
     {
@@ -52,8 +46,7 @@ class AccountHeadRepository extends AbstractBaseRepository
 
 
     /**
-     * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     * @param int $id
      */
     public function deleteHead($id)
     {
