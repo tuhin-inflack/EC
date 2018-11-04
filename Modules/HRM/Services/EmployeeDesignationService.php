@@ -22,7 +22,7 @@ class EmployeeDesignationService {
 	}
 
 	public function getEmployeeDesignations() {
-		return $this->employeeDesignationRepository->findAll()->pluck('name', 'id');
+		return $this->employeeDesignationRepository->findAll()->pluck( 'name', 'id' )->toArray();
 	}
 
 }
