@@ -17,7 +17,11 @@ class EmployeeController extends Controller {
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
 
-	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
+	public function __construct(
+		EmployeeServices $employeeServices,
+		EmployeeDepartmentService $employeeDepartmentService,
+		EmployeeDesignationService $employeeDesignationService
+	) {
 		$this->employeeService            = $employeeServices;
 		$this->employeeDepartmentService  = $employeeDepartmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
@@ -38,16 +42,14 @@ class EmployeeController extends Controller {
 	 * @return Response
 	 */
 	public function create( Request $request ) {
-
 		$data        = $this->employeeService->getFormCreationData();
-		$departments = $this->employeeDepartmentService->getEmployeeDepartments();
-		$designations = $this->employeeDesignationService->getEmployeeDesignations();
-
+		$employee_Departments = $this->employeeDepartmentService->getEmployeeDepartments();
+		$employee_Designations = $this->employeeDesignationService->getEmployeeDesignations();
 		if ( ! empty( $request->employee ) ) {
 			$employee_id = $request->employee;
 		}
 
-		return view( 'hrm::employee.create', compact( 'departments', 'employee_id', 'data' ) );
+		return view( 'hrm::employee.create', compact( 'employee_Departments','employee_Designations', 'employee_id', 'data' ) );
 	}
 
 	/**

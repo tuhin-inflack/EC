@@ -17,13 +17,13 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('department', 'Department') }}
-            {{ Form::select('department_id',  $departments, null, ['class' => 'form-control']) }}
+            {{ Form::select('department_id',  $employee_Departments, null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('designation_code', 'Designation') }}
-            {{ Form::select('designation_code', [],  null, ['class' => 'form-control']) }}
+            {{ Form::select('designation_code', $employee_Designations,  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
