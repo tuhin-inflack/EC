@@ -29,9 +29,6 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('gender', 'Gender') }}
-            <?php
-
-            ?>
             {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control']) }}
         </div>
     </div>
