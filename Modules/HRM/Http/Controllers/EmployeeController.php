@@ -6,12 +6,14 @@ namespace Modules\HRM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeEducationService;
 use Modules\HRM\Services\EmployeePersonalInfoService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\HRM\Services\EmployeeTrainingService;
 
 class EmployeeController extends Controller {
 
@@ -20,17 +22,19 @@ class EmployeeController extends Controller {
 	private $employeeDesignationService;
 	private $employeePersonalInfoService;
 	private $employeeEducationService;
+	private $employeeTrainingService;
 
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
 		EmployeeDesignationService $employeeDesignationService, EmployeePersonalInfoService $employeePersonalInfoService,
-		EmployeeEducationService $employeeEducationService
+		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService
 	) {
 		$this->employeeService             = $employeeServices;
 		$this->employeeDepartmentService   = $employeeDepartmentService;
 		$this->employeeDesignationService  = $employeeDesignationService;
 		$this->employeePersonalInfoService = $employeePersonalInfoService;
 		$this->employeeEducationService    = $employeeEducationService;
+		$this->employeeTrainingService     = $employeeTrainingService;
 	}
 
 
@@ -67,15 +71,18 @@ class EmployeeController extends Controller {
 	}
 
 	public function storeEducationalInfo( Request $request ) {
-		$educationalInfo          = $request->education;
-		$employee_education_info = $this->employeeEducationService->storeEducationalInfo($educationalInfo);
+		$educationalInfo         = $request->education;
+		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
 		                 ->with( 'success', 'Employee Educational information saved successfully!' );
 	}
 
 	public function storeTrainingInfo( Request $request ) {
-		dd( $request->training );
+		$trainingInfo = $request->training;
+		$employeee    = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
+		return redirect()->route( 'employee.create', [ 'employee' => $employeee['employee_id'] ] )
+		                 ->with( 'success', 'Employee Training information saved successfully!' );
 	}
 
 	public function storePublicationInfo(
