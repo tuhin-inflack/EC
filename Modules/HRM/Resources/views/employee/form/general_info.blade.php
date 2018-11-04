@@ -17,25 +17,25 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('department', 'Department') }}
-            {{ Form::select('department_id', [null=>'Please Select'] + $departments, null, ['class' => 'form-control']) }}
+            {{ Form::select('department_id',  $departments, null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('designation_code', 'Designation') }}
-            {{ Form::select('designation_code', [null=>'Please Select'] + $designations,  null, ['class' => 'form-control']) }}
+            {{ Form::select('designation_code', [],  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('gender', 'Gender') }}
-            {{ Form::select('gender', [null=>'Please Select'] + $genders,  null, ['class' => 'form-control']) }}
+            {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('status', 'Status') }}
-            {{ Form::select('status', $statuses,  null, ['class' => 'form-control']) }}
+            {{ Form::select('status', [],  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
