@@ -9,7 +9,7 @@
 namespace Modules\HRM\Services;
 
 
-class EmployeePersonalInfoServices {
+class EmployeePersonalInfoService {
 	public function __construct() {
 	}
 
