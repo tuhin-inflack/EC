@@ -9,8 +9,16 @@
 namespace Modules\HRM\Services;
 
 
+use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
+
 class EmployeePersonalInfoService {
-	public function __construct() {
+	protected $employeePersonalInfoRepository;
+
+	public function __construct( EmployeePersonalInfoRepository $employeePersonalInfoRepository ) {
+		$this->employeePersonalInfoRepository = $employeePersonalInfoRepository;
+	}
+	public function storePersonalInfo( $data = [] ) {
+		return $this->employeePersonalInfoRepository->save( $data );
 	}
 
 
