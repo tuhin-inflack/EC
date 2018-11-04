@@ -55,7 +55,6 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
-
         $response = $this->roleService->store($request->all());
         Session::flash('message', $response->getContent());
         return redirect('/user/role');
