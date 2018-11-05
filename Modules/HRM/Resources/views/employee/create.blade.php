@@ -15,11 +15,11 @@
             {{--<h4 class="card-title">Add new employee </h4>--}}
             {{--</div>--}}
             {{--<div class="col-md-10 col-md-offset-1">--}}
-                {{--@if(Session::has('message'))--}}
-                    {{--<div class="alert alert-success text-center">--}}
-                        {{--{{Session::get('message')}}--}}
-                    {{--</div>--}}
-                {{--@endif--}}
+            {{--@if(Session::has('message'))--}}
+            {{--<div class="alert alert-success text-center">--}}
+            {{--{{Session::get('message')}}--}}
+            {{--</div>--}}
+            {{--@endif--}}
             {{--</div>--}}
             <div class="card-header">
                 <h4 class="card-title" id="repeat-form">Add New Employee</h4>
@@ -85,7 +85,7 @@
                     <div class="tab-content px-1 pt-1">
                         <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
-                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.form.general_info')
                             {!! Form::close() !!}
                         </div>
@@ -135,11 +135,15 @@
         </div>
     </div>
 @endsection
-
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
+@endpush
 @push('page-js')
+
+    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
@@ -150,4 +154,5 @@
             });
         })
     </script>
+
 @endpush

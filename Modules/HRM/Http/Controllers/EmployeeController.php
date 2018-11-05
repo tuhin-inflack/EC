@@ -12,6 +12,8 @@ use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeEducationService;
 use Modules\HRM\Services\EmployeePersonalInfoService;
+use Modules\HRM\Services\EmployeePublicationService;
+use Modules\HRM\Services\EmployeeResearchService;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\HRM\Services\EmployeeTrainingService;
 
@@ -23,11 +25,15 @@ class EmployeeController extends Controller {
 	private $employeePersonalInfoService;
 	private $employeeEducationService;
 	private $employeeTrainingService;
+	private $employeePublicationService;
+	private $employeeResearchService;
 
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
 		EmployeeDesignationService $employeeDesignationService, EmployeePersonalInfoService $employeePersonalInfoService,
-		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService
+		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService,
+		EmployeePublicationService $employeePublicationService,
+		EmployeeResearchService $employeeResearchService
 	) {
 		$this->employeeService             = $employeeServices;
 		$this->employeeDepartmentService   = $employeeDepartmentService;
@@ -35,6 +41,8 @@ class EmployeeController extends Controller {
 		$this->employeePersonalInfoService = $employeePersonalInfoService;
 		$this->employeeEducationService    = $employeeEducationService;
 		$this->employeeTrainingService     = $employeeTrainingService;
+		$this->employeePublicationService  = $employeePublicationService;
+		$this->employeeResearchService     = $employeeResearchService;
 	}
 
 
@@ -56,6 +64,7 @@ class EmployeeController extends Controller {
 
 
 	public function storeGeneralInfo( Request $request ) {
+		dd($request->all());
 		$employee_general_info = $this->employeeService->storeGeneralInfo( $request->all() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] )
@@ -80,59 +89,27 @@ class EmployeeController extends Controller {
 
 	public function storeTrainingInfo( Request $request ) {
 		$trainingInfo = $request->training;
-		$employeee    = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
-		return redirect()->route( 'employee.create', [ 'employee' => $employeee['employee_id'] ] )
+		$employee     = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
+
+		return redirect()->route( 'employee.create', [ 'employee' => $employee['employee_id'] ] )
 		                 ->with( 'success', 'Employee Training information saved successfully!' );
 	}
 
-	public function storePublicationInfo(
-		Request $request
-	) {
-		dd( $request->publication );
+	public function storePublicationInfo( Request $request ) {
+		$publications        = $request->publication;
+		$employeePublication = $this->employeePublicationService->storeEmployeePublication( $publications );
+
+		return redirect()->route( 'employee.create', [ 'employee' => $employeePublication['employee_id'] ] )
+		                 ->with( 'success', 'Employee Publication saved successfully!' );
 	}
 
-	public function storeResearchInfo(
-		Request $request
-	) {
-		dd( $request->research );
+	public function storeResearchInfo( Request $request ) {
+		$employeeResearchInfo = $request->research;
+		$researchInfo         = $this->employeeResearchService->storeEmployeeResearchInfo( $employeeResearchInfo );
+
+		return redirect()->route( 'employee.create', [ 'employee' => $researchInfo['employee_id'] ] )
+		                 ->with( 'success', 'Employee Research Information saved successfully!' );
 	}
 
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
-	public function show() {
-		return view( 'hrm::show' );
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
-	public
-	function edit() {
-		return view( 'hrm::edit' );
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public
-	function update(
-		Request $request
-	) {
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 * @return Response
-	 */
-	public
-	function destroy() {
-	}
 }
