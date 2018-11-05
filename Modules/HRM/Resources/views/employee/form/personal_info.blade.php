@@ -60,7 +60,7 @@
     <div class="col-md-3">
         <div class="form-group">
             {{ Form::label('marital_status', 'Marital Status') }}
-            {{ Form::select('marital_status', [null=>'Please Select'] + $marital_statuses,  null, ['class' => 'form-control']) }}
+            {{ Form::select('marital_status',  Config('constants.marital_status') ,  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-3">

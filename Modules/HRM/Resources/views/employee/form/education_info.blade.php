@@ -36,7 +36,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('medium', 'Medium') }}
-                                {{ Form::select('medium', [null=>'Please Select'] + ['Bengali', 'English'],  null, ['class' => 'form-control']) }}
+                                {{ Form::select('medium', Config('constants.employee_education_medium'),  null, ['class' => 'form-control']) }}
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -17,13 +17,9 @@ class AccountLedgerRepository extends AbstractBaseRepository
     protected $modelName = AccountLedger::class;
 
 
-    /**
-     * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
-     */
-    public function findSelected($selected = null)
+    public function getLedgersOfHead($headId)
     {
-        return $this->model->select($selected)->get();
+        return $this->findBy(['account_head_id' => $headId]);
     }
 
     /**
@@ -34,7 +30,6 @@ class AccountLedgerRepository extends AbstractBaseRepository
     {
         return $this->update($this->model->find($id), $data);
     }
-
 
     /**
      * @param null $selected
