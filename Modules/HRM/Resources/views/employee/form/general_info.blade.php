@@ -2,13 +2,15 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('first_name', 'First name') }}
-            {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Jon']) }}
+            {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Jon', 'required' => 'required', 'data-validation-required-message'=>'Enter First Name']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('last_name', 'Last name') }}
-            {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Doe']) }}
+            {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Doe', 'required' => 'required', 'data-validation-required-message'=>'Enter Last Name']) }}
+            <div class="help-block"></div>
         </div>
     </div>
 
@@ -16,25 +18,29 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('department', 'Department') }}
-            {{ Form::select('department_id',[null => '-- Select --' ] + $employeeDepartments, null, ['class' => 'form-control']) }}
+            {{ Form::select('department_id',[null => '-- Select --' ] + $employeeDepartments, null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Department']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('designation_code', 'Designation') }}
-            {{ Form::select('designation_code',  [null => '-- Select --']  + $employeeDesignations,  null, ['class' => 'form-control']) }}
+            {{ Form::select('designation_code',  [null => '-- Select --']  + $employeeDesignations,  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Designation']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('gender', 'Gender') }}
-            {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control']) }}
+            {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Gender']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('status', 'Status') }}
-            {{ Form::select('status', Config::get('constants.employee_available_status'),  null, ['class' => 'form-control']) }}
+            {{ Form::select('status', Config::get('constants.employee_available_status'),  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select status']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
@@ -52,7 +58,8 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('email', 'Email') }}
-            {{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'info@example.com', 'required' => 'required', 'data-validation-required-message'=>'Email address can\'t be empty']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-3">
