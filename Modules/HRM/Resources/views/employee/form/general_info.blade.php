@@ -1,4 +1,3 @@
-
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
@@ -17,25 +16,25 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('department', 'Department') }}
-            {{ Form::select('department_id', [null=>'Please Select'] + $departments, null, ['class' => 'form-control']) }}
+            {{ Form::select('department_id',[null => '-- Select --' ] + $employeeDepartments, null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('designation_code', 'Designation') }}
-            {{ Form::select('designation_code', [null=>'Please Select'] + $designations,  null, ['class' => 'form-control']) }}
+            {{ Form::select('designation_code',  [null => '-- Select --']  + $employeeDesignations,  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('gender', 'Gender') }}
-            {{ Form::select('gender', [null=>'Please Select'] + $genders,  null, ['class' => 'form-control']) }}
+            {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('status', 'Status') }}
-            {{ Form::select('status', $statuses,  null, ['class' => 'form-control']) }}
+            {{ Form::select('status', Config::get('constants.employee_available_status'),  null, ['class' => 'form-control']) }}
         </div>
     </div>
     <div class="col-md-6">
@@ -71,7 +70,6 @@
 
 
     <hr>
-
 
     <div class="form-actions col-md-12 ">
         <div class="pull-right">

@@ -20,13 +20,13 @@
 
                     <div class="card-body">
 
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered">
                             <thead>
                             <tr>
                                 <th scope="col">Accounts</th>
-                                <th scope="col">Type</th>
-                                <th scope="col">Opening Balance</th>
-                                <th scope="col">Actions</th>
+                                <th scope="col" width="10%">Type</th>
+                                <th scope="col" width="5%">Opening Balance</th>
+                                <th scope="col" width="5%">Actions</th>
                             </tr>
                             </thead>
                             <tbody>

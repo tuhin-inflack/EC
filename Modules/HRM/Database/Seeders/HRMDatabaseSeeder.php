@@ -17,5 +17,7 @@ class HRMDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+	    $this->call(EmployeeDepartmentsTableSeeder::class);
+	    $this->call(EmployeeDesignationTableSeeder::class);
     }
 }

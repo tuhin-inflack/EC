@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'HRM'
+	'name' => 'HRM',
+	'test' => []
 ];
