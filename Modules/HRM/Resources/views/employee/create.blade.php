@@ -10,38 +10,16 @@
     @endphp
     <div class="col-xl-12 col-lg-12">
         <div class="card">
-
-            {{--<div class="card-header">--}}
-            {{--<h4 class="card-title">Add new employee </h4>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-10 col-md-offset-1">--}}
-            {{--@if(Session::has('message'))--}}
-            {{--<div class="alert alert-success text-center">--}}
-            {{--{{Session::get('message')}}--}}
-            {{--</div>--}}
-            {{--@endif--}}
-            {{--</div>--}}
             <div class="card-header">
                 <h4 class="card-title" id="repeat-form">Add New Employee</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
-                    {{--<ul class="list-inline mb-0">--}}
-                    {{--<li><a data-action="collapse"><i class="ft-minus"></i></a></li>--}}
-                    {{--<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>--}}
-                    {{--<li><a data-action="expand"><i class="ft-maximize"></i></a></li>--}}
-                    {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
-                    {{--</ul>--}}
                     <ul class="list-inline mb-0">
                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                     </ul>
                 </div>
-                @if(Session::has('message'))
-                    <div class="alert alert-success text-center">
-                        {{Session::get('message')}}
-                    </div>
-                @endif
 
             </div>
             <div class="card-content collapse show" style="">

@@ -8,23 +8,20 @@
 
 namespace Modules\HRM\Services;
 
-use Modules\HRM\Repositories\EmployeeEducationRepository;
-use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
+use App\Http\Responses\DataResponse;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices {
 	private $employeeRepository;
-	private $employeePersonalInfoRepository;
-	private $employeeEducationRepository;
 
-	public function __construct( EmployeeRepository $employeeRepository, EmployeePersonalInfoRepository $employeePersonalInfoRepository, EmployeeEducationRepository $employeeEducationRepository ) {
-		$this->employeeRepository             = $employeeRepository;
-		$this->employeePersonalInfoRepository = $employeePersonalInfoRepository;
-		$this->employeeEducationRepository = $employeeEducationRepository;
+
+	public function __construct( EmployeeRepository $employeeRepository ) {
+		$this->employeeRepository = $employeeRepository;
 	}
 
 	public function storeGeneralInfo( $data = [] ) {
-		return $this->employeeRepository->save( $data );
+		$generalInfo = $this->employeeRepository->save( $data );
+		return new DataResponse($generalInfo, $generalInfo['id'], 'General information added successfully');
 	}
 
 
