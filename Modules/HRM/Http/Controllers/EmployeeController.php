@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeEducationService;
@@ -63,8 +64,7 @@ class EmployeeController extends Controller {
 	}
 
 
-	public function storeGeneralInfo( Request $request ) {
-		dd($request->all());
+	public function storeGeneralInfo( StoreEmployeeGeneralInfoRequest $request ) {
 		$employee_general_info = $this->employeeService->storeGeneralInfo( $request->all() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] )
