@@ -13,10 +13,9 @@
 
 Route::prefix('accounts')->group(function() {
     Route::get('/', 'AccountsController@index')->name('accounts');
-    Route::get('/chart-of-account', 'AccountsController@chartOfAccount')->name('accounts.chart-of-account');
+    Route::get('/chart-of-account', 'AccountsController@chartOfAccount')->name('chart-of-account');
 
     Route::prefix('account-head')->group(function () {
-        Route::get('/', 'AccountHeadController@index')->name('account-head.index');
         Route::get('create', 'AccountHeadController@create')->name('account-head.create');
         Route::post('/', 'AccountHeadController@store')->name('account-head.store');
         Route::get('edit/{id}', 'AccountHeadController@edit')->name('account-head.edit');
@@ -25,7 +24,6 @@ Route::prefix('accounts')->group(function() {
     });
 
     Route::prefix('account-ledger')->group(function () {
-        Route::get('/', 'AccountLedgerController@index')->name('account-ledger.index');
         Route::get('create', 'AccountLedgerController@create')->name('account-ledger.create');
         Route::post('/', 'AccountLedgerController@store')->name('account-ledger.store');
         Route::get('edit/{id}', 'AccountLedgerController@edit')->name('account-ledger.edit');
