@@ -19,7 +19,7 @@ class CreateEmployeeEducationsTable extends Migration
             $table->string('institute_name');
             $table->string('degree_name');
             $table->string('department');
-            $table->year('passing_year')->nullable();
+            $table->string('passing_year')->nullable();
             $table->string('medium')->comment('Bengali, English etc')->nullable();
             $table->string('duration')->nullable();
             $table->string('result');

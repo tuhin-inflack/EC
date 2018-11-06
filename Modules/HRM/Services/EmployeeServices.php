@@ -23,33 +23,8 @@ class EmployeeServices {
 		$this->employeeEducationRepository = $employeeEducationRepository;
 	}
 
-	public function getFormCreationData() {
-		$data = [
-			'departments' => ['one', 'two'],
-			'designations'     => [ 'JSE' => 'Junior Software Engineer', 'SSE' => 'Senior Software Engineer' ],
-			'genders'          => [ 'male' => 'Male', 'female' => 'Female', 'both' => 'Both' ],
-			'statuses'         => [ 'present', 'on leave' ],
-			'marital_statuses' => [ 'Married', 'Unmarried' ],
-		];
-
-		return $data;
-	}
-
 	public function storeGeneralInfo( $data = [] ) {
 		return $this->employeeRepository->save( $data );
-	}
-
-	public function storePersonalInfo( $data = [] ) {
-		return $this->employeePersonalInfoRepository->save( $data );
-	}
-
-	public function storeEducationalInfo( $data = [] ) {
-		if ( is_array( $data ) ) {
-			foreach ( $data as $item ) {
-				$education = $this->employeeEducationRepository->save( $item );
-			}
-			return $education;
-		}
 	}
 
 

@@ -14,13 +14,13 @@
             {{--<div class="card-header">--}}
             {{--<h4 class="card-title">Add new employee </h4>--}}
             {{--</div>--}}
-            <div class="col-md-10 col-md-offset-1">
-                @if(Session::has('message'))
-                    <div class="alert alert-success text-center">
-                        {{Session::get('message')}}
-                    </div>
-                @endif
-            </div>
+            {{--<div class="col-md-10 col-md-offset-1">--}}
+            {{--@if(Session::has('message'))--}}
+            {{--<div class="alert alert-success text-center">--}}
+            {{--{{Session::get('message')}}--}}
+            {{--</div>--}}
+            {{--@endif--}}
+            {{--</div>--}}
             <div class="card-header">
                 <h4 class="card-title" id="repeat-form">Add New Employee</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
@@ -37,6 +37,11 @@
                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                     </ul>
                 </div>
+                @if(Session::has('message'))
+                    <div class="alert alert-success text-center">
+                        {{Session::get('message')}}
+                    </div>
+                @endif
             </div>
             <div class="card-content collapse show" style="">
                 <div class="card-body">
@@ -80,7 +85,7 @@
                     <div class="tab-content px-1 pt-1">
                         <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
-                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.form.general_info')
                             {!! Form::close() !!}
                         </div>
@@ -88,7 +93,7 @@
 
                         <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
                             @include('hrm::employee.form.personal_info')
                             {!! Form::close() !!}
                         </div>
@@ -120,7 +125,7 @@
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
                             @include('hrm::employee.form.research_info')
                             {!! Form::close() !!}
                         </div>
@@ -130,11 +135,23 @@
         </div>
     </div>
 @endsection
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
 
+@endpush
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+
+
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.18.0/jquery.validate.js" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
@@ -142,7 +159,15 @@
         $(document).ready(function () {
             $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id);
+                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
+                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
             });
         })
     </script>
+
+
 @endpush
