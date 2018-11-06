@@ -14,28 +14,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-2">
-                                    <h1><i class="la la-tag warning font-large-2"></i></h1>
+                                    <h1><i class="la la-list warning font-large-2"></i></h1>
                                 </div>
                                 <div class="col-10 pl-2">
-                                    <h4>Account Head</h4>
-                                    <h6 class="text-muted"><a href="{{url('accounts/account-head')}}">Account Head</a></h6>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xl-4 col-12">
-                <div class="card crypto-card-3 pull-up">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-2">
-                                    <h1><i class="la la-tags warning font-large-2"></i></h1>
-                                </div>
-                                <div class="col-10 pl-2">
-                                    <h4>Account Ledger</h4>
-                                    <h6 class="text-muted"><a href="{{url('accounts/account-ledger')}}">Account Ledger</a></h6>
+                                    <h4>Chart of Account</h4>
+                                    <h6 class="text-muted"><a href="{{ route('chart-of-account') }}">Chart of Account</a></h6>
                                 </div>
                             </div>
                         </div>

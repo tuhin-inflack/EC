@@ -32,7 +32,7 @@
                                     <input type="text"
                                            value="{{ old('name') }}"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" autofocus required/>
+                                           name="name" autofocus/>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -48,7 +48,7 @@
                                     <input type="text"
                                            value="{{ old('code') }}"
                                            class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}"
-                                           name="code" autofocus required/>
+                                           name="code" autofocus/>
 
                                     @if ($errors->has('code'))
                                         <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                                     <input type="text"
                                            value="{{ old('opening_balance') }}"
                                            class="form-control{{ $errors->has('opening_balance') ? ' is-invalid' : '' }}"
-                                           name="opening_balance" autofocus required/>
+                                           name="opening_balance" autofocus/>
 
                                     @if ($errors->has('head_type'))
                                         <span class="invalid-feedback" role="alert">
@@ -113,7 +113,7 @@
                             <div class="form-actions col-md-12 ">
                                 <div class="pull-right">
                                     {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                    <a href="{{ route('account-ledger.index') }}">
+                                    <a href="{{ route('chart-of-account') }}">
                                         <button type="button" class="btn btn-warning mr-1">
                                             <i class="la la-times"></i> Cancel
                                         </button>
