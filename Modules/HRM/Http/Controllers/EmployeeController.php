@@ -65,10 +65,10 @@ class EmployeeController extends Controller {
 
 
 	public function storeGeneralInfo( StoreEmployeeGeneralInfoRequest $request ) {
-		$employee_general_info = $this->employeeService->storeGeneralInfo( $request->all() );
+		$response = $this->employeeService->storeGeneralInfo( $request->all() );
+		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] )
-		                 ->with( 'success', 'Employee general information saved successfully!' );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId() ] );
 	}
 
 	public function storePersonalInfo( Request $request ) {
