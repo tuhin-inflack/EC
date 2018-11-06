@@ -9,13 +9,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('institute_name', 'Institute Name') }}
-                                {{ Form::text('institute_name', null, ['class' => 'form-control', 'placeholder' => 'University of Dhaka']) }}
+                                {{ Form::text('institute_name', null, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('degree_name', 'Degree Name') }}
-                                {{ Form::text('degree_name', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons']) }}
+                                {{ Form::text('degree_name', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
@@ -23,13 +25,15 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('department', 'Department/Section/Group') }}
-                                {{ Form::text('department',  null, ['class' => 'form-control', 'placeholder' => 'Science/CSE']) }}
+                                {{ Form::text('department',  null, ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('passing_year', 'Passing Year') }}
-                                {{ Form::number('passing_year',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+                                {{ Form::number('passing_year',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
@@ -42,14 +46,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('duration', 'Duration') }}
-                                {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' =>'4 years']) }}
+                                {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('result', 'Result') }}
-                                {{ Form::text('result',  null, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division']) }}
+                                {{ Form::text('result',  null, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division', 'data-validation-required-message'=>'Please enter result']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">

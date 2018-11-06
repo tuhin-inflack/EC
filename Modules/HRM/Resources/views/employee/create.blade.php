@@ -93,7 +93,7 @@
 
                         <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
                             @include('hrm::employee.form.personal_info')
                             {!! Form::close() !!}
                         </div>
@@ -125,7 +125,7 @@
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
                             @include('hrm::employee.form.research_info')
                             {!! Form::close() !!}
                         </div>
@@ -137,13 +137,21 @@
 @endsection
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
+
 @endpush
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}" type="text/javascript"></script>
 
     <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+
+
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+    {{--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.18.0/jquery.validate.js" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
@@ -151,8 +159,15 @@
         $(document).ready(function () {
             $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id);
+                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
+                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
             });
         })
     </script>
+
 
 @endpush

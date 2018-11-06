@@ -9,7 +9,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('type_of_publication', 'Type of publication') }}
-                                {{ Form::text('type_of_publication', null, ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc']) }}
+                                {{ Form::text('type_of_publication', null, ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc', 'data-validation-required-message'=>'Please enter publication type']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -21,14 +22,16 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('publication_title', 'Publication Title') }}
-                                {{ Form::text('publication_title', null, ['class' => 'form-control', 'placeholder' => 'Population Database of Mexico']) }}
+                                {{ Form::text('publication_title', null, ['class' => 'form-control', 'placeholder' => 'Population Database of Mexico', 'data-validation-required-message'=>'Please enter publication title ']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('publication_company', 'Publication Company ') }}
-                                {{ Form::text('publication_company',  null, ['class' => 'form-control', 'placeholder' => 'eg. IEEE']) }}
+                                {{ Form::text('publication_company',  null, ['class' => 'form-control', 'placeholder' => 'eg. IEEE', 'data-validation-required-message'=>'Please enter publication company']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -47,7 +50,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('source_link', 'Published Source / Link') }}
-                                {{ Form::text('source_link',  null, ['class' => 'form-control', 'placeholder' => 'http://www.example.com/your-publication-link']) }}
+                                {{ Form::text('source_link',  null, ['class' => 'form-control', 'placeholder' => 'http://www.example.com/your-publication-link', 'data-validation-required-message'=>'Please enter publication link']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         {{ Form::hidden('employee_id', $employee_id, ['class' =>'EmployeeId']) }}
@@ -69,7 +73,7 @@
         </div>
     </div>
     <div class="col-md-12">
-        <button  type="button" data-repeater-create="" class="btn btn-primary addMore"><i class="ft-plus"></i>
+        <button type="button" data-repeater-create="" class="btn btn-primary addMore"><i class="ft-plus"></i>
             Add More
         </button>
     </div>

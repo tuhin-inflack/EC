@@ -15,7 +15,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('research_topic', 'Research Topic') }}
-                                {{ Form::text('research_topic', null, ['class' => 'form-control', 'placeholder' => 'eg. Ethics']) }}
+                                {{ Form::text('research_topic', null, ['class' => 'form-control', 'placeholder' => 'eg. Ethics', 'data-validation-required-message'=>'Please enter research topic']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
