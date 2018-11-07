@@ -15,7 +15,7 @@ class UpdateAccountHeadPostRequest extends FormRequest
     {
         return [
             'parent_id' => 'required',
-            'name' => 'required|alpha_num|max:255|unique:account_heads,name,' . $this->id,
+            'name' => 'required|max:255|unique:account_heads,name,' . $this->id,
             'code' => 'required|alpha_num|max:20|unique:account_heads,code,' . $this->id,
             'head_type' => 'required',
         ];

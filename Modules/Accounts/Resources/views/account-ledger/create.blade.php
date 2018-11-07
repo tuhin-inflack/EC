@@ -12,16 +12,13 @@
                             @csrf
                             <div class="form-group row">
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head</label>
-                                {{-- Form::select('parent_id', $coa) --}}
 
                                 <div class="col-md-6">
-                                    {{ Form::select('account_head_id', $accountsHeads , null, array('class' => 'form-control' . ($errors->has('account_head_id') ? ' is-invalid' : '') )) }}
-
-                                    @if ($errors->has('parent_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('account_head_id') }}</strong>
-                                        </span>
-                                    @endif
+                                    @include('accounts::account-head.select.account_heads',[
+                                            'options' => $accountsHeads,
+                                            'name' => 'account_head_id',
+                                            'class' => $errors->has('account_head_id') ? ' is-invalid' : ''
+                                        ])
                                 </div>
                             </div>
 
@@ -62,7 +59,7 @@
 
                                 <div class="col-md-4">
                                     <input type="text"
-                                           value="{{ old('opening_balance') }}"
+                                           value="{{ old('opening_balance') ?: 0 }}"
                                            class="form-control{{ $errors->has('opening_balance') ? ' is-invalid' : '' }}"
                                            name="opening_balance" autofocus/>
 

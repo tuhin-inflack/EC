@@ -15,7 +15,7 @@ class UpdateAccountLedgerPostRequest extends FormRequest
     {
         return [
             'account_head_id' => 'required',
-            'name' => 'required|alpha_num|max:255|unique:account_ledgers,name,' . $this->id,
+            'name' => 'required|max:255|unique:account_ledgers,name,' . $this->id,
             'code' => 'required|alpha_num|unique:account_ledgers,code,' . $this->id,
             'opening_balance_type' => 'required|max:2',
             'opening_balance' => 'numeric|min:0',
