@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
+use Modules\HRM\Http\Requests\StoreEmployeePersonalInfoRequest;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeEducationService;
@@ -63,15 +65,14 @@ class EmployeeController extends Controller {
 	}
 
 
-	public function storeGeneralInfo( Request $request ) {
-		dd($request->all());
-		$employee_general_info = $this->employeeService->storeGeneralInfo( $request->all() );
+	public function storeGeneralInfo( StoreEmployeeGeneralInfoRequest $request ) {
+		$response = $this->employeeService->storeGeneralInfo( $request->all() );
+		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_general_info ] )
-		                 ->with( 'success', 'Employee general information saved successfully!' );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId() ] );
 	}
 
-	public function storePersonalInfo( Request $request ) {
+	public function storePersonalInfo( StoreEmployeePersonalInfoRequest $request ) {
 		$personalInfo = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $personalInfo['employee_id'] ] )
