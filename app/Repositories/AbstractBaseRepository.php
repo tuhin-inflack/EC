@@ -238,7 +238,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
         }
 
         // update the model
-        $model->save();
+        return $model->save();
     }
 
     /**
