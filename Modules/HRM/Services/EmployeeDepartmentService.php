@@ -22,6 +22,6 @@ class EmployeeDepartmentService {
 	}
 
 	public function getEmployeeDepartments() {
-		return $this->employeeDepartmentRepository->findAll()->pluck('name', 'id');
+		return $this->employeeDepartmentRepository->findAll()->pluck('name', 'id')->toArray();
 	}
 }

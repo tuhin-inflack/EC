@@ -9,20 +9,23 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('course_name', 'Course Name') }}
-                                {{ Form::text('course_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application']) }}
+                                {{ Form::text('course_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application', 'data-validation-required-message'=>'Please enter course name ']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('organization_name', 'Organization Name') }}
-                                {{ Form::text('organization_name', null, ['class' => 'form-control', 'placeholder' => 'eg. BARD']) }}
+                                {{ Form::text('organization_name', null, ['class' => 'form-control', 'placeholder' => 'eg. BARD', 'data-validation-required-message'=>'Please enter organization name']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('duration', 'Duration (in week)') }}
-                                {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week']) }}
+                                {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -27,17 +27,6 @@ class AccountLedgerController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        $accountLedgers = $this->accountLedgerService->getAll();
-
-        return view('accounts::account-ledger.index', compact('accountLedgers'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      * @return Response
      */
@@ -56,7 +45,7 @@ class AccountLedgerController extends Controller
     public function store(CreateAccountLedgerPostRequest $request)
     {
         $this->accountLedgerService->store($request->all());
-        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger stored successfully!');
+        return redirect()->route('chart-of-account')->with('success', 'Account Ledger stored successfully!');
     }
 
     /**
@@ -79,7 +68,7 @@ class AccountLedgerController extends Controller
     public function update(UpdateAccountLedgerPostRequest $request, $id)
     {
         $this->accountLedgerService->update($id, $request->all());
-        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger updated successfully!');
+        return redirect()->route('chart-of-account')->with('success', 'Account Ledger updated successfully!');
     }
 
     /**
@@ -89,6 +78,6 @@ class AccountLedgerController extends Controller
     public function destroy($id)
     {
         $this->accountLedgerService->delete($id);
-        return redirect()->route('account-ledger.index')->with('warning', 'Account Ledger deleted successfully!');
+        return redirect()->route('chart-of-account')->with('warning', 'Account Ledger deleted successfully!');
     }
 }

@@ -19,7 +19,7 @@ class CreateEmployeeTrainingsTable extends Migration
             $table->string('course_name');
             $table->string('organization_name');
             $table->string('duration')->nullable();
-            $table->year('training_year')->nullable();
+            $table->string('training_year')->nullable();
             $table->string('organization_country')->nullable();
             $table->string('result');
             $table->string('achievement')->nullable();

@@ -18,28 +18,28 @@ class DefaultAccountHeadsTableSeeder extends Seeder
             [
                 'parent_id' => 0,
                 'name' => 'Assets',
-                'code' => '0001',
+                'code' => '',
                 'head_type' => 1, // Assets Type = 1
                 'description' => 'Main Asset Head'
             ],
             [
                 'parent_id' => 0,
                 'name' => 'Liability',
-                'code' => '0002',
+                'code' => '',
                 'head_type' => 2, // Liability = 2
                 'description' => 'Main Liability Head'
             ],
             [
                 'parent_id' => 0,
                 'name' => 'Income',
-                'code' => '0003',
+                'code' => '',
                 'head_type' => 3, // Income = 3
                 'description' => 'Main Income Head'
             ],
             [
                 'parent_id' => 0,
                 'name' => 'Expense',
-                'code' => '0004',
+                'code' => '',
                 'head_type' => 4, // Expense = 4
                 'description' => 'Main Expense Head'
             ]
