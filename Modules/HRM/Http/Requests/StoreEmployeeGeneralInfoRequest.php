@@ -23,7 +23,10 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest
             'gender' => 'required',
             'status' => 'required',
             'email' => 'required|email|unique:employees',
-            'tel_office' => 'numeric|max:11|nullable',
+            'tel_office' => 'numeric|digits_between:9,11|nullable',
+            'tel_home' => 'numeric|digits_between:11,13|nullable',
+            'mobile_one' => 'numeric|digits_between:11,13|nullable',
+            'mobile_two' => 'numeric|digits_between:11,13|nullable',
         ];
     }
 
@@ -44,8 +47,20 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest
 			'email.required' => 'Please enter email',
 			'email.unique' => 'Please enter unique email address',
 			'email.email' => 'Please enter a valid email address',
+//			tel_office
 			'tel_office.numeric' => 'Please enter a valid telephone number',
-			'tel_office.max' => 'Use maximum 11 digit',
+			'tel_office.digits_between' => 'Use minimum 9 digit and maximum 11 digit',
+//			tel_home
+			'tel_home.numeric' => 'Please enter a valid telephone number',
+			'tel_home.digits_between' => 'Use minimum 9 digit and maximum 11 digit',
+
+//			mobile_one
+			'mobile_one.numeric' => 'Please enter a valid mobile number',
+			'mobile_one.digits_between' => 'Use minimum 11 digit and maximum 13 digit',
+
+//			mobile_two
+			'mobile_two.numeric'        => 'Please enter a valid mobile number',
+			'mobile_two.digits_between' => 'Use minimum 11 digit and maximum 13 digit',
 		];
 	}
 }
