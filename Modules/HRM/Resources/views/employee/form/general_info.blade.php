@@ -72,10 +72,13 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('tel_home') ? ' error' : '' }}">
             {{ Form::label('tel_home', 'Telephone (Home)') }}
             {{ Form::number('tel_home', null, ['class' => 'form-control','placeholder' => '02XXXXXXX','maxlength' =>'9', 'data-validation-maxlength-message'=>'Enter maximum 9 digit']) }}
             <div class="help-block"></div>
+            @foreach ($errors->get('tel_home') as $message)
+                <div class="help-block">  {{ $message }}</div>
+            @endforeach
         </div>
     </div>
     <div class="col-md-6">
@@ -89,17 +92,24 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('mobile_one') ? ' error' : '' }}">
             {{ Form::label('mobile_one', 'Mobile (1)') }}
             {{ Form::number('mobile_one', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
             <div class="help-block"></div>
+            @foreach ($errors->get('mobile_one') as $message)
+                <div class="help-block">  {{ $message }}</div>
+            @endforeach
         </div>
     </div>
     <div class="col-md-3">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('mobile_two') ? ' error' : '' }}">
             {{ Form::label('mobile_two', 'Mobile (2) ') }}
             {{ Form::number('mobile_two', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
             <div class="help-block"></div>
+            <div class="help-block"></div>
+            @foreach ($errors->get('mobile_two') as $message)
+                <div class="help-block">  {{ $message }}</div>
+            @endforeach
         </div>
     </div>
 
