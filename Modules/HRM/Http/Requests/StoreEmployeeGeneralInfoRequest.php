@@ -3,6 +3,7 @@
 namespace Modules\HRM\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreEmployeeGeneralInfoRequest extends FormRequest
 {
@@ -11,8 +12,9 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
+//dd($request->all());
         return [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -21,6 +23,7 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest
             'gender' => 'required',
             'status' => 'required',
             'email' => 'required|email|unique:employees',
+            'tel_office' => 'numeric|max:11|nullable',
         ];
     }
 
@@ -40,6 +43,9 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest
 			'status.required' => 'Please Select status',
 			'email.required' => 'Please enter email',
 			'email.unique' => 'Please enter unique email address',
+			'email.email' => 'Please enter a valid email address',
+			'tel_office.numeric' => 'Please enter a valid telephone number',
+			'tel_office.max' => 'Use maximum 11 digit',
 		];
 	}
 }
