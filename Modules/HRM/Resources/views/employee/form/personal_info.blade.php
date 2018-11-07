@@ -2,13 +2,15 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('father_name', 'Father\'s name') }}
-            {{ Form::text('father_name', null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::text('father_name', null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter father\'s name']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('mother_name', 'Mother\'s name') }}
-            {{ Form::text('mother_name', null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::text('mother_name', null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter mother\'s name ']) }}
+            <div class="help-block"></div>
         </div>
     </div>
 
@@ -28,7 +30,8 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('job_joining_date', 'Joining Date') }}
-            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter joining date ']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-6">
@@ -60,7 +63,8 @@
     <div class="col-md-3">
         <div class="form-group">
             {{ Form::label('marital_status', 'Marital Status') }}
-            {{ Form::select('marital_status', [null=>'Please Select'] + $marital_statuses,  null, ['class' => 'form-control']) }}
+            {{ Form::select('marital_status',  Config('constants.marital_status') ,  null, ['class' => 'form-control', 'data-validation-required-message'=>'Please select marital status']) }}
+            <div class="help-block"></div>
         </div>
     </div>
     <div class="col-md-3">

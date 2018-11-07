@@ -121,6 +121,21 @@ abstract class AbstractBaseRepository implements RepositoryInterface
         return $queryBuilder->get();
     }
 
+    /**
+     * Find the Selected Columns
+     *
+     * @param array $selectedColumns
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return Collection
+     */
+    public function findSelected(array $selectedColumns = [], $relation = null, array $orderBy = null)
+    {
+        $model = $this->prepareModelForRelationAndOrder($relation, $orderBy);
+        $queryBuilder = $model->select($selectedColumns);
+
+        return $queryBuilder->get();
+    }
 
     /**
      * Apply condition on query builder based on search criteria

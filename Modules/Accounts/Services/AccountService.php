@@ -26,22 +26,87 @@ class AccountService
         $this->accountLedgerRepository = $accountLedgerRepository;
     }
 
-    public function getAllAccountList($mark = NULL){
-        $heads = array();
-        $list = '';
+    public function getAllAccountList(){
+        $string = '';
 
-        $main_heads = $this->accountHeadRepository->getMainParentHeads();
-        echo "<pre>";
-        print_r($main_heads);
-        echo "<pre>";
+        $mainHeads = $this->accountHeadRepository->getMainParentHeads();
 
-        die();
-        return '<tr>
-                <td></td>       
-                <td></td>       
-                <td></td>       
-                <td></td>       
-            </tr>';
+        foreach ($mainHeads as $mainHead){
+
+            $string .= '<tr class="active">' .
+                '<td><strong>' . $mainHead->name . ' ' . $mainHead->code . '</strong></th>' .
+                '<td><strong>Group</strong></td>' .
+                '<td>-</td>' .
+                '<td>&nbsp;</td>' .
+                '</tr>';
+
+            foreach ($ledgers = $this->accountLedgerRepository->getLedgersOfHead($mainHead->id) as $ledger) {
+
+                $ledgerRowAction = '<div align="center">' .
+                    '<a tabindex="-1" href="' . route('account-ledger.edit', $ledger->id) . '" title="Edit" class="popup-link"><i class="la la-pencil-square-o text-info" aria-hidden="true"></i></a>' .
+                //    '<a tabindex="-1" href="' . route('account-ledger.destroy', $ledger->id) . '" title="Delete" onclick="return confirm(\'Sure to delete ?\')"><i class="la la-trash-o text-danger" aria-hidden="true"></i></a>' .
+                    '</div>';
+
+                $string .= '<tr>' .
+                    '<td>&nbsp;&nbsp;' . $ledger->name . ' ' . $ledger->code .'</th>' .
+                    '<td>Ledger</td>' .
+                    '<td>' . $ledger->opening_balance . '</td>' .
+                    '<td>' . $ledgerRowAction . '</td>' .
+                    '</tr>';
+            }
+
+            $string .= $this->getAllChildAccountList($mainHead->id);
+        }
+
+        return $string;
+    }
+
+    /**
+     * @param $head
+     * @return String
+     */
+    private function getAllChildAccountList($head, $space = '')
+    {
+        $string = '';
+
+        $space .= $space . '&nbsp;&nbsp;&nbsp;&nbsp;';
+
+        foreach ($childGroups = $this->accountHeadRepository->getChildHead($head) as $childGroup)
+        {
+            $headRowAction = '<div align="center">' .
+                '<a tabindex="-1" href="' . route('account-head.edit', $childGroup->id) . '" title="Edit" class="popup-link"><i class="la la-edit text-info" aria-hidden="true"></i></a>' .
+            //    '<a tabindex="-1" href="' . route('account-head.destroy', $childGroup->id) . '" title="Delete" onclick="return confirm(\'Sure to delete ?\')"><i class="la la-trash-o text-danger" aria-hidden="true"></i></a>' .
+                '</div>';
+
+            $string .= '<tr>' .
+                '<td>' . $space . ' <strong>' . $childGroup->name . ' ' . $childGroup->code . '</strong></th>' .
+                '<td><strong>Group</strong></td>' .
+                '<td>-</td>' .
+                '<td>' . $headRowAction . '</td>' .
+                '</tr>';
+
+            foreach ($ledgers = $this->accountLedgerRepository->getLedgersOfHead($childGroup->id) as $ledger) {
+
+                $ledgerRowAction = '<div align="center">' .
+                    '<a tabindex="-1" href="' . route('account-ledger.edit', $ledger->id) . '" title="Edit" class="popup-link"><i class="la la-pencil-square-o text-info" aria-hidden="true"></i></a>' .
+                //    '<a tabindex="-1" href="' . route('account-ledger.destroy', $ledger->id) . '" title="Delete" onclick="return confirm(\'Sure to delete ?\')"><i class="la la-trash-o text-danger" aria-hidden="true"></i></a>' .
+                    '</div>';
+
+                $string .= '<tr>' .
+                    '<td>&nbsp;&nbsp;&nbsp;&nbsp;' . $space .  $ledger->name . ' ' . $ledger->code .'</th>' .
+                    '<td>Ledger</td>' .
+                    '<td>' . $ledger->opening_balance . '</td>' .
+                    '<td>' . $ledgerRowAction . '</td>' .
+                    '</tr>';
+            }
+
+
+            $string .= $this->getAllChildAccountList($childGroup->id, $space);
+
+        }
+
+
+        return $string;
     }
 
 }

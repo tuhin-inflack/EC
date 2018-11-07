@@ -17,7 +17,7 @@ class CreateAccountLedgersTable extends Migration
             $table->increments('id');
             $table->integer('account_head_id');
             $table->string('name', 120);
-            $table->string('code', 20);
+            $table->string('code', 20)->nullable();
             $table->string('opening_balance_type', 4);
             $table->double('opening_balance', 10, 2)->default(0);
             $table->double('closing_balance', 10, 2)->default(0);

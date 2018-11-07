@@ -23,17 +23,6 @@ class AccountHeadController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        $accountHeads = $this->accountHeadService->getAll();
-
-        return view('accounts::account-head.index', compact('accountHeads'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      * @return Response
      */
@@ -53,7 +42,7 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->store($request->all());
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 
     /**
@@ -77,7 +66,7 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->update($id, $request->all());
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 
     /**
@@ -89,6 +78,6 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->delete($id);
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 }

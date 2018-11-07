@@ -15,7 +15,7 @@ class CreateEmployeeDesignationsTable extends Migration
     {
         Schema::create('employee_designations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('department_code');
+            $table->string('department_code');
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
