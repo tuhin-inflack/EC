@@ -17,13 +17,11 @@
                                 {{-- Form::select('parent_id', $coa) --}}
 
                                 <div class="col-md-6">
-                                    {{ Form::select('parent_id', $accountsHeads, $head->parent_id, array('class' => 'form-control' . ($errors->has('parent_id') ? ' is-invalid' : '') )) }}
-
-                                    @if ($errors->has('parent_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('parent_id') }}</strong>
-                                        </span>
-                                    @endif
+                                    @include('accounts::account-head.select.account_heads',[
+                                            'options' => $accountsHeads,
+                                            'name' => 'parent_id',
+                                            'class' => $errors->has('parent_id') ? ' is-invalid' : ''
+                                        ])
                                 </div>
                             </div>
 
