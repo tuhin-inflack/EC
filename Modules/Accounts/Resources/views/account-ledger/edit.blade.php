@@ -15,13 +15,12 @@
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head</label>
 
                                 <div class="col-md-6">
-                                    {{ Form::select('account_head_id', $accountsHeads, $ledger->account_head_id, array('class' => 'form-control' . ($errors->has('account_head_id') ? ' is-invalid' : '') )) }}
 
-                                    @if ($errors->has('account_head_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('account_head_id') }}</strong>
-                                        </span>
-                                    @endif
+                                    @include('accounts::account-head.select.account_heads',[
+                                            'options' => $accountsHeads,
+                                            'name' => 'account_head_id',
+                                            'class' => $errors->has('account_head_id') ? ' is-invalid' : ''
+                                        ])
                                 </div>
                             </div>
 

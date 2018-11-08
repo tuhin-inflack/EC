@@ -11,14 +11,17 @@ class StoreEmployeePersonalInfoRequest extends FormRequest {
 	 *
 	 * @return array
 	 */
-	public function rules(Request $request) {
-//		dd($request->all());
+	protected $errorBag = 'personalinfo';
+
+	public function rules( Request $request ) {
+//		dd( $request->all() );
+
 		return [
-			'father_name'       => 'required',
-			'mother_name'        => 'required',
-			'date_of_birth'    => 'required',
+			'father_name' => 'required',
+			'mother_name' => 'required',
 			'job_joining_date' => 'required',
-			'marital_status'           => 'required',
+			'date_of_birth' => 'required',
+			'marital_status' => 'required',
 		];
 	}
 
@@ -31,16 +34,5 @@ class StoreEmployeePersonalInfoRequest extends FormRequest {
 		return true;
 	}
 
-	public function messages() {
-		return [
-			'first_name.required'       => 'Enter first name',
-			'last_name.required'        => 'Enter last name',
-			'department_id.required'    => 'Please Select department',
-			'designation_code.required' => 'Please Select designation',
-			'gender.required'           => 'Please Select gender',
-			'status.required'           => 'Please Select status',
-			'email.required'            => 'Please enter email',
-			'email.unique'              => 'Please enter unique email address',
-		];
-	}
+
 }
