@@ -132,7 +132,6 @@ abstract class AbstractBaseRepository implements RepositoryInterface
     public function findSelected(array $selectedColumns = [], $relation = null, array $orderBy = null)
     {
         $model = $this->prepareModelForRelationAndOrder($relation, $orderBy);
-
         $queryBuilder = $model->select($selectedColumns);
 
         return $queryBuilder->get();
@@ -239,7 +238,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
         }
 
         // update the model
-        $model->save();
+        return $model->save();
     }
 
     /**

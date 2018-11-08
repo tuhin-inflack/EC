@@ -8,24 +8,38 @@
 
 namespace Modules\HRM\Services;
 
-use Modules\HRM\Repositories\EmployeeEducationRepository;
-use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
+use App\Http\Responses\DataResponse;
+use App\Traits\CrudTrait;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices {
+	use CrudTrait;
 	private $employeeRepository;
-	private $employeePersonalInfoRepository;
-	private $employeeEducationRepository;
 
-	public function __construct( EmployeeRepository $employeeRepository, EmployeePersonalInfoRepository $employeePersonalInfoRepository, EmployeeEducationRepository $employeeEducationRepository ) {
-		$this->employeeRepository             = $employeeRepository;
-		$this->employeePersonalInfoRepository = $employeePersonalInfoRepository;
-		$this->employeeEducationRepository = $employeeEducationRepository;
+
+	public function __construct( EmployeeRepository $employeeRepository ) {
+		$this->employeeRepository = $employeeRepository;
+		$this->setActionRepository( $this->employeeRepository );
 	}
 
 	public function storeGeneralInfo( $data = [] ) {
-		return $this->employeeRepository->save( $data );
+		$generalInfo = $this->employeeRepository->save( $data );
+
+		return new DataResponse( $generalInfo, $generalInfo['id'], 'General information added successfully' );
 	}
+
+	public function getEmployeeList() {
+		return $this->employeeRepository->findAll();
+	}
+
+//	public function getEmployeeAllInformation( $id = "" ) {
+//
+//		if ( empty( $id ) ) {
+//			return null;
+//		} else {
+//			$this->employeeRepository->getEmployeeInformation( $id );
+//		}
+//	}
 
 
 }

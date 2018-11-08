@@ -7,30 +7,23 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountHeadPostRequest;
+use Modules\Accounts\Services\AccountService;
 use Modules\Accounts\Services\AccountHeadService;
 
 class AccountHeadController extends Controller
 {
+    private $accountService;
     private $accountHeadService;
 
     /**
      * AccountHeadController constructor.
-     * @param AccountHeadService $accountHeadServices
+     * @param AccountService $accountService
+     * @param AccountHeadService $accountHeadService
      */
-    public function __construct(AccountHeadService $accountHeadService)
+    public function __construct(AccountService $accountService ,AccountHeadService $accountHeadService)
     {
+        $this->accountService = $accountService;
         $this->accountHeadService = $accountHeadService;
-    }
-
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        $accountHeads = $this->accountHeadService->getAll();
-
-        return view('accounts::account-head.index', compact('accountHeads'));
     }
 
     /**
@@ -39,7 +32,7 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList();
 
         return view('accounts::account-head.create', compact('accountsHeads'));
     }
@@ -53,7 +46,7 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->store($request->all());
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 
     /**
@@ -63,7 +56,8 @@ class AccountHeadController extends Controller
     public function edit($id)
     {
         $head = $this->accountHeadService->getHead($id);
-        $accountsHeads = $this->accountHeadService->getHeads();
+
+        $accountsHeads = $this->accountService->getAllHeadsOptionList($head->parent_id);
 
         return view('accounts::account-head.edit', compact('head', 'accountsHeads'));
     }
@@ -77,7 +71,7 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->update($id, $request->all());
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 
     /**
@@ -89,6 +83,6 @@ class AccountHeadController extends Controller
     {
         $response = $this->accountHeadService->delete($id);
 
-        return redirect()->route('account-head.index')->with('message', $response->getContent());
+        return redirect()->route('chart-of-account')->with('message', $response->getContent());
     }
 }

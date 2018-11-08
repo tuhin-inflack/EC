@@ -15,13 +15,12 @@
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head</label>
 
                                 <div class="col-md-6">
-                                    {{ Form::select('account_head_id', $accountsHeads, $ledger->account_head_id, array('class' => 'form-control' . ($errors->has('account_head_id') ? ' is-invalid' : '') )) }}
 
-                                    @if ($errors->has('account_head_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('account_head_id') }}</strong>
-                                        </span>
-                                    @endif
+                                    @include('accounts::account-head.select.account_heads',[
+                                            'options' => $accountsHeads,
+                                            'name' => 'account_head_id',
+                                            'class' => $errors->has('account_head_id') ? ' is-invalid' : ''
+                                        ])
                                 </div>
                             </div>
 
@@ -32,7 +31,7 @@
                                     <input type="text"
                                            value="{{ old('name') ?: $ledger->name }}"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" autofocus required/>
+                                           name="name" autofocus/>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -48,7 +47,7 @@
                                     <input type="text"
                                            value="{{ old('code') ?: $ledger->code }}"
                                            class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}"
-                                           name="code" autofocus required/>
+                                           name="code" autofocus/>
 
                                     @if ($errors->has('code'))
                                         <span class="invalid-feedback" role="alert">
@@ -64,7 +63,7 @@
                                     <input type="text"
                                            value="{{ old('opening_balance') ?: $ledger->opening_balance }}"
                                            class="form-control{{ $errors->has('opening_balance') ? ' is-invalid' : '' }}"
-                                           name="opening_balance" autofocus required/>
+                                           name="opening_balance" autofocus/>
 
                                     @if ($errors->has('opening_balance'))
                                         <span class="invalid-feedback" role="alert">
@@ -113,7 +112,7 @@
                             <div class="form-actions col-md-12 ">
                                 <div class="pull-right">
                                     {{ Form::button('<i class="la la-check-square-o"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                    <a href="{{ route('account-ledger.index') }}">
+                                    <a href="{{ route('chart-of-account') }}">
                                         <button type="button" class="btn btn-warning mr-1">
                                             <i class="la la-times"></i> Cancel
                                         </button>

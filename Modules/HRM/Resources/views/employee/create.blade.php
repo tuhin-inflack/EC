@@ -10,38 +10,17 @@
     @endphp
     <div class="col-xl-12 col-lg-12">
         <div class="card">
-
-            {{--<div class="card-header">--}}
-            {{--<h4 class="card-title">Add new employee </h4>--}}
-            {{--</div>--}}
-            {{--<div class="col-md-10 col-md-offset-1">--}}
-                {{--@if(Session::has('message'))--}}
-                    {{--<div class="alert alert-success text-center">--}}
-                        {{--{{Session::get('message')}}--}}
-                    {{--</div>--}}
-                {{--@endif--}}
-            {{--</div>--}}
             <div class="card-header">
                 <h4 class="card-title" id="repeat-form">Add New Employee</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
-                    {{--<ul class="list-inline mb-0">--}}
-                    {{--<li><a data-action="collapse"><i class="ft-minus"></i></a></li>--}}
-                    {{--<li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>--}}
-                    {{--<li><a data-action="expand"><i class="ft-maximize"></i></a></li>--}}
-                    {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
-                    {{--</ul>--}}
                     <ul class="list-inline mb-0">
                         <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                         <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                         <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                     </ul>
                 </div>
-                @if(Session::has('message'))
-                    <div class="alert alert-success text-center">
-                        {{Session::get('message')}}
-                    </div>
-                @endif
+
             </div>
             <div class="card-content collapse show" style="">
                 <div class="card-body">
@@ -51,31 +30,30 @@
                                aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link {{ $tab_action }} " id="personal-tab" data-toggle="tab" href="#personal"
+                            <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                                aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
                                 Personal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="education-tab" data-toggle="tab" href="#education"
+                            <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="training-tab" data-toggle="tab" href="#training"
+                            <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-book"></i> Training</a>
                         </li>
 
-
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="publication-tab" data-toggle="tab"
+                            <a class="nav-link " id="publication-tab" data-toggle="tab"
                                href="#publication"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-paperclip"></i> Publication</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="research-tab" data-toggle="tab" href="#research"
+                            <a class="nav-link " id="research-tab" data-toggle="tab" href="#research"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-bookmark"></i> Research</a>
                         </li>
@@ -83,17 +61,17 @@
 
                     </ul>
                     <div class="tab-content px-1 pt-1">
-                        <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
+                        <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
-                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.form.general_info')
                             {!! Form::close() !!}
                         </div>
 
 
-                        <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
+                        <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
                             @include('hrm::employee.form.personal_info')
                             {!! Form::close() !!}
                         </div>
@@ -125,7 +103,7 @@
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
                             @include('hrm::employee.form.research_info')
                             {!! Form::close() !!}
                         </div>
@@ -135,19 +113,38 @@
         </div>
     </div>
 @endsection
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
 
+@endpush
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}"
+            type="text/javascript"></script>
+
+    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+
+
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
+    {{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
         console.log(employee_id);
         $(document).ready(function () {
-            $('.addMore').click(function () {
-                $('.EmployeeId').val(employee_id);
-            });
+            {{--$('.addMore').click(function () {--}}
+            {{--$('.EmployeeId').val(employee_id);--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
+            {{--});--}}
         })
     </script>
 @endpush

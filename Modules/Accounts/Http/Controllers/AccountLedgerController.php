@@ -9,10 +9,12 @@ use Modules\Accounts\Http\Requests\CreateAccountLedgerPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountLedgerPostRequest;
 use Modules\Accounts\Services\AccountHeadService;
 use Modules\Accounts\Services\AccountLedgerService;
+use Modules\Accounts\Services\AccountService;
 
 
 class AccountLedgerController extends Controller
 {
+    private $accountService;
     private $accountHeadService;
     private $accountLedgerService;
 
@@ -20,21 +22,11 @@ class AccountLedgerController extends Controller
      * AccountLedgerController constructor.
      * @param AccountHeadService $accountLedgerServices
      */
-    public function __construct(AccountHeadService $accountHeadService, AccountLedgerService $accountLedgerService)
+    public function __construct(AccountService $accountService, AccountHeadService $accountHeadService, AccountLedgerService $accountLedgerService)
     {
+        $this->accountService = $accountService;
         $this->accountHeadService = $accountHeadService;
         $this->accountLedgerService = $accountLedgerService;
-    }
-
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        $accountLedgers = $this->accountLedgerService->getAll();
-
-        return view('accounts::account-ledger.index', compact('accountLedgers'));
     }
 
     /**
@@ -43,7 +35,7 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList();
 
         return view('accounts::account-ledger.create', compact('accountsHeads'));
     }
@@ -56,7 +48,7 @@ class AccountLedgerController extends Controller
     public function store(CreateAccountLedgerPostRequest $request)
     {
         $this->accountLedgerService->store($request->all());
-        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger stored successfully!');
+        return redirect()->route('chart-of-account')->with('success', 'Account Ledger stored successfully!');
     }
 
     /**
@@ -66,7 +58,7 @@ class AccountLedgerController extends Controller
     public function edit($id)
     {
         $ledger = $this->accountLedgerService->getLedger($id);
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList($ledger->account_head_id);
 
         return view('accounts::account-ledger.edit', compact('ledger', 'accountsHeads'));
     }
@@ -79,7 +71,7 @@ class AccountLedgerController extends Controller
     public function update(UpdateAccountLedgerPostRequest $request, $id)
     {
         $this->accountLedgerService->update($id, $request->all());
-        return redirect()->route('account-ledger.index')->with('success', 'Account Ledger updated successfully!');
+        return redirect()->route('chart-of-account')->with('success', 'Account Ledger updated successfully!');
     }
 
     /**
@@ -89,6 +81,6 @@ class AccountLedgerController extends Controller
     public function destroy($id)
     {
         $this->accountLedgerService->delete($id);
-        return redirect()->route('account-ledger.index')->with('warning', 'Account Ledger deleted successfully!');
+        return redirect()->route('chart-of-account')->with('warning', 'Account Ledger deleted successfully!');
     }
 }
