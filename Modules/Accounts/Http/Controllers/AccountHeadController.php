@@ -7,18 +7,22 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounts\Http\Requests\CreateAccountHeadPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountHeadPostRequest;
+use Modules\Accounts\Services\AccountService;
 use Modules\Accounts\Services\AccountHeadService;
 
 class AccountHeadController extends Controller
 {
+    private $accountService;
     private $accountHeadService;
 
     /**
      * AccountHeadController constructor.
-     * @param AccountHeadService $accountHeadServices
+     * @param AccountService $accountService
+     * @param AccountHeadService $accountHeadService
      */
-    public function __construct(AccountHeadService $accountHeadService)
+    public function __construct(AccountService $accountService ,AccountHeadService $accountHeadService)
     {
+        $this->accountService = $accountService;
         $this->accountHeadService = $accountHeadService;
     }
 
@@ -28,7 +32,7 @@ class AccountHeadController extends Controller
      */
     public function create()
     {
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList();
 
         return view('accounts::account-head.create', compact('accountsHeads'));
     }
@@ -52,7 +56,8 @@ class AccountHeadController extends Controller
     public function edit($id)
     {
         $head = $this->accountHeadService->getHead($id);
-        $accountsHeads = $this->accountHeadService->getHeads();
+
+        $accountsHeads = $this->accountService->getAllHeadsOptionList($head->parent_id);
 
         return view('accounts::account-head.edit', compact('head', 'accountsHeads'));
     }

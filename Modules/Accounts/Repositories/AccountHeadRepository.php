@@ -17,12 +17,9 @@ class AccountHeadRepository extends AbstractBaseRepository
 {
     protected $modelName = AccountHead::class;
 
-    /**
-     * @param null $selected
-     */
     public function getHeadsForOptions()
     {
-        return $this->model->select('id', DB::raw('CONCAT(code, " - ", name) as name_code'))->get()->toArray();
+        return $this->model->select('id', DB::raw('CONCAT(code, " ", name) as name_code'))->get()->toArray();
     }
 
     public function getMainParentHeads()
@@ -30,23 +27,29 @@ class AccountHeadRepository extends AbstractBaseRepository
         return $this->findBy(['parent_id' => AccountConstant::PARENT]);
     }
 
+    /**
+     * @param $head
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     public function getChildHead($head)
     {
         return $this->findBy(['parent_id' => $head]);
     }
 
     /**
-     * @param int $id
+     * @param $id
      * @param array $data
+     * @return \Illuminate\Database\Eloquent\Model|void
      */
     public function updateHead($id, array $data)
     {
         return $this->update($this->model->find($id), $data);
     }
 
-
     /**
-     * @param int $id
+     * @param $id
+     * @return mixed
+     * @throws \Exception\
      */
     public function deleteHead($id)
     {
