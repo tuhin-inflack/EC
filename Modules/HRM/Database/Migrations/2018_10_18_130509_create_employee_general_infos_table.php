@@ -20,7 +20,7 @@ class CreateEmployeeGeneralInfosTable extends Migration {
 			$table->unsignedInteger( 'department_id' );
 			$table->string( 'designation_code' );
 			$table->string( 'status' )->default( 'present' );
-			$table->marital_status( 'tel_office' )->nullable();
+			$table->string( 'tel_office' )->nullable();
 			$table->string( 'tel_home' )->nullable();
 			$table->string( 'mobile_one' )->nullable();
 			$table->string( 'mobile_two' )->nullable();
