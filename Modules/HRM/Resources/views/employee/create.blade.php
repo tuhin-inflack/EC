@@ -30,31 +30,30 @@
                                aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
                         </li>
                         <li class="nav-item ">
-                            <a class="nav-link {{ $tab_action }} " id="personal-tab" data-toggle="tab" href="#personal"
+                            <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                                aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
                                 Personal</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="education-tab" data-toggle="tab" href="#education"
+                            <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="training-tab" data-toggle="tab" href="#training"
+                            <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-book"></i> Training</a>
                         </li>
 
-
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="publication-tab" data-toggle="tab"
+                            <a class="nav-link " id="publication-tab" data-toggle="tab"
                                href="#publication"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-paperclip"></i> Publication</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ $tab_action }}" id="research-tab" data-toggle="tab" href="#research"
+                            <a class="nav-link " id="research-tab" data-toggle="tab" href="#research"
                                aria-controls="linkIcon12"
                                aria-expanded="false"><i class="la la-bookmark"></i> Research</a>
                         </li>
@@ -62,7 +61,7 @@
 
                     </ul>
                     <div class="tab-content px-1 pt-1">
-                        <div role="tabpanel" class="tab-pane active show" id="general" aria-labelledby="general-tab"
+                        <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
                             {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.form.general_info')
@@ -70,7 +69,7 @@
                         </div>
 
 
-                        <div class="tab-pane" id="personal" role="tabpanel" aria-labelledby="personal-tab"
+                        <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
                             @include('hrm::employee.form.personal_info')
@@ -131,7 +130,7 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-{{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
+    {{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
@@ -148,6 +147,4 @@
             {{--});--}}
         })
     </script>
-
-
 @endpush
