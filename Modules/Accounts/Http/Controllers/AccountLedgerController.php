@@ -9,10 +9,12 @@ use Modules\Accounts\Http\Requests\CreateAccountLedgerPostRequest;
 use Modules\Accounts\Http\Requests\UpdateAccountLedgerPostRequest;
 use Modules\Accounts\Services\AccountHeadService;
 use Modules\Accounts\Services\AccountLedgerService;
+use Modules\Accounts\Services\AccountService;
 
 
 class AccountLedgerController extends Controller
 {
+    private $accountService;
     private $accountHeadService;
     private $accountLedgerService;
 
@@ -20,8 +22,9 @@ class AccountLedgerController extends Controller
      * AccountLedgerController constructor.
      * @param AccountHeadService $accountLedgerServices
      */
-    public function __construct(AccountHeadService $accountHeadService, AccountLedgerService $accountLedgerService)
+    public function __construct(AccountService $accountService, AccountHeadService $accountHeadService, AccountLedgerService $accountLedgerService)
     {
+        $this->accountService = $accountService;
         $this->accountHeadService = $accountHeadService;
         $this->accountLedgerService = $accountLedgerService;
     }
@@ -32,7 +35,7 @@ class AccountLedgerController extends Controller
      */
     public function create()
     {
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList();
 
         return view('accounts::account-ledger.create', compact('accountsHeads'));
     }
@@ -55,7 +58,7 @@ class AccountLedgerController extends Controller
     public function edit($id)
     {
         $ledger = $this->accountLedgerService->getLedger($id);
-        $accountsHeads = $this->accountHeadService->getHeads();
+        $accountsHeads = $this->accountService->getAllHeadsOptionList($ledger->account_head_id);
 
         return view('accounts::account-ledger.edit', compact('ledger', 'accountsHeads'));
     }

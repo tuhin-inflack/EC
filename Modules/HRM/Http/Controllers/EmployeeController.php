@@ -49,17 +49,16 @@ class EmployeeController extends Controller {
 
 
 	public function index() {
-
-		return view( 'hrm::employee.index' );
+		$employeeList = $this->employeeService->getEmployeeList();
+		return view( 'hrm::employee.index', compact('employeeList') );
 	}
 
 
 	public function create( Request $request ) {
 		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
-		if ( ! empty( $request->employee ) ) {
-			$employee_id = $request->employee;
-		}
+
+		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
 		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id' ) );
 	}
@@ -73,6 +72,7 @@ class EmployeeController extends Controller {
 	}
 
 	public function storePersonalInfo( StoreEmployeePersonalInfoRequest $request ) {
+
 		$personalInfo = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $personalInfo['employee_id'] ] )
