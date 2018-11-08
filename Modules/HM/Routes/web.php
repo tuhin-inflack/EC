@@ -48,5 +48,9 @@ Route::prefix('hm')->group(function() {
     Route::prefix('room-inventories')->group(function () {
         Route::delete('{roomInventory}', 'RoomInventoryController@destroy')->name('room-inventories.destroy');
     });
+
+    Route::prefix('room-types')->group(function() {
+        Route::get('create', 'RoomTypeController@create')->name('room-types.create');
+    });
 });
 
