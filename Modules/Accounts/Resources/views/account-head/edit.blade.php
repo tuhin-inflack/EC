@@ -17,13 +17,11 @@
                                 {{-- Form::select('parent_id', $coa) --}}
 
                                 <div class="col-md-6">
-                                    {{ Form::select('parent_id', $accountsHeads, $head->parent_id, array('class' => 'form-control' . ($errors->has('parent_id') ? ' is-invalid' : '') )) }}
-
-                                    @if ($errors->has('parent_id'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('parent_id') }}</strong>
-                                        </span>
-                                    @endif
+                                    @include('accounts::account-head.select.account_heads',[
+                                            'options' => $accountsHeads,
+                                            'name' => 'parent_id',
+                                            'class' => $errors->has('parent_id') ? ' is-invalid' : ''
+                                        ])
                                 </div>
                             </div>
 
@@ -34,7 +32,7 @@
                                     <input type="text"
                                            value="{{ old('name') ?: $head->name }}"
                                            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                           name="name" autofocus required/>
+                                           name="name" autofocus/>
 
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback" role="alert">
@@ -50,7 +48,7 @@
                                     <input type="text"
                                            value="{{ old('code') ?: $head->code }}"
                                            class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}"
-                                           name="code" autofocus required/>
+                                           name="code" autofocus/>
 
                                     @if ($errors->has('code'))
                                         <span class="invalid-feedback" role="alert">
@@ -91,7 +89,7 @@
                             <div class="form-actions col-md-12 ">
                                 <div class="pull-right">
                                     {{ Form::button('<i class="la la-check-square-o"></i> Update', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                    <a href="{{ route('account-head.index')  }}">
+                                    <a href="{{ route('chart-of-account')  }}">
                                         <button type="button" class="btn btn-warning mr-1">
                                             <i class="la la-times"></i> Cancel
                                         </button>

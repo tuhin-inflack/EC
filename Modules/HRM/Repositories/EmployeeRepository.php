@@ -14,4 +14,11 @@ use Modules\HRM\Entities\Employee;
 
 class EmployeeRepository extends AbstractBaseRepository {
 	public $modelName = Employee::class;
+
+
+//	public function getEmployeeInformation( $id ) {
+////		dd($data);
+//		$test = $this->findOne( $id );
+//		dd( $test );
+//	}
 }

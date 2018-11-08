@@ -1,14 +1,22 @@
 <div class="row">
     <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('father_name') ? ' error' : '' }}">
             {{ Form::label('father_name', 'Father\'s name') }}
-            {{ Form::text('father_name', null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::text('father_name', null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter father\'s name']) }}
+            <div class="help-block"></div>
+            @if ($errors->has('father_name'))
+                <div class="help-block">  {{ $errors->first('father_name') }}</div>
+            @endif
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('mother_name') ? ' error' : '' }}">
             {{ Form::label('mother_name', 'Mother\'s name') }}
-            {{ Form::text('mother_name', null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::text('mother_name', null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter mother\'s name ']) }}
+            <div class="help-block"></div>
+            @if ($errors->has('mother_name'))
+                <div class="help-block">  {{ $errors->first('mother_name') }}</div>
+            @endif
         </div>
     </div>
 
@@ -20,15 +28,22 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('date_of_birth') ? ' error' : '' }}">
             {{ Form::label('date_of_birth', 'Date of Birth') }}
             {{ Form::date('date_of_birth',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            @if ($errors->has('date_of_birth'))
+                <div class="help-block">  {{ $errors->first('date_of_birth') }}</div>
+            @endif
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('job_joining_date') ? ' error' : '' }}">
             {{ Form::label('job_joining_date', 'Joining Date') }}
-            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter joining date ']) }}
+            <div class="help-block"></div>
+            @if ($errors->has('job_joining_date'))
+                <div class="help-block">  {{ $errors->first('job_joining_date') }}</div>
+            @endif
         </div>
     </div>
     <div class="col-md-6">
@@ -58,9 +73,13 @@
     </div>
 
     <div class="col-md-3">
-        <div class="form-group">
+        <div class="form-group {{ $errors->has('marital_status') ? ' error' : '' }}">
             {{ Form::label('marital_status', 'Marital Status') }}
-            {{ Form::select('marital_status',  Config('constants.marital_status') ,  null, ['class' => 'form-control']) }}
+            {{ Form::select('marital_status',  Config('constants.marital_status') ,  null, ['class' => 'form-control', 'data-validation-required-message'=>'Please select marital status']) }}
+            <div class="help-block"></div>
+            @if ($errors->has('marital_status'))
+                <div class="help-block">  {{ $errors->first('marital_status') }}</div>
+            @endif
         </div>
     </div>
     <div class="col-md-3">

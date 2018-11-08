@@ -16,7 +16,7 @@ class CreateAccountHeadPostRequest extends FormRequest
         return [
             'parent_id' => 'required',
             'name' => 'required|max:255',
-            'code' => 'required|unique:account_heads,code',
+            'code' => 'required|alpha_num|unique:account_heads,code',
             'head_type' => 'required',
         ];
     }
