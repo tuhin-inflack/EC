@@ -144,6 +144,22 @@
             {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
             {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
             {{--});--}}
+
+
+            var url = document.URL;
+            var hash = url.substring(url.indexOf('#'));
+
+            $(".nav-tabs").find("li a").each(function(key, val) {
+                if (hash == $(val).attr('href')) {
+                    $(val).click();
+                }
+
+                $(val).click(function(ky, vl) {
+                    location.hash = $(this).attr('href');
+                });
+            });
+
+
         })
     </script>
 

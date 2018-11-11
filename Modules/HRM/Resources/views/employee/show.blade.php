@@ -58,7 +58,7 @@
                     {{--employee general information--}}
                     <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                          aria-expanded="true">
-                        <table class="table">
+                        <table class="table col-md-6">
                             <tbody>
 
                             <tr>
