@@ -25,19 +25,19 @@ class Employee extends Model {
 	}
 
 	public function employeeEducationInfo() {
-		return $this->hasOne( EmployeeEducation::class );
+		return $this->hasMany( EmployeeEducation::class );
 	}
 
 	public function employeeTrainingInfo() {
-		return $this->hasOne( EmployeeTraining::class );
+		return $this->hasMany( EmployeeTraining::class );
 	}
 
 	public function employeePublicationInfo() {
-		return $this->hasOne( EmployeePublication::class );
+		return $this->hasMany( EmployeePublication::class );
 	}
 
 	public function employeeResearchInfo() {
-		return $this->hasOne( EmployeeResearchInfo::class );
+		return $this->hasMany( EmployeeResearchInfo::class );
 	}
 
 	public function employeeDepartment() {
