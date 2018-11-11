@@ -32,45 +32,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Shortcode</label>
-                                            <input type="text"
-                                                   value="{{ old('shortcode') }}"
-                                                   class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
-                                                   name="shortcode" autofocus required/>
-
-                                            @if ($errors->has('shortcode'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('shortcode') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Level</label>
-                                            <input type="number"
-                                                   min="1"
-                                                   value="{{ old('level') }}"
-                                                   class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
-                                                   name="level" required/>
-
-                                            @if ($errors->has('level'))
-                                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('level') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Name</label>
+                                            <label class="form-label">Name <span class="danger">*</span></label>
                                             <input type="text"
                                                    value="{{ old('name') }}"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                   name="name" required/>
+                                                   name="name" autofocus required/>
 
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
@@ -81,135 +47,69 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Total Room</label>
+                                            <label class="form-label">Total Floor <span class="danger">*</span></label>
                                             <input type="number"
                                                    min="1"
-                                                   value="{{ old('total_room') }}"
-                                                   class="form-control{{ $errors->has('total_room') ? ' is-invalid' : '' }}"
-                                                   name="total_room" required/>
-                                            @if ($errors->has('total_room'))
+                                                   value="{{ old('total_floor') }}"
+                                                   class="form-control{{ $errors->has('total_floor') ? ' is-invalid' : '' }}"
+                                                   name="total_floor" required/>
+
+                                            @if ($errors->has('total_floor'))
                                                 <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('total_room') }}</strong>
+                                                <strong>{{ $errors->first('total_floor') }}</strong>
                                             </span>
                                             @endif
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 offset-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Total Seat</label>
-                                            <input type="number"
-                                                   min="1"
-                                                   value="{{ old('total_seat') }}"
-                                                   class="form-control{{ $errors->has('total_seat') ? ' is-invalid' : '' }}"
-                                                   name="total_seat" required/>
+                                <h4 class="form-section"><i class="la  la-table"></i>Room Details</h4>
 
-                                            @if ($errors->has('total_seat'))
-                                                <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('total_seat') }}</strong>
-                                            </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <b class="col-sm-4 col-form-label text-md-right"><u>Room Details</u></b>
-                                </div>
-
-                                <div class="repeater-room-types col-md-6 offset-sm-3">
+                                <div class="repeater-room-types">
                                     <div class="row">
-                                        <div class="mb-1 col-sm-12 col-md-4">
-                                            <label for="bio" class="cursor-pointer">Room Type</label>
+                                        <div class="mb-1 col-sm-12 col-md-2">
+                                            <label for="bio" class="cursor-pointer">Floor Number<span class="danger">*</span></label>
                                         </div>
                                         <div class="mb-1 col-sm-12 col-md-3">
-                                            <label for="bio" class="cursor-pointer">Capacity</label>
+                                            <label for="bio" class="cursor-pointer">Room Type <span class="danger">*</span></label>
                                         </div>
                                         <div class="mb-1 col-sm-12 col-md-3">
-                                            <label for="bio" class="cursor-pointer">Rate</label>
+                                            <label for="bio" class="cursor-pointer">Room Type Quantity <span class="danger">*</span></label>
+                                        </div>
+                                        <div class="mb-1 col-sm-12 col-md-3">
+                                            <label for="bio" class="cursor-pointer">Room numbers <span class="danger">*</span></label>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div data-repeater-list="room_types">
-                                            @if(old('room_types'))
-                                                @foreach(old('room_types') as $oldInput)
-                                                    <div data-repeater-item class="row">
-                                                        <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                            <input type="text"
-                                                                   value="{{ $oldInput['name'] }}"
-                                                                   class="form-control{{ $errors->has('room_types.'.$loop->index.'.name') ? ' is-invalid' : '' }}"
-                                                                   name="name" required/>
-
-                                                            @if ($errors->has('room_types.'.$loop->index.'.name'))
-                                                                <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.name') }}</strong>
-                                                    </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                            <input type="number"
-                                                                   min="1"
-                                                                   value="{{ $oldInput['capacity'] }}"
-                                                                   class="form-control{{ $errors->has('room_types.'.$loop->index.'.capacity') ? ' is-invalid' : '' }}"
-                                                                   name="capacity" required/>
-
-                                                            @if ($errors->has('room_types.'.$loop->index.'.capacity'))
-                                                                <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.capacity') }}</strong>
-                                                    </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                            <input type="number"
-                                                                   min="1"
-                                                                   value="{{ $oldInput['rate'] }}"
-                                                                   class="form-control{{ $errors->has('room_types.'.$loop->index.'.rate') ? ' is-invalid' : '' }}"
-                                                                   name="rate" required/>
-
-                                                            @if ($errors->has('room_types.'.$loop->index.'.rate'))
-                                                                <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('room_types.'.$loop->index.'.rate') }}</strong>
-                                                    </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                    data-repeater-delete><i class="ft-x"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-                                            @else
-                                                <div data-repeater-item class="row">
-                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                        <input type="text"
-                                                               class="form-control"
-                                                               name="name" required/>
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                        <input type="number"
-                                                               min="1"
-                                                               class="form-control"
-                                                               name="capacity" required/>
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                        <input type="number"
-                                                               min="1"
-                                                               class="form-control"
-                                                               name="rate" required/>
-                                                    </div>
-                                                    <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
-                                                        <button type="button" class="btn btn-outline-danger"
-                                                                data-repeater-delete><i class="ft-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            @endif
+                                    <div data-repeater-list="room_types">
+                                        <div data-repeater-item class="row">
+                                            <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                <input type="number"
+                                                       min="1"
+                                                       class="form-control"
+                                                       name="quantity" required/>
+                                            </div>
+                                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                <select name="" id="" class="custom-select">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                <select name="" id="" class="custom-select">
+                                                    <option value=""></option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                <input type="text" name="" id="" class="form-control">
+                                            </div>
+                                            <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                                <button type="button" class="btn btn-outline-danger"
+                                                        data-repeater-delete><i class="ft-x"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
+
 
                                     <div class="row">
                                         <div class="col-12">
@@ -221,11 +121,13 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <hr>
+                                <hr>
 
+                                <div>
                                     <div class="form-group row mb-0">
-                                        <div class="col-md-8 offset-md-4">
+                                        <div class="col-md-12 text-center">
                                             <button class="btn btn-primary" type="submit">Save</button>
                                             <a href="{{ route('hostels.index') }}" class="btn btn-warning">Cancel</a>
                                         </div>
