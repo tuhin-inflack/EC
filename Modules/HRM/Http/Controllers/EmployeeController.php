@@ -82,6 +82,7 @@ class EmployeeController extends Controller {
 			'employeeDepartment'
 		] );
 
+//		dd(empty($employee->employeeResearchInfo));
 		return view( 'hrm::employee.show', compact('employee') );
 	}
 

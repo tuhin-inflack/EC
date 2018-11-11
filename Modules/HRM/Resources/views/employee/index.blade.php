@@ -17,6 +17,7 @@
 
                         </div>
                     </div>
+
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
 
