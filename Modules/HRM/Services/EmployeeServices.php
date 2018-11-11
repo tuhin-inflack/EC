@@ -31,6 +31,10 @@ class EmployeeServices {
 	public function getEmployeeList() {
 		return $this->employeeRepository->findAll();
 	}
+	public function show($id){
+
+	}
+
 
 //	public function getEmployeeAllInformation( $id = "" ) {
 //

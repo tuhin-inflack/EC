@@ -21,4 +21,6 @@ class EmployeeRepository extends AbstractBaseRepository {
 //		$test = $this->findOne( $id );
 //		dd( $test );
 //	}
+
+
 }
