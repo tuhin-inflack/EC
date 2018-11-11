@@ -11,17 +11,18 @@ class StoreEmployeePersonalInfoRequest extends FormRequest {
 	 *
 	 * @return array
 	 */
-	protected $errorBag = 'personalinfo';
+	protected $errorBag = 'PersonalInfo';
+	protected $redirect ;
 
 	public function rules( Request $request ) {
-//		dd( $request->all() );
+		$this->redirect = '/hrm/employee/create?employee=' . $request->employee_id . '#personal';
 
 		return [
-			'father_name' => 'required',
-			'mother_name' => 'required',
+			'father_name'      => 'required',
+			'mother_name'      => 'required',
 			'job_joining_date' => 'required',
-			'date_of_birth' => 'required',
-			'marital_status' => 'required',
+			'date_of_birth'    => 'required',
+			'marital_status'   => 'required',
 		];
 	}
 

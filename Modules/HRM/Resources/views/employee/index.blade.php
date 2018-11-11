@@ -102,6 +102,8 @@
 
 
     <script>
+
+        //        table export configuration
         $(document).ready(function () {
             $('#Example1').DataTable({
                 dom: 'Bfrtip',
@@ -137,6 +139,19 @@
             });
         });
 
+        //        tab link activation
+        var url = document.URL;
+        var hash = url.substring(url.indexOf('#'));
+
+        $(".nav-tabs").find("li a").each(function (key, val) {
+            if (hash == $(val).attr('href')) {
+                $(val).click();
+            }
+
+            $(val).click(function (ky, vl) {
+                location.hash = $(this).attr('href');
+            });
+        });
     </script>
 
 @endpush
