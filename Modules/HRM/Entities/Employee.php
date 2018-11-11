@@ -40,4 +40,8 @@ class Employee extends Model {
 		return $this->hasOne( EmployeeResearchInfo::class );
 	}
 
+	public function employeeDepartment() {
+		return $this->belongsTo(EmployeeDepartment::class , 'department_id', 'id');
+	}
+
 }

@@ -17,7 +17,7 @@ Route::prefix( 'hrm' )->group( function () {
 //	Route for employee
 	Route::resources( [ 'employee' => 'EmployeeController', ] );
 	Route::prefix( 'employee' )->group( function () {
-		Route::post( 'general-info', 'EmployeeController@storeGeneralInfo' );
+		Route::post( 'general-info', 'EmployeeController@store' );
 		Route::post( 'personal-info', 'EmployeeController@storePersonalInfo' );
 		Route::post( 'education_info', 'EmployeeController@storeEducationalInfo' );
 		Route::post( 'training_info', 'EmployeeController@storeTrainingInfo' );

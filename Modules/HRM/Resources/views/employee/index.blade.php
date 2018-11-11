@@ -39,15 +39,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(1)
+                                    @if($employeeList)
                                         @foreach($employeeList as $employee)
+
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
                                                 <td>{{$employee->first_name}}</td>
                                                 <td>{{$employee->last_name}}</td>
                                                 <td>{{$employee->email}}</td>
                                                 <td>{{$employee->gender}}</td>
-                                                <td>{{$employee->department_id}}</td>
+                                                <td>{{$employee->employeeDepartment->name}}</td>
                                                 <td>{{$employee->status}}</td>
                                                 <td>{{$employee->tel_office}}</td>
                                                 <td>{{$employee->tel_home}}</td>
@@ -70,9 +71,9 @@
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('project-request.show',1) }}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                        <a href="{{ url('/hrm/employee',$employee->id) }}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
 
-                                                        <a href="{{ route('project_request.edit', 1)  }}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                        <a href="{{ url('project_request.edit', $employee->id)  }}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
 
                                                     </span>
                                                 </td>

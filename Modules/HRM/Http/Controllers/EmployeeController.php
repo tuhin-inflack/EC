@@ -50,7 +50,8 @@ class EmployeeController extends Controller {
 
 	public function index() {
 		$employeeList = $this->employeeService->getEmployeeList();
-		return view( 'hrm::employee.index', compact('employeeList') );
+
+		return view( 'hrm::employee.index', compact( 'employeeList' ) );
 	}
 
 
@@ -64,11 +65,24 @@ class EmployeeController extends Controller {
 	}
 
 
-	public function storeGeneralInfo( StoreEmployeeGeneralInfoRequest $request ) {
+	public function store( StoreEmployeeGeneralInfoRequest $request ) {
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $response->getId() ] );
+	}
+
+	public function show( $id ) {
+		$employee = $this->employeeService->findOne( $id, [
+			'employeePersonalInfo',
+			'employeeEducationInfo',
+			'employeeTrainingInfo',
+			'employeePublicationInfo',
+			'employeeResearchInfo',
+			'employeeDepartment'
+		] );
+
+		return view( 'hrm::employee.show', compact('employee') );
 	}
 
 	public function storePersonalInfo( StoreEmployeePersonalInfoRequest $request ) {
