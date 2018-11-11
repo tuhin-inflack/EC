@@ -3,7 +3,7 @@
 
 
 @section('content')
-
+{{--{{ dd($employee) }}--}}
     <div class="card">
         <div class="card-header">
             <h4 class="card-title" id="basic-layout-form">Employee Details</h4>
@@ -109,12 +109,13 @@
                     {{--Employee Personal Info--}}
                     <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
+                        @if(!is_null($employee->employeePersonalInfo))
                         <table class="table">
                             <tbody>
 
                             <tr>
                                 <th scope="col">Father's Name</th>
-                                <td>{{$employee->employeePersonalInfo->father_name}}</td>
+                                <td>{{ (empty($employee->employeePersonalInfo->father_name)) ? $employee->employeePersonalInfo->father_name : ''}}</td>
                             </tr>
                             <tr>
 
@@ -160,6 +161,9 @@
 
                             </tbody>
                         </table>
+                        @else
+                            <h3 class="text-center">Personal info does not exist</h3>
+                        @endif
                         <div class="">
                             <a href="{{URL::to( '/user/role/'.$employee->id.'/edit')}}"
                                class="btn btn-primary"><i class="ft-edit-2"></i> Edit</a>
@@ -213,7 +217,7 @@
                             @endforeach
                         @else
 
-                            <h3>Employee Education info does not exist</h3>
+                            <h3 class="text-center">Education info does not exist</h3>
                         @endif
                     </div>
 
@@ -265,7 +269,7 @@
                                 </table>
                             @endforeach
                         @else
-                            <h3 class="text-center">Training information not available</h3>
+                            <h3 class="text-center">Training info does not exist</h3>
                         @endif
                     </div>
 
@@ -304,7 +308,7 @@
                                 </table>
                             @endforeach
                         @else
-                            <h3 class="text-center">Training information not available</h3>
+                            <h3 class="text-center">Publication info does not exist</h3>
                         @endif
                         <div class="form-actions">
                             <a href="{{URL::to( '/user/role/'.$employee->id.'/edit')}}"
@@ -341,7 +345,7 @@
                                 </table>
                             @endforeach
                         @else
-                            <h3 class="text-center">Research information not available</h3>
+                            <h3 class="text-center">Research info does not exist</h3>
                         @endif
                         <div class="form-actions">
                             <a href="{{URL::to( '/user/role/'.$employee->id.'/edit')}}"

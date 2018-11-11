@@ -42,8 +42,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
-                               aria-controls="linkIcon12"
-                               aria-expanded="false"><i class="la la-book"></i> Training</a>
+                               aria-controls="linkIcon12" aria-expanded="false"><i class="la la-book"></i> Training</a>
                         </li>
 
                         <li class="nav-item">
@@ -147,4 +146,5 @@
             {{--});--}}
         })
     </script>
+
 @endpush

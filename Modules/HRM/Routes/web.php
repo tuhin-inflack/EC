@@ -24,6 +24,7 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
 		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );
 	} );
-
+	Route::get('/test', 'HRMController@test');
 
 } );
+
