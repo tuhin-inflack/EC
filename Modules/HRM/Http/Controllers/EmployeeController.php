@@ -69,7 +69,7 @@ class EmployeeController extends Controller {
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#personal' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
 	}
 
 	public function show( $id ) {

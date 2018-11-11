@@ -34,14 +34,4 @@ class EmployeeServices {
 
 
 
-//	public function getEmployeeAllInformation( $id = "" ) {
-//
-//		if ( empty( $id ) ) {
-//			return null;
-//		} else {
-//			$this->employeeRepository->getEmployeeInformation( $id );
-//		}
-//	}
-
-
 }
