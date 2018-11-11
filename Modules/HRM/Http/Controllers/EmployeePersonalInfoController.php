@@ -2,9 +2,11 @@
 
 namespace Modules\HRM\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeePersonalInfoRequest;
 use Modules\HRM\Services\EmployeePersonalInfoService;
 
@@ -16,7 +18,10 @@ class EmployeePersonalInfoController extends Controller {
 	}
 
 	public function store( StoreEmployeePersonalInfoRequest $request ) {
-		$personalInfo = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
+		$response = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#education' ] );
 	}
 
 

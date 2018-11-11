@@ -9,16 +9,23 @@
 namespace Modules\HRM\Services;
 
 
+use App\Http\Responses\DataResponse;
+use App\Traits\CrudTrait;
 use Modules\HRM\Repositories\EmployeePersonalInfoRepository;
 
 class EmployeePersonalInfoService {
+	use CrudTrait;
 	protected $employeePersonalInfoRepository;
 
 	public function __construct( EmployeePersonalInfoRepository $employeePersonalInfoRepository ) {
 		$this->employeePersonalInfoRepository = $employeePersonalInfoRepository;
+		$this->setActionRepository( $this->employeePersonalInfoRepository );
 	}
-	public function storePersonalInfo( $data = [] ) {
-		return $this->employeePersonalInfoRepository->save( $data );
+
+	public function storePersonalInfo( $data = null ) {
+		$personalInfo = $this->employeePersonalInfoRepository->save( $data );
+
+		return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Personal information added successfully' );
 	}
 
 
