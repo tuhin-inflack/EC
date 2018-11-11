@@ -24,7 +24,6 @@ class EmployeeController extends Controller {
 	private $employeeService;
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
-	private $employeePersonalInfoService;
 	private $employeeEducationService;
 	private $employeeTrainingService;
 	private $employeePublicationService;
@@ -32,7 +31,7 @@ class EmployeeController extends Controller {
 
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
-		EmployeeDesignationService $employeeDesignationService, EmployeePersonalInfoService $employeePersonalInfoService,
+		EmployeeDesignationService $employeeDesignationService,
 		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService,
 		EmployeePublicationService $employeePublicationService,
 		EmployeeResearchService $employeeResearchService
@@ -40,7 +39,6 @@ class EmployeeController extends Controller {
 		$this->employeeService             = $employeeServices;
 		$this->employeeDepartmentService   = $employeeDepartmentService;
 		$this->employeeDesignationService  = $employeeDesignationService;
-		$this->employeePersonalInfoService = $employeePersonalInfoService;
 		$this->employeeEducationService    = $employeeEducationService;
 		$this->employeeTrainingService     = $employeeTrainingService;
 		$this->employeePublicationService  = $employeePublicationService;
@@ -82,26 +80,18 @@ class EmployeeController extends Controller {
 			'employeeDepartment'
 		] );
 
-//		dd(empty($employee->employeeResearchInfo));
 		return view( 'hrm::employee.show', compact('employee') );
 	}
 
-	public function storePersonalInfo( StoreEmployeePersonalInfoRequest $request ) {
 
-		$personalInfo = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $personalInfo['employee_id'] ] )
-		                 ->with( 'success', 'Employee personal information saved successfully!' );
-
-	}
-
-	public function storeEducationalInfo( Request $request ) {
-		$educationalInfo         = $request->education;
-		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
-		                 ->with( 'success', 'Employee Educational information saved successfully!' );
-	}
+//	public function storeEducationalInfo( Request $request ) {
+//		$educationalInfo         = $request->education;
+//		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
+//
+//		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
+//		                 ->with( 'success', 'Employee Educational information saved successfully!' );
+//	}
 
 	public function storeTrainingInfo( Request $request ) {
 		$trainingInfo = $request->training;
