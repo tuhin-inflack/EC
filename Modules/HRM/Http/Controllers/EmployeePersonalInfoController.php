@@ -22,6 +22,9 @@ class EmployeePersonalInfoController extends Controller {
 		Session::flash( 'message', $response->getContent() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#education' ] );
+
+
+
 	}
 
 

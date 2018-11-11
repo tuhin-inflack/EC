@@ -9,6 +9,7 @@
 namespace Modules\HRM\Services;
 
 
+use App\Http\Responses\DataResponse;
 use Modules\HRM\Repositories\EmployeeEducationRepository;
 
 class EmployeeEducationService {
@@ -24,6 +25,7 @@ class EmployeeEducationService {
 			$education = $this->employeeEducationRepository->save( $item );
 		}
 
-		return $education;
+		return new DataResponse( $education, $education['employee_id'], 'Education information added successfully' );
+
 	}
 }
