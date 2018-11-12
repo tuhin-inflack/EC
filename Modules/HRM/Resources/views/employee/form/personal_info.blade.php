@@ -31,7 +31,8 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->PersonalInfo->has('date_of_birth') ? ' error' : '' }}">
             {{ Form::label('date_of_birth', 'Date of Birth') }}
-            {{ Form::date('date_of_birth',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('date_of_birth',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter joining date ']) }}
+            <div class="help-block"></div>
             @if ($errors->PersonalInfo->has('date_of_birth'))
                 <div class="help-block">  {{ $errors->PersonalInfo->first('date_of_birth') }}</div>
             @endif

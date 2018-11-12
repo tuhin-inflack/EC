@@ -37,7 +37,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('result', 'Result') }}
-                                {{ Form::text('result',  null, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed']) }}
+                                {{ Form::text('result',  null, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>'Please enter result']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-3">
