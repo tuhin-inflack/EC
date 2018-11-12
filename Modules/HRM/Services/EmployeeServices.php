@@ -32,14 +32,6 @@ class EmployeeServices {
 		return $this->employeeRepository->findAll();
 	}
 
-//	public function getEmployeeAllInformation( $id = "" ) {
-//
-//		if ( empty( $id ) ) {
-//			return null;
-//		} else {
-//			$this->employeeRepository->getEmployeeInformation( $id );
-//		}
-//	}
 
 
 }

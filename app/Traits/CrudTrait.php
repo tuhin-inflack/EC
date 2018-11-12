@@ -38,9 +38,9 @@ trait CrudTrait
      * @param $id
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function findOne($id)
+    public function findOne($id, $relation = null)
     {
-       return $this->actionRepository->findOne($id);
+       return $this->actionRepository->findOne($id, $relation);
     }
 
 

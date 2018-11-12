@@ -24,7 +24,6 @@ class EmployeeController extends Controller {
 	private $employeeService;
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
-	private $employeePersonalInfoService;
 	private $employeeEducationService;
 	private $employeeTrainingService;
 	private $employeePublicationService;
@@ -32,7 +31,7 @@ class EmployeeController extends Controller {
 
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
-		EmployeeDesignationService $employeeDesignationService, EmployeePersonalInfoService $employeePersonalInfoService,
+		EmployeeDesignationService $employeeDesignationService,
 		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService,
 		EmployeePublicationService $employeePublicationService,
 		EmployeeResearchService $employeeResearchService
@@ -40,7 +39,6 @@ class EmployeeController extends Controller {
 		$this->employeeService             = $employeeServices;
 		$this->employeeDepartmentService   = $employeeDepartmentService;
 		$this->employeeDesignationService  = $employeeDesignationService;
-		$this->employeePersonalInfoService = $employeePersonalInfoService;
 		$this->employeeEducationService    = $employeeEducationService;
 		$this->employeeTrainingService     = $employeeTrainingService;
 		$this->employeePublicationService  = $employeePublicationService;
@@ -50,7 +48,8 @@ class EmployeeController extends Controller {
 
 	public function index() {
 		$employeeList = $this->employeeService->getEmployeeList();
-		return view( 'hrm::employee.index', compact('employeeList') );
+
+		return view( 'hrm::employee.index', compact( 'employeeList' ) );
 	}
 
 
@@ -64,29 +63,35 @@ class EmployeeController extends Controller {
 	}
 
 
-	public function storeGeneralInfo( StoreEmployeeGeneralInfoRequest $request ) {
+	public function store( StoreEmployeeGeneralInfoRequest $request ) {
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getId() ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
 	}
 
-	public function storePersonalInfo( StoreEmployeePersonalInfoRequest $request ) {
+	public function show( $id ) {
+		$employee = $this->employeeService->findOne( $id, [
+			'employeePersonalInfo',
+			'employeeEducationInfo',
+			'employeeTrainingInfo',
+			'employeePublicationInfo',
+			'employeeResearchInfo',
+			'employeeDepartment'
+		] );
 
-		$personalInfo = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $personalInfo['employee_id'] ] )
-		                 ->with( 'success', 'Employee personal information saved successfully!' );
-
+		return view( 'hrm::employee.show', compact('employee') );
 	}
 
-	public function storeEducationalInfo( Request $request ) {
-		$educationalInfo         = $request->education;
-		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
-		                 ->with( 'success', 'Employee Educational information saved successfully!' );
-	}
+
+//	public function storeEducationalInfo( Request $request ) {
+//		$educationalInfo         = $request->education;
+//		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
+//
+//		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
+//		                 ->with( 'success', 'Employee Educational information saved successfully!' );
+//	}
 
 	public function storeTrainingInfo( Request $request ) {
 		$trainingInfo = $request->training;
