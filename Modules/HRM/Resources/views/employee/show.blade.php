@@ -58,14 +58,14 @@
                     {{--employee general information--}}
                     <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                          aria-expanded="true">
-                        @include('hrm::employee.view.view_general_info')
+                        @include('hrm::employee.view.general_info_details')
                     </div>
 
                     {{--Employee Personal Info--}}
                     <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                          aria-expanded="false">
                         @if(!is_null($employee->employeePersonalInfo))
-                            @include('hrm::employee.view.personal_info');
+                            @include('hrm::employee.view.personal_info_details')
                         @else
                             <h3 class="text-center">Personal info does not exist</h3>
                         @endif
@@ -124,3 +124,23 @@
     </div>
 
 @endsection
+
+@push('page-js')
+<script>
+    $(document).ready(function () {
+        var url = document.URL;
+        var hash = url.substring(url.indexOf('#'));
+
+        $(".nav-tabs").find("li a").each(function (key, val) {
+            if (hash == $(val).attr('href')) {
+                $(val).click();
+            }
+
+            $(val).click(function (ky, vl) {
+                location.hash = $(this).attr('href');
+            });
+        });
+
+    })
+</script>
+@endpush

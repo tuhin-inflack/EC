@@ -3,7 +3,7 @@
 
     <tr>
         <th scope="col">Father's Name</th>
-        <td>{{ (empty($employee->employeePersonalInfo->father_name)) ? $employee->employeePersonalInfo->father_name : ''}}</td>
+        <td>{{ $employee->employeePersonalInfo->father_name }}</td>
     </tr>
     <tr>
 
@@ -49,3 +49,5 @@
 
     </tbody>
 </table>
+
+<a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#personal') }}">Edit </a>

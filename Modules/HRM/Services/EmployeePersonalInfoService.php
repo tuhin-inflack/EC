@@ -28,5 +28,15 @@ class EmployeePersonalInfoService {
 		return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Personal information added successfully' );
 	}
 
+	public function updatePersonalInfo( $data, $id ) {
+		$personalInfo = $this->findOrFail( $id );
+		$status       = $personalInfo->update( $data );
+		if ( $status ) {
+			return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Personal information updated successfully' );
+		} else {
+			return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Something going wrong !', 500 );
+		}
+	}
+
 
 }

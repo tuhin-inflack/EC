@@ -24,7 +24,14 @@ class EmployeePersonalInfoController extends Controller {
 		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#education' ] );
 
 
+	}
 
+	public function update( StoreEmployeePersonalInfoRequest $request, $id ) {
+		$response = $this->employeePersonalInfoService->updatePersonalInfo( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
+
+		return redirect( '/hrm/employee/' . $employee_id .'/#personal' );
 	}
 
 
