@@ -17,16 +17,22 @@ Route::prefix( 'hrm' )->group( function () {
 //	Route for employee
 
 	Route::prefix( 'employee' )->group( function () {
+//		Route::get('/general-info', 'EmployeePersonalInfoController@update');
+
 		Route::post( 'general-info', 'EmployeeController@store' );
-//		Route::put( 'update-general-info', 'EmployeeController@update' );
+
+
 		Route::post( 'personal-info', 'EmployeePersonalInfoController@store' );
+		Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
+
 		Route::post( 'education_info', 'EmployeeEducationController@store' );
 		Route::post( 'training_info', 'EmployeeController@storeTrainingInfo' );
 		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
 		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );
-	} );
-	Route::resources( [ 'employee' => 'EmployeeController', ] );
-	Route::get('/test', 'HRMController@test');
 
+		Route::get( '/test', 'HRMController@test' );
+	} );
+
+	Route::resources( [ 'employee' => 'EmployeeController', ] );
 } );
 

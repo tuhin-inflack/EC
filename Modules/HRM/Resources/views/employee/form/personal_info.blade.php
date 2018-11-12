@@ -91,7 +91,7 @@
         </div>
     </div>
 
-    {{ Form::hidden('employee_id', $employee_id) }}
+    {{ Form::hidden('employee_id', null) }}
 
     <hr>
 

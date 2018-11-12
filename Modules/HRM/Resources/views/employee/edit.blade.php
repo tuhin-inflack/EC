@@ -68,7 +68,9 @@
 
                         <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
+                            {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
+                            {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
                             @include('hrm::employee.form.personal_info')
                             {!! Form::close() !!}
                         </div>

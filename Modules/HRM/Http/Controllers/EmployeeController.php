@@ -104,20 +104,12 @@ class EmployeeController extends Controller {
 		Session::flash( 'message', $response->getContent() );
 		$employee_id = $response->getEmployeeId();
 
-		return redirect( '/hrm/employee/'.$employee_id );
+		return redirect( '/hrm/employee/' . $employee_id );
 
 
 	}
 
 
-
-//	public function storeEducationalInfo( Request $request ) {
-//		$educationalInfo         = $request->education;
-//		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
-//
-//		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
-//		                 ->with( 'success', 'Employee Educational information saved successfully!' );
-//	}
 
 	public function storeTrainingInfo( Request $request ) {
 		$trainingInfo = $request->training;
