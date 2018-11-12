@@ -28,10 +28,19 @@ class EmployeeServices {
 		return new DataResponse( $generalInfo, $generalInfo['id'], 'General information added successfully' );
 	}
 
+	public function updateGeneralInfo( $data, $id ) {
+		$generalInfo = $this->findOrFail( $id );
+		$status      = $generalInfo->update( $data );
+		if ( $status ) {
+			return new DataResponse( $generalInfo, $generalInfo['id'], 'General information updated successfully' );
+		} else {
+			return new DataResponse( $generalInfo, $generalInfo['id'], 'Something going wrong !', 500 );
+		}
+	}
+
 	public function getEmployeeList() {
 		return $this->employeeRepository->findAll();
 	}
-
 
 
 }

@@ -21,6 +21,11 @@ class EmployeeResearchService {
 	}
 
 	public function storeEmployeeResearchInfo( $researchInfo ) {
+		foreach ( $researchInfo as $research ) {
+			$research = $this->employeeResearchRepository->save($research);
 
+		}
+
+		return $research;
 	}
 }

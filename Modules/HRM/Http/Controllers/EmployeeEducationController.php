@@ -16,7 +16,7 @@ class EmployeeEducationController extends Controller {
 		$this->employeeEducationService = $employeeEducationService;
 	}
 
-	public function store( StoreEmployeeEducationRequest $request ) {
+	public function store( Request $request ) {
 		$educationalInfo         = $request->education;
 		$response = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 		Session::flash( 'message', $response->getContent() );

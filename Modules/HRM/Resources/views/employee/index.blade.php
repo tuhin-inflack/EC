@@ -133,8 +133,8 @@
                         }
                     },
                 ],
-                paging: false,
-                searching: false,
+                paging: true,
+                searching: true,
                 "bDestroy": true,
             });
         });

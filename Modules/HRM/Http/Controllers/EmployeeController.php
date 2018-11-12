@@ -18,6 +18,7 @@ use Modules\HRM\Services\EmployeePublicationService;
 use Modules\HRM\Services\EmployeeResearchService;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\HRM\Services\EmployeeTrainingService;
+use function Sodium\compare;
 
 class EmployeeController extends Controller {
 
@@ -36,13 +37,13 @@ class EmployeeController extends Controller {
 		EmployeePublicationService $employeePublicationService,
 		EmployeeResearchService $employeeResearchService
 	) {
-		$this->employeeService             = $employeeServices;
-		$this->employeeDepartmentService   = $employeeDepartmentService;
-		$this->employeeDesignationService  = $employeeDesignationService;
-		$this->employeeEducationService    = $employeeEducationService;
-		$this->employeeTrainingService     = $employeeTrainingService;
-		$this->employeePublicationService  = $employeePublicationService;
-		$this->employeeResearchService     = $employeeResearchService;
+		$this->employeeService            = $employeeServices;
+		$this->employeeDepartmentService  = $employeeDepartmentService;
+		$this->employeeDesignationService = $employeeDesignationService;
+		$this->employeeEducationService   = $employeeEducationService;
+		$this->employeeTrainingService    = $employeeTrainingService;
+		$this->employeePublicationService = $employeePublicationService;
+		$this->employeeResearchService    = $employeeResearchService;
 	}
 
 
@@ -80,7 +81,32 @@ class EmployeeController extends Controller {
 			'employeeDepartment'
 		] );
 
-		return view( 'hrm::employee.show', compact('employee') );
+		return view( 'hrm::employee.show', compact( 'employee' ) );
+	}
+
+	public function edit( $id ) {
+		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
+		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
+		$employee             = $this->employeeService->findOne( $id, [
+			'employeePersonalInfo',
+			'employeeEducationInfo',
+			'employeeTrainingInfo',
+			'employeePublicationInfo',
+			'employeeResearchInfo',
+			'employeeDepartment'
+		] );
+
+		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
+	}
+
+	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
+		$response = $this->employeeService->updateGeneralInfo( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
+
+		return redirect( '/hrm/employee/'.$employee_id );
+
+
 	}
 
 
