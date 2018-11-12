@@ -42,8 +42,7 @@
 
                         <li class="nav-item">
                             <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
-                               aria-controls="linkIcon12"
-                               aria-expanded="false"><i class="la la-book"></i> Training</a>
+                               aria-controls="linkIcon12" aria-expanded="false"><i class="la la-book"></i> Training</a>
                         </li>
 
                         <li class="nav-item">
@@ -145,6 +144,23 @@
             {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
             {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
             {{--});--}}
+
+
+            var url = document.URL;
+            var hash = url.substring(url.indexOf('#'));
+
+            $(".nav-tabs").find("li a").each(function(key, val) {
+                if (hash == $(val).attr('href')) {
+                    $(val).click();
+                }
+
+                $(val).click(function(ky, vl) {
+                    location.hash = $(this).attr('href');
+                });
+            });
+
+
         })
     </script>
+
 @endpush
