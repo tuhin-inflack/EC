@@ -32,7 +32,10 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::post( 'training-info', 'EmployeeTrainingController@store' );
 		Route::put( 'update-training-info/{id}', 'EmployeeTrainingController@update' );
 
-		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
+		Route::post( 'publication-info', 'EmployeePublicationController@store' );
+		Route::put( 'update-publication_info', 'EmployeeController@storePublicationInfo' );
+
+
 		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );
 
 		Route::get( '/test', 'HRMController@test' );

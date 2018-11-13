@@ -36,6 +36,7 @@ class EmployeeTrainingService {
 
 		$existingEducationsIds = $this->getEmployeeTrainingIds( $employeeId );
 
+
 		$newEducationIds       = array_column( $data, 'id' );
 		$deletedIds            = array_diff( $existingEducationsIds, $newEducationIds );
 		if ( count( $deletedIds ) > 0 ) {

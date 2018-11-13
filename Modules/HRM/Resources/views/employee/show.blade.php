@@ -68,6 +68,7 @@
                             @include('hrm::employee.view.personal_info_details')
                         @else
                             <h3 class="text-center">Personal info does not exist</h3>
+                            <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#personal') }}">Edit </a>
                         @endif
 
                     </div>
@@ -79,6 +80,8 @@
                             @include('hrm::employee.view.education_info_details')
                         @else
                             <h3 class="text-center">Education info does not exist</h3>
+                            <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#education') }}">Edit </a>
+
                         @endif
                     </div>
 
@@ -89,6 +92,7 @@
                             @include('hrm::employee.view.training_info_details')
                         @else
                             <h3 class="text-center">Training info does not exist</h3>
+                            <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#training') }}">Edit </a>
                         @endif
                     </div>
 
@@ -96,9 +100,11 @@
                     <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                          aria-expanded="false">
                         @if(count($employee->employeePublicationInfo)>0)
-                            @include('hrm::employee.view.publication')
+                            @include('hrm::employee.view.publication_details')
                         @else
                             <h3 class="text-center">Publication info does not exist</h3>
+                            <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#publication') }}">Edit </a>
+
                         @endif
 
                     </div>
@@ -110,6 +116,8 @@
                             @include('hrm::employee.view.research')
                         @else
                             <h3 class="text-center">Research info does not exist</h3>
+                            <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#research') }}">Edit </a>
+
                         @endif
                     </div>
                 </div>
