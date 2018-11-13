@@ -24,6 +24,10 @@
             <th scope="col">Publication date</th>
             <td>{{$publication->published_date}}</td>
         </tr>
+        <tr>
+            <th scope="col">Publication link</th>
+            <td><a href="{{$publication->source_link}}" target="_blank">{{$publication->source_link}}</a> </td>
+        </tr>
 
         </tbody>
     </table>
