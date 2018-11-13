@@ -14,10 +14,7 @@
 Route::prefix( 'hrm' )->group( function () {
 	Route::get( '/', 'HRMController@index' );
 
-//	Route for employee
-
 	Route::prefix( 'employee' )->group( function () {
-//		Route::get('/general-info', 'EmployeePersonalInfoController@update');
 
 		Route::post( 'general-info', 'EmployeeController@store' );
 
@@ -37,6 +34,7 @@ Route::prefix( 'hrm' )->group( function () {
 
 
 		Route::post( 'research-info', 'EmployeeResearchController@store' );
+		Route::put( 'update-research-info/{id}', 'EmployeeResearchController@update' );
 
 		Route::get( '/test', 'HRMController@test' );
 	} );

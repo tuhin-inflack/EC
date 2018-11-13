@@ -25,8 +25,13 @@ class EmployeeResearchController extends Controller {
 	}
 
 
-	public function update( Request $request ) {
-	}
+	public function update(Request $request, $id) {
+		$researchInfo = $request->research;
+		$response = $this->employeeResearchService->updateResearchInfo($researchInfo, $id);
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
 
+		return redirect( '/hrm/employee/' . $employee_id .'/#research' );
+	}
 
 }
