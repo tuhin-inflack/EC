@@ -38,4 +38,8 @@ Route::prefix('pms')->group(function () {
         Route::get('/','ProposalSubmissionController@index')->name('project-proposal-submission.index');
     });
 
+    Route::prefix('project-proposal-submitted')->group(function(){
+        Route::get('/','ProposalSubmittedController@index')->name('project-proposal-submitted.index');
+    });
+
 });
