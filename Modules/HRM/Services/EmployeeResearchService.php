@@ -9,6 +9,7 @@
 namespace Modules\HRM\Services;
 
 
+use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
 use Modules\HRM\Repositories\EmployeeResearchRepository;
 
@@ -20,12 +21,12 @@ class EmployeeResearchService {
 		$this->employeeResearchRepository = $employeeResearchRepository;
 	}
 
-	public function storeEmployeeResearchInfo( $researchInfo ) {
+	public function storeResearchInfo( $researchInfo ) {
 		foreach ( $researchInfo as $research ) {
 			$research = $this->employeeResearchRepository->save($research);
 
 		}
+		return new DataResponse( $research, $research['employee_id'], 'Research information added successfully' );
 
-		return $research;
 	}
 }

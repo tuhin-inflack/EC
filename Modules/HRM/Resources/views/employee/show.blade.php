@@ -113,7 +113,7 @@
                     <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                          aria-expanded="false">
                         @if(count($employee->employeeResearchInfo)>0)
-                            @include('hrm::employee.view.research')
+                            @include('hrm::employee.view.research_details')
                         @else
                             <h3 class="text-center">Research info does not exist</h3>
                             <a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#research') }}">Edit </a>
