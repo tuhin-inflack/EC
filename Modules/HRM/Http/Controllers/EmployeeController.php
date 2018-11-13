@@ -25,7 +25,7 @@ class EmployeeController extends Controller {
 	private $employeeService;
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
-	private $employeeEducationService;
+
 	private $employeeTrainingService;
 	private $employeePublicationService;
 	private $employeeResearchService;
@@ -33,14 +33,13 @@ class EmployeeController extends Controller {
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
 		EmployeeDesignationService $employeeDesignationService,
-		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService,
+		EmployeeTrainingService $employeeTrainingService,
 		EmployeePublicationService $employeePublicationService,
 		EmployeeResearchService $employeeResearchService
 	) {
 		$this->employeeService            = $employeeServices;
 		$this->employeeDepartmentService  = $employeeDepartmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
-		$this->employeeEducationService   = $employeeEducationService;
 		$this->employeeTrainingService    = $employeeTrainingService;
 		$this->employeePublicationService = $employeePublicationService;
 		$this->employeeResearchService    = $employeeResearchService;
@@ -95,7 +94,7 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
-
+//dd($employee->employeeTrainingInfo);
 
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
 	}

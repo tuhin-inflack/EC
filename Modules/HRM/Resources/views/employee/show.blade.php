@@ -86,7 +86,7 @@
                     <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                          aria-expanded="false">
                         @if(count($employee->employeeTrainingInfo)>0)
-                            @include('hrm::employee.view.training_info');
+                            @include('hrm::employee.view.training_info_details')
                         @else
                             <h3 class="text-center">Training info does not exist</h3>
                         @endif
@@ -96,7 +96,7 @@
                     <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                          aria-expanded="false">
                         @if(count($employee->employeePublicationInfo)>0)
-                            @include('hrm::employee.view.publication');
+                            @include('hrm::employee.view.publication')
                         @else
                             <h3 class="text-center">Publication info does not exist</h3>
                         @endif
@@ -107,7 +107,7 @@
                     <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                          aria-expanded="false">
                         @if(count($employee->employeeResearchInfo)>0)
-                            @include('hrm::employee.view.research');
+                            @include('hrm::employee.view.research')
                         @else
                             <h3 class="text-center">Research info does not exist</h3>
                         @endif

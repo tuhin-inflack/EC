@@ -25,11 +25,13 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::post( 'personal-info', 'EmployeePersonalInfoController@store' );
 		Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
 
-		Route::post( 'education_info', 'EmployeeEducationController@store' );
+		Route::post( 'education-info', 'EmployeeEducationController@store' );
 		Route::put( 'update-education-info/{id}', 'EmployeeEducationController@update' );
 
 
-		Route::post( 'training_info', 'EmployeeController@storeTrainingInfo' );
+		Route::post( 'training-info', 'EmployeeTrainingController@store' );
+		Route::put( 'update-training-info/{id}', 'EmployeeTrainingController@update' );
+
 		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
 		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );
 
