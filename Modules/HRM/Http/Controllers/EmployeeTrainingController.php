@@ -46,30 +46,14 @@ class EmployeeTrainingController extends Controller {
 
 	}
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
-	public function show() {
-		return view( 'hrm::show' );
-	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
-	public function edit() {
-		return view( 'hrm::edit' );
-	}
+	public function update( Request $request, $id ) {
+		$trainingInfo = $request->training;
+		$response = $this->employeeTrainingService->updateTrainingInfo($trainingInfo, $id);
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public function update( Request $request ) {
+		return redirect( '/hrm/employee/' . $employee_id .'/#training' );
 	}
 
 	/**

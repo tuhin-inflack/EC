@@ -86,7 +86,9 @@
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/update-training_info', 'class'=>'form']) !!}
+                            {{--{!! Form::open(['url' => 'hrm/employee/update-training_info', 'class'=>'form']) !!}--}}
+                            {!! Form::open( ['url' => ['/hrm/employee/update-training-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
                             @include('hrm::employee.edit.edit_training_info')
                             {!! Form::close() !!}
                         </div>
