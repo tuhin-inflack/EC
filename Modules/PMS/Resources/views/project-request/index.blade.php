@@ -25,10 +25,10 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">SL</th>
-                                        <th scope="col">Headline</th>
+                                        <th scope="col">Message</th>
                                         <th scope="col">Deadline</th>
                                         <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">Created at</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -38,42 +38,18 @@
                                             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
                                             <td>08/11/2018</td>
                                             <td>
-                                                <span class="badge badge-warning">Pending</span>
+                                                <span class="badge badge-warning">Ongoing</span>
                                             </td>
-                                            <td>
-                                            <span class="dropdown">
-                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
-                                              <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
-
-                                                <a href="" class="dropdown-item"><i class="ft-tag"></i> Send Feedback</a>
-                                                <div class="dropdown-divider"></div>
-                                                  <a href="{{route('project-request-forwards.create')}}" class="dropdown-item"><i class="ft-fast-forward"></i> Forward to Departments</a>
-                                              </span>
-                                            </span>
-                                            </td>
+                                            <td>2018-11-08 16:15:12</td>
                                         </tr>
                                         <tr>
                                             <th scope="row">2</th>
                                             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
                                             <td>26/07/2019</td>
                                             <td>
-                                                <span class="badge badge-warning">Pending</span>
+                                                <span class="badge badge-success">Completed</span>
                                             </td>
-                                            <td>
-                                            <span class="dropdown">
-                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
-                                              <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
-
-                                                <a href="" class="dropdown-item"><i class="ft-tag"></i> Send Feedback</a>
-                                                <div class="dropdown-divider"></div>
-                                                  <a href="{{route('project-request-forwards.create')}}" class="dropdown-item"><i class="ft-fast-forward"></i> Forward to Departments</a>
-                                              </span>
-                                            </span>
-                                            </td>
+                                            <td>2018-11-08 16:15:12</td>
                                         </tr>
 
                                     </tbody>
