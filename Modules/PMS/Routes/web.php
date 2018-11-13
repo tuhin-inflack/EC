@@ -31,6 +31,11 @@ Route::prefix('pms')->group(function () {
 
     Route::prefix('requested-project-proposals')->group(function (){
         Route::get('/','RequestedProjectProposalController@index')->name('requested-project.index');
-        Route::get('/create','RequestedProjectProposalController@create')->name('requested-project.create');
     });
+
+    Route::prefix('project-proposal-submission')->group(function(){
+        Route::get('/create','ProposalSubmissionController@create')->name('project-proposal-submission.create');
+        Route::get('/','ProposalSubmissionController@index')->name('project-proposal-submission.index');
+    });
+
 });

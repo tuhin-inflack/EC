@@ -37,6 +37,18 @@
 
                     </ul>
                 </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                                                                                       data-i18n="nav.navbars.main">Proposal Submission</span></a>
+                    <ul class="menu-content">
+                        <li class="{{is_active_route('project-proposal-submission.index')}}">
+                            <a href="{{route('project-proposal-submission.index')}}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">List of Submitted Proposal</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         @endauth
     </div>

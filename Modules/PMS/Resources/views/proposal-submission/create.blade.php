@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-    @include('pms::requested-project.form')
+    @include('pms::proposal-submission.form')
 @endsection
 
 @push('page-js')

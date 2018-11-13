@@ -57,9 +57,9 @@
                         <div class="form-actions">
 
 
-                            <a href="" class="btn btn-primary"><i class="la la-check-square-o"></i> Submit</a>
+                            <a href="{{route('project-proposal-submission.index')}}" class="btn btn-primary"><i class="la la-check-square-o"></i> Submit</a>
 
-                            <a class="btn btn-warning mr-1" role="button" href="">
+                            <a class="btn btn-warning mr-1" role="button" href="{{route('project-proposal-submission.index')}}">
                                 <i class="ft-x"></i> Cancel
                             </a>
                         </div>
