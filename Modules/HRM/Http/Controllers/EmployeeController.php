@@ -96,6 +96,7 @@ class EmployeeController extends Controller {
 			'employeeDepartment'
 		] );
 
+
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
 	}
 

@@ -61,7 +61,7 @@
                         <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
                             {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
-                            @include('hrm::employee.form.general_info')
+                            @include('hrm::employee.create.general_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -69,14 +69,14 @@
                         <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
-                            @include('hrm::employee.form.personal_info')
+                            @include('hrm::employee.create.personal_info')
                             {!! Form::close() !!}
                         </div>
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.education_info')
+                            @include('hrm::employee.create.education_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -84,7 +84,7 @@
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/training_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.training_info')
+                            @include('hrm::employee.create.training_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -93,15 +93,15 @@
                              aria-expanded="false">
 
                             {!! Form::open(['url' => 'hrm/employee/publication_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.publication_info')
+                            @include('hrm::employee.create.publication_info')
                             {!! Form::close() !!}
                         </div>
 
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
-                            @include('hrm::employee.form.research_info')
+                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form']) !!}
+                            @include('hrm::employee.create.research_info')
                             {!! Form::close() !!}
                         </div>
                     </div>

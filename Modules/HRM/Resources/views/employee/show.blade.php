@@ -76,7 +76,7 @@
                     <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                          aria-expanded="false">
                         @if(count($employee->employeeEducationInfo)>0)
-                            @include('hrm::employee.view.education_info');
+                            @include('hrm::employee.view.education_info_details')
                         @else
                             <h3 class="text-center">Education info does not exist</h3>
                         @endif

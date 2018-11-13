@@ -61,7 +61,7 @@
                         <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
                             {!! Form::model($employee, ['url' => ['/hrm/employee', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
-                            @include('hrm::employee.form.general_info')
+                            @include('hrm::employee.create.general_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -71,14 +71,15 @@
                             {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
                             {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
 
-                            @include('hrm::employee.form.personal_info')
+                            @include('hrm::employee.create.personal_info')
                             {!! Form::close() !!}
                         </div>
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.education_info')
+                            {{--{!! Form::model(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}--}}
+                            {!! Form::open( ['url' => ['/hrm/employee/update-education-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+                            @include('hrm::employee.edit.edit_education_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -86,7 +87,7 @@
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/training_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.training_info')
+                            @include('hrm::employee.create.training_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -95,7 +96,7 @@
                              aria-expanded="false">
 
                             {!! Form::open(['url' => 'hrm/employee/publication_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.form.publication_info')
+                            @include('hrm::employee.create.publication_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -103,7 +104,7 @@
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
                             {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
-                            @include('hrm::employee.form.research_info')
+                            @include('hrm::employee.create.research_info')
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -132,7 +133,7 @@
     <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
     <script>
-        var employee_id = "<?php echo $employee_id ?>";
+        var employee_id = "{{ $employee->id }}";
         console.log(employee_id);
         $(document).ready(function () {
             $('.addMore').click(function () {

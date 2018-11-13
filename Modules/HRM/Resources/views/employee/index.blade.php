@@ -52,17 +52,6 @@
                                                 <td>{{$employee->tel_office}}</td>
                                                 <td>{{$employee->mobile_one}}</td>
 
-                                                {{--<td>--}}
-                                                {{--@if($projectRequest->status == 0)--}}
-                                                {{--<span class="badge badge-warning">Pending</span>--}}
-                                                {{--@elseif($projectRequest->status == 1)--}}
-                                                {{--<span class="badge badge-success">Approved</span>--}}
-                                                {{--@else--}}
-                                                {{--<span class="badge badge-danger">Rejected</span>--}}
-                                                {{--@endif--}}
-                                                {{--</td>--}}
-                                                {{--<td>--}}
-                                                {{--<span class="dropdown">--}}
                                                 <td>
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true"
@@ -73,7 +62,7 @@
                                                         <a href="{{ url('/hrm/employee',$employee->id) }}"
                                                            class="dropdown-item"><i class="ft-eye"></i> Details</a>
 
-                                                        <a href="{{ url('project_request.edit', $employee->id)  }}"
+                                                        <a href="{{ url('/hrm/employee/' . $employee->id . '/edit')  }}"
                                                            class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
 
                                                     </span>
