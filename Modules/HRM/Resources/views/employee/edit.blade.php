@@ -95,9 +95,7 @@
                         <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                              aria-expanded="false">
 
-{{--                            {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}--}}
                             {!! Form::open( ['url' => ['hrm/employee/update-publication-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
-
                             @include('hrm::employee.edit.edit_publication_info')
                             {!! Form::close() !!}
                         </div>
@@ -105,8 +103,9 @@
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form',]) !!}
-                            @include('hrm::employee.create.research_info')
+                            {!! Form::open( ['url' => ['hrm/employee/update-research-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
+                            @include('hrm::employee.edit.edit_research_info')
                             {!! Form::close() !!}
                         </div>
                     </div>

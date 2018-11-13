@@ -100,7 +100,7 @@
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/research-info', 'class'=>'form']) !!}
                             @include('hrm::employee.create.research_info')
                             {!! Form::close() !!}
                         </div>
