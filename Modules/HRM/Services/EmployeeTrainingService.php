@@ -32,4 +32,40 @@ class EmployeeTrainingService {
 
 	}
 
+	public function updateTrainingInfo( $data, $employeeId ) {
+
+		$existingEducationsIds = $this->getEmployeeTrainingIds( $employeeId );
+
+		$newEducationIds       = array_column( $data, 'id' );
+		$deletedIds            = array_diff( $existingEducationsIds, $newEducationIds );
+		if ( count( $deletedIds ) > 0 ) {
+			foreach ( $deletedIds as $deleted_id ) {
+				$training = $this->findOrFail( $deleted_id );
+				$status    = $training->delete();
+			}
+		}
+
+		foreach ( $data as $item ) {
+			if ( isset( $item['id'] ) ) {
+				$training = $this->findOrFail( $item['id'] );
+				$status    = $training->update( $item );
+			} else {
+				$training = $this->employeeTrainingRepository->save( $item );
+				$status    = true;
+			}
+		}
+		if ( $status ) {
+			return new DataResponse( $training, $training['employee_id'], 'Training information updated successfully' );
+		} else {
+			return new DataResponse( $training, $training['employee_id'], 'Something going wrong !', 500 );
+		}
+	}
+
+	public function getEmployeeTrainingIds( $employeeId ) {
+
+		$trainingIds = $this->employeeTrainingRepository->findBy( [ 'employee_id' => $employeeId ] )->pluck( 'employee_id', 'id' )->toArray();
+
+		return array_keys( $trainingIds );
+	}
+
 }
