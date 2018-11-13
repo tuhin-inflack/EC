@@ -29,5 +29,9 @@ Route::prefix('pms')->group(function () {
 
     });
 
-    Route::get('project-request-forwards', 'ProjectRequestForwardController@index')->name('project-request-forwards.index');
+
+    Route::prefix('project-request-forwards')->group(function(){
+        Route::get('/create','ProjectRequestForwardController@create')->name('project-request-forwards.create');
+    });
+
 });

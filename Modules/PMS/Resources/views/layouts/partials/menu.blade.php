@@ -24,7 +24,7 @@
                         </li>
 
                         <li class="{{ is_active_route('project-request-forwards.index') }}">
-                            <a href="{{ route('project-request-forwards.index') }}">
+                            <a href="">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">Proposal Forwarded List</span>
                             </a>

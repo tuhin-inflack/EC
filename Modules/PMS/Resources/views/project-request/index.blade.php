@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Proposal Request List</h4>
+                        <h4 class="card-title">Project Proposal Request List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
@@ -25,63 +25,57 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">SL</th>
-                                        <th scope="col">Send to</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Message</th>
-                                        <th scope="col">Last date</th>
-                                        <th scope="col">Attachment</th>
+                                        <th scope="col">Headline</th>
+                                        <th scope="col">Deadline</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($projectRequests as $projectRequest)
+
                                         <tr>
-                                            <th scope="row">{{$loop->iteration}}</th>
-                                            <td>{{$projectRequest->send_to}}</td>
-                                            <td>{{$projectRequest->title}}</td>
-                                            <td>{{$projectRequest->message}}</td>
-                                            <td>{{$projectRequest->end_date}}</td>
+                                            <th scope="row">1</th>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
+                                            <td>08/11/2018</td>
                                             <td>
-                                                {{$exists = Storage::disk('internal')->exists($projectRequest->attachment)}}
-                                                <a href="" onclick="attachmentDev()">Attachment </a>
-                                            </td>
-                                            <td>
-                                                @if($projectRequest->status == 0)
-                                                    <span class="badge badge-warning">Pending</span>
-                                                @elseif($projectRequest->status == 1)
-                                                    <span class="badge badge-success">Approved</span>
-                                                @else
-                                                    <span class="badge badge-danger">Rejected</span>
-                                                @endif
+                                                <span class="badge badge-warning">Pending</span>
                                             </td>
                                             <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{ route('project-request.show',$projectRequest->id) }}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
 
-                                                <a href="{{ route('project_request.edit', $projectRequest->id)  }}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                <a href="" class="dropdown-item"><i class="ft-tag"></i> Send Feedback</a>
                                                 <div class="dropdown-divider"></div>
-                                                  {!! Form::open([
-                                                    'method'=>'DELETE',
-                                                    'url' => route('project_request.destroy', $projectRequest->id),
-                                                    'style' => 'display:inline'
-                                                    ]) !!}
-                                                  {!! Form::button('<i class="ft-trash"></i> Delete ', array(
-                                                  'type' => 'submit',
-                                                  'class' => 'dropdown-item',
-                                                  'title' => 'Delete the project proposal request',
-                                                  'onclick'=>'return confirm("Confirm delete?")',
-                                                  )) !!}
-                                                  {!! Form::close() !!}
-
+                                                  <a href="{{route('project-request-forwards.create')}}" class="dropdown-item"><i class="ft-fast-forward"></i> Forward to Departments</a>
                                               </span>
                                             </span>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
+                                            <td>26/07/2019</td>
+                                            <td>
+                                                <span class="badge badge-warning">Pending</span>
+                                            </td>
+                                            <td>
+                                            <span class="dropdown">
+                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
+                                              <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                <a href="" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+
+                                                <a href="" class="dropdown-item"><i class="ft-tag"></i> Send Feedback</a>
+                                                <div class="dropdown-divider"></div>
+                                                  <a href="{{route('project-request-forwards.create')}}" class="dropdown-item"><i class="ft-fast-forward"></i> Forward to Departments</a>
+                                              </span>
+                                            </span>
+                                            </td>
+                                        </tr>
+
                                     </tbody>
                                 </table>
                             </div>
