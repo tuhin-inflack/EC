@@ -28,3 +28,4 @@
         </tbody>
     </table>
 @endforeach
+<a class="btn btn-small btn-info" href="{{ url('/hrm/employee/' . $employee->id . '/edit#education') }}">Edit </a>

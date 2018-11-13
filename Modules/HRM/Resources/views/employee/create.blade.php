@@ -75,7 +75,7 @@
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
                             @include('hrm::employee.create.education_info')
                             {!! Form::close() !!}
                         </div>
@@ -83,7 +83,7 @@
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/training_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
                             @include('hrm::employee.create.training_info')
                             {!! Form::close() !!}
                         </div>

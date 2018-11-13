@@ -9,6 +9,7 @@
 namespace Modules\HRM\Services;
 
 
+use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
 use Modules\HRM\Repositories\EmployeeTrainingRepository;
 
@@ -22,11 +23,13 @@ class EmployeeTrainingService {
 	}
 
 	public function StoreTrainingInfo( $trainings ) {
+
 		foreach ( $trainings as $training ) {
 			$trainingInfo = $this->employeeTrainingRepository->save( $training );
 		}
 
-		return $trainingInfo;
+		return new DataResponse( $trainingInfo, $trainingInfo['employee_id'], 'Training information added successfully' );
+
 	}
 
 }
