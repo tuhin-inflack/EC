@@ -26,6 +26,9 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
 
 		Route::post( 'education_info', 'EmployeeEducationController@store' );
+		Route::put( 'update-education-info/{id}', 'EmployeeEducationController@update' );
+
+
 		Route::post( 'training_info', 'EmployeeController@storeTrainingInfo' );
 		Route::post( 'publication_info', 'EmployeeController@storePublicationInfo' );
 		Route::post( 'research_info', 'EmployeeController@storeResearchInfo' );

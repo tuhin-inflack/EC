@@ -17,12 +17,21 @@ class EmployeeEducationController extends Controller {
 	}
 
 	public function store( Request $request ) {
-		$educationalInfo         = $request->education;
-		$response = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
+		$educationalInfo = $request->education;
+		$response        = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 		Session::flash( 'message', $response->getContent() );
 
 		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#training' ] );
 
+	}
+
+	public function update(Request $request, $id) {
+		$educationalInfo = $request->education;
+		$response = $this->employeeEducationService->updateEducationInfo($educationalInfo, $id);
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
+
+		return redirect( '/hrm/employee/' . $employee_id .'/#education' );
 	}
 
 
