@@ -92,7 +92,7 @@
                         <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                              aria-expanded="false">
 
-                            {!! Form::open(['url' => 'hrm/employee/publication_info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}
                             @include('hrm::employee.create.publication_info')
                             {!! Form::close() !!}
                         </div>

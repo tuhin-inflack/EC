@@ -26,22 +26,17 @@ class EmployeeController extends Controller {
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
 
-	private $employeeTrainingService;
 	private $employeePublicationService;
 	private $employeeResearchService;
 
 	public function __construct(
 		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
 		EmployeeDesignationService $employeeDesignationService,
-		EmployeeTrainingService $employeeTrainingService,
-		EmployeePublicationService $employeePublicationService,
 		EmployeeResearchService $employeeResearchService
 	) {
 		$this->employeeService            = $employeeServices;
 		$this->employeeDepartmentService  = $employeeDepartmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
-		$this->employeeTrainingService    = $employeeTrainingService;
-		$this->employeePublicationService = $employeePublicationService;
 		$this->employeeResearchService    = $employeeResearchService;
 	}
 
@@ -111,21 +106,8 @@ class EmployeeController extends Controller {
 
 
 
-	public function storeTrainingInfo( Request $request ) {
-		$trainingInfo = $request->training;
-		$employee     = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employee['employee_id'] ] )
-		                 ->with( 'success', 'Employee Training information saved successfully!' );
-	}
 
-	public function storePublicationInfo( Request $request ) {
-		$publications        = $request->publication;
-		$employeePublication = $this->employeePublicationService->storeEmployeePublication( $publications );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $employeePublication['employee_id'] ] )
-		                 ->with( 'success', 'Employee Publication saved successfully!' );
-	}
 
 	public function storeResearchInfo( Request $request ) {
 		$employeeResearchInfo = $request->research;

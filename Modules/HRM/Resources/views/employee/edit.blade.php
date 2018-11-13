@@ -77,7 +77,6 @@
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {{--{!! Form::model(['url' => 'hrm/employee/education_info', 'class'=>'form']) !!}--}}
                             {!! Form::open( ['url' => ['/hrm/employee/update-education-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.edit.edit_education_info')
                             {!! Form::close() !!}
@@ -86,7 +85,6 @@
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {{--{!! Form::open(['url' => 'hrm/employee/update-training_info', 'class'=>'form']) !!}--}}
                             {!! Form::open( ['url' => ['/hrm/employee/update-training-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
 
                             @include('hrm::employee.edit.edit_training_info')
@@ -97,8 +95,10 @@
                         <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                              aria-expanded="false">
 
-                            {!! Form::open(['url' => 'hrm/employee/publication_info', 'class'=>'form']) !!}
-                            @include('hrm::employee.create.publication_info')
+{{--                            {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}--}}
+                            {!! Form::open( ['url' => ['hrm/employee/update-publication-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
+                            @include('hrm::employee.edit.edit_publication_info')
                             {!! Form::close() !!}
                         </div>
 
