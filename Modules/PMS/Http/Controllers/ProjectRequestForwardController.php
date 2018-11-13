@@ -39,7 +39,7 @@ class ProjectRequestForwardController extends Controller
      */
     public function create()
     {
-        return view('pms::create');
+        return view('pms::request-forward.create');
     }
 
     /**
