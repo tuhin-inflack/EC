@@ -23,7 +23,7 @@ class RequestedProjectProposalController extends Controller
      */
     public function create()
     {
-        return view('pms::requested-project.create');
+        return view('pms::create');
     }
 
     /**
