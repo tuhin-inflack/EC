@@ -9,7 +9,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('organization_name', 'Organization Name') }}
-                                {{ Form::text('organization_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft']) }}
+                                {{ Form::text('organization_name', null, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft', 'data-validation-required-message'=>'Please enter research organization']) }}
+                                <div class="help-desk"></div>
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -9,6 +9,7 @@
 namespace Modules\HRM\Services;
 
 
+use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
 use Modules\HRM\Repositories\EmployeePublicationRepository;
 
@@ -21,13 +22,49 @@ class EmployeePublicationService {
 		$this->setActionRepository( $this->employeePublicationRepository );
 	}
 
-	public function storeEmployeePublication( $publications ) {
+	public function storePublicationInfo( $publications ) {
 		foreach ( $publications as $publication ) {
 			$publication = $this->employeePublicationRepository->save( $publication );
 
 		}
 
-		return $publication;
+		return new DataResponse( $publication, $publication['employee_id'], 'Publication information added successfully' );
+
+	}
+
+	public function updatePublicationInfo( $data, $employeeId ) {
+
+		$existingPublicationIds = $this->getEmployeePublicationIds( $employeeId );
+		$newPublicationIds       = array_column( $data, 'id' );
+		$deletedIds            = array_diff( $existingPublicationIds, $newPublicationIds );
+		if ( count( $deletedIds ) > 0 ) {
+			foreach ( $deletedIds as $deleted_id ) {
+				$publication = $this->findOrFail( $deleted_id );
+				$status    = $publication->delete();
+			}
+		}
+
+		foreach ( $data as $item ) {
+			if ( isset( $item['id'] ) ) {
+				$publication = $this->findOrFail( $item['id'] );
+				$status    = $publication->update( $item );
+			} else {
+				$publication = $this->employeePublicationRepository->save( $item );
+				$status    = true;
+			}
+		}
+		if ( $status ) {
+			return new DataResponse( $publication, $publication['employee_id'], 'Publication information updated successfully' );
+		} else {
+			return new DataResponse( $publication, $publication['employee_id'], 'Something going wrong !', 500 );
+		}
+	}
+
+	public function getEmployeePublicationIds( $employeeId ) {
+
+		$publications = $this->employeePublicationRepository->findBy( [ 'employee_id' => $employeeId ] )->pluck( 'employee_id', 'id' )->toArray();
+
+		return array_keys( $publications );
 	}
 
 }
