@@ -18,31 +18,18 @@ use Modules\HRM\Services\EmployeePublicationService;
 use Modules\HRM\Services\EmployeeResearchService;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\HRM\Services\EmployeeTrainingService;
+use function Sodium\compare;
 
 class EmployeeController extends Controller {
 
 	private $employeeService;
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
-	private $employeeEducationService;
-	private $employeeTrainingService;
-	private $employeePublicationService;
-	private $employeeResearchService;
 
-	public function __construct(
-		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
-		EmployeeDesignationService $employeeDesignationService,
-		EmployeeEducationService $employeeEducationService, EmployeeTrainingService $employeeTrainingService,
-		EmployeePublicationService $employeePublicationService,
-		EmployeeResearchService $employeeResearchService
-	) {
-		$this->employeeService             = $employeeServices;
-		$this->employeeDepartmentService   = $employeeDepartmentService;
-		$this->employeeDesignationService  = $employeeDesignationService;
-		$this->employeeEducationService    = $employeeEducationService;
-		$this->employeeTrainingService     = $employeeTrainingService;
-		$this->employeePublicationService  = $employeePublicationService;
-		$this->employeeResearchService     = $employeeResearchService;
+	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
+		$this->employeeService            = $employeeServices;
+		$this->employeeDepartmentService  = $employeeDepartmentService;
+		$this->employeeDesignationService = $employeeDesignationService;
 	}
 
 
@@ -80,42 +67,34 @@ class EmployeeController extends Controller {
 			'employeeDepartment'
 		] );
 
-		return view( 'hrm::employee.show', compact('employee') );
+		return view( 'hrm::employee.show', compact( 'employee' ) );
 	}
 
+	public function edit( $id ) {
+		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
+		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
+		$employee             = $this->employeeService->findOne( $id, [
+			'employeePersonalInfo',
+			'employeeEducationInfo',
+			'employeeTrainingInfo',
+			'employeePublicationInfo',
+			'employeeResearchInfo',
+			'employeeDepartment'
+		] );
 
-
-//	public function storeEducationalInfo( Request $request ) {
-//		$educationalInfo         = $request->education;
-//		$employee_education_info = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
-//
-//		return redirect()->route( 'employee.create', [ 'employee' => $employee_education_info['employee_id'] ] )
-//		                 ->with( 'success', 'Employee Educational information saved successfully!' );
-//	}
-
-	public function storeTrainingInfo( Request $request ) {
-		$trainingInfo = $request->training;
-		$employee     = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $employee['employee_id'] ] )
-		                 ->with( 'success', 'Employee Training information saved successfully!' );
+		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
 	}
 
-	public function storePublicationInfo( Request $request ) {
-		$publications        = $request->publication;
-		$employeePublication = $this->employeePublicationService->storeEmployeePublication( $publications );
+	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
+		$response = $this->employeeService->updateGeneralInfo( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+		$employee_id = $response->getEmployeeId();
 
-		return redirect()->route( 'employee.create', [ 'employee' => $employeePublication['employee_id'] ] )
-		                 ->with( 'success', 'Employee Publication saved successfully!' );
+		return redirect( '/hrm/employee/' . $employee_id );
+
+
 	}
 
-	public function storeResearchInfo( Request $request ) {
-		$employeeResearchInfo = $request->research;
-		$researchInfo         = $this->employeeResearchService->storeEmployeeResearchInfo( $employeeResearchInfo );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $researchInfo['employee_id'] ] )
-		                 ->with( 'success', 'Employee Research Information saved successfully!' );
-	}
 
 
 }
