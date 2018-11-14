@@ -19,6 +19,16 @@
             @endif
         </div>
     </div>
+  <div class="col-md-6">
+        <div class="form-group {{ $errors->has('employee_id') ? ' error' : '' }}">
+            {{ Form::label('employee_id', 'Employee ID') }}
+            {{ Form::text('employee_id', null, ['class' => 'form-control', 'placeholder' => '', 'required' => 'required', 'data-validation-required-message'=>'Enter employee ID']) }}
+            <div class="help-block"></div>
+            @if ($errors->has('employee_id'))
+                <div class="help-block">  {{ $errors->first('employee_id') }}</div>
+            @endif
+        </div>
+    </div>
 
 
     <div class="col-md-6">
@@ -62,6 +72,16 @@
         </div>
     </div>
     <div class="col-md-6">
+        <div class="form-group {{ $errors->has('email') ? ' error' : '' }}">
+            {{ Form::label('email', 'Email') }}
+            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'info@example.com', 'required' => 'required', 'data-validation-required-message'=>'Email address can\'t be empty']) }}
+            <div class="help-block"></div>
+            @foreach ($errors->get('email') as $message)
+                <div class="help-block">  {{ $message }}</div>
+            @endforeach
+        </div>
+    </div>
+    <div class="col-md-6">
         <div class="form-group {{ $errors->has('tel_office') ? ' error' : '' }}">
             {{ Form::label('tel_office', 'Telephone (Office)') }}
             {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'9', 'data-validation-maxlength-message'=>'Enter maximum 9 digit']) }}
@@ -81,17 +101,8 @@
             @endforeach
         </div>
     </div>
+
     <div class="col-md-6">
-        <div class="form-group {{ $errors->has('email') ? ' error' : '' }}">
-            {{ Form::label('email', 'Email') }}
-            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'info@example.com', 'required' => 'required', 'data-validation-required-message'=>'Email address can\'t be empty']) }}
-            <div class="help-block"></div>
-            @foreach ($errors->get('email') as $message)
-                <div class="help-block">  {{ $message }}</div>
-            @endforeach
-        </div>
-    </div>
-    <div class="col-md-3">
         <div class="form-group {{ $errors->has('mobile_one') ? ' error' : '' }}">
             {{ Form::label('mobile_one', 'Mobile (1)') }}
             {{ Form::number('mobile_one', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
@@ -101,7 +112,7 @@
             @endforeach
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
         <div class="form-group {{ $errors->has('mobile_two') ? ' error' : '' }}">
             {{ Form::label('mobile_two', 'Mobile (2) ') }}
             {{ Form::number('mobile_two', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
