@@ -60,7 +60,7 @@
                     <div class="tab-content px-1 pt-1">
                         <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
-                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
+                            {!! Form::model($employee, ['url' => ['/hrm/employee', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
                             @include('hrm::employee.create.general_info')
                             {!! Form::close() !!}
                         </div>
@@ -68,23 +68,26 @@
 
                         <div class="tab-pane " id="personal" role="tabpanel" aria-labelledby="personal-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}
-                            @include('hrm::employee.create.personal_info')
+                            {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
+                            {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
+                            @include('hrm::employee.edit.edit_personal_info')
                             {!! Form::close() !!}
                         </div>
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
-                            @include('hrm::employee.create.education_info')
+                            {!! Form::open( ['url' => ['/hrm/employee/update-education-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+                            @include('hrm::employee.edit.edit_education_info')
                             {!! Form::close() !!}
                         </div>
 
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
-                            @include('hrm::employee.create.training_info')
+                            {!! Form::open( ['url' => ['/hrm/employee/update-training-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
+                            @include('hrm::employee.edit.edit_training_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -92,16 +95,17 @@
                         <div class="tab-pane" id="publication" role="tabpanel" aria-labelledby="publication-tab"
                              aria-expanded="false">
 
-                            {!! Form::open(['url' => 'hrm/employee/publication-info', 'class'=>'form']) !!}
-                            @include('hrm::employee.create.publication_info')
+                            {!! Form::open( ['url' => ['hrm/employee/update-publication-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+                            @include('hrm::employee.edit.edit_publication_info')
                             {!! Form::close() !!}
                         </div>
 
 
                         <div class="tab-pane" id="research" role="tabpanel" aria-labelledby="research-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/research-info', 'class'=>'form']) !!}
-                            @include('hrm::employee.create.research_info')
+                            {!! Form::open( ['url' => ['hrm/employee/update-research-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
+
+                            @include('hrm::employee.edit.edit_research_info')
                             {!! Form::close() !!}
                         </div>
                     </div>
@@ -127,32 +131,32 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
     <script>
-        var employee_id = "<?php echo $employee_id ?>";
+        var employee_id = "{{ $employee->id }}";
         console.log(employee_id);
         $(document).ready(function () {
             $('.addMore').click(function () {
-            $('.EmployeeId').val(employee_id);
-            $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
-            $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+                $('.EmployeeId').val(employee_id);
+                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
+                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
             });
 
 
             var url = document.URL;
             var hash = url.substring(url.indexOf('#'));
 
-            $(".nav-tabs").find("li a").each(function(key, val) {
+            $(".nav-tabs").find("li a").each(function (key, val) {
                 if (hash == $(val).attr('href')) {
                     $(val).click();
                 }
 
-                $(val).click(function(ky, vl) {
+                $(val).click(function (ky, vl) {
                     location.hash = $(this).attr('href');
                 });
             });
@@ -160,4 +164,4 @@
 
         })
     </script>
-    @endpush
+@endpush

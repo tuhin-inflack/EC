@@ -16,7 +16,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('author_name', 'Author Name') }}
-                                {{ Form::text('author_name',  null, ['class' => 'form-control', 'placeholder' => 'eg. John Doe']) }}
+                                {{ Form::text('author_name',  null, ['class' => 'form-control', 'placeholder' => 'eg. John Doe', 'data-validation-required-message'=>'Please author name ']) }}
+                                <div class="help-block"></div>
+
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -44,7 +46,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ Form::label('published_date', 'Published Date') }}
-                                {{ Form::date('published_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+                                {{ Form::date('published_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter published date']) }}
+                                <div class="help-block"></div>
                             </div>
                         </div>
                         <div class="col-md-6">
