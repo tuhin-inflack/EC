@@ -26,18 +26,10 @@ class EmployeeController extends Controller {
 	private $employeeDepartmentService;
 	private $employeeDesignationService;
 
-	private $employeePublicationService;
-	private $employeeResearchService;
-
-	public function __construct(
-		EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService,
-		EmployeeDesignationService $employeeDesignationService,
-		EmployeeResearchService $employeeResearchService
-	) {
+	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
 		$this->employeeService            = $employeeServices;
 		$this->employeeDepartmentService  = $employeeDepartmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
-		$this->employeeResearchService    = $employeeResearchService;
 	}
 
 
@@ -89,7 +81,6 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
-//dd($employee->employeeTrainingInfo);
 
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
 	}
@@ -104,18 +95,6 @@ class EmployeeController extends Controller {
 
 	}
 
-
-
-
-
-
-	public function storeResearchInfo( Request $request ) {
-		$employeeResearchInfo = $request->research;
-		$researchInfo         = $this->employeeResearchService->storeEmployeeResearchInfo( $employeeResearchInfo );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $researchInfo['employee_id'] ] )
-		                 ->with( 'success', 'Employee Research Information saved successfully!' );
-	}
 
 
 }
