@@ -71,4 +71,8 @@ class HRMController extends Controller
     public function destroy()
     {
     }
+    public function test(){
+//    	dd('test');
+    	return view('hrm::test');
+    }
 }
