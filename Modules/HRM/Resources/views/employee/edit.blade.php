@@ -71,7 +71,7 @@
                             {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
                             {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
 
-                            @include('hrm::employee.create.personal_info')
+                            @include('hrm::employee.edit.edit_personal_info')
                             {!! Form::close() !!}
                         </div>
 
