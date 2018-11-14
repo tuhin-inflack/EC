@@ -16,6 +16,7 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest {
 		return [
 			'first_name'       => 'required',
 			'last_name'        => 'required',
+			'employee_id'      => 'required',
 			'department_id'    => 'required',
 			'designation_code' => 'required',
 			'gender'           => 'required',
@@ -37,6 +38,7 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest {
 		return [
 			'first_name.required'       => 'Enter first name',
 			'last_name.required'        => 'Enter last name',
+			'employee_id.required'      => 'Enter employee ID',
 			'department_id.required'    => 'Please Select department',
 			'designation_code.required' => 'Please Select designation',
 			'gender.required'           => 'Please Select gender',
