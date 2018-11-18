@@ -14,14 +14,32 @@ class StoreEmployeeEducationRequest extends FormRequest {
 	protected $errorBag = "educationError";
 
 	public function rules( Request $request ) {
-//		$this->redirect          = '/hrm/employee/create?employee=' . $request->employee_id . '#education';
-//		$rules['institute_name'] = [];
-//		foreach ( $this->request->get( 'education' ) as $key => $val ) {
-//			$rules['institute_name'][][ 'education[' . $key . '][institute_name]' ] = 'required';
-//		}
-//
-//		dd($rules);
-//		return $rules;
+
+		$this->redirect          = '/hrm/employee/create?employee=' . $request->education[0]['employee_id'] . '#education';
+
+		return [
+			'education.*.institute_name'       => 'required',
+			'education.*.degree_name'       => 'required',
+			'education.*.department'       => 'required',
+			'education.*.passing_year'       => 'required',
+			'education.*.duration'       => 'required',
+			'education.*.result'       => 'required',
+//			'email'            => 'required|unique:employees,email,' . $request->id,
+
+		];
+
+	}
+	public function messages() {
+		$messages = [
+			'education.*.institute_name.required' => 'Please enter institute name',
+			'education.*.degree_name.required' => 'Please enter degree name ',
+			'education.*.department.required' => 'Please enter department name ',
+			'education.*.passing_year.required' => 'Please enter passing year ',
+			'education.*.duration.required' => 'Please enter duration ',
+			'education.*.result.required' => 'Please enter result ',
+		];
+
+		return $messages;
 	}
 
 	/**

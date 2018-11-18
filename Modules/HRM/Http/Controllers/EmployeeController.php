@@ -41,6 +41,7 @@ class EmployeeController extends Controller {
 
 
 	public function create( Request $request ) {
+
 		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
 
