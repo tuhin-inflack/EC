@@ -76,8 +76,7 @@
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => ['hrm/employee/store-education-info', $employee_id], 'class'=>'form']) !!}
-{{--                            {!! Form::open( ['url' => ['/hrm/employee/update-education-info', $employee->id],--}}
+                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
                             @include('hrm::employee.create.education_info')
                             {!! Form::close() !!}
                         </div>

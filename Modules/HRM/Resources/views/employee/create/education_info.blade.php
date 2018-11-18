@@ -3,7 +3,6 @@
     <div data-repeater-list="education">
 
         @php
-
             $oldEducations = old();
         @endphp
         @if(isset($oldEducations['education']) && count($oldEducations['education'])>0)
