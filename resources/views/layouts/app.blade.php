@@ -41,6 +41,10 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
     <!-- END Custom CSS-->
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('css/select2-bootstrap.min.css') }}">
+    <!-- End Select2 -->
     @stack('page-css')
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"

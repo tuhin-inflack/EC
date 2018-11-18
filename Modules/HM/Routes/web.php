@@ -25,7 +25,6 @@ Route::prefix('hm')->group(function() {
 
         // hostel rooms
         Route::get('{hostel}/rooms/create', 'RoomController@create')->name('hostel-rooms.create');
-
     });
 
     Route::prefix('room-types')->group(function () {
@@ -45,8 +44,14 @@ Route::prefix('hm')->group(function() {
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
     });
 
-    Route::prefix('room-inventories')->group(function () {
-        Route::delete('{roomInventory}', 'RoomInventoryController@destroy')->name('room-inventories.destroy');
+    Route::prefix('inventory-types')->group(function () {
+        Route::get('create', 'InventoryTypeController@create')->name('inventory-types.create');
+        Route::post('/', 'InventoryTypeController@store')->name('inventory-types.store');
+    });
+
+    Route::prefix('inventory-items')->group(function () {
+        Route::get('create', 'InventoryItemController@create')->name('inventory-items.create');
+        Route::post('/', 'InventoryItemController@store')->name('inventory-items.store');
     });
 
     Route::prefix('room-types')->group(function() {
