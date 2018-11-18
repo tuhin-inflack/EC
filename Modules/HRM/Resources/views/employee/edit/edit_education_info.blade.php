@@ -14,10 +14,13 @@
                         <div class=" col-md-10">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group {{ $errors->educationError->has("education.*.institute_name") ? ' error' : '' }}">
                                         {{ Form::label('institute_name', 'Institute Name') }}
                                         {{ Form::text('institute_name', $education->institute_name, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
                                         <div class="help-block"></div>
+                                        @if ($errors->educationError->has("education.*.institute_name"))
+                                            <div class="help-block">  {{ $errors->educationError->first("education.*.institute_name") }}</div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -98,10 +101,13 @@
                     <div class=" col-md-10">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <div class="form-group {{ $errors->educationError->has("education.*.institute_name") ? ' error' : '' }}">
                                     {{ Form::label('institute_name', 'Institute Name') }}
-                                    {{ Form::text('institute_name', null, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
+                                    {{ Form::text('institute_name', $education->institute_name, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
                                     <div class="help-block"></div>
+                                    @if ($errors->educationError->has("education.*.institute_name"))
+                                        <div class="help-block">  {{ $errors->educationError->first("education.*.institute_name") }}</div>
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-6">

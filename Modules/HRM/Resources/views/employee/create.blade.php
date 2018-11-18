@@ -3,8 +3,9 @@
 
 @section("content")
     @php
-        $tab_action = isset($employee_id) ? '' : 'disabled';
-        $employee_id = isset($employee_id) ? $employee_id : '';
+
+       /* $tab_action = isset($employee_id) ? '' : 'disabled';
+        $employee_id = isset($employee_id) ? $employee_id : ''; */
     @endphp
     <div class="col-xl-12 col-lg-12">
         <div class="card">
@@ -75,7 +76,8 @@
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => ['hrm/employee/store-education-info', $employee_id], 'class'=>'form']) !!}
+{{--                            {!! Form::open( ['url' => ['/hrm/employee/update-education-info', $employee->id],--}}
                             @include('hrm::employee.create.education_info')
                             {!! Form::close() !!}
                         </div>
@@ -127,20 +129,22 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-        <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+{{--        <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
-        console.log(employee_id);
         $(document).ready(function () {
             $('.addMore').click(function () {
             $('.EmployeeId').val(employee_id);
-            $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
-            $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
-            $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+
+            {{--$.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
+            {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
+            {{----}}
+
             });
 
 
