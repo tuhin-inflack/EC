@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeePersonalInfoRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeePersonalRequest;
 use Modules\HRM\Services\EmployeePersonalInfoService;
 
 class EmployeePersonalInfoController extends Controller {
@@ -26,12 +27,12 @@ class EmployeePersonalInfoController extends Controller {
 
 	}
 
-	public function update( StoreEmployeePersonalInfoRequest $request, $id ) {
+	public function update( UpdateEmployeePersonalRequest $request, $id ) {
 		$response = $this->employeePersonalInfoService->updatePersonalInfo( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
 
-		return redirect( '/hrm/employee/' . $employee_id .'/#personal' );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
+
 	}
 
 

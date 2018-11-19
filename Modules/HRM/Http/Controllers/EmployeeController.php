@@ -52,7 +52,6 @@ class EmployeeController extends Controller {
 
 
 	public function store( StoreEmployeeGeneralInfoRequest $request ) {
-//		dd($request->all());
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
