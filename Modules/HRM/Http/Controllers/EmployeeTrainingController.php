@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeTrainingRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeeTrainingRequest;
 use Modules\HRM\Services\EmployeeTrainingService;
 
 class EmployeeTrainingController extends Controller {
@@ -29,7 +30,7 @@ class EmployeeTrainingController extends Controller {
 	}
 
 
-	public function update( Request $request, $id ) {
+	public function update( UpdateEmployeeTrainingRequest $request, $id ) {
 		$trainingInfo = $request->training;
 		$response = $this->employeeTrainingService->updateTrainingInfo($trainingInfo, $id);
 		Session::flash( 'message', $response->getContent() );
