@@ -29,7 +29,7 @@ class EmployeePersonalInfoService {
 	}
 
 	public function updatePersonalInfo( $data, $employeeId) {
-		dd($data);
+
 
 		if ( is_null($data['id']) ) {
 			$personalInfo = $this->employeePersonalInfoRepository->save( $data );
