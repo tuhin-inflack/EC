@@ -55,5 +55,10 @@ Route::prefix('hm')->group(function() {
     Route::prefix('room-types')->group(function() {
         Route::get('create', 'RoomTypeController@create')->name('room-types.create');
     });
+
+    Route::prefix('hostel-budgets')->group(function () {
+        Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
+        Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
+    });
 });
 
