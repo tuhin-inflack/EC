@@ -30,8 +30,9 @@ class EmployeePersonalInfoController extends Controller {
 	public function update( UpdateEmployeePersonalRequest $request, $id ) {
 		$response = $this->employeePersonalInfoService->updatePersonalInfo( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
-
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
+		$employee_id = $response->getEmployeeId();
+//		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
+		return redirect( '/hrm/employee/' . $employee_id .'/#personal' );
 
 	}
 
