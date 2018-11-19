@@ -3,6 +3,19 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="nav-item">
                 <a href="#">
+                    <i class="la la-money"></i>
+                    <span class="menu-title"
+                          data-i18n="nav.templates.main">Hostel Budget</span></a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('hostel-budgets.create') }}"><a href="{{ route('hostel-budgets.create') }}">
+                            <i class="la la-plus"></i>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">Create</span></a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">
                     <i class="la la-building"></i>
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Hostel</span></a>
