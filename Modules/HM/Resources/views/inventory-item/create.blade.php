@@ -65,7 +65,7 @@
                                         <div class="form-group">
                                             <label for="">Name <span class="danger">*</span></label>
                                             <input name="name" type="text" class="form-control"
-                                                   placeholder="Swivel chair" required>
+                                                   placeholder="e.g Swivel chair" required>
 
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
@@ -77,7 +77,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">Code <span class="danger">*</span></label>
-                                            <input name="code" type="text" class="form-control" placeholder="bard-bed-1"
+                                            <input name="code" type="text" class="form-control" placeholder="e.g bard-bed-1"
                                                    required>
 
                                             @if ($errors->has('code'))
@@ -93,7 +93,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="">In stock</label>
-                                            <input name="in_stock" type="number" min="0" class="form-control">
+                                            <input name="in_stock" type="number" min="0" class="form-control" placeholder="e.g 100">
 
                                             @if ($errors->has('in_stock'))
                                                 <span class="invalid-feedback" role="alert">
@@ -103,7 +103,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">In use</label>
-                                            <input name="in_use" type="number" min="0" class="form-control">
+                                            <input name="in_use" type="number" min="0" class="form-control" placeholder="e.g 80">
 
                                             @if ($errors->has('in_use'))
                                                 <span class="invalid-feedback" role="alert">
@@ -127,15 +127,13 @@
                                     </div>
                                 </div>
 
-                                <hr>
-
-                                <div>
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-12 text-center">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{ route('hostels.index') }}" class="btn btn-warning">Cancel</a>
-                                        </div>
-                                    </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="la la-check-square-o"></i> Save
+                                    </button>
+                                    <a class="btn btn-warning mr-1" role="button" href="#">
+                                        <i class="ft-x"></i> Cancel
+                                    </a>
                                 </div>
                             </form>
                         </div>

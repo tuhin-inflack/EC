@@ -26,13 +26,13 @@
                                         <div data-repeater-item="" style="">
                                             <div class="form row">
                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <label for="email-addr">Section <span class="danger">*</span></label>
+                                                    <label>Section <span class="danger">*</span></label>
                                                     <br>
                                                     <input type="text" name="section" class="form-control"
-                                                           placeholder="Furniture" required>
+                                                           placeholder="e.g Furniture" required>
                                                 </div>
                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <label for="pass">Amount <span class="danger">*</span></label>
+                                                    <label>Amount <span class="danger">*</span></label>
                                                     <br>
                                                     <input type="number" name="amount" min="1" id=""
                                                            class="form-control" placeholder="e.g 10" required>
