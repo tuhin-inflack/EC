@@ -33,7 +33,7 @@ class EmployeeEducationService {
 	}
 
 	public function updateEducationInfo( $data, $employeeId ) {
-
+//		sometime full section can be removed while edit. so deleting the section
 		$existingEducationsIds = $this->getEmployeeEducationIds( $employeeId );
 		$newEducationIds       = array_column( $data, 'id' );
 		$deletedIds            = array_diff( $existingEducationsIds, $newEducationIds );
@@ -43,12 +43,15 @@ class EmployeeEducationService {
 				$status    = $education->delete();
 			}
 		}
+//		end deleting
 
 		foreach ( $data as $item ) {
 			if ( isset( $item['id'] ) ) {
+//				updating existing education
 				$education = $this->findOrFail( $item['id'] );
 				$status    = $education->update( $item );
 			} else {
+//				storing new education if added new education while edit
 				$education = $this->employeeEducationRepository->save( $item );
 				$status    = true;
 			}

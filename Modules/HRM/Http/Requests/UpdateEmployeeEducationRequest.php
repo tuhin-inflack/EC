@@ -15,11 +15,7 @@ class UpdateEmployeeEducationRequest extends FormRequest
 	protected $errorBag = "educationError";
 
 	public function rules( Request $request ) {
-//		dd($request->all());
-
-//		$this->redirect          = '/hrm/employee/create?employee=' . $request->education[0]['employee_id'] . '#education';
 		$this->redirect = '/hrm/employee/'. $request->education[0]['employee_id']. '/edit#education';
-
 		return [
 			'education.*.institute_name'       => 'required',
 			'education.*.degree_name'       => 'required',

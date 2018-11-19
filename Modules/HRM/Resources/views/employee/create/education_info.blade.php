@@ -173,7 +173,7 @@
                                     {{ Form::text('achievement',  null, ['class' => 'form-control', 'placeholder' => 'eg. President Gold Madel']) }}
                                 </div>
                             </div>
-                            {{ Form::hidden('employee_id', $employee_id, ['class' =>'EmployeeId']) }}
+                            {{ Form::hidden('employee_id', $employee->id, ['class' =>'EmployeeId']) }}
                             <hr>
                         </div>
                     </div>
