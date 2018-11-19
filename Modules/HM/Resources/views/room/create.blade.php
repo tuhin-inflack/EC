@@ -67,6 +67,7 @@
                                                    value="{{ old('level') }}"
                                                    min="1"
                                                    class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 3"
                                                    name="level" autofocus required/>
 
                                             @if ($errors->has('level'))
@@ -82,6 +83,7 @@
                                             <input type="text"
                                                    value="{{ old('shortcode') }}"
                                                    class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 201"
                                                    name="shortcode" autofocus required/>
 
                                             @if ($errors->has('shortcode'))
@@ -96,54 +98,49 @@
 
                                 <h4 class="form-section"><i class="la  la-table"></i>Room Inventories</h4>
 
-                                <div class="repeater-room-inventories row">
-                                    <div class="mb-1 col-sm-12 col-md-6">
-                                        <label for="bio" class="cursor-pointer">Item Name </label>
-                                    </div>
-                                    <div class="mb-1 col-sm-12 col-md-6">
-                                        <label for="bio" class="cursor-pointer">Quantity </label>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div data-repeater-list="room_types">
-                                            <div data-repeater-item class="row">
-                                                <div class="form-group mb-1 col-sm-12 col-md-6">
-                                                    <select name="" id="" class="custom-select">
+                                <div class="repeater-room-inventories">
+                                    <div data-repeater-list="rooms">
+                                        <div data-repeater-item="" style="">
+                                            <div class="form row">
+                                                <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                    <label>Item Name</label>
+                                                    <br>
+                                                    <select name="inventory_item" id="" class="form-control" required>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <input type="number"
-                                                           placeholder="1"
-                                                           min="1"
-                                                           class="form-control"
-                                                           name="capacity" required/>
+                                                    <label>Quantity</label>
+                                                    <br>
+                                                    <input type="number" name="quantity" min="1" id=""
+                                                           class="form-control" placeholder="e.g 2">
                                                 </div>
-                                                <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                                     <button type="button" class="btn btn-outline-danger"
-                                                            data-repeater-delete><i class="ft-x"></i>
+                                                            data-repeater-delete=""><i
+                                                                class="ft-x"></i>
                                                     </button>
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group float-right" style="margin-bottom: 0">
-                                            <button type="button" data-repeater-create
-                                                    class="btn btn-sm btn-outline-info">
-                                                <i class="ft-plus"></i> More room inventory
+                                    <div class="form-group overflow-auto">
+                                        <div class="col-12">
+                                            <button type="button" data-repeater-create=""
+                                                    class="pull-right btn btn-sm btn-outline-primary">
+                                                <i class="ft-plus"></i> Add
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
-
-                                    <div class="form-group col-md-12 mb-0 text-center">
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                        <a href="#" class="btn btn-warning">Cancel</a>
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="la la-check-square-o"></i> Save
+                                        </button>
+                                        <a class="btn btn-warning mr-1" role="button" href="#">
+                                            <i class="ft-x"></i> Cancel
+                                        </a>
                                     </div>
                                 </div>
                             </form>

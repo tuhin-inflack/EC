@@ -41,7 +41,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Inventory Type Name <span class="danger">*</span></label>
                                             <input type="text"
-                                                   placeholder="Office furniture"
+                                                   placeholder="e.g Office furniture"
                                                    value="{{ old('name') }}"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                                    name="name" required/>
@@ -68,15 +68,13 @@
                                     </div>
                                 </div>
 
-                                <hr>
-
-                                <div>
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-12 text-center">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{ route('hostels.index') }}" class="btn btn-warning">Cancel</a>
-                                        </div>
-                                    </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="la la-check-square-o"></i> Save
+                                    </button>
+                                    <a class="btn btn-warning mr-1" role="button" href="#">
+                                        <i class="ft-x"></i> Cancel
+                                    </a>
                                 </div>
                             </form>
                         </div>
