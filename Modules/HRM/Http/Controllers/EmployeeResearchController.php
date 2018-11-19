@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeResearchRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeePublicationRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeeResearchRequest;
 use Modules\HRM\Services\EmployeeResearchService;
 
 class EmployeeResearchController extends Controller {
@@ -26,7 +28,7 @@ class EmployeeResearchController extends Controller {
 	}
 
 
-	public function update(Request $request, $id) {
+	public function update(UpdateEmployeeResearchRequest $request, $id) {
 		$researchInfo = $request->research;
 		$response = $this->employeeResearchService->updateResearchInfo($researchInfo, $id);
 		Session::flash( 'message', $response->getContent() );

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeePublicationRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeePublicationRequest;
 use Modules\HRM\Services\EmployeePublicationService;
 
 class EmployeePublicationController extends Controller {
@@ -25,7 +26,7 @@ class EmployeePublicationController extends Controller {
 	}
 
 
-	public function update( Request $request, $id ) {
+	public function update( UpdateEmployeePublicationRequest $request, $id ) {
 		$publications = $request->publication;
 
 		$response = $this->employeePublicationService->updatePublicationInfo($publications, $id);
