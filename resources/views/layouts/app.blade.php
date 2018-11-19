@@ -44,6 +44,11 @@
 
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('css/select2-bootstrap.min.css') }}">
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
     <!-- End Select2 -->
     @stack('page-css')
 </head>

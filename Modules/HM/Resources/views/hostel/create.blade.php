@@ -36,6 +36,7 @@
                                             <input type="text"
                                                    value="{{ old('name') }}"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g Hostel 1"
                                                    name="name" autofocus required/>
 
                                             @if ($errors->has('name'))
@@ -52,6 +53,7 @@
                                                    min="1"
                                                    value="{{ old('total_floor') }}"
                                                    class="form-control{{ $errors->has('total_floor') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 5"
                                                    name="total_floor" required/>
 
                                             @if ($errors->has('total_floor'))
@@ -74,12 +76,12 @@
                                                                 class="danger">*</span></label>
                                                     <br>
                                                     <input type="text" name="section" class="form-control"
-                                                           placeholder="Furniture" required>
+                                                           placeholder="e.g 1" required>
                                                 </div>
                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                                     <label>Room Type <span class="danger">*</span></label>
                                                     <br>
-                                                    <select name="" id="" class="form-control">
+                                                    <select name="room_type" id="" class="form-control">
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
@@ -87,13 +89,13 @@
                                                     <label>Room Quantity <span
                                                                 class="danger">*</span></label>
                                                     <br>
-                                                    <input type="number" name="section" class="form-control"
+                                                    <input type="number" name="quantity" class="form-control"
                                                            placeholder="e.g 10" required>
                                                 </div>
                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                                     <label>Room Numbers <span class="danger">*</span></label>
                                                     <br>
-                                                    <input type="text" name="amount" min="1" id=""
+                                                    <input type="text" name="room_numbers" min="1" id=""
                                                            class="form-control" placeholder="e.g 201-205" required>
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-1 text-center mt-2">
