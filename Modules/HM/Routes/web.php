@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('hm')->group(function() {
+Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index');
 
     Route::prefix('hostels')->group(function () {
@@ -52,13 +52,18 @@ Route::prefix('hm')->group(function() {
         Route::post('/', 'InventoryItemController@store')->name('inventory-items.store');
     });
 
-    Route::prefix('room-types')->group(function() {
+    Route::prefix('room-types')->group(function () {
         Route::get('create', 'RoomTypeController@create')->name('room-types.create');
     });
 
     Route::prefix('hostel-budgets')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
+    });
+
+    Route::prefix('annual-purchases')->group(function () {
+        Route::get('create', 'AnnualPurchaseController@create')->name('annual-purchases.create');
+        Route::post('/', 'AnnualPurchaseController@store')->name('annual-purchases.store');
     });
 });
 
