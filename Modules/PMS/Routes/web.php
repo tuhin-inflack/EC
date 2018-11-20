@@ -29,5 +29,17 @@ Route::prefix('pms')->group(function () {
 
     });
 
-    Route::get('project-request-forwards', 'ProjectRequestForwardController@index')->name('project-request-forwards.index');
+    Route::prefix('requested-project-proposals')->group(function (){
+        Route::get('/','RequestedProjectProposalController@index')->name('requested-project.index');
+    });
+
+    Route::prefix('project-proposal-submission')->group(function(){
+        Route::get('/create','ProposalSubmissionController@create')->name('project-proposal-submission.create');
+        Route::get('/','ProposalSubmissionController@index')->name('project-proposal-submission.index');
+    });
+
+    Route::prefix('project-proposal-submitted')->group(function(){
+        Route::get('/','ProposalSubmittedController@index')->name('project-proposal-submitted.index');
+    });
+
 });

@@ -5,32 +5,16 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\PMS\Services\ProjectRequestForwardService;
 
-class ProjectRequestForwardController extends Controller
+class ProposalSubmissionController extends Controller
 {
-    /**
-     * @var ProjectRequestForwardService
-     */
-    private $projectRequestForwardService;
-
-    /**
-     * ProjectRequestForwardController constructor.
-     * @param ProjectRequestForwardService $projectRequestForwardService
-     */
-    public function __construct(ProjectRequestForwardService $projectRequestForwardService)
-    {
-        $this->projectRequestForwardService = $projectRequestForwardService;
-    }
-
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $lists =  $this->projectRequestForwardService->getAll();
-        return view('pms::project_requests.forward_list',compact('lists'));
+        return view('pms::proposal-submission.index');
     }
 
     /**
@@ -39,7 +23,7 @@ class ProjectRequestForwardController extends Controller
      */
     public function create()
     {
-        return view('pms::create');
+        return view('pms::proposal-submission.create');
     }
 
     /**
