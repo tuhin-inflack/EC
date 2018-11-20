@@ -12,7 +12,6 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest {
 	 * @return array
 	 */
 	public function rules( Request $request ) {
-
 		return [
 			'first_name'       => 'required',
 			'last_name'        => 'required',
@@ -22,8 +21,8 @@ class StoreEmployeeGeneralInfoRequest extends FormRequest {
 			'gender'           => 'required',
 			'status'           => 'required',
 			'email'            => 'required|unique:employees,email,' . $request->id,
-			'tel_office'       => 'numeric|digits_between:9,11|nullable',
-			'tel_home'         => 'numeric|digits_between:9,11|nullable',
+			'tel_office'       => 'numeric|digits_between:6,11|nullable',
+			'tel_home'         => 'numeric|digits_between:6,11|nullable',
 			'mobile_one'       => 'numeric|digits_between:11,13|nullable',
 			'mobile_two'       => 'numeric|digits_between:11,13|nullable',
 		];

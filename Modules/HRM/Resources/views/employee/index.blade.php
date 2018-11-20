@@ -47,7 +47,7 @@
                                                 <td>{{$employee->first_name . " " . $employee->last_name}}</td>
                                                 <td>{{$employee->designation}}</td>
                                                 <td>{{$employee->gender}}</td>
-                                                <td>{{$employee->employeeDepartment->name}}</td>
+                                                <td>{{isset($employee->employeeDepartment->name) ? $employee->employeeDepartment->name : ''}}</td>
                                                 <td>{{$employee->status}}</td>
                                                 <td>{{$employee->tel_office}}</td>
                                                 <td>{{$employee->mobile_one}}</td>
