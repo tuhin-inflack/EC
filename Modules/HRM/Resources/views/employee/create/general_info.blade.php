@@ -84,7 +84,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('tel_office') ? ' error' : '' }}">
             {{ Form::label('tel_office', 'Telephone (Office)') }}
-            {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'9', 'data-validation-maxlength-message'=>'Enter maximum 9 digit']) }}
+            {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'11', 'data-validation-maxlength-message'=>'Enter maximum 11 digit']) }}
             <div class="help-block"></div>
             @foreach ($errors->get('tel_office') as $message)
                 <div class="help-block">  {{ $message }}</div>
@@ -94,7 +94,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('tel_home') ? ' error' : '' }}">
             {{ Form::label('tel_home', 'Telephone (Home)') }}
-            {{ Form::number('tel_home', null, ['class' => 'form-control','placeholder' => '02XXXXXXX','maxlength' =>'9', 'data-validation-maxlength-message'=>'Enter maximum 9 digit']) }}
+            {{ Form::number('tel_home', null, ['class' => 'form-control','placeholder' => '02XXXXXXX','maxlength' =>'11', 'data-validation-maxlength-message'=>'Enter maximum 11 digit']) }}
             <div class="help-block"></div>
             @foreach ($errors->get('tel_home') as $message)
                 <div class="help-block">  {{ $message }}</div>

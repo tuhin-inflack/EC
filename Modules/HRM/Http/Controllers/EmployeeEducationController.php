@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeEducationRequest;
+use Modules\HRM\Http\Requests\UpdateEmployeeEducationRequest;
 use Modules\HRM\Services\EmployeeEducationService;
 
 class EmployeeEducationController extends Controller {
@@ -16,7 +17,7 @@ class EmployeeEducationController extends Controller {
 		$this->employeeEducationService = $employeeEducationService;
 	}
 
-	public function store( Request $request ) {
+	public function store( StoreEmployeeEducationRequest $request ) {
 		$educationalInfo = $request->education;
 		$response        = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 		Session::flash( 'message', $response->getContent() );
@@ -25,7 +26,7 @@ class EmployeeEducationController extends Controller {
 
 	}
 
-	public function update(Request $request, $id) {
+	public function update(UpdateEmployeeEducationRequest $request, $id) {
 		$educationalInfo = $request->education;
 		$response = $this->employeeEducationService->updateEducationInfo($educationalInfo, $id);
 		Session::flash( 'message', $response->getContent() );
