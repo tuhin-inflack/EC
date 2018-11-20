@@ -19,4 +19,13 @@ Route::prefix('rms')->group(function() {
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
 
     });
+
+    Route::prefix('research-proposal-submission')->group(function(){
+        Route::get('/create','ResearchSubmissionController@create')->name('research-proposal-submission.create');
+        Route::get('/','ResearchSubmissionController@index')->name('research-proposal-submission.index');
+    });
+
+    Route::prefix('submitted-research-proposals')->group(function(){
+        Route::get('/','ResearchProposalSubmittedController@index')->name('research-proposal-submitted.index');
+    });
 });
