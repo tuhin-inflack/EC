@@ -26,7 +26,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">SL</th>
-                                        <th scope="col">ID No</th>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Designation</th>
                                         <th scope="col">Gender</th>
@@ -38,16 +38,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if($employeeList)
+                                    @if(count($employeeList)>0)
                                         @foreach($employeeList as $employee)
 
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <th>ID No</th>
+                                                <th>{{ $employee->employee_id }}</th>
                                                 <td>{{$employee->first_name . " " . $employee->last_name}}</td>
                                                 <td>{{$employee->designation}}</td>
                                                 <td>{{$employee->gender}}</td>
-                                                <td>{{$employee->employeeDepartment->name}}</td>
+                                                <td>{{isset($employee->employeeDepartment->name) ? $employee->employeeDepartment->name : ''}}</td>
                                                 <td>{{$employee->status}}</td>
                                                 <td>{{$employee->tel_office}}</td>
                                                 <td>{{$employee->mobile_one}}</td>
