@@ -30,6 +30,7 @@ class EmployeePersonalInfoService {
 
 	public function updatePersonalInfo( $data, $employeeId) {
 
+
 		if ( is_null($data['id']) ) {
 			$personalInfo = $this->employeePersonalInfoRepository->save( $data );
 			$status       = true;

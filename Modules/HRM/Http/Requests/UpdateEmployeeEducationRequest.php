@@ -5,18 +5,17 @@ namespace Modules\HRM\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class StoreEmployeeEducationRequest extends FormRequest {
-	/**
-	 * Get the validation rules that apply to the request.
-	 *
-	 * @return array
-	 */
+class UpdateEmployeeEducationRequest extends FormRequest
+{
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
 	protected $errorBag = "educationError";
 
 	public function rules( Request $request ) {
-
-		$this->redirect          = '/hrm/employee/create?employee=' . $request->education[0]['employee_id'] . '#education';
-
+		$this->redirect = '/hrm/employee/'. $request->education[0]['employee_id']. '/edit#education';
 		return [
 			'education.*.institute_name'       => 'required',
 			'education.*.degree_name'       => 'required',
@@ -42,12 +41,13 @@ class StoreEmployeeEducationRequest extends FormRequest {
 		return $messages;
 	}
 
-	/**
-	 * Determine if the user is authorized to make this request.
-	 *
-	 * @return bool
-	 */
-	public function authorize() {
-		return true;
-	}
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
 }
