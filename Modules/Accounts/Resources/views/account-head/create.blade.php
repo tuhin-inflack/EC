@@ -59,7 +59,7 @@
                                 <label class="col-sm-4 col-form-label text-md-right">Account Head Type</label>
 
                                 <div class="col-md-6">
-                                    {{ Form::select('head_type', \Modules\Accounts\Constants\AccountConstant::HEAD_TYPES, null, array('class' => 'form-control' . ($errors->has('head_type') ? ' is-invalid' : '') )) }}
+                                    {{ Form::select('head_type', config('accounts.head_type'), null, array('class' => 'form-control' . ($errors->has('head_type') ? ' is-invalid' : '') )) }}
 
                                     @if ($errors->has('head_type'))
                                         <span class="invalid-feedback" role="alert">

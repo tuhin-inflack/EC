@@ -9,6 +9,7 @@ class Employee extends Model {
 	protected $fillable = [
 		'first_name',
 		'last_name',
+		'employee_id',
 		'email',
 		'gender',
 		'department_id',
@@ -41,7 +42,7 @@ class Employee extends Model {
 	}
 
 	public function employeeDepartment() {
-		return $this->belongsTo(EmployeeDepartment::class , 'department_id', 'id');
+		return $this->belongsTo(Department::class , 'department_id', 'id');
 	}
 
 }
