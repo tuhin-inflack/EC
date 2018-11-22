@@ -9,26 +9,23 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
-use Modules\HRM\Http\Requests\StoreEmployeePersonalInfoRequest;
+
+use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
-use Modules\HRM\Services\EmployeeEducationService;
-use Modules\HRM\Services\EmployeePersonalInfoService;
-use Modules\HRM\Services\EmployeePublicationService;
-use Modules\HRM\Services\EmployeeResearchService;
 use Modules\HRM\Services\EmployeeServices;
-use Modules\HRM\Services\EmployeeTrainingService;
+
 use function Sodium\compare;
 
 class EmployeeController extends Controller {
 
 	private $employeeService;
-	private $employeeDepartmentService;
+	private $departmentService;
 	private $employeeDesignationService;
 
-	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
+	public function __construct( EmployeeServices $employeeServices, DepartmentService $departmentService, EmployeeDesignationService $employeeDesignationService ) {
 		$this->employeeService            = $employeeServices;
-		$this->employeeDepartmentService  = $employeeDepartmentService;
+		$this->departmentService  = $departmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
 	}
 
@@ -42,7 +39,7 @@ class EmployeeController extends Controller {
 
 	public function create( Request $request ) {
 
-		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
+		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
 
 		$employee_id = isset( $request->employee ) ? $request->employee : '';

@@ -10,7 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware( 'auth:web' )->group( function () {
+//Route::middleware( 'auth:web' )->group( function () {
 	Route::prefix( 'hrm' )->group( function () {
 		Route::get( '/', 'HRMController@index' );
 
@@ -43,7 +43,7 @@ Route::middleware( 'auth:web' )->group( function () {
 
 //	Route::prefix( 'department' )->group( function () {
 //	} );
-		Route::resources( [ 'department' => 'EmployeeDepartmentController', ] );
+		Route::resources( [ 'department' => 'DepartmentController', ] );
 	} );
 
-} );
+//} );
