@@ -6,6 +6,8 @@
 
     <p>Accounting parts line Chart of Account & Auto Voucher</p>
 
+    {{ __('Account Ledger') }}
+
     <div class="container">
         <div id="crypto-stats-3" class="row" style="margin-top: 32px">
             <div class="col-xl-4 col-12">
@@ -17,7 +19,7 @@
                                     <h1><i class="la la-list warning font-large-2"></i></h1>
                                 </div>
                                 <div class="col-10 pl-2">
-                                    <h4>Chart of Account</h4>
+                                    <h4>{{ __('Chart of Account') }}</h4>
                                     <h6 class="text-muted"><a href="{{ route('chart-of-account') }}">Chart of Account</a></h6>
                                 </div>
                             </div>
