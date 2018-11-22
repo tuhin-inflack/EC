@@ -30,6 +30,6 @@ class DepartmentService {
 	}
 
 	public function getDepartments() {
-		return $this->employeeDepartmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
+		return $this->departmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
 	}
 }
