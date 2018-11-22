@@ -38,6 +38,7 @@ class EmployeeController extends Controller {
 
 
 	public function create( Request $request ) {
+//		dd($request->employee);
 
 		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
@@ -69,7 +70,7 @@ class EmployeeController extends Controller {
 	}
 
 	public function edit( $id ) {
-		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
+		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
 		$employee             = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
