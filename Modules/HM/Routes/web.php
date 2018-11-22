@@ -65,5 +65,10 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'AnnualPurchaseController@create')->name('annual-purchases.create');
         Route::post('/', 'AnnualPurchaseController@store')->name('annual-purchases.store');
     });
+
+    Route::prefix('stores')->group(function () {
+        Route::get('create', 'HostelStoreController@create')->name('stores.create');
+        Route::post('/', 'HostelStoreController@store')->name('stores.store');
+    });
 });
 
