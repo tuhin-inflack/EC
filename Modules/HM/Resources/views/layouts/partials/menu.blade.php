@@ -70,7 +70,7 @@
                                   data-i18n="nav.dash.main">List</span></a>
                     </li>
                     <li class="{{ is_active_route('rooms.create') }}"><a href="{{ route('rooms.create') }}">
-                        <i class="la la-plus"></i>
+                            <i class="la la-plus"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">Create</span></a>
                     </li>
