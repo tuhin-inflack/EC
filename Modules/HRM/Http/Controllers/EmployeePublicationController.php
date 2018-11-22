@@ -21,7 +21,7 @@ class EmployeePublicationController extends Controller {
 		$publications        = $request->publication;
 		$response = $this->employeePublicationService->storePublicationInfo( $publications );
 		Session::flash( 'message', $response->getContent() );
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#research' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#research' ] );
 
 	}
 
@@ -31,7 +31,7 @@ class EmployeePublicationController extends Controller {
 
 		$response = $this->employeePublicationService->updatePublicationInfo($publications, $id);
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id .'/#publication' );
 	}

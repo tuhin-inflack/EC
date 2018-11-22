@@ -37,18 +37,26 @@ class DepartmentController extends Controller {
 	}
 
 
-	public function show($id) {
-		$department = $this->departmentService->getDepartmentById($id);
+	public function show( $id ) {
+		$department = $this->departmentService->getDepartmentById( $id );
+
 		return view( 'hrm::department.show', compact( 'department' ) );
 	}
 
 
-	public function edit() {
-		return view( 'hrm::edit' );
+	public function edit( $id ) {
+		$department = $this->departmentService->getDepartmentById( $id );
+
+		return view( 'hrm::department.edit', compact( 'department' ) );
+
 	}
 
 
-	public function update( Request $request ) {
+	public function update( Request $request, $id ) {
+		$response = $this->departmentService->updateDepartment( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'department.edit', $response->getId() );
 	}
 
 	public function destroy() {
