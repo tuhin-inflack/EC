@@ -59,6 +59,10 @@ class DepartmentController extends Controller {
 		return redirect()->route( 'department.edit', $response->getId() );
 	}
 
-	public function destroy() {
+	public function destroy($id) {
+		$response = $this->departmentService->deleteDepartment($id);
+		Session::flash( 'message', $response->getContent() );
+
+		return view('hrm::department.index');
 	}
 }

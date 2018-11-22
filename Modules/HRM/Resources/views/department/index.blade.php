@@ -32,7 +32,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($departmentList)>0)
+                                    @if(isset($departmentList) && count($departmentList)>0)
                                         @foreach($departmentList as $department)
 
                                             <tr>
@@ -49,9 +49,21 @@
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ url('/hrm/department',$department->id) }}"
                                                            class="dropdown-item"><i class="ft-eye"></i> Details</a>
-
+                                                         <div class="dropdown-divider"></div>
                                                         <a href="{{ url('/hrm/department/' . $department->id . '/edit')  }}"
                                                            class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+
+                                                         <div class="dropdown-divider"></div>
+                                                        {!! Form::open(['url' =>  ['/hrm/department', $department->id], 'method' => 'DELETE', 'class' => 'form',' novalidate']) !!}
+
+                                                        {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                            'type' => 'submit',
+                                                            'class' => 'dropdown-item',
+                                                            'title' => 'Delete the hostel',
+                                                            'onclick'=>'return confirm("Are you sure you want to delete?")',
+                                                        )) !!}
+                                                        {!! Form::close() !!}
+                                                </span>
 
                                                     </span>
                                                 </td>
