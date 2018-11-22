@@ -128,7 +128,7 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-{{--        <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
+        <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
@@ -136,13 +136,13 @@
             $('.addMore').click(function () {
             $('.EmployeeId').val(employee_id);
 
-            {{--$.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');--}}
-            {{--$.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');--}}
-            {{--$.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');--}}
-            {{--$.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');--}}
-            {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
-            {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
-            {{----}}
+            $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
+            $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
+            $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
+            $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
+            $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
+            $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+
 
             });
 
