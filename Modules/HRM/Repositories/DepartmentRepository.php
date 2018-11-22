@@ -10,9 +10,9 @@ namespace Modules\HRM\Repositories;
 
 
 use App\Repositories\AbstractBaseRepository;
-use Modules\HRM\Entities\EmployeeDepartment;
+use Modules\HRM\Entities\Department;
 
-class EmployeeDepartmentRepository extends AbstractBaseRepository{
-	protected $modelName = EmployeeDepartment::class;
+class DepartmentRepository extends AbstractBaseRepository{
+	protected $modelName = Department::class;
 
 }
