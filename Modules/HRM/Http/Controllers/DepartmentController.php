@@ -37,8 +37,9 @@ class DepartmentController extends Controller {
 	}
 
 
-	public function show() {
-		return view( 'hrm::show' );
+	public function show($id) {
+		$department = $this->departmentService->getDepartmentById($id);
+		return view( 'hrm::department.show', compact( 'department' ) );
 	}
 
 
