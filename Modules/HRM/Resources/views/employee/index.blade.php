@@ -61,7 +61,7 @@
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ url('/hrm/employee',$employee->id) }}"
                                                            class="dropdown-item"><i class="ft-eye"></i> Details</a>
-
+   <div class="dropdown-divider"></div>
                                                         <a href="{{ url('/hrm/employee/' . $employee->id . '/edit')  }}"
                                                            class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
 

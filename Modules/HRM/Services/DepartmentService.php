@@ -11,6 +11,7 @@ namespace Modules\HRM\Services;
 
 use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
+use Illuminate\Http\Response;
 use Modules\HRM\Repositories\DepartmentRepository;
 use Modules\HRM\Repositories\EmployeeDepartmentRepository;
 
@@ -55,5 +56,16 @@ class DepartmentService {
 
 	public function getDepartmentById( $id ) {
 		return $this->departmentRepository->findOrFail( $id );
+	}
+
+	public function deleteDepartment( $id ) {
+		$department = $this->findOrFail( $id );
+		$status     = $department->delete();
+		if ( $status ) {
+			return new Response( "Department Deleted successfully" );
+		} else {
+			return new Response( "Opps !  Something going wrong." );
+
+		}
 	}
 }
