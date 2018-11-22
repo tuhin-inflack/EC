@@ -9,26 +9,23 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
-use Modules\HRM\Http\Requests\StoreEmployeePersonalInfoRequest;
+
+use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
-use Modules\HRM\Services\EmployeeEducationService;
-use Modules\HRM\Services\EmployeePersonalInfoService;
-use Modules\HRM\Services\EmployeePublicationService;
-use Modules\HRM\Services\EmployeeResearchService;
 use Modules\HRM\Services\EmployeeServices;
-use Modules\HRM\Services\EmployeeTrainingService;
+
 use function Sodium\compare;
 
 class EmployeeController extends Controller {
 
 	private $employeeService;
-	private $employeeDepartmentService;
+	private $departmentService;
 	private $employeeDesignationService;
 
-	public function __construct( EmployeeServices $employeeServices, EmployeeDepartmentService $employeeDepartmentService, EmployeeDesignationService $employeeDesignationService ) {
+	public function __construct( EmployeeServices $employeeServices, DepartmentService $departmentService, EmployeeDesignationService $employeeDesignationService ) {
 		$this->employeeService            = $employeeServices;
-		$this->employeeDepartmentService  = $employeeDepartmentService;
+		$this->departmentService  = $departmentService;
 		$this->employeeDesignationService = $employeeDesignationService;
 	}
 
@@ -41,7 +38,8 @@ class EmployeeController extends Controller {
 
 
 	public function create( Request $request ) {
-		$employeeDepartments  = $this->employeeDepartmentService->getEmployeeDepartments();
+
+		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
 
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
@@ -54,7 +52,7 @@ class EmployeeController extends Controller {
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#personal' ] );
 	}
 
 	public function show( $id ) {
@@ -81,6 +79,7 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
+//		dd($employee->id);
 
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
 	}
@@ -88,7 +87,7 @@ class EmployeeController extends Controller {
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
 		$response = $this->employeeService->updateGeneralInfo( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id );
 

@@ -4,7 +4,7 @@ namespace Modules\HRM\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HRM\Entities\EmployeeDepartment;
+use Modules\HRM\Entities\Department;
 use Nwidart\Modules\Module;
 
 class EmployeeDepartmentsTableSeeder extends Seeder {
@@ -39,7 +39,7 @@ class EmployeeDepartmentsTableSeeder extends Seeder {
 
 		];
 		foreach ($dummyDepartments as $department){
-			EmployeeDepartment::create( $department );
+			Department::create( $department );
 		}
 	}
 }

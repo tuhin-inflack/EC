@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', 'Employee List ')
+@section('title', 'Department List ')
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,11 +9,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Employee List</h4>
+                        <h4 class="card-title">Department List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <a href="{{url('/hrm/employee/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> Add New Employee</a>
+                            <a href="{{url('/hrm/department/create')}}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> Add New Department</a>
 
                         </div>
                     </div>
@@ -22,35 +22,23 @@
                         <div class="card-body card-dashboard">
 
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered alt-pagination" id="Example1">
+                                <table class="table table-striped table-bordered alt-pagination" id="DepartmentTable">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Designation</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Department</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Tel (office)</th>
-                                        <th scope="col">Mobile(one)</th>
-                                        <th scope="col">Action</th>
+                                        <th>SL</th>
+                                        <th>Name</th>
+                                        <th>Code</th>
+                                        <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($employeeList)>0)
-                                        @foreach($employeeList as $employee)
+                                    @if(isset($departmentList) && count($departmentList)>0)
+                                        @foreach($departmentList as $department)
 
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <th>{{ $employee->employee_id }}</th>
-                                                <td>{{$employee->first_name . " " . $employee->last_name}}</td>
-                                                <td>{{$employee->designation}}</td>
-                                                <td>{{$employee->gender}}</td>
-                                                <td>{{isset($employee->employeeDepartment->name) ? $employee->employeeDepartment->name : ''}}</td>
-                                                <td>{{$employee->status}}</td>
-                                                <td>{{$employee->tel_office}}</td>
-                                                <td>{{$employee->mobile_one}}</td>
+                                                <th>{{ $department->name }}</th>
+                                                <td>{{$department->department_code}}</td>
 
                                                 <td>
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -59,11 +47,23 @@
                                                         <i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ url('/hrm/employee',$employee->id) }}"
+                                                        <a href="{{ url('/hrm/department',$department->id) }}"
                                                            class="dropdown-item"><i class="ft-eye"></i> Details</a>
-   <div class="dropdown-divider"></div>
-                                                        <a href="{{ url('/hrm/employee/' . $employee->id . '/edit')  }}"
+                                                         <div class="dropdown-divider"></div>
+                                                        <a href="{{ url('/hrm/department/' . $department->id . '/edit')  }}"
                                                            class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+
+                                                         <div class="dropdown-divider"></div>
+                                                        {!! Form::open(['url' =>  ['/hrm/department', $department->id], 'method' => 'DELETE', 'class' => 'form',' novalidate']) !!}
+
+                                                        {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                            'type' => 'submit',
+                                                            'class' => 'dropdown-item',
+                                                            'title' => 'Delete the hostel',
+                                                            'onclick'=>'return confirm("Are you sure you want to delete?")',
+                                                        )) !!}
+                                                        {!! Form::close() !!}
+                                                </span>
 
                                                     </span>
                                                 </td>
@@ -94,31 +94,31 @@
 
         //        table export configuration
         $(document).ready(function () {
-            $('#Example1').DataTable({
+            $('#DepartmentTable').DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'copy', className: 'copyButton',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1, 2],
                         }
                     },
                     {
                         extend: 'excel', className: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1, 2],
                         }
                     },
                     {
                         extend: 'pdf', className: 'pdf',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1, 2],
                         }
                     },
                     {
                         extend: 'print', className: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1, 2],
                         }
                     },
                 ],
@@ -128,19 +128,6 @@
             });
         });
 
-        //        tab link activation
-        var url = document.URL;
-        var hash = url.substring(url.indexOf('#'));
-
-        $(".nav-tabs").find("li a").each(function (key, val) {
-            if (hash == $(val).attr('href')) {
-                $(val).click();
-            }
-
-            $(val).click(function (ky, vl) {
-                location.hash = $(this).attr('href');
-            });
-        });
     </script>
 
 @endpush

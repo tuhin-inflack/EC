@@ -26,6 +26,26 @@
 
                     </ul>
                 </li>
+                <li class=" nav-item">
+                    <a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="nav.navbars.main">Departments</span></a>
+                    <ul class="menu-content">
+
+                        <li class="{{ is_active_url('hrm/department/create') }}">
+                            <a href="{{ url('hrm/department/create') }}">
+                                <i class="la la-user-plus"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">Add New Department</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ is_active_url('hrm/department') }}">
+                            <a href="{{ url('hrm/department') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">List of Department</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
             </ul>
         @endauth
     </div>

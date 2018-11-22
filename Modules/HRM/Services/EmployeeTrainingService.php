@@ -34,25 +34,27 @@ class EmployeeTrainingService {
 
 	public function updateTrainingInfo( $data, $employeeId ) {
 
+//		sometime full section can be removed while edit. so deleting the section
 		$existingEducationsIds = $this->getEmployeeTrainingIds( $employeeId );
-
-
 		$newEducationIds       = array_column( $data, 'id' );
 		$deletedIds            = array_diff( $existingEducationsIds, $newEducationIds );
 		if ( count( $deletedIds ) > 0 ) {
 			foreach ( $deletedIds as $deleted_id ) {
 				$training = $this->findOrFail( $deleted_id );
-				$status    = $training->delete();
+				$status   = $training->delete();
 			}
 		}
+//deleting end
 
 		foreach ( $data as $item ) {
 			if ( isset( $item['id'] ) ) {
+//				existing training updating
 				$training = $this->findOrFail( $item['id'] );
-				$status    = $training->update( $item );
+				$status   = $training->update( $item );
 			} else {
+//				creating new one while add new training on update mode
 				$training = $this->employeeTrainingRepository->save( $item );
-				$status    = true;
+				$status   = true;
 			}
 		}
 		if ( $status ) {
