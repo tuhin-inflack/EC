@@ -41,4 +41,8 @@ class DepartmentService {
 	public function getDepartments() {
 		return $this->departmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
 	}
+
+	public function getDepartmentById($id){
+		return $this->departmentRepository->findOrFail($id);
+	}
 }
