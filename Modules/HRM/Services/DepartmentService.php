@@ -23,12 +23,21 @@ class DepartmentService {
 		$this->setActionRepository( $this->departmentRepository );
 	}
 
+
 	public function storeDepartment( $data ) {
 		$department = $this->save( $data );
+
 		return new DataResponse( $department, $department->id, "Department added successfully" );
 
 	}
 
+//	getDepartmentList providing the list of department by collection
+	public function getDepartmentList() {
+		return $this->departmentRepository->findAll();
+
+	}
+
+//	getDepartments providing department list with array for employee creation
 	public function getDepartments() {
 		return $this->departmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
 	}
