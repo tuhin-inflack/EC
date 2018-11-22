@@ -52,7 +52,7 @@ class EmployeeController extends Controller {
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#personal' ] );
 	}
 
 	public function show( $id ) {
@@ -87,7 +87,7 @@ class EmployeeController extends Controller {
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
 		$response = $this->employeeService->updateGeneralInfo( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id );
 

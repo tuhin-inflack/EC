@@ -22,7 +22,7 @@ class EmployeePersonalInfoController extends Controller {
 		$response = $this->employeePersonalInfoService->storePersonalInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#education' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#education' ] );
 
 
 	}
@@ -30,7 +30,7 @@ class EmployeePersonalInfoController extends Controller {
 	public function update( UpdateEmployeePersonalRequest $request, $id ) {
 		$response = $this->employeePersonalInfoService->updatePersonalInfo( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 //		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#personal' ] );
 		return redirect( '/hrm/employee/' . $employee_id .'/#personal' );
 

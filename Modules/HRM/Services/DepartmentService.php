@@ -31,6 +31,17 @@ class DepartmentService {
 
 	}
 
+	public function updateDepartment( $data, $id ) {
+		$department = $this->findOrFail( $id );
+		$status     = $department->update( $data );
+		if ( $status ) {
+			return new DataResponse( $department, $department->id, "Department updated successfully" );
+		} else {
+			return new DataResponse( $department, $department->id, "Opps !  Something going wrong." );
+
+		}
+	}
+
 //	getDepartmentList providing the list of department by collection
 	public function getDepartmentList() {
 		return $this->departmentRepository->findAll();
@@ -42,7 +53,7 @@ class DepartmentService {
 		return $this->departmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
 	}
 
-	public function getDepartmentById($id){
-		return $this->departmentRepository->findOrFail($id);
+	public function getDepartmentById( $id ) {
+		return $this->departmentRepository->findOrFail( $id );
 	}
 }

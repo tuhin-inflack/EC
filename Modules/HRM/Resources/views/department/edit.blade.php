@@ -1,16 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Add new department ')
+@section('title', 'Edit department ')
 
 @section("content")
-    @php
 
-        /* $tab_action = isset($employee_id) ? '' : 'disabled';
-         $employee_id = isset($employee_id) ? $employee_id : ''; */
-    @endphp
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Add New Department</h4>
+                <h4 class="card-title" id="repeat-form">Edit Department</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -23,8 +19,8 @@
             </div>
             <div class="card-content collapse show" style="">
                 <div class="card-body">
-                    {!! Form::open(['url' =>  '/hrm/department', 'class' => 'form',' novalidate']) !!}
-                    @include('hrm::department.form.department_store_update_form')
+                    {!! Form::model($department, ['url' =>  ['/hrm/department', $department->id], 'method' => 'PUT', 'class' => 'form',' novalidate']) !!}
+                  @include('hrm::department.form.department_store_update_form')
                     {!! Form::close() !!}
                 </div>
             </div>

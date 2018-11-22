@@ -11,39 +11,41 @@
 |
 */
 //Route::middleware( 'auth:web' )->group( function () {
-	Route::prefix( 'hrm' )->group( function () {
-		Route::get( '/', 'HRMController@index' );
+Route::prefix( 'hrm' )->group( function () {
+	Route::get( '/', 'HRMController@index' );
 
-		Route::prefix( 'employee' )->group( function () {
+	Route::prefix( 'employee' )->group( function () {
 
-			Route::post( 'general-info', 'EmployeeController@store' );
-
-
-			Route::post( 'personal-info', 'EmployeePersonalInfoController@store' );
-			Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
-
-			Route::post( 'education-info', 'EmployeeEducationController@store' );
-			Route::put( 'update-education-info/{id}', 'EmployeeEducationController@update' );
+		Route::post( 'general-info', 'EmployeeController@store' );
 
 
-			Route::post( 'training-info', 'EmployeeTrainingController@store' );
-			Route::put( 'update-training-info/{id}', 'EmployeeTrainingController@update' );
+		Route::post( 'personal-info', 'EmployeePersonalInfoController@store' );
+		Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
 
-			Route::post( 'publication-info', 'EmployeePublicationController@store' );
-			Route::put( 'update-publication-info/{id}', 'EmployeePublicationController@update' );
+		Route::post( 'education-info', 'EmployeeEducationController@store' );
+		Route::put( 'update-education-info/{id}', 'EmployeeEducationController@update' );
 
 
-			Route::post( 'research-info', 'EmployeeResearchController@store' );
-			Route::put( 'update-research-info/{id}', 'EmployeeResearchController@update' );
+		Route::post( 'training-info', 'EmployeeTrainingController@store' );
+		Route::put( 'update-training-info/{id}', 'EmployeeTrainingController@update' );
 
-			Route::get( '/test', 'HRMController@test' );
-		} );
+		Route::post( 'publication-info', 'EmployeePublicationController@store' );
+		Route::put( 'update-publication-info/{id}', 'EmployeePublicationController@update' );
 
-		Route::resources( [ 'employee' => 'EmployeeController', ] );
 
-//	Route::prefix( 'department' )->group( function () {
-//	} );
-		Route::resources( [ 'department' => 'DepartmentController', ] );
+		Route::post( 'research-info', 'EmployeeResearchController@store' );
+		Route::put( 'update-research-info/{id}', 'EmployeeResearchController@update' );
+
+		Route::get( '/test', 'HRMController@test' );
 	} );
+
+	Route::resources(
+		[
+			'employee'   => 'EmployeeController',
+			'department' => 'DepartmentController',
+		]
+	);
+
+} );
 
 //} );
