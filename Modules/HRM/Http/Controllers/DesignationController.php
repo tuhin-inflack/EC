@@ -5,6 +5,7 @@ namespace Modules\HRM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\DesignationService;
 
 class DesignationController extends Controller {
@@ -22,22 +23,18 @@ class DesignationController extends Controller {
 
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * @return Response
-	 */
+
 	public function create() {
-		return view( 'hrm::create' );
+		return view( 'hrm::designation.create' );
+
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
+
 	public function store( Request $request ) {
+		$response = $this->designationService->storeDesignation( $request->all() );
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'designation.create' );
 	}
 
 	/**

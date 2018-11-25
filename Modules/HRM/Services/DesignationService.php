@@ -10,6 +10,7 @@ namespace Modules\HRM\Services;
 
 
 use App\Traits\CrudTrait;
+use Illuminate\Http\Response;
 use Modules\HRM\Repositories\DesignationRepository;
 
 class DesignationService {
@@ -27,6 +28,18 @@ class DesignationService {
 
 	public function getEmployeeDesignations() {
 		return $this->designationRepository->findAll()->pluck( 'name', 'id' )->toArray();
+	}
+
+	public function storeDesignation( $data ) {
+		$designation = $this->save( $data );
+		if ( $designation ) {
+			return new Response( "Designation stored successfully" );
+		} else {
+			return new Response( "Opps !  Something going wrong." );
+
+		}
+
+
 	}
 
 }
