@@ -34,15 +34,14 @@ class DesignationController extends Controller {
 		$response = $this->designationService->storeDesignation( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'designation.create' );
+		return redirect()->route( 'designation.index' );
 	}
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
-	public function show() {
-		return view( 'hrm::show' );
+
+	public function show($id) {
+		$designation = $this->designationService->findOrFail( $id );
+
+		return view( 'hrm::designation.show', compact( 'designation' ) );
 	}
 
 	/**
