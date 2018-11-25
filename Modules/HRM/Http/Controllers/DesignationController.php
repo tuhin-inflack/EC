@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Http\Requests\StoreUpdateDesignatonRequest;
 use Modules\HRM\Services\DesignationService;
 
 class DesignationController extends Controller {
@@ -30,7 +31,7 @@ class DesignationController extends Controller {
 	}
 
 
-	public function store( Request $request ) {
+	public function store( StoreUpdateDesignatonRequest $request ) {
 		$response = $this->designationService->storeDesignation( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
@@ -52,7 +53,7 @@ class DesignationController extends Controller {
 	}
 
 
-	public function update( Request $request , $id ) {
+	public function update( StoreUpdateDesignatonRequest $request , $id ) {
 		$response = $this->designationService->updateDepartment( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
 
