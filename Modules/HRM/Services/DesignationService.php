@@ -23,7 +23,7 @@ class DesignationService {
 	}
 
 	public function getDesignationList() {
-		return $this->designationRepository->findAll();
+		return $this->designationRepository->findAll(null, null, ['column' => 'id', 'direction' => 'desc']);
 	}
 
 	public function getEmployeeDesignations() {
@@ -33,7 +33,7 @@ class DesignationService {
 	public function storeDesignation( $data ) {
 		$designation = $this->save( $data );
 		if ( $designation ) {
-			return new Response( "Designation stored successfully" );
+			return new Response( "Designation added successfully" );
 		} else {
 			return new Response( "Opps !  Something going wrong." );
 
