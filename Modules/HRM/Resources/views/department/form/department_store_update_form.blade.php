@@ -15,6 +15,7 @@
                     {{ Form::label('name', 'Department Code') }}
                     {{ Form::text('department_code', null, ['class' => 'form-control', 'placeholder' => 'HR']) }}
                 </div>
+                {{ Form::hidden('id', null) }}
             </div>
             <div class="form-actions col-md-12 ">
                 <div class="pull-right">

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Http\Requests\StoreDepartmentRequest;
 use Modules\HRM\Services\DepartmentService;
 
 class DepartmentController extends Controller {
@@ -28,7 +29,7 @@ class DepartmentController extends Controller {
 	}
 
 
-	public function store( Request $request ) {
+	public function store( StoreDepartmentRequest $request ) {
 		$response = $this->departmentService->storeDepartment( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
@@ -52,7 +53,7 @@ class DepartmentController extends Controller {
 	}
 
 
-	public function update( Request $request, $id ) {
+	public function update( StoreDepartmentRequest $request, $id ) {
 		$response = $this->departmentService->updateDepartment( $request->all(), $id );
 		Session::flash( 'message', $response->getContent() );
 
