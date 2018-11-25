@@ -116,11 +116,14 @@
                     <div class=" col-md-10">
                         <div class="row">
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ Form::label('institute_name', 'Institute Name') }}
-                                    {{ Form::text('institute_name', null, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
-                                    <div class="help-block"></div>
-                                </div>
+                                <section class="basic-select2">
+                                    <div class="form-group">
+                                        {{ Form::label('institute_name', 'Institute Name') }}<br/>
+                                        {{ Form::select('institute_name', $institutes, null, ['class' => 'select2 form-control', 'id'=>'instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
+
+                                        <div class="help-block"></div>
+                                    </div>
+                                </section>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
