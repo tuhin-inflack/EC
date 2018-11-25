@@ -23,7 +23,7 @@ class EmployeeResearchController extends Controller {
 		$response     = $this->employeeResearchService->storeResearchInfo( $researchInfo );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#research' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#research' ] );
 
 	}
 
@@ -32,7 +32,7 @@ class EmployeeResearchController extends Controller {
 		$researchInfo = $request->research;
 		$response = $this->employeeResearchService->updateResearchInfo($researchInfo, $id);
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id .'/#research' );
 	}

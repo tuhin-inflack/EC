@@ -6,7 +6,7 @@ use Illuminate\Http\Response;
 
 class DataResponse extends Response {
 	private $data;
-	private $employeeId;
+	private $id;
 
 	/**
 	 * DataResponse constructor.
@@ -15,22 +15,22 @@ class DataResponse extends Response {
 	 */
 	public function __construct( $data, $id = "", $content = '', $status = 200, $headers = [] ) {
 		$this->data = $data;
-		$this->employeeId = $id;
+		$this->id = $id;
 		parent::__construct( $content, $status, $headers );
 	}
 
 	/**
 	 * @return string
 	 */
-	public function getEmployeeId() {
-		return $this->employeeId;
+	public function getId() {
+		return $this->id;
 	}
 
 	/**
 	 * @param string $id
 	 */
-	public function setEmployeeId( $id ) {
-		$this->employeeId = $id;
+	public function setId( $id ) {
+		$this->id = $id;
 	}
 
 	/**

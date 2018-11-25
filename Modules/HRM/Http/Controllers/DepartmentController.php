@@ -17,24 +17,17 @@ class DepartmentController extends Controller {
 	}
 
 	public function index() {
-		return view( 'hrm::index' );
+		$departmentList = $this->departmentService->getDepartmentList();
+
+		return view( 'hrm::department.index', compact( 'departmentList' ) );
 	}
 
-	/**
-	 * Show the form for creating a new resource.
-	 * @return Response
-	 */
+
 	public function create() {
 		return view( 'hrm::department.create' );
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
+
 	public function store( Request $request ) {
 		$response = $this->departmentService->storeDepartment( $request->all() );
 		Session::flash( 'message', $response->getContent() );
@@ -43,36 +36,33 @@ class DepartmentController extends Controller {
 
 	}
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
-	public function show() {
-		return view( 'hrm::show' );
+
+	public function show( $id ) {
+		$department = $this->departmentService->getDepartmentById( $id );
+
+		return view( 'hrm::department.show', compact( 'department' ) );
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
-	public function edit() {
-		return view( 'hrm::edit' );
+
+	public function edit( $id ) {
+		$department = $this->departmentService->getDepartmentById( $id );
+
+		return view( 'hrm::department.edit', compact( 'department' ) );
+
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public function update( Request $request ) {
+
+	public function update( Request $request, $id ) {
+		$response = $this->departmentService->updateDepartment( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'department.edit', $response->getId() );
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * @return Response
-	 */
-	public function destroy() {
+	public function destroy($id) {
+		$response = $this->departmentService->deleteDepartment($id);
+		Session::flash( 'message', $response->getContent() );
+
+		return view('hrm::department.index');
 	}
 }

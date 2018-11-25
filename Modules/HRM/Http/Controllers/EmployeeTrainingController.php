@@ -25,7 +25,7 @@ class EmployeeTrainingController extends Controller {
 		$response     = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#publication' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#publication' ] );
 
 	}
 
@@ -34,7 +34,7 @@ class EmployeeTrainingController extends Controller {
 		$trainingInfo = $request->training;
 		$response = $this->employeeTrainingService->updateTrainingInfo($trainingInfo, $id);
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id .'/#training' );
 	}
