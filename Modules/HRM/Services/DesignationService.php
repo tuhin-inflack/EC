@@ -53,4 +53,14 @@ class DesignationService {
 		}
 	}
 
+	public function deleteDepartment( $id ) {
+		$designation = $this->findOrFail( $id );
+		$status      = $designation->delete();
+		if ( $status ) {
+			return new Response( "Designation Deleted successfully" );
+		} else {
+			return new Response( "Opps !  Something going wrong." );
+		}
+	}
+
 }
