@@ -20,8 +20,4 @@ class UserRepository extends AbstractBaseRepository
      * @var string
      */
     protected $modelName = User::class;
-
-    public function getLoggedInUser() {
-        return Auth::user();
-    }
 }
