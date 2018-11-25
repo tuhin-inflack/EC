@@ -59,10 +59,11 @@ class DesignationController extends Controller {
 		return redirect()->route( 'designation.index');
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * @return Response
-	 */
-	public function destroy() {
+
+	public function destroy($id) {
+		$response = $this->designationService->deleteDepartment($id);
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'designation.index');
 	}
 }
