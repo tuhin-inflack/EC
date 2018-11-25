@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
 
 use Modules\HRM\Services\DepartmentService;
+use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeServices;
@@ -21,12 +22,12 @@ class EmployeeController extends Controller {
 
 	private $employeeService;
 	private $departmentService;
-	private $employeeDesignationService;
+	private $designationService;
 
-	public function __construct( EmployeeServices $employeeServices, DepartmentService $departmentService, EmployeeDesignationService $employeeDesignationService ) {
-		$this->employeeService            = $employeeServices;
+	public function __construct( EmployeeServices $employeeServices, DepartmentService $departmentService, DesignationService $designationService ) {
+		$this->employeeService    = $employeeServices;
 		$this->departmentService  = $departmentService;
-		$this->employeeDesignationService = $employeeDesignationService;
+		$this->designationService = $designationService;
 	}
 
 
@@ -38,10 +39,9 @@ class EmployeeController extends Controller {
 
 
 	public function create( Request $request ) {
-//		dd($request->employee);
 
 		$employeeDepartments  = $this->departmentService->getDepartments();
-		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
+		$employeeDesignations = $this->designationService->getEmployeeDesignations();
 
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
@@ -80,6 +80,7 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
+
 //		dd($employee->id);
 
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
@@ -94,7 +95,6 @@ class EmployeeController extends Controller {
 
 
 	}
-
 
 
 }
