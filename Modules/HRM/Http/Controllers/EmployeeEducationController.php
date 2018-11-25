@@ -22,7 +22,7 @@ class EmployeeEducationController extends Controller {
 		$response        = $this->employeeEducationService->storeEducationalInfo( $educationalInfo );
 		Session::flash( 'message', $response->getContent() );
 
-		return redirect()->route( 'employee.create', [ 'employee' => $response->getEmployeeId(), '#training' ] );
+		return redirect()->route( 'employee.create', [ 'employee' => $response->getId(), '#training' ] );
 
 	}
 
@@ -30,7 +30,7 @@ class EmployeeEducationController extends Controller {
 		$educationalInfo = $request->education;
 		$response = $this->employeeEducationService->updateEducationInfo($educationalInfo, $id);
 		Session::flash( 'message', $response->getContent() );
-		$employee_id = $response->getEmployeeId();
+		$employee_id = $response->getId();
 
 		return redirect( '/hrm/employee/' . $employee_id .'/#education' );
 	}

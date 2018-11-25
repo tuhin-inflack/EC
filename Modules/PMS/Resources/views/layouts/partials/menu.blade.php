@@ -16,17 +16,46 @@
                                 <span class="menu-title" data-i18n="nav.dash.main">Create Project Proposal</span>
                             </a>
                         </li>
-                        <li class="{{ is_active_route('project-request.index') }}">
-                            <a href="{{ route('project-request.index') }}">
+                        <li class="{{is_active_route('project-request.index')}}">
+                            <a href="{{route('project-request.index')}}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">List of Project Proposal Request</span>
                             </a>
                         </li>
 
-                        <li class="{{ is_active_route('project-request-forwards.index') }}">
-                            <a href="{{ route('project-request-forwards.index') }}">
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                                                                                       data-i18n="nav.navbars.main">Requested Project Proposal</span></a>
+                    <ul class="menu-content">
+                        <li class="{{is_active_route('requested-project.index')}}">
+                            <a href="{{route('requested-project.index')}}">
                                 <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">Proposal Forwarded List</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">List of Requested Project Proposal</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                                                                                       data-i18n="nav.navbars.main">Proposal Submission</span></a>
+                    <ul class="menu-content">
+                        <li class="{{is_active_route('project-proposal-submission.index')}}">
+                            <a href="{{route('project-proposal-submission.index')}}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">List of Proposal Submission</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
+                                                                                       data-i18n="nav.navbars.main">Proposal Submitted</span></a>
+                    <ul class="menu-content">
+                        <li class="{{is_active_route('project-proposal-submitted.index')}}">
+                            <a href="{{route('project-proposal-submitted.index')}}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">List of Submitted Proposal</span>
                             </a>
                         </li>
 
