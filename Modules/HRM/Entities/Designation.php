@@ -4,7 +4,7 @@ namespace Modules\HRM\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EmployeeDesignation extends Model {
+class Designation extends Model {
 	protected $table = "designations";
 	protected $fillable = [];
 }
