@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: BS100
+ * Date: 10/30/2018
+ * Time: 12:43 PM
+ */
+
+namespace Modules\HRM\Services;
+
+
+use App\Traits\CrudTrait;
+use Modules\HRM\Repositories\DesignationRepository;
+
+class DesignationService {
+	use CrudTrait;
+	protected $designationRepository;
+
+	public function __construct( DesignationRepository $designationRepository ) {
+		$this->designationRepository = $designationRepository;
+		$this->setActionRepository( $this->designationRepository );
+	}
+
+	public function getDesignationList() {
+		return $this->designationRepository->findAll();
+	}
+
+	public function getEmployeeDesignations() {
+		return $this->designationRepository->findAll()->pluck( 'name', 'id' )->toArray();
+	}
+
+}
