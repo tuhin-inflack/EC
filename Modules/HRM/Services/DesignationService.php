@@ -23,7 +23,7 @@ class DesignationService {
 	}
 
 	public function getDesignationList() {
-		return $this->designationRepository->findAll(null, null, ['column' => 'id', 'direction' => 'desc']);
+		return $this->designationRepository->findAll( null, null, [ 'column' => 'id', 'direction' => 'desc' ] );
 	}
 
 	public function getEmployeeDesignations() {
@@ -40,6 +40,17 @@ class DesignationService {
 		}
 
 
+	}
+
+	public function updateDepartment( $data, $id ) {
+		$designation = $this->findOrFail( $id );
+		$status      = $designation->update( $data );
+		if ( $status ) {
+			return new Response( "Designation updated successfully" );
+		} else {
+			return new Response( "Opps !  Something going wrong." );
+
+		}
 	}
 
 }
