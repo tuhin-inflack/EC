@@ -44,22 +44,19 @@ class DesignationController extends Controller {
 		return view( 'hrm::designation.show', compact( 'designation' ) );
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
-	public function edit() {
-		return view( 'hrm::edit' );
+
+	public function edit($id) {
+		$designation = $this->designationService->findOrFail( $id );
+
+		return view( 'hrm::designation.edit', compact( 'designation' ) );
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public function update( Request $request ) {
+
+	public function update( Request $request , $id ) {
+		$response = $this->designationService->updateDepartment( $request->all(), $id );
+		Session::flash( 'message', $response->getContent() );
+
+		return redirect()->route( 'designation.index');
 	}
 
 	/**
