@@ -137,7 +137,7 @@
 
                                 <h4 class="form-section"><i class="la  la-table"></i>Room Type Inventories</h4>
 
-                                <div class="repeater-room--type-inventories">
+                                <div class="repeater-room-types">
                                     <div data-repeater-list="rooms">
                                         <div data-repeater-item="" style="">
                                             <div class="form row">
