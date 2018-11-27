@@ -12,6 +12,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\RoleService;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Session;
 
 class UserController extends Controller
 {
@@ -57,7 +58,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $response = $this->userService->save($request);
+        $response = $this->userService->save($request->all());
         Session::flash('message', $response->getContent());
         return redirect('/user');
 
