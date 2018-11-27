@@ -6,45 +6,24 @@
                     <a href="{{ url('hrm') }}"><i class="la la-home"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">Dashboard </span></a>
                 </li>
-                <li class=" nav-item">
-                    <a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="nav.navbars.main">Employee</span></a>
-                    <ul class="menu-content">
 
-                        <li class="{{ is_active_url('hrm/employee/create') }}">
-                            <a href="{{ url('hrm/employee/create') }}">
-                                <i class="la la-user-plus"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">Add New Employee</span>
-                            </a>
-                        </li>
-
-                        <li class="{{ is_active_url('hrm/employee') }}">
-                            <a href="{{ url('hrm/employee') }}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Employee</span>
-                            </a>
-                        </li>
-
-                    </ul>
+                <li class="{{ is_active_match('hrm/employee') }}">
+                    <a href="{{ url('hrm/employee') }}">
+                        <i class="la la-users"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Employees</span>
+                    </a>
                 </li>
-                <li class=" nav-item">
-                    <a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="nav.navbars.main">Departments</span></a>
-                    <ul class="menu-content">
-
-                        <li class="{{ is_active_url('hrm/department/create') }}">
-                            <a href="{{ url('hrm/department/create') }}">
-                                <i class="la la-user-plus"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">Add New Department</span>
-                            </a>
-                        </li>
-
-                        <li class="{{ is_active_url('hrm/department') }}">
-                            <a href="{{ url('hrm/department') }}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Department</span>
-                            </a>
-                        </li>
-
-                    </ul>
+                <li class="{{ is_active_match('hrm/department')}}">
+                    <a href="{{ url('hrm/department') }}">
+                        <i class="la la-list-alt"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Departments</span>
+                    </a>
+                </li>
+                <li class="{{ is_active_match('hrm/designation') }}">
+                    <a href="{{ url('hrm/designation') }}">
+                        <i class="la la-list-alt"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">Designations</span>
+                    </a>
                 </li>
             </ul>
         @endauth

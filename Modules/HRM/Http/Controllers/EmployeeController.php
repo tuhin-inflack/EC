@@ -11,22 +11,30 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
 
 use Modules\HRM\Services\DepartmentService;
+use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeServices;
 
+use Modules\HRM\Services\InstituteService;
 use function Sodium\compare;
 
 class EmployeeController extends Controller {
 
 	private $employeeService;
 	private $departmentService;
-	private $employeeDesignationService;
+	private $designationService;
+	private $instituteService;
 
-	public function __construct( EmployeeServices $employeeServices, DepartmentService $departmentService, EmployeeDesignationService $employeeDesignationService ) {
-		$this->employeeService            = $employeeServices;
+	public function __construct(
+		EmployeeServices $employeeServices,
+		DepartmentService $departmentService,
+		DesignationService $designationService, InstituteService $instituteService
+	) {
+		$this->employeeService    = $employeeServices;
 		$this->departmentService  = $departmentService;
-		$this->employeeDesignationService = $employeeDesignationService;
+		$this->designationService = $designationService;
+		$this->instituteService   = $instituteService;
 	}
 
 
@@ -38,14 +46,13 @@ class EmployeeController extends Controller {
 
 
 	public function create( Request $request ) {
-//		dd($request->employee);
 
 		$employeeDepartments  = $this->departmentService->getDepartments();
-		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
-
+		$employeeDesignations = $this->designationService->getEmployeeDesignations();
+		$institutes           = $this->instituteService->getInstitutes();
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id' ) );
+		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes' ) );
 	}
 
 
@@ -80,6 +87,7 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
+
 //		dd($employee->id);
 
 		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
@@ -94,7 +102,6 @@ class EmployeeController extends Controller {
 
 
 	}
-
 
 
 }
