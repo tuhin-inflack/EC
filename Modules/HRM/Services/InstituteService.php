@@ -23,7 +23,9 @@ class InstituteService {
 	}
 
 	public function getInstitutes() {
-		return $this->instituteRepository->findAll()->pluck( 'name', 'id' )->toArray();
+		$institutes = $this->instituteRepository->findAll()->pluck( 'name', 'id' )->toArray();
+		$institutes['other'] = 'Other\'s';
+		return $institutes;
 	}
 
 }

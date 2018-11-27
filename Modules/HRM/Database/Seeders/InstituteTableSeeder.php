@@ -41,10 +41,6 @@ class InstituteTableSeeder extends Seeder {
 				'name'       => 'University of Dhaka',
 				'short_name' => 'DU',
 			],
-			[
-				'name'       => 'Other\'s',
-				'short_name' => 'others',
-			],
 
 
 		];
