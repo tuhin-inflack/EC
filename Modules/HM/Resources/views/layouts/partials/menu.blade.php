@@ -141,6 +141,19 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-book"></i>
+                    <span class="menu-title"
+                          data-i18n="nav.templates.main">Booking Request</span></a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
+                            <i class="la la-list"></i>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">List</span></a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
