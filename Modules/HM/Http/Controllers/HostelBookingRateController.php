@@ -23,7 +23,7 @@ class HostelBookingRateController extends Controller
      */
     public function create()
     {
-        return view('hm::create');
+        return view('hm::booking-rate.create');
     }
 
     /**

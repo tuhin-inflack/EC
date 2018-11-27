@@ -76,7 +76,7 @@ Route::prefix('hm')->group(function () {
     });
 
     Route::prefix('booking-rates')->group(function () {
-       Route::get('create', 'HostelBookingRateController@create')->name('booking-rates.create');
+        Route::get('create', 'HostelBookingRateController@create')->name('booking-rates.create');
     });
 });
 
