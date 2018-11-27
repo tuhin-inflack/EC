@@ -82,7 +82,6 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/tables/components/table-components.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('#store-entry-table').DataTable({
