@@ -172,15 +172,15 @@
                                             </button>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="form-actions text-center">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="la la-check-square-o"></i> Save
-                                        </button>
-                                        <a class="btn btn-warning mr-1" role="button" href="#">
-                                            <i class="ft-x"></i> Cancel
-                                        </a>
-                                    </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="la la-check-square-o"></i> Save
+                                    </button>
+                                    <a class="btn btn-warning mr-1" role="button" href="#">
+                                        <i class="ft-x"></i> Cancel
+                                    </a>
                                 </div>
                             </form>
                         </div>
