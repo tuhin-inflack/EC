@@ -18,9 +18,9 @@ class StoreEmployeeEducationRequest extends FormRequest {
 		$this->redirect          = '/hrm/employee/create?employee=' . $request->education[0]['employee_id'] . '#education';
 
 		return [
-			'education.*.institute_name'       => 'required',
-			'education.*.degree_name'       => 'required',
-			'education.*.department'       => 'required',
+			'education.*.institute_id'       => 'required',
+			'education.*.institute_degree_id'       => 'required',
+			'education.*.institute_department_id'       => 'required',
 			'education.*.passing_year'       => 'required',
 			'education.*.duration'       => 'required',
 			'education.*.result'       => 'required',
@@ -31,9 +31,9 @@ class StoreEmployeeEducationRequest extends FormRequest {
 	}
 	public function messages() {
 		$messages = [
-			'education.*.institute_name.required' => 'Please enter institute name',
-			'education.*.degree_name.required' => 'Please enter degree name ',
-			'education.*.department.required' => 'Please enter department name ',
+			'education.*.institute_id.required' => 'Please enter institute name',
+			'education.*.institute_degree_id.required' => 'Please enter degree name ',
+			'education.*.institute_department_id.required' => 'Please enter department name ',
 			'education.*.passing_year.required' => 'Please enter passing year ',
 			'education.*.duration.required' => 'Please enter duration ',
 			'education.*.result.required' => 'Please enter result ',
