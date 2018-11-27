@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Add new department ')
+@section('title', 'Add new designation ')
 
 @section("content")
 
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Add New Department</h4>
+                <h4 class="card-title" id="repeat-form">Add New Designation</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -19,8 +19,8 @@
             </div>
             <div class="card-content collapse show" style="">
                 <div class="card-body">
-                    {!! Form::open(['url' =>  '/hrm/department', 'class' => 'form',' novalidate']) !!}
-                    @include('hrm::department.form.department_store_update_form')
+                    {!! Form::open(['url' =>  '/hrm/designation', 'class' => 'form',' novalidate']) !!}
+                    @include('hrm::designation.form.designation_store_update_form')
                     {!! Form::close() !!}
                 </div>
             </div>
@@ -44,6 +44,6 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+{{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
 @endpush
