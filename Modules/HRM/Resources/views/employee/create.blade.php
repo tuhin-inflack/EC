@@ -113,7 +113,13 @@
 @endsection
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
-
+    <style>
+        .required:after{
+            content:'*';
+            color:red;
+            padding-left:5px;
+        }
+    </style>
 @endpush
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
@@ -157,7 +163,7 @@
                 $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
                 $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
             });
-            $("#instituteSelection").select2({width: 'resolve'});
+
 
         })
 

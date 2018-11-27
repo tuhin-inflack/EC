@@ -14,35 +14,35 @@
                         <div class=" col-md-10">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_name") ? ' error' : '' }}">
-                                        {{ Form::label('institute_name', 'Institute Name') }}
-                                        {{ Form::text('institute_name', $education['institute_name'] , ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
+                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_id") ? ' error' : '' }}">
+                                        {{ Form::label('institute_id', 'Institute Name') }}
+                                        {{ Form::text('institute_id', $education['institute_id'] , ['class' => 'form-control', 'placeholder' => 'Please select institute ', 'data-validation-required-message'=>'Please select institute']) }}
                                         <div class="help-block"></div>
-                                        @if ($errors->educationError->has("education.".$key.".institute_name"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.institute_name") }}</div>
+                                        @if ($errors->educationError->has("education.".$key.".institute_id"))
+                                            <div class="help-block">  {{ $errors->educationError->first("education.*.institute_id") }}</div>
                                         @endif
 
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".degree_name") ? ' error' : '' }}">
-                                        {{ Form::label('degree_name', 'Degree Name') }}
-                                        {{ Form::text('degree_name', $education['degree_name'], ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_degree_id") ? ' error' : '' }}">
+                                        {{ Form::label('institute_degree_id', 'Degree Name') }}
+                                        {{ Form::text('institute_degree_id', $education['institute_degree_id'], ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
                                         <div class="help-block"></div>
-                                        @if ($errors->educationError->has("education.".$key.".degree_name"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.degree_name") }}</div>
+                                        @if ($errors->educationError->has("education.".$key.".institute_degree_id"))
+                                            <div class="help-block">  {{ $errors->educationError->first("education.*.institute_degree_id") }}</div>
                                         @endif
                                     </div>
                                 </div>
 
 
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".department") ? ' error' : '' }}">
-                                        {{ Form::label('department', 'Department/Section/Group') }}
-                                        {{ Form::text('department',  $education['department'], ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
+                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_department_id") ? ' error' : '' }}">
+                                        {{ Form::label('institute_department_id', 'Department/Section/Group') }}
+                                        {{ Form::text('institute_department_id',  $education['institute_department_id'], ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
                                         <div class="help-block"></div>
-                                        @if ($errors->educationError->has("education.".$key.".department"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.department") }}</div>
+                                        @if ($errors->educationError->has("education.".$key.".institute_department_id"))
+                                            <div class="help-block">  {{ $errors->educationError->first("education.*.institute_department_id") }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -118,17 +118,26 @@
                             <div class="col-md-6">
                                 <section class="basic-select2">
                                     <div class="form-group">
-                                        {{ Form::label('institute_name', 'Institute Name') }}<br/>
-                                        {{ Form::select('institute_name', $institutes, null, ['class' => 'select2 form-control', 'id'=>'instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                        {{ Form::label('institute_id', 'Select Your Institute ', ['class' => 'required']) }}<br/>
+                                        {{ Form::select('institute_id', $institutes, null, ['class' => 'select2 form-control', 'id'=>'instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
 
                                         <div class="help-block"></div>
                                     </div>
                                 </section>
                             </div>
+                            <div class="col-md-6 error" id="addOtherInstitute">
+                                <div class="form-group ">
+                                    {{ Form::label('other_institute_name', 'Enter Your Institute Name') }}<br/>
+                                    {{ Form::text('other_institute_name',  null, ['id'=>'addInstituteInput', 'class' => ' form-control', 'placeholder' => 'Enter Your Institute Name', 'data-validation-required-message'=>'Please Enter Your Institute']) }}
+
+                                    <div class="help-block"></div>
+                                </div>
+
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('degree_name', 'Degree Name') }}
-                                    {{ Form::text('degree_name', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                    {{ Form::label('institute_degree_id', 'Degree Name') }}
+                                    {{ Form::text('institute_degree_id', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -136,8 +145,8 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('department', 'Department/Section/Group') }}
-                                    {{ Form::text('department',  null, ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
+                                    {{ Form::label('institute_department_id', 'Department/Section/Group') }}
+                                    {{ Form::text('institute_department_id',  null, ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -207,5 +216,25 @@
         </div>
     </div>
 </div>
+
+@push('page-js')
+    <script>
+        $(document).ready(function () {
+            $("#instituteSelection").select2({width: '100%'});
+
+            $("#addOtherInstitute").hide();
+            $('#instituteSelection').on('select2:select', function (e) {
+                var value = $("#instituteSelection option:selected").val();
+                if (value === 'other') {
+                    $("#addOtherInstitute").show();
+                    $("#addInstituteInput").focus();
+                }else{
+                    $("#addOtherInstitute").hide();
+
+                }
+            })
+        })
+    </script>
+@endpush
 
 

@@ -9,9 +9,9 @@ class EmployeeEducation extends Model {
 	use SoftDeletes;
 	protected $table = "employee_educations";
 	protected $fillable = [
-		"institute_name",
-		"degree_name",
-		"department",
+		"institute_id",
+		"institute_degree_id",
+		"institute_department_id",
 		"passing_year",
 		"medium",
 		"duration",
