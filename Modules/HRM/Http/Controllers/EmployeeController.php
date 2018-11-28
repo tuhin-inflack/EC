@@ -72,7 +72,6 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
-
 		return view( 'hrm::employee.show', compact( 'employee' ) );
 	}
 

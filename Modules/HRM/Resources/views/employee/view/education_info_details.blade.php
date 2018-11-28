@@ -4,7 +4,7 @@
 
         <tr>
             <th scope="col">Institute name</th>
-            <td>{{ $education->institute_name}}</td>
+            <td>{{ $education->institutes->name}}</td>
         </tr>
         <tr>
             <th scope="col">Degree name</th>

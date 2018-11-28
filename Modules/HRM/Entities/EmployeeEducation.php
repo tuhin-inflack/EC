@@ -20,4 +20,10 @@ class EmployeeEducation extends Model {
 		"employee_id",
 	];
 
+
+	public function institutes() {
+		return $this->belongsTo(Institute::class , 'institute_id', 'id');
+	}
+
+
 }
