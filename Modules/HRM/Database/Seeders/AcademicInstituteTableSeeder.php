@@ -4,9 +4,10 @@ namespace Modules\HRM\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Entities\Institute;
 
-class InstituteTableSeeder extends Seeder {
+class AcademicInstituteTableSeeder extends Seeder {
 	/**
 	 * Run the database seeds.
 	 *
@@ -45,7 +46,7 @@ class InstituteTableSeeder extends Seeder {
 
 		];
 		foreach ( $institutes as $institute ) {
-			Institute::create( $institute );
+			AcademicInstitute::create( $institute );
 		}
 	}
 }
