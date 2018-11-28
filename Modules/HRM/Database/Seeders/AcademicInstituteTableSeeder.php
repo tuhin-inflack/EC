@@ -5,7 +5,6 @@ namespace Modules\HRM\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HRM\Entities\AcademicInstitute;
-use Modules\HRM\Entities\Institute;
 
 class AcademicInstituteTableSeeder extends Seeder {
 	/**
