@@ -4,7 +4,7 @@ namespace Modules\HRM\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Institute extends Model
+class AcademicInstitute extends Model
 {
 	protected $fillable = [
 		'name'

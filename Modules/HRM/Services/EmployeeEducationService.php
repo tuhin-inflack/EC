@@ -11,16 +11,17 @@ namespace Modules\HRM\Services;
 
 use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
+use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Repositories\EmployeeEducationRepository;
 
 class EmployeeEducationService {
 	use CrudTrait;
 	protected $employeeEducationRepository;
-	protected $instituteService;
+	protected $academicInstituteService;
 
-	public function __construct( EmployeeEducationRepository $employeeEducationRepository, InstituteService $instituteService ) {
+	public function __construct( EmployeeEducationRepository $employeeEducationRepository, AcademicInstitute $academicInstituteService ) {
 		$this->employeeEducationRepository = $employeeEducationRepository;
-		$this->instituteService            = $instituteService;
+		$this->academicInstituteService            = $academicInstituteService;
 		$this->setActionRepository( $this->employeeEducationRepository );
 	}
 
