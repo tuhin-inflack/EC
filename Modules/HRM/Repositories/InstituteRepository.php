@@ -15,4 +15,5 @@ use Modules\HRM\Entities\Institute;
 class InstituteRepository extends AbstractBaseRepository {
 	protected $modelName = Institute::class;
 
+
 }

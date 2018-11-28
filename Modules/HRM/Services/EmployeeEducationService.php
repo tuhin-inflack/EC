@@ -16,15 +16,22 @@ use Modules\HRM\Repositories\EmployeeEducationRepository;
 class EmployeeEducationService {
 	use CrudTrait;
 	protected $employeeEducationRepository;
+	protected $instituteService;
 
-	public function __construct( EmployeeEducationRepository $employeeEducationRepository ) {
+	public function __construct( EmployeeEducationRepository $employeeEducationRepository, InstituteService $instituteService ) {
 		$this->employeeEducationRepository = $employeeEducationRepository;
+		$this->instituteService            = $instituteService;
 		$this->setActionRepository( $this->employeeEducationRepository );
 	}
 
 	public function storeEducationalInfo( $data = null ) {
 
 		foreach ( $data as $item ) {
+			if ( ! is_null( $item['other_institute_name'] ) ) {
+				$newInstitute['name'] = $item['other_institute_name'];
+				$institute          = $this->instituteService->storeInstitute( $newInstitute );
+				$item['institute_id'] = $institute['id'];
+			}
 			$education = $this->employeeEducationRepository->save( $item );
 		}
 
