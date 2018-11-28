@@ -78,7 +78,8 @@ class EmployeeController extends Controller {
 
 	public function edit( $id ) {
 		$employeeDepartments  = $this->departmentService->getDepartments();
-		$employeeDesignations = $this->employeeDesignationService->getEmployeeDesignations();
+		$employeeDesignations = $this->designationService->getEmployeeDesignations();
+		$institutes           = $this->instituteService->getInstitutes();
 		$employee             = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
 			'employeeEducationInfo',
@@ -90,7 +91,7 @@ class EmployeeController extends Controller {
 
 //		dd($employee->id);
 
-		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee' ) );
+		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes' ) );
 	}
 
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
