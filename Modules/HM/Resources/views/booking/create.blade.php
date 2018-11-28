@@ -77,8 +77,8 @@
                                                                     <input type='text' class="form-control datetime"
                                                                            id="check-in-out"/>
                                                                     <span class="input-group-addon">
-                                                                <span class="ft-calendar"></span>
-                                                            </span>
+                                                            <span class="ft-calendar"></span>
+                                                        </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -177,9 +177,12 @@
                                                         <div data-repeater-item="" style="">
                                                             <div class="form row">
                                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Room Type <span class="danger">*</span></label>
+                                                                    <label>Room Type <span
+                                                                                class="danger">*</span></label>
                                                                     <br>
-                                                                    <select name="room_type" id="" class="form-control room-type-select" required>
+                                                                    <select name="room_type" id=""
+                                                                            class="form-control room-type-select"
+                                                                            required>
                                                                         <option value=""></option>
                                                                         <option value="1">Room Type 1</option>
                                                                         <option value="2">Room Type 2</option>
@@ -188,7 +191,8 @@
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Quantity <span class="danger">*</span></label>
+                                                                    <label>Quantity <span
+                                                                                class="danger">*</span></label>
                                                                     <br>
                                                                     <input type="number" name="quantity" min="1" id=""
                                                                            class="form-control" placeholder="e.g 2">
@@ -433,67 +437,34 @@
                                                     </div>
                                                 </div>
                                             </fieldset>
-                                            <!-- Step 5 -->
+                                        <!-- Step 5 -->
                                             <h6>Step 5</h6>
                                             <fieldset>
+                                                <h4 class="form-section"><i class="la  la-building-o"></i>Billing
+                                                    Information</h4>
                                                 <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="meetingName1">Name of Meeting :</label>
-                                                            <input type="text" class="form-control" id="meetingName1">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="meetingLocation1">Location :</label>
-                                                            <input type="text" class="form-control"
-                                                                   id="meetingLocation1">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="participants1">Names of Participants</label>
-                                                            <textarea name="participants" id="participants1" rows="4"
-                                                                      class="form-control"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label for="decisions1">Decisions Reached</label>
-                                                            <textarea name="decisions" id="decisions1" rows="4"
-                                                                      class="form-control"></textarea>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Agenda Items :</label>
-                                                            <div class="c-inputs-stacked">
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" name="agenda1"
-                                                                           class="custom-control-input" id="item11">
-                                                                    <label class="custom-control-label" for="item11">1st
-                                                                        item</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" name="agenda1"
-                                                                           class="custom-control-input" id="item12">
-                                                                    <label class="custom-control-label" for="item12">2nd
-                                                                        item</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" name="agenda1"
-                                                                           class="custom-control-input" id="item13">
-                                                                    <label class="custom-control-label" for="item13">3rd
-                                                                        item</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" name="agenda1"
-                                                                           class="custom-control-input" id="item14">
-                                                                    <label class="custom-control-label" for="item14">4th
-                                                                        item</label>
-                                                                </div>
-                                                                <div class="custom-control custom-checkbox">
-                                                                    <input type="checkbox" name="agenda1"
-                                                                           class="custom-control-input" id="item15">
-                                                                    <label class="custom-control-label" for="item15">5th
-                                                                        item</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered table-striped">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>Room Type</th>
+                                                                <th>Quantity</th>
+                                                                <th>Duration</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>AC room</td>
+                                                                <td>2</td>
+                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Non ac room</td>
+                                                                <td>3</td>
+                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </fieldset>
