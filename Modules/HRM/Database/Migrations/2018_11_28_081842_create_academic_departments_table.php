@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInstitutesTable extends Migration
+class CreateAcademicDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateInstitutesTable extends Migration
      */
     public function up()
     {
-        Schema::create('institutes', function (Blueprint $table) {
+        Schema::create('academic_departments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('short_name')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateInstitutesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('institutes');
+        Schema::dropIfExists('academic_departments');
     }
 }

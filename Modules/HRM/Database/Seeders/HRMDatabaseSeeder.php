@@ -19,7 +19,8 @@ class HRMDatabaseSeeder extends Seeder
         // $this->call("OthersTableSeeder");
 //	    $this->call(EmployeeDepartmentsTableSeeder::class);
 //	    $this->call(EmployeeDesignationTableSeeder::class);
-	    $this->call(InstituteTableSeeder::class);
+//	    $this->call(InstituteTableSeeder::class);
+	    $this->call(AcademicDepartmentsTableSeeder::class);
 
     }
 }
