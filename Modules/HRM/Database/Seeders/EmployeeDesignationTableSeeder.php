@@ -4,7 +4,7 @@ namespace Modules\HRM\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\HRM\Entities\EmployeeDesignation;
+use Modules\HRM\Entities\Designation;
 
 class EmployeeDesignationTableSeeder extends Seeder {
 	/**
@@ -47,7 +47,7 @@ class EmployeeDesignationTableSeeder extends Seeder {
 
 		];
 		foreach ( $dummyDesignations as $designation ) {
-			EmployeeDesignation::create( $designation );
+			Designation::create( $designation );
 		}
 	}
 }
