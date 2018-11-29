@@ -18,22 +18,32 @@ class EmployeeEducationService {
 	use CrudTrait;
 	protected $employeeEducationRepository;
 	protected $academicInstituteService;
+	protected $academicDepartmentService;
 
-	public function __construct( EmployeeEducationRepository $employeeEducationRepository, AcademicInstitute $academicInstituteService ) {
+	public function __construct( EmployeeEducationRepository $employeeEducationRepository,
+		AcademicInstituteService $academicInstituteService, AcademicDepartmentService $academicDepartmentService ) {
 		$this->employeeEducationRepository = $employeeEducationRepository;
 		$this->academicInstituteService            = $academicInstituteService;
+		$this->academicDepartmentService = $academicDepartmentService;
 		$this->setActionRepository( $this->employeeEducationRepository );
 	}
 
 	public function storeEducationalInfo( $data = null ) {
-
 		foreach ( $data as $item ) {
 			if ( ! is_null( $item['other_institute_name'] ) ) {
 				$newInstitute['name'] = $item['other_institute_name'];
-				$institute          = $this->instituteService->storeInstitute( $newInstitute );
+				$institute          = $this->academicInstituteService->storeInstitute( $newInstitute );
 				$item['academic_institute_id'] = $institute['id'];
 			}
+			if ( ! is_null( $item['other_department_name'] ) ) {
+				$newAcademicDepartment['name'] = $item['other_department_name'];
+				$academicDepartment          = $this->academicDepartmentService->storeAcademicDepartment( $newAcademicDepartment );
+				$item['academic_department_id'] = $academicDepartment['id'];
+			}
+//			dd($item);
 			$education = $this->employeeEducationRepository->save( $item );
+
+
 		}
 
 		return new DataResponse( $education, $education['employee_id'], 'Education information added successfully' );

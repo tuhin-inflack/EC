@@ -23,8 +23,14 @@ class AcademicDepartmentService {
 
 	public function getAcademicDepartments() {
 		$academicDepartments          = $this->academicDepartmentRepository->findAll()->pluck( 'name', 'id' )->toArray();
-		$academicDepartments['other'] = 'Other\'s';
+		$academicDepartments['other_department'] = 'Other\'s';
 
 		return $academicDepartments;
 	}
+	public function storeAcademicDepartment( $data ) {
+
+		$department = $this->save( $data );
+		return $department;
+	}
+
 }

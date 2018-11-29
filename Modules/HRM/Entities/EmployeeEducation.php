@@ -9,9 +9,9 @@ class EmployeeEducation extends Model {
 	use SoftDeletes;
 	protected $table = "employee_educations";
 	protected $fillable = [
-		"institute_id",
-		"institute_degree_id",
-		"institute_department_id",
+		"academic_institute_id",
+		"academic_department_id",
+		"academic_degree_id",
 		"passing_year",
 		"medium",
 		"duration",
@@ -22,7 +22,10 @@ class EmployeeEducation extends Model {
 
 
 	public function institutes() {
-		return $this->belongsTo(Institute::class , 'institute_id', 'id');
+		return $this->belongsTo(AcademicInstitute::class , 'academic_institute_id', 'id');
+	}
+	public function academicDepartments() {
+		return $this->belongsTo(AcademicDepartment::class , 'academic_institute_id', 'id');
 	}
 
 

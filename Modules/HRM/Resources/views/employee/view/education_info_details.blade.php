@@ -7,14 +7,15 @@
             <td>{{ $education->institutes->name}}</td>
         </tr>
         <tr>
+            <th scope="col">Department/Section/Group</th>
+            <td>{{ $education->academicDepartments->name}}</td>
+        </tr>
+        <tr>
             <th scope="col">Degree name</th>
             <td>{{ $education->degree_name}}</td>
         </tr>
 
-        <tr>
-            <th scope="col">Department/Section/Group</th>
-            <td>{{ $education->department}}</td>
-        </tr>
+
         <tr>
             <th scope="col">Passing year</th>
             <td>{{ $education->passing_year}}</td>
