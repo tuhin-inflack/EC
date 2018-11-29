@@ -19,16 +19,16 @@
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <fieldset class="form-group position-relative has-icon-left">
-                                    <input id="email" type="email"
-                                           class="input-lg form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                           name="email" value="{{ old('email') }}" placeholder="Enter email"
+                                    <input id="username" type="text"
+                                           class="input-lg form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                           name="username" value="{{ old('username') }}" placeholder="Enter Username"
                                            required autofocus>
                                     <div class="form-control-position">
                                         <i class="la la-user"></i>
                                     </div>
-                                    @if ($errors->has('email'))
+                                    @if ($errors->has('username'))
                                         <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $errors->first('username') }}</strong>
                                     </span>
                                     @endif
                                 </fieldset>
