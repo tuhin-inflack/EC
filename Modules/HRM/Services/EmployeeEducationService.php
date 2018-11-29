@@ -31,7 +31,7 @@ class EmployeeEducationService {
 			if ( ! is_null( $item['other_institute_name'] ) ) {
 				$newInstitute['name'] = $item['other_institute_name'];
 				$institute          = $this->instituteService->storeInstitute( $newInstitute );
-				$item['institute_id'] = $institute['id'];
+				$item['academic_institute_id'] = $institute['id'];
 			}
 			$education = $this->employeeEducationRepository->save( $item );
 		}
