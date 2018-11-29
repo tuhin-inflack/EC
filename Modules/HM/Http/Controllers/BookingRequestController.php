@@ -72,7 +72,7 @@ class BookingRequestController extends Controller
      */
     public function show()
     {
-        return view('hm::show');
+        return view('hm::booking-request.show');
     }
 
     /**

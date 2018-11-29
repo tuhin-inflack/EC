@@ -81,6 +81,7 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('booking-requests')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
+        Route::get('booking-request/{id}','BookingRequestController@show')->name('booking-requests.show');
     });
 });
 
