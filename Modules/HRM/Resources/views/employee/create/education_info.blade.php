@@ -15,13 +15,13 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <section class="basic-select2">
-                                        <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_id") ? ' error' : '' }}">
+                                        <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_institute_id") ? ' error' : '' }}">
                                             {{ Form::label('academic_institute_id', 'Select Your Institute ', ['class' => 'required']) }}
                                             <br/>
-                                            {{ Form::select('academic_institute_id',$institutes,  $education['institute_id'] , ['class' => 'select2 form-control instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                            {{ Form::select('academic_institute_id',$institutes,  $education['academic_institute_id'] , ['class' => 'select2 form-control instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
                                             <div class="help-block"></div>
-                                            @if ($errors->educationError->has("education.".$key.".institute_id"))
-                                                <div class="help-block">  {{ $errors->educationError->first("education.*.institute_id") }}</div>
+                                            @if ($errors->educationError->has("education.".$key.".academic_institute_id"))
+                                                <div class="help-block">  {{ $errors->educationError->first("education.*.academic_institute_id") }}</div>
                                             @endif
 
                                         </div>
@@ -146,7 +146,7 @@
                             <div class="col-md-6 addOtherInstitute">
                                 <div class="form-group ">
                                     {{ Form::label('other_institute_name', 'Enter Your Institute Name') }}<br/>
-                                    {{ Form::text('other_institute_name',  null, ['id'=>'addInstituteInput', 'class' => ' form-control', 'placeholder' => 'Enter Your Institute Name']) }}
+                                    {{ Form::text('other_institute_name',  null, ['id'=>'', 'class' => 'addInstituteInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
 
                                     <div class="help-block"></div>
                                 </div>
@@ -154,15 +154,23 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('institute_department_id', 'Department/Section/Group') }}
-                                    {{ Form::text('institute_department_id',  null, ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
+                                    {{ Form::label('academic_department_id', 'Department/Section/Group', ['class' => 'required']) }}
+                                    {{ Form::select('academic_department_id',  $academicDepartments, null, ['class' => 'select2 academicDepartmentSelect form-control', 'placeholder' => 'Please select department/section/group', 'data-validation-required-message'=>'Please enter department name']) }}
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 addDepartmentSection">
+                                <div class="form-group ">
+                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}<br/>
+                                    {{ Form::text('other_department_name',  null, ['id'=>'', 'class' => 'addDepartmentInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
+
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('institute_degree_id', 'Degree Name') }}
-                                    {{ Form::text('institute_degree_id', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                    {{ Form::label('academic_degree_id', 'Degree Name') }}
+                                    {{ Form::text('academic_degree_id', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -240,12 +248,11 @@
     <script>
 
         $(document).ready(function () {
-            $(".instituteSelection").select2({width: '100%'});
-            $(".addOtherInstitute").hide();
-            hideUnhide();
-        })
 
-        function hideUnhide() {
+            $('.academicDepartmentSelect').select2();
+            $(".instituteSelection, .academicDepartmentSelect").select2({width: '100%'});
+            $(".addOtherInstitute").hide();
+            $(".addDepartmentSection").hide();
             $('.instituteSelection').on('select2:select', function (e) {
                 var value = $(".instituteSelection option:selected").val();
                 if (value === 'other') {
@@ -256,7 +263,17 @@
 
                 }
             });
-        }
+            $('.academicDepartmentSelect').on('select2:select', function (e) {
+                var value = $(".academicDepartmentSelect option:selected").val();
+                if (value === 'other_department') {
+                    $(".addDepartmentSection").show();
+                    $(".addDepartmentInput").focus();
+                } else {
+                    $(".addDepartmentSection").hide();
+
+                }
+            });
+        })
     </script>
 @endpush
 
