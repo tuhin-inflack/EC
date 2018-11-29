@@ -58,5 +58,16 @@ class UserService
         return new Response("User has been updated successfully");
     }
 
+    public function destroy($id)
+    {
+        $user = $this->findOrFail($id);
+        DB::transaction(function () use ($user) {
+            $user->roles()->detach();
+            $user->delete();
+        });
+
+        return new Response("User has been deleted successfully");
+    }
+
 
 }

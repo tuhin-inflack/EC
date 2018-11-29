@@ -116,7 +116,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $response = $this->roleService->destroy($id);
+        $response = $this->userService->destroy($id);
         Session::flash('message', $response->getContent());
         return redirect('/system/user');
     }
