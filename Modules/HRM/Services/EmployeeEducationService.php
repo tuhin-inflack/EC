@@ -11,20 +11,28 @@ namespace Modules\HRM\Services;
 
 use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
+use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Repositories\EmployeeEducationRepository;
 
 class EmployeeEducationService {
 	use CrudTrait;
 	protected $employeeEducationRepository;
+	protected $academicInstituteService;
 
-	public function __construct( EmployeeEducationRepository $employeeEducationRepository ) {
+	public function __construct( EmployeeEducationRepository $employeeEducationRepository, AcademicInstitute $academicInstituteService ) {
 		$this->employeeEducationRepository = $employeeEducationRepository;
+		$this->academicInstituteService            = $academicInstituteService;
 		$this->setActionRepository( $this->employeeEducationRepository );
 	}
 
 	public function storeEducationalInfo( $data = null ) {
 
 		foreach ( $data as $item ) {
+			if ( ! is_null( $item['other_institute_name'] ) ) {
+				$newInstitute['name'] = $item['other_institute_name'];
+				$institute          = $this->instituteService->storeInstitute( $newInstitute );
+				$item['institute_id'] = $institute['id'];
+			}
 			$education = $this->employeeEducationRepository->save( $item );
 		}
 

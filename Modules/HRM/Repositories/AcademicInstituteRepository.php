@@ -10,9 +10,11 @@ namespace Modules\HRM\Repositories;
 
 
 use App\Repositories\AbstractBaseRepository;
+use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Entities\Institute;
 
-class InstituteRepository extends AbstractBaseRepository {
-	protected $modelName = Institute::class;
+class AcademicInstituteRepository extends AbstractBaseRepository {
+	protected $modelName = AcademicInstitute::class;
+
 
 }

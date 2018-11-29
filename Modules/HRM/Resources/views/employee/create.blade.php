@@ -113,12 +113,16 @@
 @endsection
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
+
     <style>
-        .required:after{
-            content:'*';
-            color:red;
-            padding-left:5px;
+        .required:after {
+            content: '*';
+            color: red;
+            padding-left: 5px;
         }
+
     </style>
 @endpush
 @push('page-js')
@@ -134,15 +138,30 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+{{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "<?php echo $employee_id ?>";
         $(document).ready(function () {
 
+            $('.addMore').click(function () {
+                $('.EmployeeId').val(employee_id);
+                $(".instituteSelection").select2({width: '100%'});
+
+                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
+                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
+                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+
+
+
+            });
+
+            //        url active based on hash tag url
             var url = document.URL;
             var hash = url.substring(url.indexOf('#'));
-
             $(".nav-tabs").find("li a").each(function (key, val) {
                 if (hash == $(val).attr('href')) {
                     $(val).click();
@@ -152,18 +171,6 @@
                     location.hash = $(this).attr('href');
                 });
             });
-
-            $('.addMore').click(function () {
-                $('.EmployeeId').val(employee_id);
-
-                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
-                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
-            });
-
 
         })
 

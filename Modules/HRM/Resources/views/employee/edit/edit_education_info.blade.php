@@ -120,11 +120,15 @@
                         <div class=" col-md-10">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group ">
-                                        {{ Form::label('institute_name', 'Institute Name') }}
-                                        {{ Form::text('institute_name', $education->institute_name, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
-                                        <div class="help-block"></div>
-                                    </div>
+                                    <section class="basic-select2">
+                                        <div class="form-group">
+                                            {{ Form::label('institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                            <br/>
+                                            {{ Form::select('institute_id', $institutes, $education->institute_id, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
+
+                                            <div class="help-block"></div>
+                                        </div>
+                                    </section>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -204,11 +208,24 @@
                     <div class=" col-md-10">
                         <div class="row">
                             <div class="col-md-6">
+                                <section class="basic-select2">
+                                    <div class="form-group">
+                                        {{ Form::label('institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                        <br/>
+                                        {{ Form::select('institute_id', $institutes, null, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
+
+                                        <div class="help-block"></div>
+                                    </div>
+                                </section>
+                            </div>
+                            <div class="col-md-6 addOtherInstitute">
                                 <div class="form-group ">
-                                    {{ Form::label('institute_name', 'Institute Name') }}
-                                    {{ Form::text('institute_name', null, ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
+                                    {{ Form::label('other_institute_name', 'Enter Your Institute Name') }}<br/>
+                                    {{ Form::text('other_institute_name',  null, ['id'=>'addInstituteInput', 'class' => ' form-control', 'placeholder' => 'Enter Your Institute Name']) }}
+
                                     <div class="help-block"></div>
                                 </div>
+
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -296,3 +313,28 @@
         </div>
     </div>
 </div>
+
+@push('page-js')
+    <script>
+
+        $(document).ready(function () {
+            $(".instituteSelection").select2({width: '100%'});
+            $(".addOtherInstitute").hide();
+            hideUnhide();
+        })
+
+        function hideUnhide() {
+            $('.instituteSelection').on('select2:select', function (e) {
+                var value = $(".instituteSelection option:selected").val();
+                if (value === 'other') {
+                    $(".addOtherInstitute").show();
+                    $(".addInstituteInput").focus();
+                } else {
+                    $(".addOtherInstitute").hide();
+
+                }
+            });
+        }
+    </script>
+@endpush
+
