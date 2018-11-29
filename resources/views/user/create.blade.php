@@ -29,7 +29,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name" class="col-form-label">{{ __('Name') }}</label>
+                                            <label for="name" class="col-form-label required">{{ __('Name') }}</label>
                                             <input id="name" type="text"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                                    name="name" value="{{ old('name') }}" required autofocus>
@@ -48,7 +48,7 @@
                                                    class="col-form-label">{{ __('E-Mail Address') }}</label>
                                             <input id="email" type="email"
                                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
-                                                   name="email" value="{{ old('email') }}" required>
+                                                   name="email" value="{{ old('email') }}">
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -62,10 +62,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mobile"
-                                                   class="col-form-label">{{ __('Mobile') }}</label>
+                                                   class="col-form-label required">{{ __('Mobile') }}</label>
                                             <input id="mobile" type="text"
                                                    class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}"
-                                                   name="mobile" required>
+                                                   name="mobile" value="{{ old('mobile') }}" placeholder="01xxxxxxxxx">
                                             @if ($errors->has('mobile'))
                                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('mobile') }}</strong>
@@ -76,15 +76,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="username"
-                                                   class="col-form-label">{{ __('Username') }}</label>
+                                                   class="col-form-label required">{{ __('Username') }}</label>
                                             <input id="username" type="text"
                                                    class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                   name="username" required>
-
+                                                   name="username" value="{{ old('username') }}" required>
                                             @if ($errors->has('username'))
-                                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('username') }}</strong></span>
                                             @endif
                                         </div>
                                     </div>
@@ -94,22 +91,20 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password"
-                                                   class="col-form-label">{{ __('Password') }}</label>
+                                                   class="col-form-label required">{{ __('Password') }}</label>
                                             <input id="password" type="password"
                                                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                    name="password" required>
 
                                             @if ($errors->has('password'))
-                                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('password') }}</strong></span>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password-confirm"
-                                                   class="col-form-label">{{ __('Confirm Password') }}</label>
+                                                   class="col-form-label required">{{ __('Confirm Password') }}</label>
 
                                             <input id="password-confirm" type="password" class="form-control"
                                                    name="password_confirmation" required>
@@ -121,7 +116,7 @@
                                         <div class="form-group">
                                             <label for="roles" class="form-label">Select roles</label>
                                             {{ Form::select("roles", $roles, null, ["class"=>"form-control select2", "id"=>"roles",
-                                             'multiple' => 'multiple', 'name'=>'roles[]', 'required'=>true]) }}
+                                             'multiple' => 'multiple', 'name'=>'roles[]']) }}
                                             @if ($errors->has('roles'))
                                                 <span class="invalid-feedback"><strong>{{ $errors->first('roles') }}</strong></span>
                                             @endif
@@ -133,11 +128,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="user_type"
-                                                   class="col-form-label">{{ __('User Type') }}</label>
+                                                   class="col-form-label required">{{ __('User Type') }}</label>
                                             @foreach($userTypes as $key => $value)
                                                 <fieldset class="radio">
                                                     <input type="radio"
-                                                           name="user_type" value="{{$key}}">
+                                                           name="user_type" value="{{$key}}" {{$key == 'GUEST' ? 'checked' : ''}} required>
                                                     <label for="user_type">
                                                         {{$value}}
                                                     </label>
@@ -149,12 +144,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status"
-                                                   class="col-form-label">{{ __('Status') }}</label>
+                                                   class="col-form-label required">{{ __('Status') }}</label>
                                             @foreach($status as $key => $value)
                                                 <fieldset class="radio">
                                                     <label for="status">
                                                         <input type="radio"
-                                                               name="status" value="{{$key}}">
+                                                               name="status" value="{{$key}}" {{$key == 'ACTIVE' ? 'checked' : ''}} required>
                                                         {{$value}}
                                                     </label>
                                                 </fieldset>
@@ -166,7 +161,7 @@
                                     <button type="submit" class="btn btn-primary">
                                         <i class="la la-check-square-o"></i> Save
                                     </button>
-                                    <a class="btn btn-warning mr-1" role="button" href="{{url('/user')}}">
+                                    <a class="btn btn-warning mr-1" role="button" href="{{url('/system/user')}}">
                                         <i class="ft-x"></i> Cancel
                                     </a>
                                 </div>

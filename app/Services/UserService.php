@@ -11,8 +11,8 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use App\Traits\CrudTrait;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Response;
 
 class UserService
 {
@@ -38,10 +38,24 @@ class UserService
     {
         DB::transaction(function () use ($data){
             $user = $this->save($data);
-            $user->roles()->attach($data['roles']);
+            if(isset($data['roles'])) {
+                $user->roles()->attach($data['roles']);
+            }
         });
 
         return new Response("User has been created successfully");
+    }
+
+    public function updateUser($id, array $data)
+    {
+        $user = $this->findOrFail($id);
+        DB::transaction(function () use ($user, $data) {
+            $this->update($user, $data);
+            if(isset($data['roles'])) {
+                $user->roles()->sync($data['roles']);
+            }
+        });
+        return new Response("User has been updated successfully");
     }
 
 

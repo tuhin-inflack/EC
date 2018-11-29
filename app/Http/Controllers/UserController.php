@@ -10,6 +10,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Services\RoleService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Session;
@@ -61,7 +62,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         $response = $this->userService->store($request->all());
-        Session::flash('message', 'Saved successfully');
+        Session::flash('message', $response->getContent());
         return redirect('/system/user');
     }
 
@@ -85,8 +86,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $role = $this->userService->findOrFail($id);
-        return view('user.edit', compact('role', 'permissions'));
+        $user = $this->userService->findOrFail($id);
+        $roles = $this->roleService->pluck();
+        $userTypes = config('user.types');
+        $status = config('user.status');
+        return view('user.edit', compact('user','roles', 'userTypes', 'status'));
     }
 
     /**
@@ -96,9 +100,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRoleRequest $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $response = $this->roleService->updateRole($id, $request->all());
+        $response = $this->userService->updateUser($id, $request->all());
         Session::flash('message', $response->getContent());
 
         return redirect('/system/user');

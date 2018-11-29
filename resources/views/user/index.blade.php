@@ -19,12 +19,6 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
-
-                            @if(Session::get('message'))
-                                <h4>
-                                    {{Session::get('message')}}
-                                </h4>
-                            @endif
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
                                 <tr>
