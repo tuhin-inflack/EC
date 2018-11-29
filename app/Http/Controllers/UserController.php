@@ -48,8 +48,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        $roles = $this->roleService->findAll();
-        return view('user.create', compact('roles'));
+        $roles = $this->roleService->pluck();
+        $userTypes = config('user.types');
+        $status = config('user.status');
+        return view('user.create', compact('roles', 'userTypes', 'status'));
     }
 
     /**
@@ -58,10 +60,61 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $response = $this->userService->save($request->all());
-        Session::flash('message', $response->getContent());
-        return redirect('/user');
+        $response = $this->userService->store($request->all());
+        Session::flash('message', 'Saved successfully');
+        return redirect('/system/user');
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = $this->userService->findOrFail($id);
+        return view('user.show', compact('user'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $role = $this->userService->findOrFail($id);
+        return view('user.edit', compact('role', 'permissions'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(UpdateRoleRequest $request, $id)
+    {
+        $response = $this->roleService->updateRole($id, $request->all());
+        Session::flash('message', $response->getContent());
+
+        return redirect('/system/user');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $response = $this->roleService->destroy($id);
+        Session::flash('message', $response->getContent());
+        return redirect('/system/user');
     }
 
 

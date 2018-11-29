@@ -10,9 +10,9 @@
                         <h4 class="card-title">User List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <a href="{{url('/user/create')}}" class="btn btn-primary btn-sm"><i
+                            <a href="{{url('/system/user/create')}}" class="btn btn-primary btn-sm"><i
                                     class="ft-plus white"></i> New User</a>
-                            <a href="{{url('/user/create')}}" class="btn btn-warning btn-sm"> <i
+                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i
                                     class="ft-download white"></i></a>
 
                         </div>
@@ -53,12 +53,12 @@
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{URL::to( '/user/'.$user->id)}}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                <a href="{{URL::to( '/user/'.$user->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                <a href="{{URL::to( '/system/user/'.$user->id)}}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                <a href="{{URL::to( '/system/user/'.$user->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',
-                                                  'url' => [ '/user', $user->id],
+                                                  'url' => [ '/system/user', $user->id],
                                                   'style' => 'display:inline'
                                                   ]) !!}
                                                   {!! Form::button('<i class="ft-trash"></i> Delete ', array(

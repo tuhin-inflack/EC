@@ -11,6 +11,8 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class UserService
 {
@@ -30,6 +32,16 @@ class UserService
 
     public function getLoggedInUser() {
         return Auth::user();
+    }
+
+    public function store(array $data)
+    {
+        DB::transaction(function () use ($data){
+            $user = $this->save($data);
+            $user->roles()->attach($data['roles']);
+        });
+
+        return new Response("User has been created successfully");
     }
 
 

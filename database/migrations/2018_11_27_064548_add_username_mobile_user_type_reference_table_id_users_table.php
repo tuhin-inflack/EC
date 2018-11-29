@@ -19,6 +19,7 @@ class AddUsernameMobileUserTypeReferenceTableIdUsersTable extends Migration
             $table->string('mobile', 15);
             $table->integer('reference_table_id')->nullable();
             $table->string('status')->default(config('user.status.ACTIVE'));
+            $table->string('email')->nullable()->change();
             $table->softDeletes();
         });
     }
