@@ -10,8 +10,8 @@
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-user"></i><span class="menu-title" data-i18n="nav.users.main">User Management</span></a>
                     <ul class="menu-content">
-                        <li>
-                            <a class="menu-item" href="#" data-i18n="nav.users.user_profile"><i class="la la-users"></i>User List</a>
+                        <li class="{{ is_active_match('system/user') }}">
+                            <a class="menu-item" href="{{'/system/user'}}" data-i18n="nav.users.user_profile"><i class="la la-users"></i>Users</a>
                         </li>
                         <li class="{{ is_active_match('user/role') }}">
                             <a class="menu-item" href="{{url('/user/role')}}" data-i18n="nav.users.user_cards"><i class="la la-pencil-square"></i>Roles</a>
