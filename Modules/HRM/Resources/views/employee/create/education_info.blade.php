@@ -16,9 +16,9 @@
                                 <div class="col-md-6">
                                     <section class="basic-select2">
                                         <div class="form-group {{ $errors->educationError->has("education.".$key.".institute_id") ? ' error' : '' }}">
-                                            {{ Form::label('institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                            {{ Form::label('academic_institute_id', 'Select Your Institute ', ['class' => 'required']) }}
                                             <br/>
-                                            {{ Form::select('institute_id',$institutes,  $education['institute_id'] , ['class' => 'select2 form-control instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                            {{ Form::select('academic_institute_id',$institutes,  $education['institute_id'] , ['class' => 'select2 form-control instituteSelection','placeholder' => 'Select Institute Name', 'data-validation-required-message'=>'Please Select Institute']) }}
                                             <div class="help-block"></div>
                                             @if ($errors->educationError->has("education.".$key.".institute_id"))
                                                 <div class="help-block">  {{ $errors->educationError->first("education.*.institute_id") }}</div>
@@ -135,9 +135,9 @@
                             <div class="col-md-6">
                                 <section class="basic-select2">
                                     <div class="form-group">
-                                        {{ Form::label('institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                        {{ Form::label('academic_institute_id', 'Select Your Institute ', ['class' => 'required']) }}
                                         <br/>
-                                        {{ Form::select('institute_id', $institutes, null, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                        {{ Form::select('academic_institute_id', $institutes, null, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
 
                                         <div class="help-block"></div>
                                     </div>
