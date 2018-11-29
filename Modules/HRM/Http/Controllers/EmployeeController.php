@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
 
+use Modules\HRM\Services\AcademicDepartmentService;
 use Modules\HRM\Services\AcademicInstituteService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
@@ -27,16 +28,19 @@ class EmployeeController extends Controller {
 	private $departmentService;
 	private $designationService;
 	private $academicInstituteService;
+	private $academicDepartmentService;
 
 	public function __construct(
 		EmployeeServices $employeeServices,
 		DepartmentService $departmentService,
-		DesignationService $designationService, AcademicInstituteService $AcademicInstituteService
+		DesignationService $designationService, AcademicInstituteService $academicInstituteService,
+	AcademicDepartmentService $academicDepartmentService
 	) {
 		$this->employeeService    = $employeeServices;
 		$this->departmentService  = $departmentService;
 		$this->designationService = $designationService;
-		$this->academicInstituteService   = $AcademicInstituteService;
+		$this->academicInstituteService   = $academicInstituteService;
+		$this->academicDepartmentService = $academicDepartmentService;
 	}
 
 
@@ -52,9 +56,10 @@ class EmployeeController extends Controller {
 		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->designationService->getEmployeeDesignations();
 		$institutes           = $this->academicInstituteService->getInstitutes();
+		$academicDepartments = $this->academicDepartmentService->getAcademicDepartments();
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes' ) );
+		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments' ) );
 	}
 
 
