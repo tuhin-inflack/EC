@@ -30,23 +30,32 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_department_id") ? ' error' : '' }}">
                                         {{ Form::label('academic_department_id', 'Department/Section/Group') }}
-                                        {{ Form::select('academic_department_id',$academicDepartments,  $education['academic_department_id'], ['class' => 'form-control', 'placeholder' => 'Science/CSE', 'data-validation-required-message'=>'Please enter department name']) }}
+                                        {{ Form::select('academic_department_id',$academicDepartments,  $education['academic_department_id'], ['class' => 'form-control', 'placeholder' => 'Please select Department/Section/Group', 'data-validation-required-message'=>'Please enter department name']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".academic_department_id"))
                                             <div class="help-block">  {{ $errors->educationError->first("education.*.academic_department_id") }}</div>
                                         @endif
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".degree_name") ? ' error' : '' }}">
-                                        {{ Form::label('degree_name', 'Degree Name') }}
-                                        {{ Form::text('degree_name', $education['degree_name'], ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_degree_id") ? ' error' : '' }}">
+                                        {{ Form::label('academic_degree_id', 'Degree Name') }}
+                                        {{ Form::select('academic_degree_id',$academicDegree, $education['academic_degree_id'], ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
                                         <div class="help-block"></div>
-                                        @if ($errors->educationError->has("education.".$key.".degree_name"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.degree_name") }}</div>
+                                        @if ($errors->educationError->has("education.".$key.".academic_degree_id"))
+                                            <div class="help-block">  {{ $errors->educationError->first("education.*.academic_degree_id") }}</div>
                                         @endif
                                     </div>
                                 </div>
+                                {{--<div class="col-md-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--{{ Form::label('academic_degree_id', 'Degree Name') }}--}}
+                                        {{--{{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}--}}
+                                        {{--<div class="help-block"></div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".passing_year") ? ' error' : '' }}">
@@ -140,10 +149,21 @@
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
+
+
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('degree_name', 'Degree Name') }}
-                                        {{ Form::text('degree_name', $education->degree_name, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                        {{ Form::label('academic_degree_id', 'Degree Name') }}
+                                        {{ Form::select('academic_degree_id', $academicDegree, $education->academic_degree_id, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}
+                                        <div class="help-block"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 addDegreeSection">
+                                    <div class="form-group ">
+                                        {{ Form::label('other_degree_name', 'Enter degree name') }}<br/>
+                                        {{ Form::text('other_degree_name',  null, ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => 'Enter Your degree Name']) }}
+
                                         <div class="help-block"></div>
                                     </div>
                                 </div>

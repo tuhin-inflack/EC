@@ -17,9 +17,9 @@ class UpdateEmployeeEducationRequest extends FormRequest
 	public function rules( Request $request ) {
 		$this->redirect = '/hrm/employee/'. $request->education[0]['employee_id']. '/edit#education';
 		return [
-			'education.*.institute_name'       => 'required',
-			'education.*.degree_name'       => 'required',
-			'education.*.department'       => 'required',
+			'education.*.academic_institute_id'       => 'required',
+			'education.*.academic_department_id'       => 'required',
+			'education.*.academic_degree_id'       => 'required',
 			'education.*.passing_year'       => 'required',
 			'education.*.duration'       => 'required',
 			'education.*.result'       => 'required',
@@ -30,9 +30,9 @@ class UpdateEmployeeEducationRequest extends FormRequest
 	}
 	public function messages() {
 		$messages = [
-			'education.*.institute_name.required' => 'Please enter institute name',
-			'education.*.degree_name.required' => 'Please enter degree name ',
-			'education.*.department.required' => 'Please enter department name ',
+			'education.*.academic_institute_id.required' => 'Please enter institute name',
+			'education.*.academic_department_id.required' => 'Please enter department name ',
+			'education.*.academic_degree_id.required' => 'Please enter degree name ',
 			'education.*.passing_year.required' => 'Please enter passing year ',
 			'education.*.duration.required' => 'Please enter duration ',
 			'education.*.result.required' => 'Please enter result ',
