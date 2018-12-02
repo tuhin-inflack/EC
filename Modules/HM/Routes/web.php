@@ -12,7 +12,7 @@
 */
 
 Route::prefix('hm')->group(function () {
-    Route::get('/', 'HMController@index');
+    Route::get('/', 'HMController@index')->name('hm');
 
     Route::prefix('hostels')->group(function () {
         Route::get('/', 'HostelController@index')->name('hostels.index');

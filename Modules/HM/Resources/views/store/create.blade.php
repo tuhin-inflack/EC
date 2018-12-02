@@ -1,4 +1,5 @@
 @extends('hm::layouts.master')
+@section('title', 'Store items entry')
 
 @section('content')
     <div class="container">
