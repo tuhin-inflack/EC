@@ -10,6 +10,7 @@ namespace App\Traits;
 
 
 use App\Repositories\AbstractBaseRepository;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Trait CrudTrait
