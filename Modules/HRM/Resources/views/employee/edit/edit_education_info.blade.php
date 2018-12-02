@@ -74,10 +74,17 @@
                                         {{ Form::select('medium', Config('constants.employee_education_medium'),  $education['medium'], ['class' => 'form-control']) }}
                                     </div>
                                 </div>
+                                {{--<div class="col-md-6">--}}
+                                    {{--<div class="form-group">--}}
+                                        {{--{{ Form::label('duration', 'Duration') }}--}}
+                                        {{--{{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}--}}
+                                        {{--<div class="help-block"></div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".duration") ? ' error' : '' }}">
                                         {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::text('duration',  $education['duration'], ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::select('duration', $academicDurations, $education['duration'], ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".duration"))
                                             <div class="help-block">  {{ $errors->educationError->first("education.*.duration") }}</div>
@@ -184,7 +191,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::text('duration',  $education->duration, ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::select('duration', $academicDurations, $education->duration, ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -299,7 +306,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('duration', 'Duration') }}
-                                    {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                    {{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
