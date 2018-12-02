@@ -9,16 +9,20 @@
 namespace Modules\HRM\Services;
 
 use App\Http\Responses\DataResponse;
+use App\Services\UserService;
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\Hash;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices {
 	use CrudTrait;
 	private $employeeRepository;
+	private $userService;
 
 
-	public function __construct( EmployeeRepository $employeeRepository ) {
+	public function __construct(EmployeeRepository $employeeRepository, UserService $userService) {
 		$this->employeeRepository = $employeeRepository;
+		$this->userService = $userService;
 		$this->setActionRepository( $this->employeeRepository );
 	}
 
@@ -30,7 +34,9 @@ class EmployeeServices {
 			$data['photo'] = $photoName;
 		}
 		$generalInfo = $this->employeeRepository->save( $data );
-
+		$this->userService->store(['name' => $data['first_name'].' '.$data['last_name'], 'username' => $data['employee_id'],
+            'email' => $data['email'], 'mobile' => $data['mobile_one'], 'user_type' => config('user.types.EMPLOYEE'),
+            'password' => config('user.defaultPassword')]);
 		return new DataResponse( $generalInfo, $generalInfo['id'], 'General information added successfully' );
 	}
 

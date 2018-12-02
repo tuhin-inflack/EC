@@ -2,6 +2,7 @@
 
 namespace App\Entities;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -9,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'username', 'user_type', 'mobile', 'reference_table_id'
     ];
 
     /**
@@ -30,7 +32,7 @@ class User extends Authenticatable
 
     public function roles()
     {
-        return $this->belongsToMany('App\Models\Role')
+        return $this->belongsToMany('App\Entities\Role')
             ->withTimestamps();
     }
 

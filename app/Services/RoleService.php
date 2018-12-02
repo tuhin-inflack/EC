@@ -71,4 +71,9 @@ class RoleService
         return new Response("Role has been deleted successfully");
     }
 
+    public function pluck()
+    {
+        return $this->roleRepository->pluck();
+    }
+
 }
