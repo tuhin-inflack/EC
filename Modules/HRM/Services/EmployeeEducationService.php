@@ -19,12 +19,14 @@ class EmployeeEducationService {
 	protected $employeeEducationRepository;
 	protected $academicInstituteService;
 	protected $academicDepartmentService;
+	protected $academicDegreeService;
 
 	public function __construct( EmployeeEducationRepository $employeeEducationRepository,
-		AcademicInstituteService $academicInstituteService, AcademicDepartmentService $academicDepartmentService ) {
+		AcademicInstituteService $academicInstituteService, AcademicDepartmentService $academicDepartmentService , AcademicDegreeService $academicDegreeService) {
 		$this->employeeEducationRepository = $employeeEducationRepository;
 		$this->academicInstituteService            = $academicInstituteService;
 		$this->academicDepartmentService = $academicDepartmentService;
+		$this->academicDegreeService = $academicDegreeService;
 		$this->setActionRepository( $this->employeeEducationRepository );
 	}
 
@@ -39,6 +41,11 @@ class EmployeeEducationService {
 				$newAcademicDepartment['name'] = $item['other_department_name'];
 				$academicDepartment          = $this->academicDepartmentService->storeAcademicDepartment( $newAcademicDepartment );
 				$item['academic_department_id'] = $academicDepartment['id'];
+			}
+			if ( ! is_null( $item['other_degree_name'] ) ) {
+				$newDegreeName['name'] = $item['other_degree_name'];
+				$academicDegree          = $this->academicDegreeService->storeAcademicDegree( $newDegreeName );
+				$item['academic_degree_id'] = $academicDegree['id'];
 			}
 //			dd($item);
 			$education = $this->employeeEducationRepository->save( $item );
@@ -64,12 +71,14 @@ class EmployeeEducationService {
 //		end deleting
 
 		foreach ( $data as $item ) {
+
 			if ( isset( $item['id'] ) ) {
 //				updating existing education
 				$education = $this->findOrFail( $item['id'] );
 				$status    = $education->update( $item );
 			} else {
 //				storing new education if added new education while edit
+
 				$education = $this->employeeEducationRepository->save( $item );
 				$status    = true;
 			}
