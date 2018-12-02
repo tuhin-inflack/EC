@@ -13,6 +13,7 @@ use App\Repositories\UserRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
@@ -36,6 +37,7 @@ class UserService
 
     public function store(array $data)
     {
+        $data['password'] = Hash::make($data['password']);
         DB::transaction(function () use ($data){
             $user = $this->save($data);
             if(isset($data['roles'])) {

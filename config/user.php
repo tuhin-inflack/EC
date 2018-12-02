@@ -12,5 +12,6 @@ return [
         'ACTIVE' => 'Active',
         'BLOCKED' => 'Blocked',
         'PENDING' => 'Pending'
-    ]
+    ],
+    'defaultPassword' => 'BARD@erp',
 ];
