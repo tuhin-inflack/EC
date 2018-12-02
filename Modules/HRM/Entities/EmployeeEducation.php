@@ -28,5 +28,9 @@ class EmployeeEducation extends Model {
 		return $this->belongsTo(AcademicDepartment::class , 'academic_institute_id', 'id');
 	}
 
+	public function academicDegree(){
+		return $this->belongsTo(AcademicDegree::class, 'academic_degree_id', 'id');
+	}
+
 
 }
