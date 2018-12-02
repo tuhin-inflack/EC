@@ -62,7 +62,6 @@
                                 </div>
 
 
-
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".passing_year") ? ' error' : '' }}">
                                         {{ Form::label('passing_year', 'Passing Year') }}
@@ -161,7 +160,8 @@
                             </div>
                             <div class="col-md-6 addDepartmentSection">
                                 <div class="form-group ">
-                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}<br/>
+                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}
+                                    <br/>
                                     {{ Form::text('other_department_name',  null, ['id'=>'', 'class' => 'addDepartmentInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
 
                                     <div class="help-block"></div>
@@ -187,11 +187,20 @@
 
 
                             <div class="col-md-6">
-                                <div class="form-group">
+
+
+                                <fieldset class="form-group">
                                     {{ Form::label('passing_year', 'Passing Year') }}
-                                    {{ Form::number('passing_year',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
-                                    <div class="help-block"></div>
-                                </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ft-calendar"></i></span>
+                                        </div>
+
+                                        {{ Form::text('passing_year',  null, ['class' => 'form-control datepicker-default ', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+
+                                        <div class="help-block"></div>
+                                    </div>
+                                </fieldset>
                             </div>
 
                             <div class="col-md-6">
