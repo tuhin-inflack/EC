@@ -61,7 +61,7 @@
                     <div class="tab-content px-1 pt-1">
                         <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                              aria-expanded="true">
-                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/general-info', 'class'=>'form form-horizontal', 'novalidate', 'files'=> true]) !!}
                             @include('hrm::employee.create.general_info')
                             {!! Form::close() !!}
                         </div>
@@ -76,7 +76,7 @@
 
                         <div class="tab-pane" id="education" role="tabpanel" aria-labelledby="education-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/education-info', 'class'=>'form', ]) !!}
                             @include('hrm::employee.create.education_info')
                             {!! Form::close() !!}
                         </div>
@@ -84,7 +84,7 @@
 
                         <div class="tab-pane" id="training" role="tabpanel" aria-labelledby="training-tab"
                              aria-expanded="false">
-                            {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form']) !!}
+                            {!! Form::open(['url' => 'hrm/employee/training-info', 'class'=>'form', ]) !!}
                             @include('hrm::employee.create.training_info')
                             {!! Form::close() !!}
                         </div>
@@ -113,6 +113,7 @@
 @endsection
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
@@ -122,6 +123,7 @@
             color: red;
             padding-left: 5px;
         }
+
 
     </style>
 @endpush
@@ -139,7 +141,6 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
-
 
 
     <script>
