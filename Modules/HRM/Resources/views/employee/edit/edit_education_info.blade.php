@@ -41,7 +41,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_degree_id") ? ' error' : '' }}">
                                         {{ Form::label('academic_degree_id', 'Degree Name') }}
-                                        {{ Form::select('academic_degree_id',$academicDegree, $education['academic_degree_id'], ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                        {{ Form::select('academic_degree_id',$academicDegree, $education['academic_degree_id'], ['class' => 'form-control', 'placeholder' => 'Please select degree name', 'data-validation-required-message'=>'Please enter degree name']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".academic_degree_id"))
                                             <div class="help-block">  {{ $errors->educationError->first("education.*.academic_degree_id") }}</div>
@@ -49,18 +49,18 @@
                                     </div>
                                 </div>
                                 {{--<div class="col-md-6">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--{{ Form::label('academic_degree_id', 'Degree Name') }}--}}
-                                        {{--{{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}--}}
-                                        {{--<div class="help-block"></div>--}}
-                                    {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                {{--{{ Form::label('academic_degree_id', 'Degree Name') }}--}}
+                                {{--{{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}--}}
+                                {{--<div class="help-block"></div>--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
 
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".passing_year") ? ' error' : '' }}">
                                         {{ Form::label('passing_year', 'Passing Year') }}
-                                        {{ Form::number('passing_year',  $education['passing_year'], ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+                                        {{ Form::text('passing_year',  $education['passing_year'], ['class' => 'form-control datepicker-default', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".passing_year"))
                                             <div class="help-block">  {{ $errors->educationError->first("education.*.passing_year") }}</div>
@@ -75,16 +75,16 @@
                                     </div>
                                 </div>
                                 {{--<div class="col-md-6">--}}
-                                    {{--<div class="form-group">--}}
-                                        {{--{{ Form::label('duration', 'Duration') }}--}}
-                                        {{--{{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}--}}
-                                        {{--<div class="help-block"></div>--}}
-                                    {{--</div>--}}
+                                {{--<div class="form-group">--}}
+                                {{--{{ Form::label('duration', 'Duration') }}--}}
+                                {{--{{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}--}}
+                                {{--<div class="help-block"></div>--}}
+                                {{--</div>--}}
                                 {{--</div>--}}
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".duration") ? ' error' : '' }}">
                                         {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::select('duration', $academicDurations, $education['duration'], ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::select('duration', $academicDurations, $education['duration'], ['class' => 'form-control', 'placeholder' =>'Select duration', 'data-validation-required-message'=>'Please enter course duration']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".duration"))
                                             <div class="help-block">  {{ $errors->educationError->first("education.*.duration") }}</div>
@@ -174,12 +174,25 @@
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
+                                {{--<div class="col-md-6">--}}
+                                {{--<div class="form-group">--}}
+                                {{--{{ Form::label('passing_year', 'Passing Year') }}--}}
+                                {{--{{ Form::text('passing_year',  $education->passing_year, ['class' => 'form-control datepicker-default', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}--}}
+                                {{--<div class="help-block"></div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <fieldset class="form-group">
                                         {{ Form::label('passing_year', 'Passing Year') }}
-                                        {{ Form::number('passing_year',  $education->passing_year, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
-                                        <div class="help-block"></div>
-                                    </div>
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="ft-calendar"></i></span>
+                                            </div>
+                                            {{ Form::text('passing_year',  $education->passing_year, ['class' => 'form-control datepicker-default ', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+
+                                            <div class="help-block"></div>
+                                        </div>
+                                    </fieldset>
                                 </div>
 
                                 <div class="col-md-6">
@@ -191,7 +204,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::select('duration', $academicDurations, $education->duration, ['class' => 'form-control', 'placeholder' =>'4 years', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::select('duration', $academicDurations, $education->duration, ['class' => 'form-control', 'placeholder' =>'Please Select duration', 'data-validation-required-message'=>'Please enter course duration']) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -264,7 +277,8 @@
                             </div>
                             <div class="col-md-6 addDepartmentSection">
                                 <div class="form-group ">
-                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}<br/>
+                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}
+                                    <br/>
                                     {{ Form::text('other_department_name',  null, ['id'=>'', 'class' => 'addDepartmentInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
 
                                     <div class="help-block"></div>
@@ -288,15 +302,19 @@
                                 </div>
                             </div>
 
-
                             <div class="col-md-6">
-                                <div class="form-group">
+                                <fieldset class="form-group">
                                     {{ Form::label('passing_year', 'Passing Year') }}
-                                    {{ Form::number('passing_year',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
-                                    <div class="help-block"></div>
-                                </div>
-                            </div>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="ft-calendar"></i></span>
+                                        </div>
+                                        {{ Form::text('passing_year',  null, ['class' => 'form-control datepicker-default ', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
 
+                                        <div class="help-block"></div>
+                                    </div>
+                                </fieldset>
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('medium', 'Medium') }}
