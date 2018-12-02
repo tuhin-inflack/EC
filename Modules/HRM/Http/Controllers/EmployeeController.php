@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Entities\AcademicInstitute;
 use Modules\HRM\Http\Requests\StoreEmployeeGeneralInfoRequest;
 
+use Modules\HRM\Services\AcademicDegreeService;
 use Modules\HRM\Services\AcademicDepartmentService;
 use Modules\HRM\Services\AcademicInstituteService;
 use Modules\HRM\Services\DepartmentService;
@@ -29,18 +30,21 @@ class EmployeeController extends Controller {
 	private $designationService;
 	private $academicInstituteService;
 	private $academicDepartmentService;
+	private $academicDegreeService;
 
 	public function __construct(
 		EmployeeServices $employeeServices,
 		DepartmentService $departmentService,
 		DesignationService $designationService, AcademicInstituteService $academicInstituteService,
-	AcademicDepartmentService $academicDepartmentService
+		AcademicDepartmentService $academicDepartmentService,
+		AcademicDegreeService $academicDegreeService
 	) {
-		$this->employeeService    = $employeeServices;
-		$this->departmentService  = $departmentService;
-		$this->designationService = $designationService;
-		$this->academicInstituteService   = $academicInstituteService;
+		$this->employeeService           = $employeeServices;
+		$this->departmentService         = $departmentService;
+		$this->designationService        = $designationService;
+		$this->academicInstituteService  = $academicInstituteService;
 		$this->academicDepartmentService = $academicDepartmentService;
+		$this->academicDegreeService     = $academicDegreeService;
 	}
 
 
@@ -56,10 +60,11 @@ class EmployeeController extends Controller {
 		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->designationService->getEmployeeDesignations();
 		$institutes           = $this->academicInstituteService->getInstitutes();
-		$academicDepartments = $this->academicDepartmentService->getAcademicDepartments();
-		$employee_id = isset( $request->employee ) ? $request->employee : '';
+		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
+		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
+		$employee_id          = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments' ) );
+		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree' ) );
 	}
 
 
@@ -80,6 +85,7 @@ class EmployeeController extends Controller {
 			'employeeResearchInfo',
 			'employeeDepartment'
 		] );
+
 		return view( 'hrm::employee.show', compact( 'employee' ) );
 	}
 
@@ -87,9 +93,10 @@ class EmployeeController extends Controller {
 		$employeeDepartments  = $this->departmentService->getDepartments();
 		$employeeDesignations = $this->designationService->getEmployeeDesignations();
 		$institutes           = $this->academicInstituteService->getInstitutes();
-		$academicDepartments = $this->academicDepartmentService->getAcademicDepartments();
+		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
+		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
 
-		$employee             = $this->employeeService->findOne( $id, [
+		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
 			'employeeEducationInfo',
 			'employeeTrainingInfo',
@@ -100,7 +107,7 @@ class EmployeeController extends Controller {
 
 //		dd($employee->id);
 
-		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes', 'academicDepartments' ) );
+		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes', 'academicDepartments', 'academicDegree' ) );
 	}
 
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
