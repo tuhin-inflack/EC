@@ -56,8 +56,7 @@
                                                                     <div class="col-md-6">
                                                                         <div class="skin skin-flat">
                                                                             <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="booking-type">
+                                                                                <input type="checkbox" id="booking-type">
                                                                                 <label for="">Training</label>
                                                                             </fieldset>
                                                                         </div>
