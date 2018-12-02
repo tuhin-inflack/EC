@@ -140,30 +140,28 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
+
+
     <script>
         var employee_id = "<?php echo $employee_id ?>";
         $(document).ready(function () {
-            setTimeout(function(){
-
-                $(".instituteSelection").select2({
-                    placeholder: "Select a institute",
-                    allowClear: true
-                });
-
-            }, 100);
+//            $(".instituteSelection").select2({
+//                placeholder: "Select a institute",
+//                allowClear: true
+//            });
 
             $('.addMore').click(function () {
-                setTimeout(function(){
-
-                    $(".instituteSelection").select2({
-                        placeholder: "Select a institute",
-                        allowClear: true
-                    });
-
-                }, 100);
+//                setTimeout(function(){
+//
+//                    $(".instituteSelection").select2({
+//                        placeholder: "Select a institute",
+//                        allowClear: true
+//                    });
+//
+//                }, 100);
 
                 $('.EmployeeId').val(employee_id);
-                $(".instituteSelection, addDepartmentSection").select2({width: '100%'});
+                $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
                 $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
                 $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
@@ -172,7 +170,6 @@
                 $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
                 $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
 
-                $('.instituteSelection, .addDepartmentSection').trigger('change');
 
             });
 

@@ -19,11 +19,11 @@ class AcademicDegreeTableSeeder extends Seeder
 
 	    $AcademicDegree =
 		    [
-			    'Arts and Humanities',
-			    'Business',
-			    'Science',
-			    'Finance',
-			    'Engineering',
+			    'B.Sc in CSE',
+			    'BBA',
+			    'MBA',
+			    'Hons in English',
+			    'Hons in Bangla',
 		    ];
 	    foreach ( $AcademicDegree as $degree ) {
 		    AcademicDegree::create( [ 'name' => $degree ] );
