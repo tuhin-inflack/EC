@@ -97,6 +97,7 @@ class EmployeeController extends Controller {
 		$institutes           = $this->academicInstituteService->getInstitutes();
 		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
+		$academicDurations = $this->academicInstituteService->getDegreeDuration();
 
 		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
@@ -109,7 +110,7 @@ class EmployeeController extends Controller {
 
 //		dd($employee->id);
 
-		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes', 'academicDepartments', 'academicDegree' ) );
+		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations' ) );
 	}
 
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
