@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th scope="col">Degree name</th>
-            <td>{{ $education->degree_name}}</td>
+            <td>{{ $education->academicDegree->name}}</td>
         </tr>
 
 
