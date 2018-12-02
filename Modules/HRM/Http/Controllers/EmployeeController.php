@@ -62,15 +62,16 @@ class EmployeeController extends Controller {
 		$institutes           = $this->academicInstituteService->getInstitutes();
 		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
-		$academicDurations = $this->academicInstituteService->getDegreeDuration();
+		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
 
-		$employee_id          = isset( $request->employee ) ? $request->employee : '';
+		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree' , 'academicDurations') );
+		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations' ) );
 	}
 
 
 	public function store( StoreEmployeeGeneralInfoRequest $request ) {
+
 		$response = $this->employeeService->storeGeneralInfo( $request->all() );
 		Session::flash( 'message', $response->getContent() );
 
@@ -97,7 +98,7 @@ class EmployeeController extends Controller {
 		$institutes           = $this->academicInstituteService->getInstitutes();
 		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
-		$academicDurations = $this->academicInstituteService->getDegreeDuration();
+		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
 
 		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',

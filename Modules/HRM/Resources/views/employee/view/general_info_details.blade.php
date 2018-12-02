@@ -1,6 +1,9 @@
 <table class="table ">
     <tbody>
-
+<tr>
+    <th>Image</th>
+    <td><img src="{{ asset('images/'.$employee->photo) }}" width="200px" height="200px"></td>
+</tr>
     <tr>
         <th class="">First Name</th>
         <td>{{$employee->first_name}}</td>

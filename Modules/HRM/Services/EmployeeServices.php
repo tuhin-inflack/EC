@@ -23,6 +23,12 @@ class EmployeeServices {
 	}
 
 	public function storeGeneralInfo( $data = [] ) {
+		if ( isset( $data['photo'] ) ) {
+			$file      = $data['photo'];
+			$photoName = time()."-".$file->getClientOriginalName();
+			$file->move( 'images/', $photoName );
+			$data['photo'] = $photoName;
+		}
 		$generalInfo = $this->employeeRepository->save( $data );
 
 		return new DataResponse( $generalInfo, $generalInfo['id'], 'General information added successfully' );

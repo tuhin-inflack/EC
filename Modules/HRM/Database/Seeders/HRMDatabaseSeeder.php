@@ -16,11 +16,11 @@ class HRMDatabaseSeeder extends Seeder {
 		Model::unguard();
 
 		// $this->call("OthersTableSeeder");
-//		$this->call( AcademicInstituteTableSeeder::class );
-//		$this->call( AcademicDepartmentsTableSeeder::class );
-//		$this->call( EmployeeDepartmentsTableSeeder::class );
-//		$this->call( EmployeeDesignationTableSeeder::class );
-$this->call(AcademicDegreeTableSeeder::class);
+		$this->call( AcademicInstituteTableSeeder::class );
+		$this->call( AcademicDepartmentsTableSeeder::class );
+		$this->call( EmployeeDepartmentsTableSeeder::class );
+		$this->call( EmployeeDesignationTableSeeder::class );
+//$this->call(AcademicDegreeTableSeeder::class);
 
 	}
 }
