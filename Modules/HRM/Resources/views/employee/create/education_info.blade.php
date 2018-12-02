@@ -167,14 +167,23 @@
                                     <div class="help-block"></div>
                                 </div>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('academic_degree_id', 'Degree Name') }}
-                                    {{ Form::text('academic_degree_id', null, ['class' => 'form-control', 'placeholder' => 'B.A Hons', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                    {{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
 
+                            <div class="col-md-6 addDegreeSection">
+                                <div class="form-group ">
+                                    {{ Form::label('other_degree_name', 'Enter degree name') }}<br/>
+                                    {{ Form::text('other_degree_name',  null, ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => 'Enter Your degree Name']) }}
+
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
 
 
                             <div class="col-md-6">
@@ -249,10 +258,13 @@
 
         $(document).ready(function () {
 
-            $('.academicDepartmentSelect').select2();
-            $(".instituteSelection, .academicDepartmentSelect").select2({width: '100%'});
+//            $('.academicDepartmentSelect').select2();
+            $(" .instituteSelection, .academicDepartmentSelect, .academicDegreeSelect").select2({width: '100%'});
             $(".addOtherInstitute").hide();
             $(".addDepartmentSection").hide();
+            $(".addDegreeSection").hide();
+
+
             $('.instituteSelection').on('select2:select', function (e) {
                 var value = $(".instituteSelection option:selected").val();
                 if (value === 'other') {
@@ -270,6 +282,16 @@
                     $(".addDepartmentInput").focus();
                 } else {
                     $(".addDepartmentSection").hide();
+
+                }
+            });
+            $('.academicDegreeSelect').on('select2:select', function (e) {
+                var value = $(".academicDegreeSelect option:selected").val();
+                if (value === 'other_degree') {
+                    $(".addDegreeSection").show();
+                    $(".addDegreeInput").focus();
+                } else {
+                    $(".addDegreeSection").hide();
 
                 }
             });
