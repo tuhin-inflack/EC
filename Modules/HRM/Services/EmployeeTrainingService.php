@@ -71,4 +71,8 @@ class EmployeeTrainingService {
 		return array_keys( $trainingIds );
 	}
 
+	public function getTrainingDuration() {
+		return $this->employeeTrainingRepository->getEmployeeTrainingDuration();
+	}
+
 }
