@@ -17,6 +17,7 @@ class BookingRequestController extends Controller
     {
         $bookings = [
             (object)[
+                'id' => 1,
                 'booked_by' => 'Hasib Noor',
                 'booked_for' => Carbon::today()
                         ->format('d-m-Y') . ' to ' .
@@ -30,6 +31,7 @@ class BookingRequestController extends Controller
                 'reference' => 'Razzak Ahmed'
             ],
             (object)[
+                'id' => 2,
                 'booked_by' => 'Yea Hasib',
                 'booked_for' => Carbon::today()
                         ->addDays(7)

@@ -45,7 +45,7 @@
                                             <td>{{ $booking->reference }}</td>
                                             <td>
                                                 <div class="row justify-content-center">
-                                                    <a href="{{route('booking-requests.show',1)}}" class="btn btn-sm btn-primary">
+                                                    <a href="{{route('booking-requests.show',$booking->id)}}" class="btn btn-sm btn-primary">
                                                         <i class="ft-eye"></i>
                                                     </a>
                                                 </div>
