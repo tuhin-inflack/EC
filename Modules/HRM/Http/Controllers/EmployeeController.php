@@ -69,6 +69,8 @@ class EmployeeController extends Controller {
 		$academicDurations        = $this->academicInstituteService->getDegreeDuration();
 		$employeeTitles           = $this->employeeService->getEmployeeTitles();
 		$employeeTrainingDuration = $this->employeeTrainingService->getTrainingDuration();
+		$employeeSalaryScale           = $this->employeeService->getEmployeeSalaryScale();
+//		dd($employeeSalaryScale);
 
 //		dd($employeeTrainingDuration);
 
@@ -82,7 +84,8 @@ class EmployeeController extends Controller {
 				'academicDegree',
 				'academicDurations',
 				'employeeTitles',
-				'employeeTrainingDuration'
+				'employeeTrainingDuration',
+				'employeeSalaryScale'
 			)
 		);
 	}
@@ -119,6 +122,7 @@ class EmployeeController extends Controller {
 		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
 		$employeeTitles       = $this->employeeService->getEmployeeTitles();
 		$employeeTrainingDuration = $this->employeeTrainingService->getTrainingDuration();
+		$employeeSalaryScale           = $this->employeeService->getEmployeeSalaryScale();
 
 		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
@@ -134,7 +138,8 @@ class EmployeeController extends Controller {
 		return view( 'hrm::employee.edit', compact(
 			'employeeDepartments', 'employeeDesignations',
 			'employee', 'institutes', 'academicDepartments', 'academicDegree',
-			'academicDurations', 'employeeTitles', 'employeeTrainingDuration'
+			'academicDurations', 'employeeTitles', 'employeeTrainingDuration',
+			'employeeSalaryScale'
 		) );
 	}
 

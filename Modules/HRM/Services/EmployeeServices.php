@@ -64,5 +64,9 @@ class EmployeeServices {
 		return $this->employeeRepository->getEmployeeTitleNames();
 	}
 
+	public function getEmployeeSalaryScale() {
+		return $this->employeeRepository->getSalaryScale();
+	}
+
 
 }

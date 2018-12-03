@@ -24,13 +24,26 @@ class EmployeeRepository extends AbstractBaseRepository {
 
 	public function getEmployeeTitleNames() {
 		return [
-			'Mr.' => 'Mr.',
-			'Ms.' => 'Ms.',
-			'Mrs.' => 'Mrs.',
+			'Mr.'   => 'Mr.',
+			'Ms.'   => 'Ms.',
+			'Mrs.'  => 'Mrs.',
 			'Miss.' => 'Miss.',
-			'Dr.' => 'Dr.',
+			'Dr.'   => 'Dr.',
 			'Engr.' => 'Engr.',
-			'Dr.' => 'Dr.',
+			'Dr.'   => 'Dr.',
+		];
+	}
+
+	public function getSalaryScale() {
+		return [
+		'Grade 1' => 'Grade 1',
+		'Grade 2' => 'Grade 2',
+		'Grade 3' => 'Grade 3',
+		'Grade 4' => 'Grade 4',
+		'Grade 5' => 'Grade 5',
+		'Grade 6' => 'Grade 6',
+		'Grade 7' => 'Grade 7',
+		'Grade 8' => 'Grade 8',
 		];
 	}
 
