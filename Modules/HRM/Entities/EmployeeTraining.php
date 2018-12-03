@@ -9,6 +9,7 @@ class EmployeeTraining extends Model {
 	protected $fillable = [
 		"course_name",
 		"organization_name",
+		"organization_website",
 		"duration",
 		"training_year",
 		"result",

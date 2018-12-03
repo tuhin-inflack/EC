@@ -20,6 +20,7 @@ use Modules\HRM\Services\EmployeeDepartmentService;
 use Modules\HRM\Services\EmployeeDesignationService;
 use Modules\HRM\Services\EmployeeServices;
 
+use Modules\HRM\Services\EmployeeTrainingService;
 use Modules\HRM\Services\InstituteService;
 use function Sodium\compare;
 
@@ -31,13 +32,15 @@ class EmployeeController extends Controller {
 	private $academicInstituteService;
 	private $academicDepartmentService;
 	private $academicDegreeService;
+	private $employeeTrainingService;
 
 	public function __construct(
 		EmployeeServices $employeeServices,
 		DepartmentService $departmentService,
 		DesignationService $designationService, AcademicInstituteService $academicInstituteService,
 		AcademicDepartmentService $academicDepartmentService,
-		AcademicDegreeService $academicDegreeService
+		AcademicDegreeService $academicDegreeService,
+		EmployeeTrainingService $employeeTrainingService
 	) {
 		$this->employeeService           = $employeeServices;
 		$this->departmentService         = $departmentService;
@@ -45,6 +48,7 @@ class EmployeeController extends Controller {
 		$this->academicInstituteService  = $academicInstituteService;
 		$this->academicDepartmentService = $academicDepartmentService;
 		$this->academicDegreeService     = $academicDegreeService;
+		$this->employeeTrainingService   = $employeeTrainingService;
 	}
 
 
@@ -57,18 +61,30 @@ class EmployeeController extends Controller {
 
 	public function create( Request $request ) {
 
-		$employeeDepartments  = $this->departmentService->getDepartments();
-		$employeeDesignations = $this->designationService->getEmployeeDesignations();
-		$institutes           = $this->academicInstituteService->getInstitutes();
-		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
-		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
-		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
-		$employeeTitles       = $this->employeeService->getEmployeeTitles();
-//		dd($employeeTitles);
+		$employeeDepartments      = $this->departmentService->getDepartments();
+		$employeeDesignations     = $this->designationService->getEmployeeDesignations();
+		$institutes               = $this->academicInstituteService->getInstitutes();
+		$academicDepartments      = $this->academicDepartmentService->getAcademicDepartments();
+		$academicDegree           = $this->academicDegreeService->getAcademicDegree();
+		$academicDurations        = $this->academicInstituteService->getDegreeDuration();
+		$employeeTitles           = $this->employeeService->getEmployeeTitles();
+		$employeeTrainingDuration = $this->employeeTrainingService->getTrainingDuration();
+
+//		dd($employeeTrainingDuration);
 
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations', 'employeeTitles' ) );
+		return view( 'hrm::employee.create', compact(
+				'employeeDepartments',
+				'employeeDesignations',
+				'employee_id', 'institutes',
+				'academicDepartments',
+				'academicDegree',
+				'academicDurations',
+				'employeeTitles',
+				'employeeTrainingDuration'
+			)
+		);
 	}
 
 
@@ -102,6 +118,7 @@ class EmployeeController extends Controller {
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
 		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
 		$employeeTitles       = $this->employeeService->getEmployeeTitles();
+		$employeeTrainingDuration = $this->employeeTrainingService->getTrainingDuration();
 
 		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
@@ -117,7 +134,7 @@ class EmployeeController extends Controller {
 		return view( 'hrm::employee.edit', compact(
 			'employeeDepartments', 'employeeDesignations',
 			'employee', 'institutes', 'academicDepartments', 'academicDegree',
-			'academicDurations', 'employeeTitles'
+			'academicDurations', 'employeeTitles', 'employeeTrainingDuration'
 		) );
 	}
 
