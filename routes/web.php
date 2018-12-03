@@ -11,16 +11,18 @@
 |
 */
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@landing')->name('welcome');
+Route::middleware(['auth'])->group(function () {
+    Route::middleware(['force_password'])->group(function () {
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/', 'HomeController@landing')->name('welcome');
 
-Route::resource('system/user', 'UserController');
-Route::resource('user/role', 'RoleController');
-Route::resource('user/permission', 'PermissionController');
+        Route::resource('system/user', 'UserController');
+        Route::resource('user/role', 'RoleController');
+        Route::resource('user/permission', 'PermissionController');
+    });
+
+    Route::get('/change/password', 'ChangePasswordController@change');
+    Route::post('/change/password', 'ChangePasswordController@update');
+});
