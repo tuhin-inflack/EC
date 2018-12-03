@@ -55,7 +55,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="form-group">
+        <div clarclass="form-group">
             {{ Form::label('current_position_expire_date', 'Current Position Expire Date') }}
             {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
         </div>
