@@ -45,7 +45,7 @@
                                             <td>{{ $booking->reference }}</td>
                                             <td>
                                                 <div class="row justify-content-center">
-                                                    <a href="#" class="btn btn-sm btn-primary">
+                                                    <a href="{{ route('booking-requests.show', $loop->iteration ) }}" class="btn btn-sm btn-primary">
                                                         <i class="ft-eye"></i>
                                                     </a>
                                                 </div>
