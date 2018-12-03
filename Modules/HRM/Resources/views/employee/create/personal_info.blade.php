@@ -63,13 +63,13 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('salary_scale', 'Salary Scale') }}
-            {{ Form::text('salary_scale',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::select('salary_scale',  $employeeSalaryScale, null, ['class' => 'form-control', 'placeholder' => 'Select salary scale']) }}
         </div>
     </div>
 
     <div class="col-md-6">
         <div class="form-group">
-            {{ Form::label('total_salary', 'Total salary') }}
+            {{ Form::label('total_salary', 'Current Basic Pay') }}
             {{ Form::text('total_salary',  null, ['class' => 'form-control', 'placeholder' => '']) }}
         </div>
     </div>
