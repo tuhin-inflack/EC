@@ -25,7 +25,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('title', 'Title Name') }}
-            {{ Form::text('title',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::select('title',$employeeTitles,  null, ['class' => 'form-control', 'placeholder' => 'Select Title']) }}
         </div>
     </div>
     <div class="col-md-6">

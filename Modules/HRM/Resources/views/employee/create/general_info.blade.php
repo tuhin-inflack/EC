@@ -75,21 +75,23 @@
     <div class="col-md-6">
         <div class="form-group">
             <h1>Upload employee photo
-                <small>with preview</small>
+
             </h1>
             <div class="avatar-upload">
                 <div class="avatar-edit">
-                    <input type='file' name="photo"  id="imageUpload" accept=".png, .jpg, .jpeg"/>
+                    <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" required  data-validation-required-message ="Please upload image"/>
                     <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
-                    <div id="imagePreview" style="background-image: url({{ asset('/images/default-profile-picture.png') }});">
+                    <div id="imagePreview"
+                         style="background-image: url({{ asset('/images/default-profile-picture.png') }});">
                     </div>
                 </div>
+                <div class="help-block"></div>
             </div>
 
         </div>
-
+        <br/>
         <div class="form-group {{ $errors->has('tel_office') ? ' error' : '' }}">
             {{ Form::label('tel_office', 'Telephone (Office)') }}
             {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'11', 'data-validation-maxlength-message'=>'Enter maximum 11 digit']) }}

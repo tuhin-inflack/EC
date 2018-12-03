@@ -63,10 +63,12 @@ class EmployeeController extends Controller {
 		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
 		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
+		$employeeTitles       = $this->employeeService->getEmployeeTitles();
+//		dd($employeeTitles);
 
 		$employee_id = isset( $request->employee ) ? $request->employee : '';
 
-		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations' ) );
+		return view( 'hrm::employee.create', compact( 'employeeDepartments', 'employeeDesignations', 'employee_id', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations', 'employeeTitles' ) );
 	}
 
 
@@ -99,6 +101,7 @@ class EmployeeController extends Controller {
 		$academicDepartments  = $this->academicDepartmentService->getAcademicDepartments();
 		$academicDegree       = $this->academicDegreeService->getAcademicDegree();
 		$academicDurations    = $this->academicInstituteService->getDegreeDuration();
+		$employeeTitles       = $this->employeeService->getEmployeeTitles();
 
 		$employee = $this->employeeService->findOne( $id, [
 			'employeePersonalInfo',
@@ -111,7 +114,11 @@ class EmployeeController extends Controller {
 
 //		dd($employee->id);
 
-		return view( 'hrm::employee.edit', compact( 'employeeDepartments', 'employeeDesignations', 'employee', 'institutes', 'academicDepartments', 'academicDegree', 'academicDurations' ) );
+		return view( 'hrm::employee.edit', compact(
+			'employeeDepartments', 'employeeDesignations',
+			'employee', 'institutes', 'academicDepartments', 'academicDegree',
+			'academicDurations', 'employeeTitles'
+		) );
 	}
 
 	public function update( StoreEmployeeGeneralInfoRequest $request, $id ) {
