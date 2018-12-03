@@ -1,479 +1,132 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking create')
+@section('title', 'Booking Request Show')
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <!-- Form wizard with number tabs section start -->
-                <section id="number-tabs">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Form wizard with number tabs</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
-                                    </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Booking Request Details</h4>
+                                <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                                <div class="heading-elements">
+                                    <ul class="list-inline mb-0">
+                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                    </ul>
                                 </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        <form action="#" class="number-tab-steps wizard-circle">
-                                            <!-- Step 1 -->
-                                            <h6>Step 1</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Booking
-                                                    Details</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Booking Date</label>
-                                                                <input type="text" class="form-control" id=""
-                                                                       value="{{ date('d-m-Y') }}" disabled="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Booking Type</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="booking-type">
-                                                                                <label for="">General Purpose</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox" id="booking-type">
-                                                                                <label for="">Training</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                            </div>
+                            <div class="card-content collapse show">
+                                <div class="card-body">
 
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Duration of stay</label>
-                                                                <div class='input-group'>
-                                                                    <input type='text' class="form-control datetime"
-                                                                           id="check-in-out"/>
-                                                                    <span class="input-group-addon">
-                                                            <span class="ft-calendar"></span>
-                                                        </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Number of rooms</label>
-                                                                <select name="" id="no-of-rooms-select"
-                                                                        class="form-control">
-                                                                    <option value=""></option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Occupation
-                                                    Detials</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization</label>
-                                                                <input type="text" class="form-control" id=""
-                                                                       value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization Type</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Government</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Private</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Foreign</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Others</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Designation</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                            </fieldset>
-                                            <!-- Step 2 -->
-                                            <h6>Step 2</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Room
-                                                    Details</h4>
-                                                <div class="repeater-room-types">
-                                                    <div data-repeater-list="rooms">
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form row">
-                                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Room Type <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    <select name="room_type" id=""
-                                                                            class="form-control room-type-select"
-                                                                            required>
-                                                                        <option value=""></option>
-                                                                        <option value="1">Room Type 1</option>
-                                                                        <option value="2">Room Type 2</option>
-                                                                        <option value="3">Room Type 3</option>
-                                                                        <option value="4">Room Type 4</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Quantity <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    <input type="number" name="quantity" min="1" id=""
-                                                                           class="form-control" placeholder="e.g 2">
-                                                                </div>
-                                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                    <button type="button" class="btn btn-outline-danger"
-                                                                            data-repeater-delete=""><i
-                                                                                class="ft-x"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group overflow-auto">
-                                                        <div class="col-12">
-                                                            <button type="button" data-repeater-create=""
-                                                                    class="pull-right btn btn-sm btn-outline-primary">
-                                                                <i class="ft-plus"></i> Add
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                            <!-- Step 3 -->
-                                            <h6>Step 3</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Personal
-                                                    Information</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Name <span class="danger">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="John Doe">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Email</label>
-                                                                <input type="email" class="form-control"
-                                                                       placeholder="john@example.com">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">NID</label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="10 digit number">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Gender <span
-                                                                            class="danger">*</span></label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-square">
-                                                                            <fieldset>
-                                                                                <input type="radio"
-                                                                                       name="input-radio-3"
-                                                                                       id="input-radio-11">
-                                                                                <label for="input-radio-11" class="">Male</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-square">
-                                                                            <fieldset>
-                                                                                <input type="radio"
-                                                                                       name="input-radio-3"
-                                                                                       id="input-radio-11">
-                                                                                <label for="input-radio-11" class="">Female</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Contact <span
-                                                                            class="danger">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="e.g 0167XXXXXXX">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Passport No</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Documents</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Your Photo <span
-                                                                            class="danger">*</span></label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">NID Copy</label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Passport Copy</label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                            </fieldset>
-                                            <!-- Step 4 -->
-                                            <h6>Step 4</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Guest
-                                                    Information</h4>
-                                                <div class="repeater-guest-information">
-                                                    <div data-repeater-list="guests">
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form">
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Name <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="John Doe">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Age <span class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="number" min="0"
-                                                                               class="form-control" placeholder="27">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Gender <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <select name="gender" id=""
-                                                                                class="form-control">
-                                                                            <option value=""></option>
-                                                                            <option value="male">Male</option>
-                                                                            <option value="female">Female</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Relation <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="Colleague">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID Copy <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="file" name="" id=""
-                                                                               class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID <span class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="10 digit">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                        <label>Address <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <textarea name="" id="" cols="30" rows="5"
-                                                                                  class="form-control"></textarea>
-                                                                    </div>
-                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                        <button type="button"
-                                                                                class="btn btn-outline-danger"
-                                                                                data-repeater-delete=""><i
-                                                                                    class="ft-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group overflow-auto">
-                                                        <div class="col-12">
-                                                            <button type="button" data-repeater-create=""
-                                                                    class="pull-right btn btn-sm btn-outline-primary">
-                                                                <i class="ft-plus"></i> Add
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>BARD
-                                                    Reference</h4>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Department</label>
-                                                            <select name="" id="department-select" class="form-control">
-                                                                <option value=""></option>
-                                                                <option value="1">Dept 1</option>
-                                                                <option value="2">Dept 2</option>
-                                                                <option value="3">Dept 3</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Employee Name</label>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="John Doe">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Contact</label>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="11 digits">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        <!-- Step 5 -->
-                                            <h6>Step 5</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Billing
-                                                    Information</h4>
-                                                <div class="row">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Room Type</th>
-                                                                <th>Quantity</th>
-                                                                <th>Duration</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td>AC room</td>
-                                                                <td>2</td>
-                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Non ac room</td>
-                                                                <td>3</td>
-                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                    <h4 class="form-section"><i class="la  la-building-o"></i>Booking Information</h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered table-light">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Request ID</td>
+                                                        <td>{{ $booking->request_id }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Requested On</td>
+                                                        <td>{{ $booking->requested_on }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Booked By</td>
+                                                        <td>{{ $booking->booked_by }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Organization</td>
+                                                        <td>{{ $booking->organization }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Designation</td>
+                                                        <td>{{ $booking->designation }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Organization Type</td>
+                                                        <td>{{ $booking->organization_type }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phone</td>
+                                                        <td>{{ $booking->contact }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Email</td>
+                                                        <td>{{ $booking->email }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address</td>
+                                                        <td>{{ $booking->address }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <table class="table table-bordered table-light">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Booking Type</td>
+                                                        <td>{{ $booking->booking_type }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Check In</td>
+                                                        <td>{{ $booking->check_in }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Check Out</td>
+                                                        <td>{{ $booking->check_out }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. of Guest</td>
+                                                        <td>{{ $booking->number_of_guest }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>No. of Room</td>
+                                                        <td>{{ $booking->number_of_rooms }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Room Details</td>
+                                                        <td>{{ $booking->room_details }}</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <table class="table table-bordered table-light">
+                                                <tbody>
+                                                <tr>
+                                                    <td>BARD Reference</td>
+                                                    <td>{{ $booking->reference }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Designation</td>
+                                                    <td>{{ $booking->reference_designation }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Department</td>
+                                                    <td>{{ $booking->reference_department }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phone</td>
+                                                    <td>{{ $booking->reference_phone }}</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="card-footer">
+                                <a href="{{ route('booking-requests.index') }}" class="btn btn-outline-primary">Cancel</a>
+                                <button type="button" class="btn btn-outline-danger">Reject</button>
+                                <button type="button" class="btn btn-outline-success">Approved</button>
+                            </div>
                         </div>
                     </div>
-                </section>
-                <!-- Form wizard with number tabs section end -->
+                </div>
             </div>
         </div>
     </div>

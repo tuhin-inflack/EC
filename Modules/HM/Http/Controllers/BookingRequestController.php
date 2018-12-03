@@ -2,48 +2,31 @@
 
 namespace Modules\HM\Http\Controllers;
 
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Services\BookingRequestService;
 
 class BookingRequestController extends Controller
 {
+    private $bookingRequestService;
+
+    /**
+     * BookingRequestController constructor.
+     * @param BookingRequestService
+     */
+    public function __construct(BookingRequestService $bookingRequestService)
+    {
+        $this->bookingRequestService = $bookingRequestService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $bookings = [
-            (object)[
-                'booked_by' => 'Hasib Noor',
-                'booked_for' => Carbon::today()
-                        ->format('d-m-Y') . ' to ' .
-                    Carbon::today()
-                        ->addDays(7)
-                        ->format('d-m-Y'),
-                'booking_type' => 'Official',
-                'organization' => 'Inflack Limited',
-                'contact' => '0171XXXXXXX',
-                'number_of_guest' => 12,
-                'reference' => 'Razzak Ahmed'
-            ],
-            (object)[
-                'booked_by' => 'Yea Hasib',
-                'booked_for' => Carbon::today()
-                        ->addDays(7)
-                        ->format('d-m-Y') . ' to ' .
-                    Carbon::today()
-                        ->addDays(10)
-                        ->format('d-m-Y'),
-                'booking_type' => 'Single',
-                'organization' => 'Brainstation-23',
-                'contact' => '0171XXXXXXX',
-                'number_of_guest' => 1,
-                'reference' => 'Razzak Ahmed'
-            ],
-        ];
+        $bookings = $this->bookingRequestService->getAll();
 
         return view('hm::booking-request.index', compact('bookings'));
     }
@@ -70,9 +53,11 @@ class BookingRequestController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('hm::show');
+        $booking = $this->bookingRequestService->getBookingRequest($id);
+
+        return view('hm::booking-request.show', compact('booking'));
     }
 
     /**
