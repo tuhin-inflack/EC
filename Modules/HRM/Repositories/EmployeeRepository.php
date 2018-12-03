@@ -22,5 +22,17 @@ class EmployeeRepository extends AbstractBaseRepository {
 //		dd( $test );
 //	}
 
+	public function getEmployeeTitleNames() {
+		return [
+			'Mr.' => 'Mr.',
+			'Ms.' => 'Ms.',
+			'Mrs.' => 'Mrs.',
+			'Miss.' => 'Miss.',
+			'Dr.' => 'Dr.',
+			'Engr.' => 'Engr.',
+			'Dr.' => 'Dr.',
+		];
+	}
+
 
 }

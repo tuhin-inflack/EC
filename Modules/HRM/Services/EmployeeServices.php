@@ -20,23 +20,29 @@ class EmployeeServices {
 	private $userService;
 
 
-	public function __construct(EmployeeRepository $employeeRepository, UserService $userService) {
+	public function __construct( EmployeeRepository $employeeRepository, UserService $userService ) {
 		$this->employeeRepository = $employeeRepository;
-		$this->userService = $userService;
+		$this->userService        = $userService;
 		$this->setActionRepository( $this->employeeRepository );
 	}
 
 	public function storeGeneralInfo( $data = [] ) {
 		if ( isset( $data['photo'] ) ) {
 			$file      = $data['photo'];
-			$photoName = time()."-".$file->getClientOriginalName();
+			$photoName = time() . "-" . $file->getClientOriginalName();
 			$file->move( 'images/', $photoName );
 			$data['photo'] = $photoName;
 		}
 		$generalInfo = $this->employeeRepository->save( $data );
-		$this->userService->store(['name' => $data['first_name'].' '.$data['last_name'], 'username' => $data['employee_id'],
-            'email' => $data['email'], 'mobile' => $data['mobile_one'], 'user_type' => config('user.types.EMPLOYEE'),
-            'password' => config('user.defaultPassword')]);
+		$this->userService->store( [
+			'name'      => $data['first_name'] . ' ' . $data['last_name'],
+			'username'  => $data['employee_id'],
+			'email'     => $data['email'],
+			'mobile'    => $data['mobile_one'],
+			'user_type' => config( 'user.types.EMPLOYEE' ),
+			'password'  => config( 'user.defaultPassword' )
+		] );
+
 		return new DataResponse( $generalInfo, $generalInfo['id'], 'General information added successfully' );
 	}
 
@@ -52,6 +58,10 @@ class EmployeeServices {
 
 	public function getEmployeeList() {
 		return $this->employeeRepository->findAll();
+	}
+
+	public function getEmployeeTitles() {
+		return $this->employeeRepository->getEmployeeTitleNames();
 	}
 
 

@@ -33,6 +33,7 @@
         <th class="">Tel (office)</th>
         <td>{{$employee->tel_office}}</td>
     </tr>
+
     <tr>
         <th class="">Tel (home)</th>
         <td>{{$employee->tel_home}}</td>

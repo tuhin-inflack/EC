@@ -16,7 +16,6 @@ class CreateEmployeeGeneralInfosTable extends Migration {
 			$table->string( 'employee_id' );
 			$table->string( 'first_name' );
 			$table->string( 'last_name' );
-			$table->string( 'photo' )->nullable();
 			$table->string( 'email' )->unique();
 			$table->string( 'gender' );
 			$table->unsignedInteger( 'department_id' );
