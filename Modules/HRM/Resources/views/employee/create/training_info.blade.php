@@ -46,7 +46,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('training_year', 'Training Year') }}
-                                        {{ Form::number('training_year',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+                                        {{ Form::text('training_year',  $training['training_year'], ['class' => 'form-control datepicker-default', 'placeholder' => '']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -113,14 +113,14 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('duration', 'Duration (in week)') }}
-                                    {{ Form::text('duration',  null, ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                    {{ Form::select('duration',  $employeeTrainingDuration, null, ['class' => 'form-control', 'placeholder' => 'Select training duration', 'data-validation-required-message'=>'Please enter course duration']) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('training_year', 'Training Year') }}
-                                    {{ Form::number('training_year',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+                                    {{ Form::text('training_year',  null, ['class' => 'form-control datepicker-default', 'placeholder' => '']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -130,15 +130,22 @@
                                     <div class="help-block"></div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('organization_country', 'Organization Country') }}
                                     {{ Form::text('organization_country',  null, ['class' => 'form-control', 'placeholder' => 'eg. Bangladesh']) }}
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ Form::label('organization_website', 'Organization Website') }}
+                                    {{ Form::url('organization_website',  null, ['class' => 'form-control', 'placeholder' => 'http://www.bs-23.net', 'data-validation-required-message'=>'Please enter organization website']) }}
+                                    <div class="help-block"></div>
+                                </div>
+                            </div>
 
 
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('achievement', 'Achievement') }}
                                     {{ Form::text('achievement',  null, ['class' => 'form-control', 'placeholder' => 'eg. Best Performer']) }}
