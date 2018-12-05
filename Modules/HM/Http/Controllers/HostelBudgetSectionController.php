@@ -17,7 +17,7 @@ class HostelBudgetSectionController extends Controller {
 	}
 
 	public function index() {
-		$sections = [];
+		$sections = $this->hostelBudgetSectionService->getHostelBudgetSections();
 
 		return view( 'hm::hostel-budget-section.index', compact( 'sections' ) );
 	}
@@ -36,36 +36,20 @@ class HostelBudgetSectionController extends Controller {
 
 	}
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
-	public function show() {
-		return view( 'hm::show' );
+
+	public function edit($id) {
+		$section = $this->hostelBudgetSectionService->findOrFail($id);
+		return view( 'hm::hostel-budget-section.edit', compact('section'));
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
-	public function edit() {
-		return view( 'hm::edit' );
+
+	public function update( StoreHostelBudgetSectionRequest $request, $id ) {
+		$section = $this->hostelBudgetSectionService->updateBudgetSection( $request->all(), $id );
+		Session::flash( 'message', $section->getContent() );
+
+		return redirect( '/hm/hostel-budget-section/' );
+
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
-	public function update( Request $request ) {
-	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * @return Response
-	 */
-	public function destroy() {
-	}
 }

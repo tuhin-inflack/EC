@@ -1,12 +1,12 @@
 @extends('hm::layouts.master')
-@section('title', 'Add new Section ')
+@section('title', 'Edit Section ')
 
 @section("content")
 
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" >Add New Section</h4>
+                <h4 class="card-title">Edit Section</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -19,7 +19,7 @@
             </div>
             <div class="card-content collapse show" style="">
                 <div class="card-body">
-                    {!! Form::open(['url' =>  '/hm/hostel-budget-section', 'class' => 'form',' novalidate']) !!}
+                    {!! Form::model($section, ['url' =>  ['/hm/hostel-budget-section', $section->id], 'method'=>'PUT', 'class' => 'form',' novalidate']) !!}
                     @include('hm::hostel-budget-section.form.section_form')
                     {!! Form::close() !!}
                 </div>
@@ -32,7 +32,8 @@
 
 @endpush
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 

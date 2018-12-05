@@ -35,7 +35,8 @@
                                         @foreach($sections as $section)
 
                                             <tr>
-                                                <th scope="row">{{$section->iteration}}</th>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $section->name }}</td>
 
                                                 <td>
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -44,10 +45,7 @@
                                                         <i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ url('/hrm/hostel-budget-section',$section->id) }}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                           <div class="dropdown-divider"></div>
-                                                        <a href="{{ url('/hrm/hostel-budget-section/' . $section->id . '/edit')  }}"
+                                                        <a href="{{ url('/hm/hostel-budget-section/' . $section->id . '/edit')  }}"
                                                            class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
 
                                                     </span>
