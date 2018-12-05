@@ -12,10 +12,17 @@
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Hostel Budget</span></a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('hostel-budgets.create') }}"><a href="{{ route('hostel-budgets.create') }}">
+                    <li class="{{ is_active_route('hostel-budgets.create') }}">
+                        <a href="{{ route('hostel-budgets.create') }}">
                             <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
+                            <span class="menu-title" data-i18n="nav.dash.main">Create</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_match('hm/hostel-budget-section')}}">
+                        <a href="{{ url('hm/hostel-budget-section') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">Sections</span>
+                        </a>
                     </li>
                 </ul>
             </li>
