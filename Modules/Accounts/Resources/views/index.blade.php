@@ -2,11 +2,14 @@
 @section('title', 'Accounts')
 
 @section('content')
-    <H1>Accounts</H1>
+    <h1>
+        Dashboard
+        <span class="font-size-base">
+            Module: {!! config('accounts.name') !!}, Accounting parts line Chart of Account & Auto Voucher
+        </span>
+    </h1>
 
-    <p>Accounting parts line Chart of Account & Auto Voucher</p>
-
-    {{ __('Account Ledger') }}
+    {{--{{ __('Account Ledger') }}--}}
 
     <div class="container">
         <div id="crypto-stats-3" class="row" style="margin-top: 32px">
