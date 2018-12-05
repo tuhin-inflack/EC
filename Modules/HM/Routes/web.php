@@ -27,7 +27,7 @@ Route::prefix('hm')->group(function () {
     Route::prefix('room-types')->group(function () {
         Route::get('/', 'RoomTypeController@index')->name('room-types.index');
         Route::get('create', 'RoomTypeController@create')->name('room-types.create');
-        Route::post('/', 'RoomTypeController@store')->name('room-types.store');
+        Route::post('create', 'RoomTypeController@store')->name('room-types.store');
         Route::get('{roomType}/edit', 'RoomTypeController@edit')->name('room-types.edit');
         Route::put('{roomType}', 'RoomTypeController@update')->name('room-types.update');
         Route::delete('{roomType}', 'RoomTypeController@destroy')->name('room-types.destroy');
