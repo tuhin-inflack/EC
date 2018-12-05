@@ -1,4 +1,5 @@
 @extends('hm::layouts.master')
+@section('title', 'Hostel')
 
 @section('content')
     <h1>Hello World</h1>

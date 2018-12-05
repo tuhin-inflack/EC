@@ -34,7 +34,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Name <i class="danger">*</i></label>
                                             <input type="text"
-                                                   placeholder="AC Single"
+                                                   placeholder="e.g AC Single"
                                                    value="{{ old('name') }}"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                                    name="name" autofocus required/>
@@ -50,7 +50,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Capacity <i class="danger">*</i></label>
                                             <input type="number"
-                                                   placeholder="4"
+                                                   placeholder="e.g 4"
                                                    min="1"
                                                    value="{{ old('capacity') }}"
                                                    class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}"
@@ -70,7 +70,7 @@
                                         <div class="form-group">
                                             <label class="form-label">General Rate <i class="danger">*</i></label>
                                             <input type="number"
-                                                   placeholder="amount"
+                                                   placeholder="e.g 500"
                                                    value="{{ old('general_rate') }}"
                                                    class="form-control{{ $errors->has('general_rate') ? ' is-invalid' : '' }}"
                                                    name="general_rate" required/>
@@ -86,7 +86,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Government Rate <i class="danger">*</i></label>
                                             <input type="number"
-                                                   placeholder="amount"
+                                                   placeholder="e.g 500"
                                                    value="{{ old('govt_rate') }}"
                                                    class="form-control{{ $errors->has('govt_rate') ? ' is-invalid' : '' }}"
                                                    name="govt_rate" required/>
@@ -105,7 +105,7 @@
                                         <div class="form-group">
                                             <label class="form-label">BARD Employee Rate <i class="danger">*</i></label>
                                             <input type="number"
-                                                   placeholder="amount"
+                                                   placeholder="e.g 500"
                                                    value="{{ old('employee_rate') }}"
                                                    class="form-control{{ $errors->has('employee_rate') ? ' is-invalid' : '' }}"
                                                    name="employee_rate" required/>
@@ -121,7 +121,7 @@
                                         <div class="form-group">
                                             <label class="form-label">Special Rate <i class="danger">*</i></label>
                                             <input type="number"
-                                                   placeholder="amount"
+                                                   placeholder="e.g 500"
                                                    value="{{ old('special_rate') }}"
                                                    class="form-control{{ $errors->has('special_rate') ? ' is-invalid' : '' }}"
                                                    name="special_rate" required/>
@@ -137,57 +137,50 @@
 
                                 <h4 class="form-section"><i class="la  la-table"></i>Room Type Inventories</h4>
 
-                                <div class="repeater-room-types row">
-                                    <div class="mb-1 col-sm-12 col-md-6">
-                                        <label for="bio" class="cursor-pointer">Inventory Item <span
-                                                    class="danger">*</span></label>
-                                    </div>
-                                    <div class="mb-1 col-sm-12 col-md-6">
-                                        <label for="bio" class="cursor-pointer">Quantity <span
-                                                    class="danger">*</span></label>
-                                    </div>
-
-                                    <div class="col-md-12">
-                                        <div data-repeater-list="room_types">
-                                            <div data-repeater-item class="row">
-                                                <div class="form-group mb-1 col-sm-12 col-md-6">
-                                                    <select name="" id="" class="custom-select">
+                                <div class="repeater-room-types">
+                                    <div data-repeater-list="rooms">
+                                        <div data-repeater-item="" style="">
+                                            <div class="form row">
+                                                <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                    <label>Item Name <span class="danger">*</span></label>
+                                                    <br>
+                                                    <select name="inventory_item" id="" class="form-control" required>
                                                         <option value=""></option>
                                                     </select>
                                                 </div>
                                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <input type="number"
-                                                           placeholder="1"
-                                                           min="1"
-                                                           class="form-control"
-                                                           name="capacity" required/>
+                                                    <label>Quantity <span class="danger">*</span></label>
+                                                    <br>
+                                                    <input type="number" name="quantity" min="1" id=""
+                                                           class="form-control" placeholder="e.g 2">
                                                 </div>
-                                                <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
+                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                                     <button type="button" class="btn btn-outline-danger"
-                                                            data-repeater-delete><i class="ft-x"></i>
+                                                            data-repeater-delete=""><i
+                                                                class="ft-x"></i>
                                                     </button>
                                                 </div>
                                             </div>
+                                            <hr>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-12">
-                                        <div class="form-group float-right" style="margin-bottom: 0">
-                                            <button type="button" data-repeater-create
-                                                    class="btn btn-sm btn-outline-info">
-                                                <i class="ft-plus"></i> More room type
+                                    <div class="form-group overflow-auto">
+                                        <div class="col-12">
+                                            <button type="button" data-repeater-create=""
+                                                    class="pull-right btn btn-sm btn-outline-primary">
+                                                <i class="ft-plus"></i> Add
                                             </button>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
-
-                                    <div class="form-group col-md-12 mb-0 text-center">
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                        <a href="#" class="btn btn-warning">Cancel</a>
-                                    </div>
+                                <div class="form-actions text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="la la-check-square-o"></i> Save
+                                    </button>
+                                    <a class="btn btn-warning mr-1" role="button" href="#">
+                                        <i class="ft-x"></i> Cancel
+                                    </a>
                                 </div>
                             </form>
                         </div>

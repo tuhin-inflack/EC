@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostel Room Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">Room Creation</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -18,36 +18,36 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('rooms.store') }}" method="post">
+                            <form novalidate action="{{ route('rooms.store') }}" method="post">
                                 @csrf
-                                <input type="hidden" name="hostel_id" value="{{ $hostel->id }}"/>
                                 <h4 class="form-section"><i class="la  la-building-o"></i>Room Form</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Shortcode</label>
-                                            <input type="text"
-                                                   value="{{ old('shortcode') }}"
-                                                   class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
-                                                   name="shortcode" autofocus required/>
+                                            <label class="form-label">Hostel <span class="danger">*</span></label>
+                                            <select name="hostel_id" id="hostel-select" class="form-control" required>
+                                                <option></option>
+                                                <option value="1">Hostel 1</option>
+                                                <option value="2">Hostel 2</option>
+                                                <option value="3">Hostel 3</option>
+                                            </select>
 
-                                            @if ($errors->has('shortcode'))
+                                            @if ($errors->has('hostel_id'))
                                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('shortcode') }}</strong>
+                                                    <strong>{{ $errors->first('hostel_id') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Room Type</label>
+                                            <label class="form-label">Room Type <span class="danger">*</span></label>
                                             <select class="form-control {{ $errors->has('room_type_id') ? 'is-invalid' : '' }}"
-                                                    name="room_type_id" id="" required>
-                                                <option selected disabled="">Select room type</option>
-                                                @foreach($hostel->roomTypes as $roomType)
-                                                    <option value="{{ $roomType->id }}" {{ old('room_type_id') == $roomType->id ? 'selected' : '' }}>{{ $roomType->name }}</option>
-                                                @endforeach
+                                                    name="room_type_id" id="room-type-select" required>
+                                                <option value=""></option>
+                                                <option value="1">Room Type 1</option>
+                                                <option value="2">Room Type 2</option>
+                                                <option value="3">Room Type 3</option>
                                             </select>
 
                                             @if ($errors->has('room_type_id'))
@@ -62,11 +62,12 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Level</label>
+                                            <label class="form-label">Level <span class="danger">*</span></label>
                                             <input type="number"
                                                    value="{{ old('level') }}"
                                                    min="1"
                                                    class="form-control{{ $errors->has('level') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 3"
                                                    name="level" autofocus required/>
 
                                             @if ($errors->has('level'))
@@ -76,93 +77,70 @@
                                             @endif
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Shortcode <span class="danger">*</span></label>
+                                            <input type="text"
+                                                   value="{{ old('shortcode') }}"
+                                                   class="form-control{{ $errors->has('shortcode') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 201"
+                                                   name="shortcode" autofocus required/>
+
+                                            @if ($errors->has('shortcode'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('shortcode') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group row">
-                                    <b class="col-sm-4 col-form-label text-md-right"><u>Room Inventories</u></b>
-                                </div>
+
+                                <h4 class="form-section"><i class="la  la-table"></i>Room Inventories</h4>
 
                                 <div class="repeater-room-inventories">
-                                    <div data-repeater-list="inventories">
-                                        <div class="row col-md-6 offset-md-3">
-                                            <div class="mb-1 col-sm-12 col-md-5">
-                                                <label>Item name</label>
+                                    <div data-repeater-list="rooms">
+                                        <div data-repeater-item="" style="">
+                                            <div class="form row">
+                                                <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                    <label>Item Name</label>
+                                                    <br>
+                                                    <select name="inventory_item" id="" class="form-control" required>
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                    <label>Quantity</label>
+                                                    <br>
+                                                    <input type="number" name="quantity" min="1" id=""
+                                                           class="form-control" placeholder="e.g 2">
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                            data-repeater-delete=""><i
+                                                                class="ft-x"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="mb-1 col-sm-12 col-md-5">
-                                                <label>Quantity</label>
-                                            </div>
+                                            <hr>
                                         </div>
-                                        @if(old('inventories'))
-                                            @foreach(old('inventories') as $oldInput)
-                                                <div data-repeater-item>
-                                                    <div class="row col-md-6 offset-md-3">
-                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                            <input type="text" value="{{ $oldInput['item_name'] }}"
-                                                                   class="form-control {{ $errors->has('inventories.' . $loop->index . '.item_name') ? 'is-invalid' : '' }}"
-                                                                   name="name">
-
-                                                            @if($errors->has('inventories.' . $loop->index . '.item_name'))
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('inventories.' . $loop->index . '.item_name') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                            <input type="number" value="{{ $oldInput['quantity'] }}"
-                                                                   min="1"
-                                                                   class="form-control {{ $errors->has('inventories.' . $loop->index . '.quantity') ? 'is-invalid' : '' }}"
-                                                                   name="quantity">
-
-                                                            @if($errors->has('inventories.' . $loop->index . '.quantity'))
-                                                                <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('inventories.' . $loop->index . '.quantity') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                        <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                            <button type="button" class="btn btn-outline-danger"
-                                                                    data-repeater-delete><i class="ft-x"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @else
-                                            <div data-repeater-item>
-                                                <div class="row col-md-6 offset-md-3">
-                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                        <input type="text" class="form-control" name="item_name">
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                        <input type="number" min="1" class="form-control"
-                                                               name="quantity">
-                                                    </div>
-                                                    <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                        <button type="button" class="btn btn-outline-danger"
-                                                                data-repeater-delete><i class="ft-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endif
                                     </div>
-                                    <div class="form-group overflow-hidden">
+                                    <div class="form-group overflow-auto">
                                         <div class="col-12">
-                                            <button type="button" data-repeater-create
-                                                    class="float-right btn btn-sm btn-primary">
-                                                <i class="ft-plus"></i> More room item
+                                            <button type="button" data-repeater-create=""
+                                                    class="pull-right btn btn-sm btn-outline-primary">
+                                                <i class="ft-plus"></i> Add
                                             </button>
                                         </div>
                                     </div>
-                                </div>
 
-                                <hr>
-
-                                <div class="form-group row mb-0">
-                                    <div class="col-md-8 offset-md-4">
-                                        <button class="btn btn-primary" type="submit">Save</button>
-                                        <a href="{{ route('hostels.index') }}"
-                                           class="btn btn-warning">Cancel</a>
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="la la-check-square-o"></i> Save
+                                        </button>
+                                        <a class="btn btn-warning mr-1" role="button" href="#">
+                                            <i class="ft-x"></i> Cancel
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -180,6 +158,10 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            $('#hostel-select, #room-type-select').select2({
+                placeholder: 'Select option'
+            });
+
             $('.repeater-room-inventories').repeater({
                 show: function () {
                     $('div:hidden[data-repeater-item]')
