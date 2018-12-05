@@ -60,6 +60,11 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
     });
+	Route::resources(
+		[
+			'hostel-budget-section'   => 'HostelBudgetSectionController',
+		]
+	);
 
     Route::prefix('annual-purchases')->group(function () {
         Route::get('create', 'AnnualPurchaseController@create')->name('annual-purchases.create');
