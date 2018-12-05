@@ -1,4 +1,4 @@
-@extends('hrm::layouts.master')
+@extends('hm::layouts.master')
 @section('title', 'Sections list ')
 {{--@section("employee_create", 'active')--}}
 
@@ -12,7 +12,7 @@
                         <h4 class="card-title">Section List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <a href="{{url('/hrm/hostel-budget-section/create')}}" class="btn btn-primary btn-sm"><i
+                            <a href="{{url('/hm/hostel-budget-section/create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> Add New Section</a>
 
                         </div>
@@ -66,13 +66,13 @@
     </section>
 @endsection
 
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+@endpush
+
 @push('page-js')
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
 
 
     <script>
@@ -85,25 +85,25 @@
                     {
                         extend: 'copy', className: 'copyButton',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1],
                         }
                     },
                     {
                         extend: 'excel', className: 'excel',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1],
                         }
                     },
                     {
                         extend: 'pdf', className: 'pdf',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1],
                         }
                     },
                     {
                         extend: 'print', className: 'print',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                            columns: [0, 1],
                         }
                     },
                 ],
@@ -116,9 +116,4 @@
 
     </script>
 
-@endpush
-
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"/>
 @endpush
