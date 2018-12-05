@@ -5,36 +5,31 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Http\Requests\StoreHostelBudgetSectionRequest;
 
 class HostelBudgetSectionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
+
+	public function __construct() {
+	}
+
+	public function index()
     {
     	$sections = [];
 
         return view('hm::hostel-budget-section.index', compact('sections'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+
     public function create()
     {
-        return view('hm::create');
+        return view('hm::hostel-budget-section.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
+
+    public function store(StoreHostelBudgetSectionRequest $request)
     {
+    	dd($request->all());
     }
 
     /**
