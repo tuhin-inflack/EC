@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Role;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
 use App\Services\PermissionService;
@@ -22,6 +23,7 @@ class RoleController extends Controller
     {
         $this->roleService = $roleService;
         $this->permissionService = $permissionService;
+        $this->authorizeResource(Role::class);
     }
 
 
@@ -32,6 +34,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Role::class);
         $roles = $this->roleService->getRolesWithPermission();
         return view('role.index', compact('roles'));
     }
@@ -43,6 +46,7 @@ class RoleController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Role::class);
         $permissions = $this->permissionService->getPermissions();
         return view('role.create', compact('permissions'));
     }
@@ -54,6 +58,7 @@ class RoleController extends Controller
      */
     public function store(StoreRoleRequest $request)
     {
+        $this->authorize('create', Role::class);
         $response = $this->roleService->store($request->all());
         Session::flash('message', $response->getContent());
         return redirect('/user/role');
@@ -68,6 +73,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
+        $this->authorize('view', Role::class);
         $role = $this->roleService->findOrFail($id);
         return view('role.show', compact('role'));
     }
@@ -80,6 +86,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
+        $this->authorize('update');
         $role = $this->roleService->findOrFail($id);
         $permissions = $this->permissionService->getPermissions();
         return view('role.edit', compact('role', 'permissions'));
@@ -94,6 +101,7 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, $id)
     {
+        $this->authorize('update');
         $response = $this->roleService->updateRole($id, $request->all());
         Session::flash('message', $response->getContent());
 
@@ -108,6 +116,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize('delete');
         $response = $this->roleService->destroy($id);
         Session::flash('message', $response->getContent());
         return redirect('/user/role');
