@@ -32,4 +32,18 @@ class HostelBudgetSectionService {
 		}
 	}
 
+	public function updateBudgetSection($data = [], $id = null) {
+		$section = $this->findOrFail($id);
+		$status = $section->update();
+		if ( $status ) {
+			return New Response( 'Section updated successfully' );
+		} else {
+			return New Response( 'Section not updated! Something going wrong !' );
+		}
+	}
+
+	public function getHostelBudgetSections() {
+		return $this->findAll();
+	}
+
 }
