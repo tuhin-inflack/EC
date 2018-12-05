@@ -45,6 +45,14 @@
     <!-- BEGIN Custom CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
     <!-- END Custom CSS-->
+
+    <!-- Select2 -->
+    <style>
+        .select2 {
+            width: 100% !important;
+        }
+    </style>
+    <!-- End Select2 -->
     @stack('page-css')
 </head>
 <body class="vertical-layout vertical-menu 2-columns   menu-expanded fixed-navbar"

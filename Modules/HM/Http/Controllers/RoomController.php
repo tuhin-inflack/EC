@@ -43,9 +43,9 @@ class RoomController extends Controller
      * @param Hostel $hostel
      * @return Response
      */
-    public function create(Hostel $hostel)
+    public function create()
     {
-        return view('hm::.room.create', compact('hostel'));
+        return view('hm::.room.create');
     }
 
     /**

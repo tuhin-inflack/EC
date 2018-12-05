@@ -36,6 +36,7 @@
                                             <input type="text"
                                                    value="{{ old('name') }}"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g Hostel 1"
                                                    name="name" autofocus required/>
 
                                             @if ($errors->has('name'))
@@ -52,6 +53,7 @@
                                                    min="1"
                                                    value="{{ old('total_floor') }}"
                                                    class="form-control{{ $errors->has('total_floor') ? ' is-invalid' : '' }}"
+                                                   placeholder="e.g 5"
                                                    name="total_floor" required/>
 
                                             @if ($errors->has('total_floor'))
@@ -65,72 +67,63 @@
 
                                 <h4 class="form-section"><i class="la  la-table"></i>Room Details</h4>
 
-                                <div class="repeater-room-types">
-                                    <div class="row">
-                                        <div class="mb-1 col-sm-12 col-md-2">
-                                            <label for="bio" class="cursor-pointer">Floor Number<span class="danger">*</span></label>
-                                        </div>
-                                        <div class="mb-1 col-sm-12 col-md-3">
-                                            <label for="bio" class="cursor-pointer">Room Type <span class="danger">*</span></label>
-                                        </div>
-                                        <div class="mb-1 col-sm-12 col-md-3">
-                                            <label for="bio" class="cursor-pointer">Room Type Quantity <span class="danger">*</span></label>
-                                        </div>
-                                        <div class="mb-1 col-sm-12 col-md-3">
-                                            <label for="bio" class="cursor-pointer">Room numbers <span class="danger">*</span></label>
-                                        </div>
-                                    </div>
-
-                                    <div data-repeater-list="room_types">
-                                        <div data-repeater-item class="row">
-                                            <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                <input type="number"
-                                                       min="1"
-                                                       class="form-control"
-                                                       name="quantity" required/>
+                                <div class="repeater-rooms">
+                                    <div data-repeater-list="rooms">
+                                        <div data-repeater-item="" style="">
+                                            <div class="form row">
+                                                <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                    <label>Floor No <span
+                                                                class="danger">*</span></label>
+                                                    <br>
+                                                    <input type="text" name="section" class="form-control"
+                                                           placeholder="e.g 1" required>
+                                                </div>
+                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                    <label>Room Type <span class="danger">*</span></label>
+                                                    <br>
+                                                    <select name="room_type" id="" class="form-control">
+                                                        <option value=""></option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                    <label>Room Quantity <span
+                                                                class="danger">*</span></label>
+                                                    <br>
+                                                    <input type="number" name="quantity" class="form-control"
+                                                           placeholder="e.g 10" required>
+                                                </div>
+                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                    <label>Room Numbers <span class="danger">*</span></label>
+                                                    <br>
+                                                    <input type="text" name="room_numbers" min="1" id=""
+                                                           class="form-control" placeholder="e.g 201-205" required>
+                                                </div>
+                                                <div class="form-group col-sm-12 col-md-1 text-center mt-2">
+                                                    <button type="button" class="btn btn-outline-danger"
+                                                            data-repeater-delete=""><i
+                                                                class="ft-x"></i>
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                <select name="" id="" class="custom-select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                <select name="" id="" class="custom-select">
-                                                    <option value=""></option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                <input type="text" name="" id="" class="form-control">
-                                            </div>
-                                            <div class="skin skin-flat form-group mb-1 col-sm-12 col-md-1">
-                                                <button type="button" class="btn btn-outline-danger"
-                                                        data-repeater-delete><i class="ft-x"></i>
-                                                </button>
-                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
-
-
-                                    <div class="row">
+                                    <div class="form-group overflow-auto">
                                         <div class="col-12">
-                                            <div class="form-group float-right" style="margin-bottom: 0">
-                                                <button type="button" data-repeater-create
-                                                        class="btn btn-sm btn-outline-info">
-                                                    <i class="ft-plus"></i> More room type
-                                                </button>
-                                            </div>
+                                            <button type="button" data-repeater-create=""
+                                                    class="pull-right btn btn-sm btn-outline-primary">
+                                                <i class="ft-plus"></i> Add
+                                            </button>
                                         </div>
                                     </div>
-                                </div>
 
-                                <hr>
-
-                                <div>
-                                    <div class="form-group row mb-0">
-                                        <div class="col-md-12 text-center">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{ route('hostels.index') }}" class="btn btn-warning">Cancel</a>
-                                        </div>
+                                    <div class="form-actions text-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="la la-check-square-o"></i> Save
+                                        </button>
+                                        <a class="btn btn-warning mr-1" role="button" href="#">
+                                            <i class="ft-x"></i> Cancel
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -148,7 +141,7 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(() => {
-            $('.repeater-room-types').repeater({
+            $('.repeater-rooms').repeater({
                 show: function () {
                     $('div:hidden[data-repeater-item]')
                         .find('input.is-invalid')
