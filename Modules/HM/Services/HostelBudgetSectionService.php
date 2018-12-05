@@ -10,6 +10,7 @@ namespace Modules\HM\Services;
 
 
 use App\Traits\CrudTrait;
+use Illuminate\Http\Response;
 use Modules\HM\Repositories\HostelBudgetSectionRepository;
 
 class HostelBudgetSectionService {
@@ -20,6 +21,15 @@ class HostelBudgetSectionService {
 		$this->hostelBudgetSectionRepository = $hostelBudgetSectionRepository;
 		$this->setActionRepository( $this->hostelBudgetSectionRepository );
 
+	}
+
+	public function storeHostelBudgetSection( $data = [] ) {
+		$status = $this->save( $data );
+		if ( $status ) {
+			return New Response( 'Section added successfully' );
+		} else {
+			return New Response( 'Section not saved! Something going wrong !' );
+		}
 	}
 
 }
