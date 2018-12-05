@@ -159,6 +159,13 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item {{ is_active_route('check-in.index') }}">
+                <a href="{{ route('check-in.index') }}">
+                    <i class="la la-book"></i>
+                    <span class="menu-title"
+                          data-i18n="nav.templates.main">Check-in</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
