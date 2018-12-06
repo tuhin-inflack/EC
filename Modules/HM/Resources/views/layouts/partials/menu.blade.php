@@ -85,19 +85,13 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#">
+            <li class="{{ is_active_route('room-types*') }}">
+                <a href="{{ route('room-types.index') }}">
                     <i class="la la-hotel"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">Room Type</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('room-types.create') }}"><a href="{{ route('room-types.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
-                    </li>
-                </ul>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::roomtype.menu_title')}}</span>
+                </a>
             </li>
+
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-book"></i>
