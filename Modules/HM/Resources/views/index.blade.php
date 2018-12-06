@@ -54,7 +54,7 @@
                                         <th><h2>15</h2></th>
                                         <th><h2>10</h2></th>
                                         <th>
-                                            <a href="javascript:;" class="btn btn-info">Details</a>
+                                            <a href="{{ route('hostels.detail') }}" class="btn btn-info">Details</a>
                                         </th>
                                     </tr>
                                     <tr>
@@ -73,7 +73,7 @@
                                         <th><h2>41</h2></th>
                                         <th><h2>26</h2></th>
                                         <th>
-                                            <a href="javascript:;" class="btn btn-info">Details</a>
+                                            <a href="{{ route('hostels.detail') }}" class="btn btn-info">Details</a>
                                         </th>
                                     </tr>
                                     </tbody>

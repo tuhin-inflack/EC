@@ -72,7 +72,7 @@
                                             <td>{{ $room->shortcode }}</td>
                                             <td>{{ $room->roomType->name }}</td>
                                             <td>{{ $room->level }}</td>
-                                            <td>{{ $room->inventories->count() }}</td>
+                                            <td>{{ $room->inventories }}</td> {{-- $room->inventories->count() --}}}
                                         </tr>
                                     @endforeach
                                     </tbody>
