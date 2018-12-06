@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('title', 'User list')
+@extends('hm::layouts.master')
+@section('title', 'Room type list')
 
 @section('content')
     <section id="user-list">
