@@ -16,4 +16,5 @@ return [
     'save_success' => 'Item has been saved successfully',
     'update_success' => 'Item has been updated successfully',
     'delete_success' => 'Item has been deleted successfully',
+    'confirm_delete' => 'Confirm delete?'
 ];
