@@ -88,10 +88,10 @@
                     </li>
                 </ul>
             </li>
-            <li class="{{ is_active_route('room-types.index') }}">
+            <li class="{{ is_active_route('room-types*') }}">
                 <a href="{{ route('room-types.index') }}">
                     <i class="la la-hotel"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">Room Type</span>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::roomtype.menu_title')}}</span>
                 </a>
             </li>
 
