@@ -24,429 +24,392 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form action="#" class="number-tab-steps wizard-circle">
-                                            <!-- Step 1 -->
-                                            <h6>Step 1</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Booking
-                                                    Details</h4>
+                                    {!! Form::open(['route' =>  'bookings.create', 'class' => 'number-tab-steps wizard-circle']) !!}
+                                    <!-- Step 1 -->
+                                    {{--<h6>Step 1</h6>
+                                    <fieldset>
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Booking
+                                            Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="" class="required">Start Date</label>
+                                                    {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control', 'placeholder' => 'Pick start date']) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="" class="required">End Date</label>
+                                                    {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control', 'placeholder' => 'Pick end date']) }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="">Booking Date</label>
+                                                    <input type="text" class="form-control"
+                                                           value="{{ date('d-m-Y') }}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="">Booking Type</label>
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="" class="required">Start Date</label>
-                                                            <input id="start_date" type="text" class="form-control" placeholder="Pick start date">
+                                                    <div class="col-md-6">
+                                                        <div class="skin skin-flat">
+                                                            <fieldset>
+                                                                {!! Form::radio('booking_type', 'general') !!}
+                                                                <label for="">General Purpose</label>
+                                                            </fieldset>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="" class="required">End Date</label>
-                                                            <input id="end_date" type="text" class="form-control" placeholder="Pick end date">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="">Booking Date</label>
-                                                            <input type="text" class="form-control"
-                                                                   value="{{ date('d-m-Y') }}" disabled>
+                                                    <div class="col-md-6">
+                                                        <div class="skin skin-flat">
+                                                            <fieldset>
+                                                                {!! Form::radio('booking_type', 'training') !!}
+                                                                <label for="">Training</label>
+                                                            </fieldset>
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
 
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Room
+                                            Details</h4>
+                                        <div class="repeater-room-types">
+                                            <div data-repeater-list="rooms">
+                                                <div data-repeater-item="" style="">
+                                                    <div class="form row">
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <label>Room Type <span
+                                                                        class="danger">*</span></label>
+                                                            <br>
+                                                            {!! Form::select('room_type', ['' => '', '1' => 'Room Type 1', '2' => 'Room Type 2'], null, ['class' => 'form-control room-type-select']) !!}
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-5">
+                                                            <label>Quantity <span
+                                                                        class="danger">*</span></label>
+                                                            <br>
+                                                            {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                                        </div>
+                                                        <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                    data-repeater-delete=""><i
+                                                                        class="ft-x"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <hr>
+                                                </div>
+                                            </div>
+                                            <div class="form-group overflow-auto">
+                                                <div class="col-12">
+                                                    <button type="button" data-repeater-create=""
+                                                            class="pull-right btn btn-sm btn-outline-primary">
+                                                        <i class="ft-plus"></i> Add
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>--}}
+                                    <!-- Step 2 -->
+                                    {{--<h6>Step 2</h6>
+                                    <fieldset>
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Personal
+                                            Information</h4>
+                                        <div class="row">
+                                            <!-- Start of .col-md-6 -->
+                                            <div class="col-md-6">
                                                 <div class="row">
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Booking Type</label>
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Name <span class="danger">*</span></label>
+                                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Email</label>
+                                                        {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'john@example.com']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">NID</label>
+                                                        {!! Form::text('nid', null, ['class' => 'form-control', 'placeholder' => '10 digit number']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End of .col-md-6 -->
+                                            <!-- Start of .col-md-6 -->
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Gender <span
+                                                                    class="danger">*</span></label>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-square">
+                                                                    <fieldset>
+                                                                        {!! Form::radio('gender') !!}
+                                                                        <label for="input-radio-11"
+                                                                               class="">Male</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-square">
+                                                                    <fieldset>
+                                                                        {!! Form::radio('gender') !!}
+                                                                        <label for="input-radio-11"
+                                                                               class="">Female</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Contact <span
+                                                                    class="danger">*</span></label>
+                                                        {!! Form::text('contact', null, ['class' => 'form-control', 'placeholder' => '11 digit number']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Passport No</label>
+                                                        {!! Form::text('passport_no', null, ['class' => 'form-control', 'placeholder' => 'passport number']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End of .col-md-6 -->
+                                        </div>
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Occupation
+                                            Detials</h4>
+                                        <div class="row">
+                                            <!-- Start of .col-md-6 -->
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Organization</label>
+                                                        {!! Form::text('organization', null, ['class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Organization Type</label>
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="skin skin-flat">
                                                                     <fieldset>
-                                                                        <input type="checkbox"
-                                                                               id="booking-type">
-                                                                        <label for="">General Purpose</label>
+                                                                        {!! Form::radio('organization_type', 'government') !!}
+                                                                        <label for="">Government</label>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="skin skin-flat">
                                                                     <fieldset>
-                                                                        <input type="checkbox"
-                                                                               id="booking-type">
-                                                                        <label for="">Training</label>
+                                                                        {!! Form::radio('organization_type', 'private') !!}
+                                                                        <label for="">Private</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-flat">
+                                                                    <fieldset>
+                                                                        {!! Form::radio('organization_type', 'foreign') !!}
+                                                                        <label for="">Foreign</label>
+                                                                    </fieldset>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-flat">
+                                                                    <fieldset>
+                                                                        {!! Form::radio('organization_type', 'others') !!}
+                                                                        <label for="">Others</label>
                                                                     </fieldset>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Room
-                                                    Details</h4>
-                                                <div class="repeater-room-types">
-                                                    <div data-repeater-list="rooms">
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form row">
-                                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Room Type <span
+                                            </div>
+                                            <!-- End of .col-md-6 -->
+                                            <!-- Start of .col-md-6 -->
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Designation</label>
+                                                        {!! Form::text('designation', null, ['class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End of .col-md-6 -->
+                                        </div>
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Documents</h4>
+                                        <div class="row">
+                                            <!-- Start of .col-md-6 -->
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Your Photo <span
+                                                                    class="danger">*</span></label>
+                                                        {!! Form::file('photo', ['class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">NID Copy</label>
+                                                        {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-md-12">
+                                                        <label for="">Passport Copy</label>
+                                                        {!! Form::file('passport_doc', ['class' => 'form-control']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- End of .col-md-6 -->
+                                        </div>
+                                    </fieldset>--}}
+                                    <!-- Step 3 -->
+                                        {{--<h6>Step 3</h6>
+                                        <fieldset>
+                                            <h4 class="form-section"><i class="la  la-building-o"></i>Guest
+                                                Information</h4>
+                                            <div class="repeater-guest-information">
+                                                <div data-repeater-list="guests">
+                                                    <div data-repeater-item="" style="">
+                                                        <div class="form">
+                                                            <div class="row">
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>Name <span
                                                                                 class="danger">*</span></label>
                                                                     <br>
-                                                                    <select name="room_type" id=""
-                                                                            class="form-control room-type-select"
-                                                                            required>
-                                                                        <option value=""></option>
-                                                                        <option value="1">Room Type 1</option>
-                                                                        <option value="2">Room Type 2</option>
-                                                                        <option value="3">Room Type 3</option>
-                                                                        <option value="4">Room Type 4</option>
-                                                                    </select>
+                                                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                                 </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                                    <label>Quantity <span
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>Age <span class="danger">*</span></label>
+                                                                    <br>
+                                                                    {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>Gender <span
                                                                                 class="danger">*</span></label>
                                                                     <br>
-                                                                    <input type="number" name="quantity" min="1" id=""
-                                                                           class="form-control" placeholder="e.g 2">
+                                                                    {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>Relation <span
+                                                                                class="danger">*</span></label>
+                                                                    <br>
+                                                                    {!! Form::text('relationship', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>NID Copy <span
+                                                                                class="danger">*</span></label>
+                                                                    <br>
+                                                                    {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label>NID <span class="danger">*</span></label>
+                                                                    <br>
+                                                                    {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                    <label>Address <span
+                                                                                class="danger">*</span></label>
+                                                                    <br>
+                                                                    {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
                                                                 </div>
                                                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                    <button type="button" class="btn btn-outline-danger"
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-danger"
                                                                             data-repeater-delete=""><i
                                                                                 class="ft-x"></i>
                                                                     </button>
                                                                 </div>
                                                             </div>
-                                                            <hr>
                                                         </div>
-                                                    </div>
-                                                    <div class="form-group overflow-auto">
-                                                        <div class="col-12">
-                                                            <button type="button" data-repeater-create=""
-                                                                    class="pull-right btn btn-sm btn-outline-primary">
-                                                                <i class="ft-plus"></i> Add
-                                                            </button>
-                                                        </div>
+                                                        <hr>
                                                     </div>
                                                 </div>
-                                            </fieldset>
-                                            <!-- Step 2 -->
-                                            <h6>Step 2</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Personal
-                                                    Information</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Name <span class="danger">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="John Doe">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Email</label>
-                                                                <input type="email" class="form-control"
-                                                                       placeholder="john@example.com">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">NID</label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="10 digit number">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Gender <span
-                                                                            class="danger">*</span></label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-square">
-                                                                            <fieldset>
-                                                                                <input type="radio"
-                                                                                       name="input-radio-3"
-                                                                                       id="input-radio-11">
-                                                                                <label for="input-radio-11" class="">Male</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-square">
-                                                                            <fieldset>
-                                                                                <input type="radio"
-                                                                                       name="input-radio-3"
-                                                                                       id="input-radio-11">
-                                                                                <label for="input-radio-11" class="">Female</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Contact <span
-                                                                            class="danger">*</span></label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="e.g 0167XXXXXXX">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Passport No</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Occupation
-                                                    Detials</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization</label>
-                                                                <input type="text" class="form-control" id=""
-                                                                       value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization Type</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Government</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Private</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Foreign</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Others</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Designation</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Documents</h4>
-                                                <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Your Photo <span
-                                                                            class="danger">*</span></label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">NID Copy</label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Passport Copy</label>
-                                                                <input type="file" name="" id="" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                            </fieldset>
-                                            <!-- Step 3 -->
-                                            <h6>Step 3</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Guest
-                                                    Information</h4>
-                                                <div class="repeater-guest-information">
-                                                    <div data-repeater-list="guests">
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form">
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Name <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="John Doe">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Age <span class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="number" min="0"
-                                                                               class="form-control" placeholder="27">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Gender <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <select name="gender" id="guest-gender-select"
-                                                                                class="form-control">
-                                                                            <option value=""></option>
-                                                                            <option value="male">Male</option>
-                                                                            <option value="female">Female</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Relation <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="Colleague">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID Copy <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="file" name="" id=""
-                                                                               class="form-control">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID <span class="danger">*</span></label>
-                                                                        <br>
-                                                                        <input type="text" class="form-control"
-                                                                               placeholder="10 digit">
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                        <label>Address <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        <textarea name="" id="" cols="30" rows="5"
-                                                                                  class="form-control"></textarea>
-                                                                    </div>
-                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                        <button type="button"
-                                                                                class="btn btn-outline-danger"
-                                                                                data-repeater-delete=""><i
-                                                                                    class="ft-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group overflow-auto">
-                                                        <div class="col-12">
-                                                            <button type="button" data-repeater-create=""
-                                                                    class="pull-right btn btn-sm btn-outline-primary">
-                                                                <i class="ft-plus"></i> Add
-                                                            </button>
-                                                        </div>
+                                                <div class="form-group overflow-auto">
+                                                    <div class="col-12">
+                                                        <button type="button" data-repeater-create=""
+                                                                class="pull-right btn btn-sm btn-outline-primary">
+                                                            <i class="ft-plus"></i> Add
+                                                        </button>
                                                     </div>
                                                 </div>
+                                            </div>
 
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>BARD
-                                                    Reference</h4>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Department</label>
-                                                            <select name="" id="department-select" class="form-control">
-                                                                <option value=""></option>
-                                                                <option value="1">Dept 1</option>
-                                                                <option value="2">Dept 2</option>
-                                                                <option value="3">Dept 3</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Employee Name</label>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="John Doe">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="row col-md-12">
-                                                            <label for="">Contact</label>
-                                                            <input type="text" class="form-control"
-                                                                   placeholder="11 digits">
-                                                        </div>
+                                            <h4 class="form-section"><i class="la  la-building-o"></i>BARD
+                                                Reference</h4>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <div class="row col-md-12">
+                                                        <label for="">Department</label>
+                                                        {!! Form::select('referee_dept', ['' => '', '1' => 'Dept 1', '2' => 'Dept 2'], null, ['class' => 'form-control', 'id' => 'department-select']) !!}
                                                     </div>
                                                 </div>
-                                            </fieldset>
-                                            <!-- Step 4 -->
-                                            <h6>Step 4</h6>
-                                            <fieldset>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Billing
-                                                    Information</h4>
-                                                <div class="row">
-                                                    <div class="table-responsive">
-                                                        <table class="table table-bordered table-striped">
-                                                            <thead>
-                                                            <tr>
-                                                                <th>Room Type</th>
-                                                                <th>Quantity</th>
-                                                                <th>Duration</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr>
-                                                                <td>AC room</td>
-                                                                <td>2</td>
-                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Non ac room</td>
-                                                                <td>3</td>
-                                                                <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
+                                                <div class="form-group">
+                                                    <div class="row col-md-12">
+                                                        <label for="">Employee Name</label>
+                                                        {!! Form::text('referee_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                     </div>
                                                 </div>
-                                            </fieldset>
-                                        </form>
+                                                <div class="form-group">
+                                                    <div class="row col-md-12">
+                                                        <label for="">Contact</label>
+                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control', 'placeholder' => '11 digits']) !!}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>--}}
+                                        <!-- Step 4 -->
+                                        <h6>Step 4</h6>
+                                        <fieldset>
+                                            <h4 class="form-section"><i class="la  la-building-o"></i>Billing
+                                                Information</h4>
+                                            <div class="row">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped">
+                                                        <thead>
+                                                        <tr>
+                                                            <th>Room Type</th>
+                                                            <th>Quantity</th>
+                                                            <th>Duration</th>
+                                                            <th>Rate</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>AC room</td>
+                                                            <td>2</td>
+                                                            <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
+                                                            <td>{!! Form::select('rate', ['' => '', '1' => 'Rate 1', '2' => 'Rate 2'], null, ['class' => 'form-control rate']) !!}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Non ac room</td>
+                                                            <td>3</td>
+                                                            <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
+                                                            <td>{!! Form::select('rate', ['' => '', '1' => 'Rate 1', '2' => 'Rate 2'], null, ['class' => 'form-control rate']) !!}</td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
@@ -512,6 +475,9 @@
             });
             $('.room-type-select').select2({
                 placeholder: 'Select Room Type'
+            });
+            $('.rate').select2({
+                placeholder: 'Select rate'
             });
         });
     </script>
