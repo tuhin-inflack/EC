@@ -51,7 +51,7 @@ class RoomTypeController extends Controller
     public function store(CreateRoomTypeRequest $request)
     {
         $this->roomTypeService->save($request->all());
-        Session::flash('message', 'Room type stored successfully!');
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('room-types.index');
     }
@@ -84,7 +84,7 @@ class RoomTypeController extends Controller
     public function update(UpdateRoomTypeRequest $request, RoomType $roomType)
     {
         $this->roomTypeService->update($roomType, $request->all());
-        Session::flash('message', 'Room type updated successfully!');
+        Session::flash('success', trans('labels.update_success'));
 
         return redirect()->route('room-types.index');
     }
@@ -97,7 +97,7 @@ class RoomTypeController extends Controller
     public function destroy(RoomType $roomType)
     {
         $this->roomTypeService->destroy($roomType);
-        Session::flash('message', 'Room type has been deleted successfully!');
+        Session::flash('warning', trans('labels.delete_success'));
         return redirect()->back();
     }
 }

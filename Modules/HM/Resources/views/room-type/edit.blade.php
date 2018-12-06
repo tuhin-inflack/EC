@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Room Type Edit</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::roomtype.edit_card_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -27,11 +27,11 @@
                                 </div>
                             @endif
                             {!! Form::open(['url' => [ '/hm/room-types', $roomType->id], 'method' => 'put', 'files' => true]) !!}
-                            <h4 class="form-section"><i class="la  la-building-o"></i>Room Type Form</h4>
+                            <h4 class="form-section"><i class="la  la-building-o"></i>{{trans('hm::roomtype.edit_form_title')}}</h4>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label required">Name</label>
+                                        <label class="form-label required">{{trans('labels.name')}}</label>
                                         <input type="text"
                                                placeholder="e.g AC Single"
                                                value="{{ $roomType->name}}"
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label required">Capacity</label>
+                                        <label class="form-label required">{{trans('hm::roomtype.capacity')}}</label>
                                         <input type="number"
                                                placeholder="e.g 4"
                                                min="1"
@@ -67,7 +67,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label required">General Rate</label>
+                                        <label class="form-label required">{{trans('hm::roomtype.general_rate')}}</label>
                                         <input type="number"
                                                placeholder="e.g 500"
                                                value="{{ $roomType->general_rate }}"
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Government Rate</label>
+                                        <label class="form-label">{{trans('hm::roomtype.govt_rate')}}</label>
                                         <input type="number"
                                                placeholder="e.g 500"
                                                value="{{ $roomType->govt_rate }}"
@@ -102,7 +102,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">BARD Employee Rate</label>
+                                        <label class="form-label">{{trans('hm::roomtype.bard_emp_rate')}}</label>
                                         <input type="number"
                                                placeholder="e.g 500"
                                                value="{{ $roomType->bard_emp_rate }}"
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">Special Rate</label>
+                                        <label class="form-label">{{trans('hm::roomtype.special_rate')}}</label>
                                         <input type="number"
                                                placeholder="e.g 500"
                                                value="{{ $roomType->special_rate }}"
@@ -136,13 +136,15 @@
 
                             <div class="form-actions text-center">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="la la-check-square-o"></i> Update
+                                    <i class="la la-check-square-o"></i> {{trans('labels.update')}}
                                 </button>
-                                <a class="btn btn-warning mr-1" role="button" href="#">
-                                    <i class="ft-x"></i> Cancel
+                                <a class="btn btn-warning mr-1" role="button" href="{{url(route('room-types.index'))}}">
+                                    <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </a>
                             </div>
                             {!! Form::close() !!}
+                                <h5>{{trans('labels.note')}}</h5>
+                                <p>** {{trans('labels.currency')}} {{trans('labels.bdt')}}</p>
                         </div>
                     </div>
                 </div>

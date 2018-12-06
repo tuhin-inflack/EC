@@ -32,7 +32,7 @@ class RoomTypeService
     public function destroy(RoomType $roomType)
     {
         if ($roomType->rooms()) {
-            throw ValidationException::withMessages(['Cannot deleted room type. Delete the related room first']);
+            throw ValidationException::withMessages([trans('hm::roomtype.delete_vald')]);
         } else {
             $roomType->delete();
         }
