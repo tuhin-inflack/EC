@@ -58,11 +58,13 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('hostel-budgets')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
+        Route::get('/', 'HostelBudgetController@index')->name('hostel-budgets.index');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
     });
 	Route::resources(
 		[
 			'hostel-budget-section'   => 'HostelBudgetSectionController',
+//			'hostel-budget' => 'HostelBudgetController',
 		]
 	);
 
