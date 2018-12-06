@@ -87,6 +87,7 @@ Route::prefix('hm')->group(function () {
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
         Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
+        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
 });
 
