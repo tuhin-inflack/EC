@@ -47,13 +47,51 @@ class HMController extends Controller
     {
     }
 
+
     /**
      * Show the specified resource.
      * @return Response
      */
     public function show()
     {
-        return view('hm::show');
+        $hostel = (object)[
+            'shortcode' => 'BR52451',
+            'name' => 'Hostal Name 1',
+            'level' => '5',
+            'total_room' => '25',
+            'total_seat' => '30',
+            'rooms' => [
+                (object)[
+                    'shortcode' => 'NNAM441',
+                    'roomType' => (object)[
+                        'name' => 'NNAM441'
+                    ],
+                    'level' => 2,
+                    'inventories' => 2
+                ],
+                (object)[
+                    'shortcode' => 'NNAM441',
+                    'roomType' => (object)[
+                        'name' => 'NNAM441'
+                    ],
+                    'level' => 2,
+                    'inventories' => 2
+                ]
+            ],
+            'roomTypes' => [
+                (object)[
+                    'name' => 'AC',
+                    'capacity' => 2,
+                    'rate' => 510,
+                ],
+                (object)[
+                    'name' => 'AC',
+                    'capacity' => 2,
+                    'rate' => 510,
+                ]
+            ]
+        ];
+        return view('hm::hostel.show', compact('hostel'));
     }
 
     /**
