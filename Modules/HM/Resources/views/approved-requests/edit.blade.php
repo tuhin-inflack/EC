@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking create')
+@section('title', 'Approved Booking Request')
 
 @section('content')
     <div class="container">
@@ -11,8 +11,9 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Form wizard with number tabs</h4>
-                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                                    <h4 class="card-title">Approved Booking Request Details</h4>
+                                    <a class="heading-elements-toggle"><i
+                                                class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -30,144 +31,53 @@
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Booking
                                                     Details</h4>
                                                 <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Booking Date</label>
-                                                                <input type="text" class="form-control" id=""
-                                                                       value="{{ date('d-m-Y') }}" disabled="">
-                                                            </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="" class="required">Start Date</label>
+                                                            <input id="start_date" type="text" class="form-control" placeholder="Pick start date">
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Booking Type</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="booking-type">
-                                                                                <label for="">General Purpose</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox" id="booking-type">
-                                                                                <label for="">Training</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="" class="required">End Date</label>
+                                                            <input id="end_date" type="text" class="form-control" placeholder="Pick end date">
                                                         </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="">Booking Date</label>
+                                                            <input type="text" class="form-control"
+                                                                   value="{{ date('d-m-Y') }}" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Duration of stay</label>
-                                                                <div class='input-group'>
-                                                                    <input type='text' class="form-control datetime"
-                                                                           id="check-in-out"/>
-                                                                    <span class="input-group-addon">
-                                                            <span class="ft-calendar"></span>
-                                                        </span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Number of rooms</label>
-                                                                <select name="" id="no-of-rooms-select"
-                                                                        class="form-control">
-                                                                    <option value=""></option>
-                                                                    <option value="1">1</option>
-                                                                    <option value="2">2</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
-                                                </div>
-                                                <h4 class="form-section"><i class="la  la-building-o"></i>Occupation
-                                                    Detials</h4>
                                                 <div class="row">
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
+                                                    <div class="form-group col-md-6">
+                                                        <label for="">Booking Type</label>
                                                         <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization</label>
-                                                                <input type="text" class="form-control" id=""
-                                                                       value="">
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Organization Type</label>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Government</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Private</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-flat">
+                                                                    <fieldset>
+                                                                        <input type="checkbox"
+                                                                               id="booking-type">
+                                                                        <label for="">General Purpose</label>
+                                                                    </fieldset>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Foreign</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="skin skin-flat">
-                                                                            <fieldset>
-                                                                                <input type="checkbox"
-                                                                                       id="organization-type">
-                                                                                <label for="">Others</label>
-                                                                            </fieldset>
-                                                                        </div>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="skin skin-flat">
+                                                                    <fieldset>
+                                                                        <input type="checkbox"
+                                                                               id="booking-type">
+                                                                        <label for="">Training</label>
+                                                                    </fieldset>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <!-- End of .col-md-6 -->
-                                                    <!-- Start of .col-md-6 -->
-                                                    <div class="col-md-6">
-                                                        <div class="row">
-                                                            <div class="form-group col-md-12">
-                                                                <label for="">Designation</label>
-                                                                <input type="text" class="form-control">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End of .col-md-6 -->
                                                 </div>
-                                            </fieldset>
-                                            <!-- Step 2 -->
-                                            <h6>Step 2</h6>
-                                            <fieldset>
+
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Room
                                                     Details</h4>
                                                 <div class="repeater-room-types">
@@ -215,8 +125,8 @@
                                                     </div>
                                                 </div>
                                             </fieldset>
-                                            <!-- Step 3 -->
-                                            <h6>Step 3</h6>
+                                            <!-- Step 2 -->
+                                            <h6>Step 2</h6>
                                             <fieldset>
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Personal
                                                     Information</h4>
@@ -293,6 +203,76 @@
                                                     </div>
                                                     <!-- End of .col-md-6 -->
                                                 </div>
+                                                <h4 class="form-section"><i class="la  la-building-o"></i>Occupation
+                                                    Detials</h4>
+                                                <div class="row">
+                                                    <!-- Start of .col-md-6 -->
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Organization</label>
+                                                                <input type="text" class="form-control" id=""
+                                                                       value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Organization Type</label>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="skin skin-flat">
+                                                                            <fieldset>
+                                                                                <input type="checkbox"
+                                                                                       id="organization-type">
+                                                                                <label for="">Government</label>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="skin skin-flat">
+                                                                            <fieldset>
+                                                                                <input type="checkbox"
+                                                                                       id="organization-type">
+                                                                                <label for="">Private</label>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="skin skin-flat">
+                                                                            <fieldset>
+                                                                                <input type="checkbox"
+                                                                                       id="organization-type">
+                                                                                <label for="">Foreign</label>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="skin skin-flat">
+                                                                            <fieldset>
+                                                                                <input type="checkbox"
+                                                                                       id="organization-type">
+                                                                                <label for="">Others</label>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End of .col-md-6 -->
+                                                    <!-- Start of .col-md-6 -->
+                                                    <div class="col-md-6">
+                                                        <div class="row">
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Designation</label>
+                                                                <input type="text" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- End of .col-md-6 -->
+                                                </div>
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Documents</h4>
                                                 <div class="row">
                                                     <!-- Start of .col-md-6 -->
@@ -320,8 +300,8 @@
                                                     <!-- End of .col-md-6 -->
                                                 </div>
                                             </fieldset>
-                                            <!-- Step 4 -->
-                                            <h6>Step 4</h6>
+                                            <!-- Step 3 -->
+                                            <h6>Step 3</h6>
                                             <fieldset>
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Guest
                                                     Information</h4>
@@ -347,7 +327,7 @@
                                                                         <label>Gender <span
                                                                                     class="danger">*</span></label>
                                                                         <br>
-                                                                        <select name="gender" id=""
+                                                                        <select name="gender" id="guest-gender-select"
                                                                                 class="form-control">
                                                                             <option value=""></option>
                                                                             <option value="male">Male</option>
@@ -435,8 +415,8 @@
                                                     </div>
                                                 </div>
                                             </fieldset>
-                                            <!-- Step 5 -->
-                                            <h6>Step 5</h6>
+                                            <!-- Step 4 -->
+                                            <h6>Step 4</h6>
                                             <fieldset>
                                                 <h4 class="form-section"><i class="la  la-building-o"></i>Billing
                                                     Information</h4>
@@ -482,16 +462,20 @@
 @push('page-css')
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/wizard.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
@@ -501,14 +485,24 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            $('#check-in-out').daterangepicker();
-            $('#no-of-rooms-select').select2();
-            $('.repeater-guest-information').repeater();
+            $('#start_date, #end_date').pickadate();
+            $('#guest-gender-select').select2({
+                placeholder: 'Select Gender'
+            });
+            $('.repeater-guest-information').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+                        placeholder: 'Select Gender'
+                    });
+                    $(this).slideDown();
+                }
+            });
             $('.repeater-room-types').repeater({
                 show: function () {
                     $(this).find('.select2-container').remove();
                     $(this).find('select').select2({
-                        placeholder: 'Select item'
+                        placeholder: 'Select room type'
                     });
                     $(this).slideDown();
                 }
