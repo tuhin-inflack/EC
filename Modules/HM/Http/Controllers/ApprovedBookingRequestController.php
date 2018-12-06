@@ -50,8 +50,7 @@ class ApprovedBookingRequestController extends Controller
      */
     public function edit()
     {
-        return "good to go!";
-        return view('hm::edit');
+        return view('hm::approved-requests.edit');
     }
 
     /**
