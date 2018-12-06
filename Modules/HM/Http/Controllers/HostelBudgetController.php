@@ -5,69 +5,71 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Services\HostelBudgetTitleService;
 
-class HostelBudgetController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
-    {
-        return view('hm::index');
-    }
+class HostelBudgetController extends Controller {
+	private $hostelBudgetTitleService;
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('hm::hostel-budget.create');
-    }
+	public function __construct( HostelBudgetTitleService $hostelBudgetTitleService ) {
+		$this->hostelBudgetTitleService = $hostelBudgetTitleService;
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-        return redirect()->back();
-    }
+	public function index() {
+		$budgets = [];
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('hm::show');
-    }
+		return view( 'hm::hostel-budget.index', compact( 'budgets' ) );
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('hm::edit');
-    }
+	}
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
+	public function create() {
+		$budgetTitles = $this->hostelBudgetTitleService->getHostelBudgetTitles();
+
+		return view( 'hm::hostel-budget.create', compact('budgetTitles') );
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  Request $request
+	 *
+	 * @return Response
+	 */
+	public function store( Request $request ) {
+		dd($request->all());
+		return redirect()->back();
+	}
+
+	/**
+	 * Show the specified resource.
+	 * @return Response
+	 */
+	public function show() {
+		return view( 'hm::show' );
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 * @return Response
+	 */
+	public function edit() {
+		return view( 'hm::edit' );
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  Request $request
+	 *
+	 * @return Response
+	 */
+	public function update( Request $request ) {
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 * @return Response
+	 */
+	public function destroy() {
+	}
 }
