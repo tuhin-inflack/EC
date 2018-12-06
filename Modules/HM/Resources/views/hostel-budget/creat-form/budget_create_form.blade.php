@@ -5,7 +5,7 @@
         <div class="col-md-5">
             <div class="form-group">
                 <div class="form-group {{ $errors->has('hostel_budget_title_id') ? ' error' : '' }}">
-                    {{ Form::label('hostel_budget_title_id', 'Department Name') }}
+                    {{ Form::label('hostel_budget_title_id', 'Title') }}
                     {{ Form::select('hostel_budget_title_id', $budgetTitles, null, ['class' => 'form-control', 'placeholder' => 'Select Budget Title', 'required' => 'required', 'data-validation-required-message'=>'Please select budget title']) }}
                     <div class="help-block"></div>
                     @if ($errors->has('hostel_budget_title_id'))
