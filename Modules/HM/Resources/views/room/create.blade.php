@@ -1,4 +1,5 @@
 @extends('hm::layouts.master')
+@section('title', 'Room Create')
 
 @section('content')
     <div class="container">
