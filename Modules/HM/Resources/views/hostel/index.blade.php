@@ -25,11 +25,8 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">SL</th>
-                                    <th scope="col">Short code</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Level</th>
-                                    <th scope="col">Total room</th>
-                                    <th scope="col">Total seat</th>
+                                    <th scope="col">Total Floor</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -37,11 +34,8 @@
                                 @foreach($hostels as $hostel)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $hostel->shortcode }}</td>
                                         <td>{{ $hostel->name }}</td>
-                                        <td>{{ $hostel->level }}</td>
-                                        <td>{{ $hostel->total_room }}</td>
-                                        <td>{{ $hostel->total_seat }}</td>
+                                        <td>{{ $hostel->total_floor }}</td>
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -52,8 +46,8 @@
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('hostels.show', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                <a href="{{ route('hostel-rooms.create', $hostel->id) }}"
-                                                   class="dropdown-item"><i class="ft-plus"></i> Add room</a>
+                                                {{--<a href="{{ route('hostel-rooms.create', $hostel->id) }}"--}}
+                                                   {{--class="dropdown-item"><i class="ft-plus"></i> Add room</a>--}}
                                                 <a href="{{ route('hostels.edit', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostel Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.card_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -18,27 +18,23 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @if($errors->has('room_types'))
+                            @if($errors->has('hostels'))
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    {{ $errors->first('room_types') }}
+                                    {{ $errors->first('hostels') }}
                                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                             @endif
-                            <form action="{{ route('hostels.store') }}" method="post">
-                                <h4 class="form-section"><i class="la  la-building-o"></i>Hostel Form</h4>
-                                @csrf
+                            {!! Form::open(['route' =>  'hostels.store', 'class' => 'form']) !!}
+                                <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::hostel.create_button')</h4>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Name <span class="danger">*</span></label>
-                                            <input type="text"
-                                                   value="{{ old('name') }}"
-                                                   class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                   placeholder="e.g Hostel 1"
-                                                   name="name" autofocus required/>
-
+                                        <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
+                                            {!! Form::label('name',  __('labels.name'), ['class' => 'form-label required']) !!}
+                                            {!! Form::text('name', old('name'), ["class" => "form-control","autofocus" => "autofocus", "required",
+                                             "placeholder" => "e.g Hostel 1", 'data-validation-required-message'=>'Please enter name']) !!}
+                                            <div class="help-block"></div>
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('name') }}</strong>
@@ -48,7 +44,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">Total Floor <span class="danger">*</span></label>
+                                            {!! Form::label('total_floor',  __('hm::hostel.total_floor'), ['class' => 'form-label required']) !!}
                                             <input type="number"
                                                    min="1"
                                                    value="{{ old('total_floor') }}"
@@ -126,7 +122,7 @@
                                         </a>
                                     </div>
                                 </div>
-                            </form>
+                                {!! Form::close() !!}
                         </div>
                     </div>
                 </div>

@@ -2,7 +2,6 @@
 
 namespace Modules\HM\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
@@ -30,7 +29,7 @@ class RoomTypeController extends Controller
      */
     public function index()
     {
-        $roomTypes = $this->roomTypeService->getAll();
+        $roomTypes = $this->roomTypeService->findAll();
 
         return view('hm::room-type.index', compact('roomTypes'));
     }
@@ -51,8 +50,8 @@ class RoomTypeController extends Controller
      */
     public function store(CreateRoomTypeRequest $request)
     {
-        $this->roomTypeService->store($request->all());
-        Session::flash('message', 'Room Type stored successfully!');
+        $this->roomTypeService->save($request->all());
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('room-types.index');
     }
@@ -85,7 +84,7 @@ class RoomTypeController extends Controller
     public function update(UpdateRoomTypeRequest $request, RoomType $roomType)
     {
         $this->roomTypeService->update($roomType, $request->all());
-        Session::flash('message', 'Room Type updated successfully!');
+        Session::flash('success', trans('labels.update_success'));
 
         return redirect()->route('room-types.index');
     }
@@ -97,9 +96,8 @@ class RoomTypeController extends Controller
      */
     public function destroy(RoomType $roomType)
     {
-        $this->roomTypeService->delete($roomType);
-        Session::flash('message', 'Room Type deleted successfully!');
-
+        $this->roomTypeService->destroy($roomType);
+        Session::flash('warning', trans('labels.delete_success'));
         return redirect()->back();
     }
 }

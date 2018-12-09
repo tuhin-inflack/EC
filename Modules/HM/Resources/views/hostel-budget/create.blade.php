@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-
+@section('title', 'Add Hostel Budget')
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -18,54 +18,10 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('hostel-budgets.store') }}" method="post">
-                                <h4 class="form-section"><i class="la  la-building-o"></i>Hostel Budget Form</h4>
-                                @csrf
-                                <div class="repeater-default">
-                                    <div data-repeater-list="hostel_budgets">
-                                        <div data-repeater-item="" style="">
-                                            <div class="form row">
-                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <label>Section <span class="danger">*</span></label>
-                                                    <br>
-                                                    <input type="text" name="section" class="form-control"
-                                                           placeholder="e.g Furniture" required>
-                                                </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-5">
-                                                    <label>Amount <span class="danger">*</span></label>
-                                                    <br>
-                                                    <input type="number" name="amount" min="1" id=""
-                                                           class="form-control" placeholder="e.g 10" required>
-                                                </div>
-                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                    <button type="button" class="btn btn-outline-danger"
-                                                            data-repeater-delete=""><i
-                                                                class="ft-x"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                        </div>
-                                    </div>
-                                    <div class="form-group overflow-auto">
-                                        <div class="col-12">
-                                            <button type="button" data-repeater-create=""
-                                                    class="pull-right btn btn-sm btn-outline-primary">
-                                                <i class="ft-plus"></i> Add
-                                            </button>
-                                        </div>
-                                    </div>
+                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form',' novalidate']) !!}
+                            @include('hm::hostel-budget.creat-form.budget_create_form')
+                            {!! Form::close() !!}
 
-                                    <div class="form-actions text-center">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="la la-check-square-o"></i> Save
-                                        </button>
-                                        <a class="btn btn-warning mr-1" role="button" href="#">
-                                            <i class="ft-x"></i> Cancel
-                                        </a>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
