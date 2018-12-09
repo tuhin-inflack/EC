@@ -58,11 +58,13 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('hostel-budgets')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
+        Route::get('/', 'HostelBudgetController@index')->name('hostel-budgets.index');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
     });
 	Route::resources(
 		[
 			'hostel-budget-section'   => 'HostelBudgetSectionController',
+//			'hostel-budget' => 'HostelBudgetController',
 		]
 	);
 
@@ -87,6 +89,12 @@ Route::prefix('hm')->group(function () {
     Route::prefix('booking-requests')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('show/{id}', 'BookingRequestController@show')->name('booking-requests.show');
+    });
+
+    Route::prefix('check-in')->group(function (){
+        Route::get('/','CheckinController@index')->name('check-in.index');
+        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
+        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
 });
 

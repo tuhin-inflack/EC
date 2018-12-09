@@ -4,6 +4,7 @@ namespace Modules\HM\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class HMDatabaseSeeder extends Seeder
 {
@@ -17,5 +18,6 @@ class HMDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+//	    $this->call(HostelBudgetTitleTableSeeder::class);
     }
 }
