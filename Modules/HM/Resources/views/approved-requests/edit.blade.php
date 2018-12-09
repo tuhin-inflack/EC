@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking create')
+@section('title', 'Approved Booking Request')
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Form wizard with number tabs</h4>
+                                    <h4 class="card-title">Approved Booking Request Details</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
