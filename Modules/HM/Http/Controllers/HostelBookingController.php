@@ -5,9 +5,24 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Services\RoomTypeService;
 
 class HostelBookingController extends Controller
 {
+    /**
+     * @var RoomTypeService
+     */
+    private $roomTypeService;
+
+    /**
+     * HostelBookingController constructor.
+     * @param RoomTypeService $roomTypeService
+     */
+    public function __construct(RoomTypeService $roomTypeService)
+    {
+        $this->roomTypeService = $roomTypeService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -23,7 +38,9 @@ class HostelBookingController extends Controller
      */
     public function create()
     {
-        return view('hm::booking.create');
+        $roomTypes = $this->roomTypeService->findAll();
+
+        return view('hm::booking.create', compact('roomTypes'));
     }
 
     /**
@@ -33,6 +50,7 @@ class HostelBookingController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
     }
 
     /**
