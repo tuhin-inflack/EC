@@ -34,7 +34,6 @@
                                         <th>Total Rooms</th>
                                         <th>Booked Rooms</th>
                                         <th>Available Rooms</th>
-                                        <th>Hostel Details</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +44,10 @@
                                                     <i class="la la-building warning font-large-2"></i>
                                                 </div>
                                                 <div class="col-10">
-                                                    <h1 class="">HOSTEL NAME</h1>
+                                                    <h1 class="">
+                                                        <a href="{{ route('hostels.detail') }}"
+                                                               class="text-capitalize">HOSTEL NAME</a>
+                                                    </h1>
                                                     <span>number of floors 5</span>
                                                 </div>
                                             </div>
@@ -53,9 +55,6 @@
                                         <th><h2>25</h2></th>
                                         <th><h2>15</h2></th>
                                         <th><h2>10</h2></th>
-                                        <th>
-                                            <a href="{{ route('hostels.detail') }}" class="btn btn-info">Details</a>
-                                        </th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -64,7 +63,10 @@
                                                     <i class="la la-building warning font-large-2"></i>
                                                 </div>
                                                 <div class="col-10">
-                                                    <h1 class="">HOSTEL NAME</h1>
+                                                    <h1 class="">
+                                                        <a href="{{ route('hostels.detail') }}"
+                                                           class="text-capitalize">HOSTEL NAME</a>
+                                                    </h1>
                                                     <span>number of floors 6</span>
                                                 </div>
                                             </div>
@@ -72,9 +74,6 @@
                                         <th><h2>67</h2></th>
                                         <th><h2>41</h2></th>
                                         <th><h2>26</h2></th>
-                                        <th>
-                                            <a href="{{ route('hostels.detail') }}" class="btn btn-info">Details</a>
-                                        </th>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -67,7 +67,16 @@ class RoomController extends Controller
      */
     public function show()
     {
-        return view('hm::show');
+        return view('hm::room.show');
+    }
+
+    /**
+     * Show the specified resource.
+     * @return Response
+     */
+    public function history()
+    {
+        return view('hm::room.history');
     }
 
     /**
