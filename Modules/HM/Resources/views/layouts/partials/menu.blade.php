@@ -7,15 +7,19 @@
                     <span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
             </li>
             <li class="nav-item">
-                <a href="#">
-                    <i class="la la-money"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">Hostel Budget</span></a>
+                <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Hostel Budget</span></a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('hostel-budgets.create') }}"><a href="{{ route('hostel-budgets.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
+                    <li class="{{ is_active_match('hm/hostel-budget') }}">
+                        <a href="{{ url('hm/hostel-budget') }}">
+                            <i class="la la-hotel"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">Budget</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_url('hm/hostel-budget-section')}}">
+                        <a href="{{ url('hm/hostel-budget-section') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">Sections</span>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -45,24 +49,12 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-building"></i>
+            <li class="{{ is_active_route('hostels.index') }}"><a href="{{ route('hostels.index') }}">
+                    <i class="la la-list"></i>
                     <span class="menu-title"
-                          data-i18n="nav.templates.main">Hostel</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('hostels.index') }}"><a href="{{ route('hostels.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">List</span></a>
-                    </li>
-                    <li class="{{ is_active_route('hostels.create') }}"><a href="{{ route('hostels.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
-                    </li>
-                </ul>
+                          data-i18n="nav.dash.main">{{trans('hm::hostel.menu_title')}}</span></a>
             </li>
+
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-hotel"></i>
@@ -81,19 +73,13 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#">
+            <li class="{{ is_active_route('room-types*') }}">
+                <a href="{{ route('room-types.index') }}">
                     <i class="la la-hotel"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">Room Type</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('room-types.create') }}"><a href="{{ route('room-types.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
-                    </li>
-                </ul>
+                    <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::roomtype.menu_title')}}</span>
+                </a>
             </li>
+
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-book"></i>
@@ -158,6 +144,13 @@
                                   data-i18n="nav.dash.main">List</span></a>
                     </li>
                 </ul>
+            </li>
+            <li class="nav-item {{ is_active_route('check-in.index') }}">
+                <a href="{{ route('check-in.index') }}">
+                    <i class="la la-book"></i>
+                    <span class="menu-title"
+                          data-i18n="nav.templates.main">Check-in</span>
+                </a>
             </li>
         </ul>
     </div>

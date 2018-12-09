@@ -28,7 +28,7 @@ Route::prefix('hm')->group(function () {
     Route::prefix('room-types')->group(function () {
         Route::get('/', 'RoomTypeController@index')->name('room-types.index');
         Route::get('create', 'RoomTypeController@create')->name('room-types.create');
-        Route::post('/', 'RoomTypeController@store')->name('room-types.store');
+        Route::post('create', 'RoomTypeController@store')->name('room-types.store');
         Route::get('{roomType}/edit', 'RoomTypeController@edit')->name('room-types.edit');
         Route::put('{roomType}', 'RoomTypeController@update')->name('room-types.update');
         Route::delete('{roomType}', 'RoomTypeController@destroy')->name('room-types.destroy');
@@ -61,8 +61,15 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('hostel-budgets')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
+        Route::get('/', 'HostelBudgetController@index')->name('hostel-budgets.index');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
     });
+	Route::resources(
+		[
+			'hostel-budget-section'   => 'HostelBudgetSectionController',
+//			'hostel-budget' => 'HostelBudgetController',
+		]
+	);
 
     Route::prefix('annual-purchases')->group(function () {
         Route::get('create', 'AnnualPurchaseController@create')->name('annual-purchases.create');
@@ -85,6 +92,12 @@ Route::prefix('hm')->group(function () {
     Route::prefix('booking-requests')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('show/{id}', 'BookingRequestController@show')->name('booking-requests.show');
+    });
+
+    Route::prefix('check-in')->group(function (){
+        Route::get('/','CheckinController@index')->name('check-in.index');
+        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
+        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
 });
 

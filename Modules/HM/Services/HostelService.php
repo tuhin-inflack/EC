@@ -33,13 +33,13 @@ class HostelService
 
     public function store(array $data)
     {
-        $roomTypesCollection = collect($data['room_types']);
-        $roomTypes = $roomTypesCollection->map(function ($roomType) {
-            return new RoomType($roomType);
-        });
+//        $roomTypesCollection = collect($data['room_types']);
+//        $roomTypes = $roomTypesCollection->map(function ($roomType) {
+//            return new RoomType($roomType);
+//        });
 
         $hostel = $this->hostelRepository->save($data);
-        $hostel->roomTypes()->saveMany($roomTypes);
+//        $hostel->roomTypes()->saveMany($roomTypes);
 
         return $hostel;
     }

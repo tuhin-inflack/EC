@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHostelsTable extends Migration
+class CreateHostelBudgetTitlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateHostelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('hostels', function (Blueprint $table) {
+        Schema::create('hostel_budget_titles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();;
-            $table->integer('total_floor');
+            $table->string('name');
+            $table->year('current_year')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +29,6 @@ class CreateHostelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hostels');
+        Schema::dropIfExists('hostel_budget_titles');
     }
 }

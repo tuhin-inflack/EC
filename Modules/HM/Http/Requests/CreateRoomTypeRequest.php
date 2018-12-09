@@ -15,7 +15,8 @@ class CreateRoomTypeRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:room_types',
-            'capacity' => 'required|numeric|min:1'
+            'capacity' => 'required|numeric|min:1|max:10',
+            'general_rate' => 'required|numeric'
         ];
     }
 

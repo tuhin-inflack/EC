@@ -9,11 +9,14 @@
 namespace Modules\HM\Services;
 
 
+use App\Traits\CrudTrait;
+use Illuminate\Validation\ValidationException;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomTypeRepository;
 
 class RoomTypeService
 {
+    use CrudTrait;
     private $roomTypeRepository;
 
     /**
@@ -23,25 +26,20 @@ class RoomTypeService
     public function __construct(RoomTypeRepository $roomTypeRepository)
     {
         $this->roomTypeRepository = $roomTypeRepository;
+        $this->setActionRepository($this->roomTypeRepository);
     }
 
-    public function getAll()
+    public function destroy(RoomType $roomType)
     {
-        return $this->roomTypeRepository->findAll(3);
+        if ($roomType->rooms()) {
+            throw ValidationException::withMessages([trans('hm::roomtype.delete_vald')]);
+        } else {
+            $roomType->delete();
+        }
     }
 
-    public function store(array $data)
+    public function pluck()
     {
-        return $this->roomTypeRepository->save($data);
-    }
-
-    public function update(RoomType $roomType, array $data)
-    {
-        return $this->roomTypeRepository->update($roomType, $data);
-    }
-
-    public function delete(RoomType $roomType)
-    {
-        return $this->roomTypeRepository->delete($roomType);
+        return $this->roomTypeRepository->pluck();
     }
 }

@@ -15,4 +15,9 @@ use Modules\HM\Entities\RoomType;
 class RoomTypeRepository extends AbstractBaseRepository
 {
     protected $modelName = RoomType::class;
+
+    public function pluck()
+    {
+        return RoomType::pluck('name', 'id');
+    }
 }
