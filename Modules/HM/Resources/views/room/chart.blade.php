@@ -20,19 +20,43 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-md-6">
+                                    <i class="la la-building"></i> <span class="font-size-large">Hostal Name</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="pull-right">
+                                    <i class="la la-square text-warning"></i> Booked: 15
+                                    <i class="la la-square-o"></i> Available: 10
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-md-12">
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
-                                                <th>Level</th>
-                                                <th>Room Numbers</th>
+                                                <th width="15%">Levels</th>
+                                                <th colspan="42">Room Numbers</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        @for($level = 5; $level > 0 ; $level--)
                                             <tr>
-                                                <td></td>
-                                                <td></td>
+                                                <td>Level {{$level}}</td>
+                                                @for($room = 1; $room <= 5 ; $room++ )
+                                                    <td
+                                                        @if($level*$room%4)
+                                                        class="bg-warning"
+                                                        @endif
+                                                    >
+                                                        <h5>{{$level}}{{$room}}</h5>
+                                                        @if($level%$room)
+                                                            <span>AC</span>
+                                                        @endif
+                                                    </td>
+                                                @endfor
                                             </tr>
+                                        @endfor
                                         </tbody>
                                     </table>
                                 </div>
