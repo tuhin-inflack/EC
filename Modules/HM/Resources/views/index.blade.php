@@ -3,7 +3,7 @@
 
 @section('content')
     <h1>
-        Dashboard
+        {{trans('labels.dashboard')}}
         <span class="font-size-base">
             Module: {!! config('hm.name') !!}
         </span>
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostels</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::hostel.menu_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -30,10 +30,10 @@
                                 <table class="table table-bordered text-center">
                                     <thead>
                                     <tr>
-                                        <th>Hostal</th>
-                                        <th>Total Rooms</th>
-                                        <th>Booked Rooms</th>
-                                        <th>Available Rooms</th>
+                                        <th>{{trans('hm::hostel.menu_title')}}</th>
+                                        <th>{{trans('hm::hostel.total_rooms')}}</th>
+                                        <th>{{trans('hm::hostel.booked_rooms')}}</th>
+                                        <th>{{trans('hm::hostel.available_rooms')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>

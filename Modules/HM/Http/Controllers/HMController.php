@@ -94,29 +94,14 @@ class HMController extends Controller
         return view('hm::hostel.show', compact('hostel'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('hm::edit');
-    }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
+     * Show the specified resource.
      * @return Response
      */
-    public function update(Request $request)
+    public function roomsChart()
     {
+        return view('hm::room.chart');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
 }
