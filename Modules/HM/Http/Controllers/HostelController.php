@@ -67,7 +67,8 @@ class HostelController extends Controller
      */
     public function show(Hostel $hostel)
     {
-        return view('hm::hostel.show', compact('hostel'));
+        $rooms = $this->hostelService->groupHostelRoomsByType($hostel->rooms);
+        return view('hm::hostel.show', compact('hostel', 'rooms'));
     }
 
     /**
