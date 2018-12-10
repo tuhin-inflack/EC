@@ -3,7 +3,7 @@
 
 @section('content')
     <h1>
-        Dashboard
+        {{trans('labels.dashboard')}}
         <span class="font-size-base">
             Module: {!! config('accounts.name') !!}, Accounting parts line Chart of Account & Auto Voucher
         </span>
