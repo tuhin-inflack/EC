@@ -16,14 +16,17 @@ use Modules\HM\Repositories\HostelRepository;
 class HostelService
 {
     private $hostelRepository;
+    private $roomService;
 
     /**
      * HostelService constructor.
      * @param HostelRepository $hostelRepository
+     * @param RoomService $roomService
      */
-    public function __construct(HostelRepository $hostelRepository)
+    public function __construct(HostelRepository $hostelRepository, RoomService $roomService)
     {
         $this->hostelRepository = $hostelRepository;
+        $this->roomService = $roomService;
     }
 
     public function getAll()
@@ -33,15 +36,12 @@ class HostelService
 
     public function store(array $data)
     {
-//        $roomTypesCollection = collect($data['room_types']);
-//        $roomTypes = $roomTypesCollection->map(function ($roomType) {
-//            return new RoomType($roomType);
-//        });
 
-        $hostel = $this->hostelRepository->save($data);
-//        $hostel->roomTypes()->saveMany($roomTypes);
-
-        return $hostel;
+        if (isset($data['rooms']) && !empty($data['rooms'])) {
+            $rooms = $this->roomService->getRoomsFromRoomEntry($data['rooms']);
+            $hostel = $this->hostelRepository->save($data);
+            $hostel->rooms()->saveMany($rooms);
+        }
     }
 
     public function update(Hostel $hostel, array $data)
@@ -59,5 +59,19 @@ class HostelService
     public function delete(Hostel $hostel)
     {
         return $this->hostelRepository->delete($hostel);
+    }
+
+    public function groupHostelRoomsByType($rooms)
+    {
+        $roomList = [];
+        foreach ($rooms as $room) {
+            if (!array_key_exists($room->roomType->name, $roomList)) {
+                $roomList[$room->roomType->name] = [$room];
+            } else {
+               array_push($roomList[$room->roomType->name], $room);
+            }
+        }
+
+        return $roomList;
     }
 }
