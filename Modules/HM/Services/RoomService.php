@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomInventory;
+use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomRepository;
 
 class RoomService
@@ -61,5 +62,47 @@ class RoomService
     {
         $room->inventories()->delete();
         return $this->roomRepository->delete($room);
+    }
+
+    public function getRoomsFromRoomEntry($roomDetails)
+    {
+        $rooms = [];
+        foreach ($roomDetails as $item) {
+            $roomData = $this->processRoomNumberInput($item['room_numbers']);
+            if ($roomData['isValid']) {
+                foreach ($roomData['roomNumbers'] as $number) {
+                    array_push($rooms, new Room(['floor'=>$item['floor'], 'room_type_id' => $item['room_type'], 'room_number' => $number]));
+                }
+            }
+        }
+
+        return $rooms;
+    }
+
+    private function processRoomNumberInput($roomNumberInput)
+    {
+        $roomNumbersArr = explode(',', $roomNumberInput);
+        $roomNumbers = [];
+        $dupErrMsg = 'Can not add same room number twice';
+        $validationMessage = '';
+        $valid = 1;
+        foreach ($roomNumbersArr as $item) {
+            if (strpos($item, '-') !== false) {
+                $index = explode('-', $item);
+                for ($i = $index[0]; $i <= $index[1]; $i++) {
+                    array_push($roomNumbers, (integer)$i);
+                }
+            } else {
+                array_push($roomNumbers, (integer)$item);
+            }
+        }
+
+        //Check for duplicate model machine numbers
+        if (count(array_unique($roomNumbers)) < count($roomNumbers)) {
+            $valid = 0;
+            $validationMessage = $dupErrMsg;
+        }
+
+        return ['isValid' => $valid, 'roomNumbers' => $roomNumbers, 'errorMsg' => $validationMessage];
     }
 }

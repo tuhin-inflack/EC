@@ -71,23 +71,18 @@
                                                     <label>Floor No <span
                                                                 class="danger">*</span></label>
                                                     <br>
-                                                    <input type="text" name="section" class="form-control"
+                                                    <input type="text" name="floor" class="form-control"
                                                            placeholder="e.g 1" required>
                                                 </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                    <label>Room Type <span class="danger">*</span></label>
-                                                    <br>
-                                                    <select name="room_type" id="" class="form-control">
-                                                        <option value=""></option>
-                                                    </select>
+                                                <div class="mb-1 col-sm-12 col-md-3 form-group {{ $errors->has('status') ? ' error' : '' }}">
+                                                    {{ Form::label('room_type', 'Room Type', ['class' => 'required']) }}
+                                                    {{ Form::select('room_type', $roomTypes,  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please select room type']) }}
+                                                    <div class="help-block"></div>
+                                                    @if ($errors->has('room_type'))
+                                                        <div class="help-block">  {{ $errors->first('room_type') }}</div>
+                                                    @endif
                                                 </div>
-                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                    <label>Room Quantity <span
-                                                                class="danger">*</span></label>
-                                                    <br>
-                                                    <input type="number" name="quantity" class="form-control"
-                                                           placeholder="e.g 10" required>
-                                                </div>
+
                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                                     <label>Room Numbers <span class="danger">*</span></label>
                                                     <br>
