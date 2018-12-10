@@ -18,85 +18,59 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <div class="row justify-content-center">
-                                <div class="col-md-6 text-md-right">
-                                    <b>Shortcode:</b>
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $hostel->shortcode }}
-                                </div>
-                                <div class="col-md-6 text-md-right">
+                            <div class="row">
+                                <div class="col-md-2">
                                     <b>Name:</b>
                                 </div>
                                 <div class="col-md-6">
                                     {{ $hostel->name }}
                                 </div>
-                                <div class="col-md-6 text-md-right">
-                                    <b>Level:</b>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <b>Total Floor:</b>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ $hostel->level }}
-                                </div>
-                                <div class="col-md-6 text-md-right">
-                                    <b>Total room:</b>
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $hostel->total_room }}
-                                </div>
-                                <div class="col-md-6 text-md-right">
-                                    <b>Total Seat:</b>
-                                </div>
-                                <div class="col-md-6">
-                                    {{ $hostel->total_seat }}
+                                    {{ $hostel->total_floor }}
                                 </div>
                             </div>
-
-                            <hr>
-
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <b>Total Rooms:</b>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ count($hostel->rooms) }}
+                                </div>
+                            </div>
+                            <br/>
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th colspan="4" class="text-center">Rooms</th>
+                                        <th colspan="8" class="text-center">Room Details</th>
                                     </tr>
                                     <tr>
-                                        <th>Shortcode</th>
                                         <th>Room Type</th>
-                                        <th>Level</th>
-                                        <th>Items</th>
+                                        <th>Room No.</th>
+                                        <th>floor</th>
+                                        <th>Capacity</th>
+                                        <th>Gen. Rate</th>
+                                        <th>Govt. Rate</th>
+                                        <th>Emp. Rate</th>
+                                        <th>Special Rate</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($hostel->rooms as $room)
                                         <tr>
-                                            <td>{{ $room->shortcode }}</td>
                                             <td>{{ $room->roomType->name }}</td>
-                                            <td>{{ $room->level }}</td>
-                                            <td>{{ $room->inventories->count() }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th colspan="3" class="text-center">Room Details</th>
-                                    </tr>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Capacity</th>
-                                        <th>Rate</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($hostel->roomTypes as $roomType)
-                                        <tr>
-                                            <td>{{ $roomType->name }}</td>
-                                            <td>{{ $roomType->capacity }}</td>
-                                            <td>{{ $roomType->rate }}</td>
+                                            <td>{{ $room->room_number }}</td>
+                                            <td>{{ $room->floor }}</td>
+                                            <td>{{ $room->roomType->capacity }}</td>
+                                            <td>{{ $room->roomType->general_rate }}</td>
+                                            <td>{{ $room->roomType->govt_rate }}</td>
+                                            <td>{{ $room->roomType->bard_emp_rate }}</td>
+                                            <td>{{ $room->roomType->special_rate }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
