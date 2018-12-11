@@ -59,7 +59,7 @@
                 <a href="#">
                     <i class="la la-hotel"></i>
                     <span class="menu-title"
-                          data-i18n="nav.templates.main">Room</span></a>
+                          data-i18n="nav.templates.main">{{trans('hm::hostel.room')}}</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_route('rooms.index') }}"><a href="{{ route('rooms.index') }}">
                         <i class="la la-list"></i>

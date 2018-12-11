@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Room History</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{ trans('hm::hostel.room')}} {{ trans('labels.history') }}</h4>
                         <p>
                             ROOMSHORTCODE, HOSTEL 2 , Level-3, AC / 2
                         </p>
