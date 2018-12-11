@@ -100,5 +100,11 @@ Route::prefix('hm')->group(function () {
         Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
         Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
+
+    Route::prefix('billing')->group(function (){
+        Route::get('/', 'BillingController@index')->name('billing.index'); // Temporary & Demo
+        Route::get('/create', 'BillingController@create')->name('billing.create'); // Temporary & Demo
+    });
+
 });
 

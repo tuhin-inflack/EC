@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow " data-scroll-to-active="true">
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li class="{{ is_active_route('hm') }}">
@@ -50,7 +50,7 @@
                 </ul>
             </li>
             <li class="{{ is_active_route('hostels.index') }}"><a href="{{ route('hostels.index') }}">
-                    <i class="la la-list"></i>
+                    <i class="la la-building"></i>
                     <span class="menu-title"
                           data-i18n="nav.dash.main">{{trans('hm::hostel.menu_title')}}</span></a>
             </li>
@@ -150,6 +150,13 @@
                     <i class="la la-book"></i>
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Check-in</span>
+                </a>
+            </li>
+            <li class="nav-item {{ is_active_route('billing.index') }}">
+                <a href="{{ route('billing.index') }}">
+                    <i class="la la-money"></i>
+                    <span class="menu-title"
+                          data-i18n="nav.templates.main">{{trans('hm::hostel.billing')}}</span>
                 </a>
             </li>
         </ul>
