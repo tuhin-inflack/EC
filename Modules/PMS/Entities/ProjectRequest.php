@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectRequest extends Model
 {
-    protected $fillable = ['send_to','end_date','title','message','attachment','status'];
+    protected $fillable = ['send_to','end_date','message','status'];
+    protected $table = 'project_requests';
 
-    public function requestForwards()
-    {
-        return $this->hasMany('Modules\PMS\Entities\ProjectRequestForward');
+    public function projectRequestImages(){
+        return $this->hasMany(ProjectRequestImage::class,'request_id','id');
     }
 }

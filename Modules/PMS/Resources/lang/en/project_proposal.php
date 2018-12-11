@@ -7,7 +7,7 @@ return [
     'send_to' => 'Send To',
     'last_sub_date' => 'Last Submission Date',
     'remarks' => 'Remarks',
-    'govt_rate' => 'Govt. Rate',
+    'attachment' => 'File Attach',
     'bard_emp_rate' => 'BARD Employee Rate',
     'special_rate' => 'Special Rate',
     'create_card_title' => 'Room Type Creation',

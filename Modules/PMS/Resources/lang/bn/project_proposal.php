@@ -7,7 +7,7 @@ return [
     'send_to' => 'যাকে পাঠাবেন',
     'last_sub_date' => 'সর্বশেষ জমা তারিখ',
     'remarks' => 'মন্তব্য',
-    'special_rate' => 'বিশেষ ম্যূল্য',
+    'attachment' => 'ফাইল সংযুক্ত করুন',
     'create_card_title' => 'রুম টাইপ সৃষ্টি',
     'create_form_title' => 'রুম টাইপ ফর্ম',
     'edit_card_title' => 'রুম টাইপ সম্পাদনা করুন',
