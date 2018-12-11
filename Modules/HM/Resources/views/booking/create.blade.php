@@ -78,7 +78,7 @@
 
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Room
                                                 Details</h4>
-                                            <div class="repeater-room-types">
+                                            <div class="repeater-room-infos">
                                                 <div data-repeater-list="roomInfos">
                                                     <div data-repeater-item="" style="">
                                                         <div class="form row">
@@ -88,7 +88,7 @@
                                                                 {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                                             </div>
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                <label>Quantity <span class="danger">*</span></label>
+                                                                <label for="quantity">Quantity <span class="danger">*</span></label>
                                                                 <br>
                                                                 {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                                             </div>
@@ -383,25 +383,18 @@
                                                 Information</h4>
                                             <div class="row">
                                                 <div class="table-responsive">
-                                                    <table class="table table-bordered table-striped">
+                                                    <table id="billing-table"
+                                                           class="table table-bordered table-striped">
                                                         <thead>
                                                         <tr>
                                                             <th>Room Type</th>
                                                             <th>Quantity</th>
                                                             <th>Duration</th>
+                                                            <th>Rate Type</th>
+                                                            <th>Rate</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td>AC room</td>
-                                                            <td>2</td>
-                                                            <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Non ac room</td>
-                                                            <td>3</td>
-                                                            <td>{{ \Carbon\Carbon::today()->addDays(7)->format('d-m-Y') . ' to ' . \Carbon\Carbon::today()->addDays(14)->format('d-m-Y') }}</td>
-                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -449,6 +442,25 @@
             labels: {
                 finish: 'Submit'
             },
+            onStepChanging: function (event, currentIndex, newIndex) {
+                if (newIndex == 3) {
+                    let roomTypes = {!! $roomTypes !!};
+                    let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
+
+                    let billingRows = roomInfos.map(roomInfo => {
+                        return `<tr>
+                            <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
+                            <td>${roomInfo.quantity || 0}</td>
+                            <td>${$('#start_date').val() + ' To ' + $('#end_date').val()}</td>
+                            <td>${getRateType(roomInfo.rate.split('_')[0])}</td>
+                            <td>${roomInfo.rate.split('_')[1]}</td>
+                        </tr>`;
+                    });
+
+                    $('#billing-table').append(billingRows);
+                }
+                return true;
+            },
             onFinished: function (event, currentIndex) {
                 $('.booking-request-tab-steps').submit();
             }
@@ -473,7 +485,7 @@
                     $(this).slideDown();
                 }
             });
-            $('.repeater-room-types').repeater({
+            $('.repeater-room-infos').repeater({
                 show: function () {
                     $(this).find('.select2-container').remove();
                     $(this).find('.room-type-select').select2({
@@ -508,7 +520,20 @@
                 <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
                 <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
                 <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
-                <option value="speacial_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
+                <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
+        }
+
+        function getRateType(shortCode) {
+            switch (shortCode) {
+                case 'ge':
+                    return 'General Rate';
+                case 'govt':
+                    return 'Government Rate';
+                case 'bard-emp':
+                    return 'BARD Employee Rate';
+                case 'special':
+                    return 'Special Rate';
+            }
         }
     </script>
 @endpush
