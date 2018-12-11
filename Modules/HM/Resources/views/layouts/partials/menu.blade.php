@@ -10,7 +10,7 @@
                 <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Hostel Budget</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_match('hm/hostel-budget') }}">
-                        <a href="{{ url('hm/hostel-budget') }}">
+                        <a href="{{ url('hm/hostel-budgets') }}">
                             <i class="la la-hotel"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">Budget</span>
                         </a>

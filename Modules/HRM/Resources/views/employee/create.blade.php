@@ -118,7 +118,7 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
     <style>
-        .required:after {
+        .required_start:after {
             content: '*';
             color: red;
             padding-left: 5px;
