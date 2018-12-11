@@ -50,7 +50,7 @@ body.vertical-layout.vertical-menu.menu-expanded .main-menu {
     display: inline-block;
     position: absolute;
     right: 20px;
-    top: 14px;
+    /*top: 14px;*/
     transform: rotate(0deg);
     transition: -webkit-transform 0.2s ease-in-out; }
   body.vertical-layout.vertical-menu.menu-expanded .main-menu .navigation li.has-sub .has-sub > a:not(.mm-next):after {

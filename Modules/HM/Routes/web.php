@@ -14,6 +14,7 @@
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
     Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {
         Route::get('/', 'HostelController@index')->name('hostels.index');
@@ -41,8 +42,8 @@ Route::prefix('hm')->group(function () {
         Route::get('{room}/edit', 'RoomController@edit')->name('rooms.edit');
         Route::put('{room}', 'RoomController@update')->name('rooms.update');
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
-        Route::get('room-detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
-        Route::get('room-history', 'RoomController@history')->name('room.history'); // Temporary & Demo
+        Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
+        Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
     });
 
     Route::prefix('inventory-types')->group(function () {
