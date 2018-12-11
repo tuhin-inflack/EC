@@ -16,11 +16,11 @@ class CreateHostelRoomRequest extends FormRequest
         return [
             'hostel_id' => 'required|exists:hostels,id',
             'room_type_id' => 'required|exists:room_types,id',
-            'level' => 'required|numeric|min:1',
-            'shortcode' => 'required',
-            'inventories' => 'required',
-            'inventories.*.item_name' => 'required',
-            'inventories.*.quantity' => 'required|numeric|min:1'
+            'floor' => 'required|numeric|min:1',
+            'room_numbers' => 'required',
+//            'inventories' => 'required',
+//            'inventories.*.item_name' => 'required',
+//            'inventories.*.quantity' => 'required|numeric|min:1'
         ];
     }
 

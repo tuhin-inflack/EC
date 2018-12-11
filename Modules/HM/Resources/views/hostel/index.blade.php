@@ -21,7 +21,8 @@
                                 <tr>
                                     <th scope="col">SL</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Total Floor</th>
+                                    <th scope="col">Total Floors</th>
+                                    <th scope="col">Total Rooms</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -31,6 +32,7 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $hostel->name }}</td>
                                         <td>{{ $hostel->total_floor }}</td>
+                                        <td>{{ count($hostel->rooms) }}</td>
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

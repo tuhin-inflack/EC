@@ -9,6 +9,7 @@
 namespace Modules\HM\Services;
 
 
+use Illuminate\Validation\ValidationException;
 use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomInventory;
 use Modules\HM\Entities\RoomType;
@@ -37,13 +38,16 @@ class RoomService
 
     public function store(array $data)
     {
-        $room = $this->roomRepository->save($data);
-        $inventoryCollection = collect($data['inventories']);
-        $roomInventories = $inventoryCollection->map(function($inventory) {
-           return new RoomInventory($inventory);
-        });
+        $roomData = $this->processRoomNumberInput($data['room_numbers']);
+        if ($roomData['isValid']) {
+            $rooms = $this->generateRooms($roomData['roomNumbers'], $data['floor'], $data['room_type_id'], $data['hostel_id']);
+            foreach ($rooms as $room) {
+                $room->save();
+            }
+        } else {
+            throw ValidationException::withMessages(['room_numbers'=>'Invalid room number entry']);
+        }
 
-        return $room->inventories()->saveMany($roomInventories);
     }
 
     public function update(Room $room, array $data)
@@ -70,12 +74,20 @@ class RoomService
         foreach ($roomDetails as $item) {
             $roomData = $this->processRoomNumberInput($item['room_numbers']);
             if ($roomData['isValid']) {
-                foreach ($roomData['roomNumbers'] as $number) {
-                    array_push($rooms, new Room(['floor'=>$item['floor'], 'room_type_id' => $item['room_type'], 'room_number' => $number]));
-                }
+                array_push($rooms, $this->generateRooms($roomData['roomNumbers'],
+                    $item['floor'], $item['room_type']));
             }
         }
 
+        return $rooms;
+    }
+
+    private function generateRooms(array $roomNumbers, $floor, $roomTypeId, $hostelId = null)
+    {
+        $rooms = [];
+        foreach ($roomNumbers as $number) {
+            array_push($rooms, $this->getRoom($floor, $roomTypeId, $number, $hostelId));
+        }
         return $rooms;
     }
 
@@ -104,5 +116,13 @@ class RoomService
         }
 
         return ['isValid' => $valid, 'roomNumbers' => $roomNumbers, 'errorMsg' => $validationMessage];
+    }
+
+    private function getRoom($floor, $roomTypeId, $number, $hostelId = null)
+    {
+        if ($hostelId)
+            return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number, 'hostel_id' => $hostelId]);
+        else
+            return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number]);
     }
 }

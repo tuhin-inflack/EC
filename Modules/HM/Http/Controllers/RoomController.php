@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\Hostel;
 use Modules\HM\Entities\Room;
 use Modules\HM\Http\Requests\CreateHostelRoomRequest;
+use Modules\HM\Services\HostelService;
 use Modules\HM\Services\RoomService;
+use Modules\HM\Services\RoomTypeService;
 
 class RoomController extends Controller
 {
@@ -19,12 +21,23 @@ class RoomController extends Controller
     private $roomService;
 
     /**
+     * @var RoomTypeService
+     */
+    private $roomTypeService;
+
+    private $hostelService;
+
+    /**
      * RoomController constructor.
      * @param RoomService $roomService
+     * @param RoomTypeService $roomTypeService
+     * @param HostelService $hostelService
      */
-    public function __construct(RoomService $roomService)
+    public function __construct(RoomService $roomService, RoomTypeService $roomTypeService, HostelService $hostelService)
     {
         $this->roomService = $roomService;
+        $this->roomTypeService = $roomTypeService;
+        $this->hostelService = $hostelService;
     }
 
     /**
@@ -43,9 +56,10 @@ class RoomController extends Controller
      * @param Hostel $hostel
      * @return Response
      */
-    public function create()
+    public function create(Hostel $hostel)
     {
-        return view('hm::.room.create');
+        $roomTypes = $this->roomTypeService->pluck();
+        return view('hm::.room.create', compact('roomTypes', 'hostel'));
     }
 
     /**
@@ -56,9 +70,9 @@ class RoomController extends Controller
     public function store(CreateHostelRoomRequest $request)
     {
         $this->roomService->store($request->all());
-        Session::flash('message', 'Successfully stored room information');
+        Session::flash('success', 'Room has been created successfully!');
 
-        return redirect()->back();
+        return redirect()->route('hostels.show', $request['hostel_id']);
     }
 
     /**
