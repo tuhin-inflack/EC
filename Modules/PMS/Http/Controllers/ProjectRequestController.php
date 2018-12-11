@@ -54,21 +54,7 @@ class ProjectRequestController extends Controller
      */
     public function store(CreateProjectRequestRequest $request)
     {
-
-        /*$send_to = $request->input('send_to');
-        $send_to = implode(',', $send_to);
-        $data = $request->except('send_to');
-        $data['send_to'] = $send_to;
-        if ($request->hasFile('attachment')){
-            foreach ($request->attachment as $file){
-                $filename = $file->getClientOriginalName();
-                $file->storeAs('public/uploads',$filename);
-                $this->projectRequestService->imageStore($filename);
-            }
-        }*/
-
         $data = $request->all();
-
         $response = $this->projectRequestService->store($data);
         return redirect()->route('project-request.index')->with('message', $response->getContent());
     }

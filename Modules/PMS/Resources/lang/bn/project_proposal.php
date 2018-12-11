@@ -8,9 +8,8 @@ return [
     'last_sub_date' => 'সর্বশেষ জমা তারিখ',
     'remarks' => 'মন্তব্য',
     'attachment' => 'ফাইল সংযুক্ত করুন',
-    'create_card_title' => 'রুম টাইপ সৃষ্টি',
-    'create_form_title' => 'রুম টাইপ ফর্ম',
-    'edit_card_title' => 'রুম টাইপ সম্পাদনা করুন',
+    'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
+    'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
     'edit_form_title' => 'রুম টাইপ সম্পাদনা ফর্ম',
     'delete_vald' => 'সংশ্লিষ্ট রুম প্রথমে মুছুন, তারপরে রুম টাইপ মুছুন'
 ];

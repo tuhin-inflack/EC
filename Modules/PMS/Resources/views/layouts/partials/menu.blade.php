@@ -18,8 +18,8 @@
                         </li>
                         <li class="{{is_active_route('project-request.index')}}">
                             <a href="{{route('project-request.index')}}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Project Proposal Request</span>
+                                <i class="la la-list"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_request_list')}}</span>
                             </a>
                         </li>
 
