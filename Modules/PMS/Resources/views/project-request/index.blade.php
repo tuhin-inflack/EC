@@ -26,32 +26,29 @@
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.last_sub_date')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
                                         <th scope="col">{{trans('labels.created_at')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                            <td>08/11/2018</td>
-                                            <td>
-                                                <span class="badge badge-warning">Ongoing</span>
-                                            </td>
-                                            <td>2018-11-08 16:15:12</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                            <td>26/07/2019</td>
-                                            <td>
-                                                <span class="badge badge-success">Completed</span>
-                                            </td>
-                                            <td>2018-11-08 16:15:12</td>
-                                        </tr>
-
+                                        @foreach($requests as $request)
+                                            <tr>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $request->message }}</td>
+                                                <td><a href="">Download</a></td>
+                                                <td>{{ $request->end_date }}</td>
+                                                <td>
+                                                    @if($request->status == 0)
+                                                        <span class="badge badge-warning">Ongoing</span>
+                                                    @else
+                                                        <span class="badge badge-warning">Success</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{$request->created_at}}</td>
+                                            </tr>
+                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>
