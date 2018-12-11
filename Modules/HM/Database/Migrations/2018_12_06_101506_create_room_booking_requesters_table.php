@@ -19,15 +19,15 @@ class CreateRoomBookingRequestersTable extends Migration
             $table->string('name', 50);
             $table->enum('gender', ['male', 'female']);
             $table->string('contact');
-            $table->string('email', 50);
-            $table->integer('nid');
-            $table->string('passport');
-            $table->string('organization');
-            $table->string('designation');
-            $table->enum('organization_type', ['government', 'private', 'foreign', 'others']);
-            $table->string('photo');
-            $table->string('nid_doc');
-            $table->string('passport_doc');
+            $table->string('email', 50)->nullable();
+            $table->string('nid')->nullable();
+            $table->string('organization')->nullable();
+            $table->string('designation')->nullable();
+            $table->enum('organization_type', ['government', 'private', 'foreign', 'others'])->nullable();
+            $table->string('photo')->nullable();
+            $table->string('passport_no')->nullable();
+            $table->string('nid_doc')->nullable();
+            $table->string('passport_doc')->nullable();
             $table->timestamps();
         });
     }
