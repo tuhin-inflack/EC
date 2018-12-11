@@ -16,6 +16,8 @@ return [
     'save_success' => 'আইটেম সফলভাবে সংরক্ষিত হয়েছে',
     'update_success' => 'আইটেম সফলভাবে আপডেট করা হয়েছে',
     'delete_success' => 'আইটেম সফলভাবে মুছে ফেলা হয়েছে',
-    'confirm_delete' => 'নিশ্চিত বাতিল?'
+    'confirm_delete' => 'নিশ্চিত বাতিল?',
+    'status' => 'অবস্থা',
+    'created_at' => 'সৃষ্টি সময়'
 
 ];

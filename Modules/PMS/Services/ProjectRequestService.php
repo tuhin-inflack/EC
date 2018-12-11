@@ -53,8 +53,8 @@ class ProjectRequestService
 
             $projectRequest->projectRequestImages()->save($image);
         }
-        
-        return new Response('Project Proposal Request stored successfully!', Response::HTTP_OK);
+
+        return new Response(trans('labels.save_success'), Response::HTTP_OK);
     }
 
     public function update(ProjectRequest $projectRequest, array $data)

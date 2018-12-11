@@ -7,11 +7,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Project Proposal Request List</h4>
+                        <h4 class="card-title">{{trans('pms::project_proposal.project_request_list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> New Proposal Request</a>
+                                        class="ft-plus white"></i> {{trans('pms::project_proposal.new_proposal_request')}}</a>
                             <a href="{{route('project-request.create')}}" class="btn btn-warning btn-sm"> <i
                                         class="ft-download white"></i></a>
 
@@ -24,11 +24,11 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Message</th>
-                                        <th scope="col">Deadline</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Created at</th>
+                                        <th scope="col">{{trans('labels.serial')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.last_sub_date')}}</th>
+                                        <th scope="col">{{trans('labels.status')}}</th>
+                                        <th scope="col">{{trans('labels.created_at')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
