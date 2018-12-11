@@ -10,7 +10,7 @@ return [
     'attachment' => 'File Attach',
     'project_request_list' => 'List of Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',
-    'create_card_title' => 'Room Type Creation',
+    'attached_file' => 'Attachment File',
     'create_form_title' => 'Room Type Form',
     'edit_card_title' => 'Room Type Edit',
     'edit_form_title' => 'Room Type Edit Form',

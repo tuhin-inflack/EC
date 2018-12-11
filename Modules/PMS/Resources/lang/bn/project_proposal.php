@@ -10,7 +10,7 @@ return [
     'attachment' => 'ফাইল সংযুক্ত করুন',
     'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
-    'edit_form_title' => 'রুম টাইপ সম্পাদনা ফর্ম',
+    'attached_file' => 'সংযুক্ত ফাইল',
     'delete_vald' => 'সংশ্লিষ্ট রুম প্রথমে মুছুন, তারপরে রুম টাইপ মুছুন'
 ];
 
