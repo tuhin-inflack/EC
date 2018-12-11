@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Hostel')
+@section('title', trans('hm::hostel.menu_title'))
 
 @section('content')
     <h1>
