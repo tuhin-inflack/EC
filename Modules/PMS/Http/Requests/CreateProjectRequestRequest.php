@@ -14,11 +14,10 @@ class CreateProjectRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'send_to' => 'required|email',
+            'send_to' => 'required',
             'end_date' => 'required',
-            'title' => 'required|max:100',
-            'message' => 'required|max:200',
-            'attachment' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
+            'message' => 'max:200',
+            'attachment.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
         ];
     }
 

@@ -11,6 +11,7 @@ namespace Modules\PMS\Services;
 use Illuminate\Http\Response;
 use Modules\PMS\Entities\ProjectRequest;
 
+use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Repositories\ProjectRequestRepository;
 
 
@@ -35,9 +36,25 @@ class ProjectRequestService
 
     public function store(array $data)
     {
-        $this->projectRequestRepository->save($data);
+        $send_to = $data['send_to'];
+        $send_to = implode(',', $send_to);
+        $data['send_to'] = $send_to;
 
-        return new Response('Project Proposal Request stored successfully!',Response::HTTP_OK);
+        $projectRequest = $this->projectRequestRepository->save($data);
+
+        foreach ($data['attachment'] as $image) {
+            $filename = $image->getClientOriginalName();
+            $image->storeAs('public/uploads', $filename);
+
+            $image = new ProjectRequestImage([
+                'attachment' => $filename,
+                'request_id' => $projectRequest->id
+            ]);
+
+            $projectRequest->projectRequestImages()->save($image);
+        }
+        
+        return new Response('Project Proposal Request stored successfully!', Response::HTTP_OK);
     }
 
     public function update(ProjectRequest $projectRequest, array $data)
@@ -73,4 +90,6 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->findAll(null, ['requestForwards']);
     }
+
+
 }
