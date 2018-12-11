@@ -13,6 +13,8 @@
 
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
+    Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {
         Route::get('/', 'HostelController@index')->name('hostels.index');
@@ -35,11 +37,13 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('rooms')->group(function () {
         Route::get('/', 'RoomController@index')->name('rooms.index');
-        Route::get('create', 'RoomController@create')->name('rooms.create');
+        Route::get('create/{hostel}', 'RoomController@create')->name('rooms.create');
         Route::post('/', 'RoomController@store')->name('rooms.store');
         Route::get('{room}/edit', 'RoomController@edit')->name('rooms.edit');
         Route::put('{room}', 'RoomController@update')->name('rooms.update');
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
+        Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
+        Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -89,6 +93,12 @@ Route::prefix('hm')->group(function () {
     Route::prefix('booking-requests')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('show/{id}', 'BookingRequestController@show')->name('booking-requests.show');
+    });
+
+    Route::prefix('check-in')->group(function (){
+        Route::get('/','CheckinController@index')->name('check-in.index');
+        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
+        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
 });
 

@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Rooms List</h4>
+                        <h4 class="card-title">Hostel List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{ route('hostels.create') }}" class="btn btn-primary btn-sm"><i
@@ -15,21 +15,14 @@
                     </div>
 
                     <div class="card-body">
-                        @if(Session::get('message'))
-                            <h4>
-                                {{Session::get('message')}}
-                            </h4>
-                        @endif
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
                                 <tr>
                                     <th scope="col">SL</th>
-                                    <th scope="col">Short code</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Level</th>
-                                    <th scope="col">Total room</th>
-                                    <th scope="col">Total seat</th>
+                                    <th scope="col">Total Floors</th>
+                                    <th scope="col">Total Rooms</th>
                                     <th scope="col">Action</th>
                                 </tr>
                                 </thead>
@@ -37,11 +30,9 @@
                                 @foreach($hostels as $hostel)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{ $hostel->shortcode }}</td>
                                         <td>{{ $hostel->name }}</td>
-                                        <td>{{ $hostel->level }}</td>
-                                        <td>{{ $hostel->total_room }}</td>
-                                        <td>{{ $hostel->total_seat }}</td>
+                                        <td>{{ $hostel->total_floor }}</td>
+                                        <td>{{ count($hostel->rooms) }}</td>
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -52,8 +43,8 @@
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('hostels.show', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                <a href="{{ route('hostel-rooms.create', $hostel->id) }}"
-                                                   class="dropdown-item"><i class="ft-plus"></i> Add room</a>
+                                                {{--<a href="{{ route('hostel-rooms.create', $hostel->id) }}"--}}
+                                                   {{--class="dropdown-item"><i class="ft-plus"></i> Add room</a>--}}
                                                 <a href="{{ route('hostels.edit', $hostel->id) }}"
                                                    class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
                                                 <div class="dropdown-divider"></div>

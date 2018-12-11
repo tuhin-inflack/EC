@@ -15,14 +15,16 @@ use Modules\HM\Services\RoomTypeService;
 class HostelController extends Controller
 {
     private $hostelService;
+    private $roomTypeService;
 
     /**
      * HostelController constructor.
      * @param HostelService $hostelService
      */
-    public function __construct(HostelService $hostelService)
+    public function __construct(HostelService $hostelService, RoomTypeService $roomTypeService)
     {
         $this->hostelService = $hostelService;
+        $this->roomTypeService = $roomTypeService;
     }
 
     /**
@@ -42,7 +44,8 @@ class HostelController extends Controller
      */
     public function create()
     {
-        return view('hm::hostel.create');
+        $roomTypes = $this->roomTypeService->pluck();
+        return view('hm::hostel.create', compact('roomTypes'));
     }
 
     /**
@@ -64,7 +67,8 @@ class HostelController extends Controller
      */
     public function show(Hostel $hostel)
     {
-        return view('hm::hostel.show', compact('hostel'));
+        $rooms = $this->hostelService->groupHostelRoomsByType($hostel->rooms);
+        return view('hm::hostel.show', compact('hostel', 'rooms'));
     }
 
     /**

@@ -234,7 +234,7 @@
                                             <strong>{{ $errors->first('message') }}</strong>
                                         </span>
                                         @endif
-                                    </div>
+                                    </div>inf
 
                                 </div>
                             </div>
