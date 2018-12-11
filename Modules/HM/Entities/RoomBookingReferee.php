@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomBookingReferee extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['room_booking_id', 'name', 'department', 'contact'];
 }

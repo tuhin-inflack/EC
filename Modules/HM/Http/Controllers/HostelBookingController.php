@@ -5,7 +5,9 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Services\RoomBookingService;
 use Modules\HM\Services\RoomTypeService;
+use Modules\HRM\Services\DepartmentService;
 
 class HostelBookingController extends Controller
 {
@@ -13,14 +15,29 @@ class HostelBookingController extends Controller
      * @var RoomTypeService
      */
     private $roomTypeService;
+    /**
+     * @var DepartmentService
+     */
+    private $departmentService;
+    /**
+     * @var RoomBookingService
+     */
+    private $bookingService;
 
     /**
      * HostelBookingController constructor.
+     * @param RoomBookingService $bookingService
      * @param RoomTypeService $roomTypeService
+     * @param DepartmentService $departmentService
      */
-    public function __construct(RoomTypeService $roomTypeService)
-    {
+    public function __construct(
+        RoomBookingService $bookingService,
+        RoomTypeService $roomTypeService,
+        DepartmentService $departmentService
+    ) {
         $this->roomTypeService = $roomTypeService;
+        $this->departmentService = $departmentService;
+        $this->bookingService = $bookingService;
     }
 
     /**
@@ -39,8 +56,9 @@ class HostelBookingController extends Controller
     public function create()
     {
         $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
 
-        return view('hm::booking.create', compact('roomTypes'));
+        return view('hm::booking.create', compact('roomTypes', 'departments'));
     }
 
     /**
@@ -50,7 +68,7 @@ class HostelBookingController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        return $this->bookingService->save($request->all());
     }
 
     /**

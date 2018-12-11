@@ -33,19 +33,19 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="" class="required">Start Date</label>
+                                                        <label class="required">Start Date</label>
                                                         {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control', 'placeholder' => 'Pick start date', 'required' => 'required']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="" class="required">End Date</label>
+                                                        <label class="required">End Date</label>
                                                         {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control', 'placeholder' => 'Pick end date']) }}
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="">Booking Date</label>
+                                                        <label>Booking Date</label>
                                                         <input type="text" class="form-control"
                                                                value="{{ date('d-m-Y') }}" disabled>
                                                     </div>
@@ -54,13 +54,13 @@
 
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    <label for="">Booking Type</label>
+                                                    <label>Booking Type</label>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="skin skin-flat">
                                                                 <fieldset>
                                                                     {!! Form::radio('booking_type', 'general') !!}
-                                                                    <label for="">General Purpose</label>
+                                                                    <label>General Purpose</label>
                                                                 </fieldset>
                                                             </div>
                                                         </div>
@@ -68,7 +68,7 @@
                                                             <div class="skin skin-flat">
                                                                 <fieldset>
                                                                     {!! Form::radio('booking_type', 'training') !!}
-                                                                    <label for="">Training</label>
+                                                                    <label>Training</label>
                                                                 </fieldset>
                                                             </div>
                                                         </div>
@@ -79,18 +79,18 @@
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Room
                                                 Details</h4>
                                             <div class="repeater-room-types">
-                                                <div data-repeater-list="rooms">
+                                                <div data-repeater-list="roomInfos">
                                                     <div data-repeater-item="" style="">
                                                         <div class="form row">
                                                             <div class="form-group mb-1 col-sm-12 col-md-4">
                                                                 <label>Room Type <span class="danger">*</span></label>
                                                                 <br>
-                                                                {!! Form::select('room_type', $roomTypes->map(function ($roomType) { return [$roomType->id => $roomType->name]; }), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(this.value)']) !!}
+                                                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                                             </div>
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                 <label>Quantity <span class="danger">*</span></label>
                                                                 <br>
-                                                                {!! Form::number('number', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                                                {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                                             </div>
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                 <label>Rate <span class="danger">*</span></label>
@@ -127,19 +127,19 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Name <span class="danger">*</span></label>
+                                                            <label>Name <span class="danger">*</span></label>
                                                             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Email</label>
+                                                            <label>Email</label>
                                                             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'john@example.com']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">NID</label>
+                                                            <label>NID</label>
                                                             {!! Form::text('nid', null, ['class' => 'form-control', 'placeholder' => '10 digit number']) !!}
                                                         </div>
                                                     </div>
@@ -149,15 +149,14 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Gender <span
+                                                            <label>Gender <span
                                                                         class="danger">*</span></label>
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-square">
                                                                         <fieldset>
                                                                             {!! Form::radio('gender', 'male') !!}
-                                                                            <label for="input-radio-11"
-                                                                                   class="">Male</label>
+                                                                            <label class="">Male</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -165,8 +164,7 @@
                                                                     <div class="skin skin-square">
                                                                         <fieldset>
                                                                             {!! Form::radio('gender', 'female') !!}
-                                                                            <label for="input-radio-11"
-                                                                                   class="">Female</label>
+                                                                            <label class="">Female</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -175,14 +173,14 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Contact <span
+                                                            <label>Contact <span
                                                                         class="danger">*</span></label>
                                                             {!! Form::text('contact', null, ['class' => 'form-control', 'placeholder' => '11 digit number']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Passport No</label>
+                                                            <label>Passport No</label>
                                                             {!! Form::text('passport_no', null, ['class' => 'form-control', 'placeholder' => 'passport number']) !!}
                                                         </div>
                                                     </div>
@@ -196,19 +194,19 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Organization</label>
+                                                            <label>Organization</label>
                                                             {!! Form::text('organization', null, ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Organization Type</label>
+                                                            <label>Organization Type</label>
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'government') !!}
-                                                                            <label for="">Government</label>
+                                                                            <label>Government</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -216,7 +214,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'private') !!}
-                                                                            <label for="">Private</label>
+                                                                            <label>Private</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -226,7 +224,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'foreign') !!}
-                                                                            <label for="">Foreign</label>
+                                                                            <label>Foreign</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -234,7 +232,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'others') !!}
-                                                                            <label for="">Others</label>
+                                                                            <label>Others</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -247,7 +245,7 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Designation</label>
+                                                            <label>Designation</label>
                                                             {!! Form::text('designation', null, ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
@@ -260,20 +258,20 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Your Photo <span
+                                                            <label>Your Photo <span
                                                                         class="danger">*</span></label>
                                                             {!! Form::file('photo', ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">NID Copy</label>
+                                                            <label>NID Copy</label>
                                                             {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label for="">Passport Copy</label>
+                                                            <label>Passport Copy</label>
                                                             {!! Form::file('passport_doc', ['class' => 'form-control']) !!}
                                                         </div>
                                                     </div>
@@ -312,7 +310,7 @@
                                                                     <label>Relation <span
                                                                                 class="danger">*</span></label>
                                                                     <br>
-                                                                    {!! Form::text('relationship', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                    {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
                                                                 </div>
                                                             </div>
                                                             <div class="row">
@@ -360,19 +358,19 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label for="">Department</label>
-                                                        {!! Form::select('referee_dept', ['' => '', '1' => 'Dept 1', '2' => 'Dept 2'], null, ['class' => 'form-control', 'id' => 'department-select']) !!}
+                                                        <label>Department</label>
+                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control', 'id' => 'department-select', 'placeholder' => 'Select Department']) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label for="">Employee Name</label>
+                                                        <label>Employee Name</label>
                                                         {!! Form::text('referee_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label for="">Contact</label>
+                                                        <label>Contact</label>
                                                         {!! Form::text('referee_contact', null, ['class' => 'form-control', 'placeholder' => '11 digits']) !!}
                                                     </div>
                                                 </div>
@@ -465,7 +463,6 @@
         $(document).ready(function () {
             // datepicker
             $('#start_date, #end_date').pickadate();
-
             // form-repeater
             $('.repeater-guest-information').repeater({
                 show: function () {
@@ -503,8 +500,15 @@
             });
         });
 
-        function getRoomTypeRates(id) {
-            console.log(id);
+        function getRoomTypeRates(event, roomTypeId) {
+            let roomTypes = {!! $roomTypes !!};
+            let selectedRoomType = roomTypes.find(roomType => roomType.id == roomTypeId);
+
+            $(event.target).parents('.form.row').find('select.rate-select').html(`<option value=""></option>
+                <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
+                <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
+                <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
+                <option value="speacial_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
         }
     </script>
 @endpush

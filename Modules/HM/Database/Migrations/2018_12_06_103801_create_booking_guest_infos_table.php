@@ -20,7 +20,7 @@ class CreateBookingGuestInfosTable extends Migration
             $table->unsignedInteger('age');
             $table->enum('gender', ['male', 'female']);
             $table->string('relation');
-            $table->string('nid');
+            $table->string('nid_no');
             $table->string('nid_doc');
             $table->string('address');
             $table->timestamps();
