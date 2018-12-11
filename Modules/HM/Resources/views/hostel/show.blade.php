@@ -15,6 +15,8 @@
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
+                            <a href="{{ route('rooms.create', $hostel->id) }}" class="btn btn-primary btn-sm"><i
+                                    class="ft-plus white"></i> Add Rooms</a>
                         </div>
                     </div>
                     <div class="card-content collapse show">

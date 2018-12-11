@@ -9,12 +9,15 @@
 namespace Modules\HM\Services;
 
 
+use App\Traits\CrudTrait;
 use Modules\HM\Entities\Hostel;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\HostelRepository;
 
 class HostelService
 {
+    use CrudTrait;
+
     private $hostelRepository;
     private $roomService;
 
