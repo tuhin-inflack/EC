@@ -92,7 +92,7 @@
                                                     <div data-repeater-item="" style="">
                                                         <div class="form row">
                                                             <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                <label>Room Type <span class="danger">*</span></label>
+                                                                <label class="required">Room Type</label>
                                                                 <br>
                                                                 {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                                             </div>
@@ -103,7 +103,7 @@
                                                                 {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                                             </div>
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                <label>Rate <span class="danger">*</span></label>
+                                                                <label class="required">Rate</label>
                                                                 <br>
                                                                 {!! Form::select('rate', [], null, ['class' => 'form-control rate-select']) !!}
                                                             </div>
@@ -137,20 +137,21 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Name <span class="danger">*</span></label>
+                                                            <label class="required">Name</label>
                                                             {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Email</label>
-                                                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'john@example.com']) !!}
+                                                            <label>Contact <span
+                                                                        class="danger">*</span></label>
+                                                            {!! Form::text('contact', null, ['class' => 'form-control', 'placeholder' => '11 digit number']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>NID</label>
-                                                            {!! Form::text('nid', null, ['class' => 'form-control', 'placeholder' => '10 digit number']) !!}
+                                                            <label class="required">Address</label>
+                                                            {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 5, 'rows' => 6]) !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,15 +184,20 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Contact <span
-                                                                        class="danger">*</span></label>
-                                                            {!! Form::text('contact', null, ['class' => 'form-control', 'placeholder' => '11 digit number']) !!}
+                                                            <label>Email</label>
+                                                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'john@example.com']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Passport No</label>
                                                             {!! Form::text('passport_no', null, ['class' => 'form-control', 'placeholder' => 'passport number']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>NID</label>
+                                                            {!! Form::text('nid', null, ['class' => 'form-control', 'placeholder' => '10 digit number']) !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -205,7 +211,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Organization</label>
-                                                            {!! Form::text('organization', null, ['class' => 'form-control']) !!}
+                                                            {!! Form::text('organization', null, ['class' => 'form-control', 'placeholder' => 'Organization name']) !!}
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -256,7 +262,13 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Designation</label>
-                                                            {!! Form::text('designation', null, ['class' => 'form-control']) !!}
+                                                            {!! Form::text('designation', null, ['class' => 'form-control', 'placeholder' => 'Designation']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-md-12">
+                                                            <label>Address</label>
+                                                            {!! Form::textarea('org_address', null, ['class' => 'form-control', 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address']) !!}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -306,7 +318,7 @@
                                                                     {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>Age <span class="danger">*</span></label>
+                                                                    <label class="required">Age</label>
                                                                     <br>
                                                                     {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                                                 </div>
