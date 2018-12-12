@@ -37,7 +37,7 @@
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $request->message }}</td>
-                                                <td><a href="">Download</a></td>
+                                                <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">Attachment</a></td>
                                                 <td>{{ $request->end_date }}</td>
                                                 <td>
                                                     @if($request->status == 0)

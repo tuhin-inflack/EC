@@ -18,6 +18,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
+        Route::get('attachment-download/{projectRequest}','ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
         Route::get('{projectRequest}', 'ProjectRequestController@show')->name('project-request.show');
         Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project_request.edit');
         Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project_request.update');
