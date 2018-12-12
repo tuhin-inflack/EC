@@ -453,7 +453,7 @@
                             <td>${roomInfo.quantity || 0}</td>
                             <td>${$('#start_date').val() + ' To ' + $('#end_date').val()}</td>
                             <td>${getRateType(roomInfo.rate.split('_')[0])}</td>
-                            <td>${roomInfo.rate.split('_')[1]}</td>
+                            <td>${roomInfo.rate.split('_')[1]} x ${roomInfo.quantity}</td>
                         </tr>`;
                     });
 
