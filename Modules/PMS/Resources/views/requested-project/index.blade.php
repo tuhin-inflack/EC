@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Requested Project Proposal List</h4>
+                        <h4 class="card-title">{{trans('pms::project_proposal.requested_project_project_list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
 
                     </div>
@@ -18,12 +18,12 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Received at</th>
-                                        <th scope="col">Message</th>
-                                        <th scope="col">Deadline</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">{{trans('labels.serial')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.received_at')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.last_sub_date')}}</th>
+                                        <th scope="col">{{trans('labels.status')}}</th>
+                                        <th scope="col">{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +45,7 @@
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{route('project-proposal-submission.create')}}"
-                                                   class="dropdown-item"><i class="ft-fast-forward"></i> Submit Proposal</a>
+                                                   class="dropdown-item"><i class="ft-fast-forward"></i> {{trans('pms::project_proposal.submit_proposal')}}</a>
                                                 </span>
                                             </span>
                                         </td>
