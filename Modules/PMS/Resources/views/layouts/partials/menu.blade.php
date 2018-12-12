@@ -26,12 +26,12 @@
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
-                                                                                       data-i18n="nav.navbars.main">Requested Project Proposal</span></a>
+                                                                                       data-i18n="nav.navbars.main">{{trans('pms::project_proposal.requested_project_project')}}</span></a>
                     <ul class="menu-content">
                         <li class="{{is_active_route('requested-project.index')}}">
                             <a href="{{route('requested-project.index')}}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Requested Project Proposal</span>
+                                <i class="la la-list"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.requested_project_project_list')}}</span>
                             </a>
                         </li>
 

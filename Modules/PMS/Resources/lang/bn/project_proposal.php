@@ -11,6 +11,9 @@ return [
     'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
     'attached_file' => 'সংযুক্ত ফাইল',
-    'delete_vald' => 'সংশ্লিষ্ট রুম প্রথমে মুছুন, তারপরে রুম টাইপ মুছুন'
+    'requested_project_project' => 'প্রকল্প প্রস্তাব অনুরোধ',
+    'requested_project_project_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
+    'received_at' => 'প্রাপ্তির সময়',
+    'submit_proposal' => 'নতুন প্রকল্প প্রস্তাব জমা'
 ];
 

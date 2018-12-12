@@ -11,8 +11,8 @@ return [
     'project_request_list' => 'List of Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',
     'attached_file' => 'Attachment File',
-    'create_form_title' => 'Room Type Form',
-    'edit_card_title' => 'Room Type Edit',
-    'edit_form_title' => 'Room Type Edit Form',
-    'delete_vald' => 'Cannot deleted room type. Delete the related room first'
+    'requested_project_project' => 'Requested Project Proposal',
+    'requested_project_project_list' => 'List of Requested Project Proposal',
+    'received_at' => 'Received at',
+    'submit_proposal' => 'Submit Proposal'
 ];
