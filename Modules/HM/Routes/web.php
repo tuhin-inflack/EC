@@ -101,9 +101,11 @@ Route::prefix('hm')->group(function () {
         Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
 
-    Route::prefix('billing')->group(function (){
-        Route::get('/', 'BillingController@index')->name('billing.index'); // Temporary & Demo
-        Route::get('/create', 'BillingController@create')->name('billing.create'); // Temporary & Demo
+    Route::prefix('bill')->group(function (){
+        Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
+        Route::get('/create', 'BillController@create')->name('bill.create'); // Temporary & Demo
+        Route::get('/payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
+        Route::get('/payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
     });
 
 });

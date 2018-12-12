@@ -1,9 +1,9 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::hostel.billing'))
+@section('title', trans('hm::hostel.bill'))
 
 @section('content')
     <h1>
-        {{trans('hm::hostel.billing')}}
+        {{trans('hm::hostel.bill')}}
         <span class="font-size-base">
             Module: {!! config('hm.name') !!}
         </span>
@@ -34,12 +34,12 @@
                                                 <div class="form-group">
                                                     <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
                                                         <option>Search Here</option>
-                                                        <option value="{{ route('billing.create') }}">CH5401 - 018xxxxxxxx</option>
-                                                        <option value="{{ route('billing.create') }}">CH5402 - 013xxxxxxxx</option>
-                                                        <option value="{{ route('billing.create') }}">CH5404 - 017xxxxxxxx</option>
-                                                        <option value="{{ route('billing.create') }}">CH5406 - 015xxxxxxxx</option>
-                                                        <option value="{{ route('billing.create') }}">CH5407 - 016xxxxxxxx</option>
-                                                        <option value="{{ route('billing.create') }}">CH5409 - 019xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5401 - 018xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5402 - 013xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5404 - 017xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5406 - 015xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5407 - 016xxxxxxxx</option>
+                                                        <option value="{{ route('bill.create') }}">CH5409 - 019xxxxxxxx</option>
                                                     </select>
                                                 </div>
                                             </div>
