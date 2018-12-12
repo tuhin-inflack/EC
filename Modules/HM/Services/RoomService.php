@@ -9,14 +9,14 @@
 namespace Modules\HM\Services;
 
 
+use App\Traits\CrudTrait;
 use Illuminate\Validation\ValidationException;
 use Modules\HM\Entities\Room;
-use Modules\HM\Entities\RoomInventory;
-use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomRepository;
 
 class RoomService
 {
+    use CrudTrait;
     /**
      * @var RoomRepository
      */
@@ -29,6 +29,7 @@ class RoomService
     public function __construct(RoomRepository $roomRepository)
     {
         $this->roomRepository = $roomRepository;
+        $this->setActionRepository($this->roomRepository);
     }
 
     public function getAll()
@@ -41,11 +42,9 @@ class RoomService
         $roomData = $this->processRoomNumberInput($data['room_numbers']);
         if ($roomData['isValid']) {
             $rooms = $this->generateRooms($roomData['roomNumbers'], $data['floor'], $data['room_type_id'], $data['hostel_id']);
-            foreach ($rooms as $room) {
-                $room->save();
-            }
+            $this->roomRepository->saveAll($rooms);
         } else {
-            throw ValidationException::withMessages(['room_numbers'=>'Invalid room number entry']);
+            throw ValidationException::withMessages(['room_numbers'=>$roomData['errorMsg']]);
         }
 
     }
@@ -62,19 +61,13 @@ class RoomService
         return $this->roomRepository->update($room, $data);
     }
 
-    public function delete(Room $room)
-    {
-        $room->inventories()->delete();
-        return $this->roomRepository->delete($room);
-    }
-
     public function getRoomsFromRoomEntry($roomDetails)
     {
         $rooms = [];
         foreach ($roomDetails as $item) {
             $roomData = $this->processRoomNumberInput($item['room_numbers']);
             if ($roomData['isValid']) {
-                array_push($rooms, $this->generateRooms($roomData['roomNumbers'],
+                $rooms = array_merge($rooms, $this->generateRooms($roomData['roomNumbers'],
                     $item['floor'], $item['room_type']));
             }
         }

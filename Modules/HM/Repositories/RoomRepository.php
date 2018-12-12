@@ -15,4 +15,12 @@ use Modules\HM\Entities\Room;
 class RoomRepository extends AbstractBaseRepository
 {
     protected $modelName = Room::class;
+
+    public function saveAll($rooms)
+    {
+        //TODO: Need to update the implementation for saving multiple items
+        foreach ($rooms as $room) {
+            $room->save();
+        }
+    }
 }

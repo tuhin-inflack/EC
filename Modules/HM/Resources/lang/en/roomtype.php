@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'Room Type',
     'menu_title' => 'Room Type',
     'card_title' => 'Room Type List',
     'create_button' => 'New Room Type',

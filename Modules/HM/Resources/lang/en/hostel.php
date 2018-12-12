@@ -12,4 +12,5 @@ return [
     'booked_rooms' => 'Booked Rooms',
     'available_rooms' => 'Available Rooms',
     'room' => 'Room',
+    'floor' => 'Floor'
 ];
