@@ -32,9 +32,9 @@ class HostelBudgetSectionService {
 		}
 	}
 
-	public function updateBudgetSection($data = [], $id = null) {
-		$section = $this->findOrFail($id);
-		$status = $section->update();
+	public function updateBudgetSection( $data = [], $id = null ) {
+		$section = $this->findOrFail( $id );
+		$status  = $section->update();
 		if ( $status ) {
 			return New Response( 'Section updated successfully' );
 		} else {
@@ -42,8 +42,21 @@ class HostelBudgetSectionService {
 		}
 	}
 
-	public function getHostelBudgetSections() {
+	public function getHostelBudgetSectionLists() {
 		return $this->findAll();
 	}
 
+	public function getHostelBudgetSectionAsPluck() {
+		$budgetSection = $this->findAll()->pluck( 'name', 'id' );
+
+		return $budgetSection;
+	}
+
+	public function checkSectionAvailability( $sectionId ) {
+		return $this->hostelBudgetSectionRepository->checkAvailableId( $sectionId );
+	}
+
 }
+
+
+

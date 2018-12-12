@@ -12,6 +12,7 @@ return [
     'booked_rooms' => 'Booked Rooms',
     'available_rooms' => 'Available Rooms',
     'room' => 'Room',
+    'floor' => 'Floor',
     'bill' => 'Bill',
     'bill_generate' => 'Generate Bill',
     'bill_payment' => 'Bill Payment',

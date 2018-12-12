@@ -17,7 +17,7 @@ class HostelBudgetSectionController extends Controller {
 	}
 
 	public function index() {
-		$sections = $this->hostelBudgetSectionService->getHostelBudgetSections();
+		$sections = $this->hostelBudgetSectionService->getHostelBudgetSectionLists();
 
 		return view( 'hm::hostel-budget-section.index', compact( 'sections' ) );
 	}

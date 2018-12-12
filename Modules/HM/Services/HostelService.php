@@ -9,12 +9,15 @@
 namespace Modules\HM\Services;
 
 
+use App\Traits\CrudTrait;
 use Modules\HM\Entities\Hostel;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\HostelRepository;
 
 class HostelService
 {
+    use CrudTrait;
+
     private $hostelRepository;
     private $roomService;
 
@@ -36,10 +39,9 @@ class HostelService
 
     public function store(array $data)
     {
-
+        $hostel = $this->hostelRepository->save($data);
         if (isset($data['rooms']) && !empty($data['rooms'])) {
             $rooms = $this->roomService->getRoomsFromRoomEntry($data['rooms']);
-            $hostel = $this->hostelRepository->save($data);
             $hostel->rooms()->saveMany($rooms);
         }
     }

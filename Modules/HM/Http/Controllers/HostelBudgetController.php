@@ -5,71 +5,66 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\HM\Entities\HostelBudgetSection;
+use Modules\HM\Services\HostelBudgetSectionService;
+use Modules\HM\Services\HostelBudgetService;
 use Modules\HM\Services\HostelBudgetTitleService;
 
 class HostelBudgetController extends Controller {
+	private $hostelBudgetService;
 	private $hostelBudgetTitleService;
+	private $hostelBudgetSectionService;
 
-	public function __construct( HostelBudgetTitleService $hostelBudgetTitleService ) {
-		$this->hostelBudgetTitleService = $hostelBudgetTitleService;
+	public function __construct( HostelBudgetService $hostelBudgetService, HostelBudgetTitleService $hostelBudgetTitleService, HostelBudgetSectionService $hostelBudgetSectionService ) {
+		$this->hostelBudgetService        = $hostelBudgetService;
+		$this->hostelBudgetTitleService   = $hostelBudgetTitleService;
+		$this->hostelBudgetSectionService = $hostelBudgetSectionService;
 	}
 
 	public function index() {
-		$budgets = [];
+		$budgetTitles = $this->hostelBudgetTitleService->findAll();
 
-		return view( 'hm::hostel-budget.index', compact( 'budgets' ) );
+		return view( 'hm::hostel-budget.index', compact( 'budgetTitles' ) );
 
 	}
 
 
 	public function create() {
-		$budgetTitles = $this->hostelBudgetTitleService->getHostelBudgetTitles();
+		$budgetTitles   = $this->hostelBudgetTitleService->getHostelBudgetTitles();
+		$budgetSections = $this->hostelBudgetSectionService->getHostelBudgetSectionAsPluck();
 
-		return view( 'hm::hostel-budget.create', compact('budgetTitles') );
+		return view( 'hm::hostel-budget.create', compact( 'budgetTitles', 'budgetSections' ) );
 	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
+
 	public function store( Request $request ) {
-		dd($request->all());
-		return redirect()->back();
+		$hostelBudgets       = $request->hostel_budgets;
+		$hostelBudgetTitleId = $request->hostel_budget_title_id;
+
+		$budget = $this->hostelBudgetService->storeHostelBudget( $hostelBudgets, $hostelBudgetTitleId );
+
+		Session::flash( 'message', $budget->getContent() );
+
+		return redirect( '/hm/hostel-budgets/' );
+
 	}
 
-	/**
-	 * Show the specified resource.
-	 * @return Response
-	 */
+
 	public function show() {
 		return view( 'hm::show' );
 	}
 
-	/**
-	 * Show the form for editing the specified resource.
-	 * @return Response
-	 */
+
 	public function edit() {
 		return view( 'hm::edit' );
 	}
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  Request $request
-	 *
-	 * @return Response
-	 */
+
 	public function update( Request $request ) {
 	}
 
-	/**
-	 * Remove the specified resource from storage.
-	 * @return Response
-	 */
+
 	public function destroy() {
 	}
 }

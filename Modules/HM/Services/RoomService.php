@@ -9,13 +9,14 @@
 namespace Modules\HM\Services;
 
 
+use App\Traits\CrudTrait;
+use Illuminate\Validation\ValidationException;
 use Modules\HM\Entities\Room;
-use Modules\HM\Entities\RoomInventory;
-use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomRepository;
 
 class RoomService
 {
+    use CrudTrait;
     /**
      * @var RoomRepository
      */
@@ -28,6 +29,7 @@ class RoomService
     public function __construct(RoomRepository $roomRepository)
     {
         $this->roomRepository = $roomRepository;
+        $this->setActionRepository($this->roomRepository);
     }
 
     public function getAll()
@@ -37,13 +39,14 @@ class RoomService
 
     public function store(array $data)
     {
-        $room = $this->roomRepository->save($data);
-        $inventoryCollection = collect($data['inventories']);
-        $roomInventories = $inventoryCollection->map(function($inventory) {
-           return new RoomInventory($inventory);
-        });
+        $roomData = $this->processRoomNumberInput($data['room_numbers']);
+        if ($roomData['isValid']) {
+            $rooms = $this->generateRooms($roomData['roomNumbers'], $data['floor'], $data['room_type_id'], $data['hostel_id']);
+            $this->roomRepository->saveAll($rooms);
+        } else {
+            throw ValidationException::withMessages(['room_numbers'=>$roomData['errorMsg']]);
+        }
 
-        return $room->inventories()->saveMany($roomInventories);
     }
 
     public function update(Room $room, array $data)
@@ -58,24 +61,26 @@ class RoomService
         return $this->roomRepository->update($room, $data);
     }
 
-    public function delete(Room $room)
-    {
-        $room->inventories()->delete();
-        return $this->roomRepository->delete($room);
-    }
-
     public function getRoomsFromRoomEntry($roomDetails)
     {
         $rooms = [];
         foreach ($roomDetails as $item) {
             $roomData = $this->processRoomNumberInput($item['room_numbers']);
             if ($roomData['isValid']) {
-                foreach ($roomData['roomNumbers'] as $number) {
-                    array_push($rooms, new Room(['floor'=>$item['floor'], 'room_type_id' => $item['room_type'], 'room_number' => $number]));
-                }
+                $rooms = array_merge($rooms, $this->generateRooms($roomData['roomNumbers'],
+                    $item['floor'], $item['room_type']));
             }
         }
 
+        return $rooms;
+    }
+
+    private function generateRooms(array $roomNumbers, $floor, $roomTypeId, $hostelId = null)
+    {
+        $rooms = [];
+        foreach ($roomNumbers as $number) {
+            array_push($rooms, $this->getRoom($floor, $roomTypeId, $number, $hostelId));
+        }
         return $rooms;
     }
 
@@ -104,5 +109,13 @@ class RoomService
         }
 
         return ['isValid' => $valid, 'roomNumbers' => $roomNumbers, 'errorMsg' => $validationMessage];
+    }
+
+    private function getRoom($floor, $roomTypeId, $number, $hostelId = null)
+    {
+        if ($hostelId)
+            return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number, 'hostel_id' => $hostelId]);
+        else
+            return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number]);
     }
 }

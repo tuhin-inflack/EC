@@ -12,6 +12,7 @@ return [
     'booked_rooms' => 'বুক কক্ষ',
     'available_rooms' => 'ব্যবহারযোগ্য কক্ষ',
     'room' => 'কক্ষ',
+    'floor' => 'তলা',
     'bill' => 'বিল',
     'bill_generate' => 'বিল তৈরি করুন',
     'bill_payment' => 'বিল পরিশোধ করুন',

@@ -56,7 +56,7 @@ class HostelController extends Controller
     public function store(CreateHostelRequest $request)
     {
         $this->hostelService->store($request->all());
-        Session::flash('message', 'Hostel stored successfully');
+        Session::flash('success', 'Hostel stored successfully');
 
         return redirect()->route('hostels.index');
     }
