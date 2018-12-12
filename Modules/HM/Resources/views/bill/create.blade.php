@@ -93,11 +93,11 @@
                                             <i class="la la-print"></i> Print
                                         </button>
                                         <a class="btn btn-warning mr-1 pull-right" role="button"
-                                           href="{{ route('billing.index') }}">
+                                           href="{{ route('bill.index') }}">
                                             <i class="ft-x"></i> Cancel
                                         </a>
                                         <a class="btn btn-info mr-1 pull-right" role="button"
-                                           href="{{ route('billing.payment') }}">
+                                           href="{{ route('bill.payment') }}">
                                             <i class="la la-credit-card"></i> Payment
                                         </a>
                                     </div>
@@ -112,7 +112,7 @@
 @endsection
 
 @push('page-js')
-    {{--<script src="{{ asset('js/jquery.print.js') }}" type="text/javascript"></script>--}}
+    <script src="{{ asset('js/jquery.print.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {

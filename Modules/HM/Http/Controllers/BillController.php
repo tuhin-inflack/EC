@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
-class BillingController extends Controller
+class BillController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BillingController extends Controller
      */
     public function index()
     {
-        return view('hm::billing.index');
+        return view('hm::bill.index');
     }
 
     /**
@@ -23,7 +23,25 @@ class BillingController extends Controller
      */
     public function create()
     {
-        return view('hm::billing.create');
+        return view('hm::bill.create');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
+    public function payment()
+    {
+        return view('hm::bill.payment');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
+    public function paymentList()
+    {
+        return view('hm::bill.payment_list');
     }
 
     /**
