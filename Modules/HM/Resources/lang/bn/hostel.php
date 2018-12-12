@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'হোস্টেল',
     'menu_title' => 'হোস্টেল',
     'card_title' => 'হোস্টেল তালিকা',
     'create_button' => 'নতুন হোস্টেল',
