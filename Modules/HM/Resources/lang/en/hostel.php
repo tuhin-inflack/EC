@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'Hostel',
     'menu_title' => 'Hostel',
     'card_title' => 'Hostel List',
     'create_button' => 'New Hostel',
