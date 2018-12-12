@@ -5,13 +5,22 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <!-- Form wizard with number tabs section start -->
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+            @endif
+            <!-- Form wizard with number tabs section start -->
                 <section id="number-tabs">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Form wizard with number tabs</h4>
+                                    <h4 class="card-title">Booking Request Form</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -47,14 +56,14 @@
                                                     <div class="form-group">
                                                         <label>Booking Date</label>
                                                         <input type="text" class="form-control"
-                                                               value="{{ date('d-m-Y') }}" disabled>
+                                                               value="{{ date('j F, Y') }}" disabled>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="row">
                                                 <div class="form-group col-md-6">
-                                                    <label>Booking Type</label>
+                                                    <label class="required">Booking Type</label>
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="skin skin-flat">
@@ -88,7 +97,8 @@
                                                                 {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                                             </div>
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                <label for="quantity">Quantity <span class="danger">*</span></label>
+                                                                <label for="quantity">Quantity <span
+                                                                            class="danger">*</span></label>
                                                                 <br>
                                                                 {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                                             </div>
@@ -315,13 +325,12 @@
                                                             </div>
                                                             <div class="row">
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>NID Copy <span
-                                                                                class="danger">*</span></label>
+                                                                    <label>NID Copy</label>
                                                                     <br>
                                                                     {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>NID <span class="danger">*</span></label>
+                                                                    <label>NID</label>
                                                                     <br>
                                                                     {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
                                                                 </div>
@@ -418,7 +427,7 @@
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/wizard.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
