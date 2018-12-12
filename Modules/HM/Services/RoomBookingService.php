@@ -37,8 +37,8 @@ class RoomBookingService
 
     public function save(array $data)
     {
-        $data['start_date'] = Carbon::createFromFormat("d F, Y", $data['start_date']);
-        $data['end_date'] = Carbon::createFromFormat("d F, Y", $data['end_date']);
+        $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
+        $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
         $data['status'] = 'pending';
         $roomBooking = $this->roomBookingRepository->save($data);
 
