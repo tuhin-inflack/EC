@@ -39,10 +39,9 @@ class HostelService
 
     public function store(array $data)
     {
-
+        $hostel = $this->hostelRepository->save($data);
         if (isset($data['rooms']) && !empty($data['rooms'])) {
             $rooms = $this->roomService->getRoomsFromRoomEntry($data['rooms']);
-            $hostel = $this->hostelRepository->save($data);
             $hostel->rooms()->saveMany($rooms);
         }
     }

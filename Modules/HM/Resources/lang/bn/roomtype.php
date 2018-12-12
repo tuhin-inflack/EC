@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'কক্ষ টাইপ',
     'menu_title' => 'কক্ষ টাইপ',
     'card_title' => 'কক্ষ টাইপ তালিকা',
     'create_button' => 'নতুন কক্ষ টাইপ',
