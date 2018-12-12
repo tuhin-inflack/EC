@@ -26,4 +26,5 @@ class HostelBudgetTitleService {
 
 		return $data;
 	}
+
 }
