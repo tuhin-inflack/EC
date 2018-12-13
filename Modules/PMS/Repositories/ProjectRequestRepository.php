@@ -18,7 +18,7 @@ class ProjectRequestRepository extends AbstractBaseRepository
 {
     protected $modelName = ProjectRequest::class;
 
-    public function approveProjectProposal($projectRequest)
+    /*public function approveProjectProposal($projectRequest)
     {
         $status  = $projectRequest->status;
         $id = $projectRequest->id;
@@ -50,6 +50,6 @@ class ProjectRequestRepository extends AbstractBaseRepository
                 ]);
             }
         }
-    }
+    }*/
 
 }

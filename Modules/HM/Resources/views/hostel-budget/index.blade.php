@@ -42,11 +42,15 @@
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i></button>
+                                                        <i class="la la-cog"></i>
+                                                    </button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ url('/hm/hostel-budget-section/' . $title->id . '/edit')  }}"
-                                                           class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                        {{--<a href="{{ url('/hm/hostel-budget-section/' . $title->id . '/edit')  }}"--}}
+                                                        {{--class="dropdown-item"><i class="ft-edit-2"></i> Edit--}}
+                                                        {{--</a>--}}
+                                                        <a href=" {{ route('hostel-budgets.show',  $title->id )}}"
+                                                           class="dropdown-item"><i class="ft-eye"></i> View</a>
 
                                                     </span>
                                                 </td>
@@ -70,7 +74,8 @@
 
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}"
+            type="text/javascript"></script>
 
 
     <script>

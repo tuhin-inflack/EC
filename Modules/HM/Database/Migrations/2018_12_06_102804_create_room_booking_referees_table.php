@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRequestsTable extends Migration
+class CreateRoomBookingRefereesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateProjectRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_requests', function (Blueprint $table) {
+        Schema::create('room_booking_referees', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('send_to');
-            $table->date('end_date');
-            $table->string('title');
-            $table->text('message');
-            $table->string('attachment');
-            $table->tinyInteger('status');
+            $table->unsignedInteger('room_booking_id');
+            $table->string('name', 50);
+            $table->string('department');
+            $table->string('contact');
             $table->timestamps();
         });
     }
@@ -32,6 +30,6 @@ class CreateProjectRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_requests');
+        Schema::dropIfExists('room_booking_referees');
     }
 }

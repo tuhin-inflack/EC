@@ -30,29 +30,24 @@
                                 <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::hostel.create_button')</h4>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
+                                        <div class="form-group">
                                             {!! Form::label('name',  __('labels.name'), ['class' => 'form-label required']) !!}
-                                            {!! Form::text('name', old('name'), ["class" => "form-control","autofocus" => "autofocus", "required",
+                                            {!! Form::text('name', old('name'), ["class" => "form-control". ($errors->has('name') ? ' is-invalid' : ''), "required ",
                                              "placeholder" => "e.g Hostel 1", 'data-validation-required-message'=>'Please enter name']) !!}
                                             <div class="help-block"></div>
                                             @if ($errors->has('name'))
-                                                <div class="help-block">
-                                                    <strong>{{ $errors->first('name') }}</strong>
-                                                </div>
+                                                <span class="invalid-feedback">{{ $errors->first('name') }}</span>
                                             @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             {!! Form::label('total_floor',  __('hm::hostel.total_floor'), ['class' => 'form-label required']) !!}
-                                            {!! Form::number('total_floor', old('total_floor'), ["class" => "form-control", "required",
+                                            {!! Form::number('total_floor', old('total_floor'), ["class" => "form-control". ($errors->has('total_floor') ? ' is-invalid' : ''), "required",
                                              "placeholder" => "e.g 5", 'data-validation-required-message'=>'Please enter total floor']) !!}
-
                                             <div class="help-block"></div>
                                             @if ($errors->has('total_floor'))
-                                                <div class="help-block">
-                                                   {{ $errors->first('total_floor') }}
-                                                </div>
+                                                <span class="invalid-feedback">{{ $errors->first('total_floor') }}</span>
                                             @endif
                                         </div>
                                     </div>
@@ -64,33 +59,34 @@
                                     <div data-repeater-list="rooms">
                                         <div data-repeater-item="" style="">
                                             <div class="form row">
-                                                <div class="form-group mb-1 col-sm-12 col-md-3 {{ $errors->has('floor') ? ' error' : '' }}">
+                                                <div class="form-group mb-1 col-sm-12 col-md-3">
                                                     {!! Form::label('floor',  __('hm::hostel.floor').' '.__('labels.number'), ['class' => 'form-label required']) !!}
                                                     <br>
-                                                    {!! Form::number('floor', old('floor'), ["class" => "form-control", "required",
+                                                    {!! Form::number('floor', old('floor'), ["class" => "form-control". ($errors->has('floor') ? ' error' : ''), "required",
                                                     "placeholder" => "e.g 1", 'data-validation-required-message'=>'Please enter floor no']) !!}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('floor'))
-                                                        <div class="help-block">  {{ $errors->first('floor') }}</div>
+                                                        <span class="invalid-feedback">{{ $errors->first('floor') }}</span>
                                                     @endif
                                                 </div>
-                                                <div class="mb-1 col-sm-12 col-md-3 form-group {{ $errors->has('room_type') ? ' error' : '' }}">
+                                                <div class="mb-1 col-sm-12 col-md-3 form-group">
                                                     {{ Form::label('room_type', __('hm::roomtype.title'), ['class' => 'required']) }}
-                                                    {{ Form::select('room_type', $roomTypes,  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please select room type']) }}
+                                                    {{ Form::select('room_type', $roomTypes,  null, ['class' => 'form-control'. ($errors->has('room_type') ? ' error' : ''),
+                                                     'required' => 'required', 'data-validation-required-message'=>'Please select room type']) }}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('room_type'))
-                                                        <div class="help-block">  {{ $errors->first('room_type') }}</div>
+                                                        <span class="invalid-feedback">{{ $errors->first('room_type') }}</span>
                                                     @endif
                                                 </div>
 
-                                                <div class="form-group mb-1 col-sm-12 col-md-3 {{ $errors->has('room_numbers') ? ' error' : '' }}">
+                                                <div class="form-group mb-1 col-sm-12 col-md-3">
                                                     {!! Form::label('room_numbers',  __('hm::hostel.room').' '.__('labels.number'), ['class' => 'form-label required']) !!}
                                                     <br>
-                                                    {!! Form::text('room_numbers', old('room_numbers'), ["class" => "form-control", "required", "min" => 1,
+                                                    {!! Form::text('room_numbers', old('room_numbers'), ["class" => "form-control". ($errors->has('room_numbers') ? ' error' : ''), "required", "min" => 1,
                                                     "placeholder" => "e.g 201-205 or 201,202,203", 'data-validation-required-message'=>'Please enter room numbers']) !!}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('room_numbers'))
-                                                        <div class="help-block">  {{ $errors->first('room_numbers') }}</div>
+                                                        <span class="invalid-feedback">{{ $errors->first('room_numbers') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-sm-12 col-md-1 text-center mt-2">
