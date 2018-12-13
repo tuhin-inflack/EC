@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class RoomBooking extends Model
 {
-    protected $fillable = ['start_date', 'end_date', 'booking_type', 'status'];
+    protected $fillable = ['shortcode', 'start_date', 'end_date', 'booking_type', 'status'];
 
     public function requester()
     {
