@@ -20,4 +20,10 @@ class HostelBudgetTitleRepository extends AbstractBaseRepository {
 
 		return $titles;
 	}
+
+	public function getTitleWithHostelBudget( $id ) {
+		$titleWithBudget = HostelBudgetTitle::whereId( $id)->with('hostelBudgets')->first();
+		return $titleWithBudget;
+	}
+
 }

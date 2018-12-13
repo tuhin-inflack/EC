@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form',' novalidate']) !!}
+                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form budgetCreateForm',' novalidate']) !!}
                             @include('hm::hostel-budget.create-form.budget_create_form')
                             {!! Form::close() !!}
 
@@ -40,24 +40,22 @@
 
         $(document).ready(function () {
 
-            $(document).ready(function () {
-                $('.item-select').select2({
+            $('.item-select').select2({
 //                    placeholder: 'Select item',
-                    tags: true,
-                    delimiter: ',',
-                    tokenSeparators: [',', ' ', '`'],
-                });
+                tags: true,
+                delimiter: ',',
+                tokenSeparators: [',', ' ', '`'],
+            });
 
-                $('.repeater_hostel_budget').repeater({
-                    show: function () {
-                        $(this).find('.select2-container').remove();
-                        $(this).find('select').select2({
+            $('.repeater_hostel_budget').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
 //                            placeholder: 'Select item',
-                            tags: true,
-                        });
-                        $(this).slideDown();
-                    }
-                });
+                        tags: true,
+                    });
+                    $(this).slideDown();
+                }
             });
 
         });
