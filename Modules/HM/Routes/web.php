@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,6 +83,7 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('bookings')->group(function () {
         Route::get('create', 'HostelBookingController@create')->name('bookings.create');
+        Route::post('/', 'HostelBookingController@store')->name('bookings.store');
     });
 
     Route::prefix('booking-rates')->group(function () {
