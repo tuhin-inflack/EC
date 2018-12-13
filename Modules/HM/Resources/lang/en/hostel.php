@@ -15,6 +15,7 @@ return [
     'room' => 'Room',
     'floor' => 'Floor',
     'bill' => 'Bill',
+    'bill_list' => 'Bill List',
     'bill_generate' => 'Generate Bill',
     'bill_payment' => 'Bill Payment',
     'bill_payment_list' => 'Payment Register',

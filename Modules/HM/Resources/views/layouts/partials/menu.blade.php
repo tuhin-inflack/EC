@@ -127,12 +127,25 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item {{ is_active_route('check-in.index') }}">
-                <a href="{{ route('check-in.index') }}">
+            <li class="nav-item">
+                <a href="#">
                     <i class="la la-book"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">Check-in</span>
+                    <span class="menu-title" data-i18n="nav.templates.main">Check-in</span>
                 </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('check-in.create') }}">
+                        <a href="{{ route('check-in.create') }}">
+                            <i class="la la-plus"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">New</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('check-in.index') }}">
+                        <a href="{{ route('check-in.index') }}">
+                            <i class="la la-list"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">List</span>
+                        </a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a href="#">
@@ -140,10 +153,16 @@
                     <span class="menu-title" data-i18n="nav.templates.main">{{trans('hm::hostel.bill')}}</span>
                 </a>
                 <ul class="menu-content">
+                    <li class="{{ is_active_route('bill.search-check-in') }}">
+                        <a href="{{ route('bill.search-check-in') }}">
+                            <i class="la la-plus"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_generate')}}</span>
+                        </a>
+                    </li>
                     <li class="{{ is_active_route('bill.index') }}">
                         <a href="{{ route('bill.index') }}">
                             <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_generate')}}</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_list')}}</span>
                         </a>
                     </li>
                     <li class="{{ is_active_route('bill.payment-list') }}">
