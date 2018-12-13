@@ -20,6 +20,9 @@ return [
     'create_proposal' => 'প্রকল্প প্রস্তাব তৈরি করুন',
     'project_title' => 'প্রকল্প শিরোনাম',
     'proposal_submission' => 'প্রকল্প প্রস্তাব জমা',
-    'proposal_submission_list' => 'জমাকৃত প্রকল্প প্রস্তাব তালিকা'
+    'proposal_submission_list' => 'জমাকৃত প্রকল্প প্রস্তাব তালিকা',
+    'received_proposal' => 'গৃহীত প্রকল্প প্রস্তাব',
+    'received_proposal_list' => 'গৃহীত প্রকল্প প্রস্তাব তালিকা',
+    'submitted_by' => 'জমাদানকারী',
 ];
 
