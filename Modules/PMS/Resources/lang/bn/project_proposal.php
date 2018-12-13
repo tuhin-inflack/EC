@@ -19,5 +19,7 @@ return [
     'project_submit_form' => 'প্রকল্প প্রস্তাব তৈরি ফর্ম',
     'create_proposal' => 'প্রকল্প প্রস্তাব তৈরি করুন',
     'project_title' => 'প্রকল্প শিরোনাম',
+    'proposal_submission' => 'প্রকল্প প্রস্তাব জমা',
+    'proposal_submission_list' => 'জমাকৃত প্রকল্প প্রস্তাব তালিকা'
 ];
 

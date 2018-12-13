@@ -29,7 +29,8 @@ class ProjectProposalController extends Controller
      */
     public function index()
     {
-        return view('pms::proposal-submission.index');
+        $proposals = $this->projectProposalService->getAll();
+        return view('pms::proposal-submission.index',compact('proposals'));
     }
 
     /**

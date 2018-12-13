@@ -19,4 +19,6 @@ return [
     'project_submit_form' => 'Project Proposal Creation Form',
     'create_proposal' => 'Create Project Proposal',
     'project_title' => 'Project Title',
+    'proposal_submission' => 'Proposal Submission',
+    'proposal_submission_list' => 'List of Proposal Submission',
 ];
