@@ -18,6 +18,15 @@ class BillController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function searchCheckIn()
+    {
+        return view('hm::bill.search_check_in');
+    }
+
+    /**
      * Show the form for creating a new resource.
      * @return Response
      */
@@ -87,4 +96,5 @@ class BillController extends Controller
     public function destroy()
     {
     }
+    
 }

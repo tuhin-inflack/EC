@@ -15,6 +15,7 @@ return [
     'room' => 'কক্ষ',
     'floor' => 'তলা',
     'bill' => 'বিল',
+    'bill_list' => 'বিল তালিকা',
     'bill_generate' => 'বিল তৈরি করুন',
     'bill_payment' => 'বিল পরিশোধ করুন',
     'bill_payment_list' => 'পেমেন্ট তালিকা',

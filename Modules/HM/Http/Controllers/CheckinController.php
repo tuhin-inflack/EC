@@ -23,16 +23,7 @@ class CheckinController extends Controller
      */
     public function create()
     {
-        return view('hm::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
+        return view('hm::check-in.create');
     }
 
     /**
@@ -69,4 +60,5 @@ class CheckinController extends Controller
     public function destroy()
     {
     }
+
 }
