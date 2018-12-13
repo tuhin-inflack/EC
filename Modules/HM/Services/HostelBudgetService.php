@@ -54,17 +54,22 @@ class HostelBudgetService {
 	}
 
 	public function approvedHostelBudget( array $hostelBudgets, $hostelBudgetTitleId ) {
+//		dd( $hostelBudgets );
+		$approvedStatus = false;
+		$status         = false;
 		foreach ( $hostelBudgets as $hostelBudget ) {
-			$budget         = $this->findOrFail( $hostelBudget['id'] );
-			$status         = $budget->update( $hostelBudget );
-			$approvedStatus = false;
-			if ( $status ) {
-				$hostelBudgetTitle = $this->hostelBudgetTitleService->findOrFail( $hostelBudgetTitleId );
-				$approvedStatus    = $hostelBudgetTitle->update( [ 'status' => 1 ] );
-			}
-			if ( $approvedStatus ) {
-				return New Response( 'Budget Approved Successfully' );
-			}
+
+			$budget = $this->findOrFail( $hostelBudget['id'] );
+			$status = $budget->update( $hostelBudget );
+
+		}
+
+		if ( $status ) {
+			$hostelBudgetTitle = $this->hostelBudgetTitleService->findOrFail( $hostelBudgetTitleId );
+			$approvedStatus    = $hostelBudgetTitle->update( [ 'status' => 1 ] );
+		}
+		if ( $approvedStatus ) {
+			return New Response( 'Budget Approved Successfully' );
 		}
 	}
 
