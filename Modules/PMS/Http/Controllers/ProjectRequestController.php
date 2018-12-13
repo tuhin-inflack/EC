@@ -2,6 +2,8 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use Carbon\Carbon;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -9,12 +11,14 @@ use Illuminate\Support\Facades\Session;
 use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Entities\ProjectRequestForward;
+use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
 use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
 use Modules\PMS\Http\Requests\ProjectRequestForwardRequest;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Storage;
 use App\Entities\User;
+use ZipArchive;
 
 class ProjectRequestController extends Controller
 {
@@ -28,14 +32,15 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService = $projectRequestService;
     }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $projectRequests = $this->projectRequestService->getAll();
-        return view('pms::project-request.index', compact('projectRequests'));
+        $requests = $this->projectRequestService->getAll();
+        return view('pms::project-request.index', compact('requests'));
     }
 
     /**
@@ -54,9 +59,7 @@ class ProjectRequestController extends Controller
      */
     public function store(CreateProjectRequestRequest $request)
     {
-        $filename = $request->file('attachment');
-        $path = Storage::disk('internal')->put('PMS', $filename);
-        $data = array_merge($request->all(), ['attachment' => $path]);
+        $data = $request->all();
         $response = $this->projectRequestService->store($data);
         return redirect()->route('project-request.index')->with('message', $response->getContent());
     }
@@ -67,7 +70,7 @@ class ProjectRequestController extends Controller
      */
     public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::project-request.show',compact('projectRequest'));
+        return view('pms::project-request.show', compact('projectRequest'));
     }
 
     /**
@@ -77,7 +80,7 @@ class ProjectRequestController extends Controller
     public function edit(ProjectRequest $projectRequest)
     {
 
-        return view('pms::project_requests.edit',compact('projectRequest'));
+        return view('pms::project_requests.edit', compact('projectRequest'));
     }
 
     /**
@@ -109,6 +112,22 @@ class ProjectRequestController extends Controller
         return redirect()->route('project-request.index');
     }
 
+
+    public function requestAttachmentDownload(ProjectRequest $projectRequest)
+    {
+        $basePath = 'app/public/uploads/';
+        $filePaths = $projectRequest->projectRequestImages
+            ->map(function ($attachment) use ($basePath) {
+                return storage_path($basePath . $attachment->attachment);
+            })->toArray();
+
+        $fileName = time() . '.zip';
+
+        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
+
+        return response()->download(storage_path($basePath . $fileName));
+    }
+
     public function statusUpdate(ProjectRequest $projectRequest)
     {
         return $projectRequest;
@@ -126,7 +145,7 @@ class ProjectRequestController extends Controller
     {
         $users = User::all();
 
-        return view('pms::project_requests.forward',compact('projectRequest','users'));
+        return view('pms::project_requests.forward', compact('projectRequest', 'users'));
     }
 
     public function forward_store(ProjectRequestForwardRequest $request)
@@ -142,6 +161,6 @@ class ProjectRequestController extends Controller
         return $this->projectRequestService->getForwardList();
         /*return $lists[1]['project_request']['title'];*/
 
-        return view('pms::project_requests.forward_list',compact('lists'));
+        return view('pms::project_requests.forward_list', compact('lists'));
     }
 }

@@ -100,12 +100,14 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
-        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
-        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
+        Route::get('/create','CheckinController@create')->name('check-in.create');
+        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index'); // Temporary & Demo
+        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit'); // Temporary & Demo
     });
 
     Route::prefix('bill')->group(function (){
         Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
+        Route::get('/search-check-in', 'BillController@searchCheckIn')->name('bill.search-check-in'); // Temporary & Demo
         Route::get('/create', 'BillController@create')->name('bill.create'); // Temporary & Demo
         Route::get('/payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
         Route::get('/payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
