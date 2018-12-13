@@ -27,4 +27,10 @@ class HostelBudgetTitleService {
 		return $data;
 	}
 
+	public function getTitleWithBudget( $id ) {
+		$titleWithBudget = $this->hostelBudgetTitleRepository->getTitleWithHostelBudget( $id );
+
+		return $titleWithBudget;
+	}
+
 }
