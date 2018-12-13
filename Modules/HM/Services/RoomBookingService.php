@@ -39,10 +39,21 @@ class RoomBookingService
     {
         $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
         $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+        $data['shortcode'] = time();
         $data['status'] = 'pending';
+
         $roomBooking = $this->roomBookingRepository->save($data);
 
         $roomBookingRequester = new RoomBookingRequester($data);
+
+        $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+
+        $roomBookingRequester->photo = $photoPath;
+        $roomBookingRequester->nid_doc = $nidDocPath;
+        $roomBookingRequester->passport_doc = $passportDocPath;
+
         $roomBooking->requester()->save($roomBookingRequester);
 
         $roomBookingReferee = new RoomBookingReferee([
@@ -64,8 +75,8 @@ class RoomBookingService
             ]);
         }));
 
-        $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) {
-            $guest['nid_doc'] = 123;
+        $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+            $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
             return new BookingGuestInfo($guest);
         }));
 

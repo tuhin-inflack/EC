@@ -63,6 +63,9 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
         Route::get('/', 'HostelBudgetController@index')->name('hostel-budgets.index');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
+        Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
+	    Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
+
     });
 	Route::resources(
 		[

@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle']) !!}
+                                    {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
                                     <!-- Step 1 -->
                                         <h6>Step 1</h6>
                                         <fieldset>
