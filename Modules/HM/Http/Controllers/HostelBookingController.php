@@ -68,7 +68,7 @@ class HostelBookingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreBookingRequest $request)
     {
         $this->bookingService->save($request->all());
         Session::flash('message', 'Successfully stored room booking information');
