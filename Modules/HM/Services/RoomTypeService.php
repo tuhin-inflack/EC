@@ -37,4 +37,9 @@ class RoomTypeService
             $roomType->delete();
         }
     }
+
+    public function pluck()
+    {
+        return $this->roomTypeRepository->pluck();
+    }
 }

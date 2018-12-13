@@ -18,8 +18,8 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form',' novalidate']) !!}
-                            @include('hm::hostel-budget.creat-form.budget_create_form')
+                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form budgetCreateForm',' novalidate']) !!}
+                            @include('hm::hostel-budget.create-form.budget_create_form')
                             {!! Form::close() !!}
 
                         </div>
@@ -34,4 +34,32 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            $('.item-select').select2({
+//                    placeholder: 'Select item',
+                tags: true,
+                delimiter: ',',
+                tokenSeparators: [',', ' ', '`'],
+            });
+
+            $('.repeater_hostel_budget').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+//                            placeholder: 'Select item',
+                        tags: true,
+                    });
+                    $(this).slideDown();
+                }
+            });
+
+        });
+
+
+    </script>
 @endpush

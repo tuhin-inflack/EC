@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['hostel_id', 'room_type_id', 'shortcode', 'level'];
+    protected $table = 'rooms';
+
+    protected $fillable = ['hostel_id', 'room_type_id', 'room_number', 'floor'];
 
     public function hostel()
     {

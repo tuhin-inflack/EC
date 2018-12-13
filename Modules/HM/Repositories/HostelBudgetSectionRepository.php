@@ -15,4 +15,9 @@ use Modules\HM\Entities\HostelBudgetSection;
 class HostelBudgetSectionRepository extends AbstractBaseRepository {
 	protected $modelName = HostelBudgetSection::class;
 
+	public function checkAvailableId($id){
+		$section = HostelBudgetSection::where('id', $id)->first();
+		return$section;
+	}
+
 }
