@@ -1,20 +1,13 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::hostel.bill'))
+@section('title', trans('hm::hostel.bill_list'))
 
 @section('content')
-    <h1>
-        {{trans('hm::hostel.bill')}}
-        <span class="font-size-base">
-            Module: {!! config('hm.name') !!}
-        </span>
-    </h1>
-
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Search for Check in</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::hostel.bill_list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -26,25 +19,45 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6 offset-3">
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12">
-                                                <div class="form-group">
-                                                    <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
-                                                        <option>Search Here</option>
-                                                        <option value="{{ route('bill.create') }}">CH5401 - 018xxxxxxxx</option>
-                                                        <option value="{{ route('bill.create') }}">CH5402 - 013xxxxxxxx</option>
-                                                        <option value="{{ route('bill.create') }}">CH5404 - 017xxxxxxxx</option>
-                                                        <option value="{{ route('bill.create') }}">CH5406 - 015xxxxxxxx</option>
-                                                        <option value="{{ route('bill.create') }}">CH5407 - 016xxxxxxxx</option>
-                                                        <option value="{{ route('bill.create') }}">CH5409 - 019xxxxxxxx</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered alt-pagination">
+                                        <thead>
+                                        <tr>
+                                            <th>SL</th>
+                                            <th>Bill Number</th>
+                                            <th>Booking ID</th>
+                                            <th>Check In</th>
+                                            <th>Check Out</th>
+                                            <th># of Day</th>
+                                            <th>Total</th>
+                                            <th>Payment</th>
+                                            <th>Payment Method</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php $count = 0 @endphp
+                                        @for($i = rand(2, 10); $i > 1; $i--)
+                                            <tr>
+                                                <td>{{ ++$count }}</td>
+                                                <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
+                                                <td>BK{{$i}}XXX</td>
+                                                <td>{{ date('d.m.Y',strtotime("-1 days")) }}</td>
+                                                <td>{{ date('d.m.Y') }}</td>
+                                                <td>1</td>
+                                                <td>Tk. {{ 500 * $i }}</td>
+                                                <td>Tk. {{ 500 * $i }}</td>
+                                                <td>
+                                                    @if($i%$count)
+                                                        Cash
+                                                    @else
+                                                        Check
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endfor
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -53,4 +66,4 @@
             </div>
         </div>
     </div>
-@stop
+@endsection
