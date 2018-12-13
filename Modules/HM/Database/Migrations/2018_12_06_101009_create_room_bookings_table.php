@@ -17,7 +17,9 @@ class CreateRoomBookingsTable extends Migration
             $table->increments('id');
             $table->date('start_date');
             $table->date('end_date');
+            $table->string('shortcode');
             $table->enum('booking_type', ['general', 'training']);
+            $table->enum('status', ['approved', 'pending', 'rejected']);
             $table->timestamps();
         });
     }

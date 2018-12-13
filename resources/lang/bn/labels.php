@@ -18,6 +18,12 @@ return [
     'delete_success' => 'আইটেম সফলভাবে মুছে ফেলা হয়েছে',
     'confirm_delete' => 'নিশ্চিত বাতিল?',
     'status' => 'অবস্থা',
-    'created_at' => 'সৃষ্টি সময়'
-
+    'created_at' => 'সৃষ্টি সময়',
+    'confirm_delete' => 'নিশ্চিত বাতিল?',
+    'dashboard' => 'ড্যাশবোর্ড',
+    'history' => 'ইতিহাস',
+    'number' => 'সংখ্যা',
+    'list' => 'তালিকা',
+    'new' => 'নতুন',
+    'add' => 'যোগ করুন'
 ];

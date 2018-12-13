@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +12,8 @@
 
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
+    Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {
         Route::get('/', 'HostelController@index')->name('hostels.index');
@@ -35,11 +36,13 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('rooms')->group(function () {
         Route::get('/', 'RoomController@index')->name('rooms.index');
-        Route::get('create', 'RoomController@create')->name('rooms.create');
+        Route::get('create/{hostel}', 'RoomController@create')->name('rooms.create');
         Route::post('/', 'RoomController@store')->name('rooms.store');
         Route::get('{room}/edit', 'RoomController@edit')->name('rooms.edit');
         Route::put('{room}', 'RoomController@update')->name('rooms.update');
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
+        Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
+        Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -60,6 +63,9 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'HostelBudgetController@create')->name('hostel-budgets.create');
         Route::get('/', 'HostelBudgetController@index')->name('hostel-budgets.index');
         Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
+        Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
+	    Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
+
     });
 	Route::resources(
 		[
@@ -80,6 +86,7 @@ Route::prefix('hm')->group(function () {
 
     Route::prefix('bookings')->group(function () {
         Route::get('create', 'HostelBookingController@create')->name('bookings.create');
+        Route::post('/', 'HostelBookingController@store')->name('bookings.store');
     });
 
     Route::prefix('booking-rates')->group(function () {
@@ -96,5 +103,13 @@ Route::prefix('hm')->group(function () {
         Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index');
         Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit');
     });
+
+    Route::prefix('bill')->group(function (){
+        Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
+        Route::get('/create', 'BillController@create')->name('bill.create'); // Temporary & Demo
+        Route::get('/payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
+        Route::get('/payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
+    });
+
 });
 

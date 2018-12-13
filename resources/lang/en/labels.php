@@ -18,5 +18,12 @@ return [
     'delete_success' => 'Item has been deleted successfully',
     'confirm_delete' => 'Confirm delete?',
     'status' => 'Status',
-    'created_at' => 'Created at'
+    'created_at' => 'Created at',
+    'confirm_delete' => 'Confirm delete?',
+    'dashboard' => 'Dashboard',
+    'history' => 'History',
+    'number' => 'Number',
+    'list' => 'List',
+    'new' => 'New',
+    'add' => 'Add',
 ];

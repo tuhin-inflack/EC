@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="bn" data-textdirection="ltr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,6 +26,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/selects/select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/datatables.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/selects/selectize.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/selectize/selectize.css') }}">
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/app.css') }}">
@@ -40,6 +42,8 @@
     <!-- END Pick a Date CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/ui/jquery-ui.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/ui/jqueryui.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
 
 
     <!-- BEGIN Custom CSS-->
@@ -59,9 +63,7 @@
       data-open="click" data-menu="vertical-menu" data-col="2-columns">
 <!-- fixed-top-->
 @include('layouts.partials.fixed_top')
-<!-- ////////////////////////////////////////////////////////////////////////////-->
 
-{{--@include('layouts.partials.menu')--}}
 @yield('menu')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -74,7 +76,6 @@
     </div>
 </div>
 
-<!-- ////////////////////////////////////////////////////////////////////////////-->
 @include('layouts.partials.footer')
 <!-- BEGIN VENDOR JS-->
 <script src="{{ asset('theme/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
@@ -86,13 +87,24 @@
 {{--<script src="{{ asset('theme/vcendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>--}}
 <!-- END PAGE VENDOR JS-->
 <!-- BEGIN MODERN JS-->
+<script src="{{ asset('theme/vendors/js/forms/select/selectize.min.js') }}" type="text/javascript"></script>
+
+<script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/js/core/app-menu.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/js/core/app.js') }}" type="text/javascript"></script>
-<script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-basic.js') }}" type="text/javascript"></script>
 
 <script src="{{ asset('theme/js/core/libraries/jquery_ui/jquery-ui.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/js/scripts/ui/jquery-ui/date-pickers.js') }}" type="text/javascript"></script>
+
+
+<script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
+<script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
+
 
 {{--<script src="{{ asset('theme/js/scripts/customizer.js') }}" type="text/javascript"></script>--}}
 <!-- END MODERN JS-->
