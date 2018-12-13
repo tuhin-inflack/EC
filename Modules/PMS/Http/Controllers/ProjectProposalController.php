@@ -15,7 +15,7 @@ use Modules\PMS\Services\ProjectProposalService;
  */
 class ProjectProposalController extends Controller
 {
-    private $proposalSubmissionService;
+    private $projectProposalService;
 
     /**
      * ProjectProposalController constructor.

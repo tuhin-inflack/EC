@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Requested Project Proposal List</h4>
+                        <h4 class="card-title">{{trans('pms::project_proposal.received_proposal_list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
 
                     </div>
@@ -18,23 +18,29 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Project Title</th>
-                                        <th scope="col">Message</th>
-                                        <th scope="col">Submitted By</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">{{trans('labels.serial')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.project_title')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.submitted_by')}}</th>
+                                        <th scope="col">{{trans('labels.status')}}</th>
+                                        <th scope="col">{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
+                                    @foreach($proposals as $proposal)
                                     <tr>
-                                        <th scope="row">1</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum</td>
+                                        <th scope="row">{{$loop->iteration}}</th>
+                                        <td>{{ $proposal->title }}</td>
+                                        <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
+                                        <td>{{ $proposal->remarks }}</td>
+                                        <td>Dummy Text</td>
                                         <td>
-                                            <span class="badge badge-warning">Pending</span>
+                                            @if($proposal->status == 0)
+                                                <span class="badge badge-warning">Pending</span>
+                                            @else
+                                                <span class="badge badge-success">Approved</span>
+                                            @endif
                                         </td>
                                         <td>
                                             <span class="dropdown">
@@ -52,31 +58,7 @@
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum</td>
-                                        <td>
-                                            <span class="badge badge-success">Approved</span>
-                                        </td>
-                                        <td>
-                                            <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false" class="btn btn-info dropdown-toggle"><i
-                                                            class="la la-cog"></i></button>
-                                                <span aria-labelledby="btnSearchDrop2"
-                                                      class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                   class="dropdown-item"><i class="ft-minus-square"></i> Reject</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
-                                                </span>
-                                            </span>
-                                        </td>
-                                    </tr>
-
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -20,7 +20,7 @@
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.project_title')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.attachment')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
                                     </tr>
