@@ -32,6 +32,7 @@ class HostelBudgetService {
 
 	public function storeHostelBudget( $hostelBudgets = [], $hostelBudgetTitleId ) {
 		if ( count( $hostelBudgets ) > 0 ) {
+			$status = false;
 			foreach ( $hostelBudgets as $budget ) {
 				$budget['hostel_budget_title_id'] = $hostelBudgetTitleId;
 
@@ -47,6 +48,10 @@ class HostelBudgetService {
 
 
 				$status = $this->hostelBudgetRepository->save( $budget );
+			}
+			if ( $status ) {
+				$hostelBudgetTitle = $this->hostelBudgetTitleService->findOrFail( $hostelBudgetTitleId );
+				$approvedStatus    = $hostelBudgetTitle->update( [ 'status' => 3 ] );
 			}
 
 			return New Response( 'Hostel Budget added successfully' );

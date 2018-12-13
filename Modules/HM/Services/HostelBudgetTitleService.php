@@ -33,4 +33,8 @@ class HostelBudgetTitleService {
 		return $titleWithBudget;
 	}
 
+	public function getPendingOrApproveTitle() {
+		return $this->hostelBudgetTitleRepository->getApproveOrPendingTitle();
+	}
+
 }
