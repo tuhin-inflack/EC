@@ -119,13 +119,14 @@ class RoomController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Room $room
+     * @param $id
      * @return Response
+     * @throws \Exception
      */
-    public function destroy(Room $room)
+    public function destroy($id)
     {
-        $this->roomService->delete($room);
-        Session::flash('message', 'Room deleted successfully');
+        $this->roomService->delete($id);
+        Session::flash('success', 'Room deleted successfully');
 
         return redirect()->back();
     }
