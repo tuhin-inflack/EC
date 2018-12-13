@@ -31,7 +31,7 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{ $proposal->title }}</td>
-                                            <td><a href="">Attachment</a></td>
+                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
                                             <td>{{ $proposal->remarks }}</td>
                                             <td>
                                                 @if($proposal->status == 0)

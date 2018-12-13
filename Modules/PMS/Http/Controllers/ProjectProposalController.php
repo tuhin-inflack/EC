@@ -2,9 +2,11 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
 use Modules\PMS\Services\ProjectProposalService;
 
@@ -87,5 +89,20 @@ class ProjectProposalController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function proposalAttachmentDownload(ProjectProposal $projectProposal)
+    {
+        $basePath = 'app/public/uploads/';
+        $filePaths = $projectProposal->projectProposalFiles
+            ->map(function ($attachment) use ($basePath) {
+                return storage_path($basePath . $attachment->attachments);
+            })->toArray();
+
+        $fileName = time() . '.zip';
+
+        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
+
+        return response()->download(storage_path($basePath . $fileName));
     }
 }
