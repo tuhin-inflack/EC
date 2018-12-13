@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Hostel create')
+@section('title', __('hm::hostel.title'))
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
