@@ -18,15 +18,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
-        Route::get('{projectRequest}', 'ProjectRequestController@show')->name('project-request.show');
-        Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project_request.edit');
-        Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project_request.update');
-        Route::delete('{projectRequest}', 'ProjectRequestController@destroy')->name('project_request.destroy');
-        Route::get('{projectRequest}/status-update', 'ProjectRequestController@statusUpdate')->name('project-request.status-update');
-        Route::get('{projectRequest}/reject', 'ProjectRequestController@reject')->name('project_request.reject');
-        Route::get('{projectRequest}/forward', 'ProjectRequestController@forward')->name('project_request.forward');
-        Route::post('forward-store', 'ProjectRequestController@forward_store')->name('project_request.forward_store');
-
+        Route::get('attachment-download/{projectRequest}','ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
     });
 
     Route::prefix('requested-project-proposals')->group(function (){
@@ -34,12 +26,14 @@ Route::prefix('pms')->group(function () {
     });
 
     Route::prefix('project-proposal-submission')->group(function(){
-        Route::get('/create','ProposalSubmissionController@create')->name('project-proposal-submission.create');
-        Route::get('/','ProposalSubmissionController@index')->name('project-proposal-submission.index');
+        Route::get('/','ProjectProposalController@index')->name('project-proposal-submission.index');
+        Route::get('/create','ProjectProposalController@create')->name('project-proposal-submission.create');
+        Route::post('/','ProjectProposalController@store')->name('project-proposal-submission.store');
+        Route::get('attachment-download/{projectProposal}','ProjectProposalController@proposalAttachmentDownload')->name('project-proposal.attachment-download');
     });
 
     Route::prefix('project-proposal-submitted')->group(function(){
-        Route::get('/','ProposalSubmittedController@index')->name('project-proposal-submitted.index');
+        Route::get('/','ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
     });
 
 });
