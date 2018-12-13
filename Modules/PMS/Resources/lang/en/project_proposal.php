@@ -21,4 +21,8 @@ return [
     'project_title' => 'Project Title',
     'proposal_submission' => 'Proposal Submission',
     'proposal_submission_list' => 'List of Proposal Submission',
+    'received_proposal' => 'Received Project Proposal',
+    'received_proposal_list' => 'List of Received Project Proposal',
+    'submitted_by' => 'Submitted by',
+    'pms' => 'Project Management System',
 ];

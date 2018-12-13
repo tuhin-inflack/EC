@@ -20,7 +20,7 @@
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.project_title')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.attachment')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
                                     </tr>
@@ -31,7 +31,7 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{ $proposal->title }}</td>
-                                            <td><a href="">Attachment</a></td>
+                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
                                             <td>{{ $proposal->remarks }}</td>
                                             <td>
                                                 @if($proposal->status == 0)
@@ -52,10 +52,4 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-    <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
-    </script>
-@endpush
+
