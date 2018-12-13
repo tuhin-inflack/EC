@@ -49,7 +49,7 @@
                                                         class="bg-warning"
                                                         @endif
                                                     >
-                                                        <h5>{{$level}}{{$room}}</h5>
+                                                        <a href="{{ route('room.detail') }}"><h5>{{$level}}{{$room}}</h5></a>
                                                         @if($level%$room)
                                                             <span>AC</span>
                                                         @endif

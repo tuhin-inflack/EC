@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'Hostel',
     'menu_title' => 'Hostel',
     'card_title' => 'Hostel List',
     'create_button' => 'New Hostel',
@@ -12,5 +13,9 @@ return [
     'booked_rooms' => 'Booked Rooms',
     'available_rooms' => 'Available Rooms',
     'room' => 'Room',
-    'floor' => 'Floor'
+    'floor' => 'Floor',
+    'bill' => 'Bill',
+    'bill_generate' => 'Generate Bill',
+    'bill_payment' => 'Bill Payment',
+    'bill_payment_list' => 'Payment Register',
 ];
