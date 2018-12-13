@@ -27,7 +27,7 @@ class HostelBudgetController extends Controller {
 	}
 
 	public function index() {
-		$budgetTitles = $this->hostelBudgetTitleService->findAll();
+		$budgetTitles = $this->hostelBudgetTitleService->getPendingOrApproveTitle();
 
 		return view( 'hm::hostel-budget.index', compact( 'budgetTitles' ) );
 
