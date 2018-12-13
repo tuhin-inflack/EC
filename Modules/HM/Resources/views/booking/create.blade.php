@@ -5,16 +5,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-            @endif
-            <!-- Form wizard with number tabs section start -->
+                <!-- Form wizard with number tabs section start -->
                 <section id="number-tabs">
                     <div class="row">
                         <div class="col-12">
@@ -35,60 +26,127 @@
                                     <div class="card-body">
                                     {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
                                     <!-- Step 1 -->
-                                        <h6>Step 1</h6>
-                                        <fieldset>
-                                            <h4 class="form-section"><i class="la  la-building-o"></i>Booking
-                                                Details</h4>
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="required">Start Date</label>
-                                                        {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control', 'placeholder' => 'Pick start date', 'required' => 'required']) }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="required">End Date</label>
-                                                        {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control', 'placeholder' => 'Pick end date']) }}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Booking Date</label>
-                                                        <input type="text" class="form-control"
-                                                               value="{{ date('j F, Y') }}" disabled>
-                                                    </div>
+                                    <h6>Step 1</h6>
+                                    <fieldset>
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Booking
+                                            Details</h4>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="required">Start Date</label>
+                                                    {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+
+                                                    @if ($errors->has('start_date'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('start_date') }}</strong>
+                                                    </span>
+                                                    @endif
                                                 </div>
                                             </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="required">End Date</label>
+                                                    {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
 
-                                            <div class="row">
-                                                <div class="form-group col-md-6">
-                                                    <label class="required">Booking Type</label>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="skin skin-flat">
-                                                                <fieldset>
-                                                                    {!! Form::radio('booking_type', 'general') !!}
-                                                                    <label>General Purpose</label>
-                                                                </fieldset>
-                                                            </div>
+                                                    @if ($errors->has('end_date'))
+                                                        <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $errors->first('end_date') }}</strong>
+                                                    </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Booking Date</label>
+                                                    <input type="text" class="form-control"
+                                                           value="{{ date('j F, Y') }}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label class="required">Booking Type</label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="skin skin-flat">
+                                                            <fieldset>
+                                                                {!! Form::radio('booking_type', 'general', old('booking_type') == 'general') !!}
+                                                                <label>General Purpose</label>
+                                                            </fieldset>
                                                         </div>
-                                                        <div class="col-md-6">
-                                                            <div class="skin skin-flat">
-                                                                <fieldset>
-                                                                    {!! Form::radio('booking_type', 'training') !!}
-                                                                    <label>Training</label>
-                                                                </fieldset>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="skin skin-flat">
+                                                            <fieldset>
+                                                                {!! Form::radio('booking_type', 'training', old('booking_type') == 'training') !!}
+                                                                <label>Training</label>
+                                                            </fieldset>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <h4 class="form-section"><i class="la  la-building-o"></i>Room
-                                                Details</h4>
-                                            <div class="repeater-room-infos">
-                                                <div data-repeater-list="roomInfos">
+                                                @if ($errors->has('booking_type'))
+                                                    <span class="text-danger">{{ $errors->first('booking_type') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <h4 class="form-section"><i class="la  la-building-o"></i>Room
+                                            Details</h4>
+                                        <div class="repeater-room-infos">
+                                            <div data-repeater-list="roomInfos">
+                                                @if (old('roomInfos'))
+                                                    @foreach(old('roomInfos') as $oldInput)
+                                                        <div data-repeater-item="" style="">
+                                                            <div class="form row">
+                                                                <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                    <label class="required">Room Type</label>
+                                                                    <br>
+                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+
+                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label for="quantity"
+                                                                           class="required">Quantity</label>
+                                                                    <br>
+                                                                    {!! Form::number('quantity', $oldInput['quantity'], ['class' => 'form-control' . ($errors->has('roomInfos.' . $loop->index . '.quantity') ? ' is-invalid' : ''), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+
+                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                    <label class="required">Rate</label>
+                                                                    <br>
+                                                                    <!-- TODO: generate select options based on old room type input -->
+                                                                    {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : '')]) !!}
+
+                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
+                                                                        <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
+                                                                    </span>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-danger"
+                                                                            data-repeater-delete=""><i
+                                                                                class="ft-x"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    @endforeach
+                                                @else
                                                     <div data-repeater-item="" style="">
                                                         <div class="form row">
                                                             <div class="form-group mb-1 col-sm-12 col-md-4">
@@ -105,7 +163,7 @@
                                                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                 <label class="required">Rate</label>
                                                                 <br>
-                                                                {!! Form::select('rate', [], null, ['class' => 'form-control rate-select']) !!}
+                                                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control rate-select']) !!}
                                                             </div>
                                                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                                                 <button type="button" class="btn btn-outline-danger"
@@ -116,18 +174,19 @@
                                                         </div>
                                                         <hr>
                                                     </div>
-                                                </div>
-                                                <div class="form-group overflow-auto">
-                                                    <div class="col-12">
-                                                        <button type="button" data-repeater-create=""
-                                                                class="pull-right btn btn-sm btn-outline-primary">
-                                                            <i class="ft-plus"></i> Add
-                                                        </button>
-                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="form-group overflow-auto">
+                                                <div class="col-12">
+                                                    <button type="button" data-repeater-create=""
+                                                            class="pull-right btn btn-sm btn-outline-primary">
+                                                        <i class="ft-plus"></i> Add
+                                                    </button>
                                                 </div>
                                             </div>
-                                        </fieldset>
-                                        <!-- Step 2 -->
+                                        </div>
+                                    </fieldset>
+                                    <!-- Step 2 -->
                                         <h6>Step 2</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Personal
@@ -138,20 +197,38 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label class="required">Name</label>
-                                                            {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                            {!! Form::text('name', null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+
+                                                            @if ($errors->has('name'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('name') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Contact <span
                                                                         class="danger">*</span></label>
-                                                            {!! Form::text('contact', null, ['class' => 'form-control', 'placeholder' => '11 digit number']) !!}
+                                                            {!! Form::text('contact', null, ['class' => 'form-control' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number']) !!}
+
+                                                            @if ($errors->has('contact'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('contact') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label class="required">Address</label>
-                                                            {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 5, 'rows' => 6]) !!}
+                                                            {!! Form::textarea('address', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 5, 'rows' => 6]) !!}
+
+                                                            @if ($errors->has('address'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('address') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -160,8 +237,7 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Gender <span
-                                                                        class="danger">*</span></label>
+                                                            <label>Gender <span class="danger">*</span></label>
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-square">
@@ -180,24 +256,48 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            @if ($errors->has('gender'))
+                                                                <div class="row">
+                                                                    <span class="small danger"><strong>{{ $errors->first('gender') }}</strong></span>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Email</label>
-                                                            {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'john@example.com']) !!}
+                                                            {!! Form::email('email', null, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'john@example.com']) !!}
+
+                                                            @if ($errors->has('email'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('email') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Passport No</label>
-                                                            {!! Form::text('passport_no', null, ['class' => 'form-control', 'placeholder' => 'passport number']) !!}
+                                                            {!! Form::text('passport_no', null, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number']) !!}
+
+                                                            @if ($errors->has('passport_no'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('passport_no') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>NID</label>
-                                                            {!! Form::text('nid', null, ['class' => 'form-control', 'placeholder' => '10 digit number']) !!}
+                                                            {!! Form::text('nid', null, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => '10 digit number']) !!}
+
+                                                            @if ($errors->has('nid'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('nid') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,7 +311,13 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Organization</label>
-                                                            {!! Form::text('organization', null, ['class' => 'form-control', 'placeholder' => 'Organization name']) !!}
+                                                            {!! Form::text('organization', null, ['class' => 'form-control' . ($errors->has('organization') ? ' is-invalid' : ''), 'placeholder' => 'Organization name']) !!}
+
+                                                            @if ($errors->has('organization'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('organization') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -221,7 +327,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'government') !!}
+                                                                            {!! Form::radio('organization_type', 'government', old('organization_type') == 'government') !!}
                                                                             <label>Government</label>
                                                                         </fieldset>
                                                                     </div>
@@ -229,7 +335,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'private') !!}
+                                                                            {!! Form::radio('organization_type', 'private', old('organization_type') == 'private') !!}
                                                                             <label>Private</label>
                                                                         </fieldset>
                                                                     </div>
@@ -239,7 +345,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'foreign') !!}
+                                                                            {!! Form::radio('organization_type', 'foreign', old('organization_type') == 'foreign') !!}
                                                                             <label>Foreign</label>
                                                                         </fieldset>
                                                                     </div>
@@ -247,12 +353,18 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'others') !!}
+                                                                            {!! Form::radio('organization_type', 'others', old('organization_type') == 'others') !!}
                                                                             <label>Others</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
                                                             </div>
+
+                                                            @if ($errors->has('organization_type'))
+                                                                <div class="small danger">
+                                                                    <strong>{{ $errors->first('organization_type') }}</strong>
+                                                                </div>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -262,13 +374,25 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Designation</label>
-                                                            {!! Form::text('designation', null, ['class' => 'form-control', 'placeholder' => 'Designation']) !!}
+                                                            {!! Form::text('designation', null, ['class' => 'form-control' . ($errors->has('designation') ? ' is-invalid' : ''), 'placeholder' => 'Designation']) !!}
+
+                                                            @if ($errors->has('designation'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('designation') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Address</label>
-                                                            {!! Form::textarea('org_address', null, ['class' => 'form-control', 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address']) !!}
+                                                            {!! Form::textarea('org_address', null, ['class' => 'form-control' . ($errors->has('org_address') ? ' is-invalid' : ''), 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address']) !!}
+
+                                                            @if ($errors->has('org_address'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('org_address') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
@@ -282,88 +406,214 @@
                                                         <div class="form-group col-md-12">
                                                             <label>Your Photo <span
                                                                         class="danger">*</span></label>
-                                                            {!! Form::file('photo', ['class' => 'form-control']) !!}
+                                                            {!! Form::file('photo', ['class' => 'form-control' . ($errors->has('photo') ? ' is-invalid' : '')]) !!}
+
+                                                            @if ($errors->has('photo'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('photo') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>NID Copy</label>
-                                                            {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                                            {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : '')]) !!}
+
+                                                            @if ($errors->has('nid_doc'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('nid_doc') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Passport Copy</label>
-                                                            {!! Form::file('passport_doc', ['class' => 'form-control']) !!}
+                                                            {!! Form::file('passport_doc', ['class' => 'form-control' . ($errors->has('passport_doc') ? ' is-invalid' : '')]) !!}
+
+                                                            @if ($errors->has('passport_doc'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $errors->first('passport_doc') }}</strong>
+                                                            </span>
+                                                            @endif
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- End of .col-md-6 -->
                                             </div>
                                         </fieldset>
-                                        <!-- Step 3 -->
+                                    <!-- Step 3 -->
                                         <h6>Step 3</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Guest
                                                 Information</h4>
                                             <div class="repeater-guest-information">
-                                                <div data-repeater-list="guests">
-                                                    <div data-repeater-item="" style="">
-                                                        <div class="form">
-                                                            <div class="row">
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>Name <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                @if(old('guests'))
+                                                    @foreach(old('guests') as $oldInput)
+                                                        <div data-repeater-list="guests">
+                                                            <div data-repeater-item="" style="">
+                                                                <div class="form">
+                                                                    <div class="row">
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>Name <span
+                                                                                        class="danger">*</span></label>
+                                                                            <br>
+                                                                            {!! Form::text('name', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.name'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.name') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label class="required">Age</label>
+                                                                            <br>
+                                                                            {!! Form::number('age', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.age'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.age') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label class="required">Gender</label>
+                                                                            <br>
+                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.gender') ? ' is-invalid' : '')]) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.gender'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.gender') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label class="required">Relation</label>
+                                                                            <br>
+                                                                            {!! Form::text('relation', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'placeholder' => 'Colleague']) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.relation'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.relation') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>NID Copy</label>
+                                                                            <br>
+                                                                            {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_doc') ? ' is-invalid' : '')]) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.nid_doc'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.nid_doc') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>NID</label>
+                                                                            <br>
+                                                                            {!! Form::text('nid_no', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number']) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.nid_no'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.nid_no') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                            <label class="required">Address</label>
+                                                                            <br>
+                                                                            {!! Form::textarea('address', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+
+                                                                            @if ($errors->has('guests.' . $loop->index . '.address'))
+                                                                                <span class="invalid-feedback"
+                                                                                      role="alert">
+                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.address') }}</strong>
+                                                                            </span>
+                                                                            @endif
+                                                                        </div>
+                                                                        <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                            <button type="button"
+                                                                                    class="btn btn-outline-danger"
+                                                                                    data-repeater-delete=""><i
+                                                                                        class="ft-x"></i>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label class="required">Age</label>
-                                                                    <br>
-                                                                    {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>Gender <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>Relation <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>NID Copy</label>
-                                                                    <br>
-                                                                    {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label>NID</label>
-                                                                    <br>
-                                                                    {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                    <label>Address <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
-                                                                </div>
-                                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                    <button type="button"
-                                                                            class="btn btn-outline-danger"
-                                                                            data-repeater-delete=""><i
-                                                                                class="ft-x"></i>
-                                                                    </button>
-                                                                </div>
+                                                                <hr>
                                                             </div>
                                                         </div>
-                                                        <hr>
+                                                    @endforeach
+                                                @else
+                                                    <div data-repeater-list="guests">
+                                                        <div data-repeater-item="" style="">
+                                                            <div class="form">
+                                                                <div class="row">
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label>Name <span
+                                                                                    class="danger">*</span></label>
+                                                                        <br>
+                                                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label class="required">Age</label>
+                                                                        <br>
+                                                                        {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label>Gender <span
+                                                                                    class="danger">*</span></label>
+                                                                        <br>
+                                                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label>Relation <span
+                                                                                    class="danger">*</span></label>
+                                                                        <br>
+                                                                        {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label>NID Copy</label>
+                                                                        <br>
+                                                                        {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label>NID</label>
+                                                                        <br>
+                                                                        {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                        <label>Address <span
+                                                                                    class="danger">*</span></label>
+                                                                        <br>
+                                                                        {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                                                    </div>
+                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-danger"
+                                                                                data-repeater-delete=""><i
+                                                                                    class="ft-x"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                                 <div class="form-group overflow-auto">
                                                     <div class="col-12">
                                                         <button type="button" data-repeater-create=""
@@ -380,25 +630,43 @@
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Department</label>
-                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control', 'id' => 'department-select', 'placeholder' => 'Select Department']) !!}
+                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
+
+                                                        @if ($errors->has('referee_dept'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('referee_dept') }}</strong>
+                                                                </span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Employee Name</label>
-                                                        {!! Form::text('referee_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                        {!! Form::text('referee_name', null, ['class' => 'form-control' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+
+                                                        @if ($errors->has('referee_name'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('referee_name') }}</strong>
+                                                                </span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Contact</label>
-                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control', 'placeholder' => '11 digits']) !!}
+                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits']) !!}
+
+                                                        @if ($errors->has('referee_contact'))
+                                                            <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('referee_contact') }}</strong>
+                                                                </span>
+                                                        @endif
                                                     </div>
                                                 </div>
                                             </div>
                                         </fieldset>
                                         <!-- Step 4 -->
-                                        <h6>Step 4</h6>
+                                        {{--<h6>Step 4</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Billing
                                                 Information</h4>
@@ -420,7 +688,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                        </fieldset>
+                                        </fieldset>--}}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>
@@ -497,15 +765,6 @@
             // datepicker
             $('#start_date, #end_date').pickadate();
             // form-repeater
-            $('.repeater-guest-information').repeater({
-                show: function () {
-                    $(this).find('.select2-container').remove();
-                    $(this).find('select').select2({
-                        placeholder: 'Select Gender'
-                    });
-                    $(this).slideDown();
-                }
-            });
             $('.repeater-room-infos').repeater({
                 show: function () {
                     $(this).find('.select2-container').remove();
@@ -515,9 +774,36 @@
                     $(this).find('.rate-select').select2({
                         placeholder: 'Select Rate'
                     });
+
+                    // remove error span
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid, select.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
                     $(this).slideDown();
                 }
             });
+            $('.repeater-guest-information').repeater({
+                initEmpty: true,
+                show: function () {
+                    // remove error span
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid, select.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+                        placeholder: 'Select Gender'
+                    });
+
+                    $(this).slideDown();
+                }
+            });
+
             // select2
             $('.room-type-select').select2({
                 placeholder: 'Select Room Type'
