@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Guest Check-in')
+@section('title', 'Check In List')
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        {{--<h4 class="card-title" id="basic-layout-form">Booking Request List</h4>--}}
+                        <h4 class="card-title" id="basic-layout-form">Check In List</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -20,22 +20,34 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-6 offset-3">
-                                    <div class="row">
-                                        <div class="col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <a href="{{ route('approved-booking-requests.index') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">Aproved Booking Request</a>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12" style="text-align: center;">
-                                            <h2>OR</h2>
-                                        </div>
-                                        <div class="col-md-12 col-sm-12">
-                                            <div class="form-group">
-                                                <a href="{{ route('bookings.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">New Check-in</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered alt-pagination">
+                                        <thead>
+                                            <tr>
+                                                <th>SL</th>
+                                                <th>Check In Number</th>
+                                                <th>Bill Number</th>
+                                                <th>Booking ID</th>
+                                                <th>Check In</th>
+                                                <th>Estimated Check Out Time</th>
+                                                <th>Estimated # of Day</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php $count = 0 @endphp
+                                        @for($i = rand(2, 10); $i > 1; $i--)
+                                            <tr>
+                                                <td>{{ ++$count }}</td>
+                                                <td><a href="javascript:;" >CNXXXXX{{$i}}</a></td>
+                                                <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
+                                                <td>BK{{$i}}XXX</td>
+                                                <td>{{ date('d.m.Y',strtotime("-".$i." days")) }}</td>
+                                                <td>{{ date('d.m.Y') }}</td>
+                                                <td>{{$i}}</td>
+                                            </tr>
+                                        @endfor
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
