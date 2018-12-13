@@ -5,6 +5,7 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\RoomBookingService;
 use Modules\HM\Services\RoomTypeService;
@@ -69,7 +70,10 @@ class HostelBookingController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->bookingService->save($request->all());
+        $this->bookingService->save($request->all());
+        Session::flash('message', 'Successfully stored room booking information');
+
+        return redirect()->back();
     }
 
     /**
