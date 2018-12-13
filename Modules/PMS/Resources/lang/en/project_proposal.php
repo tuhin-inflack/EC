@@ -14,5 +14,9 @@ return [
     'requested_project_project' => 'Requested Project Proposal',
     'requested_project_project_list' => 'List of Requested Project Proposal',
     'received_at' => 'Received at',
-    'submit_proposal' => 'Submit Proposal'
+    'submit_proposal' => 'Submit Proposal',
+    'recipient' => 'Recipient',
+    'project_submit_form' => 'Project Proposal Creation Form',
+    'create_proposal' => 'Create Project Proposal',
+    'project_title' => 'Project Title',
 ];

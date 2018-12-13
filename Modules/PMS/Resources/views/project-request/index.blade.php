@@ -26,6 +26,7 @@
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.recipient')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.last_sub_date')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
@@ -37,6 +38,7 @@
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $request->message }}</td>
+                                                <td>{{ $request->send_to }}</td>
                                                 <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">Attachment</a></td>
                                                 <td>{{ $request->end_date }}</td>
                                                 <td>

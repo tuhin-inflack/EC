@@ -14,6 +14,10 @@ return [
     'requested_project_project' => 'প্রকল্প প্রস্তাব অনুরোধ',
     'requested_project_project_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'received_at' => 'প্রাপ্তির সময়',
-    'submit_proposal' => 'নতুন প্রকল্প প্রস্তাব জমা'
+    'submit_proposal' => 'নতুন প্রকল্প প্রস্তাব জমা',
+    'recipient' => 'প্রাপক',
+    'project_submit_form' => 'প্রকল্প প্রস্তাব তৈরি ফর্ম',
+    'create_proposal' => 'প্রকল্প প্রস্তাব তৈরি করুন',
+    'project_title' => 'প্রকল্প শিরোনাম',
 ];
 

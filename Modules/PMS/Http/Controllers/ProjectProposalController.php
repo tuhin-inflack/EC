@@ -5,9 +5,24 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
+use Modules\PMS\Services\ProjectProposalService;
 
-class ProposalSubmissionController extends Controller
+/**
+ * @property  ProjectProposalService
+ */
+class ProjectProposalController extends Controller
 {
+    private $proposalSubmissionService;
+
+    /**
+     * ProjectProposalController constructor.
+     * @param ProjectProposalService $projectProposalService
+     */
+    public function __construct(ProjectProposalService $projectProposalService)
+    {
+        $this->projectProposalService = $projectProposalService;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
@@ -28,11 +43,14 @@ class ProposalSubmissionController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param  CreateProjectProposalRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProjectProposalRequest $request)
     {
+        $data = $request->all();
+        $response = $this->projectProposalService->store($data);
+        return redirect()->route('project-proposal-submission.index')->with('message', $response->getContent());
     }
 
     /**
