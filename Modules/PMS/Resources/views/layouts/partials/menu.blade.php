@@ -50,12 +50,12 @@
                     </ul>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
-                                                                                       data-i18n="nav.navbars.main">Proposal Submitted</span></a>
+                                                                                       data-i18n="nav.navbars.main">{{trans('pms::project_proposal.received_proposal')}}</span></a>
                     <ul class="menu-content">
                         <li class="{{is_active_route('project-proposal-submitted.index')}}">
                             <a href="{{route('project-proposal-submitted.index')}}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Submitted Proposal</span>
+                                <i class="la la-list"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.received_proposal_list')}}</span>
                             </a>
                         </li>
 

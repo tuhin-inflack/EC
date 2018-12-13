@@ -29,10 +29,11 @@ Route::prefix('pms')->group(function () {
         Route::get('/','ProjectProposalController@index')->name('project-proposal-submission.index');
         Route::get('/create','ProjectProposalController@create')->name('project-proposal-submission.create');
         Route::post('/','ProjectProposalController@store')->name('project-proposal-submission.store');
+        Route::get('attachment-download/{projectProposal}','ProjectProposalController@proposalAttachmentDownload')->name('project-proposal.attachment-download');
     });
 
     Route::prefix('project-proposal-submitted')->group(function(){
-        Route::get('/','ProposalSubmittedController@index')->name('project-proposal-submitted.index');
+        Route::get('/','ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
     });
 
 });
