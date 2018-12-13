@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="mb-1 col-sm-12 col-md-3 form-group">
                                                     {{ Form::label('room_type', __('hm::roomtype.title'), ['class' => 'required']) }}
-                                                    {{ Form::select('room_type', $roomTypes,  null, ['class' => 'form-control'. ($errors->has('room_type') ? ' error' : ''),
+                                                    {{ Form::select('room_type', $roomTypes, null, ['class' => 'form-control'. ($errors->has('room_type') ? ' error' : ''),
                                                      'required' => 'required', 'data-validation-required-message'=>'Please select room type']) }}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('room_type'))
@@ -102,7 +102,7 @@
                                     <div class="form-group overflow-auto">
                                         <div class="col-12">
                                             <button type="button" data-repeater-create=""
-                                                    class="pull-right btn btn-sm btn-outline-primary">
+                                                    class="pull-right btn btn-sm btn-outline-primary add">
                                                 <i class="ft-plus"></i> @lang('labels.add')
                                             </button>
                                         </div>
@@ -132,6 +132,7 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(() => {
+            //
             $('.repeater-rooms').repeater({
                 show: function () {
                     $('div:hidden[data-repeater-item]')
@@ -141,6 +142,10 @@
                         });
                     $(this).slideDown();
                 },
+            });
+            $('.add').on('click', function () {
+                $('input, select,textarea').jqBootstrapValidation('destroy');
+                $('input, select,textarea').jqBootstrapValidation();
             });
         });
     </script>

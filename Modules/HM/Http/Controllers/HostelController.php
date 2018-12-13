@@ -45,6 +45,7 @@ class HostelController extends Controller
     public function create()
     {
         $roomTypes = $this->roomTypeService->pluck();
+        $roomTypes->prepend('--Please Select--', '');
         return view('hm::hostel.create', compact('roomTypes'));
     }
 
