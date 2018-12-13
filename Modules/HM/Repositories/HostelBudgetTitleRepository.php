@@ -20,4 +20,18 @@ class HostelBudgetTitleRepository extends AbstractBaseRepository {
 
 		return $titles;
 	}
+
+	public function getTitleWithHostelBudget( $id ) {
+		$titleWithBudget = HostelBudgetTitle::whereId( $id )->with( 'hostelBudgets' )->first();
+
+		return $titleWithBudget;
+	}
+
+	public function getApproveOrPendingTitle() {
+		$hostelBudgets = HostelBudgetTitle::where( 'status', '!=', 'null' )->orderBy('updated_at', 'desc')->get();
+
+		return $hostelBudgets;
+	}
+
+
 }

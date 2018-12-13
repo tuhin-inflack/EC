@@ -5,6 +5,13 @@
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
+    {{--<style>
+        .form-label:after{
+            content:'*';
+            color:red;
+            padding-left:5px;
+        }
+    </style>--}}
 @endpush
 
 @section('content')

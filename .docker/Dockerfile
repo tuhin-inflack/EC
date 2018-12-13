@@ -3,7 +3,11 @@ FROM php:7.2-apache
 COPY . /src/erp
 COPY .docker/vhost.conf /etc/apache2/sites-available/000-default.conf
 
-RUN docker-php-ext-install mbstring pdo pdo_mysql mysqli
+RUN apt-get update && \
+    apt-get install -y \
+        zlib1g-dev
+
+RUN docker-php-ext-install mbstring pdo pdo_mysql mysqli zip
 
 RUN yes | pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
