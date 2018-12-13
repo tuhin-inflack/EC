@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="loading" lang="en" data-textdirection="ltr">
+<html class="loading" lang="bn" data-textdirection="ltr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -63,9 +63,7 @@
       data-open="click" data-menu="vertical-menu" data-col="2-columns">
 <!-- fixed-top-->
 @include('layouts.partials.fixed_top')
-<!-- ////////////////////////////////////////////////////////////////////////////-->
 
-{{--@include('layouts.partials.menu')--}}
 @yield('menu')
 <div class="app-content content">
     <div class="content-wrapper">
@@ -78,7 +76,6 @@
     </div>
 </div>
 
-<!-- ////////////////////////////////////////////////////////////////////////////-->
 @include('layouts.partials.footer')
 <!-- BEGIN VENDOR JS-->
 <script src="{{ asset('theme/vendors/js/vendors.min.js') }}" type="text/javascript"></script>

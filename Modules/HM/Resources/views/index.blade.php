@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Hostel')
+@section('title', trans('hm::hostel.menu_title'))
 
 @section('content')
     <h1>
@@ -45,7 +45,7 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <h1 class="">
-                                                        <a href="{{ route('hostels.detail') }}"
+                                                        <a href="{{ route('room.chart') }}"
                                                                class="text-capitalize">HOSTEL NAME</a>
                                                     </h1>
                                                     <span>number of floors 5</span>

@@ -14,7 +14,7 @@ class CreateHostelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
+            'name' => 'required|unique:hostels',
             'total_floor' => 'required|numeric',
 //            'total_room' => 'required|numeric|min:1',
 //            'total_seat' => 'required|numeric|min:1',

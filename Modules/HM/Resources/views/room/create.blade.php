@@ -114,7 +114,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="la la-check-square-o"></i> Save
                                 </button>
-                                <a class="btn btn-warning mr-1" role="button" href="#">
+                                <a class="btn btn-warning mr-1" role="button" href="{{route('hostels.index')}}">
                                     <i class="ft-x"></i> Cancel
                                 </a>
                             </div>

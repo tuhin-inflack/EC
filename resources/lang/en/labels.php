@@ -19,4 +19,8 @@ return [
     'confirm_delete' => 'Confirm delete?',
     'dashboard' => 'Dashboard',
     'history' => 'History',
+    'number' => 'Number',
+    'list' => 'List',
+    'new' => 'New',
+    'add' => 'Add',
 ];
