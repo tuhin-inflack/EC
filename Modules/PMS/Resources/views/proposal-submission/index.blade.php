@@ -52,10 +52,4 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-    <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
-    </script>
-@endpush
+
