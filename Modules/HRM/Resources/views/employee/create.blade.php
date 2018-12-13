@@ -152,12 +152,15 @@
                 $('.EmployeeId').val(employee_id);
                 $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
-                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
-                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+                $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
+
+                {{--$.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');--}}
+                {{--$.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');--}}
+                {{--$.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');--}}
+                {{--$.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');--}}
+                {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
+                {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
 
 
             });
