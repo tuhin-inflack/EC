@@ -38,8 +38,8 @@
 
                                                     @if ($errors->has('start_date'))
                                                         <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('start_date') }}</strong>
-                                                    </span>
+                                                            <strong>{{ $errors->first('start_date') }}</strong>
+                                                        </span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -50,8 +50,8 @@
 
                                                     @if ($errors->has('end_date'))
                                                         <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $errors->first('end_date') }}</strong>
-                                                    </span>
+                                                            <strong>{{ $errors->first('end_date') }}</strong>
+                                                        </span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -86,14 +86,22 @@
                                                     </div>
                                                 </div>
 
-                                                @if ($errors->has('booking_type'))
-                                                    <span class="text-danger">{{ $errors->first('booking_type') }}</span>
-                                                @endif
+                                                <div class="row col-md-12">
+                                                    @if ($errors->has('booking_type'))
+                                                        <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
+                                                    @endif
+                                                </div>
+                                                
                                             </div>
                                         </div>
 
                                         <h4 class="form-section"><i class="la  la-building-o"></i>Room
                                             Details</h4>
+                                            @if($errors->has('roomInfos')) 
+                                                <span class="danger small">
+                                                    <strong>{{ $errors->first('roomInfos') }}</strong>
+                                                </span>    
+                                            @endif
                                         <div class="repeater-room-infos">
                                             <div data-repeater-list="roomInfos">
                                                 @if (old('roomInfos'))
@@ -103,12 +111,12 @@
                                                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                                                     <label class="required">Room Type</label>
                                                                     <br>
-                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
 
                                                                     @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
                                                                         <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
-                                                                    </span>
+                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
+                                                                        </span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -119,8 +127,8 @@
 
                                                                     @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
                                                                         <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
-                                                                    </span>
+                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
+                                                                        </span>
                                                                     @endif
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -237,29 +245,31 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Gender <span class="danger">*</span></label>
+                                                            <label class="required">Gender</label>
                                                             <div class="row">
                                                                 <div class="col-md-6">
-                                                                    <div class="skin skin-square">
+                                                                    <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('gender', 'male') !!}
-                                                                            <label class="">Male</label>
+                                                                            <label for="gender">Male</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
-                                                                    <div class="skin skin-square">
+                                                                    <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('gender', 'female') !!}
-                                                                            <label class="">Female</label>
+                                                                            <label for="gender">Female</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
                                                             </div>
-
+                                                            
                                                             @if ($errors->has('gender'))
                                                                 <div class="row">
-                                                                    <span class="small danger"><strong>{{ $errors->first('gender') }}</strong></span>
+                                                                    <div class="col-md-12">
+                                                                        <span class="small danger"><strong>{{ $errors->first('gender') }}</strong></span>
+                                                                    </div>
                                                                 </div>
                                                             @endif
                                                         </div>
@@ -271,8 +281,8 @@
 
                                                             @if ($errors->has('email'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('email') }}</strong>
-                                                            </span>
+                                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                                </span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -283,8 +293,8 @@
 
                                                             @if ($errors->has('passport_no'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('passport_no') }}</strong>
-                                                            </span>
+                                                                    <strong>{{ $errors->first('passport_no') }}</strong>
+                                                                </span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -295,8 +305,8 @@
 
                                                             @if ($errors->has('nid'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('nid') }}</strong>
-                                                            </span>
+                                                                    <strong>{{ $errors->first('nid') }}</strong>
+                                                                </span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -315,8 +325,8 @@
 
                                                             @if ($errors->has('organization'))
                                                                 <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('organization') }}</strong>
-                                                            </span>
+                                                                    <strong>{{ $errors->first('organization') }}</strong>
+                                                                </span>
                                                             @endif
                                                         </div>
                                                     </div>
@@ -459,7 +469,7 @@
                                                                             <label>Name <span
                                                                                         class="danger">*</span></label>
                                                                             <br>
-                                                                            {!! Form::text('name', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+                                                                            {!! Form::text('name', $oldInput['name'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.name'))
                                                                                 <span class="invalid-feedback"
@@ -471,7 +481,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Age</label>
                                                                             <br>
-                                                                            {!! Form::number('age', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                            {!! Form::number('age', $oldInput['age'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.age'))
                                                                                 <span class="invalid-feedback"
@@ -483,7 +493,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Gender</label>
                                                                             <br>
-                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.gender') ? ' is-invalid' : '')]) !!}
+                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $oldInput['gender'], ['id' => 'guest-gender-select', 'class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.gender') ? ' is-invalid' : '')]) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.gender'))
                                                                                 <span class="invalid-feedback"
@@ -495,7 +505,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Relation</label>
                                                                             <br>
-                                                                            {!! Form::text('relation', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'placeholder' => 'Colleague']) !!}
+                                                                            {!! Form::text('relation', $oldInput['relation'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'placeholder' => 'Colleague']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.relation'))
                                                                                 <span class="invalid-feedback"
@@ -521,7 +531,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label>NID</label>
                                                                             <br>
-                                                                            {!! Form::text('nid_no', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number']) !!}
+                                                                            {!! Form::text('nid_no', $oldInput['nid_no'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.nid_no'))
                                                                                 <span class="invalid-feedback"
@@ -533,7 +543,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-4">
                                                                             <label class="required">Address</label>
                                                                             <br>
-                                                                            {!! Form::textarea('address', null, ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                                                            {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.address'))
                                                                                 <span class="invalid-feedback"
@@ -666,7 +676,7 @@
                                             </div>
                                         </fieldset>
                                         <!-- Step 4 -->
-                                        {{--<h6>Step 4</h6>
+                                        <h6>Step 4</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Billing
                                                 Information</h4>
@@ -688,7 +698,7 @@
                                                     </table>
                                                 </div>
                                             </div>
-                                        </fieldset>--}}
+                                        </fieldset>
                                         {!! Form::close() !!}
                                     </div>
                                 </div>
@@ -764,6 +774,7 @@
         $(document).ready(function () {
             // datepicker
             $('#start_date, #end_date').pickadate();
+
             // form-repeater
             $('.repeater-room-infos').repeater({
                 show: function () {
@@ -786,11 +797,11 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: true,
+                initEmpty: {{ old('guests') ? 'false' : 'true' }},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
-                        .find('input.is-invalid, select.is-invalid')
+                        .find('input.is-invalid, select.is-invalid, textarea.is-invalid')
                         .each((index, element) => {
                             $(element).removeClass('is-invalid');
                         });
