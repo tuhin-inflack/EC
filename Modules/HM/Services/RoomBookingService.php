@@ -75,10 +75,12 @@ class RoomBookingService
             ]);
         }));
 
-        $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-            $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
-            return new BookingGuestInfo($guest);
-        }));
+        if (array_key_exists('guests', $data)) {
+            $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+                $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                return new BookingGuestInfo($guest);
+            }));
+        }
 
         return $roomBooking;
     }
