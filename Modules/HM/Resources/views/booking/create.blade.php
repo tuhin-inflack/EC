@@ -874,6 +874,7 @@
                         maxlength: 300
                     },
                     nid: {
+                        minlength: 10,
                         maxlength: 10
                     },
                     referee_dept: "required"
