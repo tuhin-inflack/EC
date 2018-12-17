@@ -26,126 +26,148 @@
                                     <div class="card-body">
                                     {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
                                     <!-- Step 1 -->
-                                    <h6>Step 1</h6>
-                                    <fieldset>
-                                        <h4 class="form-section"><i class="la  la-building-o"></i>Booking
-                                            Details</h4>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="required">Start Date</label>
-                                                    {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+                                        <h6>Step 1</h6>
+                                        <fieldset>
+                                            <h4 class="form-section"><i class="la  la-building-o"></i>Booking
+                                                Details</h4>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="required">Start Date</label>
+                                                        {{ Form::text('start_date', null, ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
-                                                    @if ($errors->has('start_date'))
-                                                        <span class="invalid-feedback" role="alert">
+                                                        @if ($errors->has('start_date'))
+                                                            <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('start_date') }}</strong>
                                                         </span>
-                                                    @endif
+                                                        @endif
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="required">End Date</label>
-                                                    {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="required">End Date</label>
+                                                        {{ Form::text('end_date', null, ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
 
-                                                    @if ($errors->has('end_date'))
-                                                        <span class="invalid-feedback" role="alert">
+                                                        @if ($errors->has('end_date'))
+                                                            <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('end_date') }}</strong>
                                                         </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Booking Date</label>
-                                                    <input type="text" class="form-control"
-                                                           value="{{ date('j F, Y') }}" disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-md-6">
-                                                <label class="required">Booking Type</label>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="skin skin-flat">
-                                                            <fieldset>
-                                                                {!! Form::radio('booking_type', 'general', old('booking_type') == 'general') !!}
-                                                                <label>General Purpose</label>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="skin skin-flat">
-                                                            <fieldset>
-                                                                {!! Form::radio('booking_type', 'training', old('booking_type') == 'training') !!}
-                                                                <label>Training</label>
-                                                            </fieldset>
-                                                        </div>
+                                                        @endif
                                                     </div>
                                                 </div>
-
-                                                <div class="row col-md-12">
-                                                    @if ($errors->has('booking_type'))
-                                                        <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
-                                                    @endif
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Booking Date</label>
+                                                        <input type="text" class="form-control"
+                                                               value="{{ date('j F, Y') }}" disabled>
+                                                    </div>
                                                 </div>
-                                                
                                             </div>
-                                        </div>
 
-                                        <h4 class="form-section"><i class="la  la-building-o"></i>Room
-                                            Details</h4>
-                                            @if($errors->has('roomInfos')) 
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="required">Booking Type</label>
+                                                    <div class="skin skin-flat">
+                                                        {!! Form::radio('booking_type', 'general', old('booking_type') == 'general', ['class' => 'required']) !!}
+                                                        <label>General Purpose</label>
+                                                    </div>
+                                                    <div class="skin skin-flat">
+                                                        {!! Form::radio('booking_type', 'training', old('booking_type') == 'training', ['class' => 'required']) !!}
+                                                        <label>Training</label>
+                                                    </div>
+
+                                                    <div class="row col-md-12 radio-error">
+                                                        @if ($errors->has('booking_type'))
+                                                            <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
+                                                        @endif
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <h4 class="form-section"><i class="la  la-building-o"></i>Room
+                                                Details</h4>
+                                            @if($errors->has('roomInfos'))
                                                 <span class="danger small">
                                                     <strong>{{ $errors->first('roomInfos') }}</strong>
-                                                </span>    
+                                                </span>
                                             @endif
-                                        <div class="repeater-room-infos">
-                                            <div data-repeater-list="roomInfos">
-                                                @if (old('roomInfos'))
-                                                    @foreach(old('roomInfos') as $oldInput)
+                                            <div class="repeater-room-infos">
+                                                <div data-repeater-list="roomInfos">
+                                                    @if (old('roomInfos'))
+                                                        @foreach(old('roomInfos') as $oldInput)
+                                                            <div data-repeater-item="" style="">
+                                                                <div class="form row">
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                        <label class="required">Room Type</label>
+                                                                        <br>
+                                                                        {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control required room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+
+                                                                        @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label for="quantity"
+                                                                               class="required">Quantity</label>
+                                                                        <br>
+                                                                        {!! Form::number('quantity', $oldInput['quantity'], ['class' => 'form-control required' . ($errors->has('roomInfos.' . $loop->index . '.quantity') ? ' is-invalid' : ''), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+
+                                                                        @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
+                                                                        </span>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label class="required">Rate</label>
+                                                                        <br>
+                                                                        <!-- TODO: generate select options based on old room type input -->
+                                                                        {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : '')]) !!}
+
+                                                                        @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
+                                                                            <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
+                                                                    </span>
+                                                                        @endif
+                                                                    </div>
+                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-danger"
+                                                                                data-repeater-delete=""><i
+                                                                                    class="ft-x"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <hr>
+                                                            </div>
+                                                        @endforeach
+                                                    @else
                                                         <div data-repeater-item="" style="">
                                                             <div class="form row">
                                                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                                                     <label class="required">Room Type</label>
                                                                     <br>
-                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
-
-                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
-                                                                        </span>
-                                                                    @endif
+                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                                                    <span class="select-error"></span>
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label for="quantity"
-                                                                           class="required">Quantity</label>
+                                                                    <label class="required"
+                                                                           for="quantity">Quantity</label>
                                                                     <br>
-                                                                    {!! Form::number('quantity', $oldInput['quantity'], ['class' => 'form-control' . ($errors->has('roomInfos.' . $loop->index . '.quantity') ? ' is-invalid' : ''), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
-
-                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
-                                                                        </span>
-                                                                    @endif
+                                                                    {!! Form::number('quantity', null, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                                                 </div>
                                                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                     <label class="required">Rate</label>
                                                                     <br>
-                                                                    <!-- TODO: generate select options based on old room type input -->
-                                                                    {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : '')]) !!}
+                                                                    {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select']) !!}
+                                                                    <span class="select-error"></span>
 
-                                                                    @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
-                                                                        <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
-                                                                    </span>
-                                                                    @endif
                                                                 </div>
                                                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                    <button type="button"
-                                                                            class="btn btn-outline-danger"
+                                                                    <button type="button" class="btn btn-outline-danger"
                                                                             data-repeater-delete=""><i
                                                                                 class="ft-x"></i>
                                                                     </button>
@@ -153,48 +175,19 @@
                                                             </div>
                                                             <hr>
                                                         </div>
-                                                    @endforeach
-                                                @else
-                                                    <div data-repeater-item="" style="">
-                                                        <div class="form row">
-                                                            <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                <label class="required">Room Type</label>
-                                                                <br>
-                                                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
-                                                            </div>
-                                                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                <label for="quantity">Quantity <span
-                                                                            class="danger">*</span></label>
-                                                                <br>
-                                                                {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
-                                                            </div>
-                                                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                <label class="required">Rate</label>
-                                                                <br>
-                                                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control rate-select']) !!}
-                                                            </div>
-                                                            <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                <button type="button" class="btn btn-outline-danger"
-                                                                        data-repeater-delete=""><i
-                                                                            class="ft-x"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
+                                                    @endif
+                                                </div>
+                                                <div class="form-group overflow-auto">
+                                                    <div class="col-12">
+                                                        <button type="button" data-repeater-create=""
+                                                                class="pull-right btn btn-sm btn-outline-primary">
+                                                            <i class="ft-plus"></i> Add
+                                                        </button>
                                                     </div>
-                                                @endif
-                                            </div>
-                                            <div class="form-group overflow-auto">
-                                                <div class="col-12">
-                                                    <button type="button" data-repeater-create=""
-                                                            class="pull-right btn btn-sm btn-outline-primary">
-                                                        <i class="ft-plus"></i> Add
-                                                    </button>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </fieldset>
-                                    <!-- Step 2 -->
+                                        </fieldset>
+                                        <!-- Step 2 -->
                                         <h6>Step 2</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Personal
@@ -205,7 +198,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label class="required">Name</label>
-                                                            {!! Form::text('name', null, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+                                                            {!! Form::text('name', null, ['class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
 
                                                             @if ($errors->has('name'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -218,7 +211,7 @@
                                                         <div class="form-group col-md-12">
                                                             <label>Contact <span
                                                                         class="danger">*</span></label>
-                                                            {!! Form::text('contact', null, ['class' => 'form-control' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number']) !!}
+                                                            {!! Form::text('contact', null, ['class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number']) !!}
 
                                                             @if ($errors->has('contact'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -230,7 +223,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label class="required">Address</label>
-                                                            {!! Form::textarea('address', null, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 5, 'rows' => 6]) !!}
+                                                            {!! Form::textarea('address', null, ['class' => 'form-control required' . ($errors->has('address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 5, 'rows' => 6]) !!}
 
                                                             @if ($errors->has('address'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -249,25 +242,23 @@
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
-                                                                        <fieldset>
-                                                                            {!! Form::radio('gender', 'male') !!}
-                                                                            <label for="gender">Male</label>
-                                                                        </fieldset>
+                                                                        {!! Form::radio('gender', 'male', old('gender') == 'male', ['class' => 'required']) !!}
+                                                                        <label for="gender">Male</label>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
-                                                                        <fieldset>
-                                                                            {!! Form::radio('gender', 'female') !!}
-                                                                            <label for="gender">Female</label>
-                                                                        </fieldset>
+                                                                        {!! Form::radio('gender', 'female', old('gender') == 'female', ['class' => 'required']) !!}
+                                                                        <label for="gender">Female</label>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            
+
+                                                            <div class="row radio-error"></div>
+
                                                             @if ($errors->has('gender'))
                                                                 <div class="row">
-                                                                    <div class="col-md-12">
+                                                                    <div class="col-md-12 radio-error">
                                                                         <span class="small danger"><strong>{{ $errors->first('gender') }}</strong></span>
                                                                     </div>
                                                                 </div>
@@ -414,9 +405,8 @@
                                                 <div class="col-md-6">
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>Your Photo <span
-                                                                        class="danger">*</span></label>
-                                                            {!! Form::file('photo', ['class' => 'form-control' . ($errors->has('photo') ? ' is-invalid' : '')]) !!}
+                                                            <label class="required">Your Photo</label>
+                                                            {!! Form::file('photo', ['class' => 'form-control required' . ($errors->has('photo') ? ' is-invalid' : '')]) !!}
 
                                                             @if ($errors->has('photo'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -453,7 +443,7 @@
                                                 <!-- End of .col-md-6 -->
                                             </div>
                                         </fieldset>
-                                    <!-- Step 3 -->
+                                        <!-- Step 3 -->
                                         <h6>Step 3</h6>
                                         <fieldset>
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Guest
@@ -469,7 +459,7 @@
                                                                             <label>Name <span
                                                                                         class="danger">*</span></label>
                                                                             <br>
-                                                                            {!! Form::text('name', $oldInput['name'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+                                                                            {!! Form::text('name', $oldInput['name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.name'))
                                                                                 <span class="invalid-feedback"
@@ -481,7 +471,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Age</label>
                                                                             <br>
-                                                                            {!! Form::number('age', $oldInput['age'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                            {!! Form::number('age', $oldInput['age'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.age'))
                                                                                 <span class="invalid-feedback"
@@ -493,7 +483,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Gender</label>
                                                                             <br>
-                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $oldInput['gender'], ['id' => 'guest-gender-select', 'class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.gender') ? ' is-invalid' : '')]) !!}
+                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $oldInput['gender'], ['class' => 'form-control guest-gender-select required' . ($errors->has('guests.' . $loop->index . '.gender') ? ' is-invalid' : '')]) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.gender'))
                                                                                 <span class="invalid-feedback"
@@ -505,7 +495,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                             <label class="required">Relation</label>
                                                                             <br>
-                                                                            {!! Form::text('relation', $oldInput['relation'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'placeholder' => 'Colleague']) !!}
+                                                                            {!! Form::text('relation', $oldInput['relation'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'placeholder' => 'Colleague']) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.relation'))
                                                                                 <span class="invalid-feedback"
@@ -543,7 +533,7 @@
                                                                         <div class="form-group mb-1 col-sm-12 col-md-4">
                                                                             <label class="required">Address</label>
                                                                             <br>
-                                                                            {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                                                            {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
 
                                                                             @if ($errors->has('guests.' . $loop->index . '.address'))
                                                                                 <span class="invalid-feedback"
@@ -574,24 +564,25 @@
                                                                         <label>Name <span
                                                                                     class="danger">*</span></label>
                                                                         <br>
-                                                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                                        {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe']) !!}
                                                                     </div>
                                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                         <label class="required">Age</label>
                                                                         <br>
-                                                                        {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                        {!! Form::number('age', null, ['class' => 'form-control required', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                                                     </div>
                                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                         <label>Gender <span
                                                                                     class="danger">*</span></label>
                                                                         <br>
-                                                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control guest-gender-select required']) !!}
+                                                                        <span class="select-error"></span>
                                                                     </div>
                                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                                                         <label>Relation <span
                                                                                     class="danger">*</span></label>
                                                                         <br>
-                                                                        {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                        {!! Form::text('relation', null, ['class' => 'form-control required', 'placeholder' => 'Colleague']) !!}
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
@@ -609,7 +600,7 @@
                                                                         <label>Address <span
                                                                                     class="danger">*</span></label>
                                                                         <br>
-                                                                        {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                                                        {!! Form::textarea('address', null, ['class' => 'form-control required', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
                                                                     </div>
                                                                     <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                                                         <button type="button"
@@ -639,8 +630,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label>Department</label>
-                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
+                                                        <label class="required">Department</label>
+                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control required', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
 
                                                         @if ($errors->has('referee_dept'))
                                                             <span class="invalid-feedback" role="alert">
@@ -651,8 +642,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label>Employee Name</label>
-                                                        {!! Form::text('referee_name', null, ['class' => 'form-control' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+                                                        <label class="required">Employee Name</label>
+                                                        {!! Form::text('referee_name', null, ['class' => 'form-control required' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
 
                                                         @if ($errors->has('referee_name'))
                                                             <span class="invalid-feedback" role="alert">
@@ -663,8 +654,8 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
-                                                        <label>Contact</label>
-                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits']) !!}
+                                                        <label class="required">Contact</label>
+                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control required' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits']) !!}
 
                                                         @if ($errors->has('referee_contact'))
                                                             <span class="invalid-feedback" role="alert">
@@ -732,6 +723,8 @@
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script>
+        var form = $('.booking-request-tab-steps').show();
+
         // jquery steps
         $('.booking-request-tab-steps').steps({
             headerTag: "h6",
@@ -742,6 +735,10 @@
                 finish: 'Submit'
             },
             onStepChanging: function (event, currentIndex, newIndex) {
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
@@ -758,7 +755,14 @@
 
                     $('#billing-table').append(billingRows);
                 }
-                return true;
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
             },
             onFinished: function (event, currentIndex) {
                 $('.booking-request-tab-steps').submit();
@@ -793,6 +797,11 @@
                             $(element).removeClass('is-invalid');
                         });
 
+                    // $(this).find('select, input').each(function () {
+                    //     $(this).rules("add", {
+                    //         required: true
+                    //     });
+                    // });
                     $(this).slideDown();
                 }
             });
@@ -822,11 +831,38 @@
             $('.rate-select').select2({
                 placeholder: 'Select Rate'
             });
-            $('#guest-gender-select').select2({
+            $('.guest-gender-select').select2({
                 placeholder: 'Select Gender'
             });
             $('#department-select').select2({
                 placeholder: 'Select Department'
+            });
+
+            // validation
+            $('.booking-request-tab-steps').validate({
+                ignore: 'input[type=hidden]', // ignore hidden fields
+                errorClass: 'danger',
+                successClass: 'success',
+                highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.attr('type') == 'radio') {
+                        error.insertBefore(element.parents().siblings('.radio-error'));
+                    } else if (element[0].tagName == "SELECT") {
+                        error.insertBefore(element.siblings('.select-error'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    // "roomInfos[0][room_type_id]": "required",
+                    // "roomInfos[0][quantity]": "required",
+                    // "roomInfos[0][rate]": "required",
+                },
             });
         });
 
