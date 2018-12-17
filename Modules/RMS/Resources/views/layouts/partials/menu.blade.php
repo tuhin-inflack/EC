@@ -5,12 +5,12 @@
                 <li class=" nav-item">
                     <a href="{{ url('rms') }}"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title" data-i18n="nav.navbars.main">Request Research Proposal</span></a>
+                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.menu_title')}}</span></a>
                     <ul class="menu-content">
                         <li class="{{is_active_route('research-request.create')}}">
                             <a href="{{route('research-request.create')}}">
                                 <i class="la la-plus-circle"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">Create Request</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('rms::research_proposal.create_request')}}</span>
                             </a>
                         </li>
                         <li class="{{is_active_route('research-request.index')}}">
