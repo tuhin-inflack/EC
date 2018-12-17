@@ -19,4 +19,5 @@ return [
     'bill_generate' => 'বিল তৈরি করুন',
     'bill_payment' => 'বিল পরিশোধ করুন',
     'bill_payment_list' => 'পেমেন্ট তালিকা',
+    'add_room' => 'কক্ষ যোগ কারুন'
 ];

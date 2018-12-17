@@ -26,4 +26,5 @@ return [
     'list' => 'List',
     'new' => 'New',
     'add' => 'Add',
+    'back_page' => 'Back',
 ];
