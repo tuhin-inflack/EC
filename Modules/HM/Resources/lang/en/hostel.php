@@ -4,6 +4,7 @@ return [
     'menu_title' => 'Hostel',
     'card_title' => 'Hostel List',
     'create_button' => 'New Hostel',
+    'update_button' => 'Update Hostel',
     'create_card_title' => 'Hostel Creation',
     'create_form_title' => 'Hostel Form',
     'edit_card_title' => 'Hostel Edit',
@@ -19,5 +20,6 @@ return [
     'bill_generate' => 'Generate Bill',
     'bill_payment' => 'Bill Payment',
     'bill_payment_list' => 'Payment Register',
-    'add_room' => 'Add Rooms'
+    'add_room' => 'Add Rooms',
+    'add_room_lbl' => 'Add room for :hostel'
 ];

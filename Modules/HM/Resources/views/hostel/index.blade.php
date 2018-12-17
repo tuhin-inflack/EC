@@ -114,8 +114,6 @@
                     {"orderable": false, "targets": 4}
                 ],
                 "bDestroy": true,
-
-
             });
         });
     </script>

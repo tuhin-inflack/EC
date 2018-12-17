@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.card_title')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.update_card_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -28,7 +28,7 @@
                             @endif
                             {!! Form::open(['route' =>  ['hostels.update', $hostel->id], 'class' => 'form', 'novalidate']) !!}
                                 @method('PUT')
-                            <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::hostel.create_button')
+                            <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::hostel.update_button')
                             </h4>
                             <div class="row">
                                 <div class="col-md-6">
@@ -57,7 +57,7 @@
 
                             <div class="form-actions text-center">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="la la-check-square-o"></i> {{__('labels.save')}}
+                                    <i class="la la-check-square-o"></i> {{__('labels.edit')}}
                                 </button>
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('hostels.index')}}">
                                     <i class="ft-x"></i> {{__('labels.cancel')}}
