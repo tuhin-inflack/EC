@@ -10,6 +10,7 @@ namespace Modules\HM\Services;
 
 
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\DB;
 use Modules\HM\Entities\Hostel;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\HostelRepository;
@@ -30,6 +31,7 @@ class HostelService
     {
         $this->hostelRepository = $hostelRepository;
         $this->roomService = $roomService;
+        $this->setActionRepository($this->hostelRepository);
     }
 
     public function getAll()
@@ -39,28 +41,19 @@ class HostelService
 
     public function store(array $data)
     {
-        $hostel = $this->hostelRepository->save($data);
+        $hostel = $this->save($data);
         if (isset($data['rooms']) && !empty($data['rooms'])) {
             $rooms = $this->roomService->getRoomsFromRoomEntry($data['rooms']);
             $hostel->rooms()->saveMany($rooms);
         }
     }
 
-    public function update(Hostel $hostel, array $data)
+    public function destroy(Hostel $hostel)
     {
-        $roomTypeCollection = collect($data['room_types']);
-        $roomTypeCollection->map(function ($roomType) use ($hostel) {
-            $hostel->roomTypes()
-                ->updateOrCreate(['id' => $roomType['id']],
-                    array_merge($roomType, ['hostel_id' => $hostel->id]));
+        DB::transaction(function () use ($hostel) {
+            $hostel->rooms()->delete();
+            $hostel->delete();
         });
-
-        return $this->hostelRepository->update($hostel, $data);
-    }
-
-    public function delete(Hostel $hostel)
-    {
-        return $this->hostelRepository->delete($hostel);
     }
 
     public function groupHostelRoomsByType($rooms)
