@@ -16,7 +16,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered alt-pagination">
+                            <table id="hostel" class="table table-striped table-bordered alt-pagination">
                                 <thead>
                                 <tr>
                                     <th scope="col">@lang('labels.serial')</th>
@@ -75,3 +75,46 @@
         </div>
     </div>
 @endsection
+@push('page-js')
+    <script>
+        $(document).ready(function () {
+            $('#hostel').DataTable({
+                dom: "<'row'<'col-sm-12 col-md-6'lB><'col-sm-12 col-md-6'f>>" +
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                buttons: [
+                    {
+                        extend: 'copy', className: 'copyButton',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                        }
+                    },
+                    {
+                        extend: 'excel', className: 'excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                        }
+                    },
+                    {
+                        extend: 'pdf', className: 'pdf',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                        }
+                    },
+                    {
+                        extend: 'print', className: 'print',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3],
+                        }
+                    },
+                ],
+                "columnDefs": [
+                    { "orderable": false, "targets": 4 }
+                ],
+                "bDestroy": true,
+
+
+            });
+        });
+    </script>
+@endpush

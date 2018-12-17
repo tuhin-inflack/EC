@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-
+@section('title', __('hm::roomtype.title'))
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

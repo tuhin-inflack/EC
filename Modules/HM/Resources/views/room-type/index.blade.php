@@ -1,6 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Room type list')
-
+@section('title', __('hm::roomtype.title'))
 @section('content')
     <section id="room-type-list">
         <div class="row">

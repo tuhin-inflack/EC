@@ -28,9 +28,6 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @php
-                                            $total = 0;
-                                        @endphp
                                         @if(count($budgetWithTitles->hostelBudgets)>0)
                                             @foreach($budgetWithTitles->hostelBudgets as $budget)
                                                 {{--{{ dd($budget) }}--}}
@@ -42,9 +39,6 @@
                                                     <td>{{ $budget->budget_approved_amount }}</td>
                                                 </tr>
 
-                                                @php
-                                                    $total += $budget->budget_approved_amount;
-                                                @endphp
                                             @endforeach
                                             {{--<tr>--}}
                                                 {{--<td colspan="3">Total</td>--}}
