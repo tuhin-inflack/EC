@@ -3,6 +3,7 @@ return [
     'name' => 'Name',
     'action' => 'Action',
     'title' => 'Title',
+    'description' => 'Description',
     'serial' => 'Serial',
     'bdt' => 'BDT',
     'currency' => 'Currency',

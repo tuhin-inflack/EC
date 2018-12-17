@@ -3,6 +3,7 @@ return [
     'name' => 'নাম',
     'action' => 'কর্ম',
     'title' => 'খেতাব',
+    'description' => 'বর্ণনা',
     'serial' => 'ক্রমিক',
     'bdt' => 'টাকা',
     'currency' => 'মুদ্রা',
