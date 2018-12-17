@@ -14,14 +14,8 @@ class UpdateHostelRequest extends FormRequest
     public function rules()
     {
         return [
-            'shortcode' => 'required|max:20|unique:hostels,shortcode,' . $this->hostel->id,
-            'name' => 'required',
-            'total_room' => 'required|numeric|min:1',
-            'total_seat' => 'required|numeric|min:1',
-            'room_types' => 'required',
-            'room_types.*.name' => 'required|max:100',
-            'room_types.*.capacity' => 'required|numeric|min:1',
-            'room_types.*.rate' => 'required|numeric|min:1',
+            'name' => 'required|unique:hostels,name,' . $this->hostel->id,
+            'total_floor' => 'required|numeric|min:1',
         ];
     }
 
