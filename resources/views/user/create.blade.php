@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">User Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('usermanagement.create_user_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -23,17 +23,18 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  '/system/user', 'class' => 'form']) !!}
+                            {!! Form::open(['url' =>  '/system/user', 'class' => 'form', 'novalidate']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> User Form</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{trans('usermanagement.user_form_title')}}</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name" class="col-form-label required">{{ __('Name') }}</label>
+                                            <label for="name" class="col-form-label required">{{trans('labels.name')}}</label>
                                             <input id="name" type="text"
                                                    class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-                                                   name="name" value="{{ old('name') }}" required autofocus>
+                                                   name="name" value="{{ old('name') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.name')])}}" autofocus>
 
+                                            <div class="help-block"></div>
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -45,7 +46,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email"
-                                                   class="col-form-label">{{ __('E-Mail Address') }}</label>
+                                                   class="col-form-label">{{trans('labels.email_address')}}</label>
                                             <input id="email" type="email"
                                                    class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
                                                    name="email" value="{{ old('email') }}">
@@ -62,10 +63,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mobile"
-                                                   class="col-form-label required">{{ __('Mobile') }}</label>
+                                                   class="col-form-label required">{{trans('labels.mobile')}}</label>
                                             <input id="mobile" type="text"
                                                    class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}"
-                                                   name="mobile" value="{{ old('mobile') }}" placeholder="01xxxxxxxxx">
+                                                   name="mobile" value="{{ old('mobile') }}" placeholder="01xxxxxxxxx" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.mobile')])}}">
+                                            <div class="help-block"></div>
                                             @if ($errors->has('mobile'))
                                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('mobile') }}</strong>
@@ -76,10 +78,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="username"
-                                                   class="col-form-label required">{{ __('Username') }}</label>
+                                                   class="col-form-label required">{{trans('labels.username')}}</label>
                                             <input id="username" type="text"
                                                    class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
-                                                   name="username" value="{{ old('username') }}" required>
+                                                   name="username" value="{{ old('username') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.username')])}}">
+                                            <div class="help-block"></div>
                                             @if ($errors->has('username'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('username') }}</strong></span>
                                             @endif
@@ -91,11 +94,12 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password"
-                                                   class="col-form-label required">{{ __('Password') }}</label>
+                                                   class="col-form-label required">{{trans('labels.password')}}</label>
                                             <input id="password" type="password"
                                                    class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                                   name="password" required>
+                                                   name="password" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.password')])}}">
 
+                                            <div class="help-block"></div>
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('password') }}</strong></span>
                                             @endif
@@ -104,19 +108,21 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password-confirm"
-                                                   class="col-form-label required">{{ __('Confirm Password') }}</label>
+                                                   class="col-form-label required">{{trans('labels.confirm_password')}}</label>
 
                                             <input id="password-confirm" type="password" class="form-control"
-                                                   name="password_confirmation" required>
+                                                   name="password_confirmation" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.confirm_password')])}}">
+                                            <div class="help-block"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="roles" class="form-label">Select roles</label>
+                                            <label for="roles" class="form-label">{{trans('usermanagement.select_user_roles')}}</label>
                                             {{ Form::select("roles", $roles, null, ["class"=>"form-control select2", "id"=>"roles",
                                              'multiple' => 'multiple', 'name'=>'roles[]']) }}
+
                                             @if ($errors->has('roles'))
                                                 <span class="invalid-feedback"><strong>{{ $errors->first('roles') }}</strong></span>
                                             @endif
@@ -128,32 +134,34 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="user_type"
-                                                   class="col-form-label required">{{ __('User Type') }}</label>
+                                                   class="col-form-label required">{{trans('usermanagement.user_type')}}</label>
                                             @foreach($userTypes as $key => $value)
                                                 <fieldset class="radio">
                                                     <input type="radio"
-                                                           name="user_type" value="{{$key}}" {{$key == 'GUEST' ? 'checked' : ''}} required>
+                                                           name="user_type" value="{{$key}}" {{$key == 'GUEST' ? 'checked' : ''}} required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('usermanagement.user_type')])}}">
                                                     <label for="user_type">
                                                         {{$value}}
                                                     </label>
                                                 </fieldset>
                                             @endforeach
+                                            <div class="help-block"></div>
                                         </div>
                                     </div>
 
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status"
-                                                   class="col-form-label required">{{ __('Status') }}</label>
+                                                   class="col-form-label required">{{trans('labels.status')}}</label>
                                             @foreach($status as $key => $value)
                                                 <fieldset class="radio">
                                                     <label for="status">
                                                         <input type="radio"
-                                                               name="status" value="{{$key}}" {{$key == 'ACTIVE' ? 'checked' : ''}} required>
+                                                               name="status" value="{{$key}}" {{$key == 'ACTIVE' ? 'checked' : ''}} required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.status')])}}">
                                                         {{$value}}
                                                     </label>
                                                 </fieldset>
                                             @endforeach
+                                            <div class="help-block"></div>
                                         </div>
                                     </div>
                                 </div>
