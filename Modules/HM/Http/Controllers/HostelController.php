@@ -57,7 +57,7 @@ class HostelController extends Controller
     public function store(CreateHostelRequest $request)
     {
         $this->hostelService->store($request->all());
-        Session::flash('success', 'Hostel stored successfully');
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('hostels.index');
     }
@@ -91,7 +91,7 @@ class HostelController extends Controller
     public function update(UpdateHostelRequest $request, Hostel $hostel)
     {
         $this->hostelService->update($hostel, $request->all());
-        Session::flash('message', 'Hostel updated successfully');
+        Session::flash('success', trans('labels.update_success'));
 
         return redirect()->route('hostels.index');
     }
@@ -103,8 +103,8 @@ class HostelController extends Controller
      */
     public function destroy(Hostel $hostel)
     {
-        $this->hostelService->delete($hostel);
-        Session::flash('message', 'Hostel deleted successfully');
+        $this->hostelService->destroy($hostel);
+        Session::flash('warning', trans('labels.delete_success'));
 
         return redirect()->route('hostels.index');
     }
