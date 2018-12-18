@@ -10,7 +10,7 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{ route('hostels.create') }}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> @lang('labels.new') @lang('hm::hostel.title')</a>
+                                    class="ft-plus white"></i> @lang('labels.new') @lang('hm::hostel.title')</a>
                         </div>
                     </div>
 
@@ -38,23 +38,25 @@
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                         aria-haspopup="true"
                                                         aria-expanded="false" class="btn btn-info dropdown-toggle"><i
-                                                            class="la la-cog"></i></button>
+                                                        class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('hostels.show', $hostel->id) }}"
-                                                   class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                   class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
 
-                                                    <a class="dropdown-item" href="{{ route('rooms.create', $hostel->id) }}" class="dropdown-item"><i
-                                                            class="ft-plus"></i> Add Rooms</a>
-                                                {{--<a href="{{ route('hostels.edit', $hostel->id) }}"--}}
-                                                   {{--class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>--}}
+                                                    <a class="dropdown-item"
+                                                       href="{{ route('rooms.create', $hostel->id) }}"
+                                                       class="dropdown-item"><i
+                                                            class="ft-plus"></i> @lang('hm::hostel.add_room')</a>
+                                                <a href="{{ route('hostels.edit', $hostel->id) }}"
+                                                   class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                 <div class="dropdown-divider"></div>
                                                     {!! Form::open([
                                                         'method'=>'DELETE',
                                                         'url' => route('hostels.destroy', $hostel->id),
                                                         'style' => 'display:inline'
                                                     ]) !!}
-                                                    {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                    {!! Form::button('<i class="ft-trash"></i>'.trans('labels.delete'), array(
                                                         'type' => 'submit',
                                                         'class' => 'dropdown-item',
                                                         'title' => 'Delete the hostel',
@@ -109,11 +111,9 @@
                     },
                 ],
                 "columnDefs": [
-                    { "orderable": false, "targets": 4 }
+                    {"orderable": false, "targets": 4}
                 ],
                 "bDestroy": true,
-
-
             });
         });
     </script>
