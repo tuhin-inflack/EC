@@ -27,7 +27,7 @@ class AnnualPurchaseController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource       in storage.
      * @param  Request $request
      * @return Response
      */
