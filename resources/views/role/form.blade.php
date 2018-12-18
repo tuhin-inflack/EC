@@ -58,10 +58,10 @@
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">
-                                <i class="la la-check-square-o"></i> Save
+                                <i class="la la-check-square-o"></i> {{trans('labels.save')}}
                             </button>
                             <a class="btn btn-warning mr-1" role="button" href="{{url('/user/role')}}">
-                                <i class="ft-x"></i> Cancel
+                                <i class="ft-x"></i> {{trans('labels.cancel')}}
                             </a>
                         </div>
                     </div>

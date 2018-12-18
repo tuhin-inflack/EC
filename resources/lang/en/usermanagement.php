@@ -13,6 +13,12 @@ return [
     'user_type' => 'User Type',
     'role_name' => 'Role Name',
     'role_description' => 'Description',
-    'role_permission' => 'Role Permission'
+    'role_permission' => 'Role Permission',
+    'permission_list_title' => 'Permission List',
+    'permission_create_button' => 'New Permission',
+    'permission_create_title' => 'Permission Creation',
+    'permission_create_form_title' => 'Permission Form',
+    'permission_create_model_name' => 'Model Name'
+
 ];
 
