@@ -25,6 +25,7 @@ class CreateRoomBookingRequestersTable extends Migration
             $table->string('organization')->nullable();
             $table->string('designation')->nullable();
             $table->enum('organization_type', ['government', 'private', 'foreign', 'others'])->nullable();
+            $table->string('org_address')->nullable();
             $table->string('photo')->nullable();
             $table->string('passport_no')->nullable();
             $table->string('nid_doc')->nullable();
