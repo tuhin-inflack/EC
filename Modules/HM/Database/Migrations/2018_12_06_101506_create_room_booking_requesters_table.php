@@ -19,6 +19,7 @@ class CreateRoomBookingRequestersTable extends Migration
             $table->string('name', 50);
             $table->enum('gender', ['male', 'female']);
             $table->string('contact');
+            $table->string('address', 300);
             $table->string('email', 50)->nullable();
             $table->string('nid')->nullable();
             $table->string('organization')->nullable();
