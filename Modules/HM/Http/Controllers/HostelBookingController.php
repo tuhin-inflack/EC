@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\RoomBookingService;
 use Modules\HM\Services\RoomTypeService;
@@ -72,7 +73,6 @@ class HostelBookingController extends Controller
     {
         $this->bookingService->save($request->all());
         Session::flash('message', 'Successfully stored room booking information');
-
         return redirect()->back();
     }
 
@@ -89,9 +89,14 @@ class HostelBookingController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(RoomBooking $roomBooking)
     {
-        return view('hm::edit');
+        $requester = $roomBooking->requester;
+        $departments  = $roomBooking->referee;
+        $roomInfos = $roomBooking->roomInfos;
+        $guestInfos = $roomBooking->guestInfos;
+        $roomTypes = $this->roomTypeService->findAll();
+        return view('hm::booking.edit',compact('requester','departments','roomInfos','guestInfos','roomBooking', 'roomTypes'));
     }
 
     /**
