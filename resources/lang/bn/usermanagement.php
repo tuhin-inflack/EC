@@ -13,7 +13,12 @@ return [
     'user_type' => 'ইউজারের ধরণ',
     'role_name' => 'রোলের নাম',
     'role_description' => 'বর্ণনা',
-    'role_permission' => 'রোলের অনুমতি'
+    'role_permission' => 'রোলের অনুমতি',
+    'permission_list_title' => 'অনুমতি তালিকা',
+    'permission_create_button' => 'নতুন অনুমতি',
+    'permission_create_title' => 'অনুমতি তৈরি',
+    'permission_create_form_title' => 'অনুমতি ফর্ম',
+    'permission_create_model_name' => 'মডেলের নাম'
 
 ];
 
