@@ -43,9 +43,9 @@ class StoreBookingRequest extends FormRequest
             'guests.*.nid_doc' => 'nullable|mimes:jpeg,bmp,png|max:3072',
             'guests.*.nid_no' => 'nullable|size:10',
             'guests.*.address' => 'max:300|required',
-            'referee_dept' => 'nullable|exists:departments,id',
-            'referee_name' => 'nullable|max:50',
-            'referee_contact' => 'nullable|max:50',
+            'referee_dept' => 'required|exists:departments,id',
+            'referee_name' => 'required|max:50',
+            'referee_contact' => 'required|max:50',
         ];
     }
 

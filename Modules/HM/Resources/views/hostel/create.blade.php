@@ -6,7 +6,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.card_title')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.create_card_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -33,7 +33,7 @@
                                         <div class="form-group">
                                             {!! Form::label('name',  __('labels.name'), ['class' => 'form-label required']) !!}
                                             {!! Form::text('name', old('name'), ["class" => "form-control". ($errors->has('name') ? ' is-invalid' : ''), "required ",
-                                             "placeholder" => "e.g Hostel 1", 'data-validation-required-message'=>'Please enter name']) !!}
+                                             "placeholder" => "e.g Hostel 1", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('labels.name')])]) !!}
                                             <div class="help-block"></div>
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback">{{ $errors->first('name') }}</span>
@@ -44,7 +44,7 @@
                                         <div class="form-group">
                                             {!! Form::label('total_floor',  __('hm::hostel.total_floor'), ['class' => 'form-label required']) !!}
                                             {!! Form::number('total_floor', old('total_floor'), ["class" => "form-control". ($errors->has('total_floor') ? ' is-invalid' : ''), "required",
-                                             "placeholder" => "e.g 5", 'data-validation-required-message'=>'Please enter total floor']) !!}
+                                             "placeholder" => "e.g 5", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel.total_floor')])]) !!}
                                             <div class="help-block"></div>
                                             @if ($errors->has('total_floor'))
                                                 <span class="invalid-feedback">{{ $errors->first('total_floor') }}</span>
@@ -63,7 +63,7 @@
                                                     {!! Form::label('floor',  __('hm::hostel.floor').' '.__('labels.number'), ['class' => 'form-label required']) !!}
                                                     <br>
                                                     {!! Form::number('floor', old('floor'), ["class" => "form-control". ($errors->has('floor') ? ' error' : ''), "required",
-                                                    "placeholder" => "e.g 1", 'data-validation-required-message'=>'Please enter floor no']) !!}
+                                                    "placeholder" => "e.g 1", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel.floor') .__('labels.number')])]) !!}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('floor'))
                                                         <span class="invalid-feedback">{{ $errors->first('floor') }}</span>
@@ -72,7 +72,7 @@
                                                 <div class="mb-1 col-sm-12 col-md-3 form-group">
                                                     {{ Form::label('room_type', __('hm::roomtype.title'), ['class' => 'required']) }}
                                                     {{ Form::select('room_type', $roomTypes, null, ['class' => 'form-control'. ($errors->has('room_type') ? ' error' : ''),
-                                                     'required' => 'required', 'data-validation-required-message'=>'Please select room type']) }}
+                                                     'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::roomtype.title')])]) }}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('room_type'))
                                                         <span class="invalid-feedback">{{ $errors->first('room_type') }}</span>
@@ -83,7 +83,7 @@
                                                     {!! Form::label('room_numbers',  __('hm::hostel.room').' '.__('labels.number'), ['class' => 'form-label required']) !!}
                                                     <br>
                                                     {!! Form::text('room_numbers', old('room_numbers'), ["class" => "form-control". ($errors->has('room_numbers') ? ' error' : ''), "required", "min" => 1,
-                                                    "placeholder" => "e.g 201-205 or 201,202,203", 'data-validation-required-message'=>'Please enter room numbers']) !!}
+                                                    "placeholder" => "e.g 201-205 or 201,202,203", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel.room').__('labels.number')])]) !!}
                                                     <div class="help-block"></div>
                                                     @if ($errors->has('room_numbers'))
                                                         <span class="invalid-feedback">{{ $errors->first('room_numbers') }}</span>
