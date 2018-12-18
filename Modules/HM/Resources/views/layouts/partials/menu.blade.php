@@ -97,7 +97,7 @@
                     <li class="{{ is_active_route('bookings.create') }}"><a href="{{ route('bookings.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"
-                                  data-i18n="nav.dash.main">Create</span></a>
+                                  data-i18n="nav.dash.main">{{ trans('hm::booking-request.create') }}</span></a>
                     </li>
                 </ul>
             </li>
