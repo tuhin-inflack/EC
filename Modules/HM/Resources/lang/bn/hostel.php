@@ -4,6 +4,7 @@ return [
     'menu_title' => 'হোস্টেল',
     'card_title' => 'হোস্টেল তালিকা',
     'create_button' => 'নতুন হোস্টেল',
+    'update_button' => 'হোস্টেল সম্পাদনা',
     'create_card_title' => 'হোস্টেল তৈরি',
     'create_form_title' => 'হোস্টেল ফর্ম',
     'edit_card_title' => 'হোস্টেল সম্পাদনা করুন',
@@ -19,4 +20,8 @@ return [
     'bill_generate' => 'বিল তৈরি করুন',
     'bill_payment' => 'বিল পরিশোধ করুন',
     'bill_payment_list' => 'পেমেন্ট তালিকা',
+    'add_room' => 'কক্ষ যোগ কারুন',
+    'create_room_title' => 'কক্ষ তৈরি কারুন',
+    'create_room_form' => 'কক্ষ তৈরি ফর্ম',
+    'add_room_lbl' => ':hostel এর জন্য রুম তৈরি করুন'
 ];
