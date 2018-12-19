@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Add Hostel Budget')
+@section('title', trans('hm::hostel_budget.page_title'))
 @section('content')
 
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Hostel Budget Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{ trans('hm::hostel_budget.page_title') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -61,8 +61,8 @@
             });
 
             $('.addMoreBudgetSection').click(function () {
-                //  $('input,select,textarea').jqBootstrapValidation('destroy');
-                // $('input,select,textarea').jqBootstrapValidation();
+                 $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
 
             });
 
