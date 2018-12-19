@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\HostelBudgetSection;
+use Modules\HM\Http\Requests\StoreHostelBudgetRequest;
 use Modules\HM\Services\HostelBudgetSectionService;
 use Modules\HM\Services\HostelBudgetService;
 use Modules\HM\Services\HostelBudgetTitleService;
@@ -46,7 +47,7 @@ class HostelBudgetController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(StoreHostelBudgetRequest $request)
     {
         $hostelBudgets = $request->hostel_budgets;
         $hostelBudgetTitleId = $request->hostel_budget_title_id;

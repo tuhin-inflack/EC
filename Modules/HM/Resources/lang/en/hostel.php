@@ -21,5 +21,6 @@ return [
     'bill_payment' => 'Bill Payment',
     'bill_payment_list' => 'Payment Register',
     'add_room' => 'Add Rooms',
-    'add_room_lbl' => 'Add room for :hostel'
+    'add_room_lbl' => 'Add room for :hostel',
+    'dup_room_err' => 'Can not add same room number twice',
 ];
