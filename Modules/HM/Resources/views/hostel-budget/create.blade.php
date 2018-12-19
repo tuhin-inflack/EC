@@ -40,6 +40,7 @@
 
         $(document).ready(function () {
 
+
             $('.item-select').select2({
 //                    placeholder: 'Select item',
                 tags: true,
@@ -56,6 +57,12 @@
                     });
                     $(this).slideDown();
                 }
+            });
+
+            $('.addMoreBudgetSection').click(function () {
+                 $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
+
             });
 
         });
