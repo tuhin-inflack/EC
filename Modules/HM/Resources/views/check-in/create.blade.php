@@ -24,7 +24,7 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('approved-booking-requests.index') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">Aproved Booking Request</a>
+                                                <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">Aproved Booking Request</a>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12" style="text-align: center;">
