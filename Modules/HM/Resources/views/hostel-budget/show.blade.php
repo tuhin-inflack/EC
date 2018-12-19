@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Hostel Budget Information')
+@section('title', trans('hm::hostel_budget.page_title'))
 @section('content')
 
 
@@ -62,7 +62,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title" id="basic-layout-form">Hostel Budget Approve/Decline</h4>
+                            <h4 class="card-title" id="basic-layout-form">{{ trans('hm::hostel_budget.approve_cancel_card_title') }}</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">

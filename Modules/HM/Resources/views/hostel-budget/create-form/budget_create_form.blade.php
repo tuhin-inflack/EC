@@ -85,17 +85,17 @@
                     <div class="col-12">
                         <button type="button" data-repeater-create=""
                                 class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
-                            <i class="ft-plus"></i> Add
+                            <i class="ft-plus"></i> {{ trans('labels.add') }}
                         </button>
                     </div>
                 </div>
 
                 <div class="form-actions text-center">
                     <button type="submit" class="btn btn-primary">
-                        <i class="la la-check-square-o"></i> Save
+                        <i class="la la-check-square-o"></i> {{ trans('labels.save') }}
                     </button>
-                    <a class="btn btn-warning mr-1" role="button" href="#">
-                        <i class="ft-x"></i> Cancel
+                    <a class="btn btn-warning mr-1" role="button" href="{{ route('hostel-budgets.index') }}">
+                        <i class="ft-x"></i> {{ trans('labels.cancel') }}
                     </a>
                 </div>
             </div>
