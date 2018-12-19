@@ -23,4 +23,9 @@ class RoomRepository extends AbstractBaseRepository
             $room->save();
         }
     }
+
+    public function exists(array $roomNumbers, $hostelId)
+    {
+        return Room::where('hostel_id', $hostelId)->whereIn('room_number', $roomNumbers)->exists();
+    }
 }
