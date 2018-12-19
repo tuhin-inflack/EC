@@ -280,7 +280,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>{{ trans('hm::booking-request.passport_no') }}</label>
-                                                            {!! Form::text('passport_no', null, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number', 'data-rule-minlength' => 10, 'data-msg-minlength'=>"At least 10 characters", 'data-rule-maxlength' => 10, 'data-msg-maxlength'=>"At least 10 characters"]) !!}
+                                                            {!! Form::text('passport_no', null, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number', 'data-rule-minlength' => 10, 'data-msg-minlength'=>"At least 10 characters", 'data-rule-maxlength' => 10, 'data-msg-maxlength'=>"At max 10 characters"]) !!}
 
                                                             @if ($errors->has('passport_no'))
                                                                 <span class="invalid-feedback" role="alert">
