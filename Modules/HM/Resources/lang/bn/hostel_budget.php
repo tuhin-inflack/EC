@@ -11,4 +11,10 @@ return [
     'budget_for' => ' বাজেট  বছর',
     'section' => 'দফা',
     'amount' => 'অর্থ',
+    'approve_amount' => 'অনুমদিত অর্থ',
+
+    'approve_cancel_card_title' => 'হোস্টেল বাজেট অনুমোদন / বাতিল',
+    'approve_form_title' => 'বাজেট অনুমোদন ফর্ম',
+    'approve' => 'অনুমোদন',
+
 ];
