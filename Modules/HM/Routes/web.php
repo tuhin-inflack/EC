@@ -101,16 +101,18 @@ Route::prefix('hm')->group(function () {
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
         Route::get('/create','CheckinController@create')->name('check-in.create');
-        Route::get('approved-booking-requests','ApprovedBookingRequestController@index')->name('approved-booking-requests.index'); // Temporary & Demo
-        Route::get('edit','ApprovedBookingRequestController@edit')->name('approved-booking-requests.edit'); // Temporary & Demo
+        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
+        Route::get('edit','CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
+        Route::get('show','CheckinController@show')->name('check-in.show'); // Temporary & Demo
     });
 
     Route::prefix('bill')->group(function (){
         Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
-        Route::get('/search-check-in', 'BillController@searchCheckIn')->name('bill.search-check-in'); // Temporary & Demo
-        Route::get('/create', 'BillController@create')->name('bill.create'); // Temporary & Demo
-        Route::get('/payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
-        Route::get('/payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
+        Route::get('search-check-in', 'BillController@searchCheckIn')->name('bill.search-check-in'); // Temporary & Demo
+        Route::get('create', 'BillController@create')->name('bill.create'); // Temporary & Demo
+        Route::get('payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
+        Route::get('payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
+        Route::get('payment-of-check-in', 'BillController@showPaymentsOfCheckIn')->name('bill.payments-of-check-in'); // Temporary & Demo
     });
 
 });

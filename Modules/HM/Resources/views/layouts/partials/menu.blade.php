@@ -4,7 +4,7 @@
             <li class="{{ is_active_route('hm') }}">
                 <a href="{{ route('hm') }}">
                     <i class="la la-home"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
             </li>
             <li class="nav-item">
                 <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Hostel Budget</span></a>
@@ -52,13 +52,13 @@
             <li class="{{ is_active_route('hostels.index') }}"><a href="{{ route('hostels.index') }}">
                     <i class="la la-building"></i>
                     <span class="menu-title"
-                          data-i18n="nav.dash.main">{{trans('hm::hostel.menu_title')}}</span></a>
+                          data-i18n="nav.dash.main">@lang('hm::hostel.menu_title')</span></a>
             </li>
 
             <li class="{{ is_active_route('room-types*') }}">
                 <a href="{{ route('room-types.index') }}">
                     <i class="la la-hotel"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::roomtype.menu_title')}}</span>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::roomtype.menu_title')</span>
                 </a>
             </li>
 
@@ -92,12 +92,12 @@
                 <a href="#">
                     <i class="la la-book"></i>
                     <span class="menu-title"
-                          data-i18n="nav.templates.main">{{ trans('hm::booking-request.menu_title') }}</span></a>
+                          data-i18n="nav.templates.main">@lang('hm::booking-request.menu_title')</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_route('bookings.create') }}"><a href="{{ route('bookings.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"
-                                  data-i18n="nav.dash.main">{{ trans('hm::booking-request.create') }}</span></a>
+                                  data-i18n="nav.dash.main">@lang('hm::booking-request.create')</span></a>
                     </li>
                 </ul>
             </li>
@@ -150,25 +150,25 @@
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-money"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">{{trans('hm::hostel.bill')}}</span>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('hm::hostel.bill')</span>
                 </a>
                 <ul class="menu-content">
                     <li class="{{ is_active_route('bill.search-check-in') }}">
                         <a href="{{ route('bill.search-check-in') }}">
                             <i class="la la-plus"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_generate')}}</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::hostel.bill_generate')</span>
                         </a>
                     </li>
                     <li class="{{ is_active_route('bill.index') }}">
                         <a href="{{ route('bill.index') }}">
                             <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_list')}}</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::hostel.bill_list')</span>
                         </a>
                     </li>
                     <li class="{{ is_active_route('bill.payment-list') }}">
                         <a href="{{ route('bill.payment-list') }}">
                             <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{trans('hm::hostel.bill_payment_list')}}</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::hostel.bill_payment_list')</span>
                         </a>
                     </li>
                 </ul>
