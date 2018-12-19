@@ -2,6 +2,8 @@
 return [
     'page_title' => 'ছাত্রাবাস বাজেট',
     'menu_title' => 'ছাত্রাবাস বাজেট',
+    'sub_menu_budget' => 'বাজেট',
+    'sub_menu_section' => 'দফা',
     'list_card_title' => 'হোস্টেল বাজেটের তালিকা',
     'budget_add_button' => 'নতুন বাজেট তৈরি করুন',
     'add_form_card_title' => 'ছাত্রাবাস বাজেট তৈরি',

@@ -26,7 +26,7 @@
                                     <div class="form-group  mb-1 col-sm-12 col-md-5 {{ $errors->hostelBudget->has("hostel_budgets.".$key.".hostel_budget_section_id") ? 'error' : '' }}">
 
                                         {{ Form::label('hostel_budget_title_id', trans('hm::hostel_budget.section') ,  ['class' => 'form-label required'])}}
-                                        {{ Form::select('hostel_budget_section_id', $budgetSections, $budget['hostel_budget_section_id'], ['placeholder' =>'Select budget section',   'class' => ' form-control ', 'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.section')])]) }}
+                                        {{ Form::select('hostel_budget_section_id', $budgetSections, $budget['hostel_budget_section_id'], ['placeholder' =>'Select budget section',   'class' => ' form-control .( $errors->has("hostel_budgets.".$key.".hostel_budget_section_id") ? "is-invalid" : "")', 'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.section')])]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->hostelBudget->has("hostel_budgets.".$key.".hostel_budget_section_id"))
                                             <div class="help-block">  {{ $errors->hostelBudget->first('hostel_budgets.*.hostel_budget_section_id') }}</div>

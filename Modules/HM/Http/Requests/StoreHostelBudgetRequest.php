@@ -17,15 +17,15 @@ class StoreHostelBudgetRequest extends FormRequest
         ];
     }
 
-    public function messages() {
-        $messages = [
-            'hostel_budget_title_id.required' => 'Please select budget title',
-            'hostel_budgets.*.hostel_budget_section_id.required' => 'Please select budget section ',
-            'hostel_budgets.*.budget_amount.required' => 'Please enter budget amount',
-        ];
-
-        return $messages;
-    }
+//    public function messages() {
+//        $messages = [
+//            'hostel_budget_title_id.required' => 'Please select budget title',
+//            'hostel_budgets.*.hostel_budget_section_id.required' => 'Please select budget section ',
+//            'hostel_budgets.*.budget_amount.required' => 'Please enter budget amount',
+//        ];
+//
+//        return $messages;
+//    }
     public function authorize()
     {
         return true;

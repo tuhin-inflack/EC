@@ -7,18 +7,18 @@
                     <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
             </li>
             <li class="nav-item">
-                <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">Hostel Budget</span></a>
+                <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hm::hostel_budget.menu_title') }}</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_match('hm/hostel-budget') }}">
                         <a href="{{ url('hm/hostel-budgets') }}">
                             <i class="la la-hotel"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Budget</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_budget') }}</span>
                         </a>
                     </li>
                     <li class="{{ is_active_url('hm/hostel-budget-section')}}">
                         <a href="{{ url('hm/hostel-budget-section') }}">
                             <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Sections</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
                         </a>
                     </li>
                 </ul>
