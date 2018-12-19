@@ -4,10 +4,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description"
-          content="BARD ERP Solution.">
-    <meta name="keywords"
-          content="BARD ERP Solution">
+    <meta name="description" content="BARD ERP Solution.">
+    <meta name="keywords" content="BARD ERP Solution">
     <meta name="author" content="Brain Station - 23 & Inflack Limited.">
 
     <!-- CSRF Token -->

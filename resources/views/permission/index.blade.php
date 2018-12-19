@@ -4,7 +4,7 @@
     <section id="permission-list">
         <div class="row">
             <div class="col-12">
-                <div class="card">
+                <div c lass="card">
                     <div class="card-header">
                         <h4 class="card-title">{{trans('usermanagement.permission_list_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
