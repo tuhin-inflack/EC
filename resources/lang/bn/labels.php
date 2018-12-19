@@ -1,8 +1,15 @@
 <?php
 return [
     'name' => 'নাম',
-    'action' => 'কর্ম',
+    'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',
+    'description' => 'বর্ণনা',
+    'email_address' => 'ইমেইল ঠিকানা',
+    'mobile' => 'মোবাইল',
+    'user' => 'ইউজার',
+    'username' => 'ইউজারনেম',
+    'password' => 'পাসওয়ার্ড',
+    'confirm_password' => 'পাসওয়ার্ড নিশ্চিত করুন',
     'serial' => 'ক্রমিক',
     'bdt' => 'টাকা',
     'currency' => 'মুদ্রা',

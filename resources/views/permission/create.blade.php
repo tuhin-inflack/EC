@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Permission Creation</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('usermanagement.permission_create_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -17,16 +17,17 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  '/user/permission', 'class' => 'form']) !!}
+                            {!! Form::open(['url' =>  '/user/permission', 'class' => 'form', 'novalidate']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> Permission Form</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{trans('usermanagement.permission_create_form_title')}}</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="model_name" class="form-label">Model Name</label>
+                                            <label for="model_name" class="form-label required">{{trans('usermanagement.permission_create_model_name')}}</label>
                                             <input name="model_name" type="text" id="model_name" value="{{ old('model_name') }}"
                                                    class="form-control {{ $errors->has('model_name') ? 'is-invalid' : '' }}"
-                                                   placeholder="eg. User" required>
+                                                   placeholder="eg. User" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('usermanagement.permission_create_model_name')])}}">
+                                            <div class="help-block"></div>
                                             @if ($errors->has('model_name'))
                                                 <span class="invalid-feedback">
                                             <strong>{{ $errors->first('model_name') }}</strong>
@@ -38,10 +39,10 @@
                                 </div>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="la la-check-square-o"></i> Save
+                                        <i class="la la-check-square-o"></i> {{trans('labels.save')}}
                                     </button>
                                     <a class="btn btn-warning mr-1" role="button" href="{{url('/user/permission')}}">
-                                        <i class="ft-x"></i> Cancel
+                                        <i class="ft-x"></i> {{trans('labels.cancel')}}
                                     </a>
                                 </div>
                             </div>
