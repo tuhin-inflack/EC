@@ -23,5 +23,6 @@ return [
     'add_room' => 'কক্ষ যোগ কারুন',
     'create_room_title' => 'কক্ষ তৈরি কারুন',
     'create_room_form' => 'কক্ষ তৈরি ফর্ম',
-    'add_room_lbl' => ':hostel এর জন্য রুম তৈরি করুন'
+    'add_room_lbl' => ':hostel এর জন্য রুম তৈরি করুন',
+    'dup_room_err' => 'দুইবার একই রুম সংখ্যা যোগ করতে পারবেন না',
 ];

@@ -7,13 +7,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">User List</h4>
+                        <h4 class="card-title">{{trans('usermanagement.user_list_page_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/system/user/create')}}" class="btn btn-primary btn-sm"><i
-                                    class="ft-plus white"></i> New User</a>
-                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i
-                                    class="ft-download white"></i></a>
+                                    class="ft-plus white"></i> {{trans('usermanagement.create_user_button')}}</a>
+                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i class="ft-download white"></i></a>
 
                         </div>
                     </div>
@@ -22,14 +21,14 @@
                             <table class="table table-striped table-bordered alt-pagination">
                                 <thead>
                                 <tr>
-                                    <th>SL</th>
-                                    <th>Name</th>
-                                    <th>Username</th>
-                                    <th>Mobile</th>
-                                    <th>Email</th>
-                                    <th>User Type</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
+                                    <th>{{trans('labels.serial')}}</th>
+                                    <th>{{trans('labels.name')}}</th>
+                                    <th>{{trans('labels.username')}}</th>
+                                    <th>{{trans('labels.mobile')}}</th>
+                                    <th>{{trans('labels.email_address')}}</th>
+                                    <th>{{trans('usermanagement.user_type')}}</th>
+                                    <th>{{trans('labels.status')}}</th>
+                                    <th>{{trans('labels.action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -47,15 +46,15 @@
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{URL::to( '/system/user/'.$user->id)}}" class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                <a href="{{URL::to( '/system/user/'.$user->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                <a href="{{URL::to( '/system/user/'.$user->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                <a href="{{URL::to( '/system/user/'.$user->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',
                                                   'url' => [ '/system/user', $user->id],
                                                   'style' => 'display:inline'
                                                   ]) !!}
-                                                  {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                  {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
                                                   'type' => 'submit',
                                                   'class' => 'dropdown-item',
                                                   'title' => 'Delete the user',
