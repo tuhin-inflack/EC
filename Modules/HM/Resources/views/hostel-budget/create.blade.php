@@ -1,6 +1,7 @@
 @extends('hm::layouts.master')
 @section('title', 'Add Hostel Budget')
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -60,8 +61,8 @@
             });
 
             $('.addMoreBudgetSection').click(function () {
-                 $('input,select,textarea').jqBootstrapValidation('destroy');
-                $('input,select,textarea').jqBootstrapValidation();
+                //  $('input,select,textarea').jqBootstrapValidation('destroy');
+                // $('input,select,textarea').jqBootstrapValidation();
 
             });
 
