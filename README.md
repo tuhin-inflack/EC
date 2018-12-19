@@ -1,4 +1,4 @@
-# bard-erp
+# BARD ERP
 ERP Project for BARD
 
 # Prerequisites
