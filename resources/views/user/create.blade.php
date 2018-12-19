@@ -29,11 +29,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="name" class="col-form-label required">{{trans('labels.name')}}</label>
+                                            <label for="name" class="form-label required">{{trans('labels.name')}}</label>
                                             <input id="name" type="text"
-                                                   class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
+                                                   class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}"
                                                    name="name" value="{{ old('name') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.name')])}}" autofocus>
-
                                             <div class="help-block"></div>
                                             @if ($errors->has('name'))
                                                 <span class="invalid-feedback" role="alert">
@@ -46,9 +45,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="email"
-                                                   class="col-form-label">{{trans('labels.email_address')}}</label>
+                                                   class="form-label">{{trans('labels.email_address')}}</label>
                                             <input id="email" type="email"
-                                                   class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}"
+                                                   class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                                    name="email" value="{{ old('email') }}">
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" role="alert">
@@ -63,9 +62,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="mobile"
-                                                   class="col-form-label required">{{trans('labels.mobile')}}</label>
+                                                   class="form-label required">{{trans('labels.mobile')}}</label>
                                             <input id="mobile" type="text"
-                                                   class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}"
+                                                   class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
                                                    name="mobile" value="{{ old('mobile') }}" placeholder="01xxxxxxxxx" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.mobile')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('mobile'))
@@ -78,9 +77,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="username"
-                                                   class="col-form-label required">{{trans('labels.username')}}</label>
+                                                   class="form-label required">{{trans('labels.username')}}</label>
                                             <input id="username" type="text"
-                                                   class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                                   class="form-control {{ $errors->has('username') ? ' is-invalid' : '' }}"
                                                    name="username" value="{{ old('username') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.username')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('username'))
@@ -94,11 +93,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password"
-                                                   class="col-form-label required">{{trans('labels.password')}}</label>
+                                                   class="form-label required">{{trans('labels.password')}}</label>
                                             <input id="password" type="password"
-                                                   class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                                   class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
                                                    name="password" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.password')])}}">
-
                                             <div class="help-block"></div>
                                             @if ($errors->has('password'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('password') }}</strong></span>
@@ -108,7 +106,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="password-confirm"
-                                                   class="col-form-label required">{{trans('labels.confirm_password')}}</label>
+                                                   class="form-label required">{{trans('labels.confirm_password')}}</label>
 
                                             <input id="password-confirm" type="password" class="form-control"
                                                    name="password_confirmation" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.confirm_password')])}}">
@@ -134,7 +132,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="user_type"
-                                                   class="col-form-label required">{{trans('usermanagement.user_type')}}</label>
+                                                   class="form-label required">{{trans('usermanagement.user_type')}}</label>
                                             @foreach($userTypes as $key => $value)
                                                 <fieldset class="radio">
                                                     <input type="radio"
@@ -151,7 +149,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="status"
-                                                   class="col-form-label required">{{trans('labels.status')}}</label>
+                                                   class="form-label required">{{trans('labels.status')}}</label>
                                             @foreach($status as $key => $value)
                                                 <fieldset class="radio">
                                                     <label for="status">
