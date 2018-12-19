@@ -1,12 +1,12 @@
 @extends('hm::layouts.master')
-@section('title', 'Edit Section ')
+@section('title', trans('hm::hostel_budget.section_list'))
 
 @section("content")
 
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Edit Section</h4>
+                <h4 class="card-title">{{ trans('hm::hostel_budget.section_edit_form_title') }}</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">

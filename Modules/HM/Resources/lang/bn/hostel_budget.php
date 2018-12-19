@@ -17,4 +17,9 @@ return [
     'approve_form_title' => 'বাজেট অনুমোদন ফর্ম',
     'approve' => 'অনুমোদন',
 
+    'section_list' => 'দফা তালিকা',
+    'section_form' => 'দফা ফর্ম',
+    'section_edit_form_title' => ' দফা হালনাগাদ করুন',
+
+
 ];
