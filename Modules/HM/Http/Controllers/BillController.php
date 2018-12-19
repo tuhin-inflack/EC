@@ -72,6 +72,15 @@ class BillController extends Controller
     }
 
     /**
+     * Show the specified resource.
+     * @return Response
+     */
+    public function showPaymentsOfCheckIn()
+    {
+        return view('hm::bill.show_payments_of_check_in');
+    }
+
+    /**
      * Show the form for editing the specified resource.
      * @return Response
      */

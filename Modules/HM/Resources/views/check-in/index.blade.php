@@ -38,7 +38,7 @@
                                         @for($i = rand(2, 10); $i > 1; $i--)
                                             <tr>
                                                 <td>{{ ++$count }}</td>
-                                                <td><a href="javascript:;" >CNXXXXX{{$i}}</a></td>
+                                                <td><a href="{{ route('check-in.show') }}" >CNXXXXX{{$i}}</a></td>
                                                 <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
                                                 <td>BK{{$i}}XXX</td>
                                                 <td>{{ date('d.m.Y',strtotime("-".$i." days")) }}</td>
