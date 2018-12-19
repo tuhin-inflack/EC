@@ -2,12 +2,10 @@
 <html class="loading" lang="bn" data-textdirection="ltr">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta name="description"
-          content="BARD ERP Solution.">
-    <meta name="keywords"
-          content="BARD ERP Solution">
+    <meta name="description" content="BARD ERP Solution.">
+    <meta name="keywords" content="BARD ERP Solution">
     <meta name="author" content="Brain Station - 23 & Inflack Limited.">
 
     <!-- CSRF Token -->
@@ -103,7 +101,7 @@
 <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}" type="text/javascript"></script>
-{{--<script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
+<script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>
 
 
 {{--<script src="{{ asset('theme/js/scripts/customizer.js') }}" type="text/javascript"></script>--}}

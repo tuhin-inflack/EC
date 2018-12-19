@@ -2,7 +2,7 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="basic-layout-form">Role Creation</h4>
+                <h4 class="card-title" id="basic-layout-form">{{trans('usermanagement.create_role_title')}}</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -15,15 +15,17 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body">
-                    {!! Form::open(['url' =>  '/user/role', 'class' => 'form']) !!}
+                    {!! Form::open(['url' =>  '/user/role', 'class' => 'form', 'novalidate']) !!}
                     <div class="form-body">
-                        <h4 class="form-section"><i class="ft-user"></i> User Role Form</h4>
+                        <h4 class="form-section"><i class="ft-user"></i> {{trans('usermanagement.role_form_title')}}</h4>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="name" class="form-label">Role Name</label>
+                                    <label for="name" class="form-label required">{{trans('usermanagement.role_name')}}</label>
+
                                     <input name="name" type="text" id="name" value="{{ old('name') }}" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                                           placeholder="eg. ROLE_ADMIN" required>
+                                           placeholder="eg. ROLE_ADMIN" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('usermanagement.role_name')])}}">
+                                    <div class="help-block"></div>
                                     @if ($errors->has('name'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('name') }}</strong>
@@ -34,7 +36,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="description" class="form-label">Description</label>
+                                    <label for="description" class="form-label">{{trans('usermanagement.role_description')}}</label>
                                     <input name="description" type="text" value="{{ old('description') }}" id="description" class="form-control">
                                 </div>
                             </div>
@@ -42,9 +44,10 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="permissions" class="form-label">Select permissions</label>
+                                    <label for="permissions" class="form-label required">{{trans('usermanagement.role_permission')}}</label>
                                     {{ Form::select("permissions", $permissions, null, ["class"=>"form-control select2", "id"=>"permissions",
-                                     'multiple' => 'multiple', 'name'=>'permissions[]', 'required'=>true]) }}
+                                     'multiple' => 'multiple', 'name'=>'permissions[]', 'required'=>true, 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('usermanagement.role_permission')])]) }}
+                                    <div class="help-block"></div>
                                     @if ($errors->has('permissions'))
                                         <span class="invalid-feedback">
                                             <strong>{{ $errors->first('permissions') }}</strong>
@@ -55,10 +58,10 @@
                         </div>
                         <div class="form-actions">
                             <button type="submit" class="btn btn-primary">
-                                <i class="la la-check-square-o"></i> Save
+                                <i class="la la-check-square-o"></i> {{trans('labels.save')}}
                             </button>
                             <a class="btn btn-warning mr-1" role="button" href="{{url('/user/role')}}">
-                                <i class="ft-x"></i> Cancel
+                                <i class="ft-x"></i> {{trans('labels.cancel')}}
                             </a>
                         </div>
                     </div>
