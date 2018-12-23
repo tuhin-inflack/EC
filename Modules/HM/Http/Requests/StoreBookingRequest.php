@@ -15,7 +15,7 @@ class StoreBookingRequest extends FormRequest
     {
         return [
             'start_date' => 'date_format:"j F, Y"|after_or_equal:today|required',
-            'end_date' => 'date_format:"j F, Y"|after:start_date|required',
+            'end_date' => 'date_format:"j F, Y"|after_or_equal:start_date|required',
             'booking_type' => 'in:general,training|required',
             'roomInfos' => 'required',
             'roomInfos.*.room_type_id' => 'exists:room_types,id|required',

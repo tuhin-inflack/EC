@@ -37,7 +37,7 @@
                                         </thead>
                                         <tbody>
                                         @php $count = 0 @endphp
-                                        @for($i = rand(2, 10); $i > 1; $i--)
+                                        @for($i = rand(2, 35); $i > 1; $i--)
                                             <tr>
                                                 <td>{{ ++$count }}</td>
                                                 <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>

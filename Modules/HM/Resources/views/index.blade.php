@@ -3,7 +3,7 @@
 
 @section('content')
     <h1>
-        {{trans('labels.dashboard')}}
+        @lang('labels.dashboard')
         <span class="font-size-base">
             Module: {!! config('hm.name') !!}
         </span>
@@ -14,7 +14,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::hostel.menu_title')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.menu_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -30,10 +30,10 @@
                                 <table class="table table-bordered text-center">
                                     <thead>
                                     <tr>
-                                        <th>{{trans('hm::hostel.menu_title')}}</th>
-                                        <th>{{trans('hm::hostel.total_rooms')}}</th>
-                                        <th>{{trans('hm::hostel.booked_rooms')}}</th>
-                                        <th>{{trans('hm::hostel.available_rooms')}}</th>
+                                        <th>@lang('hm::hostel.menu_title')</th>
+                                        <th>@lang('hm::hostel.total_rooms')</th>
+                                        <th>@lang('hm::hostel.booked_rooms')</th>
+                                        <th>@lang('hm::hostel.available_rooms')</th>
                                     </tr>
                                     </thead>
                                     <tbody>

@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Sections list ')
+@section('title', trans('hm::hostel_budget.section_list'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,11 +9,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Section List</h4>
+                        <h4 class="card-title">{{ trans('hm::hostel_budget.section_list') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hm/hostel-budget-section/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> Add New Section</a>
+                                        class="ft-plus white"></i> {{ trans('labels.add') }}</a>
 
                         </div>
                     </div>
@@ -25,9 +25,9 @@
                                 <table class="table table-striped table-bordered alt-pagination" id="Example1">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">{{ trans('labels.serial') }}</th>
+                                        <th scope="col">{{ trans('labels.name') }}</th>
+                                        <th scope="col">{{ trans('labels.action') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,7 +46,7 @@
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ url('/hm/hostel-budget-section/' . $section->id . '/edit')  }}"
-                                                           class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                           class="dropdown-item"><i class="ft-edit-2"></i> {{ trans('labels.edit') }}</a>
 
                                                     </span>
                                                 </td>

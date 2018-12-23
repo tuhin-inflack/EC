@@ -39,7 +39,7 @@ class RoomService
 
     public function store(array $data)
     {
-        $roomData = $this->processRoomNumberInput($data['room_numbers']);
+        $roomData = $this->processRoomNumberInput($data['room_numbers'], $data['hostel_id']);
         if ($roomData['isValid']) {
             $rooms = $this->generateRooms($roomData['roomNumbers'], $data['floor'], $data['room_type_id'], $data['hostel_id']);
             $this->roomRepository->saveAll($rooms);
@@ -84,11 +84,11 @@ class RoomService
         return $rooms;
     }
 
-    private function processRoomNumberInput($roomNumberInput)
+    private function processRoomNumberInput($roomNumberInput, $hostelId = null)
     {
         $roomNumbersArr = explode(',', $roomNumberInput);
         $roomNumbers = [];
-        $dupErrMsg = 'Can not add same room number twice';
+        $dupErrMsg = trans('hm::hostel.dup_room_err');
         $validationMessage = '';
         $valid = 1;
         foreach ($roomNumbersArr as $item) {
@@ -103,7 +103,7 @@ class RoomService
         }
 
         //Check for duplicate model machine numbers
-        if (count(array_unique($roomNumbers)) < count($roomNumbers)) {
+        if ((count(array_unique($roomNumbers)) < count($roomNumbers)) || ($hostelId && $this->hasRoomAlreadyExist($roomNumbers, $hostelId))) {
             $valid = 0;
             $validationMessage = $dupErrMsg;
         }
@@ -117,5 +117,10 @@ class RoomService
             return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number, 'hostel_id' => $hostelId]);
         else
             return new Room(['floor' => $floor, 'room_type_id' => $roomTypeId, 'room_number' => $number]);
+    }
+
+    private function hasRoomAlreadyExist(array $roomNumbers, $hostelId)
+    {
+        return $this->roomRepository->exists($roomNumbers, $hostelId);
     }
 }
