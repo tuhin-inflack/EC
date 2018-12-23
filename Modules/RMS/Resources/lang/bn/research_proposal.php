@@ -1,10 +1,11 @@
 <?php
 return [
     'menu_title' => 'গবেষণা প্রস্তাব অনুরোধ',
+    'send_to' => 'যাকে পাঠাবেন',
+    'title' => 'শিরোনাম',
     'create_request' => 'অনুরোধ তৈরি করুন',
     'research_proposal_request_creation' => 'গবেষণা প্রস্তাব অনুরোধ তৈরি করুন',
     'request_form' => 'গবেষণা প্রস্তাব অনুরোধ ফর্ম',
-    'send_to' => 'যাকে পাঠাবেন',
     'last_sub_date' => 'সর্বশেষ জমা তারিখ',
     'remarks' => 'মন্তব্য',
     'attachment' => 'ফাইল সংযুক্ত করুন',
@@ -18,7 +19,6 @@ return [
     'recipient' => 'প্রাপক',
     'project_submit_form' => 'প্রকল্প প্রস্তাব তৈরি ফর্ম',
     'create_proposal' => 'প্রকল্প প্রস্তাব তৈরি করুন',
-    'project_title' => 'প্রকল্প শিরোনাম',
     'proposal_submission' => 'প্রকল্প প্রস্তাব জমা',
     'proposal_submission_list' => 'জমাকৃত প্রকল্প প্রস্তাব তালিকা',
     'received_proposal' => 'গৃহীত প্রকল্প প্রস্তাব',

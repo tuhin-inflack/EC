@@ -23,12 +23,13 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="name" class="form-label">Departments</label>
+                                            <label for="name" class="form-label">{{trans('rms::research_proposal.send_to')}} <span
+                                                        class="danger">*</span></label>
                                             <div class="input-group">
                                                 <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" multiple="multiple">
-                                                    <option value="AK">Administration</option>
-                                                    <option value="HI">Training</option>
-                                                    <option value="HI">Research</option>
+                                                    <option value="AK">Shadnan Ahmed - Software Engineer</option>
+                                                    <option value="HI">Mehedi Hasan - Senior Software Engineer</option>
+                                                    <option value="HI">Sahib Bin Ron - Cheif Executive Officer</option>
                                                     <option value="HI"></option>
                                                 </select>
 
@@ -43,7 +44,27 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="name" class="form-label">Start Date</label>
+                                            <label for="name" class="form-label">{{trans('rms::research_proposal.title')}}   <span
+                                                        class="danger">*</span></label>
+                                            <div class="input-group">
+                                                <input type="text"
+                                                       value="" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}"
+                                                       name="title" required autofocus/>
+
+
+
+                                                @if ($errors->has('title'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="name" class="form-label">{{trans('rms::research_proposal.last_sub_date')}}  <span
+                                                        class="danger">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                 <span class="input-group-text">
@@ -65,29 +86,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="name" class="form-label">End Date</label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                <span class="input-group-text">
-                                                  <span class="la la-calendar-o"></span>
-                                                </span>
-                                                </div>
-                                                <input type='text'
-                                                       class="form-control pickadate-format-db {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                                                       placeholder="Pick a Date" name="end_date"
-                                                />
-                                                @if ($errors->has('end_date'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('end_date') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="name" class="form-label">Notice</label>
+                                            <label for="name" class="form-label">{{trans('rms::research_proposal.remarks')}}</label>
                                             <textarea name="message"
                                                       class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}" placeholder="Write here..."
                                                       id="" cols="30" rows="5">{{ old('message') }}</textarea>
@@ -97,6 +96,23 @@
                                             <strong>{{ $errors->first('message') }}</strong>
                                         </span>
                                             @endif
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="">{{trans('rms::research_proposal.attachment')}} <span
+                                                        class="danger">*</span></label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                </div>
+                                                <input type="file" name="attachment[]" multiple="multiple" id="" class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required>
+                                                @if ($errors->has('attachment'))
+                                                    <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('attachment') }}</strong>
+                                                </span>
+                                                @endif
+                                            </div>
                                         </div>
 
                                     </div>
