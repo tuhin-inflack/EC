@@ -64,4 +64,13 @@ return [
     'check_in_date' => 'Check In Date',
     'check_out_date' => 'Check Out Date',
     'guests' => 'Guests',
+    'request_id' => 'Request Id',
+    'requested_on' => 'Requested On',
+    'check_in' => 'Check In',
+    'check_out' => 'Check Out',
+    'no_of_guests' => 'No. Of Guests',
+    'no_of_rooms' => 'No. Of Rooms',
+    'note_of_authority' => 'Note Of Authority',
+    'approve' => 'Approve',
+    'reject' => 'Reject',
 ];
