@@ -27,12 +27,21 @@ class CheckinController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function approvedRequests()
+    {
+        return view('hm::check-in.approved_booking_requests');
+    }
+
+    /**
      * Show the specified resource.
      * @return Response
      */
     public function show()
     {
-        return view('hm::show');
+        return view('hm::check-in.show');
     }
 
     /**
@@ -41,8 +50,9 @@ class CheckinController extends Controller
      */
     public function edit()
     {
-        return view('hm::edit');
+        return view('hm::check-in.edit');
     }
+
 
     /**
      * Update the specified resource in storage.

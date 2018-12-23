@@ -1,19 +1,22 @@
 @extends('hm::layouts.master')
-@section('title', 'Budget list ')
+{{--@section('title', __('hm::hostel_budget.page_title'))--}}
+@section('title', trans('hm::hostel_budget.page_title'))
 {{--@section("employee_create", 'active')--}}
 
 
 @section('content')
+
     <section id="role-list">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Budget List</h4>
+{{--                        <h4 class="card-title">{{ trans('hm::hostel_budget.list_card_title') }}</h4>--}}
+                        <h4 class="card-title">{{ trans('hm::hostel_budget.list_card_title') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hm/hostel-budgets/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> Add New Budget</a>
+                                        class="ft-plus white"></i> {{ trans('hm::hostel_budget.budget_add_button') }}</a>
 
                         </div>
                     </div>
@@ -25,9 +28,9 @@
                                 <table class="table table-striped table-bordered alt-pagination" id="Example1">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Action</th>
+                                        <th>{{trans('labels.serial')}}</th>
+                                        <th>{{trans('labels.name')}}</th>
+                                        <th>{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,7 +53,7 @@
                                                         {{--class="dropdown-item"><i class="ft-edit-2"></i> Edit--}}
                                                         {{--</a>--}}
                                                         <a href=" {{ route('hostel-budgets.show',  $title->id )}}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> View</a>
+                                                           class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
 
                                                     </span>
                                                 </td>

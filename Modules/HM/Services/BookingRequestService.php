@@ -1,95 +1,87 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: shomrat
- * Date: 12/3/18
- * Time: 1:32 PM
+ * User: siaminflack
+ * Date: 12/11/18
+ * Time: 3:56 PM
  */
 
 namespace Modules\HM\Services;
 
+
+use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Modules\HM\Entities\BookingGuestInfo;
+use Modules\HM\Entities\BookingRoomInfo;
+use Modules\HM\Entities\RoomBookingReferee;
+use Modules\HM\Entities\RoomBookingRequester;
+use Modules\HM\Repositories\RoomBookingRepository;
 
 class BookingRequestService
 {
+    use CrudTrait;
+    /**
+     * @var RoomBookingRepository
+     */
+    private $roomBookingRepository;
 
-    private $bookingRequests;
-
-    public function __construct()
+    /**
+     * BookingRequestService constructor.
+     * @param RoomBookingRepository $roomBookingRepository
+     */
+    public function __construct(RoomBookingRepository $roomBookingRepository)
     {
-        $this->bookingRequests = [
-            1 => (object)[
-                'request_id' => 'BR52451',
-                'requested_on' => Carbon::create('2018', '11', '12')
-                    ->format('d-m-Y'),
-                'booked_by' => 'Hasib Noor',
-                'designation' => 'CEO',
-                'booked_for' => Carbon::today()
-                        ->format('d-m-Y') . ' to ' .
-                    Carbon::today()
-                        ->addDays(7)
-                        ->format('d-m-Y'),
-                'check_in' => Carbon::today()
-                    ->format('d-m-Y'),
-                'check_out' => Carbon::today()
-                    ->addDays(7)
-                    ->format('d-m-Y'),
-                'booking_type' => 'Official',
-                'organization' => 'Inflack Limited',
-                'organization_type' => 'Private',
-                'contact' => '01718874510',
-                'email' => 'noor@inflack.com',
-                'address' => 'Bashandhora, Dhaka',
-                'number_of_guest' => 12,
-                'number_of_rooms' => 5,
-                'room_details' => 'AC',
-                'reference' => 'Razzak Ahmed',
-                'reference_department' => 'Project Management',
-                'reference_designation' => 'Consultant',
-                'reference_phone' => '01718874510',
-            ],
-            2 => (object)[
-                'request_id' => 'BR52998',
-                'requested_on' => Carbon::create('2018', '11', '20')->format('d-m-Y'),
-                'booked_by' => 'Yea Hasib',
-                'designation' => 'Project Manager',
-                'booked_for' => Carbon::today()
-                        ->addDays(7)
-                        ->format('d-m-Y') . ' to ' .
-                    Carbon::today()
-                        ->addDays(10)
-                        ->format('d-m-Y'),
-                'check_in' => Carbon::today()
-                    ->addDays(7)
-                    ->format('d-m-Y'),
-                'check_out' => Carbon::today()
-                    ->addDays(10)
-                    ->format('d-m-Y'),
-                'booking_type' => 'Single',
-                'organization' => 'Brainstation-23',
-                'organization_type' => 'Private',
-                'contact' => '0171XXXXXXX',
-                'email' => 'hasib@bs-23.com',
-                'address' => 'Mohakhali, Dhaka',
-                'number_of_guest' => 1,
-                'number_of_rooms' => 1,
-                'room_details' => 'AC',
-                'reference' => 'Razzak Ahmed',
-                'reference_department' => 'Project Management',
-                'reference_designation' => 'Consultant',
-                'reference_phone' => '01718874510',
-            ],
-        ];
+        $this->roomBookingRepository = $roomBookingRepository;
+        $this->setActionRepository($roomBookingRepository);
     }
 
-    public function getAll()
+    public function save(array $data)
     {
-        return $this->bookingRequests;
-    }
+        $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
+        $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+        $data['shortcode'] = time();
+        $data['status'] = 'pending';
 
-    public function getBookingRequest($id)
-    {
-        return $this->bookingRequests[$id];
-    }
+        $roomBooking = $this->roomBookingRepository->save($data);
 
+        $roomBookingRequester = new RoomBookingRequester($data);
+
+        $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+
+        $roomBookingRequester->photo = $photoPath;
+        $roomBookingRequester->nid_doc = $nidDocPath;
+        $roomBookingRequester->passport_doc = $passportDocPath;
+
+        $roomBooking->requester()->save($roomBookingRequester);
+
+        $roomBookingReferee = new RoomBookingReferee([
+            'name' => $data['referee_name'],
+            'department' => $data['referee_dept'],
+            'contact' => $data['referee_contact']
+        ]);
+        $roomBooking->referee()->save($roomBookingReferee);
+
+        $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
+            $rateInfo = explode('_', $roomInfo['rate']);
+            $rateType = $rateInfo[0];
+            $rate = $rateInfo[1];
+            return new BookingRoomInfo([
+                'room_type_id' => $roomInfo['room_type_id'],
+                'quantity' => $roomInfo['quantity'],
+                'rate_type' => $rateType,
+                'rate' => $rate
+            ]);
+        }));
+
+        if (array_key_exists('guests', $data)) {
+            $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+                $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                return new BookingGuestInfo($guest);
+            }));
+        }
+
+        return $roomBooking;
+    }
 }
