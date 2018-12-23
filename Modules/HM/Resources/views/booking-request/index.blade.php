@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking Requests')
+@section('title', 'Booking Request List')
 
 @section('content')
     <div class="container">
@@ -19,41 +19,37 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="store-entry-table" class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Booked By</th>
-                                        <th>Booked For</th>
-                                        <th>Booking Type</th>
-                                        <th>Organization</th>
-                                        <th>Contact</th>
-                                        <th>Number of guest</th>
-                                        <th>Reference</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($bookings as $booking)
+                            <div class="row">
+                                <div class="col-md-12 table-responsive">
+                                    <table class="table table-bordered alt-pagination">
+                                        <thead>
                                         <tr>
-                                            <td>{{ $booking->booked_by }}</td>
-                                            <td>{{ $booking->booked_for }}</td>
-                                            <td>{{ $booking->booking_type }}</td>
-                                            <td>{{ $booking->organization }}</td>
-                                            <td>{{ $booking->contact }}</td>
-                                            <td>{{ $booking->number_of_guest }}</td>
-                                            <td>{{ $booking->reference }}</td>
-                                            <td>
-                                                <div class="row justify-content-center">
-                                                    <a href="{{ route('booking-requests.show', $loop->iteration ) }}" class="btn btn-sm btn-primary">
-                                                        <i class="ft-eye"></i>
-                                                    </a>
-                                                </div>
-                                            </td>
+                                            <th>SL</th>
+                                            <th>Booked By</th>
+                                            <th>Check In Date</th>
+                                            <th>Check Out Date</th>
+                                            <th>Organization</th>
+                                            <th>Reference</th>
+                                            <th>Guests</th>
+                                            <th>Status</th>
                                         </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($bookings as $booking)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td><a href="#">{{ $booking->requester->name }}</a></td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $booking->start_date)->format('d/m/Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $booking->end_date)->format('d/m/Y') }}</td>
+                                                <td>{{ $booking->requester->organization }}</td>
+                                                <td>{{ $booking->referee->name }}</td>
+                                                <td>{{ $booking->guestInfos->count() }}</td>
+                                                <td>{{ $booking->status }}</td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,52 +59,8 @@
     </div>
 @endsection
 
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
-@endpush
-
-@push('page-js')
-    <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}"
-            type="text/javascript"></script>
+@push('js')
     <script>
-        $(document).ready(function () {
-            $('#store-entry-table').DataTable({
-                paging: false,
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        extend: 'copy',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
-                        }
-                    },
-                    {
-                        extend: 'csv',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
-                        }
-                    },
-                    {
-                        extend: 'excel',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
-                        }
-                    },
-                    {
-                        extend: 'pdf',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6]
-                        }
-                    },
-                    {
-                        extend: 'print',
-                        exportOptions: {
-                            columns: [7, ':visible']
-                        }
-                    },
-                ]
-            });
-        });
-    </script>
 
+    </script>
 @endpush
