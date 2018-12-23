@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
                                     <!-- Step 1 -->
                                         <h6>{{ trans('hm::booking-request.step_1') }}</h6>
                                         <fieldset>
@@ -210,7 +210,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
-                                                            <label>{{ trans('hm::booking-request.contact') }}</label>
+                                                            <label class="required">{{ trans('hm::booking-request.contact') }}</label>
                                                             {!! Form::text('contact', null, ['class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number', 'data-rule-minlength' => 11, 'data-msg-minlength'=>"At least 11 characters", 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>"At most 11 characters"]) !!}
 
                                                             @if ($errors->has('contact'))
@@ -336,7 +336,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'private', old('organization_type') == 'private') !!}
-                                                                            <label>{{ trans('hm::booking-request.private') }}</label>
+                                                                            <label>{{ trans('booking-request') }}</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -828,7 +828,7 @@
             // validation
             jQuery.validator.addMethod("greaterThanOrEqual",
                 function (value, element, params) {
-                    return Date.parse(value) > Date.parse($(params).val())
+                    return Date.parse(value) >= Date.parse($(params).val())
                 }, 'Must be greater than {0}.');
 
             $('.booking-request-tab-steps').validate({
