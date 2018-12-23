@@ -98,7 +98,7 @@
                 <a href="#">
                     <i class="la la-book"></i>
                     <span class="menu-title"
-                          data-i18n="nav.templates.main">@lang('hm::booking-request.menu_title')</span></a>
+                          data-i18n="nav.templates.main">@lang('hm::booking-request.booking_request')</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
                             <i class="la la-list"></i>

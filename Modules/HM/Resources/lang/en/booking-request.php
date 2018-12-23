@@ -9,7 +9,7 @@
 return [
     'create' => 'Create',
     'title' => 'Booking Create',
-    'menu_title' => 'Booking Request',
+    'booking_request' => 'Booking Request',
     'card_title' => 'Booking Request Form',
     'booking_details' => 'Booking Details',
     'start_date' => 'Start Date',
@@ -60,4 +60,8 @@ return [
     'step_2' => 'Step 2',
     'step_3' => 'Step 3',
     'step_4' => 'Step 4',
+    'booked_by' => 'Booked By',
+    'check_in_date' => 'Check In Date',
+    'check_out_date' => 'Check Out Date',
+    'guests' => 'Guests',
 ];

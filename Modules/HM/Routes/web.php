@@ -90,6 +90,7 @@ Route::prefix('hm')->group(function () {
         Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
         Route::get('/edit/{roomBooking}', 'BookingRequestController@edit')->name('booking-requests.edit');
         Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
+        Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
     });
 
     Route::prefix('booking-request-rates')->group(function () {

@@ -9,7 +9,7 @@
 return [
     'create' => 'সৃষ্টি',
     'title' => 'বুকিং তৈরি করুন',
-    'menu_title' => 'বুকিং অনুরোধ',
+    'booking_request' => 'বুকিং অনুরোধ',
     'card_title' => 'বুকিং অনুরোধ ফর্ম',
     'booking_details' => 'বুকিং বিবরণ',
     'start_date' => 'শুরুর তারিখ',
@@ -60,4 +60,8 @@ return [
     'step_2' => 'ধাপ ২',
     'step_3' => 'ধাপ ৩',
     'step_4' => 'ধাপ ৪',
+    'booked_by' => 'যার দ্বারা বুক',
+    'check_in_date' => 'চেক ইন তারিখ',
+    'check_out_date' => 'চেক আউট তারিখ',
+    'guests' => 'অতিথি',
 ];

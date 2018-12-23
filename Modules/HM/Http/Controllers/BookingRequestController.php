@@ -49,8 +49,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookings = $this->bookingRequestService->findAll();
-        return view('hm::booking-request.index', compact('bookings'));
+        $bookingRequests = $this->bookingRequestService->findAll();
+        return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
     /**
@@ -82,9 +82,9 @@ class BookingRequestController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking)
     {
-        return view('hm::show');
+        return view('hm::booking-request.show');
     }
 
     /**
