@@ -7,7 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Http\Requests\StoreBookingRequest;
-use Modules\HM\Services\RoomBookingService;
+use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 
@@ -22,24 +22,24 @@ class BookingRequestController extends Controller
      */
     private $departmentService;
     /**
-     * @var RoomBookingService
+     * @var BookingRequestService
      */
-    private $bookingService;
+    private $bookingRequestService;
 
     /**
      * BookingRequestController constructor.
-     * @param RoomBookingService $bookingService
+     * @param BookingRequestService $bookingRequestService
      * @param RoomTypeService $roomTypeService
      * @param DepartmentService $departmentService
      */
     public function __construct(
-        RoomBookingService $bookingService,
+        BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
         DepartmentService $departmentService
     ) {
         $this->roomTypeService = $roomTypeService;
         $this->departmentService = $departmentService;
-        $this->bookingService = $bookingService;
+        $this->bookingRequestService = $bookingRequestService;
     }
 
     /**
@@ -48,7 +48,7 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookings = $this->bookingService->findAll();
+        $bookings = $this->bookingRequestService->findAll();
         return view('hm::booking-request.index', compact('bookings'));
     }
 
@@ -71,7 +71,7 @@ class BookingRequestController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        $this->bookingService->save($request->all());
+        $this->bookingRequestService->save($request->all());
         Session::flash('message', 'Successfully stored room booking information');
 
         return redirect()->back();
