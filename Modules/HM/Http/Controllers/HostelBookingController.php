@@ -87,15 +87,18 @@ class HostelBookingController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
     public function edit(RoomBooking $roomBooking)
     {
         $requester = $roomBooking->requester;
+        /*return $requester;*/
         $departments  = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
-        $guestInfos = $roomBooking->guestInfos;
         $roomTypes = $this->roomTypeService->findAll();
+        $guestInfos = $roomBooking->guestInfos;
+        /*return $guestInfos;*/
         return view('hm::booking.edit',compact('requester','departments','roomInfos','guestInfos','roomBooking', 'roomTypes'));
     }
 
@@ -104,8 +107,9 @@ class HostelBookingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(StoreBookingRequest $request)
     {
+        return $request->all();
     }
 
     /**

@@ -88,6 +88,7 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'HostelBookingController@create')->name('bookings.create');
         Route::post('/', 'HostelBookingController@store')->name('bookings.store');
         Route::get('/edit/{roomBooking}','HostelBookingController@edit')->name('bookings.edit');
+        Route::post('/update','HostelBookingController@update')->name('bookings.update');
     });
 
     Route::prefix('booking-rates')->group(function () {

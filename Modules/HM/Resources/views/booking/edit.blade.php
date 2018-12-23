@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    {!! Form::open(['route' =>  'bookings.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['route' =>  'bookings.update', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
                                     <!-- Step 1 -->
                                         <h6>Step 1</h6>
                                         <fieldset>
@@ -79,7 +79,7 @@
                                                         <div class="col-md-6">
                                                             <div class="skin skin-flat">
                                                                 <fieldset>
-                                                                    {!! Form::radio('booking_type', 'training',($roomBooking->booking_type == 'training'), old('booking_type') == 'training') !!}
+                                                                    {!! Form::radio('booking_type', 'training', ($roomBooking->booking_type == 'training'), old('booking_type') == 'training') !!}
                                                                     <label>Training</label>
                                                                 </fieldset>
                                                             </div>
@@ -155,33 +155,37 @@
                                                             </div>
                                                         @endforeach
                                                     @else
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form row">
-                                                                <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                    <label class="required">Room Type</label>
-                                                                    <br>
-                                                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+
+                                                        @foreach($roomInfos as $roomInfo)
+                                                            <div data-repeater-item="" style="">
+                                                                <div class="form row">
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                        <label class="required">Room Type</label>
+                                                                        <br>
+                                                                        {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label for="quantity">Quantity <span
+                                                                                    class="danger">*</span></label>
+                                                                        <br>
+                                                                        {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                                                    </div>
+                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                        <label class="required">Rate</label>
+                                                                        <br>
+                                                                        {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select']) !!}
+                                                                    </div>
+                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                        <button type="button"
+                                                                                class="btn btn-outline-danger"
+                                                                                data-repeater-delete=""><i
+                                                                                    class="ft-x"></i>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label for="quantity">Quantity <span
-                                                                                class="danger">*</span></label>
-                                                                    <br>
-                                                                    {!! Form::number('quantity', null, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
-                                                                </div>
-                                                                <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                    <label class="required">Rate</label>
-                                                                    <br>
-                                                                    {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control rate-select']) !!}
-                                                                </div>
-                                                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                    <button type="button" class="btn btn-outline-danger"
-                                                                            data-repeater-delete=""><i
-                                                                                class="ft-x"></i>
-                                                                    </button>
-                                                                </div>
+                                                                <hr>
                                                             </div>
-                                                            <hr>
-                                                        </div>
+                                                        @endforeach
                                                     @endif
                                                 </div>
                                                 <div class="form-group overflow-auto">
@@ -250,7 +254,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('gender', 'male',($requester->gender == 'male')) !!}
+                                                                            {!! Form::radio('gender', 'male', ($requester->gender == 'male')) !!}
                                                                             <label for="gender">Male</label>
                                                                         </fieldset>
                                                                     </div>
@@ -321,7 +325,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Organization</label>
-                                                            {!! Form::text('organization', null, ['class' => 'form-control' . ($errors->has('organization') ? ' is-invalid' : ''), 'placeholder' => 'Organization name']) !!}
+                                                            {!! Form::text('organization', $requester->organization, ['class' => 'form-control' . ($errors->has('organization') ? ' is-invalid' : ''), 'placeholder' => 'Organization name']) !!}
 
                                                             @if ($errors->has('organization'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -337,7 +341,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'government', old('organization_type') == 'government') !!}
+                                                                            {!! Form::radio('organization_type', 'government', ($requester->organization_type == 'government'),old('organization_type') == 'government') !!}
                                                                             <label>Government</label>
                                                                         </fieldset>
                                                                     </div>
@@ -345,7 +349,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'private', old('organization_type') == 'private') !!}
+                                                                            {!! Form::radio('organization_type', 'private', ($requester->organization_type == 'private'), old('organization_type') == 'private') !!}
                                                                             <label>Private</label>
                                                                         </fieldset>
                                                                     </div>
@@ -355,7 +359,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'foreign', old('organization_type') == 'foreign') !!}
+                                                                            {!! Form::radio('organization_type', 'foreign', ($requester->organization_type == 'foreign'), old('organization_type') == 'foreign') !!}
                                                                             <label>Foreign</label>
                                                                         </fieldset>
                                                                     </div>
@@ -363,7 +367,7 @@
                                                                 <div class="col-md-6">
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
-                                                                            {!! Form::radio('organization_type', 'others', old('organization_type') == 'others') !!}
+                                                                            {!! Form::radio('organization_type', 'others', ($requester->organization_type == 'others'), old('organization_type') == 'others') !!}
                                                                             <label>Others</label>
                                                                         </fieldset>
                                                                     </div>
@@ -384,7 +388,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Designation</label>
-                                                            {!! Form::text('designation', null, ['class' => 'form-control' . ($errors->has('designation') ? ' is-invalid' : ''), 'placeholder' => 'Designation']) !!}
+                                                            {!! Form::text('designation', $requester->designation, ['class' => 'form-control' . ($errors->has('designation') ? ' is-invalid' : ''), 'placeholder' => 'Designation']) !!}
 
                                                             @if ($errors->has('designation'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -396,7 +400,7 @@
                                                     <div class="row">
                                                         <div class="form-group col-md-12">
                                                             <label>Address</label>
-                                                            {!! Form::textarea('org_address', null, ['class' => 'form-control' . ($errors->has('org_address') ? ' is-invalid' : ''), 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address']) !!}
+                                                            {!! Form::textarea('org_address', $requester->org_address, ['class' => 'form-control' . ($errors->has('org_address') ? ' is-invalid' : ''), 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address']) !!}
 
                                                             @if ($errors->has('org_address'))
                                                                 <span class="invalid-feedback" role="alert">
@@ -411,9 +415,9 @@
                                             <h4 class="form-section"><i class="la  la-building-o"></i>Documents</h4>
                                             <div class="row">
                                                 <!-- Start of .col-md-6 -->
-                                                <div class="col-md-6">
+                                                <div class="col-md-12">
                                                     <div class="row">
-                                                        <div class="form-group col-md-12">
+                                                        <div class="form-group col-md-6">
                                                             <label>Your Photo <span
                                                                         class="danger">*</span></label>
                                                             {!! Form::file('photo', ['class' => 'form-control' . ($errors->has('photo') ? ' is-invalid' : '')]) !!}
@@ -423,6 +427,9 @@
                                                                 <strong>{{ $errors->first('photo') }}</strong>
                                                             </span>
                                                             @endif
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <img src="{{ asset('public/storage/booking-requests/1545205492/requester/95YoxKXqvmf8InsbpE8q5PpzyCtdqUnYal9D9SE9.jpeg') }}" alt="photo">
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -566,65 +573,67 @@
                                                         </div>
                                                     @endforeach
                                                 @else
-                                                    <div data-repeater-list="guests">
-                                                        <div data-repeater-item="" style="">
-                                                            <div class="form">
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Name <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        {!! Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                    @foreach($guestInfos as $guestInfo)
+                                                        <div data-repeater-list="guests">
+                                                            <div data-repeater-item="" style="">
+                                                                <div class="form">
+                                                                    <div class="row">
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>Name <span
+                                                                                        class="danger">*</span></label>
+                                                                            <br>
+                                                                            {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label class="required">Age</label>
+                                                                            <br>
+                                                                            {!! Form::number('age', $guestInfo->age, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>Gender <span
+                                                                                        class="danger">*</span></label>
+                                                                            <br>
+                                                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>Relation <span
+                                                                                        class="danger">*</span></label>
+                                                                            <br>
+                                                                            {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label class="required">Age</label>
-                                                                        <br>
-                                                                        {!! Form::number('age', null, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Gender <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>Relation <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        {!! Form::text('relation', null, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                                                    <div class="row">
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>NID Copy</label>
+                                                                            <br>
+                                                                            {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                                            <label>NID</label>
+                                                                            <br>
+                                                                            {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                                                        </div>
+                                                                        <div class="form-group mb-1 col-sm-12 col-md-4">
+                                                                            <label>Address <span
+                                                                                        class="danger">*</span></label>
+                                                                            <br>
+                                                                            {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                                                        </div>
+                                                                        <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                                            <button type="button"
+                                                                                    class="btn btn-outline-danger"
+                                                                                    data-repeater-delete=""><i
+                                                                                        class="ft-x"></i>
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="row">
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID Copy</label>
-                                                                        <br>
-                                                                        {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                                        <label>NID</label>
-                                                                        <br>
-                                                                        {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
-                                                                    </div>
-                                                                    <div class="form-group mb-1 col-sm-12 col-md-4">
-                                                                        <label>Address <span
-                                                                                    class="danger">*</span></label>
-                                                                        <br>
-                                                                        {!! Form::textarea('address', null, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
-                                                                    </div>
-                                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                                                        <button type="button"
-                                                                                class="btn btn-outline-danger"
-                                                                                data-repeater-delete=""><i
-                                                                                    class="ft-x"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                                                <hr>
                                                             </div>
-                                                            <hr>
                                                         </div>
-                                                    </div>
+                                                    @endforeach
                                                 @endif
-                                                <div class="form-group overflow-auto">
+                                                    <div class="form-group overflow-auto">
                                                     <div class="col-12">
                                                         <button type="button" data-repeater-create=""
                                                                 class="pull-right btn btn-sm btn-outline-primary">
@@ -640,7 +649,7 @@
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Department</label>
-                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
+                                                        {!! Form::select('referee_dept', $departments->pluck('name', 'id'), $departments->department, ['class' => 'form-control', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
 
                                                         @if ($errors->has('referee_dept'))
                                                             <span class="invalid-feedback" role="alert">
@@ -652,7 +661,7 @@
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Employee Name</label>
-                                                        {!! Form::text('referee_name', null, ['class' => 'form-control' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
+                                                        {!! Form::text('referee_name', $departments->name, ['class' => 'form-control' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe']) !!}
 
                                                         @if ($errors->has('referee_name'))
                                                             <span class="invalid-feedback" role="alert">
@@ -664,7 +673,7 @@
                                                 <div class="form-group">
                                                     <div class="row col-md-12">
                                                         <label>Contact</label>
-                                                        {!! Form::text('referee_contact', null, ['class' => 'form-control' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits']) !!}
+                                                        {!! Form::text('referee_contact', $departments->contact, ['class' => 'form-control' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits']) !!}
 
                                                         @if ($errors->has('referee_contact'))
                                                             <span class="invalid-feedback" role="alert">
@@ -797,7 +806,7 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {{ old('guests') ? 'false' : 'true' }},
+                initEmpty: {{ (old('guests') || count($guestInfos)) ? 'false' : 'true' }},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -827,6 +836,24 @@
             });
             $('#department-select').select2({
                 placeholder: 'Select Department'
+            });
+
+            let roomInfos = {!! $roomInfos !!};
+            let roomTypes = {!! $roomTypes !!};
+
+            $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
+                let roomInfo = roomInfos[index];
+                let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
+
+                // create options of select
+                $(selectElement).html(`<option value=""></option>
+                    <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
+                    <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
+                    <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
+                    <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
+
+                // set value of select
+                $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
             });
         });
 
