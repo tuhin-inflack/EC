@@ -328,7 +328,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'government', old('organization_type') == 'government') !!}
-                                                                            <label>Government</label>
+                                                                            <label>@lang('hm::booking-request.government')</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>
@@ -336,7 +336,7 @@
                                                                     <div class="skin skin-flat">
                                                                         <fieldset>
                                                                             {!! Form::radio('organization_type', 'private', old('organization_type') == 'private') !!}
-                                                                            <label>{{ trans('booking-request') }}</label>
+                                                                            <label>{{ trans('hm::booking-request.private') }}</label>
                                                                         </fieldset>
                                                                     </div>
                                                                 </div>

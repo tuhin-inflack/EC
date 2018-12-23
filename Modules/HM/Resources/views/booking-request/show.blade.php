@@ -27,39 +27,39 @@
                                             <tbody>
                                             <tr>
                                                 <td class="width-150">Request ID</td>
-                                                <td class="width-300">BARDXXXXXX</td>
+                                                <td class="width-300">{{ $roomBooking->shortcode }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Requested On</td>
-                                                <td>03-12-2018</td>
+                                                <td>{{ $roomBooking->created_at->format('d/m/Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Booked By</td>
-                                                <td>Hasib Noor</td>
+                                                <td>{{ $roomBooking->requester->name }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Organization</td>
-                                                <td>Inflack Limited</td>
+                                                <td>{{ $roomBooking->requester->organization }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Designation</td>
-                                                <td>Manageing Director</td>
+                                                <td>{{ $roomBooking->requester->designation }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Organization Type</td>
-                                                <td>Private</td>
+                                                <td>{{ $roomBooking->requester->organization_type }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Phone</td>
-                                                <td>xxxxxxxxxxx</td>
+                                                <td>{{ $roomBooking->requester->contact }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Email</td>
-                                                <td>hasib@inflack.com</td>
+                                                <td>{{ $roomBooking->requester->email }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Address</td>
-                                                <td>Dhaka</td>
+                                                <td>{{ $roomBooking->requester->address }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -71,31 +71,35 @@
                                             <tbody>
                                             <tr>
                                                 <td class="width-150">Request ID</td>
-                                                <td class="width-300">BARDXXXXXX</td>
+                                                <td class="width-300">{{ $roomBooking->shortcode }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Booking Type</td>
-                                                <td>Single</td>
+                                                <td>{{ $roomBooking->booking_type }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Check In</td>
-                                                <td>03-12-2018</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->start_date)->format('d/m/Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Check Out</td>
-                                                <td>03-12-2018</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->end_date)->format('d/m/Y') }}</td>
                                             </tr>
                                             <tr>
                                                 <td>No. of Guest</td>
-                                                <td>3</td>
+                                                <td>{{ $roomBooking->guestInfos->count() }}</td>
                                             </tr>
                                             <tr>
                                                 <td>No. of Room</td>
-                                                <td>2</td>
+                                                <td>{{ $roomBooking->roomInfos->sum('quantity') }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Room Details</td>
-                                                <td>2 (AC)</td>
+                                                <td>
+                                                    @foreach($roomBooking->roomInfos as $roomInfo)
+                                                        {{ $roomInfo->quantity }} ({{ $roomInfo->roomType->name }})
+                                                    @endforeach
+                                                </td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -106,7 +110,7 @@
                                             <tbody>
                                             <tr>
                                                 <td class="width-150">BARD Reference</td>
-                                                <td class="width-300">Employee Name</td>
+                                                <td class="width-300">{{ $roomBooking->referee->name }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Designation</td>
@@ -114,11 +118,11 @@
                                             </tr>
                                             <tr>
                                                 <td>Department</td>
-                                                <td>Department</td>
+                                                <td>{{ $roomBooking->referee->department->name }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Phone</td>
-                                                <td>xxxxxxxxxxx</td>
+                                                <td>{{ $roomBooking->referee->contact }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -136,7 +140,8 @@
                                             <tr>
                                                 <td class="width-200">Photo</td>
                                                 <td class="width-350">
-                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt="" height="100px" width="200px">
+                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt=""
+                                                         height="100px" width="200px">
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -150,7 +155,8 @@
                                             <tr>
                                                 <td>NID Front Part</td>
                                                 <td>
-                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt="" height="100px" width="200px">
+                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt=""
+                                                         height="100px" width="200px">
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -164,7 +170,8 @@
                                             <tr>
                                                 <td>NID Back Part</td>
                                                 <td>
-                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt="" height="100px" width="200px">
+                                                    <img src="{{asset('theme/images/backgrounds/bg-1.jpg')}}" alt=""
+                                                         height="100px" width="200px">
                                                 </td>
                                             </tr>
                                             </tbody>
@@ -173,40 +180,39 @@
                                 </div>
                             </div>
                         </div>
+                        @if($roomBooking->guestInfos->count())
                         <div class="card-body" style="padding-left: 20px;">
                             <p><span class="text-bold-600">Guest Information</span></p>
                             <div class="row">
-                                <table class="table table-striped table-bordered" style="margin-left: 15px;margin-right: 15px;">
+                                <table class="table table-striped table-bordered"
+                                       style="margin-left: 15px;margin-right: 15px;">
                                     <thead>
                                     <tr>
                                         <th>SL</th>
                                         <th>Name</th>
                                         <th>Age</th>
                                         <th>Gender</th>
-                                        <th>Mobile</th>
-                                        <th>Organization</th>
                                         <th>Address</th>
                                         <th>Relation</th>
-                                        <th>Document</th>
-                                        <th>File</th>
+                                        <th>NID</th>
+                                        <th>NID Document</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($roomBooking->guestInfos as $guestInfo)
+                                        <tr>
+                                            <td>{{ $guestInfo->name }}</td>
+                                            <td>{{ $guestInfo->age }}</td>
+                                            <td>{{ $guestInfo->gender }}</td>
+                                            <td>{{ $guestInfo->address }}</td>
+                                            <td>{{ $guestInfo->relation }}</td>
+                                            <td>{{ $guestInfo->nid_no }}</td>
+                                            <td>{{ $guestInfo->nid_doc }}</td>
+                                        </tr>
+                                    @endforeach
                                     <tr>
                                         <td>1</td>
                                         <td>Saib Bin Ron</td>
-                                        <td>28</td>
-                                        <td>Male</td>
-                                        <td>xxxxxxxxxxxx</td>
-                                        <td>Inflack Limited</td>
-                                        <td>Dhaka</td>
-                                        <td>Colleague</td>
-                                        <td>NID</td>
-                                        <td><a href="">File</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Sumon Siddik</td>
                                         <td>28</td>
                                         <td>Male</td>
                                         <td>xxxxxxxxxxxx</td>
@@ -220,13 +226,15 @@
                                 </table>
                             </div>
                         </div>
+                        @endif
                         <div class="card-body" style="padding-left: 20px;">
                             <p><span class="text-bold-600">Note by Authority</span></p>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <textarea name="message"
-                                                  class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}" placeholder="Write here..."
+                                                  class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
+                                                  placeholder="Write here..."
                                                   id="" cols="30" rows="5">{{ old('message') }}</textarea>
 
                                         @if ($errors->has('message'))

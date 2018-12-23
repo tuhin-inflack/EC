@@ -80,11 +80,12 @@ class BookingRequestController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
     public function show(RoomBooking $roomBooking)
     {
-        return view('hm::booking-request.show');
+        return view('hm::booking-request.show', compact('roomBooking'));
     }
 
     /**
