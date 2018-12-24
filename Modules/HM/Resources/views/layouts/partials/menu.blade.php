@@ -94,23 +94,11 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item">
-                <a href="#">
+            <li class="nav-item {{ is_active_route('booking-requests.index') }}">
+                <a href="{{ route('booking-requests.index') }}">
                     <i class="la la-book"></i>
                     <span class="menu-title"
                           data-i18n="nav.templates.main">@lang('hm::booking-request.booking_request')</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">@lang('labels.list')</span></a>
-                    </li>
-                    <li class="{{ is_active_route('booking-requests.create') }}"><a href="{{ route('booking-requests.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">@lang('hm::booking-request.create')</span></a>
-                    </li>
-                </ul>
             </li>
             <li class="nav-item">
                 <a href="#">

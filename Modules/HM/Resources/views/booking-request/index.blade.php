@@ -16,6 +16,11 @@
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
                         </div>
+                        <div class="heading-elements">
+                            <a href="{{ route('booking-requests.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> {{ trans('hm::booking-request.new_booking_request') }}</a>
+
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
@@ -65,12 +70,39 @@
 
 @push('page-js')
     <script>
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                let filterValue = $('#filter-select').val() || 'pending';
+                if(data[7] == filterValue) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
         $(document).ready(function () {
-            $('.booking-request-table').DataTable({
+            let table = $('.booking-request-table').DataTable({
                 "columnDefs": [
                     { "orderable": false, "targets": 8 }
                 ]
             });
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    Filter
+                    <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        </select>
+                    entries
+                </label>
+            `);
+
+            $('#filter-select').on('change', function () {
+                table.draw();
+            });
         });
+
     </script>
 @endpush
