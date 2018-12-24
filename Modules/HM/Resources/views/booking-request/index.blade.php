@@ -16,6 +16,11 @@
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
                         </div>
+                        <div class="heading-elements">
+                            <a href="{{ route('booking-requests.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> {{ trans('hm::booking-request.new_booking_request') }}</a>
+
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
