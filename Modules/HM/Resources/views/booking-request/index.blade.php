@@ -65,12 +65,39 @@
 
 @push('page-js')
     <script>
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                let filterValue = $('#filter-select').val() || 'pending';
+                if(data[7] == filterValue) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
         $(document).ready(function () {
-            $('.booking-request-table').DataTable({
+            let table = $('.booking-request-table').DataTable({
                 "columnDefs": [
                     { "orderable": false, "targets": 8 }
                 ]
             });
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    Filter
+                    <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        </select>
+                    entries
+                </label>
+            `);
+
+            $('#filter-select').on('change', function () {
+                table.draw();
+            });
         });
+
     </script>
 @endpush
