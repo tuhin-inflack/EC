@@ -85,8 +85,9 @@
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
-
-                    let billingRows = roomInfos.map(roomInfo => {
+                    let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
+                    console.log(guestInfos);
+                    let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
                             <td>${roomInfo.quantity || 0}</td>
@@ -96,7 +97,7 @@
                         </tr>`;
                     });
 
-                    $('#billing-table').find('tbody').html(billingRows);
+                    $('#billing-table').find('tbody').html(roomInfoRows);
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
