@@ -9,6 +9,8 @@ return [
     'last_sub_date' => 'Last Submission Date',
     'remarks' => 'Remarks',
     'attachment' => 'Attachment',
+    'pick_a_date' => 'Pick a Date',
+    'write_here' => 'Write Here',
     'attached_file' => 'Attachment File',
     'project_request_list' => 'List of Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',

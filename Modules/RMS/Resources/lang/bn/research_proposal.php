@@ -9,6 +9,8 @@ return [
     'last_sub_date' => 'সর্বশেষ জমা তারিখ',
     'remarks' => 'মন্তব্য',
     'attachment' => 'ফাইল সংযুক্ত করুন',
+    'pick_a_date'=> 'একটি তারিখ নিন',
+    'write_here' => 'এখানে লিখুন',
     'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
     'attached_file' => 'সংযুক্ত ফাইল',
