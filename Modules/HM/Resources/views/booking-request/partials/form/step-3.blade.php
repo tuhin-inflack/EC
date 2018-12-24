@@ -16,8 +16,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.name'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.name') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -28,8 +28,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.age'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.age') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.age') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -40,8 +40,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.gender'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.gender') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.gender') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -52,8 +52,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.relation'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.relation') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.relation') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -66,8 +66,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.nid_doc'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.nid_doc') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.nid_doc') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -78,8 +78,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.nid_no'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.nid_no') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.nid_no') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
@@ -90,8 +90,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.address'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                                                                <strong>{{ $errors->first('guests.' . $loop->index . '.address') }}</strong>
-                                                                            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.address') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -183,8 +183,8 @@
                 <span class="select-error"></span>
                 @if ($errors->has('referee_dept'))
                     <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('referee_dept') }}</strong>
-                                                                </span>
+                        <strong>{{ $errors->first('referee_dept') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -195,8 +195,8 @@
 
                 @if ($errors->has('referee_name'))
                     <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('referee_name') }}</strong>
-                                                                </span>
+                        <strong>{{ $errors->first('referee_name') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -207,8 +207,8 @@
 
                 @if ($errors->has('referee_contact'))
                     <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('referee_contact') }}</strong>
-                                                                </span>
+                        <strong>{{ $errors->first('referee_contact') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
