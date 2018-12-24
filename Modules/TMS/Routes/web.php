@@ -13,4 +13,10 @@
 
 Route::prefix('tms')->group(function() {
     Route::get('/', 'TMSController@index');
+
+    Route::prefix('training')->group(function() {
+        Route::get('/', 'TrainingController@index');
+        Route::get('/create', 'TrainingController@create');
+        Route::post('/create', 'TrainingController@store');
+    });
 });
