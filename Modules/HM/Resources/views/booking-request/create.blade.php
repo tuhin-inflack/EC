@@ -832,7 +832,8 @@
                 }, 'Must be greater than {0}.');
 
             $('.booking-request-tab-steps').validate({
-                ignore: 'input[type=hidden]', // ignore hidden fields
+                // ignore: 'input[type=hidden]', // ignore hidden fields
+                ignore: [], // ignore hidden fields
                 errorClass: 'danger',
                 successClass: 'success',
                 highlight: function (element, errorClass) {
@@ -842,6 +843,7 @@
                     $(element).removeClass(errorClass);
                 },
                 errorPlacement: function (error, element) {
+                    console.log(error, element);
                     if (element.attr('type') == 'radio') {
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
