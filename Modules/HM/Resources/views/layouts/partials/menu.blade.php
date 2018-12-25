@@ -92,12 +92,17 @@
                 <a href="#">
                     <i class="la la-book"></i>
                     <span class="menu-title"
-                          data-i18n="nav.templates.main">@lang('hm::booking-request.menu_title')</span></a>
+                          data-i18n="nav.templates.main">@lang('hm::booking-request.booking_request')</span></a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('bookings.create') }}"><a href="{{ route('bookings.create') }}">
+                    <li class="{{ is_active_route('booking-requests.create') }}"><a href="{{ route('booking-requests.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">@lang('hm::booking-request.create')</span></a>
+                    </li>
+                    <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
+                            <i class="la la-list"></i>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">List</span></a>
                     </li>
                 </ul>
             </li>
@@ -107,23 +112,10 @@
                     <span class="menu-title"
                           data-i18n="nav.templates.main">Booking Rate</span></a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('booking-rates.create') }}"><a href="{{ route('booking-rates.create') }}">
+                    <li class="{{ is_active_route('booking-request-rates.create') }}"><a href="{{ route('booking-request-rates.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title"
                                   data-i18n="nav.dash.main">Create</span></a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-book"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">Booking Request</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">List</span></a>
                     </li>
                 </ul>
             </li>
