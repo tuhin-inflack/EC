@@ -5,18 +5,41 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\HM\Entities\RoomBooking;
+use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\BookingRequestService;
+use Modules\HM\Services\RoomTypeService;
+use Modules\HRM\Services\DepartmentService;
 
 class BookingRequestController extends Controller
 {
+    /**
+     * @var RoomTypeService
+     */
+    private $roomTypeService;
+    /**
+     * @var DepartmentService
+     */
+    private $departmentService;
+    /**
+     * @var BookingRequestService
+     */
     private $bookingRequestService;
 
     /**
      * BookingRequestController constructor.
-     * @param BookingRequestService
+     * @param BookingRequestService $bookingRequestService
+     * @param RoomTypeService $roomTypeService
+     * @param DepartmentService $departmentService
      */
-    public function __construct(BookingRequestService $bookingRequestService)
-    {
+    public function __construct(
+        BookingRequestService $bookingRequestService,
+        RoomTypeService $roomTypeService,
+        DepartmentService $departmentService
+    ) {
+        $this->roomTypeService = $roomTypeService;
+        $this->departmentService = $departmentService;
         $this->bookingRequestService = $bookingRequestService;
     }
 
@@ -26,9 +49,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookings = $this->bookingRequestService->getAll();
-
-        return view('hm::booking-request.index', compact('bookings'));
+        $bookingRequests = $this->bookingRequestService->findAll();
+        return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
     /**
@@ -37,7 +59,10 @@ class BookingRequestController extends Controller
      */
     public function create()
     {
-        return view('hm::create');
+        $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
+
+        return view('hm::booking-request.create', compact('roomTypes', 'departments'));
     }
 
     /**
@@ -45,28 +70,39 @@ class BookingRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreBookingRequest $request)
     {
+        $this->bookingRequestService->save($request->all());
+        Session::flash('message', 'Successfully stored room booking information');
+
+        return redirect()->back();
     }
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function show($id)
+    public function show(RoomBooking $roomBooking)
     {
-        $booking = $this->bookingRequestService->getBookingRequest($id);
-
-        return view('hm::booking-request.show', compact('booking'));
+        return view('hm::booking-request.show', compact('roomBooking'));
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function edit()
+    public function edit(RoomBooking $roomBooking)
     {
-        return view('hm::edit');
+        $requester = $roomBooking->requester;
+        /*return $requester;*/
+        $departments  = $roomBooking->referee;
+        $roomInfos = $roomBooking->roomInfos;
+        $roomTypes = $this->roomTypeService->findAll();
+        $guestInfos = $roomBooking->guestInfos;
+        /*return $guestInfos;*/
+        return view('hm::booking-request.edit',compact('requester','departments','roomInfos','guestInfos','roomBooking', 'roomTypes'));
     }
 
     /**
