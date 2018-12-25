@@ -84,24 +84,23 @@ Route::prefix('hm')->group(function () {
         Route::post('/', 'HostelStoreController@store')->name('stores.store');
     });
 
-    Route::prefix('bookings')->group(function () {
-        Route::get('create', 'HostelBookingController@create')->name('bookings.create');
-        Route::post('/', 'HostelBookingController@store')->name('bookings.store');
-    });
-
-    Route::prefix('booking-rates')->group(function () {
-        Route::get('create', 'HostelBookingRateController@create')->name('booking-rates.create');
-    });
-
     Route::prefix('booking-requests')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
-        Route::get('show/{id}', 'BookingRequestController@show')->name('booking-requests.show');
+        Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
+        Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
+        Route::get('/edit/{roomBooking}', 'BookingRequestController@edit')->name('booking-requests.edit');
+        Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
+        Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
+    });
+
+    Route::prefix('booking-request-rates')->group(function () {
+        Route::get('create', 'HostelBookingRateController@create')->name('booking-request-rates.create');
     });
 
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
         Route::get('/create','CheckinController@create')->name('check-in.create');
-        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
+        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-request-requests'); // Temporary & Demo
         Route::get('edit','CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('show','CheckinController@show')->name('check-in.show'); // Temporary & Demo
     });
