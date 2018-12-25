@@ -167,7 +167,7 @@
             <div class="col-12">
                 <button type="button" data-repeater-create=""
                         class="pull-right btn btn-sm btn-outline-primary">
-                    <i class="ft-plus"></i> Add
+                    <i class="ft-plus"></i> @lang('labels.add')
                 </button>
             </div>
         </div>
