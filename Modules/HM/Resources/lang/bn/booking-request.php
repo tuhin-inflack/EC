@@ -74,5 +74,6 @@ return [
     'note_of_authority' => 'কর্তৃপক্ষের নোট',
     'approve' => 'অনুমোদন করা',
     'reject' => 'প্রত্যাখ্যান',
+    'pending' => 'বিচারাধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
 ];
