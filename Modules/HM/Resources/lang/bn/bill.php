@@ -6,9 +6,9 @@
  * Time: 4:30 PM
  */
 return [
-    'title' => 'Bill',
-    'list' => 'Bill List',
-    'bill_generate' => 'Generate Bill',
-    'bill_payment' => 'Bill Payment',
-    'bill_payment_list' => 'Payment Register',
+    'title' => 'বিল',
+    'list' => 'বিল তালিকা',
+    'bill_generate' => 'বিল তৈরি করুন',
+    'bill_payment' => 'বিল পরিশোধ করুন',
+    'bill_payment_list' => 'পেমেন্ট তালিকা',
 ];
