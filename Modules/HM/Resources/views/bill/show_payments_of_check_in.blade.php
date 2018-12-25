@@ -76,7 +76,7 @@
                                             @for($i = rand(2, 8); $i > 1; $i--)
                                                 <tr>
                                                     <td>{{ ++$count }}</td>
-                                                    <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
+                                                    <td><a href="{{ route('bill.show', $i) }}" >BILLXXXXX{{$i}}</a></td>
                                                     <td>{{ date('d.m.Y',strtotime("-".$i." days")) }}</td>
                                                     <td>Tk. {{ 500 * $i }}</td>
                                                     <td>
