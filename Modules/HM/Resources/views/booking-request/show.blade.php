@@ -184,6 +184,7 @@
                                         <tbody>
                                         @foreach($roomBooking->guestInfos as $guestInfo)
                                             <tr>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $guestInfo->name }}</td>
                                                 <td>{{ $guestInfo->age }}</td>
                                                 <td>{{ $guestInfo->gender }}</td>

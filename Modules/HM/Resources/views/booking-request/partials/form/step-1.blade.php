@@ -11,8 +11,8 @@
 
                 @if ($errors->has('start_date'))
                     <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('start_date') }}</strong>
-                                                        </span>
+                        <strong>{{ $errors->first('start_date') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -63,8 +63,8 @@
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">
-                                                    <strong>{{ $errors->first('roomInfos') }}</strong>
-                                                </span>
+            <strong>{{ $errors->first('roomInfos') }}</strong>
+        </span>
     @endif
     <div class="repeater-room-infos">
         <div data-repeater-list="roomInfos">
@@ -155,7 +155,7 @@
             <div class="col-12">
                 <button type="button" data-repeater-create=""
                         class="pull-right btn btn-sm btn-outline-primary">
-                    <i class="ft-plus"></i> Add
+                    <i class="ft-plus"></i> @lang('labels.add')
                 </button>
             </div>
         </div>

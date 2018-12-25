@@ -7,24 +7,24 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.name') }}</label>
-                    {!! Form::text('name', null, ['class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+                    {!! Form::text('name', null, ['id' => 'primary-contact-name-input', 'class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
 
                     @if ($errors->has('name'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('name') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.contact') }}</label>
-                    {!! Form::text('contact', null, ['class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number', 'data-rule-minlength' => 11, 'data-msg-minlength'=>"At least 11 characters", 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>"At most 11 characters"]) !!}
+                    {!! Form::text('contact', null, ['id' => 'primary-contact-contact-input', 'class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number', 'data-rule-minlength' => 11, 'data-msg-minlength'=>"At least 11 characters", 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>"At most 11 characters"]) !!}
 
                     @if ($errors->has('contact'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('contact') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('contact') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -35,8 +35,8 @@
 
                     @if ($errors->has('address'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('address') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('address') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -80,8 +80,8 @@
 
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                                </span>
+                            <strong>{{ $errors->first('email') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -92,8 +92,8 @@
 
                     @if ($errors->has('passport_no'))
                         <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('passport_no') }}</strong>
-                                                                </span>
+                            <strong>{{ $errors->first('passport_no') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -104,8 +104,8 @@
 
                     @if ($errors->has('nid'))
                         <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('nid') }}</strong>
-                                                                </span>
+                            <strong>{{ $errors->first('nid') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -123,8 +123,8 @@
 
                     @if ($errors->has('organization'))
                         <span class="invalid-feedback" role="alert">
-                                                                    <strong>{{ $errors->first('organization') }}</strong>
-                                                                </span>
+                            <strong>{{ $errors->first('organization') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -186,8 +186,8 @@
 
                     @if ($errors->has('designation'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('designation') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('designation') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -198,8 +198,8 @@
 
                     @if ($errors->has('org_address'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('org_address') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('org_address') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -213,36 +213,36 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.your_photo') }}</label>
-                    {!! Form::file('photo', ['class' => 'form-control required' . ($errors->has('photo') ? ' is-invalid' : ''), 'accept' => 'images/*']) !!}
+                    {!! Form::file('photo', ['class' => 'form-control required' . ($errors->has('photo') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
                     @if ($errors->has('photo'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('photo') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('photo') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.nid_copy') }}</label>
-                    {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : ''), 'accept' => 'images/*']) !!}
+                    {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
                     @if ($errors->has('nid_doc'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('nid_doc') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('nid_doc') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.passport_copy') }}</label>
-                    {!! Form::file('passport_doc', ['class' => 'form-control' . ($errors->has('passport_doc') ? ' is-invalid' : ''), 'accept' => 'images/*']) !!}
+                    {!! Form::file('passport_doc', ['class' => 'form-control' . ($errors->has('passport_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
                     @if ($errors->has('passport_doc'))
                         <span class="invalid-feedback" role="alert">
-                                                                <strong>{{ $errors->first('passport_doc') }}</strong>
-                                                            </span>
+                            <strong>{{ $errors->first('passport_doc') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>

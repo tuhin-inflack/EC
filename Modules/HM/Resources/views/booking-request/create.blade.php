@@ -86,7 +86,7 @@
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
                     let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
-                    console.log(guestInfos);
+
                     let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
@@ -97,7 +97,26 @@
                         </tr>`;
                     });
 
+                    let guestInfoRows = guestInfos.map(guestInfo => {
+                        return `<tr>
+                            <td>${guestInfo.name}</td>
+                            <td>${guestInfo.age}</td>
+                            <td>${guestInfo.gender}</td>
+                            <td>${guestInfo.relation}</td>
+                            <td>${guestInfo.address}</td>
+                        </tr>`;
+                    });
+
                     $('#billing-table').find('tbody').html(roomInfoRows);
+                    $('#guests-info-table').find('tbody').html(guestInfoRows);
+
+                    $('#primary-contact-name').html($('#primary-contact-name-input').val());
+                    $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
+                    $('#start_date_display').html($('#start_date').val());
+                    $('#end_date_display').html($('#end_date').val());
+                    $('#bard-referee-name').html($('input[name=referee_name]').val());
+                    $('#bard-referee-contact').html($('input[name=referee_contact]').val());
+                    $('#bard-referee-department').html($('#department-select').select2('data')[0].text);
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
