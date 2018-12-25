@@ -73,6 +73,7 @@ return [
     'note_of_authority' => 'Note Of Authority',
     'approve' => 'Approve',
     'reject' => 'Reject',
+    'pending' => 'Pending',
     'new_booking_request' => 'New Booking Request',
 
 ];
