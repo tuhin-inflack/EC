@@ -11,6 +11,7 @@ use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
+use Modules\HRM\Services\EmployeeServices;
 
 class BookingRequestController extends Controller
 {
@@ -26,21 +27,29 @@ class BookingRequestController extends Controller
      * @var BookingRequestService
      */
     private $bookingRequestService;
+    /**
+     * @var EmployeeServices
+     */
+    private $employeeServices;
 
     /**
      * BookingRequestController constructor.
      * @param BookingRequestService $bookingRequestService
      * @param RoomTypeService $roomTypeService
      * @param DepartmentService $departmentService
+     * @param EmployeeServices $employeeServices
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
-        DepartmentService $departmentService
-    ) {
+        DepartmentService $departmentService,
+        EmployeeServices $employeeServices
+    )
+    {
         $this->roomTypeService = $roomTypeService;
         $this->departmentService = $departmentService;
         $this->bookingRequestService = $bookingRequestService;
+        $this->employeeServices = $employeeServices;
     }
 
     /**
@@ -61,8 +70,10 @@ class BookingRequestController extends Controller
     {
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
+        $employees = $this->employeeServices->findAll();
+        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
 
-        return view('hm::booking-request.create', compact('roomTypes', 'departments'));
+        return view('hm::booking-request.create', compact('roomTypes', 'departments', 'employees', 'employeeOptions'));
     }
 
     /**
@@ -96,7 +107,7 @@ class BookingRequestController extends Controller
     public function edit(RoomBooking $roomBooking)
     {
         $requester = $roomBooking->requester;
-        $referee  = $roomBooking->referee;
+        $referee = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();

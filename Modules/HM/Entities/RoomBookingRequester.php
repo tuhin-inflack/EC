@@ -8,7 +8,9 @@ class RoomBookingRequester extends Model
 {
     protected $fillable = [
         'room_booking_id',
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
         'gender',
         'contact',
         'address',

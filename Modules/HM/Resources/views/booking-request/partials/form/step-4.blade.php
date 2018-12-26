@@ -4,14 +4,14 @@
     </h4>
     <div class="row">
         <div class="col-md-4">
-            <strong>Name: </strong><span id="primary-contact-name"></span><br>
-            <strong>Contact: </strong><span id="primary-contact-contact"></span>
+            <strong>@lang('labels.name'): </strong><span id="primary-contact-name"></span><br>
+            <strong>@lang('labels.contact'): </strong><span id="primary-contact-contact"></span>
         </div>
         <div class="col-md-4">
-            <strong>Start Date: </strong><span id="start_date_display"></span>
+            <strong>@lang('hm::booking-request.start_date'): </strong><span id="start_date_display"></span>
         </div>
         <div class="col-md-4">
-            <strong>End Date: </strong><span id="end_date_display"></span>
+            <strong>@lang('hm::booking-request.end_date'): </strong><span id="end_date_display"></span>
         </div>
     </div>
     <br>
@@ -59,9 +59,9 @@
     </h4>
     <div class="row">
         <div class="col-md-6">
-            <strong>Name: </strong><span id="bard-referee-name"></span><br>
-            <strong>Contact: </strong><span id="bard-referee-contact"></span><br>
-            <strong>Department: </strong><span id="bard-referee-department"></span><br>
+            <strong>@lang('labels.name'): </strong><span id="bard-referee-name"></span><br>
+            <strong>@lang('hm::booking-request.designation'): </strong><span id="bard-referee-designation"></span><br>
+            <strong>@lang('hm::booking-request.department'): </strong><span id="bard-referee-department"></span><br>
         </div>
     </div>
 </fieldset>

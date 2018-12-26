@@ -38,6 +38,7 @@ class BookingRequestService
 
     public function save(array $data)
     {
+        return $data;
         DB::transaction(function () use ($data) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
