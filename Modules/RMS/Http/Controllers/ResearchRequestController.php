@@ -5,6 +5,7 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
 
 class ResearchRequestController extends Controller
 {
@@ -31,8 +32,9 @@ class ResearchRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateResearchRequestRequest $request)
     {
+        return $request->all();
     }
 
     /**

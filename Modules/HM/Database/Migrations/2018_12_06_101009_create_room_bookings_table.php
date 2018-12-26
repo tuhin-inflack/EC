@@ -20,6 +20,7 @@ class CreateRoomBookingsTable extends Migration
             $table->string('shortcode');
             $table->enum('booking_type', ['general', 'training']);
             $table->enum('status', ['approved', 'pending', 'rejected']);
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }

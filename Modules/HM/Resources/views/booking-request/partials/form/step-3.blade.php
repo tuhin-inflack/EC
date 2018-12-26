@@ -108,60 +108,122 @@
                 </div>
             @endforeach
         @else
-            <div data-repeater-list="guests">
-                <div data-repeater-item="" style="">
-                    <div class="form">
-                        <div class="row">
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label class="required">{{ trans('hm::booking-request.name') }}</label>
-                                <br>
-                                {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+            @if($page == 'create')
+                <div data-repeater-list="guests">
+                    <div data-repeater-item="" style="">
+                        <div class="form">
+                            <div class="row">
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.name') }}</label>
+                                    <br>
+                                    {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.age') }}</label>
+                                    <br>
+                                    {!! Form::number('age', null, ['class' => 'form-control required', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.gender') }}</label>
+                                    <br>
+                                    {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control guest-gender-select required']) !!}
+                                    <span class="select-error"></span>
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.relation') }}</label>
+                                    <br>
+                                    {!! Form::text('relation', null, ['class' => 'form-control required', 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                </div>
                             </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label class="required">{{ trans('hm::booking-request.age') }}</label>
-                                <br>
-                                {!! Form::number('age', null, ['class' => 'form-control required', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
-                            </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label class="required">{{ trans('hm::booking-request.gender') }}</label>
-                                <br>
-                                {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control guest-gender-select required']) !!}
-                                <span class="select-error"></span>
-                            </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label class="required">{{ trans('hm::booking-request.relation') }}</label>
-                                <br>
-                                {!! Form::text('relation', null, ['class' => 'form-control required', 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                            <div class="row">
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label>{{ trans('hm::booking-request.nid_copy') }}</label>
+                                    <br>
+                                    {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label>{{ trans('hm::booking-request.nid') }}</label>
+                                    <br>
+                                    {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-4">
+                                    <label class="required">{{ trans('hm::booking-request.address') }}</label>
+                                    <br>
+                                    {!! Form::textarea('address', null, ['class' => 'form-control required', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => 'At most 300 characters']) !!}
+                                </div>
+                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                    <button type="button"
+                                            class="btn btn-outline-danger"
+                                            data-repeater-delete=""><i
+                                                class="ft-x"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label>{{ trans('hm::booking-request.nid_copy') }}</label>
-                                <br>
-                                {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                        <hr>
+                    </div>
+                </div>
+            @else
+                @foreach($guestInfos as $guestInfo)
+                    <div data-repeater-list="guests">
+                        <div data-repeater-item="" style="">
+                            <div class="form">
+                                <div class="row">
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>Name <span
+                                                    class="danger">*</span></label>
+                                        <br>
+                                        {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label class="required">Age</label>
+                                        <br>
+                                        {!! Form::number('age', $guestInfo->age, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>Gender <span
+                                                    class="danger">*</span></label>
+                                        <br>
+                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>Relation <span
+                                                    class="danger">*</span></label>
+                                        <br>
+                                        {!! Form::text('relation', $guestInfo->relation, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>NID Copy</label>
+                                        <br>
+                                        {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>NID</label>
+                                        <br>
+                                        {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                        <label>Address <span
+                                                    class="danger">*</span></label>
+                                        <br>
+                                        {!! Form::textarea('address', $guestInfo->address, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
+                                    </div>
+                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                        <button type="button"
+                                                class="btn btn-outline-danger"
+                                                data-repeater-delete=""><i
+                                                    class="ft-x"></i>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
-                                <label>{{ trans('hm::booking-request.nid') }}</label>
-                                <br>
-                                {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
-                            </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-4">
-                                <label class="required">{{ trans('hm::booking-request.address') }}</label>
-                                <br>
-                                {!! Form::textarea('address', null, ['class' => 'form-control required', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => 'At most 300 characters']) !!}
-                            </div>
-                            <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                <button type="button"
-                                        class="btn btn-outline-danger"
-                                        data-repeater-delete=""><i
-                                            class="ft-x"></i>
-                                </button>
-                            </div>
+                            <hr>
                         </div>
                     </div>
-                    <hr>
-                </div>
-            </div>
+                @endforeach
+            @endif
         @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
@@ -178,7 +240,7 @@
         <div class="form-group">
             <div class="row col-md-12">
                 <label class="required">{{ trans('hm::booking-request.department') }}</label>
-                {!! Form::select('referee_dept', $departments->pluck('name', 'id'), null, ['class' => 'form-control required', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
+                {!! Form::select('referee_dept', $departments->pluck('name', 'id'), $page == 'create' ? old('referee_dept') : $referee->department_id, ['class' => 'form-control required', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
 
                 <span class="select-error"></span>
                 @if ($errors->has('referee_dept'))
@@ -191,7 +253,7 @@
         <div class="form-group">
             <div class="row col-md-12">
                 <label class="required">{{ trans('hm::booking-request.employee_name') }}</label>
-                {!! Form::text('referee_name', null, ['class' => 'form-control required' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                {!! Form::text('referee_name', $page == 'create' ? old('referee_dept') : $referee->name, ['class' => 'form-control required' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
 
                 @if ($errors->has('referee_name'))
                     <span class="invalid-feedback" role="alert">
@@ -203,7 +265,7 @@
         <div class="form-group">
             <div class="row col-md-12">
                 <label class="required">{{ trans('hm::booking-request.contact') }}</label>
-                {!! Form::text('referee_contact', null, ['class' => 'form-control required' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits', 'data-rule-minlength' => 11, 'data-msg-minlength' => 'At least 11 characters', 'data-rule-maxlength' => 11, 'data-msg-maxlength' => 'At most 11 characters']) !!}
+                {!! Form::text('referee_contact', $page == 'create' ? old('referee_dept') : $referee->contact, ['class' => 'form-control required' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits', 'data-rule-minlength' => 11, 'data-msg-minlength' => 'At least 11 characters', 'data-rule-maxlength' => 11, 'data-msg-maxlength' => 'At most 11 characters']) !!}
 
                 @if ($errors->has('referee_contact'))
                     <span class="invalid-feedback" role="alert">

@@ -96,13 +96,21 @@ class BookingRequestController extends Controller
     public function edit(RoomBooking $roomBooking)
     {
         $requester = $roomBooking->requester;
-        /*return $requester;*/
-        $departments  = $roomBooking->referee;
+        $referee  = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
         $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
-        /*return $guestInfos;*/
-        return view('hm::booking-request.edit',compact('requester','departments','roomInfos','guestInfos','roomBooking', 'roomTypes'));
+
+        return view('hm::booking-request.edit', compact(
+            'requester',
+            'departments',
+            'roomInfos',
+            'guestInfos',
+            'roomBooking',
+            'roomTypes',
+            'referee'
+        ));
     }
 
     /**

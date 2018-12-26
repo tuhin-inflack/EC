@@ -88,7 +88,7 @@ Route::prefix('hm')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
         Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
-        Route::get('/roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit');
+        Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit');
         Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
         Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
         Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit');
