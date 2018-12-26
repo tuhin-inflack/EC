@@ -199,20 +199,19 @@
                                 </div>
                             </div>
                         @endif
+                        {{ Form::open(['route' => ['booking-request-status.edit', $roomBooking], 'method' => 'put', 'id' => 'booking-request-status-form']) }}
                         <div class="card-body" style="padding-left: 20px;">
                             <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="message"
-                                                  class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
-                                                  placeholder="Write here..."
-                                                  id="" cols="30" rows="5">{{ old('message') }}</textarea>
+                                        {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
+                                        {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => 'note', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
-                                        @if ($errors->has('message'))
+                                        @if ($errors->has('note'))
                                             <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('message') }}</strong>
-                                        </span>
+                                                <strong>{{ $errors->first('note') }}</strong>
+                                            </span>
                                         @endif
                                     </div>
 
@@ -221,54 +220,44 @@
                         </div>
                         <div class="card-body" style="padding-left: 20px;">
                             <div class="form-actions">
-                                <a class="btn btn-warning mr-1" role="button" href="{{ route('booking-requests.index') }}">
+                                <a class="btn btn-warning mr-1" role="button"
+                                   href="{{ route('booking-requests.index') }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
                                 @if($roomBooking->status != 'pending')
-                                    <form style="display: inline"
-                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        {{ Form::hidden('status', 'pending') }}
-                                        <button class="btn btn-secondary mr-1" type="submit"><i
-                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-secondary mr-1" type="button" onclick="changeStatus('pending')"><i
+                                                class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                    </button>
                                 @endif
                                 @if($roomBooking->status != 'rejected')
-                                    <form style="display: inline"
-                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        {{ Form::hidden('status', 'rejected') }}
-                                        <button class="btn btn-danger
-                                         mr-1" type="submit"><i
-                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-danger mr-1" type="button" onclick="changeStatus('rejected')"><i
+                                                class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                    </button>
                                 @endif
                                 @if($roomBooking->status != 'approved')
-                                    <form style="display: inline"
-                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
-                                          method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        {{ Form::hidden('status', 'approved') }}
-                                        <button class="btn btn-success mr-1" type="submit"><i
-                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
-                                        </button>
-                                    </form>
+                                    <button class="btn btn-success mr-1" type="button"
+                                            onclick="changeStatus('approved')"><i
+                                                class="ft-check"></i> @lang('hm::booking-request.approve')
+                                    </button>
                                 @endif
                             </div>
                         </div>
+                        {{ Form::close() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+
+@push('page-js')
+    <script>
+        function changeStatus(payload) {
+            $('#status-input-hidden').val(payload);
+            $('#booking-request-status-form').submit();
+        }
+    </script>
+@endpush
 
 
 
