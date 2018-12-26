@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-    @include('rms::proposal-submission.form')
+    @include('rms::proposal.submission.form')
 @endsection
 
 @push('page-js')

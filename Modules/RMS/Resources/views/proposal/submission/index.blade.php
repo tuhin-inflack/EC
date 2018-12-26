@@ -44,7 +44,7 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href=""
+                                                <a href="{{ route('research-proposal-submission.show', 1) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
                                                 </span>
                                             </span>
@@ -66,7 +66,7 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href=""
+                                                <a href="{{ route('research-proposal-submission.show', 12) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
                                                 </span>
                                             </span>

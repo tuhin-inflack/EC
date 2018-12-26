@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'Research Proposal',
     'menu_title' => 'Research Proposal Request',
     'create_request' => 'Create Request',
     'research_proposal_request_creation' => 'Research Proposal Request Creation',

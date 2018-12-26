@@ -1,5 +1,6 @@
 <?php
 return [
+    'title' => 'গবেষণা প্রস্তাব',
     'menu_title' => 'গবেষণা প্রস্তাব অনুরোধ',
     'create_request' => 'অনুরোধ তৈরি করুন',
     'research_proposal_request_creation' => 'গবেষণা প্রস্তাব অনুরোধ তৈরি করুন',

@@ -21,11 +21,12 @@ Route::prefix('rms')->group(function() {
     });
 
     Route::prefix('research-proposal-submission')->group(function(){
-        Route::get('/create','ResearchSubmissionController@create')->name('research-proposal-submission.create');
-        Route::get('/','ResearchSubmissionController@index')->name('research-proposal-submission.index');
+        Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
+        Route::get('create','ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
     });
 
     Route::prefix('submitted-research-proposals')->group(function(){
-        Route::get('/','ResearchProposalSubmittedController@index')->name('research-proposal-submitted.index');
+        Route::get('/','ProposalSubmitController@submittedList')->name('research-proposal-submitted.index');
     });
 });
