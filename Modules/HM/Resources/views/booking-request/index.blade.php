@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking Request List')
+@section('title', trans('hm::booking-request.booking_request') . ' ' . trans('labels.list'))
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Booking Request List</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::booking-request.booking_request') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -16,35 +16,44 @@
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
                         </div>
+                        <div class="heading-elements">
+                            <a href="{{ route('booking-requests.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> {{ trans('hm::booking-request.new_booking_request') }}</a>
+
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 table-responsive">
-                                    <table class="table table-bordered alt-pagination">
+                                    <table class="booking-request-table table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th>SL</th>
-                                            <th>Booked By</th>
-                                            <th>Check In Date</th>
-                                            <th>Check Out Date</th>
-                                            <th>Organization</th>
-                                            <th>Reference</th>
-                                            <th>Guests</th>
-                                            <th>Status</th>
+                                            <th>@lang('labels.serial')</th>
+                                            <th>@lang('hm::booking-request.booked_by')</th>
+                                            <th>@lang('hm::booking-request.check_in_date')</th>
+                                            <th>@lang('hm::booking-request.check_out_date')</th>
+                                            <th>@lang('hm::booking-request.organization')</th>
+                                            <th>@lang('hm::booking-request.bard_reference')</th>
+                                            <th>@lang('hm::booking-request.guests')</th>
+                                            <th>@lang('labels.status')</th>
+                                            <th>@lang('labels.action')</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($bookings as $booking)
+                                        @foreach($bookingRequests as $bookingRequest)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><a href="#">{{ $booking->requester->name }}</a></td>
-                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $booking->start_date)->format('d/m/Y') }}</td>
-                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $booking->end_date)->format('d/m/Y') }}</td>
-                                                <td>{{ $booking->requester->organization }}</td>
-                                                <td>{{ $booking->referee->name }}</td>
-                                                <td>{{ $booking->guestInfos->count() }}</td>
-                                                <td>{{ $booking->status }}</td>
+                                                <td><a href="{{ route('booking-requests.show', $bookingRequest->id) }}">{{ $bookingRequest->requester->name }}</a></td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->start_date)->format('d/m/Y') }}</td>
+                                                <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->end_date)->format('d/m/Y') }}</td>
+                                                <td>{{ $bookingRequest->requester->organization }}</td>
+                                                <td>{{ $bookingRequest->referee->name }}</td>
+                                                <td>{{ $bookingRequest->guestInfos->count() }}</td>
+                                                <td>{{ $bookingRequest->status }}</td>
+                                                <td>
+                                                    <a href="{{ route('booking-requests.edit', $bookingRequest->id) }}" class="btn btn-sm btn-primary"><i class="ft-edit-2"></i></a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                         </tbody>
@@ -59,8 +68,41 @@
     </div>
 @endsection
 
-@push('js')
+@push('page-js')
     <script>
+        $.fn.dataTable.ext.search.push(
+            function( settings, data, dataIndex ) {
+                let filterValue = $('#filter-select').val() || 'pending';
+                if(data[7] == filterValue) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            let table = $('.booking-request-table').DataTable({
+                "columnDefs": [
+                    { "orderable": false, "targets": 8 }
+                ]
+            });
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    Filter
+                    <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                        </select>
+                    entries
+                </label>
+            `);
+
+            $('#filter-select').on('change', function () {
+                table.draw();
+            });
+        });
 
     </script>
 @endpush

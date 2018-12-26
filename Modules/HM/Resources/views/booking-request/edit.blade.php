@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking create')
+@section('title', trans('hm::booking-request.title'))
 
 @section('content')
     <div class="container">
@@ -47,6 +47,7 @@
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
 
+
 @push('page-js')
     <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
@@ -57,6 +58,8 @@
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script>
+        var form = $('.booking-request-tab-steps').show();
+
         // jquery steps
         $('.booking-request-tab-steps').steps({
             headerTag: "h6",
@@ -67,11 +70,16 @@
                 finish: 'Submit'
             },
             onStepChanging: function (event, currentIndex, newIndex) {
+                // Allways allow previous action even if the current form is not valid!
+                if (currentIndex > newIndex) {
+                    return true;
+                }
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
+                    let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
 
-                    let billingRows = roomInfos.map(roomInfo => {
+                    let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
                             <td>${roomInfo.quantity || 0}</td>
@@ -81,9 +89,35 @@
                         </tr>`;
                     });
 
-                    $('#billing-table').append(billingRows);
+                    let guestInfoRows = guestInfos.map(guestInfo => {
+                        return `<tr>
+                            <td>${guestInfo.name}</td>
+                            <td>${guestInfo.age}</td>
+                            <td>${guestInfo.gender}</td>
+                            <td>${guestInfo.relation}</td>
+                            <td>${guestInfo.address}</td>
+                        </tr>`;
+                    });
+
+                    $('#billing-table').find('tbody').html(roomInfoRows);
+                    $('#guests-info-table').find('tbody').html(guestInfoRows);
+
+                    $('#primary-contact-name').html($('#primary-contact-name-input').val());
+                    $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
+                    $('#start_date_display').html($('#start_date').val());
+                    $('#end_date_display').html($('#end_date').val());
+                    $('#bard-referee-name').html($('input[name=referee_name]').val());
+                    $('#bard-referee-contact').html($('input[name=referee_contact]').val());
+                    $('#bard-referee-department').html($('#department-select').select2('data')[0].text);
                 }
-                return true;
+                // Needed in some cases if the user went back (clean up)
+                if (currentIndex < newIndex) {
+                    // To remove error styles
+                    form.find(".body:eq(" + newIndex + ") label.error").remove();
+                    form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+                }
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
             },
             onFinished: function (event, currentIndex) {
                 $('.booking-request-tab-steps').submit();
@@ -122,7 +156,7 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {{ (old('guests') || count($guestInfos)) ? 'false' : 'true' }},
+                initEmpty: {{ ($guestInfos || old('guests')) ? 'false' : 'true' }},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -147,29 +181,58 @@
             $('.rate-select').select2({
                 placeholder: 'Select Rate'
             });
-            $('#guest-gender-select').select2({
+            $('.guest-gender-select').select2({
                 placeholder: 'Select Gender'
             });
             $('#department-select').select2({
                 placeholder: 'Select Department'
             });
 
-            let roomInfos = {!! $roomInfos !!};
-            let roomTypes = {!! $roomTypes !!};
+            // validation
+            jQuery.validator.addMethod("greaterThanOrEqual",
+                function (value, element, params) {
+                    return Date.parse(value) >= Date.parse($(params).val())
+                }, 'Must be greater than {0}.');
 
-            $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
-                let roomInfo = roomInfos[index];
-                let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
-
-                // create options of select
-                $(selectElement).html(`<option value=""></option>
-                    <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
-                    <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
-                    <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
-                    <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
-
-                // set value of select
-                $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
+            $('.booking-request-tab-steps').validate({
+                ignore: 'input[type=hidden]', // ignore hidden fields
+                errorClass: 'danger',
+                successClass: 'success',
+                highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.attr('type') == 'radio') {
+                        error.insertBefore(element.parents().siblings('.radio-error'));
+                    } else if (element[0].tagName == "SELECT") {
+                        error.insertBefore(element.siblings('.select-error'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
+                rules: {
+                    end_date: {
+                        greaterThanOrEqual: '#start_date'
+                    },
+                    name: {
+                        maxlength: 50
+                    },
+                    contact: {
+                        minlength: 11,
+                        maxlength: 11
+                    },
+                    address: {
+                        maxlength: 300
+                    },
+                    nid: {
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    referee_dept: "required"
+                },
             });
         });
 

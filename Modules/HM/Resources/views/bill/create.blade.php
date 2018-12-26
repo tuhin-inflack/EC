@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::hostel.bill_generate'))
+@section('title', trans('hm::bill.bill_generate'))
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::hostel.bill_generate')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::bill.bill_generate')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -54,34 +54,42 @@
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
                                         <thead>
-                                        <tr>
-                                            <th>SL</th>
-                                            <th>Room No</th>
-                                            <th>Check In</th>
-                                            <th>Check Out</th>
-                                            <th># of Day</th>
-                                            <th>Cost/Night</th>
-                                            <th>Total</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                            @php $count = 0 @endphp
-                                            @for($i = rand(2, 5); $i > 1; $i--)
                                             <tr>
-                                                <td>{{ ++$count }}</td>
-                                                <td>RMC00{{$i}}</td>
-                                                <td>{{ date('d.m.Y',strtotime("-1 days")) }}</td>
-                                                <td>{{ date('d.m.Y') }}</td>
-                                                <td>1</td>
-                                                <td>Tk. 500</td>
-                                                <td>Tk. 500</td>
+                                                <th width="2%">SL</th>
+                                                <th>Room</th>
+                                                <th>Check In</th>
+                                                <th width="20%">Check Out</th>
+                                                <th width="20%"># of Day</th>
+                                                <th width="20%">Cost/Night</th>
+                                                <th width="10%">Total</th>
                                             </tr>
-                                            @endfor
+                                        </thead>
+                                        <tbody class="item-list">
                                             <tr>
-                                                <td colspan="6">Total</td>
-                                                <td>Tk. {{ 500 * $count }}</td>
+                                                <td class="text-center"><i class="ft-x text-danger remove-item"></i></td>
+                                                <td>RMC00</td>
+                                                <td>{{ date('d-m-Y') }}</td>
+                                                <td>
+                                                    <input type="date" name="check_out">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="no_of_day">
+                                                </td>
+                                                <td>
+                                                    <input type="number" name="room_rate">
+                                                </td>
+                                                <td></td>
                                             </tr>
                                         </tbody>
+                                        <tfoot>
+                                            <tr class="text-warning">
+                                                <th class="text-center">
+                                                    <a id="add-row"><i class="la la-plus text-info" aria-hidden="true"></i></a>
+                                                </th>
+                                                <th colspan="5">Total</th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
@@ -89,16 +97,16 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-actions text-center no-print">
-                                        <button type="button" class="btn btn-primary print pull-left">
-                                            <i class="la la-print"></i> Print
-                                        </button>
-                                        <a class="btn btn-warning mr-1 pull-right" role="button"
+                                        <a class="btn btn-warning mr-1 pull-left" role="button"
                                            href="{{ route('bill.index') }}">
                                             <i class="ft-x"></i> Cancel
                                         </a>
-                                        <a class="btn btn-info mr-1 pull-right" role="button"
+                                        <button type="button" class="btn btn-primary pull-right">
+                                            <i class="ft-save"></i> Save
+                                        </button>
+                                        <a class="btn btn-info mr-1 pull-left" role="button"
                                            href="{{ route('bill.payment') }}">
-                                            <i class="la la-credit-card"></i> Payment
+                                            <i class="ft-credit-card"></i> Payment
                                         </a>
                                     </div>
                                 </div>
@@ -115,12 +123,37 @@
     <script src="{{ asset('js/jquery.print.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#dropdown").select2({
-                placeholder: 'Select parent inventory-type'
-            });
+
+        $(".remove-item").css('cursor', 'pointer').click(function(){
+            $(this).parents('tr').remove();
         });
 
+        let today = '{{ date('d-m-Y') }}';
+
+        $('#add-row').click(function (e) {
+            let row = '<tr>' +
+                    '<td class="text-center"><i class="ft-x text-danger remove-item"></i></td>' +
+                    '<td>RMC00</td>' +
+                    '<td>' + today + '</td>' +
+                    '<td>' +
+                        '<input type="date" name="check_out">' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="number" name="no_of_day">' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="number" name="room_rate">' +
+                    '</td>' +
+                    '<td></td>' +
+                '</tr>';
+            $('.item-list').append(row);
+
+            $(".remove-item").off();
+            $(".remove-item").css('cursor', 'pointer').click(function(){
+                $(this).parents('tr').remove();
+            });
+
+        });
         // $('.print').click(function() {
         //     $('.print-view').print();
         // });
