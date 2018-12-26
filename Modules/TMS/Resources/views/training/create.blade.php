@@ -31,7 +31,7 @@
                                             <label for="training_id" class="form-label required">{{trans('tms::training.training_id')}}</label>
                                             <input id="training_id" type="text"
                                                    class="form-control {{ $errors->has('training_id') ? ' is-invalid' : '' }}"
-                                                   name="training_id" value="{{$trainingId}}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_id')])}}" autofocus>
+                                                   name="training_id" value="{{$trainingId}}" readonly required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_id')])}}" autofocus>
                                             <div class="help-block"></div>
                                             @if ($errors->has('training_id'))
                                                 <span class="invalid-feedback" role="alert">
@@ -102,7 +102,7 @@
                                                    class="form-label required">{{trans('tms::training.training_participant_no')}}</label>
                                             <input type="number"
                                                    class="form-control {{ $errors->has('no_of_trainee') ? ' is-invalid' : '' }}"
-                                                   name="no_of_trainee" id="no_of_trainee" value="{{ old('no_of_trainee') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_participant_no')])}}">
+                                                   name="no_of_trainee" id="no_of_trainee" value="{{ old('no_of_trainee') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_participant_no')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('no_of_trainee'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('no_of_trainee') }}</strong></span>
@@ -140,16 +140,22 @@
         function dateDifference() {
 
             var val1 =  document.getElementById('start_date').value;
+            document.getElementById('end_date').setAttribute('min',val1);
             var val2 =  document.getElementById('end_date').value;
             var date1 = new Date(val1);
             var date2 = new Date(val2);
-            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            if(diffDays>0)
-                document.getElementById('training_len').value = diffDays + " days";
+
+            if(date2 > date1)
+            {
+                var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+                var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+                if(diffDays>0)
+                    document.getElementById('training_len').value = diffDays + " days";
+                else
+                    document.getElementById('training_len').value = "...";
+            }
             else
                 document.getElementById('training_len').value = "...";
-
         }
     </script>
 @endpush

@@ -7,6 +7,7 @@ use Modules\TMS\Http\Requests\TrainingRequest;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\TMS\Services\TrainingsService;
+use Modules\TMS\Entities\Trainings;
 use Illuminate\Support\Facades\Session;
 
 class TrainingController extends Controller
@@ -21,7 +22,6 @@ class TrainingController extends Controller
     {
         $this->trainingService = $trainingService;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -63,9 +63,7 @@ class TrainingController extends Controller
     {
         $response = $this->trainingService->save($request->all());
 
-        $trainings = $this->trainingService->findAll();
-
-        if($response == true) $msg = "Training saved Successfully!"; else $msg = "Data not saved";
+        if($response == true) $msg = "Training saved Successfully!"; else $msg = "Error! Data not saved";
         Session::flash('message',$msg);
 
         return redirect('tms/training/');
@@ -75,18 +73,24 @@ class TrainingController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($training_id)
     {
-        return view('tms::show');
+        $training = $this->trainingService->findOrFail($training_id);
+
+        //return die('test');
+
+        return view('tms::training.show', compact('training'));
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($training_id)
     {
-        return view('tms::edit');
+        $training = $this->trainingService->findOrFail($training_id);
+
+        return view('tms::training.edit', compact('training'));
     }
 
     /**
@@ -94,15 +98,31 @@ class TrainingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(TrainingRequest $request, Trainings $training)
     {
+        $update = $this->trainingService->update($training , $request->all());
+
+        if($update) $msg = "Training Updated Successfully"; else $msg = "Error! Training not updated";
+
+        Session::flash('message', $msg);
+
+        return redirect('/tms/training');
+
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $response = $this->trainingService->delete($id);
+
+        if($response) $msg = "Training Deleted Successfully"; else $msg = "Error! Training not deleted";
+
+        Session::flash('message', $msg);
+
+        return redirect('/tms/training');
+
     }
 }

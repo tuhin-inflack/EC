@@ -47,18 +47,18 @@
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{URL::to( '/tms/training/show/'.$training->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
-                                                <a href="{{URL::to( '/tms/training/'.$training->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                                                <a href="{{URL::to( '/system/user/'.$training->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                <a href="{{URL::to( '/system/user/'.$training->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',
-                                                  'url' => [ '/tms/training', $training->id],
+                                                  'url' => [ '/system/user', $training->id],
                                                   'style' => 'display:inline'
                                                   ]) !!}
                                                   {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
                                                   'type' => 'submit',
                                                   'class' => 'dropdown-item',
-                                                  'title' => 'Delete the training',
+                                                  'title' => 'Delete the user',
                                                   'onclick'=>'return confirm("Confirm delete?")',
                                                   )) !!}
                                                   {!! Form::close() !!}

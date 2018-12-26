@@ -30,9 +30,9 @@
                                     <thead>
                                     <tr>
                                         <th>@lang('tms::training.menu_title')</th>
-                                        <th>@lang('tms::training.total_rooms')</th>
-                                        <th>@lang('tms::training.booked_rooms')</th>
-                                        <th>@lang('tms::training.available_rooms')</th>
+                                        <th>@lang('tms::training.training_participant_no')</th>
+                                        <th>@lang('tms::training.start_date')</th>
+                                        <th>@lang('tms::training.end_date')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,16 +44,16 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <h1 class="">
-                                                        <a href="{{ route('room.chart') }}"
+                                                        <a href="tms/training"
                                                                class="text-capitalize">Training Name</a>
                                                     </h1>
-                                                    <span>number of floors 5</span>
+
                                                 </div>
                                             </div>
                                         </th>
                                         <th><h2>25</h2></th>
-                                        <th><h2>15</h2></th>
-                                        <th><h2>10</h2></th>
+                                        <th><h2>-</h2></th>
+                                        <th><h2>-</h2></th>
                                     </tr>
                                     <tr>
                                         <th>
@@ -63,16 +63,16 @@
                                                 </div>
                                                 <div class="col-10">
                                                     <h1 class="">
-                                                        <a href="{{ route('hostels.detail') }}"
+                                                        <a href="tms/training"
                                                            class="text-capitalize">Training Name</a>
                                                     </h1>
-                                                    <span>number of floors 6</span>
+
                                                 </div>
                                             </div>
                                         </th>
                                         <th><h2>67</h2></th>
-                                        <th><h2>41</h2></th>
-                                        <th><h2>26</h2></th>
+                                        <th><h2>-</h2></th>
+                                        <th><h2>-</h2></th>
                                     </tr>
                                     </tbody>
                                 </table>

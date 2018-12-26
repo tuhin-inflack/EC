@@ -9,22 +9,17 @@
 
                 <li class="{{ is_active_match('tms/employee') }}">
                     <a href="{{ url('tms/training') }}">
-                        <i class="la la-users"></i>
+                    <i class="la la-list-alt"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('tms::training.menu_title')}}</span>
                     </a>
                 </li>
                 <li class="{{ is_active_match('tms/department')}}">
-                    <a href="{{ url('tms/') }}">
-                        <i class="la la-list-alt"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('tms::training.menu_title')}}</span>
+                    <a href="{{ url('tms/trainee') }}">
+                        <i class="la la-users"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('tms::training.trainee')}}</span>
                     </a>
                 </li>
-                <li class="{{ is_active_match('tms/designation') }}">
-                    <a href="{{ url('tms/') }}">
-                        <i class="la la-list-alt"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('tms::training.menu_title')}}</span>
-                    </a>
-                </li>
+
             </ul>
         @endauth
     </div>

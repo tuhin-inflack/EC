@@ -14,4 +14,10 @@ use Modules\TMS\Entities\Trainings;
 class TrainingsRepository extends AbstractBaseRepository
 {
     protected $modelName = Trainings::class;
+
+    public function getTrainingById($training_id)
+    {
+        $training = Trainings::where('training_id',$training_id)->first();
+
+    }
 }
