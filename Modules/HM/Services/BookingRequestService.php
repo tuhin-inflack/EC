@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\RoomBookingReferee;
@@ -37,51 +38,53 @@ class BookingRequestService
 
     public function save(array $data)
     {
-        $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
-        $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-        $data['shortcode'] = time();
-        $data['status'] = 'pending';
+        DB::transaction(function () use ($data) {
+            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
+            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+            $data['shortcode'] = time();
+            $data['status'] = 'pending';
 
-        $roomBooking = $this->roomBookingRepository->save($data);
+            $roomBooking = $this->roomBookingRepository->save($data);
 
-        $roomBookingRequester = new RoomBookingRequester($data);
+            $roomBookingRequester = new RoomBookingRequester($data);
 
-        $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
-        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+            $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+            $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+            $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
-        $roomBookingRequester->photo = $photoPath;
-        $roomBookingRequester->nid_doc = $nidDocPath;
-        $roomBookingRequester->passport_doc = $passportDocPath;
+            $roomBookingRequester->photo = $photoPath;
+            $roomBookingRequester->nid_doc = $nidDocPath;
+            $roomBookingRequester->passport_doc = $passportDocPath;
 
-        $roomBooking->requester()->save($roomBookingRequester);
+            $roomBooking->requester()->save($roomBookingRequester);
 
-        $roomBookingReferee = new RoomBookingReferee([
-            'name' => $data['referee_name'],
-            'department' => $data['referee_dept'],
-            'contact' => $data['referee_contact']
-        ]);
-        $roomBooking->referee()->save($roomBookingReferee);
-
-        $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
-            $rateInfo = explode('_', $roomInfo['rate']);
-            $rateType = $rateInfo[0];
-            $rate = $rateInfo[1];
-            return new BookingRoomInfo([
-                'room_type_id' => $roomInfo['room_type_id'],
-                'quantity' => $roomInfo['quantity'],
-                'rate_type' => $rateType,
-                'rate' => $rate
+            $roomBookingReferee = new RoomBookingReferee([
+                'name' => $data['referee_name'],
+                'department_id' => $data['referee_dept'],
+                'contact' => $data['referee_contact']
             ]);
-        }));
+            $roomBooking->referee()->save($roomBookingReferee);
 
-        if (array_key_exists('guests', $data)) {
-            $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
-                return new BookingGuestInfo($guest);
+            $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
+                $rateInfo = explode('_', $roomInfo['rate']);
+                $rateType = $rateInfo[0];
+                $rate = $rateInfo[1];
+                return new BookingRoomInfo([
+                    'room_type_id' => $roomInfo['room_type_id'],
+                    'quantity' => $roomInfo['quantity'],
+                    'rate_type' => $rateType,
+                    'rate' => $rate
+                ]);
             }));
-        }
 
-        return $roomBooking;
+            if (array_key_exists('guests', $data)) {
+                $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    return new BookingGuestInfo($guest);
+                }));
+            }
+
+            return $roomBooking;
+        });
     }
 }

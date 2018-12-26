@@ -1,9 +1,9 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::hostel.bill'))
+@section('title', trans('hm::bill.title'))
 
 @section('content')
     <h1>
-        {{trans('hm::hostel.bill')}}
+        {{trans('hm::bill.title')}}
         <span class="font-size-base">
             Module: {!! config('hm.name') !!}
         </span>

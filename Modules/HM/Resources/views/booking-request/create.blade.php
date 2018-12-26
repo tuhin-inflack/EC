@@ -25,6 +25,16 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         @include('hm::booking-request.form', ['page' => 'create'])
+                                    {!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                    <!-- Step 1 -->
+                                    @include('hm::booking-request.partials.form.step-1')
+                                    <!-- Step 2 -->
+                                    @include('hm::booking-request.partials.form.step-2')
+                                    <!-- Step 3 -->
+                                    @include('hm::booking-request.partials.form.step-3')
+                                    <!-- Step 4 -->
+                                    @include('hm::booking-request.partials.form.step-4')
+                                    {!! Form::close() !!}
                                     </div>
                                 </div>
                             </div>
@@ -76,8 +86,9 @@
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
+                    let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
 
-                    let billingRows = roomInfos.map(roomInfo => {
+                    let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
                             <td>${roomInfo.quantity || 0}</td>
@@ -87,7 +98,26 @@
                         </tr>`;
                     });
 
-                    $('#billing-table').find('tbody').html(billingRows);
+                    let guestInfoRows = guestInfos.map(guestInfo => {
+                        return `<tr>
+                            <td>${guestInfo.name}</td>
+                            <td>${guestInfo.age}</td>
+                            <td>${guestInfo.gender}</td>
+                            <td>${guestInfo.relation}</td>
+                            <td>${guestInfo.address}</td>
+                        </tr>`;
+                    });
+
+                    $('#billing-table').find('tbody').html(roomInfoRows);
+                    $('#guests-info-table').find('tbody').html(guestInfoRows);
+
+                    $('#primary-contact-name').html($('#primary-contact-name-input').val());
+                    $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
+                    $('#start_date_display').html($('#start_date').val());
+                    $('#end_date_display').html($('#end_date').val());
+                    $('#bard-referee-name').html($('input[name=referee_name]').val());
+                    $('#bard-referee-contact').html($('input[name=referee_contact]').val());
+                    $('#bard-referee-department').html($('#department-select').select2('data')[0].text);
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -174,8 +204,7 @@
                 }, 'Must be greater than {0}.');
 
             $('.booking-request-tab-steps').validate({
-                // ignore: 'input[type=hidden]', // ignore hidden fields
-                ignore: [], // ignore hidden fields
+                ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',
                 successClass: 'success',
                 highlight: function (element, errorClass) {
@@ -185,7 +214,6 @@
                     $(element).removeClass(errorClass);
                 },
                 errorPlacement: function (error, element) {
-                    console.log(error, element);
                     if (element.attr('type') == 'radio') {
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
