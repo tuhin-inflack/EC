@@ -34,4 +34,5 @@ return [
     'new' => 'New',
     'add' => 'Add',
     'back_page' => 'Back',
+    'setup' => 'Setup',
 ];
