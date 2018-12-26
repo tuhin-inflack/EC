@@ -66,9 +66,9 @@ class BillController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('hm::show');
+        return view('hm::bill.show');
     }
 
     /**
