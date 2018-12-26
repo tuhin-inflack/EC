@@ -123,4 +123,9 @@ class RoomService
     {
         return $this->roomRepository->exists($roomNumbers, $hostelId);
     }
+
+    public function getRoomsByHostel($hostelId)
+    {
+        return $this->roomRepository->findBy(['hostel_id' => $hostelId]);
+    }
 }
