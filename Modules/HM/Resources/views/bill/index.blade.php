@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::hostel.bill_list'))
+@section('title', trans('hm::bill.list'))
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::hostel.bill_list')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('hm::bill.list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -40,7 +40,7 @@
                                         @for($i = rand(2, 20); $i > 1; $i--)
                                             <tr>
                                                 <td>{{ ++$count }}</td>
-                                                <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
+                                                <td><a href="{{ route('bill.show', $i) }}" >BILLXXXXX{{$i}}</a></td>
                                                 <td>BK{{$i}}XXX</td>
                                                 <td>{{ date('d.m.Y',strtotime("-1 days")) }}</td>
                                                 <td>{{ date('d.m.Y') }}</td>

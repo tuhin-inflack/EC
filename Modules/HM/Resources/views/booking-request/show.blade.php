@@ -184,6 +184,7 @@
                                         <tbody>
                                         @foreach($roomBooking->guestInfos as $guestInfo)
                                             <tr>
+                                                <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $guestInfo->name }}</td>
                                                 <td>{{ $guestInfo->age }}</td>
                                                 <td>{{ $guestInfo->gender }}</td>
@@ -220,15 +221,46 @@
                         </div>
                         <div class="card-body" style="padding-left: 20px;">
                             <div class="form-actions">
-                                <a class="btn btn-warning mr-1" role="button" href="">
+                                <a class="btn btn-warning mr-1" role="button" href="{{ route('booking-requests.index') }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
-                                <a class="btn btn-secondary mr-1" role="button" href="">
-                                    <i class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                </a>
-                                <a class="btn btn-success mr-1" role="button" href="">
-                                    <i class="ft-check"></i> @lang('hm::booking-request.approve')
-                                </a>
+                                @if($roomBooking->status != 'pending')
+                                    <form style="display: inline"
+                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
+                                          method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        {{ Form::hidden('status', 'pending') }}
+                                        <button class="btn btn-secondary mr-1" type="submit"><i
+                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                        </button>
+                                    </form>
+                                @endif
+                                @if($roomBooking->status != 'rejected')
+                                    <form style="display: inline"
+                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
+                                          method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        {{ Form::hidden('status', 'rejected') }}
+                                        <button class="btn btn-danger
+                                         mr-1" type="submit"><i
+                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                        </button>
+                                    </form>
+                                @endif
+                                @if($roomBooking->status != 'approved')
+                                    <form style="display: inline"
+                                          action="{{ route('booking-request-status.edit', $roomBooking->id) }}"
+                                          method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        {{ Form::hidden('status', 'approved') }}
+                                        <button class="btn btn-success mr-1" type="submit"><i
+                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
+                                        </button>
+                                    </form>
+                                @endif
                             </div>
                         </div>
                     </div>
