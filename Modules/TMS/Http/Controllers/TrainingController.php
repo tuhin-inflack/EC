@@ -3,26 +3,35 @@
 namespace Modules\TMS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\TMS\Http\Requests\TrainingRequest;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\TMS\Services\TrainingsService;
+use Illuminate\Support\Facades\Session;
 
 class TrainingController extends Controller
 {
+    private $trainingService;
+
+    /**
+     * TrainingController constructor.
+     * @param $trainingService
+     */
+    public function __construct(TrainingsService $trainingService)
+    {
+        $this->trainingService = $trainingService;
+    }
+
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        $trainings[] = (object) array(
-            'id' => 1,
-            'title' => 'Test Training',
-            'participant' => 10,
-            'start_date' => '2018-10-10',
-            'end_date' => '2018-12-10',
-            'comment' => "Test comment",
-            'status' => 1
-        );
+
+        $trainings = $this->trainingService->findAll();
+
         return view('tms::training.index', compact('trainings'));
     }
 
@@ -50,10 +59,16 @@ class TrainingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(TrainingRequest $request)
     {
+        $response = $this->trainingService->save($request->all());
 
+        $trainings = $this->trainingService->findAll();
 
+        if($response == true) $msg = "Training saved Successfully!"; else $msg = "Data not saved";
+        Session::flash('message',$msg);
+
+        return redirect('tms/training/');
     }
 
     /**

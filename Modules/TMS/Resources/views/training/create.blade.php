@@ -22,7 +22,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  '/tms/training', 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+                            {!! Form::open(['url' =>  '/tms/training/create', 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                             <div class="form-body">
                                 <h4 class="form-section"><i class="ft-user"></i> {{trans('tms::training.create_form_title')}}</h4>
                                 <div class="row">
@@ -44,11 +44,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_name" class="form-label required">{{trans('tms::training.training_name')}}</label>
-                                            <input id="training_name" type="text" class="form-control {{ $errors->has('training_name') ? ' is-invalid' : '' }}" name="training_name" value="{{ old('email') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_name')])}}">
+                                            <input id="training_name" type="text" class="form-control {{ $errors->has('training_title') ? ' is-invalid' : '' }}" name="training_title" value="{{ old('email') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_name')])}}">
                                             <div class="help-block"></div>
-                                            @if ($errors->has('training_name'))
+                                            @if ($errors->has('training_title'))
                                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('training_name') }}</strong>
+                                        <strong>{{ $errors->first('training_title') }}</strong>
                                     </span>
                                             @endif
                                         </div>
@@ -75,6 +75,7 @@
                                         <div class="form-group">
                                             <label for="end_date"
                                                    class="form-label required">{{trans('tms::training.end_date')}}</label>
+                                            <input type="hidden" name="status" value="1">
                                             <input type="date"
                                                    class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
                                                    name="end_date" id="end_date" value="{{ old('end_date') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
@@ -85,13 +86,31 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="training_len"
+                                                   class="form-label">{{trans('tms::training.training_period')}}</label>
+                                            <input type="text" name="training_len" id="training_len" class="form-control" readonly>
 
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="end_date"
-                                               class="form-label">{{trans('tms::training.training_period')}}: <span class="badge badge-info" id="training_len">...</span></label>
-
+                                        </div>
                                     </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="end_date"
+                                                   class="form-label required">{{trans('tms::training.training_participant_no')}}</label>
+                                            <input type="number"
+                                                   class="form-control {{ $errors->has('no_of_trainee') ? ' is-invalid' : '' }}"
+                                                   name="no_of_trainee" id="no_of_trainee" value="{{ old('no_of_trainee') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_participant_no')])}}">
+                                            <div class="help-block"></div>
+                                            @if ($errors->has('no_of_trainee'))
+                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('no_of_trainee') }}</strong></span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+
                                 </div>
 
                             </div>
@@ -127,9 +146,9 @@
             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
             var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
             if(diffDays>0)
-                document.getElementById('training_len').innerHTML = diffDays + " days";
+                document.getElementById('training_len').value = diffDays + " days";
             else
-                document.getElementById('training_len').innerHTML = "...";
+                document.getElementById('training_len').value = "...";
 
         }
     </script>

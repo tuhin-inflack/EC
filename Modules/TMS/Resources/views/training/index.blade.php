@@ -1,5 +1,5 @@
 @extends('tms::layouts.master')
-@section('title', 'User list')
+@section('title', 'Training list')
 
 @section('content')
     <section id="user-list">
@@ -22,11 +22,11 @@
                                 <thead>
                                 <tr>
                                     <th>{{trans('labels.serial')}}</th>
-                                    <th>{{trans('tms::training.title')}}</th>
-                                    <th>{{trans('labels.name')}}</th>
-                                    <th>{{trans('labels.mobile')}}</th>
-                                    <th>{{trans('labels.email_address')}}</th>
-                                    <th>{{trans('usermanagement.user_type')}}</th>
+                                    <th>{{trans('tms::training.training_id')}}</th>
+                                    <th>{{trans('tms::training.training_name')}}</th>
+                                    <th>{{trans('tms::training.training_participant_no')}}</th>
+                                    <th>{{trans('tms::training.start_date')}}</th>
+                                    <th>{{trans('tms::training.end_date')}}</th>
                                     <th>{{trans('labels.status')}}</th>
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>
@@ -36,12 +36,12 @@
                                 @foreach($trainings as $training)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{$training->title}}</td>
-                                        <td>{{$training->participant}}</td>
+                                        <td>{{$training->training_id}}</td>
+                                        <td>{{$training->training_title}}</td>
+                                        <td>{{$training->no_of_trainee}}</td>
                                         <td>{{$training->start_date}}</td>
                                         <td>{{$training->end_date}}</td>
-                                        <td>{{$training->comment}}</td>
-                                        <td>{{$training->status}}</td>
+                                        <td>{{($training->status == 1)? "Active":"Inactive"}}</td>
                                         <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"

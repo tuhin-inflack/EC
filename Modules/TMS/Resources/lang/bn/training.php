@@ -14,6 +14,7 @@ return [
     'training_id' => 'প্রশিক্ষণ আইডি',
     'training_name' => 'প্রশিক্ষণের শিরোনাম',
     'training_period' => 'প্রশিক্ষণের দৈর্ঘ্য',
+    'training_participant_no' => 'প্রশিক্ষণার্থীর সংখ্যা',
     'available_rooms' => 'ব্যবহারযোগ্য কক্ষ',
     'room' => 'কক্ষ',
     'floor' => 'তলা',
