@@ -17,7 +17,7 @@ class CreateRoomBookingRefereesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('room_booking_id');
             $table->string('name', 50);
-            $table->string('department');
+            $table->unsignedInteger('department_id');
             $table->string('contact');
             $table->timestamps();
         });

@@ -49,8 +49,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookings = $this->bookingRequestService->findAll();
-        return view('hm::booking-request.index', compact('bookings'));
+        $bookingRequests = $this->bookingRequestService->findAll();
+        return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
     /**
@@ -80,11 +80,12 @@ class BookingRequestController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking)
     {
-        return view('hm::show');
+        return view('hm::booking-request.show', compact('roomBooking'));
     }
 
     /**
@@ -95,13 +96,21 @@ class BookingRequestController extends Controller
     public function edit(RoomBooking $roomBooking)
     {
         $requester = $roomBooking->requester;
-        /*return $requester;*/
-        $departments  = $roomBooking->referee;
+        $referee  = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
         $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
-        /*return $guestInfos;*/
-        return view('hm::booking-request.edit',compact('requester','departments','roomInfos','guestInfos','roomBooking', 'roomTypes'));
+
+        return view('hm::booking-request.edit', compact(
+            'requester',
+            'departments',
+            'roomInfos',
+            'guestInfos',
+            'roomBooking',
+            'roomTypes',
+            'referee'
+        ));
     }
 
     /**
