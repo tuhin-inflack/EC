@@ -27,4 +27,14 @@ class TrainingsService
         $this->setActionRepository($trainingsRepository);
     }
 
+    public function updateTraining($id, array $data)
+    {
+        $training = $this->findOrFail($id);
+
+        DB::transaction(function () use ($training, $data) {
+            return $this->update($training, $data);
+        });
+
+    }
+
 }

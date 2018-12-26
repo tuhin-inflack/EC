@@ -98,9 +98,10 @@ class TrainingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(TrainingRequest $request, Trainings $training)
+    public function update(TrainingRequest $request, $training_id)
     {
-        $update = $this->trainingService->update($training , $request->all());
+        //$update = $this->trainingService->updateUser($training , $request->all());
+        $update = $this->trainingService->updateTraining($training_id, $request->all());
 
         if($update) $msg = "Training Updated Successfully"; else $msg = "Error! Training not updated";
 
