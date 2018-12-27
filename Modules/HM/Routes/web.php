@@ -43,6 +43,7 @@ Route::prefix('hm')->group(function () {
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
         Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
+        Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign'); // Temporary & Demo
     });
 
     Route::prefix('inventory-types')->group(function () {

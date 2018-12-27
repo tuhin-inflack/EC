@@ -9,7 +9,7 @@
                         <div class="form">
                             <div class="row">
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required">{{ trans('hm::booking-request.name') }}</label>
+                                    <label class="required">@lang('labels.name')</label>
                                     <br>
                                     {!! Form::text('name', $oldInput['name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
 
@@ -114,7 +114,7 @@
                         <div class="form">
                             <div class="row">
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required">{{ trans('hm::booking-request.name') }}</label>
+                                    <label class="required">@lang('labels.name')</label>
                                     <br>
                                     {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
                                 </div>
@@ -170,24 +170,23 @@
                             <div class="form">
                                 <div class="row">
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label>Name <span
-                                                    class="danger">*</span></label>
+                                        <label class="required">@lang('labels.name')</label>
                                         <br>
                                         {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label class="required">Age</label>
+                                        <label class="required">@lang('labels.name')</label>
                                         <br>
                                         {!! Form::number('age', $guestInfo->age, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label>Gender <span
+                                        <label>@lang('hm::booking-request.gender') <span
                                                     class="danger">*</span></label>
                                         <br>
                                         {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label>Relation <span
+                                        <label>@lang('hm::booking-request.relation') <span
                                                     class="danger">*</span></label>
                                         <br>
                                         {!! Form::text('relation', $guestInfo->relation, ['class' => 'form-control', 'placeholder' => 'Colleague']) !!}
@@ -195,17 +194,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label>NID Copy</label>
+                                        <label>@lang('hm::booking-request.nid_copy')</label>
                                         <br>
                                         {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label>NID</label>
+                                        <label>@lang('hm::booking-request.nid')</label>
                                         <br>
                                         {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-4">
-                                        <label>Address <span
+                                        <label>@lang('hm::booking-request.address') <span
                                                     class="danger">*</span></label>
                                         <br>
                                         {!! Form::textarea('address', $guestInfo->address, ['class' => 'form-control', 'placeholder' => 'address', 'cols' => 30, 'rows' => 5]) !!}
@@ -236,42 +235,30 @@
     </div>
 
     <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.bard_reference') }}</h4>
-    <div class="col-md-6">
-        <div class="form-group">
-            <div class="row col-md-12">
-                <label class="required">{{ trans('hm::booking-request.department') }}</label>
-                {!! Form::select('referee_dept', $departments->pluck('name', 'id'), $page == 'create' ? old('referee_dept') : $referee->department_id, ['class' => 'form-control required', 'id' => 'department-select' . ($errors->has('referee_dept') ? ' is-invalid' : ''), 'placeholder' => 'Select Department']) !!}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="row col-md-12">
+                    <label class="">{{ trans('hm::booking-request.department') }}</label>
+                    {!! Form::select('employee_id', $employeeOptions, $page == 'create' ? old('employee_id') : $roomBooking->employee_id, ['class' => 'form-control', 'id' => 'referee-select' . ($errors->has('employee_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Referee', 'onchange' => 'getRefereeInformation(value)']) !!}
 
-                <span class="select-error"></span>
-                @if ($errors->has('referee_dept'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('referee_dept') }}</strong>
-                    </span>
-                @endif
+                    @if ($errors->has('employee_id'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('employee_id') }}</strong>
+                        </span>
+                    @endif
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="row col-md-12">
-                <label class="required">{{ trans('hm::booking-request.employee_name') }}</label>
-                {!! Form::text('referee_name', $page == 'create' ? old('referee_dept') : $referee->name, ['class' => 'form-control required' . ($errors->has('referee_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
-
-                @if ($errors->has('referee_name'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('referee_name') }}</strong>
-                    </span>
-                @endif
+        <div id="bard-referee-div" class="col-md-6 row" style="display: none">
+            <div class="col-md-12">
+                <strong>@lang('labels.name'): </strong> <span id="referee-name"></span>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="row col-md-12">
-                <label class="required">{{ trans('hm::booking-request.contact') }}</label>
-                {!! Form::text('referee_contact', $page == 'create' ? old('referee_dept') : $referee->contact, ['class' => 'form-control required' . ($errors->has('referee_contact') ? ' is-invalid' : ''), 'placeholder' => '11 digits', 'data-rule-minlength' => 11, 'data-msg-minlength' => 'At least 11 characters', 'data-rule-maxlength' => 11, 'data-msg-maxlength' => 'At most 11 characters']) !!}
-
-                @if ($errors->has('referee_contact'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('referee_contact') }}</strong>
-                    </span>
-                @endif
+            <div class="col-md-12">
+                <strong>@lang('hm::booking-request.designation'): </strong> <span id="referee-designation"></span>
+            </div>
+            <div class="col-md-12">
+                <strong>@lang('hm::booking-request.department'): </strong> <span id="referee-department"></span>
             </div>
         </div>
     </div>

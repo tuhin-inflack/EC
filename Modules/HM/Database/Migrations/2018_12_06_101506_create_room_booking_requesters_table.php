@@ -16,7 +16,9 @@ class CreateRoomBookingRequestersTable extends Migration
         Schema::create('room_booking_requesters', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('room_booking_id');
-            $table->string('name', 50);
+            $table->string('first_name', 50);
+            $table->string('middle_name', 50)->nullable();
+            $table->string('last_name', 50);
             $table->enum('gender', ['male', 'female']);
             $table->string('contact');
             $table->string('address', 300);
