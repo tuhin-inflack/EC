@@ -50,4 +50,9 @@ class Employee extends Model {
     {
         return $this->belongsTo(Designation::class, 'designation_code', 'id');
 	}
+
+    public function getName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+	}
 }

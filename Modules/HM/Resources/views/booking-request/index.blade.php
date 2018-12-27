@@ -44,11 +44,11 @@
                                         @foreach($bookingRequests as $bookingRequest)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td><a href="{{ route('booking-requests.show', $bookingRequest->id) }}">{{ $bookingRequest->requester->name }}</a></td>
+                                                <td><a href="{{ route('booking-requests.show', $bookingRequest->id) }}">{{ $bookingRequest->requester->getName() }}</a></td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->start_date)->format('d/m/Y') }}</td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->end_date)->format('d/m/Y') }}</td>
                                                 <td>{{ $bookingRequest->requester->organization }}</td>
-                                                <td>{{ $bookingRequest->referee->name }}</td>
+                                                <td>{{ $bookingRequest->referee ? $bookingRequest->referee->getName() : null }}</td>
                                                 <td>{{ $bookingRequest->guestInfos->count() }}</td>
                                                 <td>{{ $bookingRequest->status }}</td>
                                                 <td>

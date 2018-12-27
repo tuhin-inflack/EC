@@ -32,7 +32,8 @@
             <div class="form-group">
                 <label>{{ trans('hm::booking-request.booking_date') }}</label>
                 <input type="text" class="form-control"
-                       value="{{ $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)) }}" disabled>
+                       value="{{ $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)) }}"
+                       disabled>
             </div>
         </div>
     </div>

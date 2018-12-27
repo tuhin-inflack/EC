@@ -11,6 +11,7 @@ use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
+use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
 
 class BookingRequestController extends Controller
@@ -31,6 +32,10 @@ class BookingRequestController extends Controller
      * @var EmployeeServices
      */
     private $employeeServices;
+    /**
+     * @var DesignationService
+     */
+    private $designationService;
 
     /**
      * BookingRequestController constructor.
@@ -38,18 +43,21 @@ class BookingRequestController extends Controller
      * @param RoomTypeService $roomTypeService
      * @param DepartmentService $departmentService
      * @param EmployeeServices $employeeServices
+     * @param DesignationService $designationService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
         DepartmentService $departmentService,
-        EmployeeServices $employeeServices
+        EmployeeServices $employeeServices,
+        DesignationService $designationService
     )
     {
         $this->roomTypeService = $roomTypeService;
         $this->departmentService = $departmentService;
         $this->bookingRequestService = $bookingRequestService;
         $this->employeeServices = $employeeServices;
+        $this->designationService = $designationService;
     }
 
     /**
@@ -72,13 +80,21 @@ class BookingRequestController extends Controller
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $designations = $this->designationService->findAll();
 
-        return view('hm::booking-request.create', compact('roomTypes', 'departments', 'employees', 'employeeOptions'));
+        return view('hm::booking-request.create', compact(
+                'roomTypes',
+                'departments',
+                'employees',
+                'employeeOptions',
+                'designations'
+            )
+        );
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param StoreBookingRequest $request
      * @return Response
      */
     public function store(StoreBookingRequest $request)

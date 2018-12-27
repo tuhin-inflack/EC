@@ -7,7 +7,7 @@ use Modules\HRM\Entities\Employee;
 
 class RoomBooking extends Model
 {
-    protected $fillable = ['shortcode', 'start_date', 'end_date', 'booking_type', 'status', 'note'];
+    protected $fillable = ['shortcode', 'start_date', 'end_date', 'booking_type', 'status', 'note', 'employee_id'];
 
     public function requester()
     {
