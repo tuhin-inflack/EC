@@ -49,6 +49,7 @@
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{URL::to( '/tms/training/show/'.$training->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
                                                 <a href="{{URL::to( '/tms/training/'.$training->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                                                <a href="{{URL::to( '/tms/trainee/add/to/'.$training->id)}}" class="dropdown-item"><i class="ft-plus"></i> {{trans('tms::training.add_trainee')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',

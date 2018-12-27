@@ -1,5 +1,5 @@
 @extends('tms::layouts.master')
-@section('title', 'Training list')
+@section('title', 'Trainee list')
 
 @section('content')
     <section id="user-list">
@@ -26,33 +26,32 @@
                                     <th>{{trans('tms::training.training_name')}}</th>
                                     <th>{{trans('tms::training.training_participant_no')}}</th>
                                     <th>{{trans('tms::training.start_date')}}</th>
-                                    <th>{{trans('tms::training.end_date')}}</th>
+
                                     <th>{{trans('labels.status')}}</th>
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                            
-                                @foreach($trainings as $training)
+
+                                @foreach($trainees as $trainee)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{$training->training_id}}</td>
-                                        <td>{{$training->training_title}}</td>
-                                        <td>{{$training->no_of_trainee}}</td>
-                                        <td>{{$training->start_date}}</td>
-                                        <td>{{$training->end_date}}</td>
-                                        <td>{{($training->status == 1)? "Active":"Inactive"}}</td>
+                                        <td>{{$trainee->training_id}}</td>
+                                        <td>{{$trainee->trainee_first_name." ".$trainee->trainee_last_name}}</td>
+                                        <td>{{$trainee->trainee_gender}}</td>
+                                        <td>{{$trainee->mobile}}</td>
+                                        <td>{{($trainee->status == 1)? "Active":"Inactive"}}</td>
                                         <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{URL::to( '/system/user/'.$training->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
-                                                <a href="{{URL::to( '/system/user/'.$training->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                                                <a href="{{URL::to( '/system/user/'.$trainee->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                <a href="{{URL::to( '/system/user/'.$trainee->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',
-                                                  'url' => [ '/system/user', $training->id],
+                                                  'url' => [ '/tms/trainee', $trainee->id],
                                                   'style' => 'display:inline'
                                                   ]) !!}
                                                   {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
