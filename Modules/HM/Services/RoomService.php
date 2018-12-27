@@ -44,7 +44,7 @@ class RoomService
             $rooms = $this->generateRooms($roomData['roomNumbers'], $data['floor'], $data['room_type_id'], $data['hostel_id']);
             $this->roomRepository->saveAll($rooms);
         } else {
-            throw ValidationException::withMessages(['room_numbers'=>$roomData['errorMsg']]);
+            throw ValidationException::withMessages(['room_numbers' => $roomData['errorMsg']]);
         }
 
     }
@@ -128,4 +128,34 @@ class RoomService
     {
         return $this->roomRepository->findBy(['hostel_id' => $hostelId]);
     }
+
+    static function cmp($a, $b)
+    {
+        if ($a->room_number == $b->room_number) {
+            return 0;
+        }
+        return ($a > $b) ? +1 : -1;
+    }
+
+    public function sortRoomsByLevel($rooms)
+    {
+        $roomDetails = [];
+        foreach ($rooms as $room) {
+            if (array_key_exists($room->floor, $roomDetails)) {
+                array_push($roomDetails[$room->floor], $room);
+            } else {
+                $roomDetails[$room->floor] = [$room];
+            }
+
+        }
+
+        ksort($roomDetails);
+        foreach ($roomDetails as $roomDetail) {
+            usort($roomDetail, function ($a, $b) {
+                return strcmp($a->room_number, $b->room_number);
+            });
+        }
+        return $roomDetails;
+    }
+
 }

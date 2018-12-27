@@ -33,9 +33,8 @@ class RoomAssignmentController extends Controller
 
     public function index(Request $request)
     {
-        $rooms = $this->roomService->getRoomsByHostel($request['hostelId']);
         $hostel = $this->hostelService->findOne($request['hostelId']);
-        $rooms = $hostel->rooms();
-        return view('hm::check-in.seat');
+        $rooms = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        return view('hm::check-in.seat', compact('hostel', 'rooms'));
     }
 }
