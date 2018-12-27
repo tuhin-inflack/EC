@@ -55,4 +55,19 @@ class Employee extends Model {
     {
         return $this->first_name . ' ' . $this->last_name;
 	}
+
+    public function  getContact()
+    {
+        if ($this->tel_office) {
+            return $this->tel_office;
+        } else if ($this->tel_home) {
+            return $this->tel_home;
+        } else if ($this->mobile_one) {
+            return $this->mobile_one;
+        } else if ($this->mobile_two) {
+            return $this->mobile_two;
+        } else {
+            return null;
+        }
+	}
 }
