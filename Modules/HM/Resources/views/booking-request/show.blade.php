@@ -36,7 +36,7 @@
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.booked_by')</td>
-                                                <td>{{ $roomBooking->requester->name }}</td>
+                                                <td>{{ $roomBooking->requester->getName() }}</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.organization')</td>
@@ -111,20 +111,19 @@
                                             <tbody>
                                             <tr>
                                                 <td class="width-150">@lang('hm::booking-request.bard_reference')</td>
-                                                <td class="width-300">{{ $roomBooking->referee->name }}</td>
+                                                <td class="width-300">{{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.designation')</td>
-                                                <td>Designation</td>
-                                                <!-- TODO: dynamic designation -->
+                                                <td>{{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.department')</td>
-                                                <td>{{ $roomBooking->referee->department->name }}</td>
+                                                <td>{{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.contact')</td>
-                                                <td>{{ $roomBooking->referee->contact }}</td>
+                                                <td>{{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -136,31 +135,32 @@
                             <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
                             <div class="row card-deck">
                                 <figure class="card card-img-top border-grey border-lighten-2"
-                                        itemprop="associatedMedia" itemscope=""
-                                        itemtype="http://schema.org/ImageObject">
-                                    <a href="{{ asset('theme/images/backgrounds/bg-1.jpg') }}" itemprop="contentUrl"
+                                        itemprop="associatedMedia" itemscope="">
+                                    <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                       itemprop="contentUrl"
                                        data-size="480x360">
                                         <img class="gallery-thumbnail card-img-top"
-                                             src="{{ asset('theme/images/backgrounds/bg-1.jpg') }}" itemprop="thumbnail"
-                                             alt="Image description">
+                                             src="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                             itemprop="thumbnail">
                                     </a>
                                     <div class="card-body px-0">
                                         <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
                                     </div>
                                 </figure>
-                                <figure class="card card-img-top border-grey border-lighten-2"
-                                        itemprop="associatedMedia" itemscope=""
-                                        itemtype="http://schema.org/ImageObject">
-                                    <a href="{{ asset('theme/images/backgrounds/bg-1.jpg') }}" itemprop="contentUrl"
-                                       data-size="480x360">
-                                        <img class="gallery-thumbnail card-img-top"
-                                             src="{{ asset('theme/images/backgrounds/bg-1.jpg') }}" itemprop="thumbnail"
-                                             alt="Image description">
-                                    </a>
-                                    <div class="card-body px-0">
-                                        <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
-                                    </div>
-                                </figure>
+                                @if ($roomBooking->nid_doc)
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <a href="{{ asset('storage/app/' . $roomBooking->nid_doc) }}" itemprop="contentUrl"
+                                           data-size="480x360">
+                                            <img class="gallery-thumbnail card-img-top"
+                                                 src="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"
+                                                 itemprop="thumbnail">
+                                        </a>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                        </div>
+                                    </figure>
+                                @endif
                             </div>
                         </div>
                         @if($roomBooking->guestInfos->count())
@@ -225,12 +225,14 @@
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
                                 @if($roomBooking->status != 'pending')
-                                    <button class="btn btn-secondary mr-1" type="button" onclick="changeStatus('pending')"><i
+                                    <button class="btn btn-secondary mr-1" type="button"
+                                            onclick="changeStatus('pending')"><i
                                                 class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
                                     </button>
                                 @endif
                                 @if($roomBooking->status != 'rejected')
-                                    <button class="btn btn-danger mr-1" type="button" onclick="changeStatus('rejected')"><i
+                                    <button class="btn btn-danger mr-1" type="button"
+                                            onclick="changeStatus('rejected')"><i
                                                 class="ft-x-circle"></i> @lang('hm::booking-request.reject')
                                     </button>
                                 @endif

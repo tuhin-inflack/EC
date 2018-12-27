@@ -3,6 +3,15 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <!-- Form wizard with number tabs section start -->
@@ -73,11 +82,16 @@
                 if (currentIndex > newIndex) {
                     return true;
                 }
+                if (newIndex == 1) {
+                    if ($('.repeater-room-infos').has('div[data-repeater-item]').length == 0) {
+                        alert('Please select room details');
+                        return false;
+                    }
+                }
                 if (newIndex == 3) {
+                    // render summary
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
-                    let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
-
                     let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
@@ -88,26 +102,40 @@
                         </tr>`;
                     });
 
-                    let guestInfoRows = guestInfos.map(guestInfo => {
-                        return `<tr>
-                            <td>${guestInfo.name}</td>
-                            <td>${guestInfo.age}</td>
-                            <td>${guestInfo.gender}</td>
-                            <td>${guestInfo.relation}</td>
-                            <td>${guestInfo.address}</td>
-                        </tr>`;
-                    });
-
                     $('#billing-table').find('tbody').html(roomInfoRows);
-                    $('#guests-info-table').find('tbody').html(guestInfoRows);
 
-                    $('#primary-contact-name').html($('#primary-contact-name-input').val());
+                    $('#primary-contact-name').html($('input[name=first_name]').val() + ' ' + $('input[name=middle_name]').val()
+                        + ' ' + $('input[name=last_name]').val());
                     $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
                     $('#start_date_display').html($('#start_date').val());
                     $('#end_date_display').html($('#end_date').val());
-                    $('#bard-referee-name').html($('input[name=referee_name]').val());
-                    $('#bard-referee-contact').html($('input[name=referee_contact]').val());
-                    $('#bard-referee-department').html($('#department-select').select2('data')[0].text);
+
+                    if ($('.repeater-guest-information').has('div[data-repeater-item]').length >= 1) {
+                        $('.guests-info-div').show();
+                        let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
+                        let guestInfoRows = guestInfos.map(guestInfo => {
+                            return `<tr>
+                                <td>${guestInfo.name}</td>
+                                <td>${guestInfo.age}</td>
+                                <td>${guestInfo.gender}</td>
+                                <td>${guestInfo.relation}</td>
+                                <td>${guestInfo.address}</td>
+                            </tr>`;
+                        });
+                        $('#guests-info-table').find('tbody').html(guestInfoRows);
+                    } else {
+                        $('.guests-info-div').hide();
+                    }
+
+                    if ($('#referee-select').val()) {
+                        $('.bard-referee-summary-div').show();
+                        $('#bard-referee-name').html($('#referee-name').text());
+                        $('#bard-referee-designation').html($('#referee-designation').text());
+                        $('#bard-referee-department').html($('#referee-department').text());
+                    } else {
+                        $('.bard-referee-summary-div').hide();
+                    }
+
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -257,6 +285,26 @@
                 case 'special':
                     return 'Special Rate';
             }
+        }
+
+        function getRefereeInformation(employeeId) {
+            if (!employeeId) {
+                $('#bard-referee-div').hide();
+                return;
+            }
+            let employees = {!! $employees !!};
+            let designations = {!! $designations !!};
+            let departments = {!! $departments !!};
+
+            let employee = employees.find(emp => emp.id == employeeId);
+            let designation = designations.find(designation => designation.id == employee.designation_code);
+            let department = departments.find(dept => dept.id == employee.department_id);
+
+            $('#referee-name').html(employee.first_name + ' ' + employee.last_name);
+            $('#referee-designation').html(designation.name);
+            $('#referee-department').html(department.name);
+
+            $('#bard-referee-div').show();
         }
     </script>
 @endpush
