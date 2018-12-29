@@ -24,7 +24,9 @@ return [
     'rate' => 'Rate',
     'add' => 'Add',
     'personal_information' => 'Personal Information',
-    'name' => 'Name',
+    'first_name' => 'First Name',
+    'middle_name' => 'Middle Name',
+    'last_name' => 'Last Name',
     'contact' => 'Contact',
     'address' => 'Address',
     'gender' => 'Gender',
@@ -73,6 +75,7 @@ return [
     'note_of_authority' => 'Note Of Authority',
     'approve' => 'Approve',
     'reject' => 'Reject',
+    'pending' => 'Pending',
     'new_booking_request' => 'New Booking Request',
 
 ];

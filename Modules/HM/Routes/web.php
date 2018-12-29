@@ -43,6 +43,7 @@ Route::prefix('hm')->group(function () {
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
         Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
+        Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign'); // Temporary & Demo
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -88,10 +89,12 @@ Route::prefix('hm')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
         Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
-        Route::get('/edit/{roomBooking}', 'BookingRequestController@edit')->name('booking-requests.edit');
+        Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit');
         Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
         Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
+        Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit');
     });
+
 
     Route::prefix('booking-request-rates')->group(function () {
         Route::get('create', 'HostelBookingRateController@create')->name('booking-request-rates.create');
@@ -109,6 +112,7 @@ Route::prefix('hm')->group(function () {
         Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
         Route::get('search-check-in', 'BillController@searchCheckIn')->name('bill.search-check-in'); // Temporary & Demo
         Route::get('create', 'BillController@create')->name('bill.create'); // Temporary & Demo
+        Route::get('show/{id}', 'BillController@show')->name('bill.show'); // Temporary & Demo
         Route::get('payment', 'BillController@payment')->name('bill.payment'); // Temporary & Demo
         Route::get('payment-list', 'BillController@paymentList')->name('bill.payment-list'); // Temporary & Demo
         Route::get('payment-of-check-in', 'BillController@showPaymentsOfCheckIn')->name('bill.payments-of-check-in'); // Temporary & Demo

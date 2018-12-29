@@ -58,12 +58,12 @@ class BookingRequestService
 
             $roomBooking->requester()->save($roomBookingRequester);
 
-            $roomBookingReferee = new RoomBookingReferee([
+            /*$roomBookingReferee = new RoomBookingReferee([
                 'name' => $data['referee_name'],
                 'department_id' => $data['referee_dept'],
                 'contact' => $data['referee_contact']
             ]);
-            $roomBooking->referee()->save($roomBookingReferee);
+            $roomBooking->referee()->save($roomBookingReferee);*/
 
             $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
                 $rateInfo = explode('_', $roomInfo['rate']);
