@@ -3,10 +3,11 @@
 namespace Modules\HM\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\HRM\Entities\Employee;
 
 class RoomBooking extends Model
 {
-    protected $fillable = ['shortcode', 'start_date', 'end_date', 'booking_type', 'status'];
+    protected $fillable = ['shortcode', 'start_date', 'end_date', 'booking_type', 'status', 'note', 'employee_id'];
 
     public function requester()
     {
@@ -15,7 +16,7 @@ class RoomBooking extends Model
 
     public function referee()
     {
-        return $this->hasOne(RoomBookingReferee::class, 'room_booking_id', 'id');
+        return $this->belongsTo(Employee::class, 'employee_id', 'id');
     }
 
     public function roomInfos()
