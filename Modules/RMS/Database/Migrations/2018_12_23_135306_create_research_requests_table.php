@@ -31,6 +31,6 @@ class CreateResearchRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proposal_requests');
+        Schema::dropIfExists('research_requests');
     }
 }

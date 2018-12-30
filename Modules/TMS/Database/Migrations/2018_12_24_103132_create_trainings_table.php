@@ -33,6 +33,6 @@ class CreateTrainingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('training');
+        Schema::dropIfExists('trainings');
     }
 }
