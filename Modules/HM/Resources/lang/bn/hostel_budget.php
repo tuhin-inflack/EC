@@ -1,7 +1,7 @@
 <?php
 return [
-    'page_title' => 'ছাত্রাবাস বাজেট',
-    'menu_title' => 'ছাত্রাবাস বাজেট',
+    'page_title' => 'হোস্টেল বাজেট',
+    'menu_title' => 'হোস্টেল বাজেট',
     'sub_menu_budget' => 'বাজেট',
     'sub_menu_section' => 'দফা',
     'list_card_title' => 'হোস্টেল বাজেটের তালিকা',
