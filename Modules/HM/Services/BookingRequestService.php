@@ -16,6 +16,7 @@ use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
+use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 
 class BookingRequestService
@@ -26,13 +27,17 @@ class BookingRequestService
      */
     private $roomBookingRepository;
 
+    private $bookingGuestInfoRepository;
+
     /**
      * BookingRequestService constructor.
      * @param RoomBookingRepository $roomBookingRepository
+     * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository)
+    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository)
     {
         $this->roomBookingRepository = $roomBookingRepository;
+        $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->setActionRepository($roomBookingRepository);
     }
 
@@ -86,5 +91,10 @@ class BookingRequestService
 
             return $roomBooking;
         });
+    }
+
+    public function getBookingGuestInfo($roomBookingId, $status)
+    {
+        return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
     }
 }
