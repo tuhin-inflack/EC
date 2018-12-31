@@ -68,6 +68,7 @@ Route::prefix('hm')->group(function () {
         Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
 	    Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
 
+
     });
 	Route::resources(
 		[
