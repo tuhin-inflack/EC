@@ -43,7 +43,8 @@ Route::prefix('hm')->group(function () {
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
         Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
-        Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign'); // Temporary & Demo
+        Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign');
+        Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -104,7 +105,7 @@ Route::prefix('hm')->group(function () {
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
         Route::get('/create','CheckinController@create')->name('check-in.create');
-        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-request-requests'); // Temporary & Demo
+        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
         Route::get('edit','CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('show','CheckinController@show')->name('check-in.show'); // Temporary & Demo
     });
