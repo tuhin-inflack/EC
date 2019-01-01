@@ -170,6 +170,9 @@
                         placeholder: 'Select Gender'
                     });
 
+                    // remove img tag
+                    $(this).find('img').remove();
+
                     $(this).slideDown();
                 }
             });
@@ -186,6 +189,24 @@
             });
             $('#department-select').select2({
                 placeholder: 'Select Department'
+            });
+
+            let roomInfos = {!! $roomInfos !!};
+            let roomTypes = {!! $roomTypes !!};
+
+            $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
+                let roomInfo = roomInfos[index];
+                let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
+
+                // create options of select
+                $(selectElement).html(`<option value=""></option>
+                    <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
+                    <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
+                    <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
+                    <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
+
+                // set value of select
+                $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
             });
 
             // validation

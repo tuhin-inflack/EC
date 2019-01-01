@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
+use Modules\HM\Http\Requests\UpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
@@ -118,8 +119,13 @@ class BookingRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
+        return $request;
+        $this->bookingRequestService->update($request->all(), $roomBooking);
+        Session::flash('message', 'Successfully updated room booking information');
+
+        return redirect()->back();
     }
 
     /**

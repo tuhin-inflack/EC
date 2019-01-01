@@ -11,9 +11,12 @@ namespace Modules\HM\Services;
 
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
+use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\RoomBookingRepository;
@@ -84,6 +87,35 @@ class BookingRequestService
                 }));
             }
 
+            return $roomBooking;
+        });
+    }
+
+
+    public function update(array $data, RoomBooking $roomBooking)
+    {
+        DB::transaction(function () use ($data, $roomBooking) {
+            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
+            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+            $data['shortcode'] = $roomBooking->shortcode;
+            $data['status'] = 'pending';
+
+            $this->roomBookingRepository->update($roomBooking, $data);
+
+            foreach ($data['roomInfos'] as $value){
+                $rateInfo = explode('_', $value['rate']);
+                $rateType = $rateInfo[0];
+                $rate = $rateInfo[1];
+                $roomBooking->roomInfos()->updateOrCreate([
+                    'id'   => $value['id'],
+                ],[
+                    'room_type_id' => $value['room_type_id'],
+                    'quantity' => $value['quantity'],
+                    'rate_type' => $rateType,
+                    'rate' => $rate
+                ]);
+            }
+            
             return $roomBooking;
         });
     }
