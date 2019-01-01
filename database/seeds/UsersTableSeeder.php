@@ -21,6 +21,24 @@ class UsersTableSeeder extends Seeder
                 'mobile' => '01710000000',
                 'last_password_change' => date('Y-m-d H:i:s')
             ],
+            (object)[
+                'name' => 'BARD',
+                'email' => 'bard@erp.com',
+                'username' => 'bard',
+                'password' => '$2y$10$BTrCiO0lmLD94Nwsj23l5eedjtnDOKFBNaOJoMRirjIJLkqMf/YR2', // bard789
+                'user_type' => 'Guest',
+                'mobile' => '01710000000',
+                'last_password_change' => date('Y-m-d H:i:s')
+            ],
+            (object)[
+                'name' => 'Hasib',
+                'email' => 'hasib@brainstation-23.com',
+                'username' => 'hasib',
+                'password' => '$2y$10$fpl4aKLzKDhCm9DCNHWcMebhsYr9JEoRefb8Eot2l/ddSASRtd6gK',
+                'user_type' => 'Admin',
+                'mobile' => '01719117792',
+                'last_password_change' => date('Y-m-d H:i:s')
+            ]
         ];
 
         foreach ($users as $user) {

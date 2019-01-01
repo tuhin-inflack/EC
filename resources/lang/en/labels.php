@@ -34,4 +34,6 @@ return [
     'new' => 'New',
     'add' => 'Add',
     'back_page' => 'Back',
+    'setup' => 'Setup',
+    'bangladesh_govt' => 'People\'s Republic of Bangladesh Govt.',
 ];
