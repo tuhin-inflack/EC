@@ -10,6 +10,7 @@ namespace Modules\HM\Repositories;
 
 
 use App\Repositories\AbstractBaseRepository;
+use Illuminate\Support\Facades\DB;
 use Modules\HM\Entities\Room;
 
 class RoomRepository extends AbstractBaseRepository
@@ -27,5 +28,14 @@ class RoomRepository extends AbstractBaseRepository
     public function exists(array $roomNumbers, $hostelId)
     {
         return Room::where('hostel_id', $hostelId)->whereIn('room_number', $roomNumbers)->exists();
+    }
+
+    public function getRoomCountByRoomType($hostelId)
+    {
+        return DB::table('rooms')
+            ->join('room_types', 'rooms.room_type_id', '=', 'room_types.id')
+            ->selectRaw('room_types.name as room_type, count(rooms.room_number) as room_count')
+            ->groupBy('rooms.room_type_id')
+            ->get();
     }
 }

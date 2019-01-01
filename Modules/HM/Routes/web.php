@@ -45,6 +45,7 @@ Route::prefix('hm')->group(function () {
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
         Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign');
         Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
+        Route::get('/hostel/selection', 'RoomAssignmentController@getHostelList')->name('hostel.selection');
     });
 
     Route::prefix('inventory-types')->group(function () {

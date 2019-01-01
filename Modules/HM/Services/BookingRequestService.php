@@ -50,13 +50,12 @@ class BookingRequestService
 
     public function save(array $data)
     {
-//        dd($data);
         DB::transaction(function () use ($data) {
 
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
-            $data['status'] = 'pending';
+            $data['status'] = $this->getStatus($data);
 
             $roomBooking = $this->roomBookingRepository->save($data);
 
@@ -107,6 +106,32 @@ class BookingRequestService
 
             return $roomBooking;
         });
+    }
+
+    public function getStatus($data)
+    {
+        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
+            switch ($data['booking_type']) {
+                case 'internal':
+                    return 'approved';
+                default:
+                    return 'pending';
+            }
+        }
+        return 'pending';
+    }
+
+    public function getRoute($data, $roomBookingId)
+    {
+        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
+            switch ($data['booking_type']) {
+                case 'internal':
+                    return route('hostel.selection', ['roomBookingId'=>$roomBookingId]);
+                default:
+                    return route('booking-requests.index');
+            }
+        }
+        return route('booking-requests.index');
     }
 
     public function getBookingGuestInfo($roomBookingId, $status)
