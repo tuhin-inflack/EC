@@ -28,12 +28,19 @@ class TraineeController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
 
-        $trainees = $this->traineeService->findAll();
+        $training_id = $request['training_id'];
+        $trainees = (object) array();
+        if(isset($training_id))
+        {
+            $trainees = $this->traineeService->fetchTraineesWithID($training_id);
+        }
 
-        return view('tms::trainee.index', compact('trainees'));
+        $trainings = $this->trainingService->findAll();
+
+        return view('tms::trainee.index', compact('trainees', 'trainings'));
     }
 
     /**
@@ -55,9 +62,7 @@ class TraineeController extends Controller
     public function store(TraineeRequest $request)
     {
         $storeData = $this->traineeService->save($request->all());
-
         if($storeData) $msg = "Trainee added successful"; else $msg = "Error while storing trainee data!";
-
         Session::flash('message', $msg);
 
         return redirect('/tms/trainee/add/to/'.$request['training_id']);
@@ -76,9 +81,11 @@ class TraineeController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($traineeId)
     {
-        return view('tms::edit');
+        $trainee = $this->traineeService->fetchSingle($traineeId);
+
+        return view('tms::trainee.edit', compact('trainee', 'traineeId'));
     }
 
     /**
@@ -86,15 +93,31 @@ class TraineeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(TraineeRequest $request, $traineeId)
     {
+        $updateData = array(
+            'trainee_first_name' => $request['trainee_first_name'],
+            'trainee_last_name' => $request['trainee_last_name'],
+            'trainee_gender' => $request['trainee_gender'],
+            'trainee_mobile' => $request['mobile']
+        );
+        $update = $this->traineeService->updateTrainee($traineeId, $updateData);
+        $msg = "Trainee Updated Successfully";
+        Session::flash('message', $msg);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      * @return Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        $response = $this->traineeService->delete($id);
+        if($response) $msg = "Trainee deleted successfully"; else $msg = "Error! Trainee not deleted";
+        Session::flash('message', $msg);
+
+        return back();
     }
 }

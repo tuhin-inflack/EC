@@ -28,7 +28,11 @@ Route::prefix('tms')->group(function() {
     // Route group for all request regarding trainee
     Route::prefix('trainee')->group(function() {
         Route::get('/', 'TraineeController@index');
+        Route::post('/', 'TraineeController@index');
         Route::get('/add/to/{training_id}', 'TraineeController@create');
         Route::post('/add/to/{training_id}', 'TraineeController@store');
+        Route::get('/edit/{trainee_id}', 'TraineeController@edit');
+        Route::post('/edit/{trainee_id}', 'TraineeController@update');
+        Route::delete('/delete/{trainee_id}', 'TraineeController@destroy');
     });
 });
