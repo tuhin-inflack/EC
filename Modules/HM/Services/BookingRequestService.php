@@ -20,6 +20,7 @@ use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
+use Modules\HM\Repositories\RoomBookingRequesterRepository;
 
 class BookingRequestService
 {
@@ -30,16 +31,20 @@ class BookingRequestService
     private $roomBookingRepository;
 
     private $bookingGuestInfoRepository;
+    private $roomBookingRequesterRepository;
 
     /**
      * BookingRequestService constructor.
      * @param RoomBookingRepository $roomBookingRepository
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
+     * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository)
+    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository,
+                                RoomBookingRequesterRepository $roomBookingRequesterRepository)
     {
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
+        $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
         $this->setActionRepository($roomBookingRepository);
     }
 
@@ -107,5 +112,10 @@ class BookingRequestService
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
+    }
+
+    public function pluckContactBookingIdForApprovedBooking()
+    {
+        return $this->roomBookingRequesterRepository->pluckContactBookingId();
     }
 }
