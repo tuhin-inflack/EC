@@ -26,3 +26,4 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
 });
+

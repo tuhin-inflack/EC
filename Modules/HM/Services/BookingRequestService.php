@@ -48,6 +48,7 @@ class BookingRequestService
 //        dd($data);
         DB::transaction(function () use ($data) {
 
+
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
@@ -96,9 +97,8 @@ class BookingRequestService
                 Mail::to($data['email'])
 //                    ->cc($moreUsers)
 //                    ->bcc($evenMoreUsers)
-                    ->send(new BookingRequestMail($data));
+                    ->send(new BookingRequestMail($roomBooking));
             }
-
 
             return $roomBooking;
         });
