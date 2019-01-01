@@ -8,8 +8,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Requested Research Proposal List</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
@@ -37,17 +35,15 @@
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false" class="btn btn-info dropdown-toggle"><i
-                                                            class="la la-cog"></i></button>
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                   class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
+                                                    <a href="{{ route('research-proposal-submission.show', 1) }}"class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                    <a href="javascript:;" class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
+                                                    <a href="javascript:;" class="dropdown-item"><i class="ft-check"></i> Approve</a>
                                                 </span>
                                             </span>
                                         </td>
@@ -62,17 +58,15 @@
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false" class="btn btn-info dropdown-toggle"><i
-                                                            class="la la-cog"></i></button>
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                   class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
+                                                    <a href="{{ route('research-proposal-submission.show', 1) }}"class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                    <a href="javascript:;" class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
+                                                    <a href="javascript:;" class="dropdown-item"><i class="ft-check"></i> Approve</a>
                                                 </span>
                                             </span>
                                         </td>

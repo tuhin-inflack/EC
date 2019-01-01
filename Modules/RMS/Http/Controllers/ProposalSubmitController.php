@@ -2,9 +2,11 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProposalSubmitController extends Controller
 {
@@ -35,7 +37,6 @@ class ProposalSubmitController extends Controller
         return view('rms::proposal.submitted.index');
     }
 
-
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
@@ -51,7 +52,9 @@ class ProposalSubmitController extends Controller
      */
     public function show($id)
     {
-        return view('rms::proposal.submission.show');
+        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
+
+        return view('rms::proposal.submission.show', compact('filePath'));
     }
 
     /**

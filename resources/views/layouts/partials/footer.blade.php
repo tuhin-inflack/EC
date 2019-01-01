@@ -3,7 +3,6 @@
       <span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018 <a class="text-bold-800 grey darken-2"
                                                                                      href="http://www.bard.gov.bd/"
                                                                                      target="_blank">BARD</a>, All rights reserved. </span>
-        <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">Hand-crafted & Made with <i
-                    class="ft-heart pink"></i></span>
+        <span class="float-md-right d-block d-md-inline-blockd-none d-lg-block">@lang('labels.bangladesh_govt')</span>
     </p>
 </footer>

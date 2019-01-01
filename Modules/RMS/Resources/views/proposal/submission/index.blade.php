@@ -8,8 +8,11 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Requested Research Proposals List</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <a href="{{route('research-proposal-submission.create')}}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> Create Proposal</a>
 
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">

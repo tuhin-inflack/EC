@@ -8,12 +8,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Request Research Proposal List</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> New Proposal Request</a>
-                            <a href="{{route('project-request.create')}}" class="btn btn-warning btn-sm"> <i
-                                        class="ft-download white"></i></a>
 
                         </div>
                     </div>

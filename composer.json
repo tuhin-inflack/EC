@@ -13,7 +13,8 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "laravelista/ekko": "^1.5",
-        "nwidart/laravel-modules": "^4.0"
+        "nwidart/laravel-modules": "^4.0",
+        "phpoffice/phpword": "v0.14.*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
