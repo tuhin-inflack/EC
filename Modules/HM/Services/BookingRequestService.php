@@ -12,10 +12,13 @@ namespace Modules\HM\Services;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
+use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 
 class BookingRequestService
@@ -26,19 +29,25 @@ class BookingRequestService
      */
     private $roomBookingRepository;
 
+    private $bookingGuestInfoRepository;
+
     /**
      * BookingRequestService constructor.
      * @param RoomBookingRepository $roomBookingRepository
+     * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository)
+    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository)
     {
         $this->roomBookingRepository = $roomBookingRepository;
+        $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->setActionRepository($roomBookingRepository);
     }
 
     public function save(array $data)
     {
+//        dd($data);
         DB::transaction(function () use ($data) {
+
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
@@ -58,12 +67,12 @@ class BookingRequestService
 
             $roomBooking->requester()->save($roomBookingRequester);
 
-            $roomBookingReferee = new RoomBookingReferee([
+            /*$roomBookingReferee = new RoomBookingReferee([
                 'name' => $data['referee_name'],
                 'department_id' => $data['referee_dept'],
                 'contact' => $data['referee_contact']
             ]);
-            $roomBooking->referee()->save($roomBookingReferee);
+            $roomBooking->referee()->save($roomBookingReferee);*/
 
             $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
                 $rateInfo = explode('_', $roomInfo['rate']);
@@ -83,8 +92,20 @@ class BookingRequestService
                     return new BookingGuestInfo($guest);
                 }));
             }
+            if ($roomBooking && !empty( $data['email'])) {
+                Mail::to($data['email'])
+//                    ->cc($moreUsers)
+//                    ->bcc($evenMoreUsers)
+                    ->send(new BookingRequestMail($data));
+            }
+
 
             return $roomBooking;
         });
+    }
+
+    public function getBookingGuestInfo($roomBookingId, $status)
+    {
+        return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
     }
 }

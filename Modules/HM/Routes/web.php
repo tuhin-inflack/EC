@@ -43,6 +43,8 @@ Route::prefix('hm')->group(function () {
         Route::delete('{room}', 'RoomController@destroy')->name('rooms.destroy');
         Route::get('detail', 'RoomController@show')->name('room.detail'); // Temporary & Demo
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
+        Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign');
+        Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -66,6 +68,7 @@ Route::prefix('hm')->group(function () {
         Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
 	    Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
 
+
     });
 	Route::resources(
 		[
@@ -88,10 +91,12 @@ Route::prefix('hm')->group(function () {
         Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
         Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
         Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
-        Route::get('/edit/{roomBooking}', 'BookingRequestController@edit')->name('booking-requests.edit');
+        Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit');
         Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
         Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
+        Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit');
     });
+
 
     Route::prefix('booking-request-rates')->group(function () {
         Route::get('create', 'HostelBookingRateController@create')->name('booking-request-rates.create');
@@ -100,7 +105,7 @@ Route::prefix('hm')->group(function () {
     Route::prefix('check-in')->group(function (){
         Route::get('/','CheckinController@index')->name('check-in.index');
         Route::get('/create','CheckinController@create')->name('check-in.create');
-        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-request-requests'); // Temporary & Demo
+        Route::get('approved-booking-requests','CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
         Route::get('edit','CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('show','CheckinController@show')->name('check-in.show'); // Temporary & Demo
     });

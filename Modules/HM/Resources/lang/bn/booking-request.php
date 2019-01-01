@@ -24,7 +24,9 @@ return [
     'rate' => 'হার',
     'add' => 'যোগ',
     'personal_information' => 'ব্যক্তিগত তথ্য',
-    'name' => 'নাম',
+    'first_name' => 'নামের প্রথম অংশ',
+    'middle_name' => 'মধ্যম নাম',
+    'last_name' => 'নামের শেষাংশ',
     'contact' => 'যোগাযোগ',
     'address' => 'ঠিকানা',
     'gender' => 'লিঙ্গ',
@@ -74,5 +76,6 @@ return [
     'note_of_authority' => 'কর্তৃপক্ষের নোট',
     'approve' => 'অনুমোদন করা',
     'reject' => 'প্রত্যাখ্যান',
+    'pending' => 'বিচারাধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
 ];
