@@ -52,7 +52,8 @@ class ProposalSubmitController extends Controller
      */
     public function show($id)
     {
-        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
+//        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
+        $filePath = 'files/pdf-sample.pdf';
 
         return view('rms::proposal.submission.show', compact('filePath'));
     }
