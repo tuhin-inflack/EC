@@ -8,7 +8,9 @@ class RoomBookingRequester extends Model
 {
     protected $fillable = [
         'room_booking_id',
-        'name',
+        'first_name',
+        'middle_name',
+        'last_name',
         'gender',
         'contact',
         'address',
@@ -23,4 +25,9 @@ class RoomBookingRequester extends Model
         'nid_doc',
         'passport_doc'
     ];
+
+    public function getName()
+    {
+        return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
+    }
 }

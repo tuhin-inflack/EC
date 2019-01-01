@@ -5,13 +5,33 @@
         <!-- Start of .col-md-6 -->
         <div class="col-md-6">
             <div class="row">
-                <div class="form-group col-md-12">
-                    <label class="required">{{ trans('hm::booking-request.name') }}</label>
-                    {!! Form::text('name', $page == 'create' ? old('name') : $requester->name, ['id' => 'primary-contact-name-input', 'class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+                <div class="form-group col-md-4">
+                    <label class="required">{{ trans('hm::booking-request.first_name') }}</label>
+                    {!! Form::text('first_name', $page == 'create' ? old('first_name') : $requester->first_name, ['class' => 'form-control required' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
 
-                    @if ($errors->has('name'))
+                    @if ($errors->has('first_name'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('name') }}</strong>
+                            <strong>{{ $errors->first('first_name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group col-md-4">
+                    <label>{{ trans('hm::booking-request.middle_name') }}</label>
+                    {!! Form::text('middle_name', $page == 'create' ? old('middle_name') : $requester->middle_name, ['class' => 'form-control' . ($errors->has('middle_name') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+
+                    @if ($errors->has('middle_name'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('middle_name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group col-md-4">
+                    <label class="required">{{ trans('hm::booking-request.last_name') }}</label>
+                    {!! Form::text('last_name', $page == 'create' ? old('last_name') : $requester->last_name, ['class' => 'form-control required' . ($errors->has('last_name') ? ' is-invalid' : ''), 'placeholder' => 'Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+
+                    @if ($errors->has('last_name'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('last_name') }}</strong>
                         </span>
                     @endif
                 </div>
