@@ -53,6 +53,8 @@ return [
     'age' => 'Age',
     'relation' => 'Relation',
     'bard_reference' => 'BARD Reference',
+    'bard_reference_info' => 'BARD Reference INfo',
+
     'department' => 'Department',
     'employee_name' => 'Employee Name',
     'billing_information' => 'Billing Information',

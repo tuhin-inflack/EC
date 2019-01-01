@@ -8,13 +8,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">{{trans('pms::project_proposal.project_request_list')}}</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> {{trans('pms::project_proposal.new_proposal_request')}}</a>
-                            <a href="{{route('project-request.create')}}" class="btn btn-warning btn-sm"> <i
-                                        class="ft-download white"></i></a>
-
                         </div>
                     </div>
                     <div class="card-content collapse show">

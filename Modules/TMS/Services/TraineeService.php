@@ -29,12 +29,25 @@ class TraineeService
 
     public function updateTrainee($id, array $data)
     {
-        $training = $this->findOrFail($id);
+        $trainee = $this->findOrFail($id);
 
-        DB::transaction(function () use ($training, $data) {
-            return $this->update($training, $data);
+        DB::transaction(function () use ($trainee, $data) {
+            return $this->update($trainee, $data);
         });
+    }
 
+    public function fetchTraineesWithID($trainingId)
+    {
+        $trainees = $this->traineeRepository->fetchTrainees($trainingId);
+
+        return $trainees;
+    }
+
+    public function fetchSingle($traineeId)
+    {
+        $trainee = $this->traineeRepository->fetchSingleTrainee($traineeId);
+
+        return $trainee;
     }
 
 }

@@ -13,7 +13,8 @@
 	if (editor) { editor.destroy(true); }
 	CKEDITOR.replace('ckeditor', {
 		height: '350px',
-		extraPlugins: 'forms'
+		extraPlugins: 'forms',
+		uiColor: '#f6f6f6'
 	});
 
 	// ReadOnly Editor

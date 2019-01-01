@@ -8,8 +8,6 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">{{trans('pms::project_proposal.received_proposal_list')}}</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
