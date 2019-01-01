@@ -215,7 +215,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: bold; margin: 0; Margin-bottom: 15px; border-bottom: 2px solid gray;">
+                                        <p style="font-family: sans-serif; font-size: 14px; font-weight: bold; margin-top: 20px; Margin-bottom: 15px; border-bottom: 2px solid gray;">
                                             @lang('hm::booking-request.bard_reference_info'),</p>
                                         <div id="Data">
 
@@ -227,21 +227,20 @@
                                                             <table class="table table-responsive table-bordered mb-0">
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td class="width-150"
-                                                                        style="border-bottom: 2px solid gray;">@lang('hm::booking-request.bard_reference')</td>
-                                                                    <td class="width-300">{{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
+                                                                    <td class="width-150" style="margin-right: 20px">@lang('hm::booking-request.bard_reference')</td>
+                                                                    <td class="width-300">: {{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.designation')</td>
-                                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
+                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.department')</td>
-                                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
+                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.contact')</td>
-                                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
+                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -252,12 +251,9 @@
                                         </div>
 
                                         @if($roomBooking->guestInfos->count())
-                                            <p>
-                                                <span class="text-bold-600"
-                                                      style="font-weight: bold; border-bottom: 2px solid gray;">
-                                                    @lang('hm::booking-request.guest_information')
-                                                </span>
-                                            </p>
+
+                                            <p style="font-family: sans-serif; font-size: 14px; font-weight: bold; margin-top: 20px; Margin-bottom: 15px; border-bottom: 2px solid gray;">
+                                                @lang('hm::booking-request.guest_information'),</p>
                                             <div id="Data">
                                                 <div class="card-body" style="padding-left: 20px;">
                                                     {{--<p><span class="text-bold-600"></span></p>--}}
@@ -267,23 +263,23 @@
                                                                    style="margin-left: 15px;margin-right: 15px;">
                                                                 <thead>
                                                                 <tr>
-                                                                    <th style="margin-right: 20px">@lang('labels.serial')</th>
-                                                                    <th style="margin-right: 20px">@lang('labels.name')</th>
-                                                                    <th style="margin-right: 20px">@lang('hm::booking-request.age')</th>
-                                                                    <th style="margin-right: 20px">@lang('hm::booking-request.gender')</th>
-                                                                    <th style="margin-right: 20px">@lang('hm::booking-request.address')</th>
-                                                                    <th style="margin-right: 20px">@lang('hm::booking-request.relation')</th>
+                                                                    <th style="margin-right: 30px">@lang('labels.serial')</th>
+                                                                    <th style="margin-right: 30px">@lang('labels.name')</th>
+                                                                    <th style="margin-right: 30px">@lang('hm::booking-request.age')</th>
+                                                                    <th style="margin-right: 30px">@lang('hm::booking-request.gender')</th>
+                                                                    <th style="margin-right: 30px">@lang('hm::booking-request.address')</th>
+                                                                    <th style="margin-right: 30px">@lang('hm::booking-request.relation')</th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
-                                                                        <td>{{ $loop->iteration }}</td>
-                                                                        <td>{{ $guestInfo->name }}</td>
-                                                                        <td>{{ $guestInfo->age }}</td>
-                                                                        <td>{{ $guestInfo->gender }}</td>
-                                                                        <td>{{ $guestInfo->address }}</td>
-                                                                        <td>{{ $guestInfo->relation }}</td>
+                                                                        <td style="text-align: center">{{ $loop->iteration }}</td>
+                                                                        <td style="text-align: center" >{{ $guestInfo->name }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->age }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->gender }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->address }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->relation }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                                 </tbody>
