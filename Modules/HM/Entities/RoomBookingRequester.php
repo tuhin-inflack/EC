@@ -30,4 +30,9 @@ class RoomBookingRequester extends Model
     {
         return $this->first_name . ' ' . $this->middle_name . ' ' . $this->last_name;
     }
+
+    public function roomBooking()
+    {
+        return $this->hasOne(RoomBooking::class,'id', 'room_booking_id');
+    }
 }

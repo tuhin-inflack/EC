@@ -27,11 +27,9 @@
                                                 <div class="form-group">
                                                     <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
                                                         <option>Search Here</option>
-                                                        <option value="{{ route('check-in.edit') }}">018xxxxxxxx</option>
-                                                        <option value="{{ route('check-in.edit') }}">017xxxxxxxx</option>
-                                                        <option value="{{ route('check-in.edit') }}">016xxxxxxxx</option>
-                                                        <option value="{{ route('check-in.edit') }}">015xxxxxxxx</option>
-                                                        <option value="{{ route('check-in.edit') }}">018xxxxxxxx</option>
+                                                        @foreach($bookingRequests as $bookingId=>$contact)
+                                                            <option value="{{$bookingId}}">{{$contact}}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>
