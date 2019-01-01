@@ -5,7 +5,9 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Modules\HM\Emails\OrderShipped;
 use Modules\HM\Entities\HostelBudgetSection;
 use Modules\HM\Http\Requests\StoreHostelBudgetRequest;
 use Modules\HM\Services\HostelBudgetSectionService;
@@ -97,4 +99,5 @@ class HostelBudgetController extends Controller
     public function destroy()
     {
     }
+
 }

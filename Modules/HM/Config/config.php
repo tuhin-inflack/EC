@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'name' => 'HM'
+    'name' => 'HM',
+    'roomStatus' => ['available', 'unavailable', 'partially-available'],
 ];

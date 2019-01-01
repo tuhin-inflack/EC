@@ -5,9 +5,22 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Services\BookingRequestService;
 
 class CheckinController extends Controller
 {
+    private $roomBookingService;
+
+    /**
+     * CheckinController constructor.
+     * @param BookingRequestService $bookingRequestService
+     */
+    public function __construct(BookingRequestService $roomBookingService)
+    {
+        $this->roomBookingService = $roomBookingService;
+    }
+
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -32,7 +45,8 @@ class CheckinController extends Controller
      */
     public function approvedRequests()
     {
-        return view('hm::check-in.approved_booking_requests');
+        $bookingRequests = $this->roomBookingService->pluckContactBookingIdForApprovedBooking();
+        return view('hm::check-in.approved_booking_requests', compact('bookingRequests'));
     }
 
     /**
