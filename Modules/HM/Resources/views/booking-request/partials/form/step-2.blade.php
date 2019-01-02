@@ -229,9 +229,9 @@
     <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.documents') }}</h4>
     <div class="row">
         <!-- Start of .col-md-6 -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label class="required">{{ trans('hm::booking-request.your_photo') }}</label>
                     {!! Form::file('photo', ['class' => 'form-control required' . ($errors->has('photo') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
@@ -241,9 +241,14 @@
                         </span>
                     @endif
                 </div>
+                @if($page == 'edit')
+                    <div class="col-md-6">
+                        <img src="{{asset('/storage/app/'.$requester->photo)}}" style="width: 80px;height: 80px;margin-top: 10px;" alt="">
+                    </div>
+                @endif
             </div>
             <div class="row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label>{{ trans('hm::booking-request.nid_copy') }}</label>
                     {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
@@ -253,9 +258,14 @@
                         </span>
                     @endif
                 </div>
+                @if($page == 'edit')
+                    <div class="col-md-6">
+                        <img src="{{asset('/storage/app/'.$requester->nid_doc)}}" style="width: 80px;height: 80px;margin-top: 10px" alt="">
+                    </div>
+                @endif
             </div>
             <div class="row">
-                <div class="form-group col-md-12">
+                <div class="form-group col-md-6">
                     <label>{{ trans('hm::booking-request.passport_copy') }}</label>
                     {!! Form::file('passport_doc', ['class' => 'form-control' . ($errors->has('passport_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
@@ -265,6 +275,11 @@
                         </span>
                     @endif
                 </div>
+                @if($page == 'edit')
+                    <div class="col-md-6">
+                        <img src="{{asset('/storage/app/'.$requester->passport_doc)}}" style="width: 80px;height: 80px;margin-top: 10px" alt="">
+                    </div>
+                @endif
             </div>
         </div>
         <!-- End of .col-md-6 -->

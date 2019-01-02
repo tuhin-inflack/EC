@@ -45,6 +45,7 @@ Route::prefix('hm')->group(function () {
         Route::get('history', 'RoomController@history')->name('room.history'); // Temporary & Demo
         Route::get('/seat/assign', 'RoomAssignmentController@index')->name('room.assign');
         Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
+        Route::get('/hostel/selection', 'RoomAssignmentController@getHostelList')->name('hostel.selection');
     });
 
     Route::prefix('inventory-types')->group(function () {
@@ -92,7 +93,7 @@ Route::prefix('hm')->group(function () {
         Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
         Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
         Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit');
-        Route::put('/', 'BookingRequestController@update')->name('booking-requests.update');
+        Route::put('/{roomBooking}', 'BookingRequestController@update')->name('booking-requests.update');
         Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
         Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit');
     });

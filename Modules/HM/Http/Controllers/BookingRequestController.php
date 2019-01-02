@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
+use Modules\HM\Http\Requests\UpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
@@ -99,10 +100,8 @@ class BookingRequestController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-
         $this->bookingRequestService->save($request->all());
-        Session::flash('message', 'Successfully stored room booking information');
-
+        Session::flash('success', 'Successfully stored room booking information');
         return redirect()->back();
     }
 
@@ -123,12 +122,15 @@ class BookingRequestController extends Controller
      */
     public function edit(RoomBooking $roomBooking)
     {
+        $employees = $this->employeeServices->findAll();
         $requester = $roomBooking->requester;
         $referee = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
+        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $designations = $this->designationService->findAll();
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -137,17 +139,25 @@ class BookingRequestController extends Controller
             'guestInfos',
             'roomBooking',
             'roomTypes',
-            'referee'
+            'referee',
+            'employeeOptions',
+            'employees',
+            'designations'
         ));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateBookingRequest $request
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
+        $this->bookingRequestService->update($request->all(), $roomBooking);
+        Session::flash('message', trans('labels.update_success'));
+
+        return redirect()->back();
     }
 
     /**
