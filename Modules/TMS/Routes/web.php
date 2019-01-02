@@ -29,6 +29,9 @@ Route::prefix('tms')->group(function() {
     Route::prefix('trainee')->group(function() {
         Route::get('/', 'TraineeController@index');
         Route::post('/', 'TraineeController@index');
+        Route::get('/import/to/{training_id}', 'TraineeController@import');
+        Route::post('/import/to/{training_id}', 'TraineeController@import');
+        Route::post('/import/store/{training_id}', 'TraineeController@storeImported');
         Route::get('/add/to/{training_id}', 'TraineeController@create');
         Route::post('/add/to/{training_id}', 'TraineeController@store');
         Route::get('/edit/{trainee_id}', 'TraineeController@edit');
