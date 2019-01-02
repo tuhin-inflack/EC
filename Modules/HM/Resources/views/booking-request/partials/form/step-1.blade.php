@@ -7,7 +7,7 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
-                {{ Form::text('start_date', $page == 'create' ? old('start_date') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', $page == 'create' ? '' :  'disabled' => 'disabled']) }}
+                {{ Form::text('start_date', $page == 'create' ? old('start_date') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
                 @if ($errors->has('start_date'))
                     <span class="invalid-feedback" role="alert">
@@ -157,6 +157,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     <label class="required">Room Type</label>
                                     <br>
+                                    {!! Form::hidden('id', $roomInfo->id) !!}
                                     {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">

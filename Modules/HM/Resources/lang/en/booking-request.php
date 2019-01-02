@@ -53,6 +53,8 @@ return [
     'age' => 'Age',
     'relation' => 'Relation',
     'bard_reference' => 'BARD Reference',
+    'bard_reference_info' => 'BARD Reference INfo',
+
     'department' => 'Department',
     'employee_name' => 'Employee Name',
     'billing_information' => 'Billing Information',
@@ -77,5 +79,6 @@ return [
     'reject' => 'Reject',
     'pending' => 'Pending',
     'new_booking_request' => 'New Booking Request',
+    'booking_request_update_form' => 'Booking Request Update Form'
 
 ];

@@ -53,6 +53,8 @@ return [
     'age' => 'বয়স',
     'relation' => 'সম্পর্ক',
     'bard_reference' => 'বার্ড উল্লেখ',
+    'bard_reference_info' => 'বার্ড উল্লেখ তথ্য',
+
     'department' => 'বিভাগ',
     'employee_name' => 'কর্মকর্তার নাম',
     'billing_information' => 'বিল সংক্রান্ত তথ্য',
@@ -78,4 +80,5 @@ return [
     'reject' => 'প্রত্যাখ্যান',
     'pending' => 'বিচারাধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
+    'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম'
 ];

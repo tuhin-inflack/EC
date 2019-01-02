@@ -45,7 +45,7 @@
                                                 <th scope="row">{{$loop->iteration}}</th>
                                                 <th>{{ $employee->employee_id }}</th>
                                                 <td>{{$employee->first_name . " " . $employee->last_name}}</td>
-                                                <td>{{$employee->designation}}</td>
+                                                <td>{{$employee->designation->name}}</td>
                                                 <td>{{$employee->gender}}</td>
                                                 <td>{{isset($employee->employeeDepartment->name) ? $employee->employeeDepartment->name : ''}}</td>
                                                 <td>{{$employee->status}}</td>

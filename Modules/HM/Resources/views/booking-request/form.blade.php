@@ -1,9 +1,10 @@
 @if($page == 'create')
     {!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 @else
-    {!! Form::open(['route' =>  'booking-requests.update', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::open(['route' =>  ['booking-requests.update', $roomBooking->id], 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
     @method('PUT')
 @endif
+<!-- Logic for handling booking from multiple place -->
 <!-- Step 1 -->
 @include('hm::booking-request.partials.form.step-1')
 <!-- Step 2 -->
