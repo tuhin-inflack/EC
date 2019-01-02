@@ -32,7 +32,7 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('booking-requests.create', ['bookingType' => 'internal']) }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">New Check-in</a>
+                                                <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">New Check-in</a>
                                             </div>
                                         </div>
                                     </div>

@@ -31,8 +31,8 @@
                     <span class="menu-title" data-i18n="nav.templates.main">Check-in</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('check-in.create') }}">
-                        <a href="{{ route('check-in.create') }}">
+                    <li class="{{ is_active_route('check-in.create-options') }}">
+                        <a href="{{ route('check-in.create-options') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">New</span>
                         </a>

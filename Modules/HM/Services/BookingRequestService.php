@@ -50,17 +50,16 @@ class BookingRequestService
         $this->setActionRepository($roomBookingRepository);
     }
 
-    public function save(array $data)
+    public function store(array $data, $type = 'booking')
     {
-        DB::transaction(function () use ($data) {
-
-
+       return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
-            $data['status'] = $this->getStatus($data);
+            $data['status'] = $this->getStatus($type);
+            $data['type'] = $type;
 
-            $roomBooking = $this->roomBookingRepository->save($data);
+            $roomBooking = $this->save($data);
 
             $roomBookingRequester = new RoomBookingRequester($data);
 
@@ -99,15 +98,12 @@ class BookingRequestService
                     return new BookingGuestInfo($guest);
                 }));
             }
-            if ($roomBooking && !empty( $data['email'])) {
+            if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])
 //                    ->cc($moreUsers)
 //                    ->bcc($evenMoreUsers)
                     ->send(new BookingRequestMail($roomBooking));
             }
-
-
-
             return $roomBooking;
         });
     }
@@ -123,13 +119,13 @@ class BookingRequestService
 
             $this->roomBookingRepository->update($roomBooking, $data);
 
-            foreach ($data['roomInfos'] as $value){
+            foreach ($data['roomInfos'] as $value) {
                 $rateInfo = explode('_', $value['rate']);
                 $rateType = $rateInfo[0];
                 $rate = $rateInfo[1];
                 $roomBooking->roomInfos()->updateOrCreate([
                     'id' => $value['id'],
-                ],[
+                ], [
                     'room_type_id' => $value['room_type_id'],
                     'quantity' => $value['quantity'],
                     'rate_type' => $rateType,
@@ -138,7 +134,7 @@ class BookingRequestService
             }
 
 
-            if (isset($data['deleted-roominfos'])){
+            if (isset($data['deleted-roominfos'])) {
                 BookingRoomInfo::destroy($data['deleted-roominfos']);
             }
 
@@ -155,7 +151,6 @@ class BookingRequestService
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
 
-
             $data['photo'] = $photoPath;
             $data['nid_doc'] = $nidDocPath;
             $data['passport_doc'] = $passportDocPath;
@@ -163,8 +158,8 @@ class BookingRequestService
             $roomBooking->requester->update($data);
 
 
-            foreach ($data['guests'] as $value){
-                if ($data['nid_doc']){
+            foreach ($data['guests'] as $value) {
+                if ($data['nid_doc']) {
                     Storage::delete($roomBooking->guestInfos->nid_doc);
                     $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
                 }
@@ -177,17 +172,16 @@ class BookingRequestService
         });
     }
 
-    public function getStatus($data)
+    public function getStatus($type)
     {
-        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
-            switch ($data['booking_type']) {
-                case 'internal':
-                    return 'approved';
-                default:
-                    return 'pending';
-            }
+        switch ($type) {
+            case 'booking':
+                return 'pending';
+            case 'checkin':
+                return 'approved';
+            default:
+                return 'pending';
         }
-        return 'pending';
     }
 
     public function getBookingGuestInfo($roomBookingId, $status)

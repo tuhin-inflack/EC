@@ -5,6 +5,8 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
@@ -71,6 +73,15 @@ class CheckinController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
+    public function createOptions()
+    {
+        return view('hm::check-in.create-options');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     * @return Response
+     */
     public function create()
     {
         $roomTypes = $this->roomTypeService->findAll();
@@ -78,15 +89,23 @@ class CheckinController extends Controller
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $type = 'checkin';
 
         return view('hm::booking-request.create', compact(
                 'roomTypes',
                 'departments',
                 'employees',
                 'employeeOptions',
-                'designations'
+                'designations',
+                'type'
             )
         );
+    }
+
+    public function store(StoreBookingRequest $request) {
+        $checkin = $this->bookingRequestService->store($request->all(), 'checkin');
+        Session::flash('success', trans('labels.save_success'));
+        return redirect(route('hostel.selection', ['roomBookingId' => $checkin->id]));
     }
 
     /**
@@ -114,7 +133,8 @@ class CheckinController extends Controller
      */
     public function edit()
     {
-        return view('hm::check-in.edit');
+        $type = 'checkin';
+        return view('hm::check-in.edit', compact('type'));
     }
 
 
