@@ -40,7 +40,7 @@
                     <li class="{{ is_active_route('check-in.index') }}">
                         <a href="{{ route('check-in.index') }}">
                             <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">List</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.list')</span>
                         </a>
                     </li>
                 </ul>

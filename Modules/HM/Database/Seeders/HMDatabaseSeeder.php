@@ -17,7 +17,7 @@ class HMDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
 	    $this->call(HostelBudgetTitleTableSeeder::class);
+	    $this->call(RoomTypeTableSeeder::class);
     }
 }
