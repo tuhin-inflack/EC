@@ -6,16 +6,17 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use phpDocumentor\Reflection\Types\Null_;
 
 class BookingRequestMail extends Mailable
 {
     use Queueable, SerializesModels;
-    private $bookingRequestData ;
+    private $roomBooking ;
 
 
-    public function __construct(array  $data)
+    public function __construct($data = null)
     {
-        $this->bookingRequestData = $data;
+        $this->roomBooking = $data;
     }
 
     /**
@@ -25,7 +26,9 @@ class BookingRequestMail extends Mailable
      */
     public function build()
     {
-        return $this->view('hm::emails.booking_request_overview')->with(['bookingRequestData' => $this->bookingRequestData]);
+        return $this->view('hm::emails.booking_request_overview')->with(['roomBooking' => $this->roomBooking]);
+
+//        return $this->markdown('hm::emails.test');
 
     }
 }

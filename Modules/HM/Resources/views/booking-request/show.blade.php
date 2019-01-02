@@ -135,41 +135,41 @@
                             </div>
                             <div class="card-body">
                                 <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
-                                {{--<div class="row card-deck">--}}
-                                {{--<figure class="card card-img-top border-grey border-lighten-2"--}}
-                                {{--itemprop="associatedMedia" itemscope="">--}}
-                                {{--<a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"--}}
-                                {{--itemprop="contentUrl"--}}
-                                {{--data-size="480x360">--}}
-                                {{--<img class="gallery-thumbnail card-img-top"--}}
-                                {{--src="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"--}}
-                                {{--itemprop="thumbnail">--}}
-                                {{--</a>--}}
-                                {{--<div class="card-body px-0">--}}
-                                {{--<h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>--}}
-                                {{--</div>--}}
-                                {{--</figure>--}}
-                                {{--@if ($roomBooking->nid_doc)--}}
-                                {{--<figure class="card card-img-top border-grey border-lighten-2"--}}
-                                {{--itemprop="associatedMedia" itemscope="">--}}
-                                {{--<a href="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"--}}
-                                {{--itemprop="contentUrl"--}}
-                                {{--data-size="480x360">--}}
-                                {{--<img class="gallery-thumbnail card-img-top"--}}
-                                {{--src="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"--}}
-                                {{--itemprop="thumbnail">--}}
-                                {{--</a>--}}
-                                {{--<div class="card-body px-0">--}}
-                                {{--<h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>--}}
-                                {{--</div>--}}
-                                {{--</figure>--}}
-                                {{--@endif--}}
-                                {{--</div>--}}
+                                <div class="row card-deck">
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                           itemprop="contentUrl"
+                                           data-size="480x360">
+                                            <img class="gallery-thumbnail card-img-top"
+                                                 src="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                                 itemprop="thumbnail">
+                                        </a>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
+                                        </div>
+                                    </figure>
+                                    @if ($roomBooking->nid_doc)
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <a href="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"
+                                               itemprop="contentUrl"
+                                               data-size="480x360">
+                                                <img class="gallery-thumbnail card-img-top"
+                                                     src="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"
+                                                     itemprop="thumbnail">
+                                            </a>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                            </div>
+                                        </figure>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm"
-                                     width="250px" height="300px">
-                            </div>
+                            {{--<div class="card-body">--}}
+                            {{--<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm"--}}
+                            {{--width="250px" height="300px">--}}
+                            {{--</div>--}}
                             @if($roomBooking->guestInfos->count())
                                 <div class="card-body" style="padding-left: 20px;">
                                     <p><span class="text-bold-600">@lang('hm::booking-request.guest_information')</span>

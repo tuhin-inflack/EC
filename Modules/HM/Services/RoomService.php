@@ -146,16 +146,20 @@ class RoomService
             } else {
                 $roomDetails[$room->floor] = [$room];
             }
-
         }
 
-        ksort($roomDetails);
+        krsort($roomDetails);
         foreach ($roomDetails as $roomDetail) {
             usort($roomDetail, function ($a, $b) {
                 return strcmp($a->room_number, $b->room_number);
             });
         }
         return $roomDetails;
+    }
+
+    public function getRoomCountByRoomType($hostelId)
+    {
+        return $this->roomRepository->getRoomCountByRoomType($hostelId);
     }
 
 }

@@ -172,6 +172,7 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">@lang('labels.name')</label>
                                         <br>
+                                        {!! Form::hidden('id', $guestInfo->id) !!}
                                         {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -197,6 +198,9 @@
                                         <label>@lang('hm::booking-request.nid_copy')</label>
                                         <br>
                                         {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <img src="{{asset('/storage/app/'.$guestInfo->nid_doc)}}" style="width: 80px;height: 80px" alt="">
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>@lang('hm::booking-request.nid')</label>

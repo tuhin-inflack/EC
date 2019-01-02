@@ -52,7 +52,7 @@ class HostelBudgetSectionController extends Controller
     public function update(StoreHostelBudgetSectionRequest $request, $id)
     {
         $section = $this->hostelBudgetSectionService->updateBudgetSection($request->all(), $id);
-        Session::flash('message', $section->getContent());
+        Session::flash('success', $section->getContent());
 
         return redirect('/hm/hostel-budget-section/');
 
