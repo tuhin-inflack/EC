@@ -112,8 +112,7 @@ class BookingRequestService
         });
     }
 
-
-    public function update(array $data, RoomBooking $roomBooking)
+    public function updateRequest(array $data, RoomBooking $roomBooking)
     {
         DB::transaction(function () use ($data, $roomBooking) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
@@ -121,7 +120,7 @@ class BookingRequestService
             $data['shortcode'] = $roomBooking->shortcode;
             $data['status'] = 'pending';
 
-            $this->roomBookingRepository->update($roomBooking, $data);
+            $this->update($roomBooking, $data);
 
             foreach ($data['roomInfos'] as $value){
                 $rateInfo = explode('_', $value['rate']);
@@ -137,11 +136,9 @@ class BookingRequestService
                 ]);
             }
 
-
             if (isset($data['deleted-roominfos'])){
                 BookingRoomInfo::destroy($data['deleted-roominfos']);
             }
-
 
             if ($data['photo']) {
                 Storage::delete($roomBooking->requester->photo);
@@ -154,14 +151,11 @@ class BookingRequestService
             Storage::delete($roomBooking->requester->passport_doc);
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
-
-
             $data['photo'] = $photoPath;
             $data['nid_doc'] = $nidDocPath;
             $data['passport_doc'] = $passportDocPath;
 
             $roomBooking->requester->update($data);
-
 
             foreach ($data['guests'] as $value){
                 if ($data['nid_doc']){

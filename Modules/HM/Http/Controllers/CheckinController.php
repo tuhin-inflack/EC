@@ -5,6 +5,7 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Services\BookingRequestService;
 
 class CheckinController extends Controller
@@ -55,7 +56,9 @@ class CheckinController extends Controller
      */
     public function show()
     {
-        return view('hm::check-in.show');
+        $type = 'checkin';
+        $roomBooking = RoomBooking::first();
+        return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**

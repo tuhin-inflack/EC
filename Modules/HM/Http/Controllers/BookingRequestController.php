@@ -112,7 +112,8 @@ class BookingRequestController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
-        return view('hm::booking-request.show', compact('roomBooking'));
+        $type = 'booking';
+        return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**
@@ -156,7 +157,7 @@ class BookingRequestController extends Controller
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
-        $this->bookingRequestService->update($request->all(), $roomBooking);
+        $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
         Session::flash('message', trans('labels.update_success'));
 
         return redirect()->back();
