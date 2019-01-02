@@ -75,22 +75,20 @@ class BookingRequestController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
-        $bookingType = isset($request['bookingType']) ? $request['bookingType'] : null;
 
         return view('hm::booking-request.create', compact(
                 'roomTypes',
                 'departments',
                 'employees',
                 'employeeOptions',
-                'designations',
-                'bookingType'
+                'designations'
             )
         );
     }
@@ -102,10 +100,9 @@ class BookingRequestController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        $roomBooking = $this->bookingRequestService->save($request->all());
-        Session::flash('message', 'Successfully stored room booking information');
-        $route = $this->bookingRequestService->getRoute($request->all(), $roomBooking->id);
-        return redirect($route);
+        $this->bookingRequestService->save($request->all());
+        Session::flash('success', 'Successfully stored room booking information');
+        return redirect()->back();
     }
 
     /**

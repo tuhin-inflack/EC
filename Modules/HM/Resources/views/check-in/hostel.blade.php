@@ -43,6 +43,5 @@
         $(window).on('load', function () {
             $('#selectionModal').modal('show');
         });
-
     </script>
 @endpush
