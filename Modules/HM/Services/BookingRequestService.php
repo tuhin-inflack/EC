@@ -137,6 +137,12 @@ class BookingRequestService
                 ]);
             }
 
+
+            if (isset($data['deleted-roominfos'])){
+                BookingRoomInfo::destroy($data['deleted-roominfos']);
+            }
+
+
             if ($data['photo']) {
                 Storage::delete($roomBooking->requester->photo);
                 $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
@@ -158,8 +164,10 @@ class BookingRequestService
 
 
             foreach ($data['guests'] as $value){
-                Storage::delete($roomBooking->guestInfos->nid_doc);
-                $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                if ($data['nid_doc']){
+                    Storage::delete($roomBooking->guestInfos->nid_doc);
+                    $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                }
                 $roomBooking->guestInfos()->updateOrCreate([
                     'id' => $value['id'],
                 ], $value);

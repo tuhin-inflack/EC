@@ -134,6 +134,7 @@ class BookingRequestController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $bookingType = isset($request['bookingType']) ? $request['bookingType'] : null;
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -145,7 +146,8 @@ class BookingRequestController extends Controller
             'referee',
             'employeeOptions',
             'employees',
-            'designations'
+            'designations',
+            'bookingType'
         ));
     }
 
@@ -157,6 +159,7 @@ class BookingRequestController extends Controller
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
+        return $request->all();
         $this->bookingRequestService->update($request->all(), $roomBooking);
         Session::flash('message', trans('labels.update_success'));
 

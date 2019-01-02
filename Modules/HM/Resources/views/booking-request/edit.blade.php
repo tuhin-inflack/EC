@@ -161,10 +161,17 @@
                         });
 
                     $(this).slideDown();
+                },
+                hide: function (deleteElement) {
+                    let deletedId = $(this).find('input[type=hidden]').val();
+
+                    $('.booking-request-tab-steps').append(`<input type="hidden" name="deleted-roominfos[]" value="${deletedId}">`);
+
+                    $(this).slideUp(deleteElement);
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {{ ($guestInfos || old('guests')) ? 'false' : 'true' }},
+                initEmpty: {!! (count($guestInfos) || old('guests')) ? 'false' : 'true'  !!},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
