@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Check In List</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::booking-request.check_in') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -24,13 +24,12 @@
                                     <table class="table table-bordered alt-pagination">
                                         <thead>
                                             <tr>
-                                                <th>SL</th>
-                                                <th>Check In Number</th>
-                                                <th>Bill Number</th>
-                                                <th>Booking ID</th>
-                                                <th>Check In</th>
-                                                <th>Estimated Check Out Time</th>
-                                                <th>Estimated # of Day</th>
+                                                <th>@lang('labels.serial')</th>
+                                                <th>@lang('hm::checkin.check_in_number')</th>
+                                                <th>@lang('hm::checkin.booking_id')</th>
+                                                <th>@lang('hm::booking-request.check_in')</th>
+                                                <th>@lang('hm::checkin.estimated_check_out_time')</th>
+                                                <th>@lang('hm::checkin.estimated_no_of_day')</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -39,7 +38,6 @@
                                             <tr>
                                                 <td>{{ ++$count }}</td>
                                                 <td><a href="{{ route('check-in.show') }}" >CNXXXXX{{$i}}</a></td>
-                                                <td><a href="javascript:;" >BILLXXXXX{{$i}}</a></td>
                                                 <td>BK{{$i}}XXX</td>
                                                 <td>{{ date('d.m.Y',strtotime("-".$i." days")) }}</td>
                                                 <td>{{ date('d.m.Y') }}</td>

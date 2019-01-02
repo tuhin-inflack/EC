@@ -54,6 +54,22 @@ class TraineeController extends Controller
         return view('tms::trainee.create', compact('training'));
     }
 
+    public function import(Request $request, $trainingId)
+    {
+        $training = $this->trainingService->findOrFail($trainingId);
+
+        $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $traineeList = array(); $traineeListErr = array();
+        if($request->hasFile(['import_file']) && in_array($_FILES['import_file']['type'], $file_mimes)) {
+            $traineeList = $this->traineeService->importCSV($request);
+            // Ignoring the first row as title
+            unset($traineeList[0]);
+            $traineeListErr = $this->traineeService->traineeListValidator($traineeList);
+        }
+
+        return view('tms::trainee.import', compact('training','trainingId', 'traineeList', 'traineeListErr'));
+    }
+
     /**
      * Store a newly created resource in storage.
      * @param  Request $request
@@ -66,6 +82,31 @@ class TraineeController extends Controller
         Session::flash('message', $msg);
 
         return redirect('/tms/trainee/add/to/'.$request['training_id']);
+    }
+
+    public function storeImported(Request $request, $training_id)
+    {
+        $trainee_mobiles = $request->input('mobile');
+
+        $countRow = 0;
+        foreach ($trainee_mobiles as $key=>$trainee_mobile)
+        {
+            $data = array(
+                'training_id'=> $training_id,
+                'trainee_first_name'=> $request->input('trainee_first_name')[$key],
+                'trainee_last_name'=>$request->input('trainee_last_name')[$key],
+                'trainee_gender'=>$request->input('trainee_gender')[$key],
+                'mobile'=>$request->input('mobile')[$key],
+                'status'=>1
+                );
+            $storeData = $this->traineeService->save($data);
+            if($storeData) $countRow++;
+        }
+
+        $msg = $countRow." Trainee added successfully";
+        Session::flash('message', $msg);
+
+        return back();
     }
 
     /**
