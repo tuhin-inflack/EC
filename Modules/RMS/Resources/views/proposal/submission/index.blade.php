@@ -7,9 +7,12 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Requested Research Proposal List</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                        <h4 class="card-title">Requested Research Proposals List</h4>
+                        <div class="heading-elements">
+                            <a href="{{route('research-proposal-submission.create')}}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> Create Proposal</a>
 
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
@@ -19,8 +22,9 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">SL</th>
-                                        <th scope="col">Research Title</th>
-                                        <th scope="col">Members</th>
+                                        <th scope="col">Faculty Director</th>
+                                        <th scope="col">Faculty Members</th>
+                                        <th scope="col">Title</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -29,8 +33,9 @@
 
                                     <tr>
                                         <th scope="row">1</th>
+                                        <td>Lorem ipsum</td>
+                                        <td>Lorem ipsum, Lorem ipsum, Lorem ipsum</td>
                                         <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum, Lorem ipsum</td>
                                         <td>
                                             <span class="badge badge-warning">Pending</span>
                                         </td>
@@ -42,20 +47,17 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                <a href="{{ route('research-proposal-submission.show', 1) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
                                                 </span>
                                             </span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">2</th>
+                                        <td>Lorem ipsum</td>
+                                        <td>Lorem ipsum, Lorem ipsum</td>
                                         <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>Lorem ipsum, Lorem ipsum, Lorem ipsum</td>
                                         <td>
                                             <span class="badge badge-success">Approved</span>
                                         </td>
@@ -67,12 +69,8 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                <a href="{{ route('research-proposal-submission.show', 12) }}"
                                                    class="dropdown-item"><i class="ft-eye"></i> Details</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-navigation"></i> Feedback</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
                                                 </span>
                                             </span>
                                         </td>

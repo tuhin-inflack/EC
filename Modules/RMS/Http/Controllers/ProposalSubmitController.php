@@ -2,11 +2,13 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
-class ResearchProposalSubmittedController extends Controller
+class ProposalSubmitController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class ResearchProposalSubmittedController extends Controller
      */
     public function index()
     {
-        return view('rms::proposal-submitted.index');
+        return view('rms::proposal.submission.index');
     }
 
     /**
@@ -23,7 +25,16 @@ class ResearchProposalSubmittedController extends Controller
      */
     public function create()
     {
-        return view('rms::create');
+        return view('rms::proposal.submission.create');
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @return Response
+     */
+    public function submittedList()
+    {
+        return view('rms::proposal.submitted.index');
     }
 
     /**
@@ -39,9 +50,12 @@ class ResearchProposalSubmittedController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('rms::show');
+//        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
+        $filePath = 'files/pdf-sample.pdf';
+
+        return view('rms::proposal.submission.show', compact('filePath'));
     }
 
     /**

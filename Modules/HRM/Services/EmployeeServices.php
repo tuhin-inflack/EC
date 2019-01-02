@@ -33,7 +33,8 @@ class EmployeeServices
         if (isset($data['photo'])) {
             $file = $data['photo'];
             $photoName = time() . "-" . $file->getClientOriginalName();
-            $file->move('images/', $photoName);
+            $file->storeAs('public/uploads', $photoName);
+//            $file->move('images/', $photoName);
             $data['photo'] = $photoName;
         }
         $generalInfo = $this->employeeRepository->save($data);

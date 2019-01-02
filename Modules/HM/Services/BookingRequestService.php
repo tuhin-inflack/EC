@@ -22,6 +22,7 @@ use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
+use Modules\HM\Repositories\RoomBookingRequesterRepository;
 
 class BookingRequestService
 {
@@ -32,26 +33,32 @@ class BookingRequestService
     private $roomBookingRepository;
 
     private $bookingGuestInfoRepository;
+    private $roomBookingRequesterRepository;
 
     /**
      * BookingRequestService constructor.
      * @param RoomBookingRepository $roomBookingRepository
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
+     * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository)
+    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository,
+                                RoomBookingRequesterRepository $roomBookingRequesterRepository)
     {
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
+        $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
         $this->setActionRepository($roomBookingRepository);
     }
 
     public function save(array $data)
     {
         DB::transaction(function () use ($data) {
+
+
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
-            $data['status'] = 'pending';
+            $data['status'] = $this->getStatus($data);
 
             $roomBooking = $this->roomBookingRepository->save($data);
 
@@ -96,9 +103,8 @@ class BookingRequestService
                 Mail::to($data['email'])
 //                    ->cc($moreUsers)
 //                    ->bcc($evenMoreUsers)
-                    ->send(new BookingRequestMail($data));
+                    ->send(new BookingRequestMail($roomBooking));
             }
-
 
 
 
@@ -163,8 +169,39 @@ class BookingRequestService
         });
     }
 
+    public function getStatus($data)
+    {
+        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
+            switch ($data['booking_type']) {
+                case 'internal':
+                    return 'approved';
+                default:
+                    return 'pending';
+            }
+        }
+        return 'pending';
+    }
+
+    public function getRoute($data, $roomBookingId)
+    {
+        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
+            switch ($data['booking_type']) {
+                case 'internal':
+                    return route('hostel.selection', ['roomBookingId'=>$roomBookingId]);
+                default:
+                    return route('booking-requests.index');
+            }
+        }
+        return route('booking-requests.index');
+    }
+
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
+    }
+
+    public function pluckContactBookingIdForApprovedBooking()
+    {
+        return $this->roomBookingRequesterRepository->pluckContactBookingId();
     }
 }

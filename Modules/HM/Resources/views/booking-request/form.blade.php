@@ -4,6 +4,10 @@
     {!! Form::open(['route' =>  ['booking-requests.update', $roomBooking->id], 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
     @method('PUT')
 @endif
+<!-- Logic for handling booking from multiple place -->
+@if($bookingType)
+    <input type="hidden" name="booking_type" value="{{$bookingType}}"/>
+@endif
 <!-- Step 1 -->
 @include('hm::booking-request.partials.form.step-1')
 <!-- Step 2 -->
