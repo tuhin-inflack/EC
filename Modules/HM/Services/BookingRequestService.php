@@ -190,19 +190,6 @@ class BookingRequestService
         return 'pending';
     }
 
-    public function getRoute($data, $roomBookingId)
-    {
-        if (isset($data['booking_type']) && !empty($data['booking_type'])) {
-            switch ($data['booking_type']) {
-                case 'internal':
-                    return route('hostel.selection', ['roomBookingId'=>$roomBookingId]);
-                default:
-                    return route('booking-requests.index');
-            }
-        }
-        return route('booking-requests.index');
-    }
-
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
