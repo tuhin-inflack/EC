@@ -102,7 +102,7 @@ class BookingRequestController extends Controller
     {
 
         $this->bookingRequestService->save($request->all());
-        Session::flash('message', 'Successfully stored room booking information');
+        Session::flash('message', trans('labels.save_success'));
 
         return redirect()->back();
     }
@@ -124,12 +124,15 @@ class BookingRequestController extends Controller
      */
     public function edit(RoomBooking $roomBooking)
     {
+        $employees = $this->employeeServices->findAll();
         $requester = $roomBooking->requester;
         $referee = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
+        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $designations = $this->designationService->findAll();
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -138,20 +141,23 @@ class BookingRequestController extends Controller
             'guestInfos',
             'roomBooking',
             'roomTypes',
-            'referee'
+            'referee',
+            'employeeOptions',
+            'employees',
+            'designations'
         ));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateBookingRequest $request
+     * @param RoomBooking $roomBooking
      * @return Response
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
-        return $request;
         $this->bookingRequestService->update($request->all(), $roomBooking);
-        Session::flash('message', 'Successfully updated room booking information');
+        Session::flash('message', trans('labels.update_success'));
 
         return redirect()->back();
     }

@@ -78,4 +78,5 @@ return [
     'reject' => 'প্রত্যাখ্যান',
     'pending' => 'বিচারাধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
+    'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম'
 ];

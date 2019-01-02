@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Booking Request Edit Form</h4>
+                                    <h4 class="card-title">{{trans('hm::booking-request.booking_request_update_form')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -102,13 +102,21 @@
                     $('#billing-table').find('tbody').html(roomInfoRows);
                     $('#guests-info-table').find('tbody').html(guestInfoRows);
 
-                    $('#primary-contact-name').html($('#primary-contact-name-input').val());
+
+                    $('#primary-contact-name').html($('input[name=first_name]').val() + ' ' + $('input[name=middle_name]').val()
+                        + ' ' + $('input[name=last_name]').val());
                     $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
                     $('#start_date_display').html($('#start_date').val());
                     $('#end_date_display').html($('#end_date').val());
-                    $('#bard-referee-name').html($('input[name=referee_name]').val());
-                    $('#bard-referee-contact').html($('input[name=referee_contact]').val());
-                    $('#bard-referee-department').html($('#department-select').select2('data')[0].text);
+
+                    if ($('#referee-select').val()) {
+                        $('.bard-referee-summary-div').show();
+                        $('#bard-referee-name').html($('#referee-name').text());
+                        $('#bard-referee-designation').html($('#referee-designation').text());
+                        $('#bard-referee-department').html($('#referee-department').text());
+                    } else {
+                        $('.bard-referee-summary-div').hide();
+                    }
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -255,6 +263,9 @@
                     referee_dept: "required"
                 },
             });
+
+            $('#referee-select').val({!! $roomBooking->referee_id !!});
+            $('#referee-select').trigger('change.select2');
         });
 
         function getRoomTypeRates(event, roomTypeId) {
@@ -279,6 +290,26 @@
                 case 'special':
                     return 'Special Rate';
             }
+        }
+
+        function getRefereeInformation(employeeId) {
+            if (!employeeId) {
+                $('#bard-referee-div').hide();
+                return;
+            }
+            let employees = {!! $employees !!};
+            let designations = {!! $designations !!};
+            let departments = {!! $departments !!};
+
+            let employee = employees.find(emp => emp.id == employeeId);
+            let designation = designations.find(designation => designation.id == employee.designation_code);
+            let department = departments.find(dept => dept.id == employee.department_id);
+
+            $('#referee-name').html(employee.first_name + ' ' + employee.last_name);
+            $('#referee-designation').html(designation.name);
+            $('#referee-department').html(department.name);
+
+            $('#bard-referee-div').show();
         }
     </script>
 @endpush

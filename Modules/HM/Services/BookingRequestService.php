@@ -100,6 +100,8 @@ class BookingRequestService
             }
 
 
+
+
             return $roomBooking;
         });
     }
@@ -120,13 +122,41 @@ class BookingRequestService
                 $rateType = $rateInfo[0];
                 $rate = $rateInfo[1];
                 $roomBooking->roomInfos()->updateOrCreate([
-                    'id'   => $value['id'],
+                    'id' => $value['id'],
                 ],[
                     'room_type_id' => $value['room_type_id'],
                     'quantity' => $value['quantity'],
                     'rate_type' => $rateType,
                     'rate' => $rate
                 ]);
+            }
+
+            if ($data['photo']) {
+                Storage::delete($roomBooking->requester->photo);
+                $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+            }
+
+            Storage::delete($roomBooking->requester->nid_doc);
+            $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+
+            Storage::delete($roomBooking->requester->passport_doc);
+            $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+
+
+
+            $data['photo'] = $photoPath;
+            $data['nid_doc'] = $nidDocPath;
+            $data['passport_doc'] = $passportDocPath;
+
+            $roomBooking->requester->update($data);
+
+
+            foreach ($data['guests'] as $value){
+                Storage::delete($roomBooking->guestInfos->nid_doc);
+                $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                $roomBooking->guestInfos()->updateOrCreate([
+                    'id' => $value['id'],
+                ], $value);
             }
 
             return $roomBooking;

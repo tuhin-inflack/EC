@@ -21,7 +21,9 @@ class UpdateBookingRequest extends FormRequest
             'roomInfos.*.room_type_id' => 'exists:room_types,id|required',
             'roomInfos.*.quantity' => 'numeric|min:1|required',
             'roomInfos.*.rate' => 'regex:/^.+_.+$/i|required',
-            'name' => 'required|max:50',
+            'first_name' => 'required|max:50',
+            'middle_name' => 'required|max:50',
+            'last_name' => 'required|max:50',
             'gender' => 'in:male,female|required',
             'contact' => 'required|size:11',
             'address' => 'required|max:300',
@@ -43,9 +45,7 @@ class UpdateBookingRequest extends FormRequest
             'guests.*.nid_doc' => 'nullable|mimes:jpeg,bmp,png|max:3072',
             'guests.*.nid_no' => 'nullable|size:10',
             'guests.*.address' => 'max:300|required',
-            'referee_dept' => 'required|exists:departments,id',
-            'referee_name' => 'required|max:50',
-            'referee_contact' => 'required|max:50',
+            'employee_id' => 'nullable|exists:employees,id'
         ];
     }
 

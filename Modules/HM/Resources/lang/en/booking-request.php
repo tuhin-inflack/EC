@@ -77,5 +77,6 @@ return [
     'reject' => 'Reject',
     'pending' => 'Pending',
     'new_booking_request' => 'New Booking Request',
+    'booking_request_update_form' => 'Booking Request Update Form'
 
 ];

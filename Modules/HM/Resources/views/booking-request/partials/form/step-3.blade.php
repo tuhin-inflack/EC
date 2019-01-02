@@ -172,6 +172,7 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">@lang('labels.name')</label>
                                         <br>
+                                        {!! Form::hidden('id', $guestInfo->id) !!}
                                         {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
