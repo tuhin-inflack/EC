@@ -16,6 +16,6 @@ class TMSDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(TrainingTableSeeder::class);
     }
 }
