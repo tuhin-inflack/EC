@@ -83,8 +83,6 @@
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
-                    let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
-
                     let roomInfoRows = roomInfos.map(roomInfo => {
                         return `<tr>
                             <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
@@ -96,27 +94,32 @@
                         </tr>`;
                     });
 
-                    let guestInfoRows = guestInfos.map(guestInfo => {
-                        let male = '{!! trans('hm::booking-request.male') !!}'
-                        let female = '{!! trans('hm::booking-request.female') !!}'
-                        return `<tr>
-                            <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
-                            <td>${guestInfo.age}</td>
-                            <td>${guestInfo.gender == 'male' ? male : female}</td>
-                            <td>${guestInfo.relation}</td>
-                            <td>${guestInfo.address}</td>
-                        </tr>`;
-                    });
-
                     $('#billing-table').find('tbody').html(roomInfoRows);
-                    $('#guests-info-table').find('tbody').html(guestInfoRows);
-
 
                     $('#primary-contact-name').html($('input[name=first_name]').val() + ' ' + $('input[name=middle_name]').val()
                         + ' ' + $('input[name=last_name]').val());
                     $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
                     $('#start_date_display').html($('#start_date').val());
                     $('#end_date_display').html($('#end_date').val());
+
+                    if ($('.repeater-guest-information').has('div[data-repeater-item]').length >= 1) {
+                        $('.guests-info-div').show();
+                        let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
+                        let guestInfoRows = guestInfos.map(guestInfo => {
+                            let male = '{!! trans('hm::booking-request.male') !!}'
+                            let female = '{!! trans('hm::booking-request.female') !!}'
+                            return `<tr>
+                                <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
+                                <td>${guestInfo.age}</td>
+                                <td>${guestInfo.gender == 'male' ? male : female}</td>
+                                <td>${guestInfo.relation}</td>
+                                <td>${guestInfo.address}</td>
+                            </tr>`;
+                        });
+                        $('#guests-info-table').find('tbody').html(guestInfoRows);
+                    } else {
+                        $('.guests-info-div').hide();
+                    }
 
                     if ($('#referee-select').val()) {
                         $('.bard-referee-summary-div').show();

@@ -151,14 +151,19 @@ class BookingRequestService
 
             $roomBooking->requester->update($data);
 
-            foreach ($data['guests'] as $value) {
-                if ($data['nid_doc']) {
-                    Storage::delete($roomBooking->guestInfos->nid_doc);
-                    $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+            if (array_key_exists('guests', $data))
+            {
+                foreach ($data['guests'] as $value) {
+                    if ($data['nid_doc']) {
+                        Storage::delete($roomBooking->guestInfos->nid_doc);
+                        $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    }
+                    $roomBooking->guestInfos()->updateOrCreate([
+                        'id' => $value['id'],
+                    ], $value);
                 }
-                $roomBooking->guestInfos()->updateOrCreate([
-                    'id' => $value['id'],
-                ], $value);
+            } else {
+                $roomBooking->guestInfos()->delete();
             }
 
             return $roomBooking;
