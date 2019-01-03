@@ -56,17 +56,24 @@
                                             <td class="due-amount"></td>
                                         </tr>
                                         <tr>
-                                            <td>Pay</td>
+                                            <td>Amount</td>
                                             <td>
                                                 {{ Form::hidden('checkin_id', $checkin->id) }}
-                                                {{ Form::text('amount', null, ['class' => 'form-control required', 'min' => 0]) }}
+                                                {{ Form::number('amount', old('amount') ? old('amount') : null, ['class' => 'form-control required', 'min' => 0]) }}
+                                                @if($errors->has('amount'))
+                                                    <span class="danger">{{ $errors->first('amount') }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Method</td>
                                             <td>
-                                                {{ Form::select('type', ['cash' => 'cash', 'card' => 'card', 'check' => 'check'], null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
-                                                {{ Form::text('check_number', null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
+                                                {{ Form::select('type', ['cash' => 'cash', 'card' => 'card', 'check' => 'check'], old('type') ? old('type') : null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
+                                                {{ Form::text('check_number', old('check_number') ? old('check_number') : null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
+
+                                                @if($errors->has('check_number'))
+                                                    <span class="danger">{{ $errors->first('check_number') }}</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     </table>
@@ -97,9 +104,19 @@
 @push('page-js')
     <script type="text/javascript">
         $(document).ready(function () {
+            var totalAmount = Number($('#total-amount').text());
+            var dueAmount = Number(totalAmount - this.value);
+            $('.due-amount').html(dueAmount);
+
+            let checkNumber = '{!! old('check_number') !!}';
+            if (checkNumber) {
+                var element = $('input[name="check_number"]');
+                element.show();
+                element.val(checkNumber);
+            }
+
             /* # Payment
              ================================================= */
-
             $('input[name=amount]').keyup(function (e) {
                 var totalAmount = Number($('#total-amount').text());
                 var dueAmount = Number(totalAmount - this.value);
@@ -109,7 +126,6 @@
 
             /* # Payment Methods toggle
              ================================================= */
-
             $('select[name="type"]').change(function () {
                 var payment_method = this.value;
                 var element = $('input[name="check_number"]');

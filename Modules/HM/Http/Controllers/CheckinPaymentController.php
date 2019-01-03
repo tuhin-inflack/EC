@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
+use Modules\HM\Http\Requests\StoreCheckinPaymentRequest;
 use Modules\HM\Services\CheckinPaymentService;
 
 class CheckinPaymentController extends Controller
@@ -51,10 +52,10 @@ class CheckinPaymentController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param StoreCheckinPaymentRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreCheckinPaymentRequest $request)
     {
         $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['shortcode' => time()]));
         Session::flash('success', 'Successfully made payments');
