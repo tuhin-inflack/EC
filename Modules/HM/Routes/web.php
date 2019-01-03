@@ -12,7 +12,7 @@
 
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
-    Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('show', 'HMController@show'); // Temporary & Demo
     Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {
@@ -106,8 +106,8 @@ Route::prefix('hm')->group(function () {
     Route::prefix('check-in')->group(function () {
         Route::get('/', 'CheckinController@index')->name('check-in.index');
         Route::get('/create-options', 'CheckinController@createOptions')->name('check-in.create-options');
-        Route::get('/create', 'CheckinController@create')->name('check-in.create');
-        Route::post('/store', 'CheckinController@store')->name('check-in.store');
+        Route::get('/create/{roomBooking?}', 'CheckinController@create')->name('check-in.create');
+        Route::post('/store/{roomBookingId?}', 'CheckinController@store')->name('check-in.store');
         Route::get('approved-booking-requests', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
         Route::get('edit', 'CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('{roomBooking}', 'CheckinController@show')->name('check-in.show');

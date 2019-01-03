@@ -2,22 +2,24 @@
 
 namespace Modules\HM\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\HM\Services\HostelService;
+use Modules\HM\Services\RoomService;
 
 class HMController extends Controller
 {
     private $hostelService;
-
+    private $roomService;
     /**
      * HostelController constructor.
      * @param HostelService $hostelService
+     * @param RoomService $roomService
      */
-    public function __construct(HostelService $hostelService)
+    public function __construct(HostelService $hostelService, RoomService $roomService)
     {
         $this->hostelService = $hostelService;
+        $this->roomService = $roomService;
     }
 
     /**
@@ -26,82 +28,49 @@ class HMController extends Controller
      */
     public function index()
     {
-        return view('hm::index');
+        $roomDetails = [];
+        $hostels = $this->hostelService->getAll();
+
+        foreach ($hostels as $hostel){
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        }
+
+        $allRoomsCountBasedOnStatus = $this->allRoomsCountBasedOnStatus();
+
+        return view('hm::index', compact('hostels', 'roomDetails', 'allRoomsCountBasedOnStatus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
+    public function allRoomsCountBasedOnStatus()
     {
-        return view('hm::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        $hostel = (object)[
-            'shortcode' => 'BR52451',
-            'name' => 'Hostal Name 1',
-            'level' => '5',
-            'total_room' => '25',
-            'total_seat' => '30',
-            'rooms' => [
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ],
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ]
-            ],
-            'roomTypes' => [
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ],
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ]
-            ]
+        $overAllStatus = [
+            'booked' => 0,
+            'available' => 0,
+            'not_in_service' => 0
         ];
-        return view('hm::hostel.show', compact('hostel'));
+
+        $allRoomsCount = $this->roomService->getAllRoomCountByStatus()->toArray();
+        $allRoomsCount = array_column($allRoomsCount, 'room_count', 'status');
+
+        $overAllStatus['booked'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
+        $overAllStatus['available'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
+        $overAllStatus['not_in_service'] = (isset($allRoomsCount['not-in-service']) ? $allRoomsCount['not-in-service'] : 0);
+
+        return $overAllStatus;
     }
 
+    public function show(){
+        $roomDetails = [];
+        $hostels = $this->hostelService->getAll();
+        foreach ($hostels as $hostel){
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
+        return $hostels;
+    }
+
     public function roomsChart()
     {
-        return view('hm::room.chart');
+        return view('hm::dashboard.chart');
     }
 
 }

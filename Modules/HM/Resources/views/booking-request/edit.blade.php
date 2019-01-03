@@ -182,7 +182,7 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {!! (count($guestInfos) || old('guests')) ? 'false' : 'true'  !!},
+                initEmpty: {!! (count($roomBooking->guestInfos) || old('guests')) ? 'false' : 'true'  !!},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -217,7 +217,7 @@
                 placeholder: 'Select Department'
             });
 
-            let roomInfos = {!! $roomInfos !!};
+            let roomInfos = {!! $roomBooking->roomInfos !!};
             let roomTypes = {!! $roomTypes !!};
 
             $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
@@ -264,7 +264,7 @@
                     end_date: {
                         greaterThanOrEqual: '#start_date'
                     },
-                    name: {
+                    first_name: {
                         maxlength: 50
                     },
                     contact: {

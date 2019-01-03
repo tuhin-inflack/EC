@@ -14,7 +14,7 @@ class AddStatusRoomsTable extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->enum('status', ['available', 'unavailable', 'partially-available'])->default('available');
+            $table->enum('status', ['available', 'unavailable', 'partially-available', 'not-in-service'])->default('available');
         });
     }
 
