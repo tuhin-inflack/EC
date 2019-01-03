@@ -23,7 +23,8 @@
             <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
             <div class="form-group">
                 <div class="input-group">
-                {{ Form::text('end_date', $page == 'create' ? old('end_date') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
+                {{ Form::text('end_date', $page == 'create' ? (new DateTime())->add(new DateInterval("P1D"))
+                                 ->format('j F, Y') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
 
                 @if ($errors->has('end_date'))
                     <span class="invalid-feedback" role="alert">
