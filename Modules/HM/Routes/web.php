@@ -117,6 +117,8 @@ Route::prefix('hm')->group(function () {
         Route::get('{roomBooking}/payments/{checkinPayment}/show', 'CheckinPaymentController@show')->name('check-in-payments.show');
     });
 
+    Route::post('check-out/{roomBooking}', 'CheckoutController@update')->name('check-out.update');
+
     Route::prefix('bill')->group(function () {
         Route::get('/', 'BillController@index')->name('bill.index'); // Temporary & Demo
         Route::get('search-check-in', 'BillController@searchCheckIn')->name('bill.search-check-in'); // Temporary & Demo
