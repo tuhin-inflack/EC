@@ -1,7 +1,7 @@
 <h6>{{ trans('hm::booking-request.step_1') }}</h6>
 <fieldset>
     <h4 class="form-section"><i
-                class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
+            class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
     </h4>
     <div class="row">
         <div class="col-md-6">
@@ -52,7 +52,7 @@
     </div>
 
     <h4 class="form-section"><i
-                class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
+            class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">
@@ -84,8 +84,8 @@
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
                                     <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
-                                                                        </span>
+                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -104,7 +104,7 @@
                                 <button type="button"
                                         class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                        class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                 <button type="button" class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                        class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -154,7 +154,7 @@
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label for="quantity">Quantity <span
-                                                class="danger">*</span></label>
+                                            class="danger">*</span></label>
                                     <br>
                                     {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
@@ -167,7 +167,7 @@
                                     <button type="button"
                                             class="btn btn-outline-danger"
                                             data-repeater-delete=""><i
-                                                class="ft-x"></i>
+                                            class="ft-x"></i>
                                     </button>
                                 </div>
                             </div>

@@ -9,29 +9,13 @@
             </li>
             <li class="{{ is_active_route('booking-requests.index') }}">
                 <a href="{{ route('booking-requests.index') }}">
-                    <i class="la la-book"></i>
-                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::booking-request.booking_request')</span>
-                </a>
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::booking-request.booking_request')</span></a>
             </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-book"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">Check-in</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('check-in.create') }}">
-                        <a href="{{ route('check-in.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">New</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('check-in.index') }}">
-                        <a href="{{ route('check-in.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.list')</span>
-                        </a>
-                    </li>
-                </ul>
+            <li class="{{ is_active_route('check-in.index') }}">
+                <a href="{{ route('check-in.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::booking-request.check_in')</span></a>
             </li>
             <li class="nav-item">
                 <a href="#">
@@ -54,24 +38,28 @@
                     <li class="{{ is_active_route('bill.payment-list') }}">
                         <a href="{{ route('bill.payment-list') }}">
                             <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::bill.bill_payment_list')</span>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">@lang('hm::bill.bill_payment_list')</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hm::hostel_budget.menu_title') }}</span></a>
+                <a href="#" class=""><i class="la la-money"></i><span class="menu-title"
+                                                                      data-i18n="nav.templates.main">{{ trans('hm::hostel_budget.menu_title') }}</span></a>
                 <ul class="menu-content">
                     <li class="{{ is_active_match('hm/hostel-budget') }}">
                         <a href="{{ url('hm/hostel-budgets') }}">
                             <i class="la la-hotel"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_budget') }}</span>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_budget') }}</span>
                         </a>
                     </li>
                     <li class="{{ is_active_url('hm/hostel-budget-section')}}">
                         <a href="{{ url('hm/hostel-budget-section') }}">
                             <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
+                            <span class="menu-title"
+                                  data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
                         </a>
                     </li>
                 </ul>
@@ -82,7 +70,8 @@
                     <span class="menu-title" data-i18n="nav.templates.main">Annual Purchase</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('annual-purchases.create') }}"><a href="{{ route('annual-purchases.create') }}">
+                    <li class="{{ is_active_route('annual-purchases.create') }}"><a
+                                href="{{ route('annual-purchases.create') }}">
                             <i class="la la-plus"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">Create</span></a>
                     </li>

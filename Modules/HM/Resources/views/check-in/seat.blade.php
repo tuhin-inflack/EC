@@ -1,7 +1,6 @@
 @extends('hm::layouts.master')
 @section('title', 'Approved Booking Request')
 @push('page-css')
-    <style type="text/css" src="css/jquery.seat-charts.css"></style>
     <style type="text/css">
         .hostel-level {
             background-color: #ff22f3;

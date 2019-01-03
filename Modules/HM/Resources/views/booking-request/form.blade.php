@@ -1,8 +1,17 @@
-@if($page == 'create')
-    {!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
-@else
-    {!! Form::open(['route' =>  ['booking-requests.update', $roomBooking->id], 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
-    @method('PUT')
+@if($type == 'booking')
+    @if($page == 'create')
+        {!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+    @else
+        {!! Form::open(['route' =>  ['booking-requests.update', $roomBooking->id], 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+        @method('PUT')
+    @endif
+@elseif($type == 'checkin')
+    @if($page == 'create')
+        {!! Form::open(['route' =>  'check-in.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+    @else
+        {!! Form::open(['route' =>  ['check-in.update', $roomBooking->id], 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+        @method('PUT')
+    @endif
 @endif
 <!-- Logic for handling booking from multiple place -->
 <!-- Step 1 -->

@@ -9,8 +9,10 @@
 return [
     'create' => 'সৃষ্টি',
     'title' => 'বুকিং তৈরি করুন',
+    'booking' => 'বুকিং',
     'booking_request' => 'বুকিং অনুরোধ',
     'card_title' => 'বুকিং অনুরোধ ফর্ম',
+    'check_in_card_title' => 'বুকিং অনুরোধ ফর্ম',
     'booking_details' => 'বুকিং বিবরণ',
     'start_date' => 'শুরুর তারিখ',
     'end_date' => 'শেষ তারিখ',
