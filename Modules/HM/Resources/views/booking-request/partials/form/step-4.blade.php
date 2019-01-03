@@ -28,6 +28,7 @@
                     <th>{{ trans('hm::booking-request.duration') }}</th>
                     <th>{{ trans('hm::booking-request.rate_type') }}</th>
                     <th>{{ trans('hm::booking-request.rate') }}</th>
+                    <th>{{ trans('hm::booking-request.total_rate') }}</th>
                 </tr>
                 </thead>
                 <tbody>

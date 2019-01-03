@@ -115,10 +115,12 @@
                         $('.guests-info-div').show();
                         let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
                         let guestInfoRows = guestInfos.map(guestInfo => {
+                            let male = '{!! trans('hm::booking-request.male') !!}'
+                            let female = '{!! trans('hm::booking-request.female') !!}'
                             return `<tr>
                                 <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
                                 <td>${guestInfo.age}</td>
-                                <td>${guestInfo.gender}</td>
+                                <td>${guestInfo.gender == 'male' ? male : female}</td>
                                 <td>${guestInfo.relation}</td>
                                 <td>${guestInfo.address}</td>
                             </tr>`;
@@ -186,7 +188,6 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {{ old('guests') ? 'false' : 'true' }},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -309,5 +310,6 @@
 
             $('#bard-referee-div').show();
         }
+
     </script>
 @endpush
