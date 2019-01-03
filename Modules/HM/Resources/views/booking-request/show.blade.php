@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Booking Requests')
+@section('title', $type == 'checkin' ? trans('hm::booking-request.check_in') : trans('hm::booking-request.booking_request'))
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"
-                            id="basic-layout-form">@lang('hm::booking-request.booking_request') @lang('labels.details')</h4>
+                            id="basic-layout-form">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -20,9 +20,10 @@
                     </div>
                     <div class="card-content collapse show">
                         <div id="Data">
-
                             <div class="card-body" style="padding-left: 20px;">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.booking_details')</span></p>
+                                <p>
+                                    <span class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
+                                </p>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="table-responsive">
@@ -208,57 +209,86 @@
                                 </div>
                             @endif
                         </div>
-                        {{ Form::open(['route' => ['booking-request-status.edit', $roomBooking], 'method' => 'put', 'id' => 'booking-request-status-form']) }}
-                        <div class="card-body" style="padding-left: 20px;">
-                            <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
-                                        {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => 'note', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
-                                        @if ($errors->has('note'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('note') }}</strong>
-                                            </span>
-                                        @endif
+                        @if($type == 'checkin')
+                            <div class="card-body" style="padding-left: 20px;">
+                                <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <textarea name="message" class="form-control" placeholder="Write here..." rows="3" disabled>This is the notes from Authorities</textarea>
+                                        </div>
                                     </div>
-
+                                </div>
+                                <div class="form-actions">
+                                    <a class="btn btn-outline-danger mr-1" role="button" href="{{ route('check-in.index') }}">
+                                        <i class="ft-x"></i> @lang('labels.cancel')
+                                    </a>
+                                    <a class="btn btn-success mr-1" role="button" href="javascript:confirm('Check Out !!');">
+                                        <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
+                                    </a>
+                                    <a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
+                                        <i class="ft-file-plus"></i> @lang('hm::bill.bill_generate')
+                                    </a>
+                                    <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('bill.payments-of-check-in') }}">
+                                        <i class="ft-list"></i> @lang('hm::bill.bill_payment')
+                                    </a>
+                                    <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">
+                                        <i class="ft-printer"></i> @lang('labels.print')</button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card-body" style="padding-left: 20px;">
-                            <div class="form-actions">
-                                <a class="btn btn-warning mr-1" role="button"
-                                   href="{{ route('booking-requests.index') }}">
-                                    <i class="ft-x"></i> @lang('labels.cancel')
-                                </a>
-                                @if($roomBooking->status != 'pending')
-                                    <button class="btn btn-secondary mr-1" type="button"
-                                            onclick="changeStatus('pending')"><i
-                                                class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
-                                    </button>
-                                @endif
-                                @if($roomBooking->status != 'rejected')
-                                    <button class="btn btn-danger mr-1" type="button"
-                                            onclick="changeStatus('rejected')"><i
-                                                class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                    </button>
-                                @endif
-                                @if($roomBooking->status != 'approved')
-                                    <button class="btn btn-success mr-1" type="button"
-                                            onclick="changeStatus('approved')"><i
-                                                class="ft-check"></i> @lang('hm::booking-request.approve')
-                                    </button>
-                                    <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
-                                                class="ft-printer"></i> Print
-                                    </button>
+                        @else
+                            {{ Form::open(['route' => ['booking-request-status.edit', $roomBooking], 'method' => 'put', 'id' => 'booking-request-status-form']) }}
+                            <div class="card-body" style="padding-left: 20px;">
+                                <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
+                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => 'note', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
-                                @endif
+                                            @if ($errors->has('note'))
+                                                <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('note') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        {{ Form::close() }}
+                            <div class="card-body" style="padding-left: 20px;">
+                                <div class="form-actions">
+                                    <a class="btn btn-warning mr-1" role="button"
+                                       href="{{ route('booking-requests.index') }}">
+                                        <i class="ft-x"></i> @lang('labels.cancel')
+                                    </a>
+                                    @if($roomBooking->status != 'pending')
+                                        <button class="btn btn-secondary mr-1" type="button"
+                                                onclick="changeStatus('pending')"><i
+                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                        </button>
+                                    @endif
+                                    @if($roomBooking->status != 'rejected')
+                                        <button class="btn btn-danger mr-1" type="button"
+                                                onclick="changeStatus('rejected')"><i
+                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                        </button>
+                                    @endif
+                                    @if($roomBooking->status != 'approved')
+                                        <button class="btn btn-success mr-1" type="button"
+                                                onclick="changeStatus('approved')"><i
+                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
+                                        </button>
+                                        <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
+                                                    class="ft-printer"></i> Print
+                                        </button>
 
+                                    @endif
+                                </div>
+                            </div>
+                            {{ Form::close() }}
+                        @endif
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::booking-request.title'))
+@section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
     <div class="container">
@@ -20,7 +20,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{ trans('hm::booking-request.card_title') }}</h4>
+                                    <h4 class="card-title">{{ $type=='checkin'?trans('hm::booking-request.check_in_card_title')
+                                    : trans('hm::booking-request.card_title')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -115,7 +116,7 @@
                         let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
                         let guestInfoRows = guestInfos.map(guestInfo => {
                             return `<tr>
-                                <td>${guestInfo.name}</td>
+                                <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
                                 <td>${guestInfo.age}</td>
                                 <td>${guestInfo.gender}</td>
                                 <td>${guestInfo.relation}</td>
@@ -159,7 +160,9 @@
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#start_date, #end_date').pickadate();
+            $('#start_date, #end_date').pickadate({
+                min: new Date()
+            });
 
             // form-repeater
             $('.repeater-room-infos').repeater({

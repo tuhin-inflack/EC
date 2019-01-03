@@ -1,13 +1,13 @@
 <h6>{{ trans('hm::booking-request.step_1') }}</h6>
 <fieldset>
     <h4 class="form-section"><i
-                class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
+            class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
     </h4>
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
-                {{ Form::text('start_date', $page == 'create' ? old('start_date') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+                {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
                 @if ($errors->has('start_date'))
                     <span class="invalid-feedback" role="alert">
@@ -16,7 +16,7 @@
                 @endif
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="form-group">
                 <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
                 {{ Form::text('end_date', $page == 'create' ? old('end_date') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
@@ -26,14 +26,6 @@
                                                             <strong>{{ $errors->first('end_date') }}</strong>
                                                         </span>
                 @endif
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="form-group">
-                <label>{{ trans('hm::booking-request.booking_date') }}</label>
-                <input type="text" class="form-control"
-                       value="{{ $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)) }}"
-                       disabled>
             </div>
         </div>
     </div>
@@ -60,7 +52,7 @@
     </div>
 
     <h4 class="form-section"><i
-                class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
+            class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">
@@ -92,8 +84,8 @@
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
                                     <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
-                                                                        </span>
+                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.quantity') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -112,7 +104,7 @@
                                 <button type="button"
                                         class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                        class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -144,7 +136,7 @@
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                 <button type="button" class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                        class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -162,7 +154,7 @@
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label for="quantity">Quantity <span
-                                                class="danger">*</span></label>
+                                            class="danger">*</span></label>
                                     <br>
                                     {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
@@ -175,7 +167,7 @@
                                     <button type="button"
                                             class="btn btn-outline-danger"
                                             data-repeater-delete=""><i
-                                                class="ft-x"></i>
+                                            class="ft-x"></i>
                                     </button>
                                 </div>
                             </div>

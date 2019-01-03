@@ -9,14 +9,38 @@
                         <div class="form">
                             <div class="row">
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required">@lang('labels.name')</label>
+                                    <label class="required">@lang('hm::booking-request.first_name')</label>
                                     <br>
-                                    {!! Form::text('name', $oldInput['name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                    {!! Form::text('first_name', $oldInput['first_name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.first_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
 
-                                    @if ($errors->has('guests.' . $loop->index . '.name'))
+                                    @if ($errors->has('guests.' . $loop->index . '.first_name'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                                            <strong>{{ $errors->first('guests.' . $loop->index . '.name') }}</strong>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.first_name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label>@lang('hm::booking-request.middle_name')</label>
+                                    <br>
+                                    {!! Form::text('middle_name', $oldInput['middle_name'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.middle_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+
+                                    @if ($errors->has('guests.' . $loop->index . '.middle_name'))
+                                        <span class="invalid-feedback"
+                                              role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.middle_name') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">@lang('labels.last_name')</label>
+                                    <br>
+                                    {!! Form::text('last_name', $oldInput['last_name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.last_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+
+                                    @if ($errors->has('guests.' . $loop->index . '.last_name'))
+                                        <span class="invalid-feedback"
+                                              role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.last_name') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -114,9 +138,19 @@
                         <div class="form">
                             <div class="row">
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required">@lang('labels.name')</label>
+                                    <label class="required">@lang('hm::booking-request.first_name')</label>
                                     <br>
-                                    {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                    {!! Form::text('first_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label>@lang('hm::booking-request.middle_name')</label>
+                                    <br>
+                                    {!! Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">@lang('hm::booking-request.last_name')</label>
+                                    <br>
+                                    {!! Form::text('last_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.age') }}</label>
@@ -171,13 +205,23 @@
                                 <div class="form">
                                     <div class="row">
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                                            <label class="required">@lang('labels.name')</label>
+                                            <label class="required">@lang('hm::booking-request.first_name')</label>
                                             <br>
                                             {!! Form::hidden('id', $guestInfo->id) !!}
-                                            {!! Form::text('name', $guestInfo->name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                            {!! Form::text('first_name', $guestInfo->first_name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                                            <label class="required">@lang('labels.name')</label>
+                                            <label>@lang('hm::booking-request.middle_name')</label>
+                                            <br>
+                                            {!! Form::text('middle_name', $guestInfo->middle_name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                        </div>
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <label class="required">@lang('hm::booking-request.last_name')</label>
+                                            <br>
+                                            {!! Form::text('last_name', $guestInfo->last_name, ['class' => 'form-control', 'placeholder' => 'John Doe']) !!}
+                                        </div>
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <label class="required">@lang('hm::booking-request.age')</label>
                                             <br>
                                             {!! Form::number('age', $guestInfo->age, ['class' => 'form-control', 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                         </div>
@@ -234,10 +278,20 @@
                             <div class="form">
                                 <div class="row">
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                        <label class="required">@lang('labels.name')</label>
+                                        <label class="required">@lang('hm::booking-request.first_name')</label>
                                         <br>
                                         {!! Form::hidden('id', null) !!}
-                                        {!! Form::text('name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                        {!! Form::text('first_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label>@lang('hm::booking-request.middle_name')</label>
+                                        <br>
+                                        {!! Form::text('middle_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label class="required">@lang('hm::booking-request.last_name')</label>
+                                        <br>
+                                        {!! Form::text('last_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.age') }}</label>

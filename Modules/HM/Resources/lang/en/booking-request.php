@@ -9,6 +9,7 @@
 return [
     'create' => 'Create',
     'title' => 'Booking Create',
+    'booking' => 'Booking',
     'booking_request' => 'Booking Request',
     'card_title' => 'Booking Request Form',
     'booking_details' => 'Booking Details',

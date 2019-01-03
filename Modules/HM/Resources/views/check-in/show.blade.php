@@ -159,32 +159,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body" style="padding-left: 20px;">
-                            <p><span class="text-bold-600">Note by Authority</span></p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control" placeholder="Write here..." rows="3" disabled>This is the notes from Authorities</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <a class="btn btn-outline-danger mr-1" role="button" href="{{ route('check-in.index') }}">
-                                    <i class="ft-x"></i> Cancel
-                                </a>
-                                <a class="btn btn-success mr-1" role="button" href="javascript:confirm('Check Out !!');">
-                                    <i class="ft-check-circle"></i> Check out
-                                </a>
-                                <a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
-                                    <i class="ft-file-plus"></i> Create Bill
-                                </a>
-                                <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('bill.payments-of-check-in') }}">
-                                    <i class="ft-list"></i> Payments
-                                </a>
-                                <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">
-                                    <i class="ft-printer"></i> Print</button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
