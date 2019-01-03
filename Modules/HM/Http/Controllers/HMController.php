@@ -35,37 +35,13 @@ class HMController extends Controller
             $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
         }
 
-        $allRoomsCountBasedOnStatus = $this->allRoomsCountBasedOnStatus();
+        $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();
 
         return view('hm::index', compact('hostels', 'roomDetails', 'allRoomsCountBasedOnStatus'));
     }
 
-    public function allRoomsCountBasedOnStatus()
-    {
-        $overAllStatus = [
-            'booked' => 0,
-            'available' => 0,
-            'not_in_service' => 0
-        ];
-
-        $allRoomsCount = $this->roomService->getAllRoomCountByStatus()->toArray();
-        $allRoomsCount = array_column($allRoomsCount, 'room_count', 'status');
-
-        $overAllStatus['booked'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
-        $overAllStatus['available'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
-        $overAllStatus['not_in_service'] = (isset($allRoomsCount['not-in-service']) ? $allRoomsCount['not-in-service'] : 0);
-
-        return $overAllStatus;
-    }
-
     public function show(){
-        $roomDetails = [];
-        $hostels = $this->hostelService->getAll();
-        foreach ($hostels as $hostel){
-            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
-        }
-
-        return $hostels;
+        return $this->hostelService->getRoomsCountBasedOnStatus();
     }
 
     public function roomsChart()

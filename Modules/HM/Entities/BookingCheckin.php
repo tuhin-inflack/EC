@@ -15,5 +15,5 @@ class BookingCheckin extends Model
 {
     protected $table = 'booking_checkin';
 
-    protected $fillable = ['id', 'booking_id', 'checkin_id'];
+    protected $fillable = ['booking_id', 'checkin_id'];
 }

@@ -13,7 +13,7 @@ class CreateBookingCheckingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('booking_checking', function (Blueprint $table) {
+        Schema::create('booking_checkin', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('booking_id')->unsigned();
             $table->integer('checkin_id')->unsigned();
@@ -28,6 +28,6 @@ class CreateBookingCheckingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('booking_checking');
+        Schema::dropIfExists('booking_checkin');
     }
 }

@@ -93,7 +93,8 @@ class BookingRequestService
                 }));
             }
             if ($type == 'checkin' && isset($data['booking_id'])) {
-                $roomBooking->booking()->save(new BookingCheckin(['checkin_id' => $roomBooking->id, 'booking_id', $data['booking_id']]));
+                BookingCheckin::create(['checkin_id' => $roomBooking->id, 'booking_id' => (int)$data['booking_id']]);
+//                $roomBooking->booking()->save($bookingCheckin);
             }
             if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])

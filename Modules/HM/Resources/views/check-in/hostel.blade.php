@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Hostel selection')
+@section('title', __('hm::hostel.title').' '.__('labels.select'))
 @push('page-css')
 @endpush
 @section('content')
@@ -8,7 +8,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="selectionModalLabel">Select Hostel</h5>
+                    <h5 class="modal-title" id="selectionModalLabel">@lang('hm::hostel.title') @lang('labels.select')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -24,8 +24,8 @@
                                     </td>
                                     @foreach($details['roomDetails'] as $roomDetail)
                                         <td>
-                                            {{'Type: '.$roomDetail->room_type}}<br/>
-                                            {{'Total Room: '.$roomDetail->room_count}}
+                                            {{__('hm::roomtype.title').': '.$roomDetail->room_type}}<br/>
+                                            {{__('hm::hostel.total_rooms').': '.$roomDetail->room_count}}
                                         </td>
                                     @endforeach
                                 </tr>

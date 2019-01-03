@@ -50,11 +50,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <fieldset>
-                                        <legend>Booking Details</legend>
-                                        <label>Booking Code: {{$roomBookingDetails->shortcode}}</label>
-                                        <label>Booking Type: {{$roomBookingDetails->booking_type}}</label>
-                                        <label>Start Date: {{$roomBookingDetails->start_date}}</label>
-                                        <label>End Date: {{$roomBookingDetails->end_date}}</label>
+                                        <legend>@lang('hm::booking-request.checkin_details') :</legend>
+                                        <label>@lang('labels.code') : {{$roomBookingDetails->shortcode}}</label>&nbsp;&nbsp;
+                                        <label>@lang('hm::booking-request.checkin_type') : {{$roomBookingDetails->booking_type}}</label>&nbsp;&nbsp;
+                                        <label>@lang('hm::booking-request.start_date') : {{$roomBookingDetails->start_date}}</label>&nbsp;&nbsp;
+                                        <label>@lang('hm::booking-request.end_date') : {{$roomBookingDetails->end_date}}</label>
                                     </fieldset>
                                 </div>
                             </div>
