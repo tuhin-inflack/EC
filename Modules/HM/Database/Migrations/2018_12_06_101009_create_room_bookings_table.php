@@ -23,7 +23,7 @@ class CreateRoomBookingsTable extends Migration
             $table->enum('status', ['approved', 'pending', 'rejected']);
             $table->string('note')->nullable();
             $table->unsignedInteger('employee_id')->nullable();
-            $table->enum('type', ['booking', 'checkin'])->default('checkin');
+            $table->enum('type', ['booking', 'checkin'])->default('booking');
             $table->timestamps();
         });
     }

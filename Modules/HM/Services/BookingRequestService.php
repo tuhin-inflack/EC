@@ -193,4 +193,11 @@ class BookingRequestService
     {
         return $this->roomBookingRequesterRepository->pluckContactBookingId();
     }
+
+    public function getCheckInList()
+    {
+        $checkins = $this->roomBookingRepository->findBy(['type' => 'checkin']);
+
+        return $checkins;
+    }
 }

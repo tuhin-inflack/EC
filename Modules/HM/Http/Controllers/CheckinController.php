@@ -67,7 +67,8 @@ class CheckinController extends Controller
      */
     public function index()
     {
-        return view('hm::check-in.index');
+        $checkins = $this->bookingRequestService->getCheckInList();
+        return view('hm::check-in.index', compact('checkins'));
     }
 
     /**
