@@ -59,7 +59,6 @@ return [
     'relation' => 'সম্পর্ক',
     'bard_reference' => 'বার্ড উল্লেখ',
     'bard_reference_info' => 'বার্ড উল্লেখ তথ্য',
-
     'department' => 'বিভাগ',
     'employee_name' => 'কর্মকর্তার নাম',
     'billing_information' => 'বিল সংক্রান্ত তথ্য',
@@ -72,7 +71,6 @@ return [
     'booked_by' => 'যার দ্বারা বুক',
     'check_in_date' => 'চেক ইন তারিখ',
     'check_out_date' => 'চেক আউট তারিখ',
-    'guests' => 'অতিথি',
     'guests' => 'অতিথি',
     'request_id' => 'অনুরোধ আইডি',
     'requested_on' => 'অনুরোধ করা',

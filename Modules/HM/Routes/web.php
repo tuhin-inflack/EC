@@ -12,7 +12,7 @@
 
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
-    Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('show', 'HMController@show'); // Temporary & Demo
     Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {
@@ -111,6 +111,10 @@ Route::prefix('hm')->group(function () {
         Route::get('approved-booking-requests', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
         Route::get('edit', 'CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('{roomBooking}', 'CheckinController@show')->name('check-in.show');
+        Route::get('{roomBooking}/payments', 'CheckinPaymentController@index')->name('check-in-payments.index');
+        Route::get('{roomBooking}/payments/create', 'CheckinPaymentController@create')->name('check-in-payments.create');
+        Route::post('{roomBooking}/payments', 'CheckinPaymentController@store')->name('check-in-payments.store');
+        Route::get('{roomBooking}/payments/{checkinPayment}/show', 'CheckinPaymentController@show')->name('check-in-payments.show');
     });
 
     Route::prefix('bill')->group(function () {

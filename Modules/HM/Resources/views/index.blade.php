@@ -1,87 +1,112 @@
 @extends('hm::layouts.master')
 @section('title', trans('hm::hostel.menu_title'))
 
-@section('content')
-    <h1>
-        @lang('labels.dashboard')
-        <span class="font-size-base">
-            Module: {!! config('hm.name') !!}
-        </span>
-    </h1>
+@push('page-css')
+    <style type="text/css">
+        .hostel-level {
+            background-color: #fdfbff;
+            color: black;
+        }
 
+        .rooms {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .available {
+            background-color: #a3e279;
+            color: black;
+        }
+
+        .unavailable {
+            background-color: #ee843c;
+            color: #fcfcfc;
+        }
+
+        .partially-available {
+            background-color: purple;
+            color: #fcfcfc;
+        }
+    </style>
+@endpush
+@section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.menu_title')</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-content collapse show">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>@lang('hm::hostel.menu_title')</th>
-                                        <th>@lang('hm::hostel.total_rooms')</th>
-                                        <th>@lang('hm::hostel.booked_rooms')</th>
-                                        <th>@lang('hm::hostel.available_rooms')</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <th>
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <i class="la la-building warning font-large-2"></i>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h1 class="">
-                                                        <a href="{{ route('room.chart') }}"
-                                                               class="text-capitalize">HOSTEL NAME</a>
-                                                    </h1>
-                                                    <span>number of floors 5</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th><h2>25</h2></th>
-                                        <th><h2>15</h2></th>
-                                        <th><h2>10</h2></th>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            <div class="row">
-                                                <div class="col-2">
-                                                    <i class="la la-building warning font-large-2"></i>
-                                                </div>
-                                                <div class="col-10">
-                                                    <h1 class="">
-                                                        <a href="{{ route('hostels.detail') }}"
-                                                           class="text-capitalize">HOSTEL NAME</a>
-                                                    </h1>
-                                                    <span>number of floors 6</span>
-                                                </div>
-                                            </div>
-                                        </th>
-                                        <th><h2>67</h2></th>
-                                        <th><h2>41</h2></th>
-                                        <th><h2>26</h2></th>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12">
+                <h1 class="content-header-title">{{trans('labels.dashboard')}}</h1>
+            </div>
+            <div class="content-header-right col-md-6 col-12">
+                <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-outline-info round" href="{{ route('booking-requests.create') }}">
+                            <i class="ft-book"></i> Booking Request
+                        </a>
+                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create') }}">
+                            <i class="ft-bookmark"></i> Check In
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
+        <br>
+
+        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
+        @include('hm::dashboard.hostel-info', ['hostels' => $hostels])
+
     </div>
 @stop
+
+{{--<button onclick="addData()">Click me</button>--}}
+
+@push('page-js')
+    <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        var pieSimpleChart;
+
+        $(window).on("load", function(){
+
+            //Get the context of the Chart canvas element we want to select
+            var ctx = $("#hostel-pie-chart");
+
+            // Chart Options
+            var chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                responsiveAnimationDuration:800,
+            };
+
+            // Chart Data
+            var chartData = {
+                labels: ["Booked", "Available", "Not for Service"],
+                datasets: [{
+                    label: "Hostel",
+                    data: [
+                        {{$allRoomsCountBasedOnStatus['booked']}},
+                        {{$allRoomsCountBasedOnStatus['available']}},
+                        {{$allRoomsCountBasedOnStatus['not_in_service']}}
+                    ],
+                    backgroundColor: ['#00A5A8', '#28D094', '#FF4558'],
+                }]
+            };
+
+            var config = {
+                type: 'pie',
+                // Chart Options
+                options : chartOptions,
+                data : chartData
+            };
+
+            // Create the chart
+            pieSimpleChart = new Chart(ctx, config);
+
+        });
+
+        function addData() {
+            pieSimpleChart.data.datasets.forEach((dataset) => {
+                dataset.data = [5, 1, 5];
+            });
+            pieSimpleChart.update();
+        }
+    </script>
+@endpush
