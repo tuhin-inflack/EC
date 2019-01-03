@@ -52,7 +52,7 @@ class BookingRequestService
 
     public function store(array $data, $type = 'booking')
     {
-       return DB::transaction(function () use ($data, $type) {
+        return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
@@ -150,7 +150,6 @@ class BookingRequestService
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
 
-
             $data['photo'] = $photoPath;
             $data['nid_doc'] = $nidDocPath;
             $data['passport_doc'] = $passportDocPath;
@@ -158,8 +157,8 @@ class BookingRequestService
             $roomBooking->requester->update($data);
 
 
-            foreach ($data['guests'] as $value){
-                if ($data['nid_doc']){
+            foreach ($data['guests'] as $value) {
+                if ($data['nid_doc']) {
                     Storage::delete($roomBooking->guestInfos->nid_doc);
                     $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
                 }
@@ -192,12 +191,5 @@ class BookingRequestService
     public function pluckContactBookingIdForApprovedBooking()
     {
         return $this->roomBookingRequesterRepository->pluckContactBookingId();
-    }
-
-    public function getCheckInList()
-    {
-        $checkins = $this->roomBookingRepository->findBy(['type' => 'checkin']);
-
-        return $checkins;
     }
 }

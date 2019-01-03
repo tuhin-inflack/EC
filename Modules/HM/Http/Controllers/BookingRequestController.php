@@ -67,7 +67,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookingRequests = $this->bookingRequestService->findAll();
+        $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
