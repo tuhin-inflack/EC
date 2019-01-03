@@ -123,12 +123,18 @@ class CheckinController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking)
     {
         $type = 'checkin';
-        $roomBooking = RoomBooking::first();
+
+        if ($roomBooking->type != 'checkin')
+        {
+            abort(404);
+        }
+
         return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 

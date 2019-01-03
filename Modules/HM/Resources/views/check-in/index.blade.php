@@ -34,7 +34,7 @@
                                         @foreach($checkins as $checkin)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $checkin->shortcode }}</td>
+                                                <td><a href="{{ route('check-in.show', $checkin->id) }}">{{ $checkin->shortcode }}</a></td>
                                                 <td>{{ $checkin->shortcode }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
