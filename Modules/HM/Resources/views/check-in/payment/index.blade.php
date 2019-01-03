@@ -102,7 +102,7 @@
                         </div>
                         <div class="card-body" style="padding-left: 20px;">
                             <div class="form-actions">
-                                <a class="btn btn-warning mr-1" role="button" href="{{ route('bill.index') }}">
+                                <a class="btn btn-warning mr-1" role="button" href="{{ route('check-in.show',  $checkin->id) }}">
                                     <i class="ft-x"></i> Cancel
                                 </a>
                                 <a class="btn btn-success mr-1" role="button" href="{{ route('check-in-payments.create', $checkin->id) }}">
