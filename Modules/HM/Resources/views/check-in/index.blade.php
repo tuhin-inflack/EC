@@ -11,11 +11,8 @@
                             id="basic-layout-form">@lang('hm::booking-request.check_in') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
+                            <a href="{{ route('check-in.create') }}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> @lang('hm::booking-request.check_in') @lang('hm::booking-request.create')</a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
