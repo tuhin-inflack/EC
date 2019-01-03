@@ -6,8 +6,9 @@
     </h4>
     <div class="row">
         <div class="col-md-6">
+            <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
             <div class="form-group">
-                <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
+                <div class="input-group">
                 {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
                 @if ($errors->has('start_date'))
@@ -15,11 +16,13 @@
                         <strong>{{ $errors->first('start_date') }}</strong>
                     </span>
                 @endif
+                </div>
             </div>
         </div>
         <div class="col-md-6">
+            <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
             <div class="form-group">
-                <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
+                <div class="input-group">
                 {{ Form::text('end_date', $page == 'create' ? old('end_date') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
 
                 @if ($errors->has('end_date'))
@@ -27,6 +30,7 @@
                                                             <strong>{{ $errors->first('end_date') }}</strong>
                                                         </span>
                 @endif
+                </div>
             </div>
         </div>
     </div>

@@ -163,7 +163,9 @@
         $(document).ready(function () {
             // datepicker
             $('#start_date, #end_date').pickadate({
-                min: new Date()
+                min: new Date(),
+                hiddenPrefix: 'prefix__',
+                hiddenSuffix: '__suffix'
             });
 
             // form-repeater

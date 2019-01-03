@@ -51,8 +51,8 @@
         </div>
         <br>
 
-        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
         @include('hm::dashboard.hostel-info', ['hostels' => $hostels])
+        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
 
     </div>
 @stop
@@ -62,14 +62,18 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-        var pieSimpleChart;
+
+
+        var pieSimpleChart; // Pie Chart orbject
+
+        /* # Pie Chart on Dom load
+         ======================================= */
 
         $(window).on("load", function(){
 
             //Get the context of the Chart canvas element we want to select
             var ctx = $("#hostel-pie-chart");
 
-            // Chart Options
             var chartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -92,7 +96,6 @@
 
             var config = {
                 type: 'pie',
-                // Chart Options
                 options : chartOptions,
                 data : chartData
             };
@@ -102,6 +105,8 @@
 
         });
 
+        /* Rerender Pie Chart for new datasets
+        ====================================== */
         function addData() {
             pieSimpleChart.data.datasets.forEach((dataset) => {
                 dataset.data = [5, 1, 5];
