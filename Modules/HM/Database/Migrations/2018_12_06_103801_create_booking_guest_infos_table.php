@@ -16,7 +16,9 @@ class CreateBookingGuestInfosTable extends Migration
         Schema::create('booking_guest_infos', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('room_booking_id');
-            $table->string('name', 50);
+            $table->string('first_name', 50);
+            $table->string('middle_name', 50)->nullable();
+            $table->string('last_name', 50);
             $table->unsignedInteger('age');
             $table->enum('gender', ['male', 'female']);
             $table->string('relation');

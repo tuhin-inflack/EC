@@ -91,7 +91,7 @@
 
                     let guestInfoRows = guestInfos.map(guestInfo => {
                         return `<tr>
-                            <td>${guestInfo.name}</td>
+                            <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
                             <td>${guestInfo.age}</td>
                             <td>${guestInfo.gender}</td>
                             <td>${guestInfo.relation}</td>
@@ -140,7 +140,9 @@
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#start_date, #end_date').pickadate();
+            $('#start_date, #end_date').pickadate({
+                min: new Date()
+            });
 
             // form-repeater
             $('.repeater-room-infos').repeater({
