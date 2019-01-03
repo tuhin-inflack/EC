@@ -51,8 +51,8 @@ class HMController extends Controller
         $allRoomsCount = $this->roomService->getAllRoomCountByStatus()->toArray();
         $allRoomsCount = array_column($allRoomsCount, 'room_count', 'status');
 
-        $overAllStatus['booked'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
-        $overAllStatus['available'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
+        $overAllStatus['available'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
+        $overAllStatus['booked'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
         $overAllStatus['not_in_service'] = (isset($allRoomsCount['not-in-service']) ? $allRoomsCount['not-in-service'] : 0);
 
         return $overAllStatus;
