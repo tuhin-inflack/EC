@@ -63,7 +63,7 @@ class BookingRequestService
 
             $roomBookingRequester = new RoomBookingRequester($data);
 
-            $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+            $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
             $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
@@ -138,10 +138,8 @@ class BookingRequestService
             }
 
 
-            if ($data['photo']) {
-                Storage::delete($roomBooking->requester->photo);
-                $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
-            }
+            Storage::delete($roomBooking->requester->photo);
+            $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
             Storage::delete($roomBooking->requester->nid_doc);
             $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
