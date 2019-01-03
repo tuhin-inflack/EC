@@ -8,11 +8,9 @@
 
 namespace Modules\HM\Services;
 
-
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Modules\HM\Entities\Hostel;
-use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\HostelRepository;
 
 class HostelService
@@ -63,7 +61,7 @@ class HostelService
             if (!array_key_exists($room->roomType->name, $roomList)) {
                 $roomList[$room->roomType->name] = [$room];
             } else {
-               array_push($roomList[$room->roomType->name], $room);
+                array_push($roomList[$room->roomType->name], $room);
             }
         }
 
@@ -76,7 +74,7 @@ class HostelService
         $hostels = $this->findAll();
         foreach ($hostels as $hostel) {
             $roomDetails = $this->roomService->getRoomCountByRoomType($hostel->id);
-            $hostelDetails[$hostel->name] = ['hostelDetails' => $hostel, 'roomDetails' =>$roomDetails];
+            $hostelDetails[$hostel->name] = ['hostelDetails' => $hostel, 'roomDetails' => $roomDetails];
         }
         return $hostelDetails;
     }
@@ -86,13 +84,15 @@ class HostelService
         $overAllStatus = [
             'booked' => 0,
             'available' => 0,
+            'partially_available' => 0,
             'not_in_service' => 0
         ];
 
         $allRoomsCount = $this->roomService->getRoomCountByStatus($hostelId)->toArray();
         $allRoomsCount = array_column($allRoomsCount, 'room_count', 'status');
 
-        $overAllStatus['available'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
+        $overAllStatus['available'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0);
+        $overAllStatus['partially-available'] = (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
         $overAllStatus['booked'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
         $overAllStatus['not_in_service'] = (isset($allRoomsCount['not-in-service']) ? $allRoomsCount['not-in-service'] : 0);
 

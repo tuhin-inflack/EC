@@ -82,15 +82,16 @@
 
             // Chart Data
             var chartData = {
-                labels: ["Booked", "Available", "Not for Service"],
+                labels: ["Booked", "Available", "Partially Pvailable"], // Not in Service
                 datasets: [{
                     label: "Hostel",
                     data: [
                         {{$allRoomsCountBasedOnStatus['booked']}},
                         {{$allRoomsCountBasedOnStatus['available']}},
-                        {{$allRoomsCountBasedOnStatus['not_in_service']}}
+                        {{$allRoomsCountBasedOnStatus['partially_available']}},
+                        {{--{{$allRoomsCountBasedOnStatus['not_in_service']}}--}}
                     ],
-                    backgroundColor: ['#00A5A8', '#28D094', '#FF4558'],
+                    backgroundColor: ['#00A5A8', '#28D094', '#ffd162'], // '#FF4558'
                 }]
             };
 
