@@ -125,6 +125,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ft-check-square"></i> {{trans('labels.save')}}
                                 </button>
+                                <a href="/tms/trainee/import/to/{{$training->id}}" class="btn btn-primary">
+                                    <i class="ft-download"></i> {{trans('tms::training.trainee_import')}}
+                                </a>
                                 <button class="btn btn-warning" type="button" onclick="window.history.back();">
                                     <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </button>

@@ -22,7 +22,7 @@ class UpdateBookingRequest extends FormRequest
             'roomInfos.*.quantity' => 'numeric|min:1|required',
             'roomInfos.*.rate' => 'regex:/^.+_.+$/i|required',
             'first_name' => 'required|max:50',
-            'middle_name' => 'required|max:50',
+            'middle_name' => 'nullable|max:50',
             'last_name' => 'required|max:50',
             'gender' => 'in:male,female|required',
             'contact' => 'required|size:11',

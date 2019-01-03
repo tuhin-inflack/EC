@@ -7,43 +7,15 @@
                     <i class="la la-home"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
             </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-book"></i>
-                    <span class="menu-title"
-                          data-i18n="nav.templates.main">@lang('hm::booking-request.booking_request')</span></a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('booking-requests.create') }}"><a href="{{ route('booking-requests.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">@lang('hm::booking-request.create')</span></a>
-                    </li>
-                    <li class="{{ is_active_route('booking-requests.index') }}"><a href="{{ route('booking-requests.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title"
-                                  data-i18n="nav.dash.main">List</span></a>
-                    </li>
-                </ul>
+            <li class="{{ is_active_route('booking-requests.index') }}">
+                <a href="{{ route('booking-requests.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::booking-request.booking_request')</span></a>
             </li>
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-book"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">Check-in</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('check-in.create') }}">
-                        <a href="{{ route('check-in.create') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">New</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('check-in.index') }}">
-                        <a href="{{ route('check-in.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">List</span>
-                        </a>
-                    </li>
-                </ul>
+            <li class="{{ is_active_route('check-in.index') }}">
+                <a href="{{ route('check-in.index') }}">
+                    <i class="la la-list"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::booking-request.check_in')</span></a>
             </li>
             <li class="nav-item">
                 <a href="#">

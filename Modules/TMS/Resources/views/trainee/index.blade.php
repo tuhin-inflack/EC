@@ -18,16 +18,14 @@
 
                     </div>
                     <div class="card-content collapse show">
-
                         <div class="card-body card-dashboard">
                             <div class="card-body">
                                 {!! Form::open(['url' =>  '/tms/trainee', 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-
                                             <select name="training_id" class="form-control">
-                                                <option value=""> - Select -</option>
+                                                <option value=""> - Select Training -</option>
                                                 @foreach($trainings as $key=>$training)
                                                     <option value="{{$training->id}}">{{$training->training_title}}</option>
                                                 @endforeach

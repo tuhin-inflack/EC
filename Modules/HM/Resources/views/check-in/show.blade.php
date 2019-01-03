@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div class="card-body" style="padding-left: 20px;">
+                        <div id="PrintCheckIn" class="card-body" style="padding-left: 20px;">
                             <div class="row">
                                 <div class="col-md-6">
                                     <p><span class="text-bold-600">Booking Information</span></p>
@@ -135,7 +135,7 @@
                                                 <th>Name</th>
                                                 <th>Mobile</th>
                                                 <th>Organization</th>
-                                                <th>Document</th>
+                                                <th class="hideDocument">Document</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -144,43 +144,19 @@
                                                 <td>Saib Bin Ron</td>
                                                 <td>xxxxxxxxxxxx</td>
                                                 <td>Inflack Limited</td>
-                                                <td><a href="javascript:;">File</a></td>
+                                                <td class="hideDocument"><a href="javascript:;">File</a></td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
                                                 <td>Sumon Siddik</td>
                                                 <td>xxxxxxxxxxxx</td>
                                                 <td>Inflack Limited</td>
-                                                <td><a href="javascript:;">File</a></td>
+                                                <td class="hideDocument"><a href="javascript:;">File</a></td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card-body" style="padding-left: 20px;">
-                            <p><span class="text-bold-600">Note by Authority</span></p>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <textarea name="message" class="form-control" placeholder="Write here..." rows="3" disabled>This is the notes from Authorities</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-actions">
-                                <a class="btn btn-outline-danger mr-1" role="button" href="{{ route('check-in.index') }}">
-                                    <i class="ft-x"></i> Cancel
-                                </a>
-                                <a class="btn btn-success mr-1" role="button" href="javascript:confirm('Check Out !!');">
-                                    <i class="ft-check-circle"></i> Check out
-                                </a>
-                                <a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
-                                    <i class="ft-file-plus"></i> Create Bill
-                                </a>
-                                <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('bill.payments-of-check-in') }}">
-                                    <i class="ft-list"></i> Payments
-                                </a>
                             </div>
                         </div>
                     </div>
@@ -189,6 +165,55 @@
         </div>
     </div>
 @endsection
+
+
+@push('page-js')
+
+    <script>
+        $(document).ready(function () {
+            $('#PrintCommand').on('click', function () {
+                printContent('PrintCheckIn', '', '');
+            });
+
+            var printContent = function (id, division, report_type) {
+                var table = document.getElementById(id).innerHTML;
+                newwin = window.open('', 'printwin', 'left=70,top=70,width=500,height=500');
+                newwin.document.write(' <html>\n <head>\n');
+
+                @php
+                    $data = "'" .
+
+                        '\t<link rel="stylesheet" type="text/css" href="' . asset('css/app.css') . '"/>\n' . "'";
+                @endphp
+                newwin.document.write(<?php echo $data ?>);
+                newwin.document.write('<title></title>\n');
+                newwin.document.write(' <script>\n');
+                newwin.document.write('function chkstate(){\n');
+                newwin.document.write('if(document.readyState=="complete"){\n');
+                newwin.document.write('window.close()\n');
+                newwin.document.write('}\n');
+                newwin.document.write('else{\n');
+                newwin.document.write('setTimeout("chkstate()",2000)\n');
+                newwin.document.write('}\n');
+                newwin.document.write('}\n');
+                newwin.document.write('function print_win(){\n');
+                newwin.document.write('window.print();\n');
+                newwin.document.write('chkstate();\n');
+                newwin.document.write('}\n');
+                newwin.document.write('<\/script>\n');
+                newwin.document.write('<style type="text/css"> .hideDocument{display: none }  body{margin: 0px 50px}</style>\n');
+                newwin.document.write('</head>\n');
+                newwin.document.write('<body onload="print_win()"><div>\n');
+                newwin.document.write('<h1 class="text-center">Check-in Details</h1>\n');
+                newwin.document.write(table);
+                newwin.document.write('</div></body>\n');
+                newwin.document.write('</html>\n');
+                newwin.document.close();
+                return true;
+            };
+        })
+    </script>
+@endpush
 
 
 

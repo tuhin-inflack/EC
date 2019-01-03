@@ -34,7 +34,7 @@ class BookingRequestStatusController extends Controller
     public function update(UpdateBookingRequestStatusRequest $request, RoomBooking $roomBooking)
     {
         $this->bookingRequestService->update($roomBooking, $request->all());
-        Session::flash('message', 'Successfully Update Booking Request');
+        Session::flash('success', 'Successfully Update Booking Request');
 
         return redirect()->back();
     }

@@ -57,6 +57,17 @@ trait CrudTrait
     }
 
     /**
+     * @param array $searchCriteria
+     * @param null $relation
+     * @param array|null $orderBy
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findBy(array $searchCriteria = [], $relation = null, array $orderBy = null)
+    {
+        return $this->actionRepository->findBy($searchCriteria, $relation, $orderBy);
+    }
+
+    /**
      * @param Model $model
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Model|void

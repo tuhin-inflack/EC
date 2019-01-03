@@ -67,7 +67,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookingRequests = $this->bookingRequestService->findAll();
+        $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
@@ -82,13 +83,15 @@ class BookingRequestController extends Controller
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $type = 'booking';
 
         return view('hm::booking-request.create', compact(
                 'roomTypes',
                 'departments',
                 'employees',
                 'employeeOptions',
-                'designations'
+                'designations',
+                'type'
             )
         );
     }
@@ -100,7 +103,7 @@ class BookingRequestController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        $this->bookingRequestService->save($request->all());
+        $this->bookingRequestService->store($request->all());
         Session::flash('success', 'Successfully stored room booking information');
         return redirect()->back();
     }
@@ -112,7 +115,8 @@ class BookingRequestController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
-        return view('hm::booking-request.show', compact('roomBooking'));
+        $type = 'booking';
+        return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**
@@ -131,6 +135,7 @@ class BookingRequestController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $type = 'checkin';
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -142,7 +147,8 @@ class BookingRequestController extends Controller
             'referee',
             'employeeOptions',
             'employees',
-            'designations'
+            'designations',
+            'bookingType'
         ));
     }
 
@@ -154,7 +160,7 @@ class BookingRequestController extends Controller
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
-        $this->bookingRequestService->update($request->all(), $roomBooking);
+        $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
         Session::flash('message', trans('labels.update_success'));
 
         return redirect()->back();
