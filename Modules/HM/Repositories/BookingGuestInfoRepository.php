@@ -18,6 +18,6 @@ class BookingGuestInfoRepository extends AbstractBaseRepository
 
     public function pluckByBookingIdAndStatus($roomBookingId, $status)
     {
-        return $this->model->where('room_booking_id', $roomBookingId)->where('status', $status)->pluck('name', 'id');
+        return $this->model->where('room_booking_id', $roomBookingId)->where('status', $status)->pluck('first_name', 'id');
     }
 }

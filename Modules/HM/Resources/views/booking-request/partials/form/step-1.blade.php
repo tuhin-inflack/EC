@@ -1,7 +1,8 @@
 <h6>{{ trans('hm::booking-request.step_1') }}</h6>
 <fieldset>
     <h4 class="form-section"><i
-            class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
+            class="la  la-building-o"></i>{{ $type=='checkin'?trans('hm::booking-request.checkin_details')
+            :trans('hm::booking-request.booking_details') }}
     </h4>
     <div class="row">
         <div class="col-md-6">
@@ -32,7 +33,8 @@
 
     <div class="row">
         <div class="form-group col-md-6">
-            <label class="required">{{ trans('hm::booking-request.booking_type') }}</label>
+            <label class="required">{{ $type=='checkin'?trans('hm::booking-request.checkin_type')
+            :trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
                 {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required']) !!}
                 <label>{{ trans('hm::booking-request.general_purpose') }}</label>
