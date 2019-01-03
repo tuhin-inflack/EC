@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Mail;
 use Modules\HM\Emails\BookingRequestMail;
+use Modules\HM\Entities\BookingCheckin;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\RoomBooking;
@@ -73,13 +74,6 @@ class BookingRequestService
 
             $roomBooking->requester()->save($roomBookingRequester);
 
-            /*$roomBookingReferee = new RoomBookingReferee([
-                'name' => $data['referee_name'],
-                'department_id' => $data['referee_dept'],
-                'contact' => $data['referee_contact']
-            ]);
-            $roomBooking->referee()->save($roomBookingReferee);*/
-
             $roomBooking->roomInfos()->saveMany(collect($data['roomInfos'])->map(function ($roomInfo) {
                 $rateInfo = explode('_', $roomInfo['rate']);
                 $rateType = $rateInfo[0];
@@ -97,6 +91,9 @@ class BookingRequestService
                     $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
                     return new BookingGuestInfo($guest);
                 }));
+            }
+            if ($type == 'checkin' && isset($data['booking_id'])) {
+                $roomBooking->booking()->save(new BookingCheckin(['checkin_id' => $roomBooking->id, 'booking_id', $data['booking_id']]));
             }
             if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])
@@ -150,13 +147,11 @@ class BookingRequestService
             Storage::delete($roomBooking->requester->passport_doc);
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
-
             $data['photo'] = $photoPath;
             $data['nid_doc'] = $nidDocPath;
             $data['passport_doc'] = $passportDocPath;
 
             $roomBooking->requester->update($data);
-
 
             foreach ($data['guests'] as $value) {
                 if ($data['nid_doc']) {

@@ -151,7 +151,7 @@
                         <hr>
                     </div>
                 @else
-                    @foreach($roomInfos as $roomInfo)
+                    @foreach($roomBooking->roomInfos as $roomInfo)
                         <div data-repeater-item="" style="">
                             <div class="form row">
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
