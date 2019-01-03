@@ -24,6 +24,7 @@ return [
     'room_type' => 'ঘরের বিবরণ',
     'quantity' => 'পরিমাণ',
     'rate' => 'হার',
+    'total_rate' => 'মোট হার',
     'add' => 'যোগ',
     'personal_information' => 'ব্যক্তিগত তথ্য',
     'first_name' => 'নামের প্রথম অংশ',
@@ -48,7 +49,7 @@ return [
     'address' => 'ঠিকানা',
     'documents' => 'কাগজপত্র',
     'your_photo' => 'ছবি',
-    'nid' => 'জাতীয় পরিচয়পত্র',
+    'nid_no' => 'জাতীয় পরিচয়পত্র নং',
     'nid_copy' => 'জাতীয় পরিচয়পত্র কপি',
     'passport_copy' => 'পাসপোর্ট কপি',
     'guest_information' => 'অতিথি তথ্য',
@@ -82,5 +83,6 @@ return [
     'reject' => 'প্রত্যাখ্যান',
     'pending' => 'বিচারাধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
-    'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম'
+    'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম',
+    'edit_it' => 'এটা সম্পাদনা করুন',
 ];

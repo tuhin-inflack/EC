@@ -53,7 +53,7 @@ class BookingRequestService
 
     public function store(array $data, $type = 'booking')
     {
-       return DB::transaction(function () use ($data, $type) {
+        return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
@@ -64,7 +64,7 @@ class BookingRequestService
 
             $roomBookingRequester = new RoomBookingRequester($data);
 
-            $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
+            $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
             $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
             $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
@@ -105,8 +105,7 @@ class BookingRequestService
         });
     }
 
-
-    public function update(array $data, RoomBooking $roomBooking)
+    public function updateRequest(array $data, RoomBooking $roomBooking)
     {
         DB::transaction(function () use ($data, $roomBooking) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
@@ -114,7 +113,7 @@ class BookingRequestService
             $data['shortcode'] = $roomBooking->shortcode;
             $data['status'] = 'pending';
 
-            $this->roomBookingRepository->update($roomBooking, $data);
+            $this->update($roomBooking, $data);
 
             foreach ($data['roomInfos'] as $value) {
                 $rateInfo = explode('_', $value['rate']);
@@ -136,10 +135,8 @@ class BookingRequestService
             }
 
 
-            if ($data['photo']) {
-                Storage::delete($roomBooking->requester->photo);
-                $photoPath = $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester');
-            }
+            Storage::delete($roomBooking->requester->photo);
+            $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
 
             Storage::delete($roomBooking->requester->nid_doc);
             $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;

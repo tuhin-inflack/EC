@@ -68,7 +68,9 @@ class CheckinController extends Controller
      */
     public function index()
     {
-        return view('hm::check-in.index');
+        $checkins = $this->bookingRequestService->findBy(['type' => 'checkin']);
+
+        return view('hm::check-in.index', compact('checkins'));
     }
 
     /**
@@ -130,11 +132,19 @@ class CheckinController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking)
     {
-        return view('hm::check-in.show');
+        $type = 'checkin';
+
+        if ($roomBooking->type != 'checkin')
+        {
+            abort(404);
+        }
+
+        return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**

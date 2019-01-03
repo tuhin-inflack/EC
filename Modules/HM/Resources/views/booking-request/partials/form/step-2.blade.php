@@ -232,8 +232,8 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="form-group col-md-6">
-                    <label class="required">{{ trans('hm::booking-request.your_photo') }}</label>
-                    {!! Form::file('photo', ['class' => 'form-control required' . ($errors->has('photo') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
+                    <label>{{ trans('hm::booking-request.your_photo') }}</label>
+                    {!! Form::file('photo', ['class' => 'form-control' . ($errors->has('photo') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
                     @if ($errors->has('photo'))
                         <span class="invalid-feedback" role="alert">

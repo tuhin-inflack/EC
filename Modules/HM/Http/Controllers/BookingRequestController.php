@@ -67,7 +67,8 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookingRequests = $this->bookingRequestService->findAll();
+        $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
@@ -103,8 +104,8 @@ class BookingRequestController extends Controller
     public function store(StoreBookingRequest $request)
     {
         $this->bookingRequestService->store($request->all());
-        Session::flash('success', 'Successfully stored room booking information');
-        return redirect()->back();
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('booking-requests.index');
     }
 
     /**
@@ -114,7 +115,8 @@ class BookingRequestController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
-        return view('hm::booking-request.show', compact('roomBooking'));
+        $type = 'booking';
+        return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**
@@ -159,10 +161,9 @@ class BookingRequestController extends Controller
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
-        $this->bookingRequestService->update($request->all(), $roomBooking);
-        Session::flash('message', trans('labels.update_success'));
-
-        return redirect()->back();
+        $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
+        Session::flash('success', trans('labels.update_success'));
+        return redirect()->route('booking-requests.index');
     }
 
     /**

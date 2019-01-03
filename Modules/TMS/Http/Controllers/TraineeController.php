@@ -103,7 +103,7 @@ class TraineeController extends Controller
             if($storeData) $countRow++;
         }
 
-        $msg = $countRow." Trainee added successfully";
+        $msg = $countRow.__('labels.save_success');
         Session::flash('message', $msg);
 
         return back();
@@ -143,7 +143,7 @@ class TraineeController extends Controller
             'trainee_mobile' => $request['mobile']
         );
         $update = $this->traineeService->updateTrainee($traineeId, $updateData);
-        $msg = "Trainee Updated Successfully";
+        $msg = __('labels.update_success');
         Session::flash('message', $msg);
 
         return back();
@@ -156,7 +156,7 @@ class TraineeController extends Controller
     public function destroy($id)
     {
         $response = $this->traineeService->delete($id);
-        if($response) $msg = "Trainee deleted successfully"; else $msg = "Error! Trainee not deleted";
+        if($response) $msg = __('labels.delete_success'); else $msg = __('labels.delete_fail');
         Session::flash('message', $msg);
 
         return back();
