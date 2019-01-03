@@ -96,7 +96,7 @@
                 </div>
                 {!! Form::open(['route' =>  'room.assign', 'class' => 'form', 'novalidate']) !!}
                 <div class="modal-body">
-                    <input type="hidden" name="room_booking_id" value="{{$roomBookingDetails->id}}"/>
+                    <input type="hidden" name="checkin_id" value="{{$roomBookingDetails->id}}"/>
                     <input type="hidden" name="hostel_id" id="hostel-id" value="{{$hostel->id}}"/>
                     <input type="hidden" name="room_id" id="room-id" value=""/>
                     <div class="form-group">

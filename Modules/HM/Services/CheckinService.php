@@ -57,15 +57,20 @@ class CheckinService
             $room->update(['status' => $this->getRoomStatus($room)]);
             $guestInfo = $this->bookingGuestInfoRepository->findOne($data['booking_guest_info_id']);
             $guestInfo->update(['status' => 'checkin']);
-
         });
     }
 
     public function checkout(Model $checkin)
     {
-        $this->roomBookingRepository->update($checkin, ['actual_end_date' => Carbon::now()]);
+        $checkoutTime = Carbon::now();
+        $this->roomBookingRepository->update($checkin, ['actual_end_date' => $checkoutTime]);
 
-        return $checkin;
+        $checkin->checkinDetails->each(function ($checkinDetail) {
+           $checkinDetail->room()->update(['status' => $this->getRoomStatus($checkinDetail->room)]);
+        });
+        $checkin->checkinDetails()->update(['checkout_date' => $checkoutTime]);
+
+        return $checkin->checkinDetails;
     }
 
     private function getRoomStatus($room)
