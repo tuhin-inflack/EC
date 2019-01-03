@@ -82,7 +82,7 @@
                                                 @foreach($checkin->payments as $payment)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td><a href="#">BILL{{$payment->shortcode}}</a>
+                                                        <td><a href="{{ route('check-in-payments.show', [$checkin->id, $payment->id]) }}">BILL{{$payment->shortcode}}</a>
                                                         </td>
                                                         <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                         <td>{{ $payment->amount }}</td>

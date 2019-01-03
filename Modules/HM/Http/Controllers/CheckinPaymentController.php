@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HM\Entities\CheckinPayment;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreCheckinPaymentRequest;
 use Modules\HM\Services\CheckinPaymentService;
@@ -65,11 +66,13 @@ class CheckinPaymentController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
+     * @param CheckinPayment $checkinPayment
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking, CheckinPayment $checkinPayment)
     {
-        return view('hm::show');
+        return view('hm::check-in.payment.show')->with(['checkin' => $roomBooking, $checkinPayment]);
     }
 
     /**

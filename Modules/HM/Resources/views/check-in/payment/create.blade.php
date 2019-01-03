@@ -24,39 +24,39 @@
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
                                         <tr>
-                                            <td>Billing Time:</td>
-                                            <td>{{ date('d M, Y') }}</td>
+                                            <td>@lang('hm::bill.billing_time'):</td>
+                                            <td>{{ date('d/m/Y') }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Bill Number:</td>
-                                            <td>BILLXXXXXXX</td>
+                                            <td>@lang('hm::bill.bill_number'):</td>
+                                            <td>{{ time() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Booking ID:</td>
-                                            <td>BKXXXXXXXX</td>
+                                            <td>@lang('hm::booking-request.check_in') @lang('labels.id'):</td>
+                                            <td>{{ $checkin->shortcode }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Bill For:</td>
-                                            <td>Name</td>
+                                            <td>@lang('hm::bill.bill_for'):</td>
+                                            <td>{{ $checkin->requester->getName() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Booking Type:</td>
-                                            <td>Single / Family / Training</td>
+                                            <td>@lang('hm::booking-request.booking_type'):</td>
+                                            <td>{{ $checkin->booking_type }}</td>
                                         </tr>
                                     </table>
                                 </div>
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
                                         <tr>
-                                            <td width="40%">Total</td>
+                                            <td width="40%">@lang('labels.total')</td>
                                             <td id="total-amount">{{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') }}</td>
                                         </tr>
                                         <tr>
-                                            <td>Due</td>
+                                            <td>@lang('labels.due')</td>
                                             <td class="due-amount"></td>
                                         </tr>
                                         <tr>
-                                            <td>Amount</td>
+                                            <td>@lang('labels.amount')</td>
                                             <td>
                                                 {{ Form::hidden('checkin_id', $checkin->id) }}
                                                 {{ Form::number('amount', old('amount') ? old('amount') : null, ['class' => 'form-control required', 'min' => 0]) }}
@@ -66,7 +66,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Method</td>
+                                            <td>@lang('labels.method')</td>
                                             <td>
                                                 {{ Form::select('type', ['cash' => 'cash', 'card' => 'card', 'check' => 'check'], old('type') ? old('type') : null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
                                                 {{ Form::text('check_number', old('check_number') ? old('check_number') : null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
