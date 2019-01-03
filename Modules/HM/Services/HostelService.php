@@ -76,8 +76,28 @@ class HostelService
         $hostels = $this->findAll();
         foreach ($hostels as $hostel) {
             $roomDetails = $this->roomService->getRoomCountByRoomType($hostel->id);
-            $hostelDetails[$hostel->name] =['hostelDetails' => $hostel, 'roomDetails' =>$roomDetails];
+            $hostelDetails[$hostel->name] = ['hostelDetails' => $hostel, 'roomDetails' =>$roomDetails];
         }
         return $hostelDetails;
     }
+
+    public function getRoomsCountBasedOnStatus($hostelId = null)
+    {
+        $overAllStatus = [
+            'booked' => 0,
+            'available' => 0,
+            'not_in_service' => 0
+        ];
+
+        $allRoomsCount = $this->roomService->getRoomCountByStatus($hostelId)->toArray();
+        $allRoomsCount = array_column($allRoomsCount, 'room_count', 'status');
+
+        $overAllStatus['available'] = (isset($allRoomsCount['available']) ? $allRoomsCount['available'] : 0) + (isset($allRoomsCount['partially-available']) ? $allRoomsCount['partially-available'] : 0);
+        $overAllStatus['booked'] = (isset($allRoomsCount['unavailable']) ? $allRoomsCount['unavailable'] : 0);
+        $overAllStatus['not_in_service'] = (isset($allRoomsCount['not-in-service']) ? $allRoomsCount['not-in-service'] : 0);
+
+        return $overAllStatus;
+    }
+
+
 }

@@ -28,7 +28,7 @@
                                                     <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
                                                         <option>Search Here</option>
                                                         @foreach($bookingRequests as $bookingId=>$contact)
-                                                            <option value="{{$bookingId}}">{{$contact}}</option>
+                                                            <option value="{{route('check-in.create', [$bookingId])}}">{{$contact}}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

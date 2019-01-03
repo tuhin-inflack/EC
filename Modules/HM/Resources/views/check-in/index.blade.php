@@ -11,7 +11,7 @@
                             id="basic-layout-form">@lang('hm::booking-request.check_in') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <a href="{{ route('check-in.create') }}" class="btn btn-primary btn-sm"><i
+                            <a href="{{ route('check-in.create-options') }}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> @lang('hm::booking-request.check_in') @lang('hm::booking-request.create')</a>
                         </div>
                     </div>

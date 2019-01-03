@@ -16,6 +16,8 @@ return [
     'room' => 'Room',
     'floor' => 'Floor',
     'add_room' => 'Add Rooms',
+    'create_room_title' => 'Create Room Title',
+    'create_room_form' => 'Create Room Form',
     'add_room_lbl' => 'Add room for :hostel',
     'dup_room_err' => 'Can not add same room number twice',
 ];

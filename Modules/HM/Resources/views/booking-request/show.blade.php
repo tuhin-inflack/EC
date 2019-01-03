@@ -185,7 +185,8 @@
                                             <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
                                                itemprop="contentUrl"
                                                data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                <img class="gallery-thumbnail card-img-top"
+                                                     style="height: 150px;width: 150px;"
                                                      src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
                                                      itemprop="thumbnail">
                                             </a>
@@ -208,7 +209,8 @@
                                             <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
                                                itemprop="contentUrl"
                                                data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                <img class="gallery-thumbnail card-img-top"
+                                                     style="height: 150px;width: 150px;"
                                                      src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
                                                      itemprop="thumbnail">
                                             </a>
@@ -216,22 +218,23 @@
                                                 <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
                                             </div>
                                         </figure>
-                                        @else
-                                            <figure class="card card-img-top border-grey border-lighten-2"
-                                                    itemprop="associatedMedia" itemscope="">
-                                                <p>No Documents Available</p>
-                                                <div class="card-body px-0">
-                                                    <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
-                                                </div>
-                                            </figure>
-                                        @endif
+                                    @else
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <p>No Documents Available</p>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                            </div>
+                                        </figure>
+                                    @endif
                                     @if ($roomBooking->requester->passport_doc)
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
                                             <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
                                                itemprop="contentUrl"
                                                data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                <img class="gallery-thumbnail card-img-top"
+                                                     style="height: 150px;width: 150px;"
                                                      src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
                                                      itemprop="thumbnail">
                                             </a>
@@ -239,15 +242,15 @@
                                                 <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
                                             </div>
                                         </figure>
-                                        @else
-                                            <figure class="card card-img-top border-grey border-lighten-2"
-                                                    itemprop="associatedMedia" itemscope="">
-                                                <p>No Documents Available</p>
-                                                <div class="card-body px-0">
-                                                    <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
-                                                </div>
-                                            </figure>
-                                        @endif
+                                    @else
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <p>No Documents Available</p>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
+                                            </div>
+                                        </figure>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -258,21 +261,27 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <textarea name="message" class="form-control" placeholder="Write here..." rows="3" disabled>This is the notes from Authorities</textarea>
+                                            <textarea name="message" class="form-control" placeholder="Write here..."
+                                                      rows="3" disabled>This is the notes from Authorities</textarea>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">
-                                    <a class="btn btn-outline-danger mr-1" role="button" href="{{ route('check-in.index') }}">
+                                    <a class="btn btn-outline-danger mr-1" role="button"
+                                       href="{{ route('check-in.index') }}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
-                                    <a class="btn btn-success mr-1" role="button" href="javascript:confirm('Check Out !!');">
+                                    {{ Form::open(['route' => ['check-out.update', $roomBooking->id], 'style' => 'display: inline']) }}
+                                    <button class="btn btn-success mr-1">
                                         <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
-                                    </a>
-                                    <a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
+                                    </button>
+                                    {{ Form::close() }}
+                                <!-- TODO: Generate Bill -->
+                                    {{--<a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
                                         <i class="ft-file-plus"></i> @lang('hm::bill.bill_generate')
-                                    </a>
-                                    <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('bill.payments-of-check-in') }}">
+                                    </a>--}}
+                                    <a class="btn btn-outline-primary mr-1" role="button"
+                                       href="{{ route('check-in-payments.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.bill_payment')
                                     </a>
                                     <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">

@@ -2,22 +2,24 @@
 
 namespace Modules\HM\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\HM\Services\HostelService;
+use Modules\HM\Services\RoomService;
 
 class HMController extends Controller
 {
     private $hostelService;
-
+    private $roomService;
     /**
      * HostelController constructor.
      * @param HostelService $hostelService
+     * @param RoomService $roomService
      */
-    public function __construct(HostelService $hostelService)
+    public function __construct(HostelService $hostelService, RoomService $roomService)
     {
         $this->hostelService = $hostelService;
+        $this->roomService = $roomService;
     }
 
     /**
@@ -26,82 +28,25 @@ class HMController extends Controller
      */
     public function index()
     {
-        return view('hm::index');
+        $roomDetails = [];
+        $hostels = $this->hostelService->getAll();
+
+        foreach ($hostels as $hostel){
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        }
+
+        $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();
+
+        return view('hm::index', compact('hostels', 'roomDetails', 'allRoomsCountBasedOnStatus'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('hm::create');
+    public function show(){
+        return $this->hostelService->getRoomsCountBasedOnStatus();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        $hostel = (object)[
-            'shortcode' => 'BR52451',
-            'name' => 'Hostal Name 1',
-            'level' => '5',
-            'total_room' => '25',
-            'total_seat' => '30',
-            'rooms' => [
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ],
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ]
-            ],
-            'roomTypes' => [
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ],
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ]
-            ]
-        ];
-        return view('hm::hostel.show', compact('hostel'));
-    }
-
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
     public function roomsChart()
     {
-        return view('hm::room.chart');
+        return view('hm::dashboard.chart');
     }
 
 }

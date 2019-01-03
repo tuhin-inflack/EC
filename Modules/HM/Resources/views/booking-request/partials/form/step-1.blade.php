@@ -1,12 +1,14 @@
 <h6>{{ trans('hm::booking-request.step_1') }}</h6>
 <fieldset>
     <h4 class="form-section"><i
-            class="la  la-building-o"></i>{{ trans('hm::booking-request.booking_details') }}
+            class="la  la-building-o"></i>{{ $type=='checkin'?trans('hm::booking-request.checkin_details')
+            :trans('hm::booking-request.booking_details') }}
     </h4>
     <div class="row">
         <div class="col-md-6">
+            <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
             <div class="form-group">
-                <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
+                <div class="input-group">
                 {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
                 @if ($errors->has('start_date'))
@@ -14,6 +16,7 @@
                         <strong>{{ $errors->first('start_date') }}</strong>
                     </span>
                 @endif
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -27,13 +30,15 @@
                                                             <strong>{{ $errors->first('end_date') }}</strong>
                                                         </span>
                 @endif
+                </div>
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="form-group col-md-6">
-            <label class="required">{{ trans('hm::booking-request.booking_type') }}</label>
+            <label class="required">{{ $type=='checkin'?trans('hm::booking-request.checkin_type')
+            :trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
                 {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required']) !!}
                 <label>{{ trans('hm::booking-request.general_purpose') }}</label>
@@ -144,7 +149,7 @@
                         <hr>
                     </div>
                 @else
-                    @foreach($roomInfos as $roomInfo)
+                    @foreach($roomBooking->roomInfos as $roomInfo)
                         <div data-repeater-item="" style="">
                             <div class="form row">
                                 <div class="form-group mb-1 col-sm-12 col-md-4">

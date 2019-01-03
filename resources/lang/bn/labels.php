@@ -1,5 +1,12 @@
 <?php
 return [
+    'id' => 'আইডি',
+    'total' => 'মোট',
+    'due' => 'কারণে',
+    'method' => 'পদ্ধতি',
+    'information' => 'তথ্য',
+    'date' => 'তারিখ',
+    'amount' => 'পরিমাণ',
     'name' => 'নাম',
     'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',
@@ -26,7 +33,6 @@ return [
     'confirm_delete' => 'নিশ্চিত বাতিল?',
     'status' => 'অবস্থা',
     'created_at' => 'সৃষ্টি সময়',
-    'confirm_delete' => 'নিশ্চিত বাতিল?',
     'dashboard' => 'ড্যাশবোর্ড',
     'history' => 'ইতিহাস',
     'number' => 'সংখ্যা',
@@ -37,6 +43,8 @@ return [
     'setup' => 'সেটআপ',
     'bangladesh_govt' => 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     'print' => 'ছাপা',
+    'info' => 'তথ্য',
+    'chart' => 'বর্ণনাচিত্র',
     'male' => 'পুরুষ',
     'female' => 'মহিলা',
     'others' => 'অন্যান্য',
@@ -58,5 +66,7 @@ return [
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'select' => 'নির্বাচন করুন',
+    'code' => 'কোড',
 
 ];

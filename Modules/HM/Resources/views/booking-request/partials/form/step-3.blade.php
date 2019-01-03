@@ -198,8 +198,8 @@
                     </div>
                 </div>
             @else
-                @if(count($guestInfos))
-                    @foreach($guestInfos as $guestInfo)
+                @if(count($roomBooking->guestInfos))
+                    @foreach($roomBooking->guestInfos as $guestInfo)
                         <div data-repeater-list="guests">
                             <div data-repeater-item="" style="">
                                 <div class="form">
