@@ -23,6 +23,7 @@ return [
     'room_type' => 'Room Type',
     'quantity' => 'Quantity',
     'rate' => 'Rate',
+    'total_rate' => 'Total Rate',
     'add' => 'Add',
     'personal_information' => 'Personal Information',
     'first_name' => 'First Name',
@@ -47,7 +48,7 @@ return [
     'address' => 'Address',
     'documents' => 'Documents',
     'your_photo' => 'Your Photo',
-    'nid' => 'NID',
+    'nid_no' => 'NID No',
     'nid_copy' => 'NID Copy',
     'passport_copy' => 'Passport Copy',
     'guest_information' => 'Passport Copy',
@@ -80,6 +81,7 @@ return [
     'reject' => 'Reject',
     'pending' => 'Pending',
     'new_booking_request' => 'New Booking Request',
-    'booking_request_update_form' => 'Booking Request Update Form'
+    'booking_request_update_form' => 'Booking Request Update Form',
+    'edit_it' => 'Edit',
 
 ];

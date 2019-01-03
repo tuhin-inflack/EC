@@ -50,6 +50,7 @@
                                                 <a href="{{URL::to( '/tms/training/show/'.$training->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
                                                 <a href="{{URL::to( '/tms/training/'.$training->id.'/edit')}}" class="dropdown-item"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                                 <a href="{{URL::to( '/tms/trainee/add/to/'.$training->id)}}" class="dropdown-item"><i class="ft-plus"></i> {{trans('tms::training.add_trainee')}}</a>
+                                                <a href="{{URL::to( '/tms/trainee/import/to/'.$training->id)}}" class="dropdown-item"><i class="ft-download"></i> {{trans('tms::training.trainee_import')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',

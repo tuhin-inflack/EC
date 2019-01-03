@@ -160,7 +160,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                     <br>
-                                    {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control guest-gender-select required']) !!}
+                                    {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required']) !!}
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -229,7 +229,7 @@
                                             <label>@lang('hm::booking-request.gender') <span
                                                         class="danger">*</span></label>
                                             <br>
-                                            {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
+                                            {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.relation') <span
@@ -301,7 +301,7 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                         <br>
-                                        {!! Form::select('gender', ['' => '', 'male' => 'Male', 'female' => 'Female'], null, ['class' => 'form-control guest-gender-select required']) !!}
+                                        {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required']) !!}
                                         <span class="select-error"></span>
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
