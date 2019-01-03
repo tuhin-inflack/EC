@@ -1,6 +1,34 @@
 @extends('hm::layouts.master')
 @section('title', trans('hm::hostel.menu_title'))
 
+@push('page-css')
+    <style type="text/css">
+        .hostel-level {
+            background-color: #fdfbff;
+            color: black;
+        }
+
+        .rooms {
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .available {
+            background-color: #a3e279;
+            color: black;
+        }
+
+        .unavailable {
+            background-color: #ee843c;
+            color: #fcfcfc;
+        }
+
+        .partially-available {
+            background-color: purple;
+            color: #fcfcfc;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
 
@@ -23,46 +51,8 @@
         </div>
         <br>
 
-        @include('hm::dashboard.hostel-info', ['table' => ''])
-
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <ul class="nav nav-pills nav-pills-rounded chart-action float-left btn-group" role="group">
-                            @foreach($hostels as $hostel)
-                                <li class="nav-item">
-                                    <a class="{{ $loop->iteration == 1 ? 'active' : '' }} nav-link" data-toggle="tab" href=".hostel-{{ $hostel['hostelDetails']['id'] }}">{{ $hostel['hostelDetails']['name'] }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-content collapse show">
-                        <div class="card-body">
-                            <div class="widget-content tab-content bg-white p-20">
-                                @foreach($hostels as $hostel => $data)
-                                    <div class="{{ $loop->iteration == 1 ? 'active' : '' }} tab-pane hostel-{{-- $hostel['hostelDetails']['id'] --}}">
-                                        <pre>
-                                        {{--@php print_r($hostel); @endphp--}}
-                                            {{--@php print_r($data->hostelDetails); @endphp--}}
-                                            {{--@php print_r($data->roomDetails); @endphp--}}
-                                            @php //print_r($hostel['roomDetails']->toArray()); @endphp
-                                        </pre>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
+        @include('hm::dashboard.hostel-info', ['hostels' => $hostels])
 
     </div>
 @stop
@@ -77,7 +67,7 @@
         $(window).on("load", function(){
 
             //Get the context of the Chart canvas element we want to select
-            var ctx = $("#simple-pie-chart");
+            var ctx = $("#hostel-pie-chart");
 
             // Chart Options
             var chartOptions = {
@@ -91,7 +81,11 @@
                 labels: ["Booked", "Available", "Not for Service"],
                 datasets: [{
                     label: "Hostel",
-                    data: [10, 15, 1],
+                    data: [
+                        {{$allRoomsCountBasedOnStatus['booked']}},
+                        {{$allRoomsCountBasedOnStatus['available']}},
+                        {{$allRoomsCountBasedOnStatus['not_in_service']}}
+                    ],
                     backgroundColor: ['#00A5A8', '#28D094', '#FF4558'],
                 }]
             };

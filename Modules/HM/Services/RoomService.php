@@ -157,9 +157,24 @@ class RoomService
         return $roomDetails;
     }
 
-    public function getRoomCountByRoomType($hostelId)
+    public function getRoomCountByRoomType($hostelId = null)
     {
         return $this->roomRepository->getRoomCountByRoomType($hostelId);
+    }
+
+    public function getAllRoomCountByRoomType()
+    {
+        return $this->roomRepository->getRoomCountByRoomType();
+    }
+
+    public function getRoomCountByStatus($hostelId = null)
+    {
+        return $this->roomRepository->getRoomCountByStatus($hostelId);
+    }
+
+    public function getAllRoomCountByStatus()
+    {
+        return $this->roomRepository->getRoomCountByStatus();
     }
 
 }
