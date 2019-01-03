@@ -83,6 +83,12 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::hostel.menu_title')</span>
                         </a>
                     </li>
+                    <li class="{{ is_active_route('room-types*') }}">
+                        <a href="{{ route('room-types.index') }}">
+                            <i class="la la-hotel"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::roomtype.menu_title')</span>
+                        </a>
+                    </li>
                     <li class="{{ is_active_route('inventory-types.create') }}">
                         <a href="{{ route('inventory-types.create') }}">
                             <i class="la la-book"></i>
@@ -99,12 +105,6 @@
                         <a href="{{ route('stores.create') }}">
                             <i class="la la-cubes"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">Store</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('room-types*') }}">
-                        <a href="{{ route('room-types.index') }}">
-                            <i class="la la-hotel"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::roomtype.menu_title')</span>
                         </a>
                     </li>
                     <li class="{{ is_active_route('booking-request-rates.create') }}">

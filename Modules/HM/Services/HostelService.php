@@ -76,8 +76,10 @@ class HostelService
         $hostels = $this->findAll();
         foreach ($hostels as $hostel) {
             $roomDetails = $this->roomService->getRoomCountByRoomType($hostel->id);
-            $hostelDetails[$hostel->name] =['hostelDetails' => $hostel, 'roomDetails' =>$roomDetails];
+            $hostelDetails[$hostel->name] = ['hostelDetails' => $hostel, 'roomDetails' =>$roomDetails];
         }
         return $hostelDetails;
     }
+
+
 }

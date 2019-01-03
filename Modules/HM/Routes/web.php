@@ -12,7 +12,7 @@
 
 Route::prefix('hm')->group(function () {
     Route::get('/', 'HMController@index')->name('hm');
-    Route::get('hostel-detail', 'HMController@show')->name('hostels.detail'); // Temporary & Demo
+    Route::get('show', 'HMController@show'); // Temporary & Demo
     Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
     Route::prefix('hostels')->group(function () {

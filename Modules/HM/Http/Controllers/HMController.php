@@ -26,74 +26,14 @@ class HMController extends Controller
      */
     public function index()
     {
-        return view('hm::index');
+        $hostels = $this->hostelService->getHostelAndRoomDetails();
+        return view('hm::index', compact('hostels'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('hm::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
     public function show()
     {
-        $hostel = (object)[
-            'shortcode' => 'BR52451',
-            'name' => 'Hostal Name 1',
-            'level' => '5',
-            'total_room' => '25',
-            'total_seat' => '30',
-            'rooms' => [
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ],
-                (object)[
-                    'shortcode' => 'NNAM441',
-                    'roomType' => (object)[
-                        'name' => 'NNAM441'
-                    ],
-                    'level' => 2,
-                    'inventories' => 2
-                ]
-            ],
-            'roomTypes' => [
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ],
-                (object)[
-                    'name' => 'AC',
-                    'capacity' => 2,
-                    'rate' => 510,
-                ]
-            ]
-        ];
-        return view('hm::hostel.show', compact('hostel'));
+        return $this->hostelService->getHostelAndRoomDetails();
     }
-
 
     /**
      * Show the specified resource.
@@ -101,7 +41,7 @@ class HMController extends Controller
      */
     public function roomsChart()
     {
-        return view('hm::room.chart');
+        return view('hm::dashboard.chart');
     }
 
 }
