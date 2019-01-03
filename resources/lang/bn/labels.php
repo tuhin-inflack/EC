@@ -1,5 +1,12 @@
 <?php
 return [
+    'id' => 'আইডি',
+    'total' => 'মোট',
+    'due' => 'কারণে',
+    'method' => 'পদ্ধতি',
+    'information' => 'তথ্য',
+    'date' => 'তারিখ',
+    'amount' => 'পরিমাণ',
     'name' => 'নাম',
     'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',
