@@ -227,10 +227,11 @@
                                     <a class="btn btn-success mr-1" role="button" href="javascript:confirm('Check Out !!');">
                                         <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
                                     </a>
-                                    <a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
+                                    <!-- TODO: Generate Bill -->
+                                    {{--<a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
                                         <i class="ft-file-plus"></i> @lang('hm::bill.bill_generate')
-                                    </a>
-                                    <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('bill.payments-of-check-in') }}">
+                                    </a>--}}
+                                    <a class="btn btn-outline-primary mr-1" role="button" href="{{ route('check-in-payments.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.bill_payment')
                                     </a>
                                     <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">

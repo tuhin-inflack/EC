@@ -135,7 +135,7 @@ class BookingRequestController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
-        $type = 'checkin';
+        $type = 'booking';
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -148,7 +148,8 @@ class BookingRequestController extends Controller
             'employeeOptions',
             'employees',
             'designations',
-            'bookingType'
+            'bookingType',
+            'type'
         ));
     }
 

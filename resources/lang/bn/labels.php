@@ -1,5 +1,9 @@
 <?php
 return [
+    'id' => 'আইডি',
+    'information' => 'তথ্য',
+    'date' => 'তারিখ',
+    'amount' => 'পরিমাণ',
     'name' => 'নাম',
     'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',

@@ -11,4 +11,5 @@ return [
     'bill_generate' => 'Generate Bill',
     'bill_payment' => 'Bill Payment',
     'bill_payment_list' => 'Payment Register',
+    'payment_method' => 'Payment Method',
 ];

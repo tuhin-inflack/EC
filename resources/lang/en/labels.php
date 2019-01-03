@@ -1,5 +1,9 @@
 <?php
 return [
+    'id' => 'Id',
+    'information' => 'Information',
+    'date' => 'Date',
+    'amount' => 'Amount',
     'name' => 'Name',
     'action' => 'Action',
     'title' => 'Title',
