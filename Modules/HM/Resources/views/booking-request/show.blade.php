@@ -12,6 +12,8 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
+                                <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}" class="btn btn-primary btn-sm"><i
+                                                class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}</a></li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -74,12 +76,8 @@
                                             <table class="table table-responsive table-bordered mb-0">
                                                 <tbody>
                                                 <tr>
-                                                    <td class="width-150">@lang('hm::booking-request.request_id')</td>
-                                                    <td class="width-300">{{ $roomBooking->shortcode }}</td>
-                                                </tr>
-                                                <tr>
                                                     <td>@lang('hm::booking-request.booking_type')</td>
-                                                    <td>{{ $roomBooking->booking_type }}</td>
+                                                    <td>{{ $roomBooking->booking_type == 'general' ? trans('hm::booking-request.general_purpose') : trans('hm::booking-request.training') }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>@lang('hm::booking-request.check_in')</td>
@@ -134,43 +132,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
-                                <div class="row card-deck">
-                                    <figure class="card card-img-top border-grey border-lighten-2"
-                                            itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
-                                           itemprop="contentUrl"
-                                           data-size="480x360">
-                                            <img class="gallery-thumbnail card-img-top"
-                                                 src="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
-                                                 itemprop="thumbnail">
-                                        </a>
-                                        <div class="card-body px-0">
-                                            <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
-                                        </div>
-                                    </figure>
-                                    @if ($roomBooking->nid_doc)
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <a href="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"
-                                               itemprop="contentUrl"
-                                               data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top"
-                                                     src="{{ asset('storage/app/' . $roomBooking->nid_doc) }}"
-                                                     itemprop="thumbnail">
-                                            </a>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
-                                            </div>
-                                        </figure>
-                                    @endif
-                                </div>
-                            </div>
-                            {{--<div class="card-body">--}}
-                            {{--<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGTVf63Vm3XgOncMVSOy0-jSxdMT8KVJIc8WiWaevuWiPGe0Pm"--}}
-                            {{--width="250px" height="300px">--}}
-                            {{--</div>--}}
                             @if($roomBooking->guestInfos->count())
                                 <div class="card-body" style="padding-left: 20px;">
                                     <p><span class="text-bold-600">@lang('hm::booking-request.guest_information')</span>
@@ -186,21 +147,19 @@
                                                 <th>@lang('hm::booking-request.gender')</th>
                                                 <th>@lang('hm::booking-request.address')</th>
                                                 <th>@lang('hm::booking-request.relation')</th>
-                                                <th>@lang('hm::booking-request.nid')</th>
-                                                <th>@lang('hm::booking-request.nid_copy')</th>
+                                                <th>@lang('hm::booking-request.nid_no')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             @foreach($roomBooking->guestInfos as $guestInfo)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $guestInfo->name }}</td>
+                                                    <td>{{ $guestInfo->first_name }} {{ $guestInfo->middle_name }} {{ $guestInfo->last_name }}</td>
                                                     <td>{{ $guestInfo->age }}</td>
-                                                    <td>{{ $guestInfo->gender }}</td>
+                                                    <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
                                                     <td>{{ $guestInfo->address }}</td>
                                                     <td>{{ $guestInfo->relation }}</td>
                                                     <td>{{ $guestInfo->nid_no }}</td>
-                                                    <td>{{ $guestInfo->nid_doc }}</td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -208,6 +167,80 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="card-body">
+                                <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
+                                <div class="row card-deck">
+                                    @if ($roomBooking->requester->photo)
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                               itemprop="contentUrl"
+                                               data-size="480x360">
+                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
+                                                     itemprop="thumbnail">
+                                            </a>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
+                                            </div>
+                                        </figure>
+                                    @else
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <p>No Documents Available</p>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
+                                            </div>
+                                        </figure>
+                                    @endif
+                                    @if ($roomBooking->requester->nid_doc)
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                               itemprop="contentUrl"
+                                               data-size="480x360">
+                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                                     itemprop="thumbnail">
+                                            </a>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                            </div>
+                                        </figure>
+                                        @else
+                                            <figure class="card card-img-top border-grey border-lighten-2"
+                                                    itemprop="associatedMedia" itemscope="">
+                                                <p>No Documents Available</p>
+                                                <div class="card-body px-0">
+                                                    <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                                </div>
+                                            </figure>
+                                        @endif
+                                    @if ($roomBooking->requester->passport_doc)
+                                        <figure class="card card-img-top border-grey border-lighten-2"
+                                                itemprop="associatedMedia" itemscope="">
+                                            <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                               itemprop="contentUrl"
+                                               data-size="480x360">
+                                                <img class="gallery-thumbnail card-img-top" style="height: 150px;width: 150px;"
+                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                                     itemprop="thumbnail">
+                                            </a>
+                                            <div class="card-body px-0">
+                                                <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
+                                            </div>
+                                        </figure>
+                                        @else
+                                            <figure class="card card-img-top border-grey border-lighten-2"
+                                                    itemprop="associatedMedia" itemscope="">
+                                                <p>No Documents Available</p>
+                                                <div class="card-body px-0">
+                                                    <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
+                                                </div>
+                                            </figure>
+                                        @endif
+                                </div>
+                            </div>
                         </div>
 
                         @if($type == 'checkin')

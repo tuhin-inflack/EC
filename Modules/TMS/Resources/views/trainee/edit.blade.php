@@ -93,11 +93,17 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_len" class="form-label">{{trans('tms::training.trainee_gender')}}</label>
-                                            <select class="form-control" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}">
-                                                <option value=""> - Select Gender -</option>
-                                                <option value="Male" {{($trainee->trainee_gender == 'Male')? 'selected':''}}>Male</option>
-                                                <option value="Female" {{($trainee->trainee_gender == 'Female')? 'selected':''}}>Female</option>
-                                            </select>
+                                            <div>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Male" {{($trainee->trainee_gender == 'Male')? 'checked':''}}> {{__('labels.male')}}</label>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Female" {{($trainee->trainee_gender == 'Female')? 'checked':''}}> {{__('labels.female')}}</label>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Others" {{($trainee->trainee_gender == 'Others')? 'checked':''}}> {{__('labels.others')}}</label>
+                                            </div>
+
+                                            {{--<select class="form-control" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}">--}}
+                                                {{--<option value=""> - Select Gender -</option>--}}
+                                                {{--<option value="Male" {{($trainee->trainee_gender == 'Male')? 'selected':''}}>Male</option>--}}
+                                                {{--<option value="Female" {{($trainee->trainee_gender == 'Female')? 'selected':''}}>Female</option>--}}
+                                            {{--</select>--}}
                                             <div class="help-block"></div>
 
                                         </div>

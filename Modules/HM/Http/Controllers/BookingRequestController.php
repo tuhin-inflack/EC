@@ -104,8 +104,8 @@ class BookingRequestController extends Controller
     public function store(StoreBookingRequest $request)
     {
         $this->bookingRequestService->store($request->all());
-        Session::flash('success', 'Successfully stored room booking information');
-        return redirect()->back();
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('booking-requests.index');
     }
 
     /**
@@ -135,7 +135,7 @@ class BookingRequestController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
-        $type = 'checkin';
+        $type = 'booking';
 
         return view('hm::booking-request.edit', compact(
             'requester',
@@ -148,7 +148,8 @@ class BookingRequestController extends Controller
             'employeeOptions',
             'employees',
             'designations',
-            'bookingType'
+            'bookingType',
+            'type'
         ));
     }
 
@@ -161,9 +162,8 @@ class BookingRequestController extends Controller
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
         $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
-        Session::flash('message', trans('labels.update_success'));
-
-        return redirect()->back();
+        Session::flash('success', trans('labels.update_success'));
+        return redirect()->route('booking-requests.index');
     }
 
     /**

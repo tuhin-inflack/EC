@@ -74,6 +74,12 @@
                 if (currentIndex > newIndex) {
                     return true;
                 }
+                if (newIndex == 1) {
+                    if ($('.repeater-room-infos').has('div[data-repeater-item]').length == 0) {
+                        alert('Please select room details');
+                        return false;
+                    }
+                }
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
@@ -86,14 +92,17 @@
                             <td>${$('#start_date').val() + ' To ' + $('#end_date').val()}</td>
                             <td>${getRateType(roomInfo.rate.split('_')[0])}</td>
                             <td>${roomInfo.rate.split('_')[1]} x ${roomInfo.quantity}</td>
+                            <td>${Number.parseFloat(roomInfo.rate.split('_')[1] * roomInfo.quantity).toFixed(2)}</td>
                         </tr>`;
                     });
 
                     let guestInfoRows = guestInfos.map(guestInfo => {
+                        let male = '{!! trans('hm::booking-request.male') !!}'
+                        let female = '{!! trans('hm::booking-request.female') !!}'
                         return `<tr>
-                            <td>${guestInfo.name}</td>
+                            <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
                             <td>${guestInfo.age}</td>
-                            <td>${guestInfo.gender}</td>
+                            <td>${guestInfo.gender == 'male' ? male : female}</td>
                             <td>${guestInfo.relation}</td>
                             <td>${guestInfo.address}</td>
                         </tr>`;
@@ -140,7 +149,9 @@
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#start_date, #end_date').pickadate();
+            $('#start_date, #end_date').pickadate({
+                min: new Date()
+            });
 
             // form-repeater
             $('.repeater-room-infos').repeater({
@@ -171,7 +182,7 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {!! (count($guestInfos) || old('guests')) ? 'false' : 'true'  !!},
+                initEmpty: {!! (count($roomBooking->guestInfos) || old('guests')) ? 'false' : 'true'  !!},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -206,7 +217,7 @@
                 placeholder: 'Select Department'
             });
 
-            let roomInfos = {!! $roomInfos !!};
+            let roomInfos = {!! $roomBooking->roomInfos !!};
             let roomTypes = {!! $roomTypes !!};
 
             $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
@@ -253,7 +264,7 @@
                     end_date: {
                         greaterThanOrEqual: '#start_date'
                     },
-                    name: {
+                    first_name: {
                         maxlength: 50
                     },
                     contact: {

@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
+use Modules\HM\Http\Requests\UpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
@@ -83,9 +84,10 @@ class CheckinController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function create()
+    public function create(RoomBooking $roomBooking = null)
     {
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
@@ -93,20 +95,27 @@ class CheckinController extends Controller
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
         $type = 'checkin';
+        $checkinType = $roomBooking ? 'from-booking' : 'walkin';
+        $viewName = $checkinType == 'walkin'? 'hm::booking-request.create' : 'hm::booking-request.edit';
 
-        return view('hm::booking-request.create', compact(
+        return view($viewName, compact(
                 'roomTypes',
                 'departments',
                 'employees',
                 'employeeOptions',
                 'designations',
-                'type'
+                'type',
+                'checkinType',
+                $roomBooking ? 'roomBooking':''
             )
         );
     }
 
-    public function store(StoreBookingRequest $request) {
-        $checkin = $this->bookingRequestService->store($request->all(), 'checkin');
+    public function store(StoreBookingRequest $request, $roomBookingId=null) {
+        $data = $request->all();
+        if ($roomBookingId)
+            $data['booking_id'] = $roomBookingId;
+        $checkin = $this->bookingRequestService->store($data, 'checkin');
         Session::flash('success', trans('labels.save_success'));
         return redirect(route('hostel.selection', ['roomBookingId' => $checkin->id]));
     }
@@ -123,33 +132,68 @@ class CheckinController extends Controller
 
     /**
      * Show the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function show()
+    public function show(RoomBooking $roomBooking)
     {
         $type = 'checkin';
-        $roomBooking = RoomBooking::first();
+
+        if ($roomBooking->type != 'checkin')
+        {
+            abort(404);
+        }
+
         return view('hm::booking-request.show', compact('roomBooking', 'type'));
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function edit()
+    public function edit(RoomBooking $roomBooking, $bookingId)
     {
+        $employees = $this->employeeServices->findAll();
+        $requester = $roomBooking->requester;
+        $referee = $roomBooking->referee;
+        $roomInfos = $roomBooking->roomInfos;
+        $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
+        $guestInfos = $roomBooking->guestInfos;
+        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $designations = $this->designationService->findAll();
         $type = 'checkin';
-        return view('hm::check-in.edit', compact('type'));
+
+        return view('hm::booking-request.edit', compact(
+            'requester',
+            'departments',
+            'roomInfos',
+            'guestInfos',
+            'roomBooking',
+            'roomTypes',
+            'referee',
+            'employeeOptions',
+            'employees',
+            'designations',
+            'bookingType',
+            'type'
+        ));
     }
 
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateBookingRequest $request
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
+        $checkin = $this->bookingRequestService->update($request->all(), $roomBooking);
+        Session::flash('update', trans('labels.update_success'));
+
+        return redirect(route('hostel.selection', ['roomBookingId' => $checkin->id]));
     }
 
     /**

@@ -26,7 +26,6 @@ return [
     'confirm_delete' => 'Confirm delete?',
     'status' => 'Status',
     'created_at' => 'Created at',
-    'confirm_delete' => 'Confirm delete?',
     'dashboard' => 'Dashboard',
     'history' => 'History',
     'number' => 'Number',
@@ -39,4 +38,10 @@ return [
     'print' => 'Print',
     'info' => 'Info',
     'chart' => 'Chart',
+    'male' => 'Male',
+    'female' => 'Female',
+    'others' => 'Others',
+    'save_fail' => 'Save Failed',
+    'update_fail' => 'Update Failed',
+    'delete_fail' => 'Delete Failed',
 ];
