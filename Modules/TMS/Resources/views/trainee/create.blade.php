@@ -34,9 +34,9 @@
                                                    class="form-control {{ $errors->has('training_id') ? ' is-invalid' : '' }}"
                                                    name="training_id" value="{{$training->training_id}}" readonly required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_id')])}}" autofocus>
                                             <div class="help-block"></div>
-                                            @if ($errors->has('training_id'))
+                                            @if($errors->has('training_id'))
                                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('training_id') }}</strong>
+                                        <strong>{{$errors->first('training_id') }}</strong>
                                     </span>
                                             @endif
                                         </div>
@@ -93,10 +93,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_len" class="form-label">{{trans('tms::training.trainee_gender')}}</label>
-                                            <select class="form-control" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}">
-                                                <option value=""> - Select Gender -</option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
+                                            <div>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Male"> {{__('labels.male')}}</label>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Female"> {{__('labels.female')}}</label>
+                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Others"> {{__('labels.others')}}</label>
+                                            </div>
+                                            {{--<select class="form-control" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}">--}}
+                                                {{--<option value=""> - Select Gender -</option>--}}
+                                                {{--<option value="Male">Male</option>--}}
+                                                {{--<option value="Female">Female</option>--}}
                                             </select>
                                             <div class="help-block"></div>
 

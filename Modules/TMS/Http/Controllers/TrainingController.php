@@ -29,7 +29,6 @@ class TrainingController extends Controller
      */
     public function index()
     {
-
         $trainings = $this->trainingService->findAll();
 
         return view('tms::training.index', compact('trainings'));
@@ -63,7 +62,7 @@ class TrainingController extends Controller
     {
         $response = $this->trainingService->save($request->all());
 
-        if($response == true) $msg = "Training saved Successfully!"; else $msg = "Error! Data not saved";
+        if($response == true) $msg = __('labels.save_success'); else $msg = __('labels.save_fail');;
         Session::flash('message',$msg);
 
         return redirect('tms/training/');
@@ -76,8 +75,6 @@ class TrainingController extends Controller
     public function show($training_id)
     {
         $training = $this->trainingService->findOrFail($training_id);
-
-        //return die('test');
 
         return view('tms::training.show', compact('training'));
     }
@@ -103,12 +100,9 @@ class TrainingController extends Controller
         //$update = $this->trainingService->updateUser($training , $request->all());
         $update = $this->trainingService->updateTraining($training_id, $request->all());
 
-        if($update) $msg = "Training Updated Successfully"; else $msg = "Error! Training not updated";
-
-        Session::flash('message', $msg);
+        Session::flash('message', __('labels.update_success'));
 
         return redirect('/tms/training');
-
     }
 
     /**
@@ -119,11 +113,10 @@ class TrainingController extends Controller
     {
         $response = $this->trainingService->delete($id);
 
-        if($response) $msg = "Training Deleted Successfully"; else $msg = "Error! Training not deleted";
+        if($response) $msg = __('labels.delete_success'); else $msg = __('labels.delete_fail');
 
         Session::flash('message', $msg);
 
         return redirect('/tms/training');
-
     }
 }
