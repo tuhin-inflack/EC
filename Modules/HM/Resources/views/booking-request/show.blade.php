@@ -12,17 +12,10 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
-                                @if($roomBooking->status == 'pending')
-                                    <li><span class="badge badge-warning" style="padding: 8px;">{{ trans('hm::booking-request.pending') }}</span></li>
-                                @elseif($roomBooking->status == 'approved')
-                                    <li><span class="badge badge-success" style="padding: 8px;">{{ trans('hm::booking-request.approved') }}</span></li>
-                                @else
-                                    <li><span class="badge badge-danger" style="padding: 8px;">{{ trans('hm::booking-request.rejected') }}</span></li>
-                                @endif
-
-                                @if($roomBooking->status == 'pending')
-                                    <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}" class="btn btn-primary btn-sm"><i class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}</a></li>
-                                    @endif
+                                <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
+                                       class="btn btn-primary btn-sm"><i
+                                                class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                    </a></li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>

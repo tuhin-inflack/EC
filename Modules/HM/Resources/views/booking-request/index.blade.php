@@ -7,8 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title"
-                            id="basic-layout-form">@lang('hm::booking-request.booking_request') @lang('labels.list')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::booking-request.booking_request') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -19,8 +18,7 @@
                         </div>
                         <div class="heading-elements">
                             <a href="{{ route('booking-requests.create') }}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{ trans('hm::booking-request.new_booking_request') }}
-                            </a>
+                                        class="ft-plus white"></i> {{ trans('hm::booking-request.new_booking_request') }}</a>
 
                         </div>
                     </div>
@@ -46,22 +44,15 @@
                                         @foreach($bookingRequests as $bookingRequest)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    <a href="{{ route('booking-requests.show', $bookingRequest->id) }}">{{ $bookingRequest->requester->getName() }}</a>
-                                                </td>
+                                                <td><a href="{{ route('booking-requests.show', $bookingRequest->id) }}">{{ $bookingRequest->requester->getName() }}</a></td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->start_date)->format('d/m/Y') }}</td>
                                                 <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $bookingRequest->end_date)->format('d/m/Y') }}</td>
                                                 <td>{{ $bookingRequest->requester->organization }}</td>
                                                 <td>{{ $bookingRequest->referee ? $bookingRequest->referee->getName() : null }}</td>
                                                 <td>{{ $bookingRequest->guestInfos->count() }}</td>
+                                                <td>{{ $bookingRequest->status }}</td>
                                                 <td>
-                                                    @lang('labels.status_' . $bookingRequest->status)
-                                                </td>
-                                                <td>
-                                                    @if( $bookingRequest->status == 'pending' )
-                                                        <a href="{{ route('booking-requests.edit', $bookingRequest->id) }}"
-                                                           class="btn btn-sm btn-primary"><i class="ft-edit-2"></i></a>
-                                                    @endif
+                                                    <a href="{{ route('booking-requests.edit', $bookingRequest->id) }}" class="btn btn-sm btn-primary"><i class="ft-edit-2"></i></a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -80,9 +71,9 @@
 @push('page-js')
     <script>
         $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                let filterValue = $('#filter-select').val() || '{!! trans('hm::booking-request.pending') !!}';
-                if (data[7] == filterValue) {
+            function( settings, data, dataIndex ) {
+                let filterValue = $('#filter-select').val() || 'pending';
+                if(data[7] == filterValue) {
                     return true;
                 }
                 return false;
@@ -92,32 +83,19 @@
         $(document).ready(function () {
             let table = $('.booking-request-table').DataTable({
                 "columnDefs": [
-                    {"orderable": false, "targets": 8}
-                ],
-                "language": {
-                    "search": "{{ trans('labels.search') }}",
-                    "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
-                    "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
-                    "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
-                    "infoFiltered": "( {{ trans('labels.total')}} _MAX_ {{ trans('labels.infoFiltered') }} )",
-                    "paginate": {
-                        "first": "First",
-                        "last": "Last",
-                        "next": "{{ trans('labels.next') }}",
-                        "previous": "{{ trans('labels.previous') }}"
-                    },
-                }
+                    { "orderable": false, "targets": 8 }
+                ]
             });
 
             $("div.dataTables_length").append(`
                 <label style="margin-left: 20px">
-                    {{ trans('labels.filtered') }}
+                    Filter
                     <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
-                        <option value="{{ trans('hm::booking-request.pending') }}">{{ trans('hm::booking-request.pending') }}</option>
-                        <option value="{{ trans('hm::booking-request.approved') }}">{{ trans('hm::booking-request.approved') }}</option>
-                        <option value="{{ trans('hm::booking-request.rejected') }}">{{ trans('hm::booking-request.rejected') }}</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
                         </select>
-                    {{ trans('labels.records') }}
+                    entries
                 </label>
             `);
 
@@ -125,5 +103,6 @@
                 table.draw();
             });
         });
+
     </script>
 @endpush

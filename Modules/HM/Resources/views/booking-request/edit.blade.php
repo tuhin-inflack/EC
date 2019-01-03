@@ -152,15 +152,9 @@
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#start_date').pickadate({
+            $('#start_date, #end_date').pickadate({
                 min: new Date()
             });
-
-            $('#end_date').pickadate({
-                min: +1
-            });
-
-            $('#start_date, #end_date').pickadate();
 
             // form-repeater
             $('.repeater-room-infos').repeater({

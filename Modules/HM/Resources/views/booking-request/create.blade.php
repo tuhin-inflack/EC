@@ -3,6 +3,15 @@
 
 @section('content')
     <div class="container">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <!-- Form wizard with number tabs section start -->
@@ -91,7 +100,6 @@
                             <td>${$('#start_date').val() + ' To ' + $('#end_date').val()}</td>
                             <td>${getRateType(roomInfo.rate.split('_')[0])}</td>
                             <td>${roomInfo.rate.split('_')[1]} x ${roomInfo.quantity}</td>
-                            <td>${Number.parseFloat(roomInfo.rate.split('_')[1] * roomInfo.quantity).toFixed(2)}</td>
                         </tr>`;
                     });
 
@@ -154,15 +162,9 @@
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#start_date').pickadate({
+            $('#start_date, #end_date').pickadate({
                 min: new Date()
             });
-
-            $('#end_date').pickadate({
-                min: +1,
-            });
-
-            $('#start_date, #end_date').pickadate();
 
             // form-repeater
             $('.repeater-room-infos').repeater({
