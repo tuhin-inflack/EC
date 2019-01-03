@@ -5,6 +5,7 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Services\CheckinPaymentService;
 
@@ -55,7 +56,10 @@ class CheckinPaymentController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->checkinPaymentService->save(array_merge($request->all(), ['shortcode' => time()]));
+        $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['shortcode' => time()]));
+        Session::flash('success', 'Successfully made payments');
+
+        return redirect()->route('check-in-payments.index', $checkinPayment->checkin_id);
     }
 
     /**

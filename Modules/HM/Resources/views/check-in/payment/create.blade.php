@@ -65,7 +65,7 @@
                                         <tr>
                                             <td>Method</td>
                                             <td>
-                                                {{ Form::select('payment_method', config('accounts.payment_method'), null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
+                                                {{ Form::select('type', ['cash' => 'cash', 'card' => 'card', 'check' => 'check'], null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
                                                 {{ Form::text('check_number', null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
                                             </td>
                                         </tr>
@@ -110,11 +110,11 @@
             /* # Payment Methods toggle
              ================================================= */
 
-            $('select[name="payment_method"]').change(function () {
+            $('select[name="type"]').change(function () {
                 var payment_method = this.value;
                 var element = $('input[name="check_number"]');
 
-                if (payment_method != 'cash') {
+                if (payment_method == 'check') {
                     element.show();
                     element.val("");
                 } else {

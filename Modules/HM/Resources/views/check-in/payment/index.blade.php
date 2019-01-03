@@ -93,6 +93,9 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <br>
+                                        <p><span class="text-bold-600">Total Payment: {{ $checkin->payments()->sum('amount') }}</span></p>
+
                                     </div>
                                 @endif
                             </div>
