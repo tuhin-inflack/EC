@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Payments Details of Check In</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::checkin.payment_informations')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -29,11 +29,11 @@
                                             <tbody>
                                             <tr>
                                                 <td class="width-150">@lang('hm::booking-request.check_in') @lang('labels.id')</td>
-                                                <td class="width-300">BARDXXXXXX</td>
+                                                <td class="width-300">{{ $checkin->shortcode }}</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.booking_type')</td>
-                                                <td>{{ $checkin->booking_type }}</td>
+                                                <td>@lang('hm::booking-request.' . $checkin->booking_type)</td>
                                             </tr>
                                             <tr>
                                                 <td>@lang('hm::booking-request.check_in')</td>
@@ -65,7 +65,7 @@
                                 </div>
                                 @if(count($checkin->payments))
                                     <div class="col-md-6">
-                                        <p><span class="text-bold-600">Payments Details</span></p>
+                                        <p><span class="text-bold-600">@lang('hm::checkin.payment_details')</span></p>
                                         <div class="table-responsive">
                                             <table class="table table-responsive table-bordered mb-0">
                                                 <thead>
@@ -82,11 +82,10 @@
                                                 @foreach($checkin->payments as $payment)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td><a href="{{ route('check-in-payments.show', [$checkin->id, $payment->id]) }}">BILL{{$payment->shortcode}}</a>
-                                                        </td>
+                                                        <td>{{ $payment->shortcode }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                         <td>{{ $payment->amount }}</td>
-                                                        <td>{{ $payment->type }}</td>
+                                                        <td>{{ trans('hm::checkin.' . $payment->type) }}</td>
                                                         <td><a href="javascript:;"><i class="la la-eye"></i></a></td>
                                                     </tr>
                                                 @endforeach
@@ -94,7 +93,7 @@
                                             </table>
                                         </div>
                                         <br>
-                                        <p><span class="text-bold-600">Total Payment: {{ $checkin->payments()->sum('amount') }}</span></p>
+                                        <p><span class="text-bold-600">@lang('hm::checkin.total_payment'): {{ $checkin->payments()->sum('amount') }}</span></p>
 
                                     </div>
                                 @endif
@@ -103,10 +102,10 @@
                         <div class="card-body" style="padding-left: 20px;">
                             <div class="form-actions">
                                 <a class="btn btn-warning mr-1" role="button" href="{{ route('check-in.show',  $checkin->id) }}">
-                                    <i class="ft-x"></i> Cancel
+                                    <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
                                 <a class="btn btn-success mr-1" role="button" href="{{ route('check-in-payments.create', $checkin->id) }}">
-                                    <i class="ft-credit-card"></i> Make Payment
+                                    <i class="ft-credit-card"></i> @lang('hm::checkin.make_payment')
                                 </a>
                             </div>
                         </div>

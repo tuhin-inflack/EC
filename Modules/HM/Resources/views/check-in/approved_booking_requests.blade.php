@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Check Approved Booking Requests')
+@section('title',  __('labels.search').' '.__('labels.status_approved') .' '.__('hm::booking-request.booking_request'))
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Search Approved Booking Request</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('labels.search') @lang('labels.status_approved') @lang('hm::booking-request.booking_request')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -26,7 +26,7 @@
                                             <div class="col-md-12 col-sm-12">
                                                 <div class="form-group">
                                                     <select class="select2 form-control" onchange="location = this.options[this.selectedIndex].value;">
-                                                        <option>Search Here</option>
+                                                        <option>@lang('labels.search_here')</option>
                                                         @foreach($bookingRequests as $bookingId=>$contact)
                                                             <option value="{{route('check-in.create', [$bookingId])}}">{{$contact}}</option>
                                                         @endforeach

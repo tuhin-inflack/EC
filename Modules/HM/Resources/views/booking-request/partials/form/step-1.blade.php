@@ -42,7 +42,7 @@
             :trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
                 {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required']) !!}
-                <label>{{ trans('hm::booking-request.general_purpose') }}</label>
+                <label>{{ trans('hm::booking-request.general') }}</label>
             </div>
             <div class="skin skin-flat">
                 {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required']) !!}

@@ -20,7 +20,7 @@ return [
     'booking_date' => 'বুকিং তারিখ',
     'booking_type' => 'বুকিং টাইপ',
     'checkin_type' => 'চেকইন টাইপ',
-    'general_purpose' => 'সাধারন ক্ষেত্রে',
+    'general' => 'সাধারন',
     'training' => 'প্রশিক্ষণ',
     'room_details' => 'রুম বিস্তারিত',
     'room_type' => 'ঘরের বিবরণ',
