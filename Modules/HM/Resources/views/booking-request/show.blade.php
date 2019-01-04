@@ -289,6 +289,10 @@
                                     </a>
                                     <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">
                                         <i class="ft-printer"></i> @lang('labels.print')</button>
+                                    <a class="btn btn-outline-primary mr-1" role="button"
+                                       href="{{ route('check-in-bill.index', $roomBooking->id) }}">
+                                        <i class="ft-list"></i> @lang('hm::bill.title')
+                                    </a>
                                 </div>
                             </div>
                         @else

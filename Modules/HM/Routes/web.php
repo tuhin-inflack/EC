@@ -108,13 +108,14 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::get('/create-options', 'CheckinController@createOptions')->name('check-in.create-options');
             Route::get('/create/{roomBooking?}', 'CheckinController@create')->name('check-in.create');
             Route::post('/store/{roomBookingId?}', 'CheckinController@store')->name('check-in.store');
-            Route::get('approved-booking-requests', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
+            Route::get('approved-booking-requests/{isTraining?}', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests');
             Route::get('edit', 'CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
             Route::get('{roomBooking}', 'CheckinController@show')->name('check-in.show');
             Route::get('{roomBooking}/payments', 'CheckinPaymentController@index')->name('check-in-payments.index');
             Route::get('{roomBooking}/payments/create', 'CheckinPaymentController@create')->name('check-in-payments.create');
             Route::post('{roomBooking}/payments', 'CheckinPaymentController@store')->name('check-in-payments.store');
             Route::get('{roomBooking}/payments/{checkinPayment}/show', 'CheckinPaymentController@show')->name('check-in-payments.show');
+            Route::get('{roomBooking}/bills','CheckinBillController@index')->name('check-in-bill.index');
         });
 
         Route::post('check-out/{roomBooking}', 'CheckoutController@update')->name('check-out.update');

@@ -70,7 +70,8 @@ return [
     'status_pending' => 'Pending',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
-    'search_here' => 'Search here',
     'complete' => 'Finish',
     'no_doc_available' => 'No Document Available',
+    'login' => 'Login',
+    'provide_your_account_details' => 'Provide Your Account Details',
 ];

@@ -12,6 +12,7 @@ return [
     'estimated_check_out_time' => 'Estimated Check Out Time',
     'estimated_no_of_day' => 'Estimated # of Day',
     'from_approved_booking' => 'Checkin from Approved Booking Request',
+    'from_approved_training_booking' => 'Checkin from Approved Training Booking Request',
     'walkin_checkin' =>  'Walkin Checkin',
     'search_approved_booking' => 'Search Approved Booking',
     'checkin_request_update_form' => 'Checkin Request Update Form',

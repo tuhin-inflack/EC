@@ -14,6 +14,8 @@ use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\TMS\Services\TrainingsService;
+use Nwidart\Modules\Facades\Module;
 
 class BookingRequestController extends Controller
 {
@@ -37,6 +39,10 @@ class BookingRequestController extends Controller
      * @var DesignationService
      */
     private $designationService;
+    /**
+     * @var DesignationService
+     */
+    private $trainingService;
 
     /**
      * BookingRequestController constructor.
@@ -45,13 +51,15 @@ class BookingRequestController extends Controller
      * @param DepartmentService $departmentService
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
+     * @param TrainingsService $trainingService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
-        DesignationService $designationService
+        DesignationService $designationService,
+        TrainingsService $trainingService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -59,6 +67,7 @@ class BookingRequestController extends Controller
         $this->bookingRequestService = $bookingRequestService;
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
+        $this->trainingService = $trainingService;
     }
 
     /**
@@ -85,13 +94,17 @@ class BookingRequestController extends Controller
         $designations = $this->designationService->findAll();
         $type = 'booking';
 
+        // Collecting Training List from Training Modules
+        $trainings = $this->trainingService->findAll();
+
         return view('hm::booking-request.create', compact(
                 'roomTypes',
                 'departments',
                 'employees',
                 'employeeOptions',
                 'designations',
-                'type'
+                'type',
+                'trainings'
             )
         );
     }
@@ -135,6 +148,8 @@ class BookingRequestController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $trainings = $this->trainingService->findAll();
+
         $type = 'booking';
 
         return view('hm::booking-request.edit', compact(
@@ -149,6 +164,7 @@ class BookingRequestController extends Controller
             'employees',
             'designations',
             'bookingType',
+            'trainings',
             'type'
         ));
     }
