@@ -51,7 +51,7 @@
                         <a class="btn btn-outline-info round" href="{{ route('booking-requests.create') }}">
                             <i class="ft-book"></i> @lang('hm::booking-request.booking_request')
                         </a>
-                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create') }}">
+                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create-options') }}">
                             <i class="ft-bookmark"></i> @lang('hm::booking-request.check_in')
                         </a>
                     </div>

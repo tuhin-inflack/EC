@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Guest Check-in')
+@section('title', __('hm::booking-request.check_in'))
 
 @section('content')
     <div class="container">
@@ -24,15 +24,15 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">Aproved Booking Request</a>
+                                                <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">@lang('labels.status_approved') @lang('hm::booking-request.booking_request')</a>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12" style="text-align: center;">
-                                            <h2>OR</h2>
+                                            <h2>@lang('labels.or')</h2>
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">New Check-in</a>
+                                                <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">@lang('labels.new') @lang('hm::booking-request.check_in')</a>
                                             </div>
                                         </div>
                                     </div>
