@@ -66,7 +66,7 @@ class RoomAssignmentController extends Controller
         $data = $request->all();
         $data['checkin_date'] = new \DateTime();
         $this->checkinService->store($data);
-        Session::flash('success', 'Checkedin successfull');
+        Session::flash('success', __('hm::checkin.room_allocation_success'));
         return redirect(route('room.assign', ['selectedHostelId'=>$request['selected_hostel_id'], 'roomCheckinId'=>$request['checkin_id']]));
     }
 
