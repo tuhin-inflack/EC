@@ -56,6 +56,16 @@
             </div>
 
         </div>
+        <div class="form-group mb-1 col-md-6">
+            <label class="required">@lang('tms::training.title') @lang('labels.list')</label>
+            <select name="training_id" class="form-control training-select required">
+                <option value=""> Select Training </option>
+                @foreach($trainings as $training)
+                    <option value="{{$training->id}}">{{$training->training_title}}</option>
+                @endforeach
+            </select>
+        </div>
+
     </div>
 
     <h4 class="form-section"><i

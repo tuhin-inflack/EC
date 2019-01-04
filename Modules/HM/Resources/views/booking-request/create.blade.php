@@ -204,6 +204,9 @@
             });
 
             // select2
+            $('.training-select').select2({
+                placeholder: 'Select Training'
+            });
             $('.room-type-select').select2({
                 placeholder: 'Select Room Type'
             });
