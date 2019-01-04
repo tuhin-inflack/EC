@@ -15,4 +15,6 @@ return [
     'billing_time' => 'Billing Time',
     'billing_time' => 'Bill Number',
     'bill_for' => 'Bill For',
+    'bill_details' => 'Bill Details',
+    'payment_details' => 'Payment Details',
 ];
