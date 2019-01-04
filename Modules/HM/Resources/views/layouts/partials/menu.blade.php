@@ -19,32 +19,6 @@
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="la la-money"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">@lang('hm::bill.title')</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('bill.search-check-in') }}">
-                        <a href="{{ route('bill.search-check-in') }}">
-                            <i class="la la-plus"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::bill.bill_generate')</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('bill.index') }}">
-                        <a href="{{ route('bill.index') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::bill.list')</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('bill.payment-list') }}">
-                        <a href="{{ route('bill.payment-list') }}">
-                            <i class="la la-list"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::bill.bill_payment_list')</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#">
                     <i class="la la-cog la-spin"></i>
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('labels.setup')</span>
                 </a>
@@ -60,52 +34,6 @@
                             <i class="la la-hotel"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('hm::roomtype.menu_title')</span>
                         </a>
-                    </li>
-                    <li class="{{ is_active_route('inventory-types.create') }}">
-                        <a href="{{ route('inventory-types.create') }}">
-                            <i class="la la-book"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Inventory Type</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('inventory-items.create') }}">
-                        <a href="{{ route('inventory-items.create') }}">
-                            <i class="la la-cube"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Inventory Item</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('stores.create') }}">
-                        <a href="{{ route('stores.create') }}">
-                            <i class="la la-cubes"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Store</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('booking-request-rates.create') }}">
-                        <a href="{{ route('booking-request-rates.create') }}">
-                            <i class="la la-book"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Booking Rate</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hm::hostel_budget.menu_title') }}</span></a>
-                        <ul class="menu-content">
-                            <li class="{{ is_active_match('hm/hostel-budget') }}">
-                                <a href="{{ url('hm/hostel-budgets') }}">
-                                    <i class="la la-hotel"></i>
-                                    <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_budget') }}</span>
-                                </a>
-                            </li>
-                            <li class="{{ is_active_url('hm/hostel-budget-section')}}">
-                                <a href="{{ url('hm/hostel-budget-section') }}">
-                                    <i class="la la-list-alt"></i>
-                                    <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="{{ is_active_route('annual-purchases.create') }}">
-                        <a href="{{ route('annual-purchases.create') }}">
-                            <i class="la la-money"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">Annual Purchase</span></a>
                     </li>
                 </ul>
             </li>
