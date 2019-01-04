@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- title -->
-    <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') - {{ trans('labels.' . config('app.name', 'Laravel')) }}</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.seat-charts.css') }}">
@@ -80,6 +80,23 @@
 <script src="{{ asset('theme/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/vendors/js/forms/select/select2.full.min.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
+<script>
+    $.extend( true, $.fn.dataTable.defaults, {
+        "language": {
+            "search": "{{ trans('labels.search') }}",
+            "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
+            "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
+            "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
+            "infoFiltered": "( {{ trans('labels.total')}} _MAX_ {{ trans('labels.infoFiltered') }} )",
+            "paginate": {
+                "first": '{!! trans('labels.first') !!}',
+                "last": '{!! trans('labels.last') !!}',
+                "next": "{{ trans('labels.next') }}",
+                "previous": "{{ trans('labels.previous') }}"
+            },
+        }
+    } );
+</script>
 <!-- BEGIN VENDOR JS-->
 <!-- BEGIN PAGE VENDOR JS-->
 {{--<script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>--}}

@@ -67,7 +67,9 @@
             transitionEffect: "fade",
             titleTemplate: '<span class="step">#index#</span> #title#',
             labels: {
-                finish: 'Submit'
+                finish: '{!! trans('labels.submit') !!}',
+                next: '{!! trans('labels.next') !!}',
+                previous: '{!! trans('labels.previous') !!}',
             },
             onStepChanging: function (event, currentIndex, newIndex) {
                 // Allways allow previous action even if the current form is not valid!
