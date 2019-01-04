@@ -69,4 +69,6 @@ return [
     'status_pending' => 'Pending',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
+    'search_here' => 'Search here',
+    'complete' => 'Finish',
 ];

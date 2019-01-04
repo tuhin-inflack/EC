@@ -7,7 +7,6 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        {{--<h4 class="card-title" id="basic-layout-form">Booking Request List</h4>--}}
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -24,15 +23,19 @@
                                     <div class="row">
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">Aproved Booking Request</a>
+                                                <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">
+                                                    @lang('hm::checkin.from_approved_booking')
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="col-md-12 col-sm-12" style="text-align: center;">
-                                            <h2>OR</h2>
+                                            <h2></h2>
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
-                                                <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">New Check-in</a>
+                                                <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">
+                                                    @lang('hm::checkin.walking_checkin')
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
