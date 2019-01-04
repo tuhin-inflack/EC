@@ -259,15 +259,6 @@
 
                         @if($type == 'checkin')
                             <div class="card-body" style="padding-left: 20px;">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea name="message" class="form-control" placeholder="Write here..."
-                                                      rows="3" disabled>This is the notes from Authorities</textarea>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-actions">
                                     <a class="btn btn-outline-danger mr-1" role="button"
                                        href="{{ route('check-in.index') }}">
@@ -278,10 +269,6 @@
                                         <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
                                     </button>
                                     {{ Form::close() }}
-                                <!-- TODO: Generate Bill -->
-                                    {{--<a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
-                                        <i class="ft-file-plus"></i> @lang('hm::bill.bill_generate')
-                                    </a>--}}
                                     <a class="btn btn-outline-primary mr-1" role="button"
                                        href="{{ route('check-in-payments.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.bill_payment')
