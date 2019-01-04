@@ -51,6 +51,7 @@ class BookingRequestController extends Controller
      * @param DepartmentService $departmentService
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
+     * @param TrainingsService $trainingService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,

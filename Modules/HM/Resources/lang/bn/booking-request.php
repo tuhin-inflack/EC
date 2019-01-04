@@ -48,7 +48,6 @@ return [
     'foreign' => 'বিদেশী',
     'others' => 'অন্যদের',
     'designation' => 'উপাধি',
-    'address' => 'ঠিকানা',
     'documents' => 'কাগজপত্র',
     'your_photo' => 'ছবি',
     'nid_no' => 'জাতীয় পরিচয়পত্র নং',

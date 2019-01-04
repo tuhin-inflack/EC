@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Guest Check-in')
+@section('title', __('hm::booking-request.check_in'))
 
 @section('content')
     <div class="container">

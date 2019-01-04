@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Check Approved Booking Requests')
+@section('title', __('hm::checkin.search_approved_booking'))
 
 @section('content')
     <div class="container">
