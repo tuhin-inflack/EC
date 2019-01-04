@@ -266,6 +266,15 @@
                     referee_dept: "required"
                 },
             });
+
+            $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
+                if ($(this).val() == 'training') {
+                    $('select[name=training_id]').val(null).trigger('change');
+                    $('.select-training-div').show();
+                } else {
+                    $('.select-training-div').hide();
+                }
+            });
         });
 
         function getRoomTypeRates(event, roomTypeId) {
@@ -311,6 +320,5 @@
 
             $('#bard-referee-div').show();
         }
-
     </script>
 @endpush
