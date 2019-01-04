@@ -71,4 +71,6 @@ return [
     'status_rejected' => 'Rejected',
     'no_doc_available' => 'No Document Available',
     'note' => 'Note',
+    'login' => 'Login',
+    'provide_your_account_details' => 'Provide Your Account Details',
 ];
