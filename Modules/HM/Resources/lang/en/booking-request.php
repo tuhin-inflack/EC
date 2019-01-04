@@ -86,5 +86,7 @@ return [
     'new_booking_request' => 'New Booking Request',
     'booking_request_update_form' => 'Booking Request Update Form',
     'edit_it' => 'Edit',
+    'select_refferer' => 'Select Referee',
+
     'create_booking_request' => 'Create Booking Request',
 ];

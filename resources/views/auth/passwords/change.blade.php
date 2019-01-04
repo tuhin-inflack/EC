@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('title', 'Change Password')
+@section('title', trans('labels.change_password'))
 @section('content')
     <section id="user-form-layouts">
         <div class="row match-height">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Password Change</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{ trans('labels.password_change') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -21,13 +21,13 @@
                         <div class="card-body">
                             {!! Form::open(['url' =>  '/change/password', 'class' => 'form']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> Change Password</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{ trans('labels.change_password') }}</h4>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="current-password"
-                                                   class="col-form-label required">{{ __('Current Password') }}</label>
+                                                   class="col-form-label required">{{ trans('labels.Current_Password') }}</label>
                                             <input id="current-password" type="password"
                                                    class="form-control{{ $errors->has('current_password') ? ' is-invalid' : '' }}"
                                                    name="current_password" required>
@@ -43,7 +43,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="new-password"
-                                                   class="col-form-label required">{{ __('New Password') }}</label>
+                                                   class="col-form-label required">{{ trans('labels.New_Password') }}</label>
                                             <input id="new-password" type="password"
                                                    class="form-control{{ $errors->has('new_password') ? ' is-invalid' : '' }}"
                                                    name="new_password" required>
@@ -60,7 +60,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="new-password-confirm"
-                                                   class="col-form-label required">{{ __('Confirm New Password') }}</label>
+                                                   class="col-form-label required">{{ trans('labels.confirm_new_password') }}</label>
 
                                             <input id="new-password-confirm" type="password" class="form-control"
                                                    name="new_password_confirmation" required>
@@ -75,10 +75,10 @@
                                 <hr/>
                                 <div class="form-actions">
                                     <button type="submit" class="btn btn-primary">
-                                        <i class="la la-check-square-o"></i> Save
+                                        <i class="la la-check-square-o"></i> {{ trans('labels.save') }}
                                     </button>
                                     <a class="btn btn-warning mr-1" role="button" href="{{url('/')}}">
-                                        <i class="ft-x"></i> Cancel
+                                        <i class="ft-x"></i> {{ trans('labels.cancel') }}
                                     </a>
                                 </div>
                             </div>

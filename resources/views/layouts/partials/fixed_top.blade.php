@@ -8,7 +8,7 @@
                 <li class="nav-item">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/logo.png') }}">
-                        <h3 class="brand-text">BARD ERP</h3>
+                        <h3 class="brand-text">{{ trans('labels.BARD ERP') }}</h3>
                     </a>
                 </li>
                 <li class="nav-item d-md-none">
@@ -35,11 +35,11 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{url('/change/password')}}">Change Password</a>
+                                <a class="dropdown-item" href="{{url('/change/password')}}">{{ trans('labels.change_password') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
+                                    {{ trans('labels.logout') }}
                                 </a>
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
