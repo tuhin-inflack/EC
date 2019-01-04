@@ -35,7 +35,7 @@
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td><a href="{{ route('check-in.show', $checkin->id) }}">{{ $checkin->shortcode }}</a></td>
-                                                <td>{{ $checkin->shortcode }}</td>
+                                                <td>{{ $checkin->booking ? $checkin->booking->roomBooking->shortcode : null }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($checkin->start_date)->diffInDays(\Carbon\Carbon::parse($checkin->end_date)) }}</td>
