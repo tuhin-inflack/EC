@@ -12,7 +12,7 @@
 */
 
 Route::prefix('tms')->group(function() {
-    Route::get('/', 'TMSController@index');
+    Route::get('/', 'TrainingController@index');
 
     // Route group for all request regarding training
     Route::prefix('training')->group(function() {
