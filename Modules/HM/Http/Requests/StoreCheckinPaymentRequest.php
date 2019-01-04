@@ -14,8 +14,12 @@ class StoreCheckinPaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'checkin_id' => 'required|exists:room_bookings,id',
-            'amount' => 'required|numeric|max:99999999|min:1',
+            'shortcode' => 'nullable|size:11|unique:checkin_payments',
+            'amount' => ['required','numeric','max:99999999','min:1',  function ($attribute, $value, $fail) {
+                if ($value > ($this->roomBooking->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $this->roomBooking->payments()->sum('amount'))) {
+                    $fail($attribute.' cannot be greater than total.');
+                }
+            }],
             'type' => 'required|in:cash,card,check',
             'check_number' => 'nullable|size:11',
         ];

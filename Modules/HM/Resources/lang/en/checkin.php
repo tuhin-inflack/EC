@@ -18,4 +18,5 @@ return [
     'cash' => 'Cash',
     'card' => 'Card',
     'check' => 'Check',
+    'checkin_type' => 'Checkin Type',
 ];
