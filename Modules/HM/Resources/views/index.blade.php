@@ -14,18 +14,27 @@
         }
 
         .available {
-            background-color: #a3e279;
+            background-color: #28D094;
             color: black;
-        }
-
-        .unavailable {
-            background-color: #ee843c;
-            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #c0ecc4;
         }
 
         .partially-available {
-            background-color: purple;
+            background-color: #00A5A8;
             color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
+        }
+
+        .unavailable {
+            background-color: #ffd162;
+            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
+        }
+
+        .not-in-service {
+            background-color: #FF4558;
+            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
         }
     </style>
 @endpush
@@ -40,10 +49,10 @@
                 <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
                     <div class="btn-group" role="group">
                         <a class="btn btn-outline-info round" href="{{ route('booking-requests.create') }}">
-                            <i class="ft-book"></i> Booking Request
+                            <i class="ft-book"></i> @lang('hm::booking-request.booking_request')
                         </a>
-                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create') }}">
-                            <i class="ft-bookmark"></i> Check In
+                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create-options') }}">
+                            <i class="ft-bookmark"></i> @lang('hm::booking-request.check_in')
                         </a>
                     </div>
                 </div>
@@ -82,16 +91,16 @@
 
             // Chart Data
             var chartData = {
-                labels: ["Booked", "Available", "Partially Pvailable"], // Not in Service
+                labels: ["{{ __('hm::hostel.available') }}", "{{ __('hm::hostel.partially_available')  }}", "{{ __('hm::hostel.booked') }}"], // Not in Service
                 datasets: [{
                     label: "Hostel",
                     data: [
-                        {{$allRoomsCountBasedOnStatus['booked']}},
                         {{$allRoomsCountBasedOnStatus['available']}},
                         {{$allRoomsCountBasedOnStatus['partially_available']}},
+                        {{$allRoomsCountBasedOnStatus['booked']}},
                         {{--{{$allRoomsCountBasedOnStatus['not_in_service']}}--}}
                     ],
-                    backgroundColor: ['#00A5A8', '#28D094', '#ffd162'], // '#FF4558'
+                    backgroundColor: ['#28D094', '#00A5A8', '#ffd162'], // '#FF4558'
                 }]
             };
 

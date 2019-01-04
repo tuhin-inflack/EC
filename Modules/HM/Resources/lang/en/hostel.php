@@ -20,4 +20,7 @@ return [
     'create_room_form' => 'Create Room Form',
     'add_room_lbl' => 'Add room for :hostel',
     'dup_room_err' => 'Can not add same room number twice',
+    'booked' => 'Booked',
+    'available' => 'Available',
+    'partially_available' => 'Partially Available',
 ];

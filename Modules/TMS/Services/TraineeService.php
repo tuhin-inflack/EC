@@ -88,4 +88,11 @@ class TraineeService
         return $errList;
     }
 
+    public function assignedTraineeNo($trainingId)
+    {
+        $traineeNo = $this->traineeRepository->fetchAssignedTraineeNo($trainingId);
+
+        return $traineeNo;
+    }
+
 }

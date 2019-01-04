@@ -54,11 +54,16 @@ class CheckinPaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      * @param StoreCheckinPaymentRequest $request
+     * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function store(StoreCheckinPaymentRequest $request)
+    public function store(StoreCheckinPaymentRequest $request, RoomBooking $roomBooking)
     {
-        $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['shortcode' => time()]));
+        if ($roomBooking->type != 'checkin')
+        {
+            abort(404);
+        }
+        $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['checkin_id' => $roomBooking->id, 'shortcode' => time()]));
         Session::flash('success', 'Successfully made payments');
 
         return redirect()->route('check-in-payments.index', $checkinPayment->checkin_id);

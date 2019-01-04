@@ -39,6 +39,11 @@ class RoomBooking extends Model
         return $this->hasMany(BookingCheckin::class, 'booking_id', 'id');
     }
 
+    public function checkinDetails()
+    {
+        return $this->hasMany(CheckinDetail::class, 'checkin_id', 'id');
+    }
+
     public function payments()
     {
         return $this->hasMany(CheckinPayment::class, 'checkin_id', 'id');
