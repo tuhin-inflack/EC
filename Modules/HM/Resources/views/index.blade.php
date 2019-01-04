@@ -91,7 +91,7 @@
 
             // Chart Data
             var chartData = {
-                labels: ["Available", "Partially Pvailable", "Booked"], // Not in Service
+                labels: ["Available", "Partially available", "Booked"], // Not in Service
                 datasets: [{
                     label: "Hostel",
                     data: [
