@@ -10,6 +10,7 @@ use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\TMS\Services\TrainingsService;
 
 class PublicBookingRequestController extends Controller
 {
@@ -33,6 +34,10 @@ class PublicBookingRequestController extends Controller
      * @var BookingRequestService
      */
     private $bookingRequestService;
+    /**
+     * @var TrainingsService
+     */
+    private $trainingsService;
 
     /**
      * PublicBookingRequestController constructor.
@@ -41,13 +46,15 @@ class PublicBookingRequestController extends Controller
      * @param DepartmentService $departmentService
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
+     * @param TrainingsService $trainingsService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
-        DesignationService $designationService
+        DesignationService $designationService,
+        TrainingsService $trainingsService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -55,6 +62,7 @@ class PublicBookingRequestController extends Controller
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
         $this->bookingRequestService = $bookingRequestService;
+        $this->trainingsService = $trainingsService;
     }
 
     public function create()
@@ -64,6 +72,7 @@ class PublicBookingRequestController extends Controller
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $trainings = $this->trainingsService->findAll();
         $type = 'booking';
 
         return view('hm::booking-request.public.create', compact(
@@ -72,6 +81,7 @@ class PublicBookingRequestController extends Controller
             'employees',
             'employeeOptions',
             'designations',
+            'trainings',
             'type'
         ));
     }
