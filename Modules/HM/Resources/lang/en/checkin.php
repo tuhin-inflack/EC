@@ -11,4 +11,8 @@ return [
     'booking_id' => 'Booking ID',
     'estimated_check_out_time' => 'Estimated Check Out Time',
     'estimated_no_of_day' => 'Estimated # of Day',
+    'payment_informations' => 'Payment Informations',
+    'payment_details' => 'Payment Details',
+    'make_payment' => 'Make Payment',
+    'total_payment' => 'Total Payment',
 ];

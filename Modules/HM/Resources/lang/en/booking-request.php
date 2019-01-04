@@ -19,7 +19,7 @@ return [
     'booking_date' => 'Booking Date',
     'booking_type' => 'Booking Type',
     'checkin_type' => 'Checkin Type',
-    'general_purpose' => 'General Purpose',
+    'general' => 'General',
     'training' => 'Training',
     'room_details' => 'Room Details',
     'room_type' => 'Room Type',

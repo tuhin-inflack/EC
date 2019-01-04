@@ -88,7 +88,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>@lang('hm::booking-request.booking_type')</td>
-                                                    <td>{{ $roomBooking->booking_type == 'general' ? trans('hm::booking-request.general_purpose') : trans('hm::booking-request.training') }}</td>
+                                                    <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>@lang('hm::booking-request.check_in')</td>
