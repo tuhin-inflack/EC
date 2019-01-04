@@ -15,4 +15,7 @@ return [
     'payment_details' => 'Payment Details',
     'make_payment' => 'Make Payment',
     'total_payment' => 'Total Payment',
+    'cash' => 'Cash',
+    'card' => 'Card',
+    'check' => 'Check',
 ];

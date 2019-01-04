@@ -15,4 +15,7 @@ return [
     'payment_details' => 'পেমেন্ট বিবরণ',
     'make_payment' => 'পেমেন্ট করা',
     'total_payment' => 'মোট পরিশোধ',
+    'cash' => 'নগদ',
+    'card' => 'কার্ড',
+    'check' => 'চেক',
 ];

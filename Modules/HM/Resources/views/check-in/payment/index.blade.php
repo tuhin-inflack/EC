@@ -85,7 +85,7 @@
                                                         <td>{{ $payment->shortcode }}</td>
                                                         <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                         <td>{{ $payment->amount }}</td>
-                                                        <td>{{ $payment->type }}</td>
+                                                        <td>{{ trans('hm::checkin.' . $payment->type) }}</td>
                                                         <td><a href="javascript:;"><i class="la la-eye"></i></a></td>
                                                     </tr>
                                                 @endforeach
