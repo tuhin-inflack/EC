@@ -30,9 +30,10 @@
                                             <td width="15%" class="hostel-level"><strong>Level {{$key}}</strong></td>
                                             <td width="80%">
                                                 @foreach($roomDetail as $room)
-                                                    <span
-                                                            title="Type:{{$room->roomType->name}}   Status:{{$room->status}}   Capacity:{{$room->roomType->capacity}}" data-toggle="tooltip"
-                                                            class="badge badge-pill rooms {{$room->status}}">{{$room->room_number}}</span>
+                                                    <div title="Type:{{$room->roomType->name}}   Status:{{$room->status}}   Capacity:{{$room->roomType->capacity}}" data-toggle="tooltip"
+                                                            class="badge badge-capsule rooms {{$room->status}}">
+                                                        {{$room->room_number}}
+                                                    </div>
                                                 @endforeach
                                             </td>
                                         </tr>

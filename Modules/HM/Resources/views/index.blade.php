@@ -49,10 +49,10 @@
                 <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
                     <div class="btn-group" role="group">
                         <a class="btn btn-outline-info round" href="{{ route('booking-requests.create') }}">
-                            <i class="ft-book"></i> Booking Request
+                            <i class="ft-book"></i> @lang('hm::booking-request.booking_request')
                         </a>
-                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create') }}">
-                            <i class="ft-bookmark"></i> Check In
+                        <a class="btn btn-outline-warning round" href="{{ route('check-in.create-options') }}">
+                            <i class="ft-bookmark"></i> @lang('hm::booking-request.check_in')
                         </a>
                     </div>
                 </div>
@@ -91,7 +91,7 @@
 
             // Chart Data
             var chartData = {
-                labels: ["Available", "Partially available", "Booked"], // Not in Service
+                labels: ["{{ __('hm::hostel.available') }}", "{{ __('hm::hostel.partially_available')  }}", "{{ __('hm::hostel.booked') }}"], // Not in Service
                 datasets: [{
                     label: "Hostel",
                     data: [

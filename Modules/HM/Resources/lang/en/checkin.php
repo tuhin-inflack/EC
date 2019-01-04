@@ -19,4 +19,12 @@ return [
     'select_guest' => 'Select Guest',
     'checkin_date' => 'Checkin Date',
     'room_allocation_success' => 'Room allocation successful',
+    'payment_informations' => 'Payment Informations',
+    'payment_details' => 'Payment Details',
+    'make_payment' => 'Make Payment',
+    'total_payment' => 'Total Payment',
+    'cash' => 'Cash',
+    'card' => 'Card',
+    'check' => 'Check',
+    'checkin_type' => 'Checkin Type',
 ];

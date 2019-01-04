@@ -12,17 +12,28 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
-                                @if($roomBooking->status == 'pending')
-                                    <li><span class="badge badge-warning" style="padding: 8px;">{{ trans('hm::booking-request.pending') }}</span></li>
-                                @elseif($roomBooking->status == 'approved')
-                                    <li><span class="badge badge-success" style="padding: 8px;">{{ trans('hm::booking-request.approved') }}</span></li>
-                                @else
-                                    <li><span class="badge badge-danger" style="padding: 8px;">{{ trans('hm::booking-request.rejected') }}</span></li>
+                                @if($type == 'booking')
+                                    @if($roomBooking->status == 'pending')
+                                        <li><span class="badge badge-warning"
+                                                  style="padding: 8px;">{{ trans('hm::booking-request.pending') }}</span>
+                                        </li>
+                                    @elseif($roomBooking->status == 'approved')
+                                        <li><span class="badge badge-success"
+                                                  style="padding: 8px;">{{ trans('hm::booking-request.approved') }}</span>
+                                        </li>
+                                    @else
+                                        <li><span class="badge badge-danger"
+                                                  style="padding: 8px;">{{ trans('hm::booking-request.rejected') }}</span>
+                                        </li>
+                                    @endif
                                 @endif
 
                                 @if($roomBooking->status == 'pending')
-                                    <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}" class="btn btn-primary btn-sm"><i class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}</a></li>
-                                    @endif
+                                    <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
+                                           class="btn btn-primary btn-sm"><i
+                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                        </a></li>
+                                @endif
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -86,7 +97,7 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>@lang('hm::booking-request.booking_type')</td>
-                                                    <td>{{ $roomBooking->booking_type == 'general' ? trans('hm::booking-request.general_purpose') : trans('hm::booking-request.training') }}</td>
+                                                    <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
                                                 </tr>
                                                 <tr>
                                                     <td>@lang('hm::booking-request.check_in')</td>
@@ -197,7 +208,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
                                             </div>
@@ -221,7 +232,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
                                             </div>
@@ -245,7 +256,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
                                             </div>
@@ -257,29 +268,18 @@
 
                         @if($type == 'checkin')
                             <div class="card-body" style="padding-left: 20px;">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea name="message" class="form-control" placeholder="Write here..."
-                                                      rows="3" disabled>This is the notes from Authorities</textarea>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="form-actions">
                                     <a class="btn btn-outline-danger mr-1" role="button"
                                        href="{{ route('check-in.index') }}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
-                                    {{ Form::open(['route' => ['check-out.update', $roomBooking->id], 'style' => 'display: inline']) }}
-                                    <button class="btn btn-success mr-1">
-                                        <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
-                                    </button>
-                                    {{ Form::close() }}
-                                <!-- TODO: Generate Bill -->
-                                    {{--<a class="btn btn-info mr-1" role="button" href="{{ route('bill.create') }}">
-                                        <i class="ft-file-plus"></i> @lang('hm::bill.bill_generate')
-                                    </a>--}}
+                                    @if(!$roomBooking->actual_end_date)
+                                        {{ Form::open(['route' => ['check-out.update', $roomBooking->id], 'style' => 'display: inline']) }}
+                                        <button class="btn btn-success mr-1">
+                                            <i class="ft-check-circle"></i> @lang('hm::booking-request.check_out')
+                                        </button>
+                                        {{ Form::close() }}
+                                    @endif
                                     <a class="btn btn-outline-primary mr-1" role="button"
                                        href="{{ route('check-in-payments.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.bill_payment')
@@ -296,7 +296,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
-                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => 'note', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
                                             @if ($errors->has('note'))
                                                 <span class="invalid-feedback" role="alert">

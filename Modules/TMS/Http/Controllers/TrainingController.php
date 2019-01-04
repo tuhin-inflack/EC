@@ -29,7 +29,8 @@ class TrainingController extends Controller
      */
     public function index()
     {
-        $trainings = $this->trainingService->findAll();
+        $orderBy =  array('column'=>'id', 'direction'=> 'desc');
+        $trainings = $this->trainingService->findAll(null,null, $orderBy);
 
         return view('tms::training.index', compact('trainings'));
     }

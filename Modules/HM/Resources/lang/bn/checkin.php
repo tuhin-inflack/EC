@@ -19,4 +19,12 @@ return [
     'select_guest' => 'অতিথি নির্বাচন করুন',
     'checkin_date' => 'চেকইন তারিখ',
     'room_allocation_success' => 'কক্ষ বরাদ্দ সফল হয়েছে',
+    'payment_informations' => 'পেমেন্ট তথ্য',
+    'payment_details' => 'পেমেন্ট বিবরণ',
+    'make_payment' => 'পেমেন্ট পরিশোধ করুন',
+    'total_payment' => 'মোট পরিশোধ',
+    'cash' => 'নগদ',
+    'card' => 'কার্ড',
+    'check' => 'চেক',
+    'checkin_type' => 'চেকইন টাইপ',
 ];

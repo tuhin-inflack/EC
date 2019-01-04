@@ -40,8 +40,8 @@
                                             <td>{{ $checkin->requester->getName() }}</td>
                                         </tr>
                                         <tr>
-                                            <td>@lang('hm::booking-request.booking_type'):</td>
-                                            <td>{{ $checkin->booking_type }}</td>
+                                            <td>@lang('hm::checkin.checkin_type'):</td>
+                                            <td>{{ trans('hm::booking-request.' . $checkin->booking_type) }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -58,7 +58,6 @@
                                         <tr>
                                             <td>@lang('labels.amount')</td>
                                             <td>
-                                                {{ Form::hidden('checkin_id', $checkin->id) }}
                                                 {{ Form::number('amount', old('amount') ? old('amount') : null, ['class' => 'form-control required', 'min' => 0]) }}
                                                 @if($errors->has('amount'))
                                                     <span class="danger">{{ $errors->first('amount') }}</span>
@@ -68,7 +67,7 @@
                                         <tr>
                                             <td>@lang('labels.method')</td>
                                             <td>
-                                                {{ Form::select('type', ['cash' => 'cash', 'card' => 'card', 'check' => 'check'], old('type') ? old('type') : null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
+                                                {{ Form::select('type', ['cash' => trans('hm::checkin.cash'), 'card' => trans('hm::checkin.card'), 'check' => trans('hm::checkin.check')], old('type') ? old('type') : null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
                                                 {{ Form::text('check_number', old('check_number') ? old('check_number') : null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
 
                                                 @if($errors->has('check_number'))
@@ -83,11 +82,11 @@
                                 <div class="col-md-12">
                                     <div class="form-actions text-center">
                                         <button type="submit" class="btn btn-primary">
-                                            <i class="la la-save"></i> Save
+                                            <i class="la la-save"></i> @lang('hm::checkin.make_payment')
                                         </button>
                                         <a class="btn btn-warning mr-1" role="button"
                                            href="{{ route('check-in-payments.index',  $checkin->id) }}">
-                                            <i class="ft-x"></i> Cancel
+                                            <i class="ft-x"></i> @lang('labels.cancel')
                                         </a>
                                     </div>
                                 </div>

@@ -1,6 +1,8 @@
 <?php
 return [
     'id' => 'Id',
+    'or' => 'OR',
+    'and' => 'And',
     'total' => 'Total',
     'due' => 'Due',
     'method' => 'Method',
@@ -33,7 +35,6 @@ return [
     'confirm_delete' => 'Confirm delete?',
     'status' => 'Status',
     'created_at' => 'Created at',
-    'confirm_delete' => 'Confirm delete?',
     'dashboard' => 'Dashboard',
     'history' => 'History',
     'number' => 'Number',
@@ -57,6 +58,7 @@ return [
     'previous' => 'Previous',
     'next' => 'Next',
     'search' => 'Search:',
+    'search_here' => 'Search Here',
     'No_matching_records_found' => 'No matching records found',
     'show' => 'Show',
     'records' => 'records',
@@ -65,10 +67,10 @@ return [
     'of' => 'of',
     'filtered' => 'filtered',
     'infoFiltered' => 'filtered from _MAX_ total entries',
-    'total' => 'total',
     'status_pending' => 'Pending',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
     'search_here' => 'Search here',
     'complete' => 'Finish',
+    'no_doc_available' => 'No Document Available',
 ];
