@@ -15,4 +15,6 @@ return [
     'billing_time' => 'বিলিং সময়',
     'bill_number' => 'বিল নম্বর',
     'bill_for' => 'জন্য বিল',
+    'bill_details' => 'বিল সংক্রান্ত বিবরণ',
+    'payment_details' => 'মূল্যপরিশোধ বিবরণ',
 ];
