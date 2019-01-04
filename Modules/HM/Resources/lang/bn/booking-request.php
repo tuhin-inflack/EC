@@ -87,4 +87,5 @@ return [
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
     'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম',
     'edit_it' => 'এটা সম্পাদনা করুন',
+    'create_booking_request' => 'বুকিং অনুরোধ তৈরি করুন',
 ];

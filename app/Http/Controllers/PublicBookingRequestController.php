@@ -1,0 +1,86 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Modules\HM\Http\Requests\StoreBookingRequest;
+use Modules\HM\Services\BookingRequestService;
+use Modules\HM\Services\RoomTypeService;
+use Modules\HRM\Services\DepartmentService;
+use Modules\HRM\Services\DesignationService;
+use Modules\HRM\Services\EmployeeServices;
+
+class PublicBookingRequestController extends Controller
+{
+    /**
+     * @var RoomTypeService
+     */
+    private $roomTypeService;
+    /**
+     * @var DepartmentService
+     */
+    private $departmentService;
+    /**
+     * @var EmployeeServices
+     */
+    private $employeeServices;
+    /**
+     * @var DesignationService
+     */
+    private $designationService;
+    /**
+     * @var BookingRequestService
+     */
+    private $bookingRequestService;
+
+    /**
+     * PublicBookingRequestController constructor.
+     * @param BookingRequestService $bookingRequestService
+     * @param RoomTypeService $roomTypeService
+     * @param DepartmentService $departmentService
+     * @param EmployeeServices $employeeServices
+     * @param DesignationService $designationService
+     */
+    public function __construct(
+        BookingRequestService $bookingRequestService,
+        RoomTypeService $roomTypeService,
+        DepartmentService $departmentService,
+        EmployeeServices $employeeServices,
+        DesignationService $designationService
+    )
+    {
+        $this->roomTypeService = $roomTypeService;
+        $this->departmentService = $departmentService;
+        $this->employeeServices = $employeeServices;
+        $this->designationService = $designationService;
+        $this->bookingRequestService = $bookingRequestService;
+    }
+
+    public function create()
+    {
+        $roomTypes = $this->roomTypeService->findAll();
+        $departments = $this->departmentService->findAll();
+        $employees = $this->employeeServices->findAll();
+        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $designations = $this->designationService->findAll();
+        $type = 'booking';
+
+        return view('hm::booking-request.public.create', compact(
+            'roomTypes',
+            'departments',
+            'employees',
+            'employeeOptions',
+            'designations',
+            'type'
+        ));
+    }
+
+    public function store(StoreBookingRequest $request)
+    {
+        $this->bookingRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->back();
+    }
+}
