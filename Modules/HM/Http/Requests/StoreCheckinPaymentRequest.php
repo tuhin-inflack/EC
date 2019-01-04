@@ -15,7 +15,7 @@ class StoreCheckinPaymentRequest extends FormRequest
     {
         return [
             'checkin_id' => 'required|exists:room_bookings,id',
-            'amount' => 'required|numeric|max:99999999',
+            'amount' => 'required|numeric|max:99999999|min:1',
             'type' => 'required|in:cash,card,check',
             'check_number' => 'nullable|size:11',
         ];

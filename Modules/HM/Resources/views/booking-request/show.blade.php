@@ -12,12 +12,14 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
-                                @if($roomBooking->status == 'pending')
-                                    <li><span class="badge badge-warning" style="padding: 8px;">{{ trans('hm::booking-request.pending') }}</span></li>
-                                @elseif($roomBooking->status == 'approved')
-                                    <li><span class="badge badge-success" style="padding: 8px;">{{ trans('hm::booking-request.approved') }}</span></li>
-                                @else
-                                    <li><span class="badge badge-danger" style="padding: 8px;">{{ trans('hm::booking-request.rejected') }}</span></li>
+                                @if($type == 'booking')
+                                    @if($roomBooking->status == 'pending')
+                                        <li><span class="badge badge-warning" style="padding: 8px;">{{ trans('hm::booking-request.pending') }}</span></li>
+                                    @elseif($roomBooking->status == 'approved')
+                                        <li><span class="badge badge-success" style="padding: 8px;">{{ trans('hm::booking-request.approved') }}</span></li>
+                                    @else
+                                        <li><span class="badge badge-danger" style="padding: 8px;">{{ trans('hm::booking-request.rejected') }}</span></li>
+                                    @endif
                                 @endif
 
                                 @if($roomBooking->status == 'pending')
@@ -197,7 +199,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
                                             </div>
@@ -221,7 +223,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
                                             </div>
@@ -245,7 +247,7 @@
                                     @else
                                         <figure class="card card-img-top border-grey border-lighten-2"
                                                 itemprop="associatedMedia" itemscope="">
-                                            <p>No Documents Available</p>
+                                            <p>@lang('labels.no_doc_available')</p>
                                             <div class="card-body px-0">
                                                 <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
                                             </div>
@@ -296,7 +298,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
-                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => 'note', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
                                             @if ($errors->has('note'))
                                                 <span class="invalid-feedback" role="alert">
