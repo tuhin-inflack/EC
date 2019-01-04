@@ -58,10 +58,12 @@
                                                     @lang('labels.status_' . $bookingRequest->status)
                                                 </td>
                                                 <td>
+                                                    @can('admin-access')
                                                     @if( $bookingRequest->status == 'pending' )
                                                         <a href="{{ route('booking-requests.edit', $bookingRequest->id) }}"
                                                            class="btn btn-sm btn-primary"><i class="ft-edit-2"></i></a>
                                                     @endif
+                                                    @endcan
                                                 </td>
                                             </tr>
                                         @endforeach

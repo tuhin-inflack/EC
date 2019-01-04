@@ -27,6 +27,36 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('admin-access', function ($user) {
+            return $user->hasRole('ROLE_DIRECTOR_ADMIN');
+        });
+
+        Gate::define('accounts-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
+        Gate::define('cafeteria-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
+        Gate::define('hm-access', function ($user) {
+            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER']);
+        });
+
+        Gate::define('hrm-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
+        Gate::define('pms-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
+        Gate::define('rms-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
+        Gate::define('tms-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
     }
 }

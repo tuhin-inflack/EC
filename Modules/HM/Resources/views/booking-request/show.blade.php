@@ -28,12 +28,14 @@
                                     @endif
                                 @endif
 
-                                @if($roomBooking->status == 'pending')
-                                    <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
-                                           class="btn btn-primary btn-sm"><i
+                                @can('admin-access')
+                                    @if($roomBooking->status == 'pending')
+                                        <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
+                                               class="btn btn-primary btn-sm"><i
                                                     class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
-                                        </a></li>
-                                @endif
+                                            </a></li>
+                                    @endif
+                                @endcan
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -44,7 +46,8 @@
                         <div id="Data">
                             <div class="card-body" style="padding-left: 20px;">
                                 <p>
-                                    <span class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
+                                    <span
+                                        class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
                                 </p>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -314,28 +317,30 @@
                                        href="{{ route('booking-requests.index') }}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
-                                    @if($roomBooking->status != 'pending')
-                                        <button class="btn btn-secondary mr-1" type="button"
-                                                onclick="changeStatus('pending')"><i
+                                    @can('admin-access')
+                                        @if($roomBooking->status != 'pending')
+                                            <button class="btn btn-secondary mr-1" type="button"
+                                                    onclick="changeStatus('pending')"><i
                                                     class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
-                                        </button>
-                                    @endif
-                                    @if($roomBooking->status != 'rejected')
-                                        <button class="btn btn-danger mr-1" type="button"
-                                                onclick="changeStatus('rejected')"><i
+                                            </button>
+                                        @endif
+                                        @if($roomBooking->status != 'rejected')
+                                            <button class="btn btn-danger mr-1" type="button"
+                                                    onclick="changeStatus('rejected')"><i
                                                     class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                        </button>
-                                    @endif
-                                    @if($roomBooking->status != 'approved')
-                                        <button class="btn btn-success mr-1" type="button"
-                                                onclick="changeStatus('approved')"><i
+                                            </button>
+                                        @endif
+                                        @if($roomBooking->status != 'approved')
+                                            <button class="btn btn-success mr-1" type="button"
+                                                    onclick="changeStatus('approved')"><i
                                                     class="ft-check"></i> @lang('hm::booking-request.approve')
-                                        </button>
-                                        <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
+                                            </button>
+                                            <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
                                                     class="ft-printer"></i> Print
-                                        </button>
+                                            </button>
 
-                                    @endif
+                                        @endif
+                                    @endcan
                                 </div>
                             </div>
                             {{ Form::close() }}
