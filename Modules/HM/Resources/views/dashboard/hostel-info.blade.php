@@ -7,7 +7,7 @@
             </div>
             <div class="card-content collapse show">
                 <div class="card-body">
-                    <canvas id="hostel-pie-chart" height="350"></canvas>
+                    <canvas id="hostel-pie-chart" height="374"></canvas>
                 </div>
             </div>
         </div>

@@ -19,7 +19,7 @@ class RoomAndHostelTableSeederTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $roomService =  new RoomService( new RoomRepository());
+        $roomService = new RoomService(new RoomRepository());
 
         $data = [];
 
@@ -33,7 +33,7 @@ class RoomAndHostelTableSeederTableSeeder extends Seeder
             "বীরশ্রেষ্ঠ শহীদ নূর মোহাম্মদ শেখ",
         ];
 
-        foreach ($names as $count => $name){
+        foreach ($names as $count => $name) {
             $prepare = [
                 "name" => $name,
                 "total_floor" => rand(1, 5),
@@ -41,11 +41,11 @@ class RoomAndHostelTableSeederTableSeeder extends Seeder
 
             $rooms = [];
 
-            for ($i = $prepare['total_floor']; $i > 0; $i--){
+            for ($i = $prepare['total_floor']; $i > 0; $i--) {
                 $floors = [
                     "floor" => $i,
-                    "room_type" => rand(1 , 3),
-                    "room_numbers" => $i."".$count."1-".$i."".$count."9",  //"101-109"
+                    "room_type" => rand(1, 4),
+                    "room_numbers" => $i . "" . $count . "1-" . $i . "" . $count . "" . rand(2, 9),
                 ];
 
                 array_push($rooms, $floors);
@@ -56,7 +56,7 @@ class RoomAndHostelTableSeederTableSeeder extends Seeder
             array_push($data, $prepare);
         }
 
-        foreach ($data as $item ) {
+        foreach ($data as $item) {
 
             $hostel = Hostel::create(array_except($item, 'rooms'));
 
