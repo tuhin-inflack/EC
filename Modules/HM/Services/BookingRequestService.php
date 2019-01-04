@@ -191,4 +191,9 @@ class BookingRequestService
     {
         return $this->roomBookingRequesterRepository->pluckContactBookingId();
     }
+
+    public function pluckContactBookingIdForApprovedBookingOnlyTraining()
+    {
+        return $this->roomBookingRequesterRepository->pluckContactBookingIdOnlyTraining();
+    }
 }

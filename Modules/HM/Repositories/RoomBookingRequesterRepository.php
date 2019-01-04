@@ -23,4 +23,13 @@ class RoomBookingRequesterRepository extends AbstractBaseRepository
                 $query->where('status', 'approved');
             })->pluck('contact', 'room_booking_id');
     }
+
+    public function pluckContactBookingIdOnlyTraining()
+    {
+        return $this->model->whereHas('roomBooking', function($query) {
+            $query->where('type', 'booking');
+            $query->where('status', 'approved');
+            $query->whereNotNull('training_id');
+        })->pluck('contact', 'room_booking_id');
+    }
 }

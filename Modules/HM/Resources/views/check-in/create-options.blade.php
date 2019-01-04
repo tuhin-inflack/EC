@@ -33,6 +33,16 @@
                                         </div>
                                         <div class="col-md-12 col-sm-12">
                                             <div class="form-group">
+                                                <a href="{{ route('check-in.approved-booking-requests', true) }}" class="btn btn-lg btn-block font-medium-1 btn-outline-danger mb-1 block-without-msg">
+                                                    @lang('hm::checkin.from_approved_training_booking')
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12" style="text-align: center;">
+                                            <h2></h2>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
                                                 <a href="{{ route('check-in.create') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-warning mb-1 block-without-overlay">
                                                     @lang('hm::checkin.walking_checkin')
                                                 </a>

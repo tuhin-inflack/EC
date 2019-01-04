@@ -133,11 +133,12 @@ class CheckinController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param bool $isTraining
      * @return Response
      */
-    public function approvedRequests()
+    public function approvedRequests($isTraining = false)
     {
-        $bookingRequests = $this->bookingRequestService->pluckContactBookingIdForApprovedBooking();
+        $bookingRequests = $isTraining ? $this->bookingRequestService->pluckContactBookingIdForApprovedBookingOnlyTraining() : $this->bookingRequestService->pluckContactBookingIdForApprovedBooking();
         return view('hm::check-in.approved-booking-requests', compact('bookingRequests'));
     }
 

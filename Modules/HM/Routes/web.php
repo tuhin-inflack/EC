@@ -108,7 +108,7 @@ Route::prefix('hm')->group(function () {
         Route::get('/create-options', 'CheckinController@createOptions')->name('check-in.create-options');
         Route::get('/create/{roomBooking?}', 'CheckinController@create')->name('check-in.create');
         Route::post('/store/{roomBookingId?}', 'CheckinController@store')->name('check-in.store');
-        Route::get('approved-booking-requests', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests'); // Temporary & Demo
+        Route::get('approved-booking-requests/{isTraining?}', 'CheckinController@approvedRequests')->name('check-in.approved-booking-requests');
         Route::get('edit', 'CheckinController@edit')->name('check-in.edit'); // Temporary & Demo
         Route::get('{roomBooking}', 'CheckinController@show')->name('check-in.show');
         Route::get('{roomBooking}/payments', 'CheckinPaymentController@index')->name('check-in-payments.index');
