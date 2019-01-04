@@ -54,7 +54,7 @@ class RoomAssignmentController extends Controller
     {
         $this->checkinService->store($request->all());
         Session::flash('success', 'Checkedin successfull');
-        return redirect(route('room.assign', ['hostelId'=>$request['hostel_id'], 'roomBookingId'=>$request['room_booking_id']]));
+        return redirect(route('room.assign', ['hostelId'=>$request['hostel_id'], 'roomBookingId'=>$request['checkin_id']]));
     }
 
     public function getHostelList(Request $request)

@@ -14,18 +14,27 @@
         }
 
         .available {
-            background-color: #a3e279;
+            background-color: #28D094;
             color: black;
-        }
-
-        .unavailable {
-            background-color: #ee843c;
-            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #c0ecc4;
         }
 
         .partially-available {
-            background-color: purple;
+            background-color: #00A5A8;
             color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
+        }
+
+        .unavailable {
+            background-color: #ffd162;
+            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
+        }
+
+        .not-in-service {
+            background-color: #FF4558;
+            color: #fcfcfc;
+            text-shadow: 0px 0px 11px #8a8a8a;
         }
     </style>
 @endpush
@@ -51,8 +60,8 @@
         </div>
         <br>
 
-        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
         @include('hm::dashboard.hostel-info', ['hostels' => $hostels])
+        @include('hm::dashboard.hostel-seat', ['hostels' => $hostels, 'roomDetails' => $roomDetails])
 
     </div>
 @stop
@@ -62,14 +71,18 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
-        var pieSimpleChart;
+
+
+        var pieSimpleChart; // Pie Chart orbject
+
+        /* # Pie Chart on Dom load
+         ======================================= */
 
         $(window).on("load", function(){
 
             //Get the context of the Chart canvas element we want to select
             var ctx = $("#hostel-pie-chart");
 
-            // Chart Options
             var chartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -78,21 +91,21 @@
 
             // Chart Data
             var chartData = {
-                labels: ["Booked", "Available", "Not for Service"],
+                labels: ["Available", "Partially available", "Booked"], // Not in Service
                 datasets: [{
                     label: "Hostel",
                     data: [
-                        {{$allRoomsCountBasedOnStatus['booked']}},
                         {{$allRoomsCountBasedOnStatus['available']}},
-                        {{$allRoomsCountBasedOnStatus['not_in_service']}}
+                        {{$allRoomsCountBasedOnStatus['partially_available']}},
+                        {{$allRoomsCountBasedOnStatus['booked']}},
+                        {{--{{$allRoomsCountBasedOnStatus['not_in_service']}}--}}
                     ],
-                    backgroundColor: ['#00A5A8', '#28D094', '#FF4558'],
+                    backgroundColor: ['#28D094', '#00A5A8', '#ffd162'], // '#FF4558'
                 }]
             };
 
             var config = {
                 type: 'pie',
-                // Chart Options
                 options : chartOptions,
                 data : chartData
             };
@@ -102,6 +115,8 @@
 
         });
 
+        /* Rerender Pie Chart for new datasets
+        ====================================== */
         function addData() {
             pieSimpleChart.data.datasets.forEach((dataset) => {
                 dataset.data = [5, 1, 5];

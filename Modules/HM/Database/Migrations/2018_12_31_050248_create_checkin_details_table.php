@@ -15,7 +15,7 @@ class CreateCheckinDetailsTable extends Migration
     {
         Schema::create('checkin_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('room_booking_id');
+            $table->unsignedInteger('checkin_id');
             $table->integer('booking_guest_info_id');
             $table->integer('room_id');
             $table->dateTime('checkin_date');

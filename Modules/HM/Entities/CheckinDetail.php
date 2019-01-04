@@ -15,11 +15,11 @@ class CheckinDetail extends Model
 {
     protected $table = 'checkin_details';
 
-    protected $fillable = ['room_booking_id', 'booking_guest_info_id', 'room_id', 'checkin_date', 'checkout_date'];
+    protected $fillable = ['checkin_id', 'booking_guest_info_id', 'room_id', 'checkin_date', 'checkout_date'];
 
     public function room()
     {
-        return $this->hasOne(Room::class);
+        return $this->belongsTo(Room::class);
     }
 
     public function roomBooking()
