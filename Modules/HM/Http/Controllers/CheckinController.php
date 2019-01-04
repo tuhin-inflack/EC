@@ -14,6 +14,7 @@ use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\TMS\Services\TrainingsService;
 
 class CheckinController extends Controller
 {
@@ -37,6 +38,10 @@ class CheckinController extends Controller
      * @var DesignationService
      */
     private $designationService;
+    /**
+     * @var TrainingsService
+     */
+    private $trainingsService;
 
     /**
      * BookingRequestController constructor.
@@ -45,13 +50,15 @@ class CheckinController extends Controller
      * @param DepartmentService $departmentService
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
+     * @param TrainingsService $trainingsService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
         RoomTypeService $roomTypeService,
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
-        DesignationService $designationService
+        DesignationService $designationService,
+        TrainingsService $trainingsService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -59,6 +66,7 @@ class CheckinController extends Controller
         $this->bookingRequestService = $bookingRequestService;
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
+        $this->trainingsService = $trainingsService;
     }
 
 
@@ -96,7 +104,8 @@ class CheckinController extends Controller
         $designations = $this->designationService->findAll();
         $type = 'checkin';
         $checkinType = $roomBooking ? 'from-booking' : 'walkin';
-        $viewName = $checkinType == 'walkin'? 'hm::booking-request.create' : 'hm::booking-request.edit';
+        $viewName = $checkinType == 'walkin' ? 'hm::booking-request.create' : 'hm::booking-request.edit';
+        $trainings = $this->trainingsService->findAll();
 
         return view($viewName, compact(
                 'roomTypes',
@@ -106,12 +115,14 @@ class CheckinController extends Controller
                 'designations',
                 'type',
                 'checkinType',
-                $roomBooking ? 'roomBooking':''
+                'trainings',
+                $roomBooking ? 'roomBooking' : ''
             )
         );
     }
 
-    public function store(StoreBookingRequest $request, $roomBookingId=null) {
+    public function store(StoreBookingRequest $request, $roomBookingId = null)
+    {
         $data = $request->all();
         if ($roomBookingId)
             $data['booking_id'] = $roomBookingId;
@@ -139,8 +150,7 @@ class CheckinController extends Controller
     {
         $type = 'checkin';
 
-        if ($roomBooking->type != 'checkin')
-        {
+        if ($roomBooking->type != 'checkin') {
             abort(404);
         }
 
@@ -163,6 +173,8 @@ class CheckinController extends Controller
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
         $designations = $this->designationService->findAll();
+        $trainings = $this->trainingsService->findAll();
+
         $type = 'checkin';
 
         return view('hm::booking-request.edit', compact(
@@ -177,6 +189,7 @@ class CheckinController extends Controller
             'employees',
             'designations',
             'bookingType',
+            'trainings',
             'type'
         ));
     }
