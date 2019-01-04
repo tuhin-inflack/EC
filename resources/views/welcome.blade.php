@@ -13,7 +13,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- title -->
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ trans('labels.' . config('app.name', 'Laravel')) }}</title>
 
     <link rel="apple-touch-icon" href="{{ asset('theme/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
@@ -62,9 +62,9 @@
                                     <div class="col-2">
                                         <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
                                     </div>
-                                    <div class="col-5 pl-2">
-                                        <h4>{{ $module }}</h4>
-                                        <h6 class="text-muted"><a href="{{url(strtolower($module)).'/'}}">{{ $module }}</a></h6>
+                                    <div class="col-8 pl-2">
+                                        <h4>{{ trans('labels.' . $module) }}</h4>
+                                        <h6 class="text-muted"><a href="{{url(strtolower($module)).'/'}}">{{ trans('labels.' . $module) }}</a></h6>
                                     </div>
                                 </div>
                             </div>
@@ -81,8 +81,8 @@
                                         <h1><i class="cc BTC warning font-large-2" title="BTC"></i></h1>
                                     </div>
                                     <div class="col-5 pl-2">
-                                        <h4>Admin</h4>
-                                        <h6 class="text-muted"><a href="{{url('/home')}}">Administration</a></h6>
+                                        <h4>{{ trans('labels.Admin') }}</h4>
+                                        <h6 class="text-muted"><a href="{{url('/home')}}">{{ trans('labels.Administration') }}</a></h6>
                                     </div>
                                 </div>
                             </div>

@@ -154,19 +154,19 @@
                         <div data-repeater-item="" style="">
                             <div class="form row">
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
-                                    <label class="required">Room Type</label>
+                                    <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                     <br>
                                     {!! Form::hidden('id', $roomInfo->id) !!}
                                     {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label for="quantity">Quantity <span
+                                    <label for="quantity">{{ trans('hm::booking-request.quantity') }} <span
                                             class="danger">*</span></label>
                                     <br>
                                     {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required">Rate</label>
+                                    <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                     <br>
                                     {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select']) !!}
                                 </div>
