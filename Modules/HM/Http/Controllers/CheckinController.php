@@ -138,7 +138,7 @@ class CheckinController extends Controller
     public function approvedRequests()
     {
         $bookingRequests = $this->bookingRequestService->pluckContactBookingIdForApprovedBooking();
-        return view('hm::check-in.approved_booking_requests', compact('bookingRequests'));
+        return view('hm::check-in.approved-booking-requests', compact('bookingRequests'));
     }
 
     /**
