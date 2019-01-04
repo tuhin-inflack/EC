@@ -74,4 +74,7 @@ return [
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
+    'first' => 'প্রথম',
+    'last' => 'শেষ',
+    'submit' => 'জমা দিন',
 ];

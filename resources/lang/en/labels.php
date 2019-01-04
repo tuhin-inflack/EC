@@ -74,4 +74,7 @@ return [
     'no_doc_available' => 'No Document Available',
     'login' => 'Login',
     'provide_your_account_details' => 'Provide Your Account Details',
+    'first' => 'First',
+    'last' => 'Last',
+    'submit' => 'Submit',
 ];
