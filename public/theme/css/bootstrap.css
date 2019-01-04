@@ -3279,6 +3279,13 @@ tbody.collapse.show {
   padding-left: 0.6em;
   border-radius: 10rem; }
 
+.badge-capsule {
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0.6em;
+  border-radius: 0.8rem; }
+
 .badge-primary {
   color: #fff;
   background-color: #666EE8; }
