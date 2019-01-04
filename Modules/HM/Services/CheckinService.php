@@ -78,7 +78,9 @@ class CheckinService
         $currentCheckin = $this->checkinRepository->countByRoom($room->id);
         $capacity = $room->roomType->capacity;
 
-        if ($currentCheckin >= $capacity) {
+        if ($currentCheckin == 0) {
+            return 'available';
+        } else if ($currentCheckin >= $capacity) {
             return 'unavailable';
         } else {
             return 'partially-available';

@@ -5,6 +5,7 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Services\CheckinService;
 
@@ -36,6 +37,9 @@ class CheckoutController extends Controller
             abort(404);
         }
 
-        return $this->checkinService->checkout($roomBooking);
+        $this->checkinService->checkout($roomBooking);
+        Session::flash('success', 'Successfully checked out');
+
+        return redirect()->back();
     }
 }
