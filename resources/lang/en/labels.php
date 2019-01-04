@@ -70,4 +70,6 @@ return [
     'status_pending' => 'Pending',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
+    'no_doc_available' => 'No Document Available',
+    'note' => 'Note',
 ];
