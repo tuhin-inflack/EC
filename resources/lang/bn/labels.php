@@ -70,5 +70,7 @@ return [
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'search_here' => 'এখানে খুঁজুন',
+    'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
 ];

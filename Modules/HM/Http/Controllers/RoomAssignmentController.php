@@ -10,6 +10,7 @@ namespace Modules\HM\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Services\BookingRequestService;
@@ -42,25 +43,37 @@ class RoomAssignmentController extends Controller
 
     public function index(Request $request)
     {
-        $hostel = $this->hostelService->findOrFail($request['hostelId']);
-        $roomDetails = $this->roomService->sortRoomsByLevel($hostel->rooms);
-        $roomBookingDetails = $this->roomBookingService->findOrFail($request['roomBookingId']);
-        $guests = $this->roomBookingService->getBookingGuestInfo($roomBookingDetails->id, 'booked');
-        $guests->prepend('Please select guest', '');
-        return view('hm::check-in.seat', compact('hostel', 'roomDetails', 'roomBookingDetails', 'guests'));
+        $roomDetails = [];
+        $hostels = $this->hostelService->getAll();
+
+        foreach ($hostels as $hostel){
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        }
+
+        $selectedHostelId = $request['selectedHostelId'];
+
+        $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();
+        $roomCheckinDetails = $this->roomBookingService->findOrFail($request['roomCheckinId']);
+        $guests = $this->roomBookingService->getBookingGuestInfo($roomCheckinDetails->id, 'booked');
+        $guests->prepend(__('hm::checkin.select_guest'), '');
+        $today = Carbon::now()->format('d M, Y');
+        return view('hm::check-in.seat', compact('hostels', 'roomDetails', 'roomCheckinDetails', 'guests',
+            'allRoomsCountBasedOnStatus', 'today', 'selectedHostelId'));
     }
 
     public function store(Request $request)
     {
-        $this->checkinService->store($request->all());
+        $data = $request->all();
+        $data['checkin_date'] = new \DateTime();
+        $this->checkinService->store($data);
         Session::flash('success', 'Checkedin successfull');
-        return redirect(route('room.assign', ['hostelId'=>$request['hostel_id'], 'roomBookingId'=>$request['checkin_id']]));
+        return redirect(route('room.assign', ['selectedHostelId'=>$request['selected_hostel_id'], 'roomCheckinId'=>$request['checkin_id']]));
     }
 
     public function getHostelList(Request $request)
     {
-        $roomBookingId = $request['roomBookingId'];
+        $roomCheckinId = $request['roomCheckinId'];
         $hostels = $this->hostelService->getHostelAndRoomDetails();
-        return view('hm::check-in.hostel', compact('hostels', 'roomBookingId'));
+        return view('hm::check-in.hostel', compact('hostels', 'roomCheckinId'));
     }
 }
