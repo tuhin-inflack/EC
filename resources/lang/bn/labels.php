@@ -69,5 +69,4 @@ return [
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
-
 ];
