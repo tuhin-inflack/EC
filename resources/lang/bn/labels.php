@@ -71,5 +71,4 @@ return [
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
-    'note' => 'বিঃদ্রঃ',
 ];
