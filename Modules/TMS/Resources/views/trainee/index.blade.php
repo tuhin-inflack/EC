@@ -24,7 +24,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <select name="training_id" class="form-control">
-                                                <option value=""> - Select Training -</option>
+                                                <option value=""> - {{__('labels.select')}} -</option>
                                                 @foreach($trainings as $key=>$training)
                                                     <option value="{{$training->id}}">{{$training->training_title}}</option>
                                                 @endforeach
@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit" name="search_trainee">Show Trainee</button>
+                                            <button class="btn btn-primary" type="submit" name="search_trainee">{{__('tms::training.trainee_card_title')}}</button>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     @foreach($trainees as $trainee)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{$trainee['trainingId']}}</td>
+                                            <td><a href="training/show/{{$trainee['training_id']}}">{{$trainee['trainingId']}}</a></td>
                                             <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
