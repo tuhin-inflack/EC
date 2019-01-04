@@ -117,7 +117,7 @@ class CheckinController extends Controller
             $data['booking_id'] = $roomBookingId;
         $checkin = $this->bookingRequestService->store($data, 'checkin');
         Session::flash('success', trans('labels.save_success'));
-        return redirect(route('hostel.selection', ['roomBookingId' => $checkin->id]));
+        return redirect(route('hostel.selection', ['roomCheckinId' => $checkin->id]));
     }
 
     /**

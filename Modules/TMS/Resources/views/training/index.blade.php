@@ -12,8 +12,6 @@
                         <div class="heading-elements">
                             <a href="{{url('/tms/training/create')}}" class="btn btn-primary btn-sm"><i
                                     class="ft-plus white"></i> {{trans('tms::training.create_button')}}</a>
-                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i class="ft-download white"></i></a>
-
                         </div>
                     </div>
                     <div class="card-content collapse show">

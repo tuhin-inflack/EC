@@ -1,6 +1,8 @@
 <?php
 return [
     'id' => 'আইডি',
+    'or' => 'অথবা',
+    'and' => 'এবং',
     'total' => 'মোট',
     'due' => 'বাকি',
     'method' => 'পদ্ধতি',
@@ -33,7 +35,6 @@ return [
     'confirm_delete' => 'নিশ্চিত বাতিল?',
     'status' => 'অবস্থা',
     'created_at' => 'সৃষ্টি সময়',
-    'confirm_delete' => 'নিশ্চিত বাতিল?',
     'dashboard' => 'ড্যাশবোর্ড',
     'history' => 'ইতিহাস',
     'number' => 'নাম্বার',
@@ -57,6 +58,7 @@ return [
     'previous' => 'আগে',
     'next' => 'পরবর্তী',
     'search' => 'অনুসন্ধান:',
+    'search_here' => 'এখানে খুজুন',
     'No_matching_records_found' => 'কোন মিল খুঁজে পাওয়া যায় নি',
     'show' => 'প্রদর্শন',
     'records' => 'রেকর্ড',
@@ -65,12 +67,11 @@ return [
     'of' => 'এর',
     'filtered' => 'পরিস্রাবিত',
     'infoFiltered' => 'রেকর্ড থেকে পরিস্রাবিত',
-    'total' => 'মোট',
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
-    'note' => 'বিঃদ্রঃ',
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
 ];

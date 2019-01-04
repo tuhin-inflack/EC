@@ -31,4 +31,12 @@ class TraineeRepository extends AbstractBaseRepository
         return $trainees;
     }
 
+    // Fn to get the number of trainees assigned for a particular training
+    public function fetchAssignedTraineeNo($trainingId)
+    {
+        $traineeNo = Trainee::where('training_id', $trainingId)->count();
+
+        return $traineeNo;
+    }
+
 }

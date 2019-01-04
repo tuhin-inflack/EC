@@ -11,7 +11,8 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{trans('hm::booking-request.booking_request_update_form')}}</h4>
+                                    <h4 class="card-title">{{$type=='checkin' ? trans('hm::booking-request.check_in_card_title')
+                                     : trans('hm::booking-request.booking_request_update_form')}}</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
