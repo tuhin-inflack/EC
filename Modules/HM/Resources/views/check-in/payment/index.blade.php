@@ -65,7 +65,7 @@
                                 </div>
                                 @if(count($checkin->payments))
                                     <div class="col-md-6">
-                                        <p><span class="text-bold-600">Payments Details</span></p>
+                                        <p><span class="text-bold-600">{{ trans('hm::bill.payment_details') }}</span></p>
                                         <div class="table-responsive">
                                             <table class="table table-responsive table-bordered mb-0">
                                                 <thead>
