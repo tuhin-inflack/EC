@@ -70,7 +70,6 @@ return [
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
-    'search_here' => 'এখানে খুঁজুন',
     'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
     'BARD ERP' => 'বার্ড ইআরপি',
@@ -91,4 +90,6 @@ return [
     'Administration' => 'প্রশাসন',
 
 
+    'login' => 'লগইন',
+    'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
 ];

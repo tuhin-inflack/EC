@@ -1,21 +1,20 @@
 <h6>{{ trans('hm::booking-request.step_1') }}</h6>
 <fieldset>
     <h4 class="form-section"><i
-            class="la  la-building-o"></i>{{ $type=='checkin'?trans('hm::booking-request.checkin_details')
-            :trans('hm::booking-request.booking_details') }}
+                class="la  la-building-o"></i>{{ $type=='checkin'? trans('hm::booking-request.checkin_details') : trans('hm::booking-request.booking_details') }}
     </h4>
     <div class="row">
         <div class="col-md-6">
             <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
             <div class="form-group">
                 <div class="input-group">
-                {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+                    {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
-                @if ($errors->has('start_date'))
-                    <span class="invalid-feedback" role="alert">
+                    @if ($errors->has('start_date'))
+                        <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('start_date') }}</strong>
                     </span>
-                @endif
+                    @endif
                 </div>
             </div>
         </div>
@@ -23,14 +22,14 @@
             <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
             <div class="form-group">
                 <div class="input-group">
-                {{ Form::text('end_date', $page == 'create' ? (new DateTime())->add(new DateInterval("P1D"))
-                                 ->format('j F, Y') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
+                    {{ Form::text('end_date', $page == 'create' ? (new DateTime())->add(new DateInterval("P1D"))
+                                     ->format('j F, Y') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
 
-                @if ($errors->has('end_date'))
-                    <span class="invalid-feedback" role="alert">
+                    @if ($errors->has('end_date'))
+                        <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $errors->first('end_date') }}</strong>
                                                         </span>
-                @endif
+                    @endif
                 </div>
             </div>
         </div>
@@ -56,10 +55,26 @@
             </div>
 
         </div>
+        <div class="form-group mb-1 col-md-6 select-training-div" style="display: none">
+            <label class="required">@lang('tms::training.title') @lang('labels.list')</label>
+            <select name="training_id" class="form-control training-select required">
+                <option value=""> Select Training</option>
+                @foreach($trainings as $training)
+                    <option value="{{$training->id}}">{{$training->training_title}}</option>
+                @endforeach
+            </select>
+            <span class="select-error"></span>
+
+            @if ($errors->has('training_id'))
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('training_id') }}</strong>
+                </span>
+            @endif
+        </div>
+
     </div>
 
-    <h4 class="form-section"><i
-            class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
+    <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">
@@ -79,8 +94,8 @@
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
                                     <span class="invalid-feedback" role="alert">
-                                                                            <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
-                                                                        </span>
+                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.room_type_id') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -98,7 +113,6 @@
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                 <br>
-                                <!-- TODO: generate select options based on old room type input -->
                                 {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : '')]) !!}
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
@@ -111,7 +125,7 @@
                                 <button type="button"
                                         class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                        class="ft-x"></i>
+                                            class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -143,7 +157,7 @@
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                 <button type="button" class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
-                                        class="ft-x"></i>
+                                            class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -157,24 +171,26 @@
                                     <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                     <br>
                                     {!! Form::hidden('id', $roomInfo->id) !!}
-                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                    <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label for="quantity">{{ trans('hm::booking-request.quantity') }} <span
-                                            class="danger">*</span></label>
+                                    <label class="required"
+                                           for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                     <br>
-                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                     <br>
-                                    {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select']) !!}
+                                    {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select required']) !!}
+                                    <span class="select-error"></span>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                     <button type="button"
                                             class="btn btn-outline-danger"
                                             data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                                class="ft-x"></i>
                                     </button>
                                 </div>
                             </div>

@@ -1,38 +1,62 @@
-@extends('hm::layouts.master')
-@section('title', trans('hm::booking-request.title'))
+@extends('layouts.public')
+@section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
+            @if (session('success'))
+                    <div class="alert bg-success alert-dismissible mb-2" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span style="color: black">{!! session('success') !!}</span>
+                        <a href="{{ route('public-booking-requests.create') }}" class="btn btn-amber btn-accent-4" style="color: white"><b>@lang('hm::booking-request.create_booking_request')</b></a>
+
+                    </div>
+                @else
                 <!-- Form wizard with number tabs section start -->
-                <section id="number-tabs">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">{{$type=='checkin' ? trans('hm::booking-request.check_in_card_title')
-                                     : trans('hm::booking-request.booking_request_update_form')}}</h4>
-                                    <a class="heading-elements-toggle"><i
-                                                class="la la-ellipsis-h font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
+                    <section id="number-tabs">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">{{ $type=='checkin'?trans('hm::booking-request.check_in_card_title')
+                                    : trans('hm::booking-request.card_title')}}</h4>
+                                        <a class="heading-elements-toggle"><i
+                                                    class="la la-ellipsis-h font-medium-3"></i></a>
+                                        <div class="heading-elements">
+                                            <ul class="list-inline mb-0">
+                                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        @include('hm::booking-request.form', ['page' => 'edit'])
+                                    <div class="card-content collapse show">
+                                        <div class="card-body">
+                                        {!! Form::open(['route' =>  'public-booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                        @php
+                                            // $page variable is used in step-1, step-2, step-3, step-4
+                                            $page = 'create'
+                                        @endphp
+                                        <!-- Step 1 -->
+                                        @include('hm::booking-request.partials.form.step-1')
+                                        <!-- Step 2 -->
+                                        @include('hm::booking-request.partials.form.step-2')
+                                        <!-- Step 3 -->
+                                        @include('hm::booking-request.partials.form.step-3')
+                                        <!-- Step 4 -->
+                                            @include('hm::booking-request.partials.form.step-4')
+                                            {{ Form::close() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <!-- Form wizard with number tabs section end -->
+                    </section>
+                    <!-- Form wizard with number tabs section end -->
+                @endif
             </div>
         </div>
     </div>
@@ -47,7 +71,6 @@
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
-
 
 @push('page-js')
     <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
@@ -82,6 +105,7 @@
                     }
                 }
                 if (newIndex == 3) {
+                    // render summary
                     let roomTypes = {!! $roomTypes !!};
                     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
                     let roomInfoRows = roomInfos.map(roomInfo => {
@@ -130,6 +154,7 @@
                     } else {
                         $('.bard-referee-summary-div').hide();
                     }
+
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -158,7 +183,7 @@
             });
 
             $('#end_date').pickadate({
-                min: +1
+                min: +1,
             });
 
             $('#start_date, #end_date').pickadate();
@@ -182,17 +207,9 @@
                         });
 
                     $(this).slideDown();
-                },
-                hide: function (deleteElement) {
-                    let deletedId = $(this).find('input[type=hidden]').val();
-
-                    $('.booking-request-tab-steps').append(`<input type="hidden" name="deleted-roominfos[]" value="${deletedId}">`);
-
-                    $(this).slideUp(deleteElement);
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {!! (count($roomBooking->guestInfos) || old('guests')) ? 'false' : 'true'  !!},
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -205,9 +222,6 @@
                     $(this).find('select').select2({
                         placeholder: 'Select Gender'
                     });
-
-                    // remove img tag
-                    $(this).find('img').remove();
 
                     $(this).slideDown();
                 }
@@ -225,24 +239,6 @@
             });
             $('#department-select').select2({
                 placeholder: 'Select Department'
-            });
-
-            let roomInfos = {!! $roomBooking->roomInfos !!};
-            let roomTypes = {!! $roomTypes !!};
-
-            $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
-                let roomInfo = roomInfos[index];
-                let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
-
-                // create options of select
-                $(selectElement).html(`<option value=""></option>
-                    <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
-                    <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
-                    <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
-                    <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
-
-                // set value of select
-                $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
             });
 
             // validation
@@ -274,7 +270,7 @@
                     end_date: {
                         greaterThanOrEqual: '#start_date'
                     },
-                    first_name: {
+                    name: {
                         maxlength: 50
                     },
                     contact: {
@@ -291,9 +287,6 @@
                     referee_dept: "required"
                 },
             });
-
-            $('#referee-select').val({!! $roomBooking->referee_id !!});
-            $('#referee-select').trigger('change.select2');
 
             $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
                 if ($(this).val() == 'training') {
@@ -348,5 +341,6 @@
 
             $('#bard-referee-div').show();
         }
+
     </script>
 @endpush

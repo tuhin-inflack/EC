@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Guest Check-in')
+@section('title', __('hm::booking-request.check_in'))
 
 @section('content')
     <div class="container">
@@ -25,6 +25,16 @@
                                             <div class="form-group">
                                                 <a href="{{ route('check-in.approved-booking-requests') }}" class="btn btn-lg btn-block font-medium-1 btn-outline-cyan mb-1 block-without-msg">
                                                     @lang('hm::checkin.from_approved_booking')
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12" style="text-align: center;">
+                                            <h2></h2>
+                                        </div>
+                                        <div class="col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <a href="{{ route('check-in.approved-booking-requests', true) }}" class="btn btn-lg btn-block font-medium-1 btn-outline-danger mb-1 block-without-msg">
+                                                    @lang('hm::checkin.from_approved_training_booking')
                                                 </a>
                                             </div>
                                         </div>

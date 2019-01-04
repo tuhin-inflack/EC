@@ -12,6 +12,7 @@ return [
     'estimated_check_out_time' => 'আনুমানিক চেক আউট সময়',
     'estimated_no_of_day' => 'আনুমানিক # দিন',
     'from_approved_booking' => 'অনুমোদিত বুকিং অনুরোধ হতে চেকইন',
+    'from_approved_training_booking' => 'প্রশিক্ষণার্থীর অনুমোদিত বুকিং অনুরোধ হতে চেকইন',
     'walking_checkin' =>  ' ওয়াকইন চেকইন',
     'search_approved_booking' => 'অনুমোদিত বুকিং অনুরোধ খুঁজুন',
     'checkin_request_update_form' => 'চেকইন অনুরোধ সম্পাদনা ফর্ম',

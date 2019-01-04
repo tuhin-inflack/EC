@@ -14,6 +14,7 @@ return [
     'card_title' => 'Booking Request Form',
     'check_in_card_title' => 'Checkin',
     'booking_details' => 'Booking Details',
+    'checkin_details' => 'Check In Details',
     'start_date' => 'Start Date',
     'end_date' => 'End Date',
     'booking_date' => 'Booking Date',
@@ -47,7 +48,6 @@ return [
     'foreign' => 'Foreign',
     'others' => 'Others',
     'designation' => 'Designation',
-    'address' => 'Address',
     'documents' => 'Documents',
     'your_photo' => 'Your Photo',
     'nid_no' => 'NID No',
@@ -58,7 +58,6 @@ return [
     'relation' => 'Relation',
     'bard_reference' => 'BARD Reference',
     'bard_reference_info' => 'BARD Reference INfo',
-
     'department' => 'Department',
     'employee_name' => 'Employee Name',
     'billing_information' => 'Billing Information',
@@ -89,4 +88,5 @@ return [
     'edit_it' => 'Edit',
     'select_refferer' => 'Select Referee',
 
+    'create_booking_request' => 'Create Booking Request',
 ];
