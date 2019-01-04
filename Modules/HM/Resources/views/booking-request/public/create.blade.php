@@ -1,38 +1,62 @@
-@extends('hm::layouts.master')
+@extends('layouts.public')
 @section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
+            @if (session('success'))
+                    <div class="alert bg-success alert-dismissible mb-2" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <span style="color: black">{!! session('success') !!}</span>
+                        <a href="{{ route('public-booking-requests.create') }}" class="btn btn-amber btn-accent-4" style="color: white"><b>@lang('hm::booking-request.create_booking_request')</b></a>
+
+                    </div>
+                @else
                 <!-- Form wizard with number tabs section start -->
-                <section id="number-tabs">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">{{ $type=='checkin' ? trans('hm::booking-request.check_in_card_title')
+                    <section id="number-tabs">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">{{ $type=='checkin'?trans('hm::booking-request.check_in_card_title')
                                     : trans('hm::booking-request.card_title')}}</h4>
-                                    <a class="heading-elements-toggle"><i
-                                                class="la la-ellipsis-h font-medium-3"></i></a>
-                                    <div class="heading-elements">
-                                        <ul class="list-inline mb-0">
-                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                        </ul>
+                                        <a class="heading-elements-toggle"><i
+                                                    class="la la-ellipsis-h font-medium-3"></i></a>
+                                        <div class="heading-elements">
+                                            <ul class="list-inline mb-0">
+                                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="card-content collapse show">
-                                    <div class="card-body">
-                                        @include('hm::booking-request.form', ['page' => 'create'])
+                                    <div class="card-content collapse show">
+                                        <div class="card-body">
+                                        {!! Form::open(['route' =>  'public-booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                        @php
+                                            // $page variable is used in step-1, step-2, step-3, step-4
+                                            $page = 'create'
+                                        @endphp
+                                        <!-- Step 1 -->
+                                        @include('hm::booking-request.partials.form.step-1')
+                                        <!-- Step 2 -->
+                                        @include('hm::booking-request.partials.form.step-2')
+                                        <!-- Step 3 -->
+                                        @include('hm::booking-request.partials.form.step-3')
+                                        <!-- Step 4 -->
+                                            @include('hm::booking-request.partials.form.step-4')
+                                            {{ Form::close() }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <!-- Form wizard with number tabs section end -->
+                    </section>
+                    <!-- Form wizard with number tabs section end -->
+                @endif
             </div>
         </div>
     </div>
@@ -204,9 +228,6 @@
             });
 
             // select2
-            $('.training-select').select2({
-                placeholder: 'Select Training'
-            });
             $('.room-type-select').select2({
                 placeholder: 'Select Room Type'
             });

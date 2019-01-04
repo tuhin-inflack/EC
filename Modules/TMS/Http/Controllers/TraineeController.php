@@ -50,13 +50,15 @@ class TraineeController extends Controller
     public function create($trainingId)
     {
         $training = $this->trainingService->findOrFail($trainingId);
+        $traineeCount = $this->traineeService->assignedTraineeNo($trainingId);
 
-        return view('tms::trainee.create', compact('training'));
+        return view('tms::trainee.create', compact('training', 'traineeCount'));
     }
 
     public function import(Request $request, $trainingId)
     {
         $training = $this->trainingService->findOrFail($trainingId);
+        $traineeCount = $this->traineeService->assignedTraineeNo($trainingId);
 
         $file_mimes = array('text/x-comma-separated-values', 'text/comma-separated-values', 'application/octet-stream', 'application/vnd.ms-excel', 'application/x-csv', 'text/x-csv', 'text/csv', 'application/csv', 'application/excel', 'application/vnd.msexcel', 'text/plain', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         $traineeList = array(); $traineeListErr = array();
@@ -67,7 +69,7 @@ class TraineeController extends Controller
             $traineeListErr = $this->traineeService->traineeListValidator($traineeList);
         }
 
-        return view('tms::trainee.import', compact('training','trainingId', 'traineeList', 'traineeListErr'));
+        return view('tms::trainee.import', compact('training','trainingId', 'traineeList', 'traineeListErr', 'traineeCount'));
     }
 
     /**
@@ -78,7 +80,7 @@ class TraineeController extends Controller
     public function store(TraineeRequest $request)
     {
         $storeData = $this->traineeService->save($request->all());
-        if($storeData) $msg = "Trainee added successful"; else $msg = "Error while storing trainee data!";
+        if($storeData) $msg = __('labels.save_success'); else $msg = __('labels.save_fail');
         Session::flash('message', $msg);
 
         return redirect('/tms/trainee/add/to/'.$request['training_id']);
@@ -113,9 +115,12 @@ class TraineeController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($training_id)
     {
-        return view('tms::show');
+        $trainees = $this->traineeService->fetchTraineesWithID($training_id);
+        $training = $this->trainingService->findOrFail($training_id);
+
+        return view('tms::trainee.show', compact('trainees', 'training'));
     }
 
     /**
@@ -140,7 +145,7 @@ class TraineeController extends Controller
             'trainee_first_name' => $request['trainee_first_name'],
             'trainee_last_name' => $request['trainee_last_name'],
             'trainee_gender' => $request['trainee_gender'],
-            'trainee_mobile' => $request['mobile']
+            'mobile' => $request['mobile']
         );
         $update = $this->traineeService->updateTrainee($traineeId, $updateData);
         $msg = __('labels.update_success');

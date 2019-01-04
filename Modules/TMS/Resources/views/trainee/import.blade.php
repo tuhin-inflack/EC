@@ -13,14 +13,12 @@
                         <div class="heading-elements">
                             <a href="{{url('/tms/training/create')}}" class="btn btn-primary btn-sm"><i
                                     class="ft-plus white"></i> {{trans('tms::training.create_button')}}</a>
-                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i class="ft-download white"></i></a>
                         </div>
 
                     </div>
                     <div class="card-content collapse show">
                         <center><label>{{trans('tms::training.trainee_import_to')}} : </label> <span class="badge badge-info" style="font-weight: bold">{{$training->training_title}}</span></center>
                         <div class="card-body card-dashboard">
-
                             <div class="card-body">
                                 {!! Form::open(['url' =>  '/tms/trainee/import/to/'.$trainingId, 'class' => 'form', 'novalidate', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
                                 <div class="row">
@@ -32,7 +30,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <button class="btn btn-primary" type="submit" name="fetch_trainee">Fetch</button>
+                                            <button class="btn btn-primary" type="submit" name="fetch_trainee">{{trans('tms::training.file_import')}}</button>
+                                            <a class="btn btn-primary" href="{{url('/files/import_trainne.csv')}}" >{{trans('tms::training.file_sample')}}</a>
                                         </div>
                                     </div>
                                 </div>
@@ -48,9 +47,15 @@
                                             <span aria-hidden="true">×</span>
                                         </button> {{trans('tms::training.trainee_import_data_error_alert')}}
                                     </div>
+                                @elseif($training->no_of_trainee < ($traineeCount+count($traineeList)))
+                                    <div class="alert bg-danger alert-dismissible" style="color: white">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button> {{trans('tms::training.trainee_full')}}
+                                    </div>
                                 @endif
-                                @if(sizeof($traineeList) && !sizeof($traineeListErr))
-                                    <button class="btn btn-success" type="submit" name="import_trainee"><i class="ft ft-upload" aria-hidden="true"></i> Save Imported Data</button>
+                                @if((sizeof($traineeList) && !sizeof($traineeListErr)) && ($training->no_of_trainee > ($traineeCount + count($traineeList))))
+                                    <button class="btn btn-success" type="submit" name="import_trainee"><i class="ft ft-upload" aria-hidden="true"></i> {{trans('tms::training.save_imported')}}</button>
                                 @endif
                             </center>
                             <table class="table table-striped table-bordered alt-pagination">

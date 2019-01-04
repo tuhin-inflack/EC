@@ -19,8 +19,8 @@
                             @foreach($hostels as $name => $details)
                                 <tr>
                                     <td>
-                                        <a href="{{route('room.assign', ['hostelId' => $details['hostelDetails']->id,
-                                        'roomBookingId'=>$roomBookingId])}}">{{$name}}</a>
+                                        <a href="{{route('room.assign', ['selectedHostelId' => $details['hostelDetails']->id,
+                                        'roomCheckinId'=>$roomCheckinId])}}">{{$name}}</a>
                                     </td>
                                     @foreach($details['roomDetails'] as $roomDetail)
                                         <td>

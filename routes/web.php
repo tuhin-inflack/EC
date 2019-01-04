@@ -27,3 +27,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/change/password', 'ChangePasswordController@update');
 });
 
+Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
+Route::post('booking-requests', 'PublicBookingRequestController@store')->name('public-booking-requests.store');

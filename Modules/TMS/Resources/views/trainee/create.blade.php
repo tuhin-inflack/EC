@@ -56,83 +56,88 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="trainee_first_name"
-                                                   class="form-label required">{{trans('tms::training.trainee_first_name')}}</label>
+                                @if($training->no_of_trainee > $traineeCount)
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="trainee_first_name"
+                                                       class="form-label required">{{trans('tms::training.trainee_first_name')}}</label>
 
-                                            <input type="text"
-                                                   class="form-control" name="trainee_first_name" id="trainee_first_name" value="{{ old('trainee_first_name') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_first_name')])}}">
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('trainee_first_name'))
-                                                <span class="invalid-feedback" role="alert">
+                                                <input type="text"
+                                                       class="form-control" name="trainee_first_name" id="trainee_first_name" value="{{ old('trainee_first_name') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_first_name')])}}">
+                                                <div class="help-block"></div>
+                                                @if ($errors->has('trainee_first_name'))
+                                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('trainee_first_name') }}</strong>
                                     </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="end_date"
-                                                   class="form-label required">{{trans('tms::training.trainee_last_name')}}</label>
-                                            <input type="hidden" name="status" value="1">
-                                            <input type="hidden" name="training_id" value="{{$training->id}}">
-                                            <input type="text"
-                                                   class="form-control {{ $errors->has('trainee_last_name') ? ' is-invalid' : '' }}"
-                                                   name="trainee_last_name" id="trainee_last_name" value="{{ old('trainee_last_name') }}"
-                                                   required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_last_name')])}}">
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('trainee_last_name'))
-                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('trainee_last_name') }}</strong></span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="training_len" class="form-label">{{trans('tms::training.trainee_gender')}}</label>
-                                            <div>
-                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Male"> {{__('labels.male')}}</label>
-                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Female"> {{__('labels.female')}}</label>
-                                                <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Others"> {{__('labels.others')}}</label>
+                                                @endif
                                             </div>
-                                            {{--<select class="form-control" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}">--}}
-                                                {{--<option value=""> - Select Gender -</option>--}}
-                                                {{--<option value="Male">Male</option>--}}
-                                                {{--<option value="Female">Female</option>--}}
-                                            </select>
-                                            <div class="help-block"></div>
-
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="end_date"
+                                                       class="form-label required">{{trans('tms::training.trainee_last_name')}}</label>
+                                                <input type="hidden" name="status" value="1">
+                                                <input type="hidden" name="training_id" value="{{$training->id}}">
+                                                <input type="text"
+                                                       class="form-control {{ $errors->has('trainee_last_name') ? ' is-invalid' : '' }}"
+                                                       name="trainee_last_name" id="trainee_last_name" value="{{ old('trainee_last_name') }}"
+                                                       required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_last_name')])}}">
+                                                <div class="help-block"></div>
+                                                @if ($errors->has('trainee_last_name'))
+                                                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('trainee_last_name') }}</strong></span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="training_len" class="form-label">{{trans('tms::training.trainee_gender')}}</label>
+                                                <div>
+                                                    <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Male"> {{__('labels.male')}}</label>
+                                                    <label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Female"> {{__('labels.female')}}</label>
+                                                    {{--<label class="radio-inline"><input type="radio" name="trainee_gender" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.trainee_gender')])}}" value="Others"> {{__('labels.others')}}</label>--}}
+                                                </div>
+                                                <div class="help-block"></div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="end_date"
-                                                   class="form-label required">{{trans('labels.mobile')}}</label>
-                                            <input type="text"
-                                                   class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
-                                                   name="mobile" id="mobile" value="{{ old('mobile') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.mobile')])}}">
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('mobile'))
-                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('mobile') }}</strong></span>
-                                            @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label for="end_date"
+                                                       class="form-label required">{{trans('labels.mobile')}}</label>
+                                                <input type="text"
+                                                       class="form-control {{ $errors->has('mobile') ? ' is-invalid' : '' }}"
+                                                       name="mobile" id="mobile" value="{{ old('mobile') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('labels.mobile')])}}">
+                                                <div class="help-block"></div>
+                                                @if ($errors->has('mobile'))
+                                                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('mobile') }}</strong></span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <span class="alert bg-danger"><i class="ft-alert-triangle"></i> {{__('tms::training.trainee_full')}}</span>
+                                            </div>
+                                        </div>
 
-
-                                </div>
-
+                                    </div>
+                                @endif
                             </div>
                             <div class="form-actions">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="ft-check-square"></i> {{trans('labels.save')}}
-                                </button>
-                                <a href="/tms/trainee/import/to/{{$training->id}}" class="btn btn-primary">
-                                    <i class="ft-download"></i> {{trans('tms::training.trainee_import')}}
-                                </a>
+                                @if($training->no_of_trainee > $traineeCount)
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="ft-check-square"></i> {{trans('labels.save')}}
+                                    </button>
+                                    <a href="/tms/trainee/import/to/{{$training->id}}" class="btn btn-primary">
+                                        <i class="ft-download"></i> {{trans('tms::training.trainee_import')}}
+                                    </a>
+                                @endif
                                 <button class="btn btn-warning" type="button" onclick="window.history.back();">
                                     <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </button>

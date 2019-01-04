@@ -70,5 +70,8 @@ return [
     'status_pending' => 'বিচারাধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
+    'login' => 'লগইন',
+    'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
 ];

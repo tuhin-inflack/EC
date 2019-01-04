@@ -1,7 +1,11 @@
 @extends('layouts.public')
-
+@section('title', trans('labels.login'))
 @section('content')
     <section class="flexbox-container">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <a href="{{ route('public-booking-requests.create') }}" class="btn btn-primary" style="font-size: large">@lang('hm::booking-request.create_booking_request')</a>
+        </div>
+        <br>
         <div class="col-12 d-flex align-items-center justify-content-center">
             <div class="col-md-4 col-10 box-shadow-2 p-0">
                 <div class="card border-grey border-lighten-3 m-0">
@@ -13,7 +17,7 @@
                     </div>
                     <div class="card-content">
                         <p class="card-subtitle line-on-side text-muted text-center font-small-3 mx-2 my-2">
-                            <span>Provide Your Account Details</span>
+                            <span>@lang('labels.provide_your_account_details')</span>
                         </p>
                         <div class="card-body pt-0">
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
@@ -47,18 +51,9 @@
 
                                 </fieldset>
                                 <button type="submit" class="btn btn-info btn-lg btn-block"><i
-                                        class="ft-unlock"></i> Login
+                                        class="ft-unlock"></i> @lang('labels.login')
                                 </button>
                             </form>
-                        </div>
-                        <div class="card-body pb-0">
-                            <p class="text-center">
-                                <a class="card-link" href="{{ route('password.request') }}">
-                                    {{ __('Recover Password?') }}
-                                </a>
-                            <p class="text-center">New to BARD ERP?
-                                <a class="card-link" href="{{ route('register') }}">{{ __('Create Account') }}</a>
-                            </p>
                         </div>
                     </div>
                 </div>
