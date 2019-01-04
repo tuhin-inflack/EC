@@ -13,7 +13,6 @@
                         <div class="heading-elements">
                             <a href="{{url('/tms/training/create')}}" class="btn btn-primary btn-sm"><i
                                     class="ft-plus white"></i> {{trans('tms::training.create_button')}}</a>
-                            <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i class="ft-download white"></i></a>
                         </div>
 
                     </div>
@@ -62,7 +61,7 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{$trainee['trainingId']}}</td>
                                             <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
-                                            <td>{{$trainee['trainee_gender']}}</td>
+                                            <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
                                             <td>{{($trainee['status'] == 1)? "Active":"Inactive"}}</td>
                                             <td>
