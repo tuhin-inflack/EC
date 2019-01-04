@@ -19,5 +19,6 @@ class HMDatabaseSeeder extends Seeder
 
 	    $this->call(HostelBudgetTitleTableSeeder::class);
 	    $this->call(RoomTypeTableSeeder::class);
+	    $this->call(RoomAndHostelTableSeederTableSeeder::class);
     }
 }
