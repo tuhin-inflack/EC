@@ -320,27 +320,25 @@
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
                                     @can('admin-access')
-                                        @if($roomBooking->status != 'pending')
-                                            <button class="btn btn-secondary mr-1" type="button"
-                                                    onclick="changeStatus('pending')"><i
-                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
-                                            </button>
-                                        @endif
-                                        @if($roomBooking->status != 'rejected')
-                                            <button class="btn btn-danger mr-1" type="button"
-                                                    onclick="changeStatus('rejected')"><i
-                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                            </button>
-                                        @endif
-                                        @if($roomBooking->status != 'approved')
-                                            <button class="btn btn-success mr-1" type="button"
-                                                    onclick="changeStatus('approved')"><i
-                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
-                                            </button>
-                                            <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
-                                                    class="ft-printer"></i> @lang('labels.print')
-                                            </button>
-
+                                        @if($roomBooking->status == 'pending')
+                                            @if($roomBooking->status != 'pending')
+                                                <button class="btn btn-secondary mr-1" type="button"
+                                                        onclick="changeStatus('pending')"><i
+                                                        class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                </button>
+                                            @endif
+                                            @if($roomBooking->status != 'rejected')
+                                                <button class="btn btn-danger mr-1" type="button"
+                                                        onclick="changeStatus('rejected')"><i
+                                                        class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                </button>
+                                            @endif
+                                            @if($roomBooking->status != 'approved')
+                                                <button class="btn btn-success mr-1" type="button"
+                                                        onclick="changeStatus('approved')"><i
+                                                        class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                </button>
+                                            @endif
                                         @endif
                                     @endcan
                                 </div>
