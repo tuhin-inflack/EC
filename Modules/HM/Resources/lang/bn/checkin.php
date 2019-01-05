@@ -28,4 +28,6 @@ return [
     'card' => 'কার্ড',
     'check' => 'চেক',
     'checkin_type' => 'চেকইন টাইপ',
+    'total_bill' => 'মোট বিল',
+    'total_due' => 'মোট বাকি',
 ];
