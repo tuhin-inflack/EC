@@ -83,19 +83,21 @@
                     }
                 }
                 if (newIndex == 2) {
-                    let firstName = $('input[name=first_name]').val();
-                    let middleName = $('input[name=middle_name]').val();
-                    let lastName = $('input[name=last_name]').val();
-                    let address = $('textarea[name=address]').val();
-                    let gender = $('input[type=radio][name=gender]').val();
-                    let nid = $('input[name=nid]').val();
+                    if (!$('select[name=training_id]').val()) {
+                        let firstName = $('input[name=first_name]').val();
+                        let middleName = $('input[name=middle_name]').val();
+                        let lastName = $('input[name=last_name]').val();
+                        let address = $('textarea[name=address]').val();
+                        let gender = $('input[type=radio][name=gender]').val();
+                        let nid = $('input[name=nid]').val();
 
-                    $('input[name="guests[0][first_name]"]').val(firstName);
-                    $('input[name="guests[0][middle_name]"]').val(middleName);
-                    $('input[name="guests[0][last_name]"]').val(lastName);
-                    $('input[name="guests[0][nid_no]"]').val(nid);
-                    $('textarea[name="guests[0][address]"]').val(address);
-                    $('select[name="guests[0][gender]"]').val(gender).trigger('change');
+                        $('input[name="guests[0][first_name]"]').val(firstName);
+                        $('input[name="guests[0][middle_name]"]').val(middleName);
+                        $('input[name="guests[0][last_name]"]').val(lastName);
+                        $('input[name="guests[0][nid_no]"]').val(nid);
+                        $('textarea[name="guests[0][address]"]').val(address);
+                        $('select[name="guests[0][gender]"]').val(gender).trigger('change');
+                   }
                 }
                 if (newIndex == 3) {
                     // render summary
@@ -147,7 +149,6 @@
                     } else {
                         $('.bard-referee-summary-div').hide();
                     }
-
                 }
                 // Needed in some cases if the user went back (clean up)
                 if (currentIndex < newIndex) {
@@ -309,7 +310,6 @@
                     $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
                 });
             });
-
         });
 
         function traineesListFromTraining(data) {

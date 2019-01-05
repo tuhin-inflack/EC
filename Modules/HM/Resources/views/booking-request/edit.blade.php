@@ -84,19 +84,21 @@
                     }
                 }
                 if (newIndex == 2) {
-                    let firstName = $('input[name=first_name]').val();
-                    let middleName = $('input[name=middle_name]').val();
-                    let lastName = $('input[name=last_name]').val();
-                    let address = $('textarea[name=address]').val();
-                    let gender = $('input[type=radio][name=gender]').val();
-                    let nid = $('input[name=nid]').val();
+                    if (!$('select[name=training_id]').val()) {
+                        let firstName = $('input[name=first_name]').val();
+                        let middleName = $('input[name=middle_name]').val();
+                        let lastName = $('input[name=last_name]').val();
+                        let address = $('textarea[name=address]').val();
+                        let gender = $('input[type=radio][name=gender]').val();
+                        let nid = $('input[name=nid]').val();
 
-                    $('input[name="guests[0][first_name]"]').val(firstName);
-                    $('input[name="guests[0][middle_name]"]').val(middleName);
-                    $('input[name="guests[0][last_name]"]').val(lastName);
-                    $('input[name="guests[0][nid_no]"]').val(nid);
-                    $('textarea[name="guests[0][address]"]').val(address);
-                    $('select[name="guests[0][gender]"]').val(gender).trigger('change');
+                        $('input[name="guests[0][first_name]"]').val(firstName);
+                        $('input[name="guests[0][middle_name]"]').val(middleName);
+                        $('input[name="guests[0][last_name]"]').val(lastName);
+                        $('input[name="guests[0][nid_no]"]').val(nid);
+                        $('textarea[name="guests[0][address]"]').val(address);
+                        $('select[name="guests[0][gender]"]').val(gender).trigger('change');
+                    }
                 }
                 if (newIndex == 3) {
                     let roomTypes = {!! $roomTypes !!};
@@ -136,7 +138,7 @@
                         });
                         $('#guests-info-table').find('tbody').html(guestInfoRows);
                     } else {
-                        $('.guests-info-div').hide();
+                        // $('.guests-info-div').hide();
                     }
 
                     if ($('#referee-select').val()) {
@@ -209,7 +211,7 @@
                 }
             });
             $('.repeater-guest-information').repeater({
-                initEmpty: {!! (count($roomBooking->guestInfos) || old('guests')) ? 'false' : 'true'  !!},
+{{--                initEmpty: '{!! (count($roomBooking->guestInfos) || old('guests')) ? 'false' : 'true'  !!}',--}}
                 show: function () {
                     // remove error span
                     $('div:hidden[data-repeater-item]')
