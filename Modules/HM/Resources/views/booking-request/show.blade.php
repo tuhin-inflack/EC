@@ -287,8 +287,6 @@
                                        href="{{ route('check-in-payments.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.bill_payment')
                                     </a>
-                                    <button type="button" class="btn btn-outline-primary mr-1" id="PrintCommand">
-                                        <i class="ft-printer"></i> @lang('labels.print')</button>
                                     <a class="btn btn-outline-primary mr-1" role="button"
                                        href="{{ route('check-in-bill.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.title')
@@ -340,7 +338,7 @@
                                                     class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                             <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
-                                                    class="ft-printer"></i> Print
+                                                    class="ft-printer"></i> @lang('labels.print')
                                             </button>
 
                                         @endif
