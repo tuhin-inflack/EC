@@ -149,13 +149,13 @@
                 @if( $page == 'create' )
                     <div data-repeater-item="" style="">
                         <div class="form row">
-                            <div class="form-group mb-1 col-sm-12 col-md-4">
+                            <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                 <br>
                                 {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <span class="select-error"></span>
                             </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-3">
+                            <div class="form-group mb-1 col-sm-12 col-md-2">
                                 <label class="required"
                                        for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                 <br>
@@ -167,7 +167,8 @@
                                 {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <span class="select-error"></span>
                             </div>
-                            <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+
+                            <div class="form-group col-sm-12 col-md-1 text-center mt-2">
                                 <button type="button" class="btn btn-outline-danger"
                                         data-repeater-delete=""><i
                                             class="ft-x"></i>
@@ -213,6 +214,16 @@
                 @endif
             @endif
         </div>
+        @if($type == 'checkin')
+            <div class="form-group mb-1 col-sm-12 col-md-12">
+                <label class="required"
+                       for="rooms">@lang('hm::checkin.rooms')</label>
+                <br>
+                {!! Form::text('room-show', null, ['class' => 'form-control required rooms',
+                'data-toggle'=>'modal', 'data-target' => '#selectionModal']) !!}
+                <input type="hidden" class="room-numbers" name="room_numbers" value=""/>
+            </div>
+        @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
                 <button type="button" data-repeater-create=""
@@ -223,3 +234,6 @@
         </div>
     </div>
 </fieldset>
+@if($type == 'checkin')
+    @include('hm::check-in.room')
+@endif

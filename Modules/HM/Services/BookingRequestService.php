@@ -18,6 +18,8 @@ use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\BookingCheckin;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
+use Modules\HM\Entities\CheckinRoom;
+use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingReferee;
 use Modules\HM\Entities\RoomBookingRequester;
@@ -35,6 +37,7 @@ class BookingRequestService
 
     private $bookingGuestInfoRepository;
     private $roomBookingRequesterRepository;
+    private $roomService;
 
     /**
      * BookingRequestService constructor.
@@ -43,11 +46,12 @@ class BookingRequestService
      * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
      */
     public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository,
-                                RoomBookingRequesterRepository $roomBookingRequesterRepository)
+                                RoomBookingRequesterRepository $roomBookingRequesterRepository, RoomService $roomService)
     {
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
+        $this->roomService = $roomService;
         $this->setActionRepository($roomBookingRepository);
     }
 
@@ -96,6 +100,9 @@ class BookingRequestService
                 BookingCheckin::create(['checkin_id' => $roomBooking->id, 'booking_id' => (int)$data['booking_id']]);
 //                $roomBooking->booking()->save($bookingCheckin);
             }
+            if ($type == 'checkin' && isset($data['room_numbers'])) {
+                $this->saveRoomNumbers($roomBooking, $data['room_numbers']);
+            }
             if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])
 //                    ->cc($moreUsers)
@@ -104,6 +111,18 @@ class BookingRequestService
             }
             return $roomBooking;
         });
+    }
+
+    private function saveRoomNumbers($checkin, $rooms)
+    {
+        $roomArr = explode(',', $rooms);
+        foreach ($roomArr as $room) {
+            CheckinRoom::create([
+                'checkin_id' => $checkin->id, 'room_id' => $room
+            ]);
+            $room = $this->roomService->findOne($room);
+            $room->update(['status'=>'unavailable']);
+        }
     }
 
     public function updateRequest(array $data, RoomBooking $roomBooking)

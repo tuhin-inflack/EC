@@ -10,6 +10,8 @@ use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
 use Modules\HM\Http\Requests\UpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
+use Modules\HM\Services\HostelService;
+use Modules\HM\Services\RoomService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
@@ -43,6 +45,9 @@ class CheckinController extends Controller
      */
     private $trainingsService;
 
+    private $hostelService;
+    private $roomService;
+
     /**
      * BookingRequestController constructor.
      * @param BookingRequestService $bookingRequestService
@@ -51,6 +56,7 @@ class CheckinController extends Controller
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
      * @param TrainingsService $trainingsService
+     * @param HostelService $hostelService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
@@ -58,7 +64,9 @@ class CheckinController extends Controller
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
         DesignationService $designationService,
-        TrainingsService $trainingsService
+        TrainingsService $trainingsService,
+        HostelService $hostelService,
+        RoomService $roomService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -67,6 +75,8 @@ class CheckinController extends Controller
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
         $this->trainingsService = $trainingsService;
+        $this->hostelService = $hostelService;
+        $this->roomService = $roomService;
     }
 
 
@@ -107,6 +117,13 @@ class CheckinController extends Controller
         $viewName = $checkinType == 'walkin' ? 'hm::booking-request.create' : 'hm::booking-request.edit';
         $trainings = $this->trainingsService->findAll();
 
+        $roomDetails = [];
+        $hostels = $this->hostelService->getAll();
+
+        foreach ($hostels as $hostel){
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        }
+
         return view($viewName, compact(
                 'roomTypes',
                 'departments',
@@ -116,6 +133,8 @@ class CheckinController extends Controller
                 'type',
                 'checkinType',
                 'trainings',
+                'hostels',
+                'roomDetails',
                 $roomBooking ? 'roomBooking' : ''
             )
         );

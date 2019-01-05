@@ -43,8 +43,16 @@ class RoomAssignmentController extends Controller
 
     public function index(Request $request)
     {
+        $roomCheckinDetails = $this->roomBookingService->findOrFail($request['roomCheckinId']);
+        $roomIds = [];
+        $hostelIds = [];
+        $checkInRooms = $roomCheckinDetails->rooms;
+        foreach ($checkInRooms as $checkInRoom) {
+            array_push($roomIds, $checkInRoom->room->id);
+            array_push($hostelIds, $checkInRoom->room->hostel_id);
+        }
         $roomDetails = [];
-        $hostels = $this->hostelService->getAll();
+        $hostels = $this->hostelService->getHostelByWithRooms($hostelIds, $roomIds);
 
         foreach ($hostels as $hostel){
             $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
@@ -53,7 +61,6 @@ class RoomAssignmentController extends Controller
         $selectedHostelId = $request['selectedHostelId'];
 
         $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();
-        $roomCheckinDetails = $this->roomBookingService->findOrFail($request['roomCheckinId']);
         $guests = $this->roomBookingService->getBookingGuestInfo($roomCheckinDetails->id, 'booked');
         $guests->prepend(__('hm::checkin.select_guest'), '');
         $today = Carbon::now()->format('d M, Y');
@@ -73,7 +80,15 @@ class RoomAssignmentController extends Controller
     public function getHostelList(Request $request)
     {
         $roomCheckinId = $request['roomCheckinId'];
-        $hostels = $this->hostelService->getHostelAndRoomDetails();
+        $roomCheckinDetails = $this->roomBookingService->findOrFail($request['roomCheckinId']);
+        $roomIds = [];
+        $hostelIds = [];
+        $checkInRooms = $roomCheckinDetails->rooms;
+        foreach ($checkInRooms as $checkInRoom) {
+            array_push($roomIds, $checkInRoom->room->id);
+            array_push($hostelIds, $checkInRoom->room->hostel_id);
+        }
+        $hostels = $this->hostelService->getHostelByBookedRooms($hostelIds);
         return view('hm::check-in.hostel', compact('hostels', 'roomCheckinId'));
     }
 }

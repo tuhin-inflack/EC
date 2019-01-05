@@ -28,6 +28,11 @@ return [
     'card' => 'কার্ড',
     'check' => 'চেক',
     'checkin_type' => 'চেকইন টাইপ',
+    'rooms'=> 'কক্ষ সমূহ',
+    'guest_assaingment' => 'অতিথি আসাইনম্যান',
     'total_bill' => 'মোট বিল',
     'total_due' => 'মোট বাকি',
+    'present' => 'চলতি',
+    'absent' => 'অনুপস্থিত',
+    'for_guest_assaingment' => 'অতিথি আসাইনম্যান এর জন্য',
 ];

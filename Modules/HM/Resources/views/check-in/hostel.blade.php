@@ -8,7 +8,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="selectionModalLabel">@lang('hm::hostel.title') @lang('labels.select')</h5>
+                    <h5 class="modal-title" id="selectionModalLabel">@lang('hm::checkin.for_guest_assaingment') @lang('hm::hostel.title') @lang('labels.select')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -42,6 +42,9 @@
     <script type="text/javascript">
         $(window).on('load', function () {
             $('#selectionModal').modal('show');
+        });
+        $('#selectionModal').on('hide.bs.modal', function (event) {
+            location.href = "{{route('check-in.index')}}";
         });
     </script>
 @endpush
