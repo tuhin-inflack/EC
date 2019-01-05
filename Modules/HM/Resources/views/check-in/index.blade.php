@@ -20,38 +20,40 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table class="table table-bordered alt-pagination">
-                                        <thead>
-                                        <tr>
-                                            <th>@lang('labels.serial')</th>
-                                            <th>@lang('hm::checkin.check_in_number')</th>
-                                            <th>@lang('hm::checkin.booking_id')</th>
-                                            <th>@lang('labels.name')</th>
-                                            <th>@lang('hm::booking-request.no_of_guests')</th>
-                                            <th>@lang('hm::booking-request.check_in')</th>
-                                            <th>@lang('hm::checkin.estimated_check_out_time')</th>
-                                            <th>@lang('hm::checkin.estimated_no_of_day')</th>
-                                            <th>@lang('labels.status')</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($checkins as $checkin)
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered alt-pagination">
+                                            <thead>
                                             <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>
-                                                    <a href="{{ route('check-in.show', $checkin->id) }}">{{ $checkin->shortcode }}</a>
-                                                </td>
-                                                <td>{{ $checkin->booking ? $checkin->booking->roomBooking->shortcode : null }}</td>
-                                                <td>{{ $checkin->requester->getName() }}</td>
-                                                <td>{{ $checkin->guestInfos()->count() }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($checkin->start_date)->diffInDays(\Carbon\Carbon::parse($checkin->end_date)) }}</td>
-                                                <td>{{ $checkin->actual_end_date ? trans('hm::checkin.absent') : trans('hm::checkin.present') }}</td>
+                                                <th>@lang('labels.serial')</th>
+                                                <th>@lang('hm::checkin.check_in_number')</th>
+                                                <th>@lang('hm::checkin.booking_id')</th>
+                                                <th>@lang('labels.name')</th>
+                                                <th>@lang('hm::booking-request.no_of_guests')</th>
+                                                <th>@lang('hm::booking-request.check_in')</th>
+                                                <th>@lang('hm::checkin.estimated_check_out_time')</th>
+                                                <th>@lang('hm::checkin.estimated_no_of_day')</th>
+                                                <th>@lang('labels.status')</th>
                                             </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($checkins as $checkin)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>
+                                                        <a href="{{ route('check-in.show', $checkin->id) }}">{{ $checkin->shortcode }}</a>
+                                                    </td>
+                                                    <td>{{ $checkin->booking ? $checkin->booking->roomBooking->shortcode : null }}</td>
+                                                    <td>{{ $checkin->requester->getName() }}</td>
+                                                    <td>{{ $checkin->guestInfos()->count() }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
+                                                    <td>{{ \Carbon\Carbon::parse($checkin->start_date)->diffInDays(\Carbon\Carbon::parse($checkin->end_date)) }}</td>
+                                                    <td>{{ $checkin->actual_end_date ? trans('hm::checkin.absent') : trans('hm::checkin.present') }}</td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

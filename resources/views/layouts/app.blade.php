@@ -84,6 +84,7 @@
     $.extend( true, $.fn.dataTable.defaults, {
         "language": {
             "search": "{{ trans('labels.search') }}",
+            "emptyTable": "{{ trans('labels.empty_table') }}",
             "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
             "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
             "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",

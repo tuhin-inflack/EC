@@ -59,6 +59,7 @@ return [
     'next' => 'পরবর্তী',
     'search' => 'অনুসন্ধান:',
     'search_here' => 'এখানে খুজুন',
+    'empty_table' => 'কোন তথ্য নেই',
     'No_matching_records_found' => 'কোন মিল খুঁজে পাওয়া যায় নি',
     'show' => 'প্রদর্শন',
     'records' => 'রেকর্ড',
