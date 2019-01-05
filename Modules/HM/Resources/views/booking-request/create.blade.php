@@ -170,7 +170,12 @@
             $('.repeater-room-infos').repeater({
                 show: function () {
                     $(this).find('.select2-container').remove();
-
+                    $(this).find('.room-type-select').select2({
+                        placeholder: 'Select Room Type'
+                    });
+                    $(this).find('.rate-select').select2({
+                        placeholder: 'Select Rate'
+                    });
 
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -200,13 +205,29 @@
                 }
             });
 
-
+            // select2
+            $('.training-select').select2({
+                placeholder: 'Select Training'
+            });
+            $('.room-type-select').select2({
+                placeholder: 'Select Room Type'
+            });
+            $('.rate-select').select2({
+                placeholder: 'Select Rate'
+            });
+            $('.guest-gender-select').select2({
+                placeholder: 'Select Gender'
+            });
+            $('#department-select').select2({
+                placeholder: 'Select Department'
+            });
 
             // validation
             jQuery.validator.addMethod("greaterThanOrEqual",
                 function (value, element, params) {
-                    return Date.parse(value) >= Date.parse($(params).val())
-                }, 'Must be greater than {0}.');
+                    let comparingDate = params == '#start_date' ? $(params).val() : params;
+                        return Date.parse(value) >= Date.parse(comparingDate);
+                }, 'Must be greater than or equal to {0}.');
 
             $('.booking-request-tab-steps').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
@@ -222,7 +243,9 @@
                     if (element.attr('type') == 'radio') {
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
-                        error.insertBefore(element.siblings('.select-error'));
+                        error.insertAfter(element.siblings('.select2-container'));
+                    } else if (element.attr('id') == 'start_date' || element.attr('id') == 'end_date') {
+                        error.insertAfter(element.parents('.input-group'));
                     } else {
                         error.insertAfter(element);
                     }
@@ -231,7 +254,7 @@
                     end_date: {
                         greaterThanOrEqual: '#start_date'
                     },
-                    name: {
+                    first_name: {
                         maxlength: 50
                     },
                     contact: {
@@ -249,7 +272,7 @@
                 },
             });
 
-            $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
+            $('input[type=radio][name=booking_type]').on('ifChecked', function (event) {
                 if ($(this).val() == 'training') {
                     $('.select-training-div').show();
                 } else {
