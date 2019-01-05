@@ -32,5 +32,7 @@ return [
     'guest_assaingment' => 'অতিথি আসাইনম্যান',
     'total_bill' => 'মোট বিল',
     'total_due' => 'মোট বাকি',
+    'present' => 'চলতি',
+    'absent' => 'অনুপস্থিত',
     'for_guest_assaingment' => 'অতিথি আসাইনম্যান এর জন্য',
 ];
