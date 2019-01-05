@@ -5,9 +5,22 @@ namespace Modules\TMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\TMS\Services\TraineeService;
+use Modules\TMS\Services\TrainingsService;
 
 class TMSController extends Controller
 {
+
+    private $traineeService;
+    private $trainingService;
+
+
+    public function __construct(TraineeService $traineeService, TrainingsService $trainingService)
+    {
+        $this->traineeService = $traineeService;
+        $this->trainingService = $trainingService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -68,5 +81,9 @@ class TMSController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function getTraineesOfTraining($trainingId){
+        return $this->traineeService->fetchTraineesWithID($trainingId);
     }
 }
