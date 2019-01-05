@@ -17,15 +17,17 @@ class RoomTypeTableSeeder extends Seeder
     {
         Model::unguard();
 
-        for($i = 0; $i < 10; $i++)
+        $words = ['এসি অভিজাত', 'এসি শোভন', 'শোভন','সাধারণ'];
+
+        for($i = 0; $i < 4; $i++)
         {
             RoomType::create([
-               'name' => 'Room Type ' . $i,
-               'capacity' => rand(1, 5),
-                'general_rate' => rand(100, 900),
+                'name' => $words[$i],
+                'capacity' => $i + 1,
+                'general_rate' => rand(500, 1500),
                 'govt_rate' => rand(100, 900),
                 'bard_emp_rate' => rand(100, 900),
-                'special_rate' => rand(100, 900),
+                'special_rate' => rand(100, 800),
             ]);
         }
     }

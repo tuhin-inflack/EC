@@ -67,7 +67,9 @@
             transitionEffect: "fade",
             titleTemplate: '<span class="step">#index#</span> #title#',
             labels: {
-                finish: 'Submit'
+                finish: '{!! trans('labels.submit') !!}',
+                next: '{!! trans('labels.next') !!}',
+                previous: '{!! trans('labels.previous') !!}',
             },
             onStepChanging: function (event, currentIndex, newIndex) {
                 // Allways allow previous action even if the current form is not valid!
@@ -269,9 +271,9 @@
 
             $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
                 if ($(this).val() == 'training') {
-                    $('select[name=training_id]').val(null).trigger('change');
                     $('.select-training-div').show();
                 } else {
+                    $('select[name=training_id]').val(null).trigger('change');
                     $('.select-training-div').hide();
                 }
             });

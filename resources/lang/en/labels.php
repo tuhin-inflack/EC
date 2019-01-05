@@ -90,4 +90,7 @@ return [
     'Administration' => 'Administration',
     'login' => 'Login',
     'provide_your_account_details' => 'Provide Your Account Details',
+    'first' => 'First',
+    'last' => 'Last',
+    'submit' => 'Submit',
 ];
