@@ -26,7 +26,7 @@ class TrainingTableSeeder extends Seeder
 
             Trainings::create([
                 'training_id' => $trainingId,
-                'training_title' => $trainingTitle,
+                'training_title' => $trainingTitle[$i],
                 'start_date' => Carbon::today(),
                 'end_date' => Carbon::today()->addDays(5),
                 'no_of_trainee' => rand(5, 30),
