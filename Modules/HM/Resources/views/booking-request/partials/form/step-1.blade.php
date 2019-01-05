@@ -12,7 +12,7 @@
                         {{ Form::text('start_date', date('j F, Y'), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', 'disabled']) }}
                         {{ Form::hidden('start_date', date('j F, Y')) }}
                     @else
-                        {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y', strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+                        {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y', strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', $page == 'edit' ? 'data-rule-greaterThanOrEqual="' . date('j F, Y') .'"' : null]) }}
                     @endif
                     @if ($errors->has('start_date'))
                         <span class="invalid-feedback" role="alert">
@@ -31,8 +31,8 @@
 
                     @if ($errors->has('end_date'))
                         <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('end_date') }}</strong>
-                                                        </span>
+                            <strong>{{ $errors->first('end_date') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>
@@ -72,7 +72,6 @@
                     @endif
                 @endforeach
             </select>
-            <span class="select-error"></span>
 
             @if ($errors->has('training_id'))
                 <span class="invalid-feedback" role="alert">
@@ -99,6 +98,11 @@
                             <div class="form-group mb-1 col-sm-12 col-md-4">
                                 <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                 <br>
+                                <!-- Start For Edit Old Room Type -->
+                            @if($oldInput['id'])
+                                {{ Form::hidden('id', $oldInput['id']) }}
+                            @endif
+                            <!-- End For Edit Old Room Type -->
                                 {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control required room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))

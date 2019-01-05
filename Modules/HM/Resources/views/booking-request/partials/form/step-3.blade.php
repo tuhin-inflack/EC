@@ -161,7 +161,6 @@
                                     <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                     <br>
                                     {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required']) !!}
-                                    <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.relation') }}</label>
@@ -302,7 +301,6 @@
                                         <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                         <br>
                                         {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required']) !!}
-                                        <span class="select-error"></span>
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.relation') }}</label>
