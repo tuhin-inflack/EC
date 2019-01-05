@@ -116,7 +116,6 @@ class BookingRequestController extends Controller
      */
     public function store(StoreBookingRequest $request)
     {
-        return $request->all();
         $this->bookingRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('booking-requests.index');
