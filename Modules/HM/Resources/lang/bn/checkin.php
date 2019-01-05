@@ -35,4 +35,5 @@ return [
     'present' => 'চলতি',
     'absent' => 'অনুপস্থিত',
     'for_guest_assaingment' => 'অতিথি আসাইনম্যান এর জন্য',
+    'grand_total_bill' => 'সর্বমোট হার',
 ];
