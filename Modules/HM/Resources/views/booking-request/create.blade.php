@@ -170,12 +170,7 @@
             $('.repeater-room-infos').repeater({
                 show: function () {
                     $(this).find('.select2-container').remove();
-                    $(this).find('.room-type-select').select2({
-                        placeholder: 'Select Room Type'
-                    });
-                    $(this).find('.rate-select').select2({
-                        placeholder: 'Select Rate'
-                    });
+
 
                     // remove error span
                     $('div:hidden[data-repeater-item]')
@@ -205,22 +200,7 @@
                 }
             });
 
-            // select2
-            $('.training-select').select2({
-                placeholder: 'Select Training'
-            });
-            $('.room-type-select').select2({
-                placeholder: 'Select Room Type'
-            });
-            $('.rate-select').select2({
-                placeholder: 'Select Rate'
-            });
-            $('.guest-gender-select').select2({
-                placeholder: 'Select Gender'
-            });
-            $('#department-select').select2({
-                placeholder: 'Select Department'
-            });
+
 
             // validation
             jQuery.validator.addMethod("greaterThanOrEqual",

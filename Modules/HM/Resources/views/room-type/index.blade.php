@@ -75,46 +75,4 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-<script>
-    $(document).ready(function () {
-        $('#room-type').DataTable({
-            dom: "<'row'<'col-sm-12 col-md-6'lB><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
-            buttons: [
-                {
-                    extend: 'copy', className: 'copyButton',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6],
-                    }
-                },
-                {
-                    extend: 'excel', className: 'excel',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6],
-                    }
-                },
-                {
-                    extend: 'pdf', className: 'pdf',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6],
-                    }
-                },
-                {
-                    extend: 'print', className: 'print',
-                    exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6],
-                    }
-                },
-            ],
-            "columnDefs": [
-                { "orderable": false, "targets": 7 }
-            ],
-            "bDestroy": true,
 
-
-        });
-    });
-</script>
-@endpush

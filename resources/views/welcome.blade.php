@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="col-5 pl-2">
                                         <h4>{{ trans('labels.Admin') }}</h4>
-                                        <h6 class="text-muted"><a href="{{url('/home')}}">{{ trans('labels.Administration') }}</a></h6>
+                                        <h6 class="text-muted"><a href="{{url('system/user')}}">{{ trans('labels.Administration') }}</a></h6>
                                     </div>
                                 </div>
                             </div>
