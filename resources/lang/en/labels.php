@@ -59,6 +59,7 @@ return [
     'next' => 'Next',
     'search' => 'Search:',
     'search_here' => 'Search Here',
+    'empty_table' => 'No data available in table',
     'No_matching_records_found' => 'No matching records found',
     'show' => 'Show',
     'records' => 'records',
