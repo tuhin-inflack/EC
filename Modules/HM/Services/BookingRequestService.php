@@ -136,27 +136,35 @@ class BookingRequestService
             }
 
 
-            Storage::delete($roomBooking->requester->photo);
-            $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+            if (array_key_exists('photo', $data)) {
+                Storage::delete($roomBooking->requester->photo);
+                $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+                $data['photo'] = $photoPath;
+            }
 
-            Storage::delete($roomBooking->requester->nid_doc);
-            $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+            if (array_key_exists('nid_doc', $data)) {
+                Storage::delete($roomBooking->requester->nid_doc);
+                $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+                $data['nid_doc'] = $nidDocPath;
+            }
 
-            Storage::delete($roomBooking->requester->passport_doc);
-            $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+            if (array_key_exists('passport_doc', $data)) {
+                Storage::delete($roomBooking->requester->passport_doc);
+                $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+                $data['passport_doc'] = $passportDocPath;
+            }
 
-            $data['photo'] = $photoPath;
-            $data['nid_doc'] = $nidDocPath;
-            $data['passport_doc'] = $passportDocPath;
 
             $roomBooking->requester->update($data);
 
-            if (array_key_exists('guests', $data))
-            {
+            if (array_key_exists('guests', $data)) {
                 foreach ($data['guests'] as $value) {
-                    if ($data['nid_doc']) {
-                        Storage::delete($roomBooking->guestInfos->nid_doc);
-                        $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    if (array_key_exists('nid_doc', $value)) {
+                        $guest = $roomBooking->guestInfos()->find($value['id']);
+                        if ($guest->nid_doc) {
+                            Storage::delete($guest->nid_doc);
+                        }
+                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
                     }
                     $roomBooking->guestInfos()->updateOrCreate([
                         'id' => $value['id'],

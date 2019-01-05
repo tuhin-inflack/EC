@@ -8,8 +8,12 @@
             <label class="required">{{ trans('hm::booking-request.start_date') }}</label>
             <div class="form-group">
                 <div class="input-group">
-                    {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y',strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
-
+                    @if($type == 'checkin')
+                        {{ Form::text('start_date', date('j F, Y'), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', 'disabled']) }}
+                        {{ Form::hidden('start_date', date('j F, Y')) }}
+                    @else
+                        {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y', strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
+                    @endif
                     @if ($errors->has('start_date'))
                         <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('start_date') }}</strong>
