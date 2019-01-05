@@ -18,16 +18,15 @@ class TrainingTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $words = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet'];
-        $max = count($words) - 1;
+        $trainingTitle = ['কীটনাশক ব্যবহার প্রশিক্ষণ', 'সম্পদ ব্যবস্থাপনা প্রশিক্ষণ', 'বার্ষিক হিসাবরক্ষণ প্রশিক্ষণ', 'মানব সম্পদ উন্নয়ন প্রশিক্ষণ'];
 
-        for ($i = 0; $i < 10; $i++)
+        for ($i = 0; $i < 4; $i++)
         {
             $trainingId  = "BARD-TRN-" . date('Y-m-s') . rand(9999,100000);
 
             Trainings::create([
                 'training_id' => $trainingId,
-                'training_title' => $words[rand(0, $max)],
+                'training_title' => $trainingTitle,
                 'start_date' => Carbon::today(),
                 'end_date' => Carbon::today()->addDays(5),
                 'no_of_trainee' => rand(5, 30),
