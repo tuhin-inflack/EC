@@ -15,4 +15,11 @@ use Modules\HM\Entities\Hostel;
 class HostelRepository extends AbstractBaseRepository
 {
     protected $modelName = Hostel::class;
+
+    public function getHostelsWithSelectedRooms($hostelIds, $roomIds)
+    {
+        return Hostel::with(['rooms' => function($query) use($roomIds) {
+            $query->whereIn('id', $roomIds);
+        }])->whereIn('id', $hostelIds)->get();
+    }
 }

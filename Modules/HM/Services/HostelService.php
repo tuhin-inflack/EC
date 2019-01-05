@@ -79,6 +79,29 @@ class HostelService
         return $hostelDetails;
     }
 
+    public function getHostelByBookedRooms($hostelIds)
+    {
+        $hostelDetails = [];
+        $hostels = $this->getHostelByIds($hostelIds);
+        foreach ($hostels as $hostel) {
+            $roomDetails = $this->roomService->getRoomCountByRoomType($hostel->id);
+            $hostelDetails[$hostel->name] = ['hostelDetails' => $hostel, 'roomDetails' => $roomDetails];
+        }
+        return $hostelDetails;
+    }
+
+    public function getHostelByIds($hostelIds)
+    {
+        $hostels = $this->hostelRepository->findIn('id', $hostelIds);
+        return $hostels;
+    }
+
+    public function getHostelByWithRooms($hostelIds, $roomIds)
+    {
+        $hostels = $this->hostelRepository->getHostelsWithSelectedRooms($hostelIds, $roomIds);
+        return $hostels;
+    }
+
     public function getRoomsCountBasedOnStatus($hostelId = null)
     {
         $overAllStatus = [

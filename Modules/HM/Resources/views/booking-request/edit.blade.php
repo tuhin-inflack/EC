@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', trans('hm::booking-request.title'))
+@section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
     <div class="container">
