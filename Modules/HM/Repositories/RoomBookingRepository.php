@@ -15,4 +15,14 @@ use Modules\HM\Entities\RoomBooking;
 class RoomBookingRepository extends AbstractBaseRepository
 {
     protected $modelName = RoomBooking::class;
+
+    public function pluckTrainingTitleBookingId()
+    {
+        return $this->model->leftjoin('trainings', 'room_bookings.training_id', '=', 'trainings.id')
+            ->where('room_bookings.booking_type', 'training')
+            ->where('room_bookings.type', 'booking')
+            ->where('room_bookings.status', 'approved')
+            ->whereNotNull('room_bookings.training_id')
+            ->pluck('trainings.training_title', 'room_bookings.id');
+    }
 }
