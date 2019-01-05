@@ -35,10 +35,10 @@
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{$type->name}}</td>
                                         <td>{{$type->capacity}}</td>
-                                        <td>{{$type->general_rate}}</td>
-                                        <td>{{$type->govt_rate}}</td>
-                                        <td>{{$type->bard_emp_rate}}</td>
-                                        <td>{{$type->special_rate}}</td>
+                                        <td>{{$type->general_rate}} &#2547;</td>
+                                        <td>{{$type->govt_rate}} &#2547;</td>
+                                        <td>{{$type->bard_emp_rate}} &#2547;</td>
+                                        <td>{{$type->special_rate}} &#2547;</td>
                                         <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -65,8 +65,9 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <h5>{{trans('labels.note')}}</h5>
-                            <p>** {{trans('labels.currency')}} {{trans('labels.bdt')}}</p>
+                            <div class="row">
+                                <div class="col-md-12"><p><b>{{trans('labels.note')}}</b> ** {{trans('labels.currency')}} {{trans('labels.bdt')}}</p></div>
+                            </div>
                         </div>
                     </div>
                 </div>
