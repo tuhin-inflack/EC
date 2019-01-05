@@ -68,6 +68,7 @@ class CheckinService
         $checkin->checkinDetails->each(function ($checkinDetail) {
            $checkinDetail->room()->update(['status' => 'available']);
         });
+        $checkin->rooms()->update(['status' => 'checkedout', 'checkout_date' => $checkoutTime]);
         $checkin->checkinDetails()->update(['checkout_date' => $checkoutTime]);
 
         return $checkin->checkinDetails;

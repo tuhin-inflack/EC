@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         }
 
         $this->checkinService->checkout($roomBooking);
-        Session::flash('success', 'Successfully checked out');
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->back();
     }
