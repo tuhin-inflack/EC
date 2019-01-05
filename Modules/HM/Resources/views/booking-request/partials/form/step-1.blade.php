@@ -44,11 +44,11 @@
             <label class="required">{{ $type=='checkin'?trans('hm::booking-request.checkin_type')
             :trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required']) !!}
+                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                 <label>{{ trans('hm::booking-request.general') }}</label>
             </div>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required']) !!}
+                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                 <label>{{ trans('hm::booking-request.training') }}</label>
             </div>
 
@@ -62,7 +62,7 @@
         <div class="form-group mb-1 col-md-6 select-training-div"
              style="{{ isset($roomBooking) ? ($roomBooking->training_id ? '' : 'display: none') : 'display: none' }}">
             <label class="required">@lang('tms::training.title') @lang('labels.list')</label>
-            <select name="training_id" class="form-control training-select required">
+            <select name="training_id" class="form-control training-select required" data-msg-required = "{{ trans('labels.This field is required') }}">
                 <option value="">Select Training</option>
                 @foreach($trainings as $training)
                     @if(isset($roomBooking))
@@ -103,7 +103,7 @@
                                 {{ Form::hidden('id', $oldInput['id']) }}
                             @endif
                             <!-- End For Edit Old Room Type -->
-                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control required room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $oldInput['room_type_id'], ['class' => 'form-control required room-type-select' . ($errors->has('roomInfos.' . $loop->index . '.room_type_id') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.room_type_id'))
                                     <span class="invalid-feedback" role="alert">
@@ -115,7 +115,7 @@
                                 <label for="quantity"
                                        class="required">{{ trans('hm::booking-request.quantity') }}</label>
                                 <br>
-                                {!! Form::number('quantity', $oldInput['quantity'], ['class' => 'form-control required' . ($errors->has('roomInfos.' . $loop->index . '.quantity') ? ' is-invalid' : ''), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                {!! Form::number('quantity', $oldInput['quantity'], ['class' => 'form-control required' . ($errors->has('roomInfos.' . $loop->index . '.quantity') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.quantity'))
                                     <span class="invalid-feedback" role="alert">
@@ -126,7 +126,7 @@
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                 <br>
-                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : '')]) !!}
+                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select' . ($errors->has('roomInfos.' . $loop->index . '.rate') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
                                     <span class="invalid-feedback" role="alert">
@@ -152,19 +152,19 @@
                             <div class="form-group mb-1 col-sm-12 col-md-4">
                                 <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                 <br>
-                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <span class="select-error"></span>
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required"
                                        for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                 <br>
-                                {!! Form::number('quantity', null, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                {!! Form::number('quantity', null, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1, 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                 <br>
-                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select']) !!}
+                                {!! Form::select('rate', ['' => ''], null, ['class' => 'form-control required rate-select', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <span class="select-error"></span>
                             </div>
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -184,19 +184,19 @@
                                     <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                     <br>
                                     {!! Form::hidden('id', $roomInfo->id) !!}
-                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
+                                    {!! Form::select('room_type_id', $roomTypes->pluck('name', 'id'), $roomInfo->room_type_id, ['class' => 'form-control room-type-select required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)']) !!}
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required"
                                            for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                     <br>
-                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.rate') }}</label>
                                     <br>
-                                    {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select required']) !!}
+                                    {!! Form::select('rate', ['' => ''], $roomInfo->rate_type . '_' . $roomInfo->rate, ['class' => 'form-control rate-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
