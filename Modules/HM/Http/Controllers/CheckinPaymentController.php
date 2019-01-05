@@ -64,7 +64,7 @@ class CheckinPaymentController extends Controller
             abort(404);
         }
         $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['checkin_id' => $roomBooking->id, 'shortcode' => time()]));
-        Session::flash('success', 'Successfully made payments');
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('check-in-payments.index', $checkinPayment->checkin_id);
     }
@@ -78,31 +78,5 @@ class CheckinPaymentController extends Controller
     public function show(RoomBooking $roomBooking, CheckinPayment $checkinPayment)
     {
         return view('hm::check-in.payment.show')->with(['checkin' => $roomBooking, $checkinPayment]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('hm::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
     }
 }
