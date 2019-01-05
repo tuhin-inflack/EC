@@ -13,6 +13,7 @@
 
 Route::prefix('tms')->group(function() {
     Route::get('/', 'TrainingController@index');
+    Route::get('get-trainees-of-training/{trainingId}', 'TrainingController@index')->name('tms.getTraineesOfTraining'); // Important and Temporary
 
     // Route group for all request regarding training
     Route::prefix('training')->group(function() {
