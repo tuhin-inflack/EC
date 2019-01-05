@@ -121,7 +121,7 @@
                         });
                         $('#guests-info-table').find('tbody').html(guestInfoRows);
                     } else {
-                        $('.guests-info-div').hide();
+                        //$('.guests-info-div').hide();
                     }
 
                     if ($('#referee-select').val()) {
@@ -283,8 +283,8 @@
             $('.training-select').change(function (e) {
                 $.get("{{  url("/tms/get-trainees-of-training") }}/" + $(this).val(), function (data) {
 
-                    // TODO: repeater-guest-information hide
-                    $('.repeater-guest-information').hide();
+                    // TODO: repeater-guest-information hide or Remove
+                    $('.repeater-guest-information').remove();
 
                     // TODO: generate table with hidden inputs | key
                     $('.trainee-list').html(traineesListFromTraining(data));
@@ -301,13 +301,15 @@
             for (value in data){
 
                 table += '<tr>' +
-                    '<td>' + data[value].trainee_first_name + '<input type="hidden" name="first_name[]" value="' + data[value].trainee_first_name + '">' + '</td>' +
-                    '<td>' + data[value].trainee_last_name + '<input type="hidden" name="last_name[]" value="' + data[value].trainee_last_name + '">' + '</td>' +
-                    '<td>' + data[value].trainee_gender + '<input type="hidden" name="gender[]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
+                    '<td>' + data[value].trainee_first_name + '<input type="hidden" name="guests['+value+'][first_name]" value="' + data[value].trainee_first_name + '">' + '</td>' +
+                    '<td>' + data[value].trainee_last_name + '<input type="hidden" name="guests['+value+'][last_name]" value="' + data[value].trainee_last_name + '">' + '</td>' +
+                    '<td>' + data[value].trainee_gender + '<input type="hidden" name="guests['+value+'][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
                     '<td>' + data[value].mobile +
-                        '<input type="hidden" name="age[]" value="1">' +
-                        '<input type="hidden" name="relation[]" value="Trainee">' +
-                        '<input type="hidden" name="address[]" value="Bangladesh">' +
+                        '<input type="hidden" name="guests['+value+'][age]" value="1">' +
+                        '<input type="hidden" name="guests['+value+'][relation]" value="Trainee">' +
+                        '<input type="hidden" name="guests['+value+'][address]" value="Bangladesh">' +
+                        '<input type="hidden" name="guests['+value+'][middle_name]">' +
+                        '<input type="hidden" name="guests['+value+'][nid_no]">' +
                     '</td>' +
                     '</tr>';
             }
@@ -330,19 +332,19 @@
         }
 
         function traineesInfoListFromTraining(data) {
-            let tbody = '';
-            let male = '{!! trans('hm::booking-request.male') !!}'
-            let female = '{!! trans('hm::booking-request.female') !!}'
+            var tbody = '';
 
             for (value in data){
-                tbody += `<tr>
-                            <td>${data[value].trainee_first_name} ${data[value].trainee_last_name}</td>
-                            <td></td>
-                            <td>${data[value].trainee_gender == 'Male' ? male : female}</td>
-                            <td>শিক্ষানবিস</td>
-                            <td>বাংলাদেশ</td>
-                        </tr>`;
+                tbody += '<tr>' +
+                            '<td>'+ data[value].trainee_first_name + ' '+ data[value].trainee_last_name + '</td>' +
+                            '<td></td>' +
+                            '<td>' + ((data[value].trainee_gender === 'Male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
+                            '<td>শিক্ষানবিস</td>' +
+                            '<td>বাংলাদেশ</td>' +
+                        '</tr>';
             }
+
+            console.log(tbody);
 
             return tbody;
         }
