@@ -33,6 +33,6 @@ return [
     'present' => 'Present',
     'absent' => 'Absent',
     'for_guest_assaingment' => 'For Guest Assignment',
-
-
+    'hostel_name' => 'Hostel Name',
+    'room_numbers' => 'Room Numbers'
 ];

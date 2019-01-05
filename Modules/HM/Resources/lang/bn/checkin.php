@@ -35,4 +35,6 @@ return [
     'present' => 'চলতি',
     'absent' => 'অনুপস্থিত',
     'for_guest_assaingment' => 'অতিথি আসাইনম্যান এর জন্য',
+    'hostel_name' => 'হোস্টেল নাম',
+    'room_numbers' => 'রুম সংখ্যা',
 ];
