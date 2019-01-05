@@ -55,12 +55,17 @@
             </div>
 
         </div>
-        <div class="form-group mb-1 col-md-6 select-training-div" style="display: none">
+        <div class="form-group mb-1 col-md-6 select-training-div"
+             style="{{ isset($roomBooking) ? ($roomBooking->training_id ? '' : 'display: none') : 'display: none' }}">
             <label class="required">@lang('tms::training.title') @lang('labels.list')</label>
             <select name="training_id" class="form-control training-select required">
-                <option value=""> Select Training</option>
+                <option value="">Select Training</option>
                 @foreach($trainings as $training)
-                    <option value="{{$training->id}}">{{$training->training_title}}</option>
+                    @if(isset($roomBooking))
+                        <option value="{{$training->id}}" {{ $roomBooking->training_id == $training->id ? 'selected' : '' }}>{{$training->training_title}}</option>
+                    @else
+                        <option value="{{$training->id}}">{{$training->training_title}}</option>
+                    @endif
                 @endforeach
             </select>
             <span class="select-error"></span>

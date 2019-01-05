@@ -230,6 +230,9 @@
             });
 
             // select2
+            $('.training-select').select2({
+                placeholder: 'Select Training'
+            });
             $('.room-type-select').select2({
                 placeholder: 'Select Room Type'
             });
@@ -292,9 +295,9 @@
 
             $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
                 if ($(this).val() == 'training') {
-                    $('select[name=training_id]').val(null).trigger('change');
                     $('.select-training-div').show();
                 } else {
+                    $('select[name=training_id]').val(null).trigger('change');
                     $('.select-training-div').hide();
                 }
             });
