@@ -8,7 +8,7 @@ use Modules\HM\Entities\Hostel;
 use Modules\HM\Repositories\RoomRepository;
 use Modules\HM\Services\RoomService;
 
-class RoomAndHostelTableSeederTableSeeder extends Seeder
+class RoomAndHostelTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
