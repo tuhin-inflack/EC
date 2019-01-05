@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="form-group col-md-4">
                     <label class="required">{{ trans('hm::booking-request.first_name') }}</label>
-                    {!! Form::text('first_name', $page == 'create' ? old('first_name') : $roomBooking->requester->first_name, ['class' => 'form-control required' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+                    {!! Form::text('first_name', $page == 'create' ? old('first_name') : $roomBooking->requester->first_name, ['class' => 'form-control required' . ($errors->has('first_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=> Lang::get('labels.At most 50 characters')]) !!}
 
                     @if ($errors->has('first_name'))
                         <span class="invalid-feedback" role="alert">
@@ -17,7 +17,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label>{{ trans('hm::booking-request.middle_name') }}</label>
-                    {!! Form::text('middle_name', $page == 'create' ? old('middle_name') : $roomBooking->requester->middle_name, ['class' => 'form-control' . ($errors->has('middle_name') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+                    {!! Form::text('middle_name', $page == 'create' ? old('middle_name') : $roomBooking->requester->middle_name, ['class' => 'form-control' . ($errors->has('middle_name') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=> Lang::get('labels.At most 50 characters')]) !!}
 
                     @if ($errors->has('middle_name'))
                         <span class="invalid-feedback" role="alert">
@@ -27,7 +27,7 @@
                 </div>
                 <div class="form-group col-md-4">
                     <label class="required">{{ trans('hm::booking-request.last_name') }}</label>
-                    {!! Form::text('last_name', $page == 'create' ? old('last_name') : $roomBooking->requester->last_name, ['class' => 'form-control required' . ($errors->has('last_name') ? ' is-invalid' : ''), 'placeholder' => 'Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At most 50 characters"]) !!}
+                    {!! Form::text('last_name', $page == 'create' ? old('last_name') : $roomBooking->requester->last_name, ['class' => 'form-control required' . ($errors->has('last_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=> Lang::get('labels.At most 50 characters')]) !!}
 
                     @if ($errors->has('last_name'))
                         <span class="invalid-feedback" role="alert">
@@ -39,7 +39,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.contact') }}</label>
-                    {!! Form::text('contact', $page == 'create' ? old('contact') : $roomBooking->requester->contact, ['id' => 'primary-contact-contact-input', 'class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'placeholder' => '11 digit number', 'data-rule-minlength' => 11, 'data-msg-minlength'=>"At least 11 characters", 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>"At most 11 characters"]) !!}
+                    {!! Form::text('contact', $page == 'create' ? old('contact') : $roomBooking->requester->contact, ['id' => 'primary-contact-contact-input', 'class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'data-rule-minlength' => 11, 'data-msg-minlength'=> Lang::get('labels.At least 11 characters'), 'data-rule-maxlength' => 11, 'data-msg-maxlength'=> Lang::get('labels.At most 11 characters')]) !!}
 
                     @if ($errors->has('contact'))
                         <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.address') }}</label>
-                    {!! Form::textarea('address', $page == 'create' ? old('address') : $roomBooking->requester->address, ['class' => 'form-control required' . ($errors->has('address') ? ' is-invalid' : ''), 'placeholder' => 'address', 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                    {!! Form::textarea('address', $page == 'create' ? old('address') : $roomBooking->requester->address, ['class' => 'form-control required' . ($errors->has('address') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=> Lang::get('labels.At least 300 characters')]) !!}
 
                     @if ($errors->has('address'))
                         <span class="invalid-feedback" role="alert">
@@ -70,13 +70,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="skin skin-flat">
-                                {!! Form::radio('gender', 'male', $page == 'create' ? old('gender') == 'male' : ($roomBooking->requester->gender == 'male'), ['class' => 'required']) !!}
+                                {!! Form::radio('gender', 'male', $page == 'create' ? old('gender') == 'male' : ($roomBooking->requester->gender == 'male'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <label for="gender">{{ trans('hm::booking-request.male') }}</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="skin skin-flat">
-                                {!! Form::radio('gender', 'female', $page == 'create' ? old('gender') == 'female' : ($roomBooking->requester->gender == 'female'), ['class' => 'required']) !!}
+                                {!! Form::radio('gender', 'female', $page == 'create' ? old('gender') == 'female' : ($roomBooking->requester->gender == 'female'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 <label for="gender">{{ trans('hm::booking-request.female') }}</label>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.email') }}</label>
-                    {!! Form::email('email', $page == 'create' ? old('email') : $roomBooking->requester->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'john@example.com', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At least 50 characters"]) !!}
+                    {!! Form::email('email', $page == 'create' ? old('email') : $roomBooking->requester->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=> Lang::get('labels.At least 50 characters')]) !!}
 
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">
@@ -108,7 +108,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.passport_no') }}</label>
-                    {!! Form::text('passport_no', $page == 'create' ? old('passport_no') : $roomBooking->requester->passport_no, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number', 'data-rule-minlength' => 10, 'data-msg-minlength'=>"At least 10 characters", 'data-rule-maxlength' => 10, 'data-msg-maxlength'=>"At max 10 characters"]) !!}
+                    {!! Form::text('passport_no', $page == 'create' ? old('passport_no') : $roomBooking->requester->passport_no, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'data-rule-minlength' => 10, 'data-msg-minlength'=> Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength'=> Lang::get('labels.At most 10 characters')]) !!}
 
                     @if ($errors->has('passport_no'))
                         <span class="invalid-feedback" role="alert">
@@ -120,7 +120,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.nid') }}</label>
-                    {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => '10 digit number']) !!}
+                    {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : '')]) !!}
 
                     @if ($errors->has('nid'))
                         <span class="invalid-feedback" role="alert">
@@ -139,7 +139,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.organization') }}</label>
-                    {!! Form::text('organization', $page == 'create' ? old('organization') : $roomBooking->requester->organization, ['class' => 'form-control' . ($errors->has('organization') ? ' is-invalid' : ''), 'placeholder' => 'Organization name', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At least 50 characters"]) !!}
+                    {!! Form::text('organization', $page == 'create' ? old('organization') : $roomBooking->requester->organization, ['class' => 'form-control' . ($errors->has('organization') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=> Lang::get('labels.At least 50 characters')]) !!}
 
                     @if ($errors->has('organization'))
                         <span class="invalid-feedback" role="alert">
@@ -202,7 +202,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.designation') }}</label>
-                    {!! Form::text('designation', $page == 'create' ? old('designation') : $roomBooking->requester->designation, ['class' => 'form-control' . ($errors->has('designation') ? ' is-invalid' : ''), 'placeholder' => 'Designation', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>"At least 50 characters"]) !!}
+                    {!! Form::text('designation', $page == 'create' ? old('designation') : $roomBooking->requester->designation, ['class' => 'form-control' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At least 50 characters')]) !!}
 
                     @if ($errors->has('designation'))
                         <span class="invalid-feedback" role="alert">
@@ -214,7 +214,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.address') }}</label>
-                    {!! Form::textarea('org_address', $page == 'create' ? old('org_address') : $roomBooking->requester->org_address, ['class' => 'form-control' . ($errors->has('org_address') ? ' is-invalid' : ''), 'cols' => 5, 'rows' => 3, 'placeholder' => 'Organization address', 'data-rule-maxlength' => 300, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                    {!! Form::textarea('org_address', $page == 'create' ? old('org_address') : $roomBooking->requester->org_address, ['class' => 'form-control' . ($errors->has('org_address') ? ' is-invalid' : ''), 'cols' => 5, 'rows' => 3, 'data-rule-maxlength' => 300, 'data-msg-maxlength'=>Lang::get('labels.At least 300 characters')]) !!}
 
                     @if ($errors->has('org_address'))
                         <span class="invalid-feedback" role="alert">
