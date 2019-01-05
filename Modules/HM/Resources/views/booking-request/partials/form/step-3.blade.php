@@ -1,6 +1,7 @@
 <h6>{{ trans('hm::booking-request.step_3') }}</h6>
 <fieldset>
     <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.guest_information') }}</h4>
+    <div class="trainee-list"></div>
     <div class="repeater-guest-information">
         @if(old('guests'))
             @foreach(old('guests') as $oldInput)

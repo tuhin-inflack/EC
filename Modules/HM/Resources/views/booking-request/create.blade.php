@@ -277,7 +277,75 @@
                     $('.select-training-div').hide();
                 }
             });
+
+            /* Load Trainees of Training
+            * ======================*/
+            $('.training-select').change(function (e) {
+                $.get("{{  url("/tms/get-trainees-of-training") }}/" + $(this).val(), function (data) {
+
+                    // TODO: repeater-guest-information hide
+                    $('.repeater-guest-information').hide();
+
+                    // TODO: generate table with hidden inputs | key
+                    $('.trainee-list').html(traineesListFromTraining(data));
+                    $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
+                });
+            });
+
         });
+
+        function traineesListFromTraining(data) {
+            var table = '';
+
+            // id, mobile, email, trainee_first_name, trainee_last_name, trainee_gender, trainingId, training_id, training_title);
+            for (value in data){
+
+                table += '<tr>' +
+                    '<td>' + data[value].trainee_first_name + '<input type="hidden" name="first_name[]" value="' + data[value].trainee_first_name + '">' + '</td>' +
+                    '<td>' + data[value].trainee_last_name + '<input type="hidden" name="last_name[]" value="' + data[value].trainee_last_name + '">' + '</td>' +
+                    '<td>' + data[value].trainee_gender + '<input type="hidden" name="gender[]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
+                    '<td>' + data[value].mobile +
+                        '<input type="hidden" name="age[]" value="1">' +
+                        '<input type="hidden" name="relation[]" value="Trainee">' +
+                        '<input type="hidden" name="address[]" value="Bangladesh">' +
+                    '</td>' +
+                    '</tr>';
+            }
+
+            return '<div data-repeater-list="guests">' +
+                        '<table class="table table-bordered">' +
+                            '<thead>' +
+                                '<tr>' +
+                                    '<th>@lang("hm::booking-request.first_name")</th>' +
+                                    '<th>@lang("hm::booking-request.last_name")</th>' +
+                                    '<th>@lang("hm::booking-request.gender")</th>' +
+                                    '<th>Mobile</th>' +
+                                '</tr>' +
+                            '</thead>' +
+                            '<tbody>' +
+                                table +
+                            '</tbody>' +
+                        '</table>' +
+                    '</div>';
+        }
+
+        function traineesInfoListFromTraining(data) {
+            let tbody = '';
+            let male = '{!! trans('hm::booking-request.male') !!}'
+            let female = '{!! trans('hm::booking-request.female') !!}'
+
+            for (value in data){
+                tbody += `<tr>
+                            <td>${data[value].trainee_first_name} ${data[value].trainee_last_name}</td>
+                            <td></td>
+                            <td>${data[value].trainee_gender == 'Male' ? male : female}</td>
+                            <td>শিক্ষানবিস</td>
+                            <td>বাংলাদেশ</td>
+                        </tr>`;
+            }
+
+            return tbody;
+        }
 
         function getRoomTypeRates(event, roomTypeId) {
             let roomTypes = {!! $roomTypes !!};
