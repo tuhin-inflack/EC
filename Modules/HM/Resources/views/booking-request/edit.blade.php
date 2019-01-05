@@ -253,8 +253,9 @@
             // validation
             jQuery.validator.addMethod("greaterThanOrEqual",
                 function (value, element, params) {
-                    return Date.parse(value) >= Date.parse($(params).val())
-                }, 'Must be greater than {0}.');
+                    let comparingDate = params == '#start_date' ? $(params).val() : params;
+                    return Date.parse(value) >= Date.parse(comparingDate);
+                }, 'Must be greater than or equal to {0}.');
 
             $('.booking-request-tab-steps').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
@@ -270,7 +271,9 @@
                     if (element.attr('type') == 'radio') {
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
-                        error.insertBefore(element.siblings('.select-error'));
+                        error.insertAfter(element.siblings('.select2-container'));
+                    } else if (element.attr('id') == 'start_date' || element.attr('id') == 'end_date') {
+                        error.insertAfter(element.parents('.input-group'));
                     } else {
                         error.insertAfter(element);
                     }
@@ -300,7 +303,7 @@
             $('#referee-select').val({!! $roomBooking->referee_id !!});
             $('#referee-select').trigger('change.select2');
 
-            $('input[type=radio][name=booking_type]').on('ifChecked', function(event){
+            $('input[type=radio][name=booking_type]').on('ifChecked', function (event) {
                 if ($(this).val() == 'training') {
                     $('.select-training-div').show();
                 } else {

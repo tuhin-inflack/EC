@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'User list')
+@section('title', trans('labels.User list'))
 
 @section('content')
     <section id="user-list">

@@ -29,5 +29,8 @@ return [
     'check' => 'চেক',
     'checkin_type' => 'চেকইন টাইপ',
     'rooms'=> 'কক্ষ সমূহ',
-    'guest_assaingment' => 'অতিথি  আসাইনম্যান',
+    'guest_assaingment' => 'অতিথি আসাইনম্যান',
+    'total_bill' => 'মোট বিল',
+    'total_due' => 'মোট বাকি',
+    'for_guest_assaingment' => 'অতিথি আসাইনম্যান এর জন্য',
 ];

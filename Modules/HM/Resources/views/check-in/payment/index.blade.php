@@ -1,5 +1,5 @@
 @extends('hm::layouts.master')
-@section('title', 'Payments Details of Check In')
+@section('title', trans('hm::checkin.payment_details'))
 
 @section('content')
     <div class="container">
@@ -65,7 +65,8 @@
                                 </div>
                                 @if(count($checkin->payments))
                                     <div class="col-md-6">
-                                        <p><span class="text-bold-600">{{ trans('hm::bill.payment_details') }}</span></p>
+                                        <p><span class="text-bold-600">{{ trans('hm::bill.payment_details') }}</span>
+                                        </p>
                                         <div class="table-responsive">
                                             <table class="table table-responsive table-bordered mb-0">
                                                 <thead>
@@ -75,7 +76,6 @@
                                                     <th>@lang('labels.date')</th>
                                                     <th>@lang('labels.amount')</th>
                                                     <th>@lang('hm::bill.payment_method')</th>
-                                                    <th></th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -86,25 +86,35 @@
                                                         <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                         <td>{{ $payment->amount }}</td>
                                                         <td>{{ trans('hm::checkin.' . $payment->type) }}</td>
-                                                        <td><a href="javascript:;"><i class="la la-eye"></i></a></td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>
                                         </div>
                                         <br>
-                                        <p><span class="text-bold-600">@lang('hm::checkin.total_payment'): {{ $checkin->payments()->sum('amount') }}</span></p>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <span class="text-bold-600">@lang('hm::checkin.total_bill'): {{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) }}</span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="text-bold-600">@lang('hm::checkin.total_payment')
+                                                    : {{ $checkin->payments()->sum('amount') }}</span>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <span class="text-bold-600">@lang('hm::checkin.total_due'): {{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') }}</span>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 @endif
                             </div>
-                        </div>
-                        <div class="card-body" style="padding-left: 20px;">
-                            <div class="form-actions">
-                                <a class="btn btn-warning mr-1" role="button" href="{{ route('check-in.show',  $checkin->id) }}">
+                            <div class="form-actions" style="padding-top: 16px">
+                                <a class="btn btn-warning mr-1" role="button"
+                                   href="{{ route('check-in.show',  $checkin->id) }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
-                                <a class="btn btn-success mr-1" role="button" href="{{ route('check-in-payments.create', $checkin->id) }}">
+                                <a class="btn btn-success mr-1" role="button"
+                                   href="{{ route('check-in-payments.create', $checkin->id) }}">
                                     <i class="ft-credit-card"></i> @lang('hm::checkin.make_payment')
                                 </a>
                             </div>

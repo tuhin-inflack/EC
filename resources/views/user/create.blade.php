@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'User create')
+@section('title', trans('labels.User create'))
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/custom.css') }}">

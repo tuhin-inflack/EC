@@ -28,4 +28,9 @@ return [
     'card' => 'Card',
     'check' => 'Check',
     'checkin_type' => 'Checkin Type',
+    'total_bill' => 'Total Bill',
+    'total_due' => 'Total Due',
+    'for_guest_assaingment' => 'For Guest Assignment',
+
+
 ];
