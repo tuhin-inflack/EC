@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="la la-cog la-spin"></i>
+                    <i class="la la-cog"></i>
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('labels.setup')</span>
                 </a>
                 <ul class="menu-content">
