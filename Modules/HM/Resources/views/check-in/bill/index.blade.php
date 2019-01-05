@@ -87,6 +87,7 @@
                                                             </table>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-12"><p style="float: right"><b>{{ trans('hm::checkin.grand_total_bill') }} - {{ number_format($checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }), 2) }}  &#2547;</b></p></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +154,15 @@
                                                                             <td>BILL{{$payment->shortcode}}</td>
                                                                             <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                                             <td>{{ $payment->amount }}</td>
-                                                                            <td>{{ $payment->type }}</td>
+                                                                            <td>@if($payment->type == 'cash')
+                                                                                    {{ trans('hm::checkin.cash') }}
+                                                                                    @elseif($payment->type == 'card')
+                                                                                    {{ trans('hm::checkin.card') }}
+                                                                                    @else
+                                                                                    {{ trans('hm::checkin.check') }}
+                                                                                    @endif
+
+                                                                            </td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>

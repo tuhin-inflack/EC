@@ -23,4 +23,6 @@ return [
     'booked' => 'Booked',
     'available' => 'Available',
     'partially_available' => 'Partially Available',
+    'rooms'=> 'Rooms',
+    'guest_assaingment' => 'Guest Assignment',
 ];

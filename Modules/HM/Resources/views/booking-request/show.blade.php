@@ -32,7 +32,7 @@
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
-                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                                        class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
                                             </a></li>
                                     @endif
                                 @endcan
@@ -47,7 +47,7 @@
                             <div class="card-body" style="padding-left: 20px;">
                                 <p>
                                     <span
-                                        class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
+                                            class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
                                 </p>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -102,6 +102,28 @@
                                                     <td>@lang('hm::booking-request.booking_type')</td>
                                                     <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
                                                 </tr>
+                                                @if($type == 'checkin')
+                                                    <tr>
+                                                        <td>@lang('hm::checkin.hostel_name')</td>
+                                                        <td>
+                                                            @foreach($roomBooking->rooms as $room)
+                                                                {{ $room->room->hostel->name }}<br>
+                                                            @endforeach
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>@lang('hm::checkin.room_numbers')</td>
+                                                        <td>
+                                                            @foreach($roomBooking->rooms as $room)
+                                                                @if($loop->iteration == count($roomBooking->rooms))
+                                                                    {{ $room->room->room_number }}
+                                                                @else
+                                                                    {{ $room->room->room_number }},
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                    </tr>
+                                                @endif
                                                 <tr>
                                                     <td>@lang('hm::booking-request.check_in')</td>
                                                     <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->start_date)->format('d/m/Y') }}</td>
@@ -320,27 +342,25 @@
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
                                     @can('admin-access')
-                                        @if($roomBooking->status != 'pending')
-                                            <button class="btn btn-secondary mr-1" type="button"
-                                                    onclick="changeStatus('pending')"><i
-                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
-                                            </button>
-                                        @endif
-                                        @if($roomBooking->status != 'rejected')
-                                            <button class="btn btn-danger mr-1" type="button"
-                                                    onclick="changeStatus('rejected')"><i
-                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
-                                            </button>
-                                        @endif
-                                        @if($roomBooking->status != 'approved')
-                                            <button class="btn btn-success mr-1" type="button"
-                                                    onclick="changeStatus('approved')"><i
-                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
-                                            </button>
-                                            <button class="btn btn-primary mr-1" type="button" id="PrintCommand"><i
-                                                    class="ft-printer"></i> @lang('labels.print')
-                                            </button>
-
+                                        @if($roomBooking->status == 'pending')
+                                            @if($roomBooking->status != 'pending')
+                                                <button class="btn btn-secondary mr-1" type="button"
+                                                        onclick="changeStatus('pending')"><i
+                                                            class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                </button>
+                                            @endif
+                                            @if($roomBooking->status != 'rejected')
+                                                <button class="btn btn-danger mr-1" type="button"
+                                                        onclick="changeStatus('rejected')"><i
+                                                            class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                </button>
+                                            @endif
+                                            @if($roomBooking->status != 'approved')
+                                                <button class="btn btn-success mr-1" type="button"
+                                                        onclick="changeStatus('approved')"><i
+                                                            class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                </button>
+                                            @endif
                                         @endif
                                     @endcan
                                 </div>

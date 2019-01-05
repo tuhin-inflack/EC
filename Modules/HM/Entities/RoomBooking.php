@@ -24,6 +24,11 @@ class RoomBooking extends Model
         return $this->hasMany(BookingRoomInfo::class, 'room_booking_id', 'id');
     }
 
+    public function rooms()
+    {
+        return $this->hasMany(CheckinRoom::class, 'checkin_id', 'id');
+    }
+
     public function guestInfos()
     {
         return $this->hasMany(BookingGuestInfo::class, 'room_booking_id', 'id');

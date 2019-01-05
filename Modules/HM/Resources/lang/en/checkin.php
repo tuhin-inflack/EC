@@ -30,4 +30,10 @@ return [
     'checkin_type' => 'Checkin Type',
     'total_bill' => 'Total Bill',
     'total_due' => 'Total Due',
+    'present' => 'Present',
+    'absent' => 'Absent',
+    'for_guest_assaingment' => 'For Guest Assignment',
+    'grand_total_bill' => 'Grand Total Rate',
+    'hostel_name' => 'Hostel Name',
+    'room_numbers' => 'Room Numbers'
 ];

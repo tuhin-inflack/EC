@@ -87,6 +87,7 @@
             "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
             "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
             "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
+            "infoEmpty": "{{trans('labels.showing')}} 0 {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
             "infoFiltered": "( {{ trans('labels.total')}} _MAX_ {{ trans('labels.infoFiltered') }} )",
             "paginate": {
                 "first": '{!! trans('labels.first') !!}',

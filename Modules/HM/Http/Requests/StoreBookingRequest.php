@@ -25,7 +25,7 @@ class StoreBookingRequest extends FormRequest
             'middle_name' => 'nullable|max:50',
             'last_name' => 'required|max:50',
             'gender' => 'in:male,female|required',
-            'contact' => 'required|size:11',
+            'contact' => 'required|numeric|digits:11',
             'address' => 'required|max:300',
             'email' => 'nullable|email',
             'nid' => 'nullable|size:10',

@@ -34,7 +34,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('hm::checkin.room_allocation')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('hm::checkin.guest_assaingment')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -83,8 +83,8 @@
                                                         <td class="hostel-level"><strong>Level {{$key}}</strong></td>
                                                         @foreach($roomDetail as $room)
                                                             <td data-roomid="{{$room->id}}"
-                                                                class="room-block {{$room->status}}"
-                                                                title="{{'Status: '.$room->status}} {{'Capacity: '.$room->roomType->capacity}}"
+                                                                class="room-block available"
+                                                                title="{{'Capacity: '.$room->roomType->capacity}}"
                                                                 data-toggle="modal" data-target="#selectionModal">
                                                                 {{$room->room_number}}<br/>{{$room->roomType->name}}
                                                             </td>

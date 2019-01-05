@@ -53,8 +53,8 @@ class CheckinService
     {
         DB::transaction(function () use ($data) {
             $this->save($data);
-            $room = $this->roomService->findOne($data['room_id']);
-            $room->update(['status' => $this->getRoomStatus($room)]);
+            //$room = $this->roomService->findOne($data['room_id']);
+            //$room->update(['status' => $this->getRoomStatus($room)]);
             $guestInfo = $this->bookingGuestInfoRepository->findOne($data['booking_guest_info_id']);
             $guestInfo->update(['status' => 'checkin']);
         });
@@ -66,8 +66,9 @@ class CheckinService
         $this->roomBookingRepository->update($checkin, ['actual_end_date' => $checkoutTime]);
 
         $checkin->checkinDetails->each(function ($checkinDetail) {
-           $checkinDetail->room()->update(['status' => $this->getRoomStatus($checkinDetail->room)]);
+           $checkinDetail->room()->update(['status' => 'available']);
         });
+        $checkin->rooms()->update(['status' => 'checkedout', 'checkout_date' => $checkoutTime]);
         $checkin->checkinDetails()->update(['checkout_date' => $checkoutTime]);
 
         return $checkin->checkinDetails;
