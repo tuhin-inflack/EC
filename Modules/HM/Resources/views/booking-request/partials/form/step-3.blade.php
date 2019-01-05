@@ -1,6 +1,7 @@
 <h6>{{ trans('hm::booking-request.step_3') }}</h6>
 <fieldset>
     <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.guest_information') }}</h4>
+    <div class="trainee-list"></div>
     <div class="repeater-guest-information">
         @if(old('guests'))
             @foreach(old('guests') as $oldInput)
@@ -198,8 +199,8 @@
                 </div>
             @else
                 @if(count($roomBooking->guestInfos))
-                    @foreach($roomBooking->guestInfos as $guestInfo)
-                        <div data-repeater-list="guests">
+                    <div data-repeater-list="guests">
+                        @foreach($roomBooking->guestInfos as $guestInfo)
                             <div data-repeater-item="" style="">
                                 <div class="form">
                                     <div class="row">
@@ -269,8 +270,8 @@
                                 </div>
                                 <hr>
                             </div>
-                        </div>
-                    @endforeach
+                        @endforeach
+                    </div>
                 @else
                     <div data-repeater-list="guests">
                         <div data-repeater-item="" style="">
