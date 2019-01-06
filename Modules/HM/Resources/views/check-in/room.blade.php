@@ -1,7 +1,7 @@
 @push('page-css')
     <style type="text/css">
         .hostel-level {
-            background-color: #ff22f3;
+            background-color: #878896;
             color: #ffffff;
         }
 
