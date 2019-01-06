@@ -313,6 +313,9 @@
                                        href="{{ route('check-in-bill.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
+                                    <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
+                                                class="ft-printer"></i> @lang('labels.print')
+                                    </button>
                                 </div>
                             </div>
                         @else
