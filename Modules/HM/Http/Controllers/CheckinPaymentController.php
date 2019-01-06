@@ -5,7 +5,9 @@ namespace Modules\HM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Modules\HM\Emails\SendPaymentInfoMail;
 use Modules\HM\Entities\CheckinPayment;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreCheckinPaymentRequest;
@@ -33,8 +35,7 @@ class CheckinPaymentController extends Controller
      */
     public function index(RoomBooking $roomBooking)
     {
-        if ($roomBooking->type != 'checkin')
-        {
+        if ($roomBooking->type != 'checkin') {
             abort(404);
         }
 
@@ -59,11 +60,18 @@ class CheckinPaymentController extends Controller
      */
     public function store(StoreCheckinPaymentRequest $request, RoomBooking $roomBooking)
     {
-        if ($roomBooking->type != 'checkin')
-        {
+//        dd($request->all());
+
+        if ($roomBooking->type != 'checkin') {
             abort(404);
         }
         $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['checkin_id' => $roomBooking->id, 'shortcode' => time()]));
+
+
+        if ($checkinPayment && !empty($roomBooking->requester->email)) {
+            Mail::to($roomBooking->requester->email)->send(new SendPaymentInfoMail($roomBooking, $checkinPayment, $request->amount, $request->type));
+        }
+
         Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('check-in-payments.index', $checkinPayment->checkin_id);
