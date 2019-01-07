@@ -317,11 +317,11 @@
 
             // id, mobile, email, trainee_first_name, trainee_last_name, trainee_gender, trainingId, training_id, training_title);
             for (value in data){
-
+                {{--@php $gender = "<script>document.write(data[value].trainee_gender)</script>"@endphp--}}
                 table += '<tr>' +
                     '<td>' + data[value].trainee_first_name + '<input type="hidden" name="guests['+value+'][first_name]" value="' + data[value].trainee_first_name + '">' + '</td>' +
                     '<td>' + data[value].trainee_last_name + '<input type="hidden" name="guests['+value+'][last_name]" value="' + data[value].trainee_last_name + '">' + '</td>' +
-                    '<td>' + data[value].trainee_gender + '<input type="hidden" name="guests['+value+'][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
+                    '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '<input type="hidden" name="guests['+value+'][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
                     '<td>' + data[value].mobile +
                         '<input type="hidden" name="guests['+value+'][age]" value="1">' +
                         '<input type="hidden" name="guests['+value+'][relation]" value="Trainee">' +
@@ -339,7 +339,7 @@
                                     '<th>@lang("hm::booking-request.first_name")</th>' +
                                     '<th>@lang("hm::booking-request.last_name")</th>' +
                                     '<th>@lang("hm::booking-request.gender")</th>' +
-                                    '<th>Mobile</th>' +
+                                    '<th>@lang("labe.mobile")</th>' +
                                 '</tr>' +
                             '</thead>' +
                             '<tbody>' +
