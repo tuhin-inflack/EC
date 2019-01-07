@@ -10,6 +10,7 @@ return [
     'date' => 'Date',
     'amount' => 'Amount',
     'name' => 'Name',
+    'short_name' => 'Short Name',
     'action' => 'Action',
     'title' => 'Title',
     'description' => 'Description',
@@ -105,4 +106,6 @@ return [
     'At most 10 characters' => 'At most 10 characters',
     'User list' => 'User list',
     'User create' => 'User create',
+
+    'confirm_delete_message' => 'Are you sure ?'
 ];

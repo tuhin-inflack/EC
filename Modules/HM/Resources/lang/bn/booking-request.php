@@ -82,7 +82,7 @@ return [
     'approved' => 'অনুমোদিত',
     'reject' => 'প্রত্যাখ্যান',
     'rejected' => 'প্রত্যাখ্যাত',
-    'pending' => 'বিচারাধীন',
+    'pending' => 'প্রক্রিয়াধীন',
     'new_booking_request' => 'নতুন বুকিং অনুরোধ',
     'booking_request_update_form' => 'বুকিং অনুরোধ সম্পাদনা ফর্ম',
     'edit_it' => 'এটা সম্পাদনা করুন',

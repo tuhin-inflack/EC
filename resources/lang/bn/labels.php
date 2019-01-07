@@ -10,6 +10,7 @@ return [
     'date' => 'তারিখ',
     'amount' => 'পরিমাণ',
     'name' => 'নাম',
+    'short_name' => 'সংক্ষিপ্ত নাম',
     'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',
     'description' => 'বর্ণনা',
@@ -107,4 +108,5 @@ return [
     'At most 10 characters' => 'সর্বাধিক 10 অক্ষর',
     'User list' => 'ব্যবহারকারীর তালিকা',
     'User create' => 'ব্যবহারকারী তৈরি করুন',
+    'confirm_delete_message' => 'আপনি মুছে ফেলার ব্যাপারে নিশ্চিত?',
 ];
