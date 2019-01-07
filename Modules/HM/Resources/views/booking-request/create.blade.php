@@ -356,7 +356,7 @@
                 tbody += '<tr>' +
                             '<td>'+ data[value].trainee_first_name + ' '+ data[value].trainee_last_name + '</td>' +
                             '<td></td>' +
-                            '<td>' + ((data[value].trainee_gender === 'Male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
+                            '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
                             '<td>শিক্ষানবিস</td>' +
                             '<td>বাংলাদেশ</td>' +
                         '</tr>';
