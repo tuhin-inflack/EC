@@ -58,21 +58,33 @@
             </div>
         </div>
     </div>
-    <div class="bard-referee-summary-div">
-        <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.bard_reference') }}
-        </h4>
-        <div class="row">
-            <div class="col-md-6 row">
-                <div class="col-md-12">
-                    <strong>@lang('labels.name'): </strong><span id="bard-referee-name"></span><br>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="bard-referee-summary-div">
+                <h4 class="form-section"><i class="la la-building-o"></i>{{ trans('hm::booking-request.bard_reference') }}
+                </h4>
+                <div class="row">
+                    <div class="col-md-12 row">
+                        <div class="col-md-12">
+                            <strong>@lang('labels.name'): </strong><span id="bard-referee-name"></span><br>
+                        </div>
+                        <div class="col-md-12">
+                            <strong>@lang('hm::booking-request.designation'): </strong><span
+                                    id="bard-referee-designation"></span><br>
+                        </div>
+                        <div class="col-md-12">
+                            <strong>@lang('hm::booking-request.department'): </strong><span id="bard-referee-department"></span><br>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-12">
-                    <strong>@lang('hm::booking-request.designation'): </strong><span
-                            id="bard-referee-designation"></span><br>
-                </div>
-                <div class="col-md-12">
-                    <strong>@lang('hm::booking-request.department'): </strong><span id="bard-referee-department"></span><br>
-                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="form-group mb-1 col-sm-12 col-md-12">
+                <label class="required"
+                       for="rooms">@lang('labels.comment')</label>
+                <br>
+                {!! Form::textarea('comment', $page == 'create' ? old('comment') : $roomBooking->comment, ['class' => 'form-control', 'rows' => '3']) !!}
             </div>
         </div>
     </div>

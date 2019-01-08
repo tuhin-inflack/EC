@@ -89,7 +89,7 @@ return [
     'TMS' => 'প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম',
     'Admin' => 'অ্যাডমিন',
     'Administration' => 'প্রশাসন',
-
+    'comment' => 'মন্তব্য',
 
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',

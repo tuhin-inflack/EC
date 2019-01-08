@@ -90,6 +90,7 @@ return [
     'Admin' => 'Admin',
     'Administration' => 'Administration',
     'login' => 'Login',
+    'comment' => 'Comment',
     'provide_your_account_details' => 'Provide Your Account Details',
     'first' => 'First',
     'last' => 'Last',
