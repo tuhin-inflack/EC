@@ -18,6 +18,13 @@
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
         $(document).ready(function () {
+            // datepicker
+            $('#end_date').pickadate({
+                min: new Date()
+            });
+
+            $('#end_date').pickadate();
+
             $(".research-request-form").validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',

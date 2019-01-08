@@ -8,6 +8,7 @@ return [
     'research_proposal_request_creation' => 'Research Proposal Request Creation',
     'request_form' => 'Research Proposal Request Form',
     'last_sub_date' => 'Last Submission Date',
+    'sub_start_date' => 'Submission Start Date',
     'remarks' => 'Remarks',
     'attachment' => 'Attachment',
     'pick_a_date' => 'Pick a Date',

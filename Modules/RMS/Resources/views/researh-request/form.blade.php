@@ -26,17 +26,15 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            {!! Form::label('to', __('rms::research_proposal.send_to'), ['class' => 'form-label required']) !!}
+                                            {!! Form::label('to', __('rms::research_proposal.send_to'), ['class' => 'form-label']) !!}
 
                                             {!! Form::select('to[]', [
                                             'AK' => 'Shadnan Ahmed - Software Engineer',
                                             'HI' => 'Mehedi Hasan - Senior Software Engineer',
                                             'RR' => 'Sahib Bin Ron - Cheif Executive Officer'
                                             ], null,
-                                            ['class'=>'required form-control select2'.($errors->has('title') ? ' is-invalid' : ''),
-                                            'multiple',
-                                            'required',
-                                            ]) !!}
+                                            ['class'=>'form-control select2'.($errors->has('title') ? ' is-invalid' : ''), 'required',
+                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('rms::research_proposal.title')]), 'multiple']) !!}
 
                                             <span class="select-error"></span>
                                             @if ($errors->has('to'))
@@ -46,11 +44,11 @@
                                             @endif
                                         </div>
                                     </div>
-                                    {{--<div class="col-md-12">
+                                    <div class="col-md-12">
                                         <div class="form-group">
-                                            {!! Form::label('title', __('rms::research_proposal.title'), ['class' => 'form-label required']) !!}
+                                            {!! Form::label('title', __('labels.title'), ['class' => 'form-label required']) !!}
                                             {!! Form::text('title', old('title'), ['class' => 'form-control'.($errors->has('title') ? ' is-invalid' : ''), 'required',
-                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('rms::research_proposal.title')])]) !!}
+                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('labels.title')])]) !!}
                                             <div class="help-block"></div>
                                             @if ($errors->has('title'))
                                                 <span class="invalid-feedback">{{ $errors->first('title') }}</span>
@@ -60,8 +58,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             {!! Form::label('end_date', __('rms::research_proposal.last_sub_date'), ['class' => 'form-label required']) !!}
-                                            {{ Form::date('end_date', null, ['class' => 'form-control'.($errors->has('title') ? ' is-invalid' : ''), 'required','pickadate-format-db',
-                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('rms::research_proposal.title')])]) }}
+                                            {{ Form::text('end_date', date('j F, Y'), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required']) }}
 
                                             @if ($errors->has('end_date'))
                                                 <span class="invalid-feedback" role="alert">
@@ -73,7 +70,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="remarks"
-                                                   class="">{{trans('rms::research_proposal.remarks')}}</label>
+                                                   class="">{{trans('labels.remarks')}}</label>
                                             <textarea name="remarks"
                                                       data-rule-minlength="10"
                                                       data-msg-minlength="khela hobe"
@@ -107,7 +104,7 @@
                                             </div>
                                         </div>
 
-                                    </div>--}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
