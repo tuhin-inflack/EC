@@ -25,7 +25,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/vendors.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/selects/select2.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/datatables.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/selects/selectize.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/selectize/selectize.css') }}">
     <!-- END VENDOR CSS-->
