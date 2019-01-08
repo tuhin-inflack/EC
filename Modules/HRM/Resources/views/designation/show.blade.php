@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Details information about designation')
+@section('title', trans('labels.details'))
 
 
 @section('content')
     {{--{{ dd($employee) }}--}}
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title" id="basic-layout-form">Designation Details</h4>
+            <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -27,20 +27,20 @@
                             <tbody>
 
                             <tr>
-                                <th class="">Designation Name</th>
+                                <th class="">@lang('labels.name')</th>
                                 <td>{{ $designation->name}}</td>
                             </tr>
                             <tr>
 
-                                <th class="">Short Name</th>
+                                <th class="">@lang('labels.short_name')</th>
                                 <td>{{ $designation->short_name}}</td>
                             </tr>
 
                             </tbody>
                         </table>
                         {{--<a href="{{url('/hrm/employee/')}}"--}}
-                        <a class="btn btn-small btn-info" href="{{ url('/hrm/designation') }}">Back </a>
-                        <a class="btn btn-small btn-info" href="{{ url('/hrm/designation/' . $designation->id . '/edit') }}">Edit </a>
+                        <a class="btn btn-small btn-info" href="{{ url('/hrm/designation') }}">@lang('labels.back_page') </a>
+                        <a class="btn btn-small btn-info" href="{{ url('/hrm/designation/' . $designation->id . '/edit') }}">@lang('labels.edit') </a>
 
                     </div>
 

@@ -10,11 +10,13 @@ return [
     'date' => 'Date',
     'amount' => 'Amount',
     'name' => 'Name',
+    'short_name' => 'Short Name',
     'action' => 'Action',
     'title' => 'Title',
     'description' => 'Description',
     'email_address' => 'Email Address',
     'mobile' => 'Mobile',
+    'tel' => 'Telephone',
     'user' => 'User',
     'username' => 'Username',
     'password' => 'Password',
@@ -49,6 +51,7 @@ return [
     'code' => 'Code',
     'info' => 'Info',
     'chart' => 'Chart',
+    'gender' => 'Gender',
     'male' => 'Male',
     'female' => 'Female',
     'others' => 'Others',
@@ -106,4 +109,6 @@ return [
     'At most 10 characters' => 'At most 10 characters',
     'User list' => 'User list',
     'User create' => 'User create',
+
+    'optional' => 'Optional',
 ];

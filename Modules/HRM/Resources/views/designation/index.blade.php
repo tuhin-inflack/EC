@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', 'Designation List ')
+@section('title', trans('hrm::designation.list_page_title'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,11 +9,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Designation List</h4>
+                        <h4 class="card-title">@lang('hrm::designation.list_page_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hrm/designation/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> Add New Designation</a>
+                                        class="ft-plus white"></i> @lang('labels.add')</a>
 
                         </div>
                     </div>
@@ -25,10 +25,10 @@
                                 <table class="table table-striped table-bordered alt-pagination" id="DepartmentTable">
                                     <thead>
                                     <tr>
-                                        <th>SL</th>
-                                        <th>Designation Name</th>
-                                        <th>Short Name</th>
-                                        <th>Action</th>
+                                        <th>@lang('labels.serial')</th>
+                                        <th>@lang('labels.name')</th>
+                                        <th>@lang('labels.short_name')</th>
+                                        <th>@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -48,19 +48,19 @@
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ url('/hrm/designation',$designation->id) }}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> Details</a>
+                                                           class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                          <div class="dropdown-divider"></div>
                                                         <a href="{{ url('/hrm/designation/' . $designation->id . '/edit')  }}"
-                                                           class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                           class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
 
                                                          <div class="dropdown-divider"></div>
                                                         {!! Form::open(['url' =>  ['/hrm/designation', $designation->id], 'method' => 'DELETE', 'class' => 'form',' novalidate']) !!}
 
-                                                        {!! Form::button('<i class="ft-trash"></i> Delete ', array(
+                                                        {!! Form::button('<i class="ft-trash"></i> ' . trans('labels.delete'), array(
                                                             'type' => 'submit',
                                                             'class' => 'dropdown-item',
                                                             'title' => 'Delete the hostel',
-                                                            'onclick'=>'return confirm("Are you sure you want to delete?")',
+                                                            'onclick'=>'return confirmMessage()',
                                                         )) !!}
                                                         {!! Form::close() !!}
                                                 </span>
@@ -82,13 +82,6 @@
 @endsection
 
 @push('page-js')
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-
 
     <script>
 
@@ -126,15 +119,13 @@
                 searching: true,
                 "bDestroy": true,
             });
+
         });
 
+        function confirmMessage() {
+            if(!confirm("{{ trans('labels.confirm_delete') }}"))
+                event.preventDefault();
+        }
     </script>
-
-@endpush
-
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"/>
 
 @endpush

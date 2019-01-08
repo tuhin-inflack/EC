@@ -97,7 +97,7 @@
                         $('input[name="guests[0][nid_no]"]').val(nid);
                         $('textarea[name="guests[0][address]"]').val(address);
                         $('select[name="guests[0][gender]"]').val(gender).trigger('change');
-                   }
+                    }
                 }
                 if (newIndex == 3) {
                     // render summary
@@ -171,6 +171,7 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            $(this).find('#referee-select').select2()
             // datepicker
             $('#start_date').pickadate({
                 min: new Date()
@@ -242,7 +243,7 @@
             jQuery.validator.addMethod("greaterThanOrEqual",
                 function (value, element, params) {
                     let comparingDate = params == '#start_date' ? $(params).val() : params;
-                        return Date.parse(value) >= Date.parse(comparingDate);
+                    return Date.parse(value) >= Date.parse(comparingDate);
                 }, 'Must be greater than or equal to {0}.');
 
             $('.booking-request-tab-steps').validate({
@@ -316,50 +317,50 @@
             var table = '';
 
             // id, mobile, email, trainee_first_name, trainee_last_name, trainee_gender, trainingId, training_id, training_title);
-            for (value in data){
-
-                table += '<tr>' +
-                    '<td>' + data[value].trainee_first_name + '<input type="hidden" name="guests['+value+'][first_name]" value="' + data[value].trainee_first_name + '">' + '</td>' +
-                    '<td>' + data[value].trainee_last_name + '<input type="hidden" name="guests['+value+'][last_name]" value="' + data[value].trainee_last_name + '">' + '</td>' +
-                    '<td>' + data[value].trainee_gender + '<input type="hidden" name="guests['+value+'][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
+            for (value in data) {
+                {{--@php $gender = "<script>document.write(data[value].trainee_gender)</script>"@endphp--}}
+                    table += '<tr>' +
+                    '<td>' + data[value].trainee_first_name + '<input type="hidden" name="guests[' + value + '][first_name]" value="' + data[value].trainee_first_name + '">' + '</td>' +
+                    '<td>' + data[value].trainee_last_name + '<input type="hidden" name="guests[' + value + '][last_name]" value="' + data[value].trainee_last_name + '">' + '</td>' +
+                    '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '<input type="hidden" name="guests[' + value + '][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
                     '<td>' + data[value].mobile +
-                        '<input type="hidden" name="guests['+value+'][age]" value="1">' +
-                        '<input type="hidden" name="guests['+value+'][relation]" value="Trainee">' +
-                        '<input type="hidden" name="guests['+value+'][address]" value="Bangladesh">' +
-                        '<input type="hidden" name="guests['+value+'][middle_name]">' +
-                        '<input type="hidden" name="guests['+value+'][nid_no]">' +
+                    '<input type="hidden" name="guests[' + value + '][age]" value="1">' +
+                    '<input type="hidden" name="guests[' + value + '][relation]" value="Trainee">' +
+                    '<input type="hidden" name="guests[' + value + '][address]" value="Bangladesh">' +
+                    '<input type="hidden" name="guests[' + value + '][middle_name]">' +
+                    '<input type="hidden" name="guests[' + value + '][nid_no]">' +
                     '</td>' +
                     '</tr>';
             }
 
             return '<div data-repeater-list="guests">' +
-                        '<table class="table table-bordered">' +
-                            '<thead>' +
-                                '<tr>' +
-                                    '<th>@lang("hm::booking-request.first_name")</th>' +
-                                    '<th>@lang("hm::booking-request.last_name")</th>' +
-                                    '<th>@lang("hm::booking-request.gender")</th>' +
-                                    '<th>Mobile</th>' +
-                                '</tr>' +
-                            '</thead>' +
-                            '<tbody>' +
-                                table +
-                            '</tbody>' +
-                        '</table>' +
-                    '</div>';
+                '<table class="table table-bordered">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>@lang("hm::booking-request.first_name")</th>' +
+                '<th>@lang("hm::booking-request.last_name")</th>' +
+                '<th>@lang("hm::booking-request.gender")</th>' +
+                '<th>@lang("labels.mobile")</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' +
+                table +
+                '</tbody>' +
+                '</table>' +
+                '</div>';
         }
 
         function traineesInfoListFromTraining(data) {
             var tbody = '';
 
-            for (value in data){
+            for (value in data) {
                 tbody += '<tr>' +
-                            '<td>'+ data[value].trainee_first_name + ' '+ data[value].trainee_last_name + '</td>' +
-                            '<td></td>' +
-                            '<td>' + ((data[value].trainee_gender === 'Male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
-                            '<td>শিক্ষানবিস</td>' +
-                            '<td>বাংলাদেশ</td>' +
-                        '</tr>';
+                    '<td>' + data[value].trainee_first_name + ' ' + data[value].trainee_last_name + '</td>' +
+                    '<td></td>' +
+                    '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
+                    '<td>শিক্ষানবিস</td>' +
+                    '<td>বাংলাদেশ</td>' +
+                    '</tr>';
             }
 
             console.log(tbody);
