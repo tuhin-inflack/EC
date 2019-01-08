@@ -123,7 +123,7 @@
         });
 
         function confirmMessage() {
-            if(!confirm("{{ trans('labels.confirm_delete_message') }}"))
+            if(!confirm("{{ trans('labels.confirm_delete') }}"))
                 event.preventDefault();
         }
     </script>

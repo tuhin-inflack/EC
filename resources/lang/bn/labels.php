@@ -108,6 +108,5 @@ return [
     'At most 10 characters' => 'সর্বাধিক 10 অক্ষর',
     'User list' => 'ব্যবহারকারীর তালিকা',
     'User create' => 'ব্যবহারকারী তৈরি করুন',
-    'confirm_delete_message' => 'আপনি মুছে ফেলার ব্যাপারে নিশ্চিত?',
     'optional' => 'ঐচ্ছিক',
 ];
