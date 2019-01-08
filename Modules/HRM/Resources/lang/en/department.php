@@ -1,5 +1,6 @@
 <?php
 return [
+    'department' => 'Department',
     'page_card_title' => 'Department List ',
     'left_menu_title' => 'Department',
     'add_department' => 'Department Add',

@@ -1,5 +1,6 @@
 <?php
 return [
+    'designation' => 'উপাধি',
     'list_page_title' => 'উপাধি তালিকা',
     'left_menu_title' => 'উপাধি',
     'list_card_title' => 'উপাধি তালিকা',
