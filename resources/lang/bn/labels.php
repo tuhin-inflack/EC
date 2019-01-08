@@ -104,6 +104,7 @@ return [
     'last' => 'শেষ',
     'submit' => 'জমা দিন',
     'This field is required' => 'ঘরটি অবশ্যই পূরণ করতে হবে',
+    'image' => 'ছবি',
     'Picture field is required' => 'অবশ্যই ছবি আপলোড করতে হবে',
     'Select Training' => 'প্রশিক্ষণ নির্বাচন করুন',
     'At most 50 characters' => 'সর্বাধিক 50 অক্ষর',

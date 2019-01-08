@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Employee List ')
+@section('title', trans('hrm::employee.employee_details'))
 
 
 @section('content')
     {{--{{ dd($employee) }}--}}
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title" id="basic-layout-form">Employee Details</h4>
+            <h4 class="card-title" id="basic-layout-form">@lang('hrm::employee.employee_details')</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -22,7 +22,7 @@
                 <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
                     <li class="nav-item">
                         <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                           aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
+                           aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> @lang('hrm::employee_general_info.general_tab_name')</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"

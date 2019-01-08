@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', 'edit employee information')
+@section('title', trans('hrm::employee.edit_employee'))
 
 @section("content")
     @php
@@ -9,7 +9,7 @@
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Add New Employee</h4>
+                <h4 class="card-title" id="repeat-form">@lang('hrm::employee.edit_employee')</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -25,7 +25,7 @@
                     <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
                         <li class="nav-item">
                             <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
+                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> @lang('hrm::employee_general_info.general_tab_name')</a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
@@ -115,23 +115,9 @@
     </div>
 @endsection
 @push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
 @endpush
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}"
-            type="text/javascript"></script>
-
-    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
-
-
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-{{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
 
     <script>
         var employee_id = "{{ $employee->id }}";
@@ -140,12 +126,11 @@
             $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id);
 
-                $.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');
-                $.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');
-                $.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');
+                $('.EmployeeId').val(employee_id);
+                $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
+
+                $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
 
             });
 
