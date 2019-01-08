@@ -28,7 +28,7 @@ class DepartmentService {
 	public function storeDepartment( $data ) {
 		$department = $this->save( $data );
 
-		return new DataResponse( $department, $department->id, "Department added successfully" );
+		return new DataResponse( $department, $department->id, trans('labels.save_success') );
 
 	}
 
@@ -36,10 +36,7 @@ class DepartmentService {
 		$department = $this->findOrFail( $id );
 		$status     = $department->update( $data );
 		if ( $status ) {
-			return new DataResponse( $department, $department->id, "Department updated successfully" );
-		} else {
-			return new DataResponse( $department, $department->id, "Opps !  Something going wrong." );
-
+			return new DataResponse( $department, $department->id, trans('labels.update_success') );
 		}
 	}
 
@@ -62,10 +59,7 @@ class DepartmentService {
 		$department = $this->findOrFail( $id );
 		$status     = $department->delete();
 		if ( $status ) {
-			return new Response( "Department Deleted successfully" );
-		} else {
-			return new Response( "Opps !  Something going wrong." );
-
+			return new Response( trans('labels.delete_success') );
 		}
 	}
 }

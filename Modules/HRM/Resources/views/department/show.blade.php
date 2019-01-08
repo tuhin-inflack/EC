@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Details information about department')
+@section('title', trans('labels.details'))
 
 
 @section('content')
     {{--{{ dd($employee) }}--}}
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title" id="basic-layout-form">Department Details</h4>
+            <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -27,19 +27,19 @@
                             <tbody>
 
                             <tr>
-                                <th class="">Department Name</th>
+                                <th class="">@lang('labels.name')</th>
                                 <td>{{$department->name}}</td>
                             </tr>
                             <tr>
 
-                                <th class="">Department code</th>
+                                <th class="">@lang('hrm::department.department_code')</th>
                                 <td>{{$department->department_code}}</td>
                             </tr>
 
                             </tbody>
                         </table>
                         {{--<a href="{{url('/hrm/employee/')}}"--}}
-                        <a class="btn btn-small btn-info" href="{{ url('/hrm/department/' . $department->id . '/edit') }}">Edit </a>
+                        <a class="btn btn-small btn-info" href="{{ url('/hrm/department/' . $department->id . '/edit') }}">@lang('labels.edit')</a>
 
                     </div>
 
