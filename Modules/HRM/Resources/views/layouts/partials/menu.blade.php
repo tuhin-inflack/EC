@@ -10,7 +10,7 @@
                 <li class="{{ is_active_match('hrm/employee') }}">
                     <a href="{{ url('hrm/employee') }}">
                         <i class="la la-users"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">Employees</span>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::employee.menu_name')</span>
                     </a>
                 </li>
                 <li class="{{ is_active_match('hrm/department')}}">
