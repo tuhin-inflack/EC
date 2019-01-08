@@ -107,5 +107,6 @@ return [
     'User list' => 'User list',
     'User create' => 'User create',
 
-    'confirm_delete_message' => 'Are you sure ?'
+    'confirm_delete_message' => 'Are you sure ?',
+    'optional' => 'Optional',
 ];

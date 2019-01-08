@@ -22,7 +22,7 @@
                 <li class="{{ is_active_match('hrm/designation') }}">
                     <a href="{{ url('hrm/designation') }}">
                         <i class="la la-list-alt"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">Designations</span>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
                     </a>
                 </li>
             </ul>

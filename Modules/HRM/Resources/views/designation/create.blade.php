@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Add new designation ')
+@section('title', trans('hrm::designation.add_card_title'))
 
 @section("content")
 
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Add New Designation</h4>
+                <h4 class="card-title" id="repeat-form">@lang('hrm::designation.add_card_title')</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -27,23 +27,3 @@
         </div>
     </div>
 @endsection
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/forms/validation/form-validation.css') }}">
-
-@endpush
-@push('page-js')
-    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}"
-            type="text/javascript"></script>
-
-    <script src="{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}"
-            type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}" type="text/javascript"></script>
-
-
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-{{--    <script src="{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}" type="text/javascript"></script>--}}
-
-@endpush

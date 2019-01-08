@@ -33,10 +33,7 @@ class DesignationService {
 	public function storeDesignation( $data ) {
 		$designation = $this->save( $data );
 		if ( $designation ) {
-			return new Response( "Designation added successfully" );
-		} else {
-			return new Response( "Opps !  Something going wrong." );
-
+			return new Response( trans('labels.save_success') );
 		}
 
 

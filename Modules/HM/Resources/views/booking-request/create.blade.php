@@ -340,7 +340,7 @@
                 '<th>@lang("hm::booking-request.first_name")</th>' +
                 '<th>@lang("hm::booking-request.last_name")</th>' +
                 '<th>@lang("hm::booking-request.gender")</th>' +
-                '<th>@lang("labe.mobile")</th>' +
+                '<th>@lang("labels.mobile")</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' +
