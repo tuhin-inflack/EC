@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::employee_general_info.add_employee'))
+@section('title', trans('hrm::employee.add_employee'))
 
 @section("content")
     @php
@@ -10,7 +10,7 @@
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">@lang('hrm::employee_general_info.add_employee')</h4>
+                <h4 class="card-title" id="repeat-form">@lang('hrm::employee.add_employee')</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -113,41 +113,15 @@
 @endsection
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
 
-    <style>
-        .required_start:after {
-            content: '*';
-            color: red;
-            padding-left: 5px;
-        }
-
-
-    </style>
 @endpush
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
-
     <script>
         var employee_id = "<?php echo $employee_id ?>";
         $(document).ready(function () {
-//            $(".instituteSelection").select2({
-//                placeholder: "Select a institute",
-//                allowClear: true
-//            });
 
             $('.addMore').click(function () {
-//                setTimeout(function(){
-//
-//                    $(".instituteSelection").select2({
-//                        placeholder: "Select a institute",
-//                        allowClear: true
-//                    });
-//
-//                }, 100);
+
 
                 $('.EmployeeId').val(employee_id);
                 $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
@@ -155,12 +129,6 @@
                 $('input,select,textarea').jqBootstrapValidation('destroy');
                 $('input,select,textarea').jqBootstrapValidation();
 
-                {{--$.getScript('{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}');--}}
-                {{--$.getScript('{{ asset('theme/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js') }}');--}}
-                {{--$.getScript('{{ asset('theme/vendors/js/forms/validation/jqBootstrapValidation.js') }}');--}}
-                {{--$.getScript('{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}');--}}
-                {{--$.getScript('{{ asset('theme/vendors/js/forms/toggle/bootstrap-switch.min.js') }}');--}}
-                {{--$.getScript('{{ asset('theme/js/scripts/forms/validation/form-validation.js') }}');--}}
 
 
             });

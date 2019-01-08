@@ -103,6 +103,8 @@ return [
     'last' => 'Last',
     'submit' => 'Submit',
     'This field is required' => 'This field is required',
+    'image' => 'Image',
+    'Picture field is required' => 'Picture field is required',
     'Select Training' => 'Select Training',
     'At most 50 characters' => 'At most 50 characters',
     'At least 11 characters' => 'At least 11 characters',
