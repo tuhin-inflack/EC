@@ -103,6 +103,8 @@ return [
     'At least 50 characters' => 'At least 50 characters',
     'At most 11 characters' => 'At most 11 characters',
     'At most 10 characters' => 'At most 10 characters',
+    'At most 100 characters' => 'At most 100 characters',
+    'At most 5000 characters' => 'At most 5000 characters',
     'User list' => 'User list',
     'User create' => 'User create',
 ];

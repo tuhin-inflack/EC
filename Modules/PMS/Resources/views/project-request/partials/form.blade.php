@@ -16,12 +16,6 @@
                                 <option value="tanvir@inflack.com">tanvir@inflack.com</option>
                                 <option value="jahangir@inflack.com">jahangir@inflack.com</option>
                             </select>
-
-                            {{--{{ Form::label('email',trans('pms::project_proposal.send_to'), ['class' => 'form-label']) }}
-
-                            {{ Form::select('send_to', ['L' => 'Large', 'S' => 'Small'], ['class' => 'select2 form-control']) }}--}}
-
-
                             @if ($errors->has('send_to'))
                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('send_to') }}</strong>
