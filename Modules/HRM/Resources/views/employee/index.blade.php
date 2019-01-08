@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::employee_general_info.list_title'))
+@section('title', trans('hrm::employee.list_title'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,7 +9,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('hrm::employee_general_info.list_title')</h4>
+                        <h4 class="card-title">@lang('hrm::employee.list_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hrm/employee/create')}}" class="btn btn-primary btn-sm"><i
@@ -83,12 +83,6 @@
 @endsection
 
 @push('page-js')
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
 
     <script>
@@ -143,12 +137,5 @@
             });
         });
     </script>
-
-@endpush
-
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"/>
 
 @endpush

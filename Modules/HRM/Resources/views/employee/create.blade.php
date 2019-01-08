@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', 'Add new employee ')
+@section('title', trans('hrm::employee_general_info.add_employee'))
 
 @section("content")
     @php
@@ -10,7 +10,7 @@
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Add New Employee</h4>
+                <h4 class="card-title" id="repeat-form">@lang('hrm::employee_general_info.add_employee')</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">
@@ -26,7 +26,7 @@
                     <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
                         <li class="nav-item">
                             <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
+                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> @lang('hrm::employee_general_info.general_tab_name')</a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
