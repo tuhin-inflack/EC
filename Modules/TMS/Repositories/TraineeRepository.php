@@ -16,27 +16,19 @@ class TraineeRepository extends AbstractBaseRepository
 {
     protected $modelName = Trainee::class;
 
-
-    public function fetchTrainees($training_id)
-    {
-        $trainees = Trainee::select('trainees.*', 'trainings.training_id as trainingId', 'trainings.training_title')->leftjoin('trainings', 'trainees.training_id', '=', 'trainings.id')->where('trainees.training_id', $training_id)->get();
-
-        return $trainees;
-    }
-
-    public function fetchSingleTrainee($traineeId)
-    {
-        $trainees = Trainee::select('trainees.*', 'trainings.training_id as trainingId', 'trainings.training_title')->leftjoin('trainings', 'trainees.training_id', '=', 'trainings.id')->where('trainees.id', $traineeId)->first();
-
-        return $trainees;
-    }
-
     // Fn to get the number of trainees assigned for a particular training
     public function fetchAssignedTraineeNo($trainingId)
     {
         $traineeNo = Trainee::where('training_id', $trainingId)->count();
 
         return $traineeNo;
+    }
+
+    public function getTraineesByTraining($trainingId)
+    {
+        return $this->model->whereHas('training', function($query) use($trainingId) {
+            $query->where('id', $trainingId);
+        })->get();
     }
 
 }

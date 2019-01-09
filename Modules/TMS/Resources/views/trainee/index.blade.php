@@ -19,25 +19,18 @@
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
                             <div class="card-body">
-                                {!! Form::open(['url' =>  '/tms/trainee', 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <select name="training_id" class="form-control">
-                                                <option value=""> - {{__('labels.select')}} -</option>
+                                            <select class="form-control" onchange="location = this.options[this.selectedIndex].value;">
+                                                <option></option>
                                                 @foreach($trainings as $key=>$training)
-                                                    <option value="{{$training->id}}">{{$training->training_title}}</option>
+                                                    <option {{$selectedTrainingId == $training->id ? 'selected' : ''}} value="{{route('trainee.index', $training->id)}}">{{$training->training_title}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <button class="btn btn-primary" type="submit" name="search_trainee">{{__('tms::training.trainee_card_title')}}</button>
-                                        </div>
-                                    </div>
                                 </div>
-                                {!! Form::close() !!}
                             </div>
 
                             <table class="table table-striped table-bordered alt-pagination">
@@ -48,7 +41,6 @@
                                     <th>{{trans('tms::training.trainee_name')}}</th>
                                     <th>{{trans('tms::training.trainee_gender')}}</th>
                                     <th>{{trans('labels.mobile')}}</th>
-
                                     <th>{{trans('labels.status')}}</th>
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>
@@ -59,7 +51,7 @@
                                     @foreach($trainees as $trainee)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="training/show/{{$trainee['training_id']}}">{{$trainee['trainingId']}}</a></td>
+                                            <td><a href="training/show/{{$trainee->training_id}}">{{$trainee->training->training_id}}</a></td>
                                             <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
@@ -88,8 +80,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                    @else
-                                    <center><span class="alert alert-info">Choose a Training to show the trainee list</span></center>
                                 @endif
                                 </tbody>
                             </table>
@@ -100,3 +90,15 @@
         </div>
     </section>
 @endsection
+@push('page-js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('select').select2({
+                placeholder: {
+                    id: '', // the value of the option
+                    text: '{{__("tms::training.select_training")}}'
+                }
+            });
+        });
+    </script>
+@endpush
