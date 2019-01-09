@@ -111,6 +111,39 @@
                 $('.select-training-div').hide();
             }
         });
+
+        $('.training-select').on('change', function () {
+            let trainingId = $(this).val();
+            if (trainingId) {
+                let $guestInfoRepeater = $('.repeater-guest-information').show();
+
+                $.ajax({
+                    url: traineesUrl + '/' + trainingId,
+                    method: 'get',
+                    dataType: 'json'
+                })
+                    .done(function (data) {
+                        // remove form repeater inputs
+                        $guestInfoRepeater.find('div[data-repeater-item]').remove();
+                        // hide add more button
+                        $guestInfoRepeater.find('button[data-repeater-create]').hide();
+                        // render trainees table
+                        $('.trainee-list').html(traineesListFromTraining(data));
+                        $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
+                    })
+                    .fail(function () {
+                        alert('Failed to get content from server');
+                    });
+            }
+        });
+
+        try {
+            if (typeof roomInfos != undefined) {
+                dynamicallySelectRateForRooms();
+            }
+        } catch (e) {
+            console.debug(e)
+        }
     });
 })(male, female, traineesUrl);
 
@@ -152,4 +185,71 @@ function getRefereeInformation(employeeId) {
     $('#referee-department').html(department.name);
 
     $('#bard-referee-div').show();
+}
+
+function dynamicallySelectRateForRooms() {
+    $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
+        let roomInfo = roomInfos[index];
+        let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
+
+        // create options of select
+        $(selectElement).html(`<option value=""></option>
+                    <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
+                    <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
+                    <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
+                    <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
+
+        // set value of select
+        $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
+    });
+}
+
+function traineesListFromTraining(data) {
+    var table = '';
+
+    for (value in data) {
+        table += '<tr>' +
+            '<td>' + data[value].trainee_first_name + '<input type="hidden" name="guests[' + value + '][first_name]" value="' + data[value].trainee_first_name + '">' + '</td>' +
+            '<td>' + data[value].trainee_last_name + '<input type="hidden" name="guests[' + value + '][last_name]" value="' + data[value].trainee_last_name + '">' + '</td>' +
+            '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '<input type="hidden" name="guests[' + value + '][gender]" value="' + data[value].trainee_gender.toLowerCase() + '">' + '</td>' +
+            '<td>' + data[value].mobile +
+            '<input type="hidden" name="guests[' + value + '][age]" value="1">' +
+            '<input type="hidden" name="guests[' + value + '][relation]" value="Trainee">' +
+            '<input type="hidden" name="guests[' + value + '][address]" value="Bangladesh">' +
+            '<input type="hidden" name="guests[' + value + '][middle_name]">' +
+            '<input type="hidden" name="guests[' + value + '][nid_no]">' +
+            '</td>' +
+            '</tr>';
+    }
+
+    return '<table class="table table-bordered">' +
+        '<thead>' +
+        '<tr>' +
+        '<th>@lang("hm::booking-request.first_name")</th>' +
+        '<th>@lang("hm::booking-request.last_name")</th>' +
+        '<th>@lang("hm::booking-request.gender")</th>' +
+        '<th>@lang("labe.mobile")</th>' +
+        '</tr>' +
+        '</thead>' +
+        '<tbody>' +
+        table +
+        '</tbody>' +
+        '</table>' +
+        '</div>';
+}
+
+function traineesInfoListFromTraining(data) {
+    var tbody = '';
+
+    for (value in data) {
+        tbody += '<tr>' +
+            '<td>' + data[value].trainee_first_name + ' ' + data[value].trainee_last_name + '</td>' +
+            '<td></td>' +
+            '<td>' + ((data[value].trainee_gender === 'male') ? "@lang('hm::booking-request.male')" : "@lang('hm::booking-request.female')") + '</td>' +
+            '<td>শিক্ষানবিস</td>' +
+            '<td>বাংলাদেশ</td>' +
+            '</tr>';
+    }
+
+    return tbody;
 }
