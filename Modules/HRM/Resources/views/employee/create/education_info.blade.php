@@ -7,8 +7,6 @@
         @endphp
         @if(isset($oldEducations['education']) && count($oldEducations['education'])>0)
             @foreach($oldEducations['education'] as $key => $education)
-
-
                 <div data-repeater-item="">
                     <div class="row">
                         {{--<form class="form">--}}
@@ -177,7 +175,7 @@
                                     {{ Form::label('academic_degree_id', trans('hrm::education.degree_name'), ['class' => 'required']) }}
                                     {{ Form::select('academic_degree_id', $academicDegree, null,
                                     ['placeholder' =>trans('labels.select'),'class' => 'select2 form-control academicDegreeSelect',
-                                    'data-validation-required-message'=>trans('labels.select')]) }}
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
@@ -257,7 +255,6 @@
                     </div>
                 </div>
                 <hr style="border-bottom: 1px solid #1E9FF2">
-
             </div>
         @endif
     </div>
