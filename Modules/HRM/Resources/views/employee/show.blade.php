@@ -22,12 +22,15 @@
                 <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
                     <li class="nav-item">
                         <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                           aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> @lang('hrm::employee_general_info.general_tab_name')</a>
+                           aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i>
+                            @lang('hrm::employee_general_info.general_tab_name')
+                        </a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                            aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
-                            Personal</a>
+                            @lang('hrm::personal_info.personal_tab_name')
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"

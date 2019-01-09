@@ -90,8 +90,12 @@
             {{ Form::number('number_of_children',  null, ['class' => 'form-control']) }}
         </div>
     </div>
-
-    {{ Form::hidden('employee_id', isset($employee_id) ? $employee_id : null) }}
+    @if(isset($employee->id))
+        {{ Form::hidden('employee_id', isset($employee->id) ? $employee->id : null)   }}
+    @else($employee_id)
+        {{ Form::hidden('employee_id', isset($employee_id) ? $employee_id : null) }}
+    @endif
+    {{ Form::hidden('id', isset($employee->employeePersonalInfo->id) ? $employee->employeePersonalInfo->id : null) }}
 
     <hr>
 

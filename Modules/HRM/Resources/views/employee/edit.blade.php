@@ -30,7 +30,7 @@
                         <li class="nav-item ">
                             <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                                aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
-                                Personal</a>
+                                @lang('hrm::personal_info.personal_tab_name')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
@@ -71,7 +71,7 @@
                             {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
                             {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
 
-                            @include('hrm::employee.edit.edit_personal_info')
+                            @include('hrm::employee.create.personal_info')
                             {!! Form::close() !!}
                         </div>
 
