@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', 'Employee List ')
+@section('title', trans('hrm::employee.list_title'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,11 +9,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Employee List</h4>
+                        <h4 class="card-title">@lang('hrm::employee.list_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hrm/employee/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> Add New Employee</a>
+                                        class="ft-plus white"></i> @lang('labels.add')</a>
 
                         </div>
                     </div>
@@ -25,16 +25,17 @@
                                 <table class="table table-striped table-bordered alt-pagination" id="Example1">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Designation</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Department</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Tel (office)</th>
-                                        <th scope="col">Mobile(one)</th>
-                                        <th scope="col">Action</th>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.id')</th>
+                                        <th scope="col">@lang('labels.name')</th>
+                                        <th scope="col">@lang('hrm::designation.designation')</th>
+                                        <th scope="col">@lang('labels.gender')</th>
+                                        <th scope="col">@lang('hrm::department.department')</th>
+                                        <th scope="col">@lang('labels.status')</th>
+                                        <th scope="col">@lang('labels.tel')</th>
+                                        <th scope="col">@lang('labels.mobile')</th>
+                                        <th scope="col">@lang('labels.action')</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -60,10 +61,10 @@
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ url('/hrm/employee',$employee->id) }}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> Details</a>
-   <div class="dropdown-divider"></div>
+                                                           class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                            <div class="dropdown-divider"></div>
                                                         <a href="{{ url('/hrm/employee/' . $employee->id . '/edit')  }}"
-                                                           class="dropdown-item"><i class="ft-edit-2"></i> Edit</a>
+                                                           class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
 
                                                     </span>
                                                 </td>
@@ -82,12 +83,6 @@
 @endsection
 
 @push('page-js')
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
 
 
     <script>
@@ -142,12 +137,5 @@
             });
         });
     </script>
-
-@endpush
-
-@push('page-css')
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"/>
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css"/>
 
 @endpush

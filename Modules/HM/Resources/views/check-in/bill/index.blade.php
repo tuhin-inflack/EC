@@ -23,7 +23,7 @@
                                     </div>
                                 </div>
                                 <div class="card-content collapse show">
-                                    <div class="card-body">
+                                    <div class="card-body" id="Data">
                                         <div class="row">
                                             <div class="col-12">
                                                 <h4><i class="la  la-user"></i> {{ trans('hm::booking-request.personal_information') }}</h4>
@@ -173,7 +173,10 @@
                                                 </div>
                                             </div>
                                         @endif
+
                                     </div>
+                                    <button class="btn btn-primary" type="button" id="PrintCommand"><i class="ft ft-printer"></i> @lang('labels.print')</button>
+
                                 </div>
                             </div>
                         </div>
@@ -185,4 +188,51 @@
     </div>
 @endsection
 
+@push('page-js')
+    <script>
+        $(document).ready(function () {
+            $('#PrintCommand').on('click', function () {
+                printContent('Data', '', '');
+            });
 
+            var printContent = function (id, division, report_type) {
+                var table = document.getElementById(id).innerHTML;
+                newwin = window.open('', 'printwin', 'left=70,top=70,width=500,height=500');
+                newwin.document.write(' <html>\n <head>\n');
+
+                @php
+                    $data = "'" .
+
+                    '\t<link rel="stylesheet" type="text/css" href="' . asset('css/app.css') . '"/>\n' . "'";
+                @endphp
+                newwin.document.write(<?php echo $data ?>);
+                newwin.document.write('<title></title>\n');
+                newwin.document.write(' <script>\n');
+                newwin.document.write('function chkstate(){\n');
+                newwin.document.write('if(document.readyState=="complete"){\n');
+                newwin.document.write('window.close()\n');
+                newwin.document.write('}\n');
+                newwin.document.write('else{\n');
+                newwin.document.write('setTimeout("chkstate()",2000)\n');
+                newwin.document.write('}\n');
+                newwin.document.write('}\n');
+                newwin.document.write('function print_win(){\n');
+                newwin.document.write('window.print();\n');
+                newwin.document.write('chkstate();\n');
+                newwin.document.write('}\n');
+                newwin.document.write('<\/script>\n');
+                newwin.document.write('<style type="text/css">  body{margin: 0px 50px}</style>\n');
+                newwin.document.write('</head>\n');
+                newwin.document.write('<body onload="print_win()"><div>\n');
+                newwin.document.write('<h1 class="text-center"> @lang('hm::booking-request.booking_request') </h1>\n');
+                newwin.document.write(table);
+                newwin.document.write('</div></body>\n');
+                newwin.document.write('</html>\n');
+                newwin.document.close();
+                return true;
+            };
+        })
+    </script>
+
+
+@endpush

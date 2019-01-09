@@ -91,7 +91,7 @@
             {{ Form::number('number_of_children',  null, ['class' => 'form-control']) }}
         </div>
     </div>
-    {{ Form::hidden('employee_id', $employee->id ) }}
+    {{ Form::hidden('employee_id', isset($employee->id) ? $employee->id : null)   }}
     {{ Form::hidden('id', isset($employee->employeePersonalInfo->id) ? $employee->employeePersonalInfo->id : null) }}
 
 

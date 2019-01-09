@@ -356,7 +356,7 @@
             <div class="form-group">
                 <div class="row col-md-12">
                     <label class="">{{ trans('hm::booking-request.department') }}</label>
-                    {!! Form::select('employee_id', $employeeOptions, $page == 'create' ? old('employee_id') : $roomBooking->employee_id, ['class' => 'form-control', 'id' => 'referee-select' . ($errors->has('employee_id') ? ' is-invalid' : ''), 'placeholder' => Lang::get('hm::booking-request.select_refferer'), 'onchange' => 'getRefereeInformation(value)']) !!}
+                    {!! Form::select('employee_id', $employeeOptions, $page == 'create' ? old('employee_id') : $roomBooking->employee_id, ['class' => 'form-control ', 'id' => 'referee-select' . ($errors->has('employee_id') ? ' is-invalid' : ''), 'placeholder' => Lang::get('hm::booking-request.select_refferer'), 'onchange' => 'getRefereeInformation(value)']) !!}
 
                     @if ($errors->has('employee_id'))
                         <span class="invalid-feedback" role="alert">

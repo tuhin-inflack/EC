@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Edit department ')
+@section('title', trans('hrm::department.edit_department'))
 
 @section("content")
 
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title" id="repeat-form">Edit Department</h4>
+                <h4 class="card-title" id="repeat-form">@lang('hrm::department.edit_department')</h4>
                 <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                 <div class="heading-elements">
                     <ul class="list-inline mb-0">

@@ -313,6 +313,9 @@
                                        href="{{ route('check-in-bill.index', $roomBooking->id) }}">
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
+                                    <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
+                                                class="ft-printer"></i> @lang('labels.print')
+                                    </button>
                                 </div>
                             </div>
                         @else
@@ -361,6 +364,9 @@
                                                             class="ft-check"></i> @lang('hm::booking-request.approve')
                                                 </button>
                                             @endif
+                                                <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
+                                                            class="ft-printer"></i> @lang('labels.print')
+                                                </button>
                                         @endif
                                     @endcan
                                 </div>
@@ -416,7 +422,7 @@
                 newwin.document.write('<style type="text/css">  body{margin: 0px 50px}</style>\n');
                 newwin.document.write('</head>\n');
                 newwin.document.write('<body onload="print_win()"><div>\n');
-                newwin.document.write('<h1 class="text-center">Booking Request</h1>\n');
+                newwin.document.write('<h1 class="text-center"> @lang('hm::booking-request.booking_request') </h1>\n');
                 newwin.document.write(table);
                 newwin.document.write('</div></body>\n');
                 newwin.document.write('</html>\n');

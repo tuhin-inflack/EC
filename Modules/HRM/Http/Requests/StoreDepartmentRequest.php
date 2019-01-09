@@ -16,6 +16,7 @@ class StoreDepartmentRequest extends FormRequest {
 
 		return [
 			'name' => 'required|unique:departments,name,' . $request->id,
+			'department_code' => 'nullable|unique:departments,department_code,' . $request->id,
 
 		];
 	}

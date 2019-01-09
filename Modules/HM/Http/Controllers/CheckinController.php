@@ -168,6 +168,7 @@ class CheckinController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
+
         $type = 'checkin';
 
         if ($roomBooking->type != 'checkin') {
