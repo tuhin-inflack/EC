@@ -83,7 +83,8 @@ class TMSController extends Controller
     {
     }
 
-    public function getTraineesOfTraining($trainingId){
+    public function getTraineesOfTraining($trainingId)
+    {
         return $this->traineeService->fetchTraineesWithID($trainingId);
     }
 }

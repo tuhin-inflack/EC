@@ -49,7 +49,7 @@
                                     @foreach($trainees as $trainee)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{$trainee['trainingId']}}</td>
+                                            <td>{{$training->training_id}}</td>
                                             <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
@@ -78,8 +78,6 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                @else
-                                    <center><span class="alert alert-info">Choose a Training to show the trainee list</span></center>
                                 @endif
                                 </tbody>
                             </table>

@@ -2,6 +2,10 @@
 @section('title', 'Training Create')
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
 @section('content')
     <section id="user-form-layouts">
@@ -22,7 +26,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  '/tms/training/create', 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+                            {!! Form::open(['url' =>  route('training.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                             <div class="form-body">
                                 <h4 class="form-section"><i class="ft-user"></i> {{trans('tms::training.create_form_title')}}</h4>
                                 <div class="row">
@@ -58,11 +62,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="start_date"
+                                            <label for="training_start_date"
                                                    class="form-label required">{{trans('tms::training.start_date')}}</label>
-
-                                            <input type="date"
-                                                   class="form-control" name="start_date" id="start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
+                                            <input type="text" class="form-control required pickadate-format-db{{ $errors->has('end_date') ? ' is-invalid' : '' }}"
+                                                   name="start_date" placeholder="Pick Date" id="training_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
+                                            <input type="hidden" name="status" value="1">
                                             <div class="help-block"></div>
                                             @if ($errors->has('start_date'))
                                                 <span class="invalid-feedback" role="alert">
@@ -73,12 +77,13 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="end_date"
-                                                   class="form-label required">{{trans('tms::training.end_date')}}</label>
-                                            <input type="hidden" name="status" value="1">
-                                            <input type="date"
-                                                   class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                                                   name="end_date" id="end_date" value="{{ old('end_date') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
+                                            <label for="training_end_date" class="form-label required">{{trans('tms::training.end_date')}}</label>
+                                            <input type='text' onchange="dateDifference()"
+                                                   class="form-control required pickadate-format-db{{ $errors->has('end_date') ? ' is-invalid' : '' }}"
+                                                   placeholder="Pick a Date" id="training_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
+                                            {{--<input type="date"--}}
+                                            {{--class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"--}}
+                                            {{--name="end_date" id="end_date" value="{{ old('end_date') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">--}}
                                             <div class="help-block"></div>
                                             @if ($errors->has('end_date'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('end_date') }}</strong></span>
@@ -118,7 +123,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ft-check-square"></i> {{trans('labels.save')}}
                                 </button>
-                                <button class="btn btn-warning" type="button" onclick="window.history.back();">
+                                <button class="btn btn-warning" type="button" onclick="window.location = '{{route('training.index')}}'">
                                     <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </button>
                             </div>
@@ -135,15 +140,33 @@
 @push('page-js')
     <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/checkbox-radio.min.js') }}"></script>
+
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
+
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#training_end_date').pickadate({
+                min: +1,
+            });
+
+            $('#training_start_date, #training_end_date').pickadate();
+
+        });
 
         function dateDifference() {
 
-            var val1 =  document.getElementById('start_date').value;
-            document.getElementById('end_date').setAttribute('min',val1);
-            var val2 =  document.getElementById('end_date').value;
+            var val1 =  document.getElementById('training_start_date').value;
+            var val2 =  document.getElementById('training_end_date').value;
             var date1 = new Date(val1);
             var date2 = new Date(val2);
+
+            $('#training_end_date').pickadate({
+                min: +1,
+            });
 
             if(date2 > date1)
             {
@@ -157,5 +180,7 @@
             else
                 document.getElementById('training_len').value = "...";
         }
+
+
     </script>
 @endpush

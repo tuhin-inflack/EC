@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Entities\Role;
+use Modules\TMS\Entities\Training;
+use Modules\TMS\Policies\TrainingPolicy;
 use App\Policies\RolePolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -16,6 +18,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
          Role::class => RolePolicy::class,
+         Training::class => TrainingPolicy::class
     ];
 
     /**
