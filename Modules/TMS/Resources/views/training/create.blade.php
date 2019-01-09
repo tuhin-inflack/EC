@@ -141,6 +141,7 @@
     <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/checkbox-radio.min.js') }}"></script>
 
+
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
@@ -148,14 +149,11 @@
 
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $('#training_end_date').pickadate({
-                min: +1,
-            });
 
-            $('#training_start_date, #training_end_date').pickadate();
-
+        $('#training_end_date').pickadate({
+            min: +1,
         });
+
 
         function dateDifference() {
 
