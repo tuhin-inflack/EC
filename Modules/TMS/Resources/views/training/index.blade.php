@@ -25,7 +25,7 @@
                                     <th>{{trans('tms::training.training_participant_no')}}</th>
                                     <th>{{trans('tms::training.start_date')}}</th>
                                     <th>{{trans('tms::training.end_date')}}</th>
-                                    <th>{{trans('labels.status')}}</th>
+                                    {{--<th>{{trans('labels.status')}}</th>--}}
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>
                                 </thead>
@@ -35,11 +35,11 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td><a href="{{route('training.show', ['training_id' => $training->id])}}">{{$training->training_id}}</a></td>
-                                        <td>{{$training->training_title}}</td>
+                                        <td><a href="{{route('training.show', ['training_id' => $training->id])}}">{{$training->training_title}}</a></td>
                                         <td>{{$training->no_of_trainee}}</td>
                                         <td>{{$training->start_date}}</td>
                                         <td>{{$training->end_date}}</td>
-                                        <td>{{($training->status == 1)? "Active":"Inactive"}}</td>
+                                        {{--<td>{{($training->status == 1)? "Active":"Inactive"}}</td>--}}
                                         <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
