@@ -9,15 +9,15 @@
 namespace Modules\TMS\Repositories;
 
 use App\Repositories\AbstractBaseRepository;
-use Modules\TMS\Entities\Trainings;
+use Modules\TMS\Entities\Training;
 
-class TrainingsRepository extends AbstractBaseRepository
+class TrainingRepository extends AbstractBaseRepository
 {
-    protected $modelName = Trainings::class;
+    protected $modelName = Training::class;
 
     public function getTrainingById($training_id)
     {
-        $training = Trainings::where('training_id',$training_id)->first();
+        $training = Training::where('training_id',$training_id)->first();
 
     }
 }

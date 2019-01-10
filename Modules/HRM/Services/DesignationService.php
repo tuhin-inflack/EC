@@ -33,10 +33,7 @@ class DesignationService {
 	public function storeDesignation( $data ) {
 		$designation = $this->save( $data );
 		if ( $designation ) {
-			return new Response( "Designation added successfully" );
-		} else {
-			return new Response( "Opps !  Something going wrong." );
-
+			return new Response( trans('labels.save_success') );
 		}
 
 
@@ -46,10 +43,7 @@ class DesignationService {
 		$designation = $this->findOrFail( $id );
 		$status      = $designation->update( $data );
 		if ( $status ) {
-			return new Response( "Designation updated successfully" );
-		} else {
-			return new Response( "Opps !  Something going wrong." );
-
+			return new Response( trans('labels.update_success') );
 		}
 	}
 
@@ -57,9 +51,7 @@ class DesignationService {
 		$designation = $this->findOrFail( $id );
 		$status      = $designation->delete();
 		if ( $status ) {
-			return new Response( "Designation Deleted successfully" );
-		} else {
-			return new Response( "Opps !  Something going wrong." );
+			return new Response( trans('labels.delete_success') );
 		}
 	}
 

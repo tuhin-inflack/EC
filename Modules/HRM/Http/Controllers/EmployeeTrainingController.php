@@ -21,6 +21,7 @@ class EmployeeTrainingController extends Controller {
 
 
 	public function store( StoreEmployeeTrainingRequest $request ) {
+
 		$trainingInfo = $request->training;
 		$response     = $this->employeeTrainingService->StoreTrainingInfo( $trainingInfo );
 		Session::flash( 'message', $response->getContent() );

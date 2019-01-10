@@ -11,8 +11,8 @@ namespace Modules\TMS\Services;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Modules\TMS\Entities\Trainings;
-use Modules\TMS\Repositories\TrainingsRepository;
+use Modules\TMS\Entities\Training;
+use Modules\TMS\Repositories\TrainingRepository;
 
 class TrainingsService
 {
@@ -20,21 +20,18 @@ class TrainingsService
 
     private $trainingsRepository;
 
-    public function __construct(TrainingsRepository $trainingsRepository)
+    public function __construct(TrainingRepository $trainingsRepository)
     {
         $this->trainingsRepository = $trainingsRepository;
 
         $this->setActionRepository($trainingsRepository);
     }
 
-    public function updateTraining($id, array $data)
+    public function generateTrainingId()
     {
-        $training = $this->findOrFail($id);
-
-        DB::transaction(function () use ($training, $data) {
-            return $this->update($training, $data);
-        });
-
+        $prefix = "BARD-TRN-";
+        $id = date('Y-m-s').rand(9999,100000);
+        $trainingId = $prefix.$id;
+        return $trainingId;
     }
-
 }

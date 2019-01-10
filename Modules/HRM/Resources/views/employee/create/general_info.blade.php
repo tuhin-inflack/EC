@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group {{ $errors->has('first_name') ? ' error' : '' }}">
-            {{ Form::label('first_name', 'First name') }}
-            {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Jon', 'required' => 'required', 'data-validation-required-message'=>'Enter first name']) }}
+            {{ Form::label('first_name', trans('labels.first_name'), ['class' => 'required'] ) }}
+            {{ Form::text('first_name', null, ['class' => 'form-control', 'placeholder' => 'Jon', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('first_name'))
                 <div class="help-block">  {{ $errors->first('first_name') }}</div>
@@ -10,24 +10,24 @@
         </div>
 
         <div class="form-group {{ $errors->has('last_name') ? ' error' : '' }}">
-            {{ Form::label('last_name', 'Last name') }}
-            {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Doe', 'required' => 'required', 'data-validation-required-message'=>'Enter last name']) }}
+            {{ Form::label('last_name', trans('labels.last_name'), ['class' => 'required']) }}
+            {{ Form::text('last_name', null, ['class' => 'form-control', 'placeholder' => 'Doe', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('last_name'))
                 <div class="help-block">  {{ $errors->first('last_name') }}</div>
             @endif
         </div>
         <div class="form-group {{ $errors->has('employee_id') ? ' error' : '' }}">
-            {{ Form::label('employee_id', 'Employee ID') }}
-            {{ Form::text('employee_id', null, ['class' => 'form-control', 'placeholder' => '', 'required' => 'required', 'data-validation-required-message'=>'Enter employee ID']) }}
+            {{ Form::label('employee_id', trans('hrm::employee_general_info.employee_id'), ['class' => 'required']) }}
+            {{ Form::text('employee_id', null, ['class' => 'form-control', 'placeholder' => '', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('employee_id'))
                 <div class="help-block">  {{ $errors->first('employee_id') }}</div>
             @endif
         </div>
         <div class="form-group {{ $errors->has('department_id') ? ' error' : '' }}">
-            {{ Form::label('department', 'Department') }}
-            {{ Form::select('department_id',[null => '-- Select --' ] + $employeeDepartments, null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Department']) }}
+            {{ Form::label('department', trans('hrm::department.department'), ['class' => 'required']) }}
+            {{ Form::select('department_id',$employeeDepartments, null, ['placeholder' => trans('labels.select') ,'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('department_id'))
                 <div class="help-block">  {{ $errors->first('department_id') }}</div>
@@ -35,8 +35,8 @@
         </div>
 
         <div class="form-group {{ $errors->has('designation_code') ? ' error' : '' }}">
-            {{ Form::label('designation_code', 'Designation') }}
-            {{ Form::select('designation_code',  [null => '-- Select --']  + $employeeDesignations,  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Designation']) }}
+            {{ Form::label('designation_code', trans('hrm::designation.designation'), ['class' => 'required']) }}
+            {{ Form::select('designation_code', $employeeDesignations,  null, ['placeholder' => trans('labels.select'), 'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('designation_code'))
                 <div class="help-block">  {{ $errors->first('designation_code') }}</div>
@@ -45,8 +45,8 @@
 
 
         <div class="form-group {{ $errors->has('gender') ? ' error' : '' }}">
-            {{ Form::label('gender', 'Gender') }}
-            {{ Form::select('gender', Config::get('constants.gender'),  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select Gender']) }}
+            {{ Form::label('gender', trans('labels.gender'), ['class' => 'required']) }}
+            {{ Form::select('gender',  Config::get('constants.gender'),  null, ['placeholder' => trans('labels.select'), 'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('gender'))
                 <div class="help-block">  {{ $errors->first('gender') }}</div>
@@ -55,8 +55,8 @@
 
 
         <div class="form-group {{ $errors->has('status') ? ' error' : '' }}">
-            {{ Form::label('status', 'Status') }}
-            {{ Form::select('status', Config::get('constants.employee_available_status'),  null, ['class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>'Please Select status']) }}
+            {{ Form::label('status', trans('labels.status'), ['class' => 'required']) }}
+            {{ Form::select('status', Config::get('constants.employee_available_status'),  null, ['placeholder' => trans('labels.select'), 'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->has('status'))
                 <div class="help-block">  {{ $errors->first('status') }}</div>
@@ -64,8 +64,8 @@
         </div>
 
         <div class="form-group {{ $errors->has('email') ? ' error' : '' }}">
-            {{ Form::label('email', 'Email') }}
-            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'info@example.com', 'required' => 'required', 'data-validation-required-message'=>'Email address can\'t be empty']) }}
+            {{ Form::label('email', trans('labels.email_address'), ['class' => 'required']) }}
+            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'info@example.com', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @foreach ($errors->get('email') as $message)
                 <div class="help-block">  {{ $message }}</div>
@@ -74,12 +74,10 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <h1>Upload employee photo
-
-            </h1>
+            <h1><label class="required">@lang('hrm::employee_general_info.upload_employee_photo')</label></h1>
             <div class="avatar-upload">
                 <div class="avatar-edit">
-                    <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" required  data-validation-required-message ="Please upload image"/>
+                    <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" required  data-validation-required-message ="{{ trans('labels.Picture field is required') }}"/>
                     <label for="imageUpload"></label>
                 </div>
                 <div class="avatar-preview">
@@ -93,8 +91,8 @@
         </div>
         <br/>
         <div class="form-group {{ $errors->has('tel_office') ? ' error' : '' }}">
-            {{ Form::label('tel_office', 'Telephone (Office)') }}
-            {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'11', 'data-validation-maxlength-message'=>'Enter maximum 11 digit']) }}
+            {{ Form::label('tel_office', trans('labels.tel_office')) }}
+            {{ Form::number('tel_office', null, ['class' => 'form-control', 'placeholder' => '02XXXXXXX', 'maxlength' =>'11', 'data-validation-maxlength-message'=>trans('labels.At least 11 characters')]) }}
             <div class="help-block"></div>
             @foreach ($errors->get('tel_office') as $message)
                 <div class="help-block">  {{ $message }}</div>
@@ -102,7 +100,7 @@
         </div>
 
         <div class="form-group {{ $errors->has('tel_home') ? ' error' : '' }}">
-            {{ Form::label('tel_home', 'Telephone (Home)') }}
+            {{ Form::label('tel_home', trans('labels.tel_home')) }}
             {{ Form::number('tel_home', null, ['class' => 'form-control','placeholder' => '02XXXXXXX','maxlength' =>'11', 'data-validation-maxlength-message'=>'Enter maximum 11 digit']) }}
             <div class="help-block"></div>
             @foreach ($errors->get('tel_home') as $message)
@@ -111,8 +109,8 @@
         </div>
 
         <div class="form-group {{ $errors->has('mobile_one') ? ' error' : '' }}">
-            {{ Form::label('mobile_one', 'Mobile (1)') }}
-            {{ Form::text('mobile_one', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
+            {{ Form::label('mobile_one', trans('labels.mobile') . " (1)", ['class' => 'required']) }}
+            {{ Form::text('mobile_one', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX','required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required'),  'minlength' =>'11', 'data-validation-minlength-message'=>trans('labels.At least 11 characters'), 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
             <div class="help-block"></div>
             @foreach ($errors->get('mobile_one') as $message)
                 <div class="help-block">  {{ $message }}</div>
@@ -120,8 +118,8 @@
         </div>
 
         <div class="form-group {{ $errors->has('mobile_two') ? ' error' : '' }}">
-            {{ Form::label('mobile_two', 'Mobile (2) ') }}
-            {{ Form::text('mobile_two', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>'Enter minimum 11 digit', 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
+            {{ Form::label('mobile_two', trans('labels.mobile'). " (2)") }}
+            {{ Form::text('mobile_two', null, ['class' => 'form-control','placeholder' => '017XXXXXXXX',  'minlength' =>'11', 'data-validation-minlength-message'=>trans('labels.At least 11 characters'), 'maxlength' =>'13', 'data-validation-maxlength-message'=>'Enter maximum 13 digit',]) }}
             <div class="help-block"></div>
             <div class="help-block"></div>
             @foreach ($errors->get('mobile_two') as $message)
@@ -135,10 +133,10 @@
     {{ Form::hidden('id', null) }}
     <div class="form-actions col-md-12 ">
         <div class="pull-right">
-            {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
+            {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
             <a href="{{ url('/hrm/employee') }}">
                 <button type="button" class="btn btn-warning mr-1">
-                    <i class="la la-times"></i> Cancel
+                    <i class="la la-times"></i> @lang('labels.cancel')
                 </button>
             </a>
 

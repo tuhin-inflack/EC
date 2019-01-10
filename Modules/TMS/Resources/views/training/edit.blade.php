@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  '/tms/training/edit/'.$training->id, 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+                            {!! Form::open(['url' =>  route('training.update', ['training_id' => $training->id]), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                             <div class="form-body">
                                 <h4 class="form-section"><i class="ft-user"></i> {{trans('tms::training.edit_form_title')}}</h4>
                                 <div class="row">
@@ -63,7 +63,7 @@
                                                    class="form-label required">{{trans('tms::training.start_date')}}</label>
 
                                             <input type="date"
-                                                   class="form-control" name="start_date" id="start_date" value="{{ $training->start_date}}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
+                                                   class="form-control" name="start_date" id="start_date" value="{{$training->start_date}}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('start_date'))
                                                 <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@
                                                    name="end_date" id="end_date" value="{{$training->end_date}}"  onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('end_date'))
-                                                <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('end_date') }}</strong></span>
+                                                <span class="invalid-feedback" role="alert"><strong>{{$errors->first('end_date') }}</strong></span>
                                             @endif
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                 <button type="submit" class="btn btn-primary">
                                     <i class="ft-check-square"></i> {{trans('labels.save')}}
                                 </button>
-                                <button class="btn btn-warning" type="button" onclick="window.history.back();">
+                                <button class="btn btn-warning" type="button" onclick="window.location = '{{route('training.index')}}'">
                                     <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </button>
                             </div>
