@@ -71,7 +71,7 @@ class RoomController extends Controller
     public function store(CreateHostelRoomRequest $request)
     {
         $this->roomService->store($request->all());
-        Session::flash('success', 'Room has been created successfully!');
+        Session::flash('success', trans('labels.save_success'));
 
         return redirect()->route('hostels.show', $request['hostel_id']);
     }

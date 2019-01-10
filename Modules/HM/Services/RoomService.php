@@ -177,4 +177,8 @@ class RoomService
         return $this->roomRepository->getRoomCountByStatus();
     }
 
+    public function updateStatus(Room $room, $status)
+    {
+        return $this->roomRepository->update($room, ['status' => $status]);
+    }
 }
