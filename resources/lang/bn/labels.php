@@ -39,7 +39,6 @@ return [
     'save_success' => 'আইটেম সফলভাবে সংরক্ষিত হয়েছে',
     'update_success' => 'আইটেম সফলভাবে আপডেট করা হয়েছে',
     'delete_success' => 'আইটেম সফলভাবে মুছে ফেলা হয়েছে',
-    'confirm_delete' => 'নিশ্চিত বাতিল?',
     'status' => 'অবস্থা',
     'created_at' => 'সৃষ্টি সময়',
     'dashboard' => 'ড্যাশবোর্ড',
@@ -99,7 +98,6 @@ return [
     'Admin' => 'অ্যাডমিন',
     'Administration' => 'প্রশাসন',
     'comment' => 'মন্তব্য',
-
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
     'first' => 'প্রথম',
@@ -123,6 +121,6 @@ return [
     'optional' => 'ঐচ্ছিক',
     'remove' => 'মুছে ফেলুন',
     'confirm_delete' => 'নিশ্চিত বাতিল',
-    'confirm_action' => 'আপনি নিশ্চিত'
+    'confirm_action' => 'আপনি নিশ্চিত',
     'attachments' => 'সংযুক্তি',
 ];

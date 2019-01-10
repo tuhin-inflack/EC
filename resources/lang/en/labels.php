@@ -38,7 +38,6 @@ return [
     'save_success' => 'Item has been saved successfully',
     'update_success' => 'Item has been updated successfully',
     'delete_success' => 'Item has been deleted successfully',
-    'confirm_delete' => 'Confirm delete?',
     'status' => 'Status',
     'created_at' => 'Created at',
     'dashboard' => 'Dashboard',
@@ -119,7 +118,6 @@ return [
     'User list' => 'User list',
     'User create' => 'User create',
     'attachments' => 'Attachments',
-
     'optional' => 'Optional',
     'remove' => 'Remove',
     'confirm_delete' => 'Confirm Delete',
