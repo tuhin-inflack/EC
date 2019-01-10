@@ -2,7 +2,6 @@
     <div data-repeater-list="training">
         @php
             $oldTrainings = old();
-
         @endphp
         @if(isset($oldTrainings['training']) && count($oldTrainings['training'])>0)
             @foreach($oldTrainings['training'] as $key => $training)
@@ -14,10 +13,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->trainingError->has("training.".$key.".course_name") ? ' error' : '' }}">
                                         {{ Form::label('course_name', __('hrm::training.course_name')) }}
-                                        {{ Form::text('course_name', $training['course_name'], ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application', 'data-validation-required-message'=>'Please enter course name ']) }}
+                                        {{ Form::text('course_name', $training['course_name'], ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->trainingError->has("training.".$key.".course_name"))
-                                            <div class="help-block">  {{ $errors->trainingError->first("training.*.course_name") }}</div>
+                                            <div class="help-block">  {{ __('labels.This field is required') }}</div>
                                         @endif
 
                                     </div>
@@ -25,10 +24,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->trainingError->has("training.".$key.".organization_name") ? ' error' : '' }}">
                                         {{ Form::label('organization_name', trans('hrm::training.institute_name')) }}
-                                        {{ Form::text('organization_name', $training['organization_name'], ['class' => 'form-control', 'placeholder' => 'eg. BARD', 'data-validation-required-message'=>'Please enter organization name']) }}
+                                        {{ Form::text('organization_name', $training['organization_name'], ['class' => 'form-control', 'placeholder' => 'eg. BARD', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->trainingError->has("training.".$key.".organization_name"))
-                                            <div class="help-block">  {{ $errors->trainingError->first("training.*.organization_name") }}</div>
+                                            <div class="help-block">  {{ __('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -36,10 +35,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->trainingError->has("training.".$key.".duration") ? ' error' : '' }}">
                                         {{ Form::label('duration', trans('hrm::training.duration')) }}
-                                        {{ Form::text('duration',  $training['duration'], ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::text('duration',  $training['duration'], ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->trainingError->has("training.".$key.".duration"))
-                                            <div class="help-block">  {{ $errors->trainingError->first("training.*.duration") }}</div>
+                                            <div class="help-block">  {{ __('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -52,10 +51,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->trainingError->has("training.".$key.".result") ? ' error' : '' }}">
                                         {{ Form::label('result', trans('hrm::training.result')) }}
-                                        {{ Form::text('result',  $training['result'], ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>'Please enter result']) }}
+                                        {{ Form::text('result',  $training['result'], ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->trainingError->has("training.".$key.".result"))
-                                            <div class="help-block">  {{ $errors->trainingError->first("training.*.result") }}</div>
+                                            <div class="help-block">  {{ __('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
@@ -68,7 +67,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('organization_website', trans('hrm::training.organization_website')) }}
-                                        {{ Form::url('organization_website',  $training['organization_website'], ['class' => 'form-control', 'placeholder' => 'http://www.bs-23.net', 'data-validation-required-message'=>'Please enter organization website']) }}
+                                        {{ Form::url('organization_website',  $training['organization_website'], ['class' => 'form-control', 'placeholder' => 'http://www.bs-23.net', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -108,14 +107,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('course_name', trans('hrm::training.course_name')) }}
-                                        {{ Form::text('course_name', $training->course_name, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application', 'data-validation-required-message'=>'Please enter course name ']) }}
+                                        {{ Form::text('course_name', $training->course_name, ['class' => 'form-control', 'placeholder' => 'eg. Microsoft Office Application', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('organization_name', trans('hrm::training.institute_name')) }}
-                                        {{ Form::text('organization_name', $training->organization_name, ['class' => 'form-control', 'placeholder' => 'eg. BARD', 'data-validation-required-message'=>'Please enter organization name']) }}
+                                        {{ Form::text('organization_name', $training->organization_name, ['class' => 'form-control', 'placeholder' => 'eg. BARD', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -123,7 +122,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('duration', trans('hrm::training.duration')) }}
-                                        {{ Form::select('duration',$employeeTrainingDuration,   $training->duration, ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::select('duration',$employeeTrainingDuration,   $training->duration, ['class' => 'form-control', 'placeholder' => 'eg. 4 Week / 8 Week or any Number of week', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -136,7 +135,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('result', trans('hrm::training.result')) }}
-                                        {{ Form::text('result',  $training->result, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>'Please enter result']) }}
+                                        {{ Form::text('result',  $training->result, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -150,7 +149,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('organization_website', trans('hrm::training.organization_website')) }}
-                                        {{ Form::url('organization_website',  $training->organization_website, ['class' => 'form-control', 'placeholder' => 'http://www.bs-23.net', 'data-validation-required-message'=>'Please enter organization website']) }}
+                                        {{ Form::url('organization_website',  $training->organization_website, ['class' => 'form-control', 'placeholder' => 'http://www.bs-23.net', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -247,7 +246,7 @@
                                 </div>
                             </div>
 
-                            {{ Form::hidden('employee_id', $employee->id, ['class' =>'EmployeeId']) }}
+                            {{Form::hidden('employee_id', $employee->id, ['class' =>'EmployeeId']) }}
                             <hr>
                         </div>
                     </div>
