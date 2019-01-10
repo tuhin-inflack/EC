@@ -115,15 +115,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('type_of_publication', 'Type of publication') }}
-                                        {{ Form::text('type_of_publication', $publication->type_of_publication, ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc', 'data-validation-required-message'=>'Please enter publication type']) }}
+                                        {{ Form::label('type_of_publication', trans('hrm::publication.type_of_publication'), ['class' => 'required']) }}
+                                        {{ Form::text('type_of_publication', $publication->type_of_publication,
+                                         ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc',
+                                         'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('author_name', 'Author Name') }}
-                                        {{ Form::text('author_name',  $publication->author_name, ['class' => 'form-control', 'placeholder' => 'eg. John Doe', 'data-validation-required-message'=>'Please author name ']) }}
+                                        {{ Form::label('author_name', trans('hrm::publication.author_name'), ['class' => 'required']) }}
+                                        {{ Form::text('author_name',  $publication->author_name,
+                                        ['class' => 'form-control', 'placeholder' => 'eg. John Doe', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
 
                                     </div>
@@ -191,65 +194,77 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('type_of_publication', 'Type of publication') }}
-                                    {{ Form::text('type_of_publication', null, ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc', 'data-validation-required-message'=>'Please enter publication type']) }}
+                                    {{ Form::label('type_of_publication', trans('hrm::publication.type_of_publication'), ['class' => 'required']) }}
+                                    {{ Form::text('type_of_publication', null,
+                                    ['class' => 'form-control', 'placeholder' => 'eg. Newsletters, Journals, Bulletins,  Reports etc',
+                                    'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('author_name', 'Author Name') }}
-                                    {{ Form::text('author_name',  null, ['class' => 'form-control', 'placeholder' => 'eg. John Doe', 'data-validation-required-message'=>'Please author name ']) }}
+                                    {{ Form::label('author_name', trans('hrm::publication.author_name'), ['class' => 'required']) }}
+                                    {{ Form::text('author_name',  null,
+                                    ['class' => 'form-control', 'placeholder' => 'eg. John Doe',
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
 
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('publication_title', 'Publication Title') }}
-                                    {{ Form::text('publication_title', null, ['class' => 'form-control', 'placeholder' => 'Population Database of Mexico', 'data-validation-required-message'=>'Please enter publication title ']) }}
+                                    {{ Form::label('publication_title', trans('hrm::publication.publication_title'), ['class' => 'required']) }}
+                                    {{ Form::text('publication_title', null,
+                                    ['class' => 'form-control', 'placeholder' => 'Population Database of Mexico',
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('publication_company', 'Publication Company ') }}
-                                    {{ Form::text('publication_company',  null, ['class' => 'form-control', 'placeholder' => 'eg. IEEE', 'data-validation-required-message'=>'Please enter publication company']) }}
+                                    {{ Form::label('publication_company', trans('hrm::publication.publication_company'), ['class' => 'required']) }}
+                                    {{ Form::text('publication_company',  null,
+                                    ['class' => 'form-control', 'placeholder' => 'eg. IEEE',
+                                    'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('publication_company_location', 'Publication Company Location') }}
+                                    {{ Form::label('publication_company_location', trans('hrm::publication.publication_company_location')) }}
                                     {{ Form::text('publication_company_location',  null, ['class' => 'form-control', 'placeholder' => 'eg. NYC']) }}
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('published_date', 'Published Date') }}
-                                    {{ Form::date('published_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter published date']) }}
+                                    {{ Form::label('published_date', trans('hrm::publication.published_date'), ['class' => 'required']) }}
+                                    {{ Form::date('published_date',  null,
+                                     ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>
+                                     trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('source_link', 'Published Source / Link') }}
-                                    {{ Form::text('source_link',  null, ['class' => 'form-control', 'placeholder' => 'http://www.example.com/your-publication-link', 'data-validation-required-message'=>'Please enter publication link']) }}
+                                    {{ Form::label('source_link', trans('hrm::publication.published_source_link'), ['class' => 'required']) }}
+                                    {{ Form::text('source_link',  null,
+                                    ['class' => 'form-control', 'placeholder' => 'http://www.example.com/your-publication-link',
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             {{ Form::hidden('employee_id', $employee->id, ['class' =>'EmployeeId']) }}
-
                             <hr>
 
                         </div>
                     </div>
                     <div class=" col-md-2">
                         <div class="form-group col-sm-12 col-md-2 mt-2">
-                            <button type="button" class="btn btn-danger" data-repeater-delete=""><i class="ft-x"></i>
-                                Remove
+                            <button type="button" class="btn btn-danger" data-repeater-delete=""><i
+                                        class="ft-x"></i>
+                                @lang('labels.remove')
                             </button>
                         </div>
                     </div>
