@@ -53,7 +53,9 @@
                             <a class="nav-link " id="publication-tab" data-toggle="tab"
                                href="#publication"
                                aria-controls="linkIcon12"
-                               aria-expanded="false"><i class="la la-paperclip"></i> Publication</a>
+                               aria-expanded="false"><i class="la la-paperclip"></i>
+                                @lang('hrm::publication.publication_tab_name')
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="research-tab" data-toggle="tab" href="#research"

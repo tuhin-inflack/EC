@@ -37,6 +37,7 @@ trait CrudTrait
 
     /**
      * @param $id
+     * @param null $relation
      * @return \Illuminate\Database\Eloquent\Model|null
      */
     public function findOne($id, $relation = null)
@@ -70,7 +71,7 @@ trait CrudTrait
     /**
      * @param Model $model
      * @param array $data
-     * @return \Illuminate\Database\Eloquent\Model|void
+     * @return \Illuminate\Database\Eloquent\Model|mixed
      */
     public function update(Model $model, array $data)
     {
