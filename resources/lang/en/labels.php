@@ -118,5 +118,7 @@ return [
     'User create' => 'User create',
 
     'optional' => 'Optional',
-    'remove' => 'Remove'
+    'remove' => 'Remove',
+    'confirm_delete' => 'Confirm Delete',
+    'confirm_action' => 'Are you sure',
 ];
