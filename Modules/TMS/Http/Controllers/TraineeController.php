@@ -12,14 +12,7 @@ use Illuminate\Support\Facades\Session;
 
 class TraineeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-
-    private $traineeService;
-
-    private $trainingService;
+    private $traineeService, $trainingService;
 
     public function __construct(TraineeService $traineeService, TrainingsService $trainingService)
     {
@@ -27,26 +20,16 @@ class TraineeController extends Controller
         $this->trainingService = $trainingService;
     }
 
-
-    public function index(Request $request)
+    public function index($trainingId = null)
     {
-
-        $training_id = $request['training_id'];
-        $trainees = (object) array();
-        if(isset($training_id))
-        {
-            $trainees = $this->traineeService->fetchTraineesWithID($training_id);
-        }
+        $trainees = $trainingId ? $trainees = $this->traineeService->fetchTraineesWithID($trainingId) : null;
 
         $trainings = $this->trainingService->findAll();
+        $selectedTrainingId = $trainingId;
 
-        return view('tms::trainee.index', compact('trainees', 'trainings'));
+        return view('tms::trainee.index', compact('trainees', 'trainings', 'selectedTrainingId'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
     public function create($trainingId)
     {
         $training = $this->trainingService->findOrFail($trainingId);
@@ -72,18 +55,13 @@ class TraineeController extends Controller
         return view('tms::trainee.import', compact('training','trainingId', 'traineeList', 'traineeListErr', 'traineeCount'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
     public function store(TraineeRequest $request)
     {
         $storeData = $this->traineeService->save($request->all());
         if($storeData) $msg = __('labels.save_success'); else $msg = __('labels.save_fail');
         Session::flash('message', $msg);
 
-        return redirect('/tms/trainee/add/to/'.$request['training_id']);
+        return redirect()->route('trainee.add', ['training_id' => $request['training_id']]);
     }
 
     public function storeImported(Request $request, $training_id)
@@ -105,40 +83,29 @@ class TraineeController extends Controller
             if($storeData) $countRow++;
         }
 
-        $msg = $countRow.__('labels.save_success');
+        $msg = $countRow." ".__('labels.save_success');
         Session::flash('message', $msg);
 
         return back();
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show($training_id)
+    public function show($trainingId)
     {
-        $trainees = $this->traineeService->fetchTraineesWithID($training_id);
-        $training = $this->trainingService->findOrFail($training_id);
+        $trainees = $this->traineeService->fetchTraineesWithID($trainingId);
+        $training = $this->trainingService->findOrFail($trainingId);
 
         return view('tms::trainee.show', compact('trainees', 'training'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
     public function edit($traineeId)
     {
-        $trainee = $this->traineeService->fetchSingle($traineeId);
+        //$trainee = $this->traineeService->fetchTraineesWithID($traineeId);
+        $trainee = $this->traineeService->findOne($traineeId);
+        //dd($trainee->training->training_id);
 
         return view('tms::trainee.edit', compact('trainee', 'traineeId'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
     public function update(TraineeRequest $request, $traineeId)
     {
         $updateData = array(
@@ -147,17 +114,15 @@ class TraineeController extends Controller
             'trainee_gender' => $request['trainee_gender'],
             'mobile' => $request['mobile']
         );
-        $update = $this->traineeService->updateTrainee($traineeId, $updateData);
+
+        $trainee = $this->traineeService->findOrFail($traineeId);
+        $update = $this->traineeService->update($trainee, $updateData);
         $msg = __('labels.update_success');
         Session::flash('message', $msg);
 
         return back();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
     public function destroy($id)
     {
         $response = $this->traineeService->delete($id);

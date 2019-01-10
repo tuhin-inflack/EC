@@ -40,8 +40,6 @@ class EmployeePersonalInfoService {
 		}
 		if ( $status ) {
 			return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Personal information updated successfully' );
-		} else {
-			return new DataResponse( $personalInfo, $personalInfo['employee_id'], 'Something going wrong !', 500 );
 		}
 	}
 

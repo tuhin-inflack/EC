@@ -13,7 +13,8 @@ class StoreEmployeeEducationRequest extends FormRequest {
 	 */
 	protected $errorBag = "educationError";
 
-	public function rules( Request $request ) {
+	public function rules( Request $request ){
+
 		$this->redirect          = '/hrm/employee/create?employee=' . $request->education[0]['employee_id'] . '#education';
 
 		return [

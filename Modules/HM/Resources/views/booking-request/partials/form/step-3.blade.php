@@ -1,7 +1,7 @@
 <h6>{{ trans('hm::booking-request.step_3') }}</h6>
 <fieldset>
     <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.guest_information') }}</h4>
-    <div class="trainee-list"></div>
+    <div class="trainee-list table-responsive"></div>
     <div class="repeater-guest-information">
         @if(old('guests'))
             @foreach(old('guests') as $oldInput)
@@ -281,17 +281,17 @@
                                         <label class="required">@lang('hm::booking-request.first_name')</label>
                                         <br>
                                         {!! Form::hidden('id', null) !!}
-                                        {!! Form::text('first_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                        {!! Form::text('first_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>@lang('hm::booking-request.middle_name')</label>
                                         <br>
-                                        {!! Form::text('middle_name', null, ['class' => 'form-control required', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                        {!! Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">@lang('hm::booking-request.last_name')</label>
                                         <br>
-                                        {!! Form::text('last_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!}
+                                        {!! Form::text('last_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.age') }}</label>

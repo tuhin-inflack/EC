@@ -26,22 +26,27 @@
                     <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
                         <li class="nav-item">
                             <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> @lang('hrm::employee_general_info.general_tab_name')</a>
+                               aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i>
+                                @lang('hrm::employee_general_info.general_tab_name')
+                            </a>
                         </li>
                         <li class="nav-item ">
                             <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                                aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
-                                Personal</a>
+                                @lang('hrm::personal_info.personal_tab_name')
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
                                aria-controls="linkIcon12"
-                               aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
+                               aria-expanded="false"><i class="la la-graduation-cap"></i>
+                                @lang('hrm::education.education_tab_name')
+                            </a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
-                               aria-controls="linkIcon12" aria-expanded="false"><i class="la la-book"></i> Training</a>
+                               aria-controls="linkIcon12" aria-expanded="false"><i class="la la-book"></i> {{__('hrm::training.title')}}</a>
                         </li>
 
                         <li class="nav-item">
@@ -116,6 +121,8 @@
 
 @endpush
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         var employee_id = "<?php echo $employee_id ?>";
         $(document).ready(function () {

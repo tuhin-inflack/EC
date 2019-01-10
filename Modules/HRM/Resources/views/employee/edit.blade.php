@@ -30,12 +30,15 @@
                         <li class="nav-item ">
                             <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
                                aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
-                                Personal</a>
+                                @lang('hrm::personal_info.personal_tab_name')</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
                                aria-controls="linkIcon12"
-                               aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
+                               aria-expanded="false"><i class="la la-graduation-cap"></i>
+                                @lang('hrm::education.education_tab_name')</a>
+
+                            </a>
                         </li>
 
                         <li class="nav-item">
@@ -71,7 +74,7 @@
                             {{--{!! Form::open(['url' => 'hrm/employee/personal-info', 'class'=>'form', 'novalidate']) !!}--}}
                             {!! Form::model($employee->employeePersonalInfo, ['url' => ['/hrm/employee/update-personal-info', $employee->id], 'method' =>'put' , 'files'=>'true', 'class'=>'form form-horizontal', 'novalidate']) !!}
 
-                            @include('hrm::employee.edit.edit_personal_info')
+                            @include('hrm::employee.create.personal_info')
                             {!! Form::close() !!}
                         </div>
 
@@ -118,7 +121,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
 @endpush
 @push('page-js')
-
+    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         var employee_id = "{{ $employee->id }}";
         console.log(employee_id);
@@ -129,8 +133,8 @@
                 $('.EmployeeId').val(employee_id);
                 $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
-                $('input,select,textarea').jqBootstrapValidation('destroy');
-                $('input,select,textarea').jqBootstrapValidation();
+                // $('input,select,textarea').jqBootstrapValidation('destroy');
+                // $('input,select,textarea').jqBootstrapValidation();
 
             });
 

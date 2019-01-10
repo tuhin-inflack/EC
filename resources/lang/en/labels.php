@@ -47,6 +47,7 @@ return [
     'list' => 'List',
     'new' => 'New',
     'add' => 'Add',
+    'add_more' => 'Add More',
     'back_page' => 'Back',
     'setup' => 'Setup',
     'bangladesh_govt' => 'People\'s Republic of Bangladesh Govt.',
@@ -117,4 +118,5 @@ return [
     'User create' => 'User create',
 
     'optional' => 'Optional',
+    'remove' => 'Remove'
 ];

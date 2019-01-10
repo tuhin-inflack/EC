@@ -5,7 +5,7 @@ namespace Modules\TMS\Database\Seeders;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-use Modules\TMS\Entities\Trainings;
+use Modules\TMS\Entities\Training;
 
 class TrainingTableSeeder extends Seeder
 {
@@ -24,7 +24,7 @@ class TrainingTableSeeder extends Seeder
         {
             $trainingId  = "BARD-TRN-" . date('Y-m-s') . rand(9999,100000);
 
-            Trainings::create([
+            Training::create([
                 'training_id' => $trainingId,
                 'training_title' => $trainingTitle[$i],
                 'start_date' => Carbon::today(),
