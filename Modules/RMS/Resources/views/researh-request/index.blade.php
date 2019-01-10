@@ -36,7 +36,7 @@
                                             <th scope="row">1</th>
                                             <td>{{ $research_request->title }}</td>
                                             <td>{{ $research_request->remarks }}</td>
-                                            <td><a href="">@lang('labels.attachments')</a></td>
+                                            <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
                                             <td>@lang('labels.status_' . $research_request->status)</td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>

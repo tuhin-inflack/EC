@@ -2,10 +2,12 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
 use Modules\RMS\Services\ResearchRequestService;
 
@@ -83,5 +85,20 @@ class ResearchRequestController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function requestAttachmentDownload(ResearchRequest $researchRequest)
+    {
+        $basePath = 'app/research-requests/';
+        $filePaths = $researchRequest->researchRequestAttachments
+            ->map(function ($attachment) use ($basePath) {
+                return storage_path($basePath . $attachment->attachments);
+            })->toArray();
+
+        $fileName = time() . '.zip';
+
+        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
+
+        return response()->download(storage_path($basePath . $fileName));
     }
 }

@@ -20,7 +20,7 @@ Route::prefix('rms')->group(function() {
         Route::get('/create', 'ResearchRequestController@create')->name('research-request.create');
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
         Route::post('/','ResearchRequestController@store')->name('research-request.store');
-
+        Route::get('attachment-download/{researchRequest}','ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
     });
 
     Route::prefix('research-proposal-submission')->group(function(){
