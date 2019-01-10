@@ -25,7 +25,8 @@ class ResearchRequestController extends Controller
      */
     public function index()
     {
-        return view('rms::researh-request.index');
+        $research_requests = $this->researchRequestService->getAll();
+        return view('rms::researh-request.index', compact('research_requests'));
     }
 
     /**

@@ -54,4 +54,9 @@ class ResearchRequestService
             return $researchRequest;
         });
     }
+
+    public function getAll()
+    {
+        return $this->researchRequestRepository->findAll();
+    }
 }

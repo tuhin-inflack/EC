@@ -22,36 +22,26 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">{{ trans('labels.serial') }}</th>
+                                        <th scope="col">{{ trans('labels.title') }}</th>
                                         <th scope="col">{{ trans('labels.remarks') }}</th>
-                                        <th scope="col">{{ trans('rms::research_proposal.sub_start_date') }}</th>
+                                        <th scope="col">{{trans('rms::research_proposal.attached_file')}}</th>
                                         <th scope="col">{{ trans('rms::research_proposal.last_sub_date') }}</th>
                                         <th scope="col">{{ trans('labels.status') }}</th>
                                         <th scope="col">{{ trans('labels.created_at') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>08/10/2018</td>
-                                        <td>08/11/2018</td>
-                                        <td>
-                                            <span class="badge badge-warning">Ongoing</span>
-                                        </td>
-                                        <td>2018-11-08 16:15:12</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>08/10/2018</td>
-                                        <td>26/07/2019</td>
-                                        <td>
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                        <td>2018-11-08 16:15:12</td>
-                                    </tr>
-
+                                    @foreach($research_requests as $research_request)
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{ $research_request->title }}</td>
+                                            <td>{{ $research_request->remarks }}</td>
+                                            <td><a href="">@lang('labels.attachments')</a></td>
+                                            <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
+                                            <td>@lang('labels.status_' . $research_request->status)</td>
+                                            <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

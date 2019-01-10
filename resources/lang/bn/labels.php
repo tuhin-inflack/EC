@@ -108,4 +108,5 @@ return [
     'At most 5000 characters' => 'সর্বাধিক 5000 অক্ষর',
     'User list' => 'ব্যবহারকারীর তালিকা',
     'User create' => 'ব্যবহারকারী তৈরি করুন',
+    'attachments' => 'সংযুক্তি',
 ];

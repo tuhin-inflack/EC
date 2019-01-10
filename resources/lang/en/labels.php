@@ -107,4 +107,5 @@ return [
     'At most 5000 characters' => 'At most 5000 characters',
     'User list' => 'User list',
     'User create' => 'User create',
+    'attachments' => 'Attachments',
 ];
