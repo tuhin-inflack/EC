@@ -64,7 +64,7 @@
                                         <div class="form-group">
                                             <label for="training_start_date"
                                                    class="form-label required">{{trans('tms::training.start_date')}}</label>
-                                            <input type="text" class="form-control required pickadate-format-db{{ $errors->has('end_date') ? ' is-invalid' : '' }}"
+                                            <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
                                                    name="start_date" placeholder="Pick Date" id="training_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
                                             <input type="hidden" name="status" value="1">
                                             <div class="help-block"></div>
@@ -79,7 +79,7 @@
                                         <div class="form-group">
                                             <label for="training_end_date" class="form-label required">{{trans('tms::training.end_date')}}</label>
                                             <input type='text' onchange="dateDifference()"
-                                                   class="form-control required pickadate-format-db{{ $errors->has('end_date') ? ' is-invalid' : '' }}"
+                                                   class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
                                                    placeholder="Pick a Date" id="training_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
                                             {{--<input type="date"--}}
                                             {{--class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"--}}
@@ -141,30 +141,27 @@
     <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/checkbox-radio.min.js') }}"></script>
 
-
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-
-
-        $('#training_end_date').pickadate({
-            min: +1,
+        $('#training_start_date').change(function(){
+            $('#training_end_date').pickadate('picker').set('min', new Date($(this).val()));
         });
 
+        $('#training_start_date, #training_end_date').pickadate({
+            format: 'yyyy-mm-dd',
+        });
 
         function dateDifference() {
-
             var val1 =  document.getElementById('training_start_date').value;
             var val2 =  document.getElementById('training_end_date').value;
             var date1 = new Date(val1);
             var date2 = new Date(val2);
 
-            $('#training_end_date').pickadate({
-                min: +1,
-            });
+            console.log('triggered');
 
             if(date2 > date1)
             {
@@ -178,7 +175,5 @@
             else
                 document.getElementById('training_len').value = "...";
         }
-
-
     </script>
 @endpush

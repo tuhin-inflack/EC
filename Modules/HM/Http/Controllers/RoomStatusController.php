@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\Room;
+use Modules\HM\Http\Requests\UpdateRoomStatusRequest;
 use Modules\HM\Services\RoomService;
 
 class RoomStatusController extends Controller
@@ -24,7 +25,7 @@ class RoomStatusController extends Controller
         $this->roomService = $roomService;
     }
 
-    public function update(Request $request, Room $room)
+    public function update(UpdateRoomStatusRequest $request, Room $room)
     {
         $this->roomService->updateStatus($room, $request->input('status'));
         Session::flash('success', trans('labels.update_success'));
