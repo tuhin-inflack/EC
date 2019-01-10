@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::prefix('rms')->group(function() {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
@@ -30,4 +32,5 @@ Route::prefix('rms')->group(function() {
     Route::prefix('submitted-research-proposals')->group(function(){
         Route::get('/','ProposalSubmitController@submittedList')->name('research-proposal-submitted.index');
     });
+
 });

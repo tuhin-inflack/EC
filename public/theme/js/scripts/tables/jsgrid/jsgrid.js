@@ -37,7 +37,7 @@ fields: [
 });
 
 /***********************************
-*      Data Service Scenario       *
+*      Data Services Scenario       *
 ***********************************/
 
  $("#serviceScenario").jsGrid({

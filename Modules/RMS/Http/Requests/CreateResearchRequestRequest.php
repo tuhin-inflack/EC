@@ -14,7 +14,11 @@ class CreateResearchRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'end_date' => 'date_format:"j F, Y"|required',
+            'title' => 'required|max:100',
+            'remarks' => 'nullable|max:5000',
+            'to' => 'required',
+            'attachment.*' => 'required|mimes:doc,pdf,docx,csv,xlsx,xls|max:3072'
         ];
     }
 

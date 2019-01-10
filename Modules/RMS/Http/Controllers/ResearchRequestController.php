@@ -5,10 +5,20 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
+use Modules\RMS\Services\ResearchRequestService;
 
 class ResearchRequestController extends Controller
 {
+    private $researchRequestService;
+
+
+    public function __construct(ResearchRequestService $researchRequestService)
+    {
+        $this->researchRequestService = $researchRequestService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -34,7 +44,9 @@ class ResearchRequestController extends Controller
      */
     public function store(CreateResearchRequestRequest $request)
     {
-        return $request->all();
+        $this->researchRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-request.index');
     }
 
     /**

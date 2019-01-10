@@ -45,8 +45,7 @@ class BookingRequestService
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository,
-                                RoomBookingRequesterRepository $roomBookingRequesterRepository, RoomService $roomService)
+    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository, RoomBookingRequesterRepository $roomBookingRequesterRepository, RoomService $roomService)
     {
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;

@@ -1,4 +1,4 @@
-{!! Form::open(['route' =>  'booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['route' =>  'research-request.store', 'class' => 'research-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
                 class="la la-briefcase"></i> {{trans('rms::research_proposal.request_form')}}</h4>
@@ -44,30 +44,36 @@
 
                         @if ($errors->has('remarks'))
                             <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('remarks') }}</strong>
-                                        </span>
+                                <strong>{{ $errors->first('remarks') }}</strong>
+                            </span>
                         @endif
                     </div>
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
-                            {!! Form::file('attachment[]', ['class' => 'form-control required' . ($errors->has('attachment') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
-                            @if ($errors->has('attachment'))
-                                <span class="invalid-feedback" role="alert">
+                        {!! Form::file('attachment[]', ['class' => 'form-control required' . ($errors->has('attachment') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
+
+                        @if ($errors->has('attachment'))
+                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('attachment') }}</strong>
                                 </span>
-                            @endif
-                        </div>
+                        @endif
                     </div>
                 </div>
-            </fieldset>
         </div>
-    </div>
-    <div class="form-actions text-center">
-        {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
-        
-        <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
-            <i class="ft-x"></i> {{trans('labels.cancel')}}
-        </a>
+        </fieldset>
     </div>
 </div>
+<div class="form-actions text-center">
+    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+
+    <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
+        <i class="ft-x"></i> {{trans('labels.cancel')}}
+    </a>
+</div>
+</div>
 {!! Form::close() !!}
+{{--<form action="#" class="dropzone dropzone-area" id="dpz-multiple-files">
+    <div class="dz-message">Drop Files Here To Upload</div>
+</form>--}}
+
+
