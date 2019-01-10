@@ -35,16 +35,16 @@ class BookingRequestTableSeeder extends Seeder
     {
         $roomBooking = new RoomBookingRepository();
 
-        $roomBooking = $roomBooking->save($data);
+        $roomBooking = $roomBooking->save($data['room_bookings']);
 
-        $roomBooking->requester()->save(new RoomBookingRequester($data));
+        $roomBooking->requester()->save(new RoomBookingRequester($data['room_booking_requesters']));
 
         $roomBooking->roomInfos()->saveMany([
             new BookingRoomInfo($this->getRateAndTypeOfRoom())
         ]);
 
         $roomBooking->guestInfos()->saveMany([
-            new BookingGuestInfo($this->getGuest($data))
+            new BookingGuestInfo($this->getGuest($data['room_booking_requesters']))
         ]);
     }
 
@@ -71,7 +71,7 @@ class BookingRequestTableSeeder extends Seeder
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'age' => rand(18, 25),
-            'gender' => $data['male'],
+            'gender' => $data['gender'],
             'relation' => "Self",
             'nid_doc' => null,
             'address' => $data['address']
@@ -85,32 +85,43 @@ class BookingRequestTableSeeder extends Seeder
     {
         return [
             [
-                "start_date" => date('Y-m-d'),
-                "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
-                "shortcode" => time(),
-                "booking_type" => "general",
-                "status" => "pending",
-                "type" =>"booking",
-                "first_name" => "Hasib",
-                "last_name" => "Noor",
-                "gender" => "male",
-                "contact" => "01552445448",
-                "address" => "Dhaka, Bangladesh",
-                "comment" => "No Comment !!"
+                'room_bookings' => [
+                    "start_date" => date('Y-m-d'),
+                    "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
+                    "shortcode" => time(),
+                    "booking_type" => "general",
+                    "status" => "pending",
+                    "employee_id" => 1,
+                    "type" =>"booking",
+                    "comment" => "No Comment !!"
+                ],
+                'room_booking_requesters' => [
+                    "first_name" => "Hasib",
+                    "last_name" => "Noor",
+                    "gender" => "male",
+                    "contact" => "01552445448",
+                    "address" => "Dhaka, Bangladesh",
+                ]
             ],
             [
-                "start_date" => date('Y-m-d'),
-                "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
-                "shortcode" => time() + 2,
-                "booking_type" => "general",
-                "status" => "pending",
-                "type" =>"booking",
-                "first_name" => "Sahib",
-                "last_name" => "Ron",
-                "gender" => "male",
-                "contact" => "01875445448",
-                "address" => "Dhaka, Bangladesh",
-                "comment" => "No Comment !!"
+
+                'room_bookings' => [
+                    "start_date" => date('Y-m-d'),
+                    "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
+                    "shortcode" => time() + 2,
+                    "booking_type" => "general",
+                    "status" => "pending",
+                    "employee_id" => 2,
+                    "type" =>"booking",
+                    "comment" => "No Comment !!"
+                ],
+                'room_booking_requesters' => [
+                    "first_name" => "Sahib",
+                    "last_name" => "Ron",
+                    "gender" => "male",
+                    "contact" => "01875445448",
+                    "address" => "Dhaka, Bangladesh",
+                ],
             ]
         ];
     }
