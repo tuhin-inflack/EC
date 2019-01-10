@@ -19,11 +19,11 @@ class RoomTypeTableSeeder extends Seeder
 
         $words = ['এসি অভিজাত', 'এসি শোভন', 'শোভন','সাধারণ'];
 
-        for($i = 0; $i < 4; $i++)
+        foreach($words as $key => $value)
         {
             RoomType::create([
-                'name' => $words[$i],
-                'capacity' => $i + 1,
+                'name' => $value,
+                'capacity' => $key + 1,
                 'general_rate' => rand(500, 1500),
                 'govt_rate' => rand(100, 900),
                 'bard_emp_rate' => rand(100, 900),
