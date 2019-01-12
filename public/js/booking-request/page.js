@@ -49,7 +49,7 @@
         });
 
         // select2
-        $('.training-select, .room-type-select, .rate-select, .guest-gender-select, #department-select')
+        $('.training-select, .room-type-select, .rate-select, .guest-gender-select, #department-select, .relation-select')
             .select2({
                 placeholder: selectPlaceholder
             });
