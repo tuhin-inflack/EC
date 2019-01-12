@@ -91,4 +91,5 @@ return [
     'relation_family' => 'Family',
     'relation_friend' => 'Friend',
     'relation_coworker' => 'Coworker',
+    'relation_trainee' => 'Trainee',
 ];

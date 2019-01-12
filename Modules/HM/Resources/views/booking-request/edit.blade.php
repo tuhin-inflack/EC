@@ -68,9 +68,13 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
-        // gender localization
+        //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
+        let firstNameLabel = '{!! trans('labels.first_name') !!}';
+        let lastNameLabel = '{!! trans('labels.last_name') !!}';
+        let genderLabel = '{!! trans('labels.gender') !!}';
+        let mobileLabel = '{!! trans('labels.mobile') !!}';
         // select2 placholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
 
