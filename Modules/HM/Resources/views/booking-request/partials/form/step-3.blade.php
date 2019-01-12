@@ -72,9 +72,7 @@
     <div class="form-group mb-1 col-sm-12 col-md-3">
         <label class="required">{{ trans('hm::booking-request.relation') }}</label>
         <br>
-        {{-- {!! Form::text('relation', $oldInput['relation'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!} --}}
-        
-        {!! Form::select('relation', ['' => '', 'family' => 'Family', 'friend' => 'Friend', 'coworker' => 'coworker'], $oldInput['relation'], ['class' => 'form-control relation-select required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+        {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $oldInput['relation'], ['class' => 'form-control relation-select required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
         
         @if ($errors->has('guests.' . $loop->index . '.relation'))
         <span class="invalid-feedback"
@@ -168,9 +166,7 @@
                 <div class="form-group mb-1 col-sm-12 col-md-3">
                     <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                     <br>
-                    {{-- {!! Form::text('relation', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!} --}}
-                    
-                    {!! Form::select('relation', ['' => '', 'family' => 'Family', 'friend' => 'Friend', 'coworker' => 'coworker'], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                    {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                 </div>
             </div>
             <div class="row">
@@ -239,9 +235,7 @@
                         <label>@lang('hm::booking-request.relation') <span
                             class="danger">*</span></label>
                             <br>
-                            {{-- {!! Form::text('relation', $guestInfo->relation, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!} --}}
-                            
-                            {!! Form::select('relation', ['' => '', 'family' => 'Family', 'friend' => 'Friend', 'coworker' => 'coworker'], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                            {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                         </div>
                     </div>
                     <div class="row">
@@ -312,9 +306,7 @@
                         <div class="form-group mb-1 col-sm-12 col-md-3">
                             <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                             <br>
-                            {{-- {!! Form::text('relation', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Colleague', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => 'At most 50 characters']) !!} --}}
-                            
-                            {!! Form::select('relation', ['' => '', 'family' => 'Family', 'friend' => 'Friend', 'coworker' => 'coworker'], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                            {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                         </div>
                     </div>
                     <div class="row">
