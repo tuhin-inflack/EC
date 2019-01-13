@@ -2,17 +2,18 @@
 
 namespace Modules\HM\Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
+use Modules\HM\Entities\CheckinRoom;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomBookingRepository;
+use Modules\HM\Repositories\RoomRepository;
+use Modules\HM\Services\RoomService;
 
-
-class BookingRequestTableSeeder extends Seeder
+class CheckInTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,19 +24,22 @@ class BookingRequestTableSeeder extends Seeder
     {
         Model::unguard();
 
-        foreach ($this->generateBookingRequestData() as $item) {
-            $this->saveBookingRequest($item);
+        // $this->call("OthersTableSeeder");
+        foreach ($this->generateCheckInData() as $item) {
+            $this->saveCheckIn($item);
         }
     }
 
     /**
      * @param $data
      */
-    public function saveBookingRequest($data): void
+    private function saveCheckIn($data): void
     {
         $roomBooking = new RoomBookingRepository();
 
         $roomBooking = $roomBooking->save($data['room_bookings']);
+
+        $this->saveRoomNumbers($roomBooking, $data['room_numbers']);
 
         $roomBooking->requester()->save(new RoomBookingRequester($data['room_booking_requesters']));
 
@@ -46,6 +50,21 @@ class BookingRequestTableSeeder extends Seeder
         $roomBooking->guestInfos()->saveMany([
             new BookingGuestInfo($this->getGuest($data['room_booking_requesters']))
         ]);
+    }
+
+    private function saveRoomNumbers($checkin, $rooms)
+    {
+        $roomArr = explode(',', $rooms);
+        $roomRepository = new RoomRepository();
+
+        foreach ($roomArr as $room) {
+            CheckinRoom::create([
+                'checkin_id' => $checkin->id, 'room_id' => $room
+            ]);
+
+            $room = $roomRepository->findOne($room);
+            $room->update(['status' => 'unavailable']);
+        }
     }
 
     private function getRateAndTypeOfRoom(){
@@ -81,7 +100,7 @@ class BookingRequestTableSeeder extends Seeder
     /**
      * @return array $data
      */
-    public function generateBookingRequestData()
+    public function generateCheckInData()
     {
         return [
             [
@@ -90,36 +109,37 @@ class BookingRequestTableSeeder extends Seeder
                     "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
                     "shortcode" => time(),
                     "booking_type" => "general",
-                    "status" => "pending",
+                    "status" => "approved",
                     "employee_id" => 1,
-                    "type" =>"booking",
+                    "type" =>"checkin",
                     "comment" => "No Comment !!"
                 ],
+                'room_numbers' => "1",
                 'room_booking_requesters' => [
-                    "first_name" => "Hasib",
-                    "last_name" => "Noor",
+                    "first_name" => "Aftab",
+                    "last_name" => "Hossain",
                     "gender" => "male",
-                    "contact" => "01552445448",
+                    "contact" => "01980445466",
                     "address" => "Dhaka, Bangladesh",
                 ]
             ],
             [
-
                 'room_bookings' => [
                     "start_date" => date('Y-m-d'),
                     "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
                     "shortcode" => time() + 2,
                     "booking_type" => "general",
-                    "status" => "pending",
+                    "status" => "approved",
                     "employee_id" => 2,
-                    "type" =>"booking",
+                    "type" =>"checkin",
                     "comment" => "No Comment !!"
                 ],
+                'room_numbers' => "2",
                 'room_booking_requesters' => [
-                    "first_name" => "Sahib",
-                    "last_name" => "Ron",
-                    "gender" => "male",
-                    "contact" => "01875445448",
+                    "first_name" => "Shirin",
+                    "last_name" => "Afroza",
+                    "gender" => "female",
+                    "contact" => "01755658120",
                     "address" => "Dhaka, Bangladesh",
                 ],
             ]
