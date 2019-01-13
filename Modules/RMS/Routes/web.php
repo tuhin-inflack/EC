@@ -33,4 +33,9 @@ Route::prefix('rms')->group(function() {
         Route::get('/','ProposalSubmitController@submittedList')->name('research-proposal-submitted.index');
     });
 
+    Route::prefix('invited-research-proposals')->group(function (){
+        Route::get('/','InvitedResearchProposalController@index')->name('invited-research-proposal.index');
+        Route::get('show/{researchProposal}','InvitedResearchProposalController@show')->name('invited-research-proposal.show');
+    });
+
 });

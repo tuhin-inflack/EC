@@ -2,19 +2,17 @@
 
 namespace Modules\RMS\Http\Controllers;
 
-use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Session;
-use Modules\RMS\Entities\ResearchRequest;
-use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
 use Modules\RMS\Services\ResearchRequestService;
 
-class ResearchRequestController extends Controller
+/**
+ * @property  researchRequestService
+ */
+class InvitedResearchProposalController extends Controller
 {
     private $researchRequestService;
-
 
     public function __construct(ResearchRequestService $researchRequestService)
     {
@@ -28,7 +26,7 @@ class ResearchRequestController extends Controller
     public function index()
     {
         $research_requests = $this->researchRequestService->getAll();
-        return view('rms::researh-request.index', compact('research_requests'));
+        return view('rms::proposal.invited.index', compact('research_requests'));
     }
 
     /**
@@ -37,7 +35,7 @@ class ResearchRequestController extends Controller
      */
     public function create()
     {
-        return view('rms::researh-request.create');
+        return view('rms::create');
     }
 
     /**
@@ -45,11 +43,8 @@ class ResearchRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(CreateResearchRequestRequest $request)
+    public function store(Request $request)
     {
-        $this->researchRequestService->store($request->all());
-        Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('research-request.index');
     }
 
     /**
@@ -58,7 +53,7 @@ class ResearchRequestController extends Controller
      */
     public function show()
     {
-        return view('rms::show');
+        return view('rms::proposal.invited.show');
     }
 
     /**
@@ -86,20 +81,4 @@ class ResearchRequestController extends Controller
     public function destroy()
     {
     }
-
-    public function requestAttachmentDownload(ResearchRequest $researchRequest)
-    {
-        $basePath = 'app/research-requests/';
-        $filePaths = $researchRequest->researchRequestAttachments
-            ->map(function ($attachment) use ($basePath) {
-                return storage_path($basePath . $attachment->attachments);
-            })->toArray();
-
-        $fileName = time() . '.zip';
-
-        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
-
-        return response()->download(storage_path($basePath . $fileName));
-    }
-
 }
