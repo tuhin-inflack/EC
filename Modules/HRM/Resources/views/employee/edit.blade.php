@@ -85,20 +85,29 @@
     </div>
 @endsection
 @push('page-css')
+    <link rel="stylesheet" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
 @endpush
 @push('page-js')
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         var employee_id = "{{ $employee->id }}";
-        console.log(employee_id);
+        let selectPlaceholder = '{!! trans('labels.select') !!}';
+
         $(document).ready(function () {
+            $('.DatePicker').pickadate({
+            });
             $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id);
-
-                $('.EmployeeId').val(employee_id);
-                $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
+                $('.DatePicker').pickadate({
+                });
+                // $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
                 // $('input,select,textarea').jqBootstrapValidation('destroy');
                 // $('input,select,textarea').jqBootstrapValidation();

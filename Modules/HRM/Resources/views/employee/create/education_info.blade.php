@@ -1,4 +1,4 @@
-<div class="repeater-default">
+<div class="education-repeater">
 
     <div data-repeater-list="education">
 
@@ -58,7 +58,7 @@
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".passing_year") ? ' error' : '' }}">
                                         {{ Form::label('passing_year', trans('hrm::education.passing_year'), ['class' => 'required']) }}
                                         {{ Form::text('passing_year',  $education['passing_year'],
-                                        ['class' => 'form-control  datepicker-default', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+                                        ['class' => 'form-control DatePicker', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".passing_year"))
                                             <div class="help-block">  {{ trans('labels.This field is required') }}</div>
@@ -201,9 +201,7 @@
                                             <span class="input-group-text"><i class="ft-calendar"></i></span>
                                         </div>
 
-                                        {{ Form::text('passing_year',  null,
-                                        ['class' => 'form-control datepicker-default ', 'placeholder' => '',
-                                        'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                                        {{ Form::text('passing_year',  null,  ['id' => 'passing_year', 'class' => 'form-control DatePicker', 'placeholder' => 'Pick the date',    'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
                                         <div class="help-block"></div>
                                     </div>
@@ -278,7 +276,6 @@
 
         $(document).ready(function () {
 
-//            $('.academicDepartmentSelect').select2();
             $(" .instituteSelection, .academicDepartmentSelect, .academicDegreeSelect").select2({width: '100%'});
             $(".addOtherInstitute").hide();
             $(".addDepartmentSection").hide();
@@ -313,6 +310,23 @@
                 } else {
                     $(".addDegreeSection").hide();
 
+                }
+            });
+            $('.education-repeater').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+                        placeholder: selectPlaceholder
+                    });
+
+                    // remove error span
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid, select.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
+                    $(this).slideDown();
                 }
             });
         })
