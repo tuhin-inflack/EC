@@ -35,7 +35,8 @@ Route::prefix('rms')->group(function() {
 
     Route::prefix('invited-research-proposals')->group(function (){
         Route::get('/','InvitedResearchProposalController@index')->name('invited-research-proposal.index');
-        Route::get('show/{researchProposal}','InvitedResearchProposalController@show')->name('invited-research-proposal.show');
+        Route::get('{researchRequest}','InvitedResearchProposalController@show')->name('invited-research-proposal.show');
+        Route::get('file-download/{researchRequestAttachment}','InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
     });
 
 });

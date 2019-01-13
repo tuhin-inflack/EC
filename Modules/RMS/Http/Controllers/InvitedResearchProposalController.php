@@ -5,6 +5,8 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\RMS\Entities\ResearchRequest;
+use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Services\ResearchRequestService;
 
 /**
@@ -51,9 +53,10 @@ class InvitedResearchProposalController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(ResearchRequest $researchRequest)
     {
-        return view('rms::proposal.invited.show');
+        /*return $researchRequest->researchRequestAttachments;*/
+        return view('rms::proposal.invited.show', compact('researchRequest'));
     }
 
     /**
@@ -80,5 +83,12 @@ class InvitedResearchProposalController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function fileDownload(ResearchRequestAttachment $researchRequestAttachment)
+    {
+        $basePath = 'app/research-requests/';
+        $fileName = $researchRequestAttachment->attachments;
+        return response()->download(storage_path($basePath . $fileName));
     }
 }

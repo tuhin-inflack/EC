@@ -28,7 +28,7 @@
                                         <tr>
                                             <th scope="row">1</th>
                                             <td>{{ $research_request->title }}</td>
-                                            <td>{{ $research_request->remarks }}</td>
+                                            <td>{{ substr($research_request->remarks, 0,50) }} {{ strlen($research_request->remarks)>50 ? "..." : "" }}</td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
                                             <td>
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -37,7 +37,7 @@
                                                     <i class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ url('/rms/invited-research-proposal',$research_request->id) }}"
+                                                        <a href="{{ route('invited-research-proposal.show', $research_request->id) }}"
                                                            class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                 </span>
                                             </td>
@@ -53,10 +53,4 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-    <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
-    </script>
-@endpush
+
