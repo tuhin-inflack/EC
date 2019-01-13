@@ -1,4 +1,4 @@
-<div class="repeater-default">
+<div class="education-repeater">
 
     <div data-repeater-list="education">
 
@@ -278,7 +278,6 @@
 
         $(document).ready(function () {
 
-//            $('.academicDepartmentSelect').select2();
             $(" .instituteSelection, .academicDepartmentSelect, .academicDegreeSelect").select2({width: '100%'});
             $(".addOtherInstitute").hide();
             $(".addDepartmentSection").hide();
@@ -313,6 +312,23 @@
                 } else {
                     $(".addDegreeSection").hide();
 
+                }
+            });
+            $('.education-repeater').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+                        placeholder: selectPlaceholder
+                    });
+
+                    // remove error span
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid, select.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
+                    $(this).slideDown();
                 }
             });
         })

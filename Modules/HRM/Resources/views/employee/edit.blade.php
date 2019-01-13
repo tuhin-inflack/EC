@@ -92,13 +92,13 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         var employee_id = "{{ $employee->id }}";
-        console.log(employee_id);
+        let selectPlaceholder = '{!! trans('labels.select') !!}';
+
         $(document).ready(function () {
             $('.addMore').click(function () {
                 $('.EmployeeId').val(employee_id);
 
-                $('.EmployeeId').val(employee_id);
-                $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
+                // $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
                 // $('input,select,textarea').jqBootstrapValidation('destroy');
                 // $('input,select,textarea').jqBootstrapValidation();
