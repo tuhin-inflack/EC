@@ -7,7 +7,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('hm::hostel.title') @lang('labels.details')</h4>
+                        <h4 class="card-title"
+                            id="basic-layout-form">@lang('hm::hostel.title') @lang('labels.details')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -42,7 +43,7 @@
                                 </div>
                                 <div class="col-md-6 text-md-right">
                                     <a href="{{ route('rooms.create', $hostel->id) }}" class="btn btn-primary btn-sm"><i
-                                            class="ft-plus white"></i> @lang('hm::hostel.add_room')</a>
+                                                class="ft-plus white"></i> @lang('hm::hostel.add_room')</a>
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -51,6 +52,7 @@
                                     <tr>
                                         <th>@lang('hm::roomtype.title')</th>
                                         <th>@lang('hm::hostel.room') @lang('labels.number')</th>
+                                        <th>@lang('labels.status')</th>
                                         <th>@lang('hm::hostel.floor')</th>
                                         <th>@lang('hm::roomtype.capacity')</th>
                                         <th>@lang('hm::roomtype.general_rate')</th>
@@ -65,6 +67,7 @@
                                         <tr>
                                             <td>{{ $room->roomType->name }}</td>
                                             <td>{{ $room->room_number }}</td>
+                                            <td>{{ trans('hm::room.status_' . $room->status) }}</td>
                                             <td>{{ $room->floor }}</td>
                                             <td>{{ $room->roomType->capacity }}</td>
                                             <td>{{ $room->roomType->general_rate }}</td>
@@ -72,17 +75,38 @@
                                             <td>{{ $room->roomType->bard_emp_rate }}</td>
                                             <td>{{ $room->roomType->special_rate }}</td>
                                             <td>
-                                                {!! Form::open([
+                                                <div class="row">
+                                                    <div class="col-md-6">@if($room->status == 'available')
+                                                            {{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}
+                                                            {{ Form::hidden('status', 'not-in-service') }}
+                                                            <button class="btn btn-sm btn-warning"
+                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_not-in-service')
+                                                            </button>
+                                                            {{ Form::close() }}
+                                                        @elseif($room->status == 'not-in-service')
+
+                                                            {{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}
+                                                            {{ Form::hidden('status', 'available') }}
+                                                            <button class="btn btn-sm btn-primary"
+                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_available')
+                                                            </button>
+                                                            {{ Form::close() }}
+                                                        @endif</div>
+                                                    <div class="col-md-6">{!! Form::open([
                                                 'method'=>'DELETE',
                                                 'route' => [ 'rooms.destroy', $room->id],
                                                 'style' => 'display:inline'
                                                 ]) !!}
-                                                {!! Form::button('<i class="ft-trash"></i> ', array(
-                                                'type' => 'submit',
-                                                'title' => __('labels.delete'),
-                                                'onclick'=>'return confirm("Confirm delete?")',
-                                                )) !!}
-                                                {!! Form::close() !!}
+                                                        {!! Form::button('<i class="ft-trash"></i> ', array(
+                                                        'type' => 'submit',
+                                                        'class' => 'btn btn-sm btn-danger',
+                                                        'title' => __('labels.delete'),
+                                                        'onclick'=>'return confirm("' . trans('labels.confirm_delete') . '?")',
+                                                        )) !!}
+                                                        {!! Form::close() !!}</div>
+                                                </div>
+
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -135,7 +159,7 @@
                     },
                 ],
                 "columnDefs": [
-                    {"orderable": false, "targets": 8}
+                    {"orderable": false, "targets": 9}
                 ],
                 "bDestroy": true,
 

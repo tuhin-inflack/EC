@@ -55,7 +55,7 @@
                                                 <td>{{ $bookingRequest->referee ? $bookingRequest->referee->getName() : null }}</td>
                                                 <td>{{ $bookingRequest->guestInfos->count() }}</td>
                                                 <td>
-                                                    @lang('labels.status_' . $bookingRequest->status)
+                                                    @lang('hm::booking-request.' . $bookingRequest->status)
                                                 </td>
                                                 <td>
                                                     @can('admin-access')

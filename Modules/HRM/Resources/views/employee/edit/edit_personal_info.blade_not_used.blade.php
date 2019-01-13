@@ -31,7 +31,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->PersonalInfo->has('date_of_birth') ? ' error' : '' }}">
             {{ Form::label('date_of_birth', 'Date of Birth') }}
-            {{ Form::date('date_of_birth',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter joining date ']) }}
+            {{ Form::date('date_of_birth',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date', 'data-validation-required-message'=>'Please enter joining date ']) }}
             <div class="help-block"></div>
             @if ($errors->PersonalInfo->has('date_of_birth'))
                 <div class="help-block">  {{ $errors->PersonalInfo->first('date_of_birth') }}</div>
@@ -41,7 +41,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->PersonalInfo->has('job_joining_date') ? ' error' : '' }}">
             {{ Form::label('job_joining_date', 'Joining Date') }}
-            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>'Please enter joining date ']) }}
+            {{ Form::date('job_joining_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date', 'data-validation-required-message'=>'Please enter joining date ']) }}
             <div class="help-block"></div>
             @if ($errors->PersonalInfo->has('job_joining_date'))
                 <div class="help-block">  {{ $errors->PersonalInfo->first('job_joining_date') }}</div>
@@ -51,13 +51,13 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('current_position_joining_date', 'Current Position Joining Date') }}
-            {{ Form::date('current_position_joining_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('current_position_joining_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('current_position_expire_date', 'Current Position Expire Date') }}
-            {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date']) }}
         </div>
     </div>
     <div class="col-md-6">
@@ -91,7 +91,7 @@
             {{ Form::number('number_of_children',  null, ['class' => 'form-control']) }}
         </div>
     </div>
-    {{ Form::hidden('employee_id', $employee->id ) }}
+    {{ Form::hidden('employee_id', isset($employee->id) ? $employee->id : null)   }}
     {{ Form::hidden('id', isset($employee->employeePersonalInfo->id) ? $employee->employeePersonalInfo->id : null) }}
 
 

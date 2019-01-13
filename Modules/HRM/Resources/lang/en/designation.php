@@ -1,5 +1,6 @@
 <?php
 return [
+    'designation' => 'Designation',
     'list_page_title' => 'Designation List',
     'left_menu_title' => 'Designation',
     'list_card_title' => 'Designation List',

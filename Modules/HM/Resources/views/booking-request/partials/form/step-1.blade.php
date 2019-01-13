@@ -57,7 +57,6 @@
                     <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
                 @endif
             </div>
-
         </div>
         <div class="form-group mb-1 col-md-6 select-training-div"
              style="{{ isset($roomBooking) ? ($roomBooking->training_id ? '' : 'display: none') : 'display: none' }}">

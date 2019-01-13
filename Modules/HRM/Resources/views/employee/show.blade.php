@@ -1,12 +1,12 @@
 @extends('hrm::layouts.master')
-@section('title', 'Employee List ')
+@section('title', trans('hrm::employee.employee_details'))
 
 
 @section('content')
     {{--{{ dd($employee) }}--}}
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title" id="basic-layout-form">Employee Details</h4>
+            <h4 class="card-title" id="basic-layout-form">@lang('hrm::employee.employee_details')</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements">
                 <ul class="list-inline mb-0">
@@ -20,38 +20,7 @@
         <div class="card-content collapse show" style="">
             <div class="card-body">
                 <ul class="nav nav-tabs nav-underline nav-justified" id="tab-bottom-line-drag">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="general-tab" data-toggle="tab" href="#general"
-                           aria-controls="activeIcon12" aria-expanded="true"><i class="la la-info"></i> General</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link " id="personal-tab" data-toggle="tab" href="#personal"
-                           aria-controls="linkIcon12" aria-expanded="false"><i class="la la-archive"></i>
-                            Personal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " id="education-tab" data-toggle="tab" href="#education"
-                           aria-controls="linkIcon12"
-                           aria-expanded="false"><i class="la la-graduation-cap"></i> Education</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " id="training-tab" data-toggle="tab" href="#training"
-                           aria-controls="linkIcon12"
-                           aria-expanded="false"><i class="la la-book"></i> Training</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " id="publication-tab" data-toggle="tab"
-                           href="#publication"
-                           aria-controls="linkIcon12"
-                           aria-expanded="false"><i class="la la-paperclip"></i> Publication</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link " id="research-tab" data-toggle="tab" href="#research"
-                           aria-controls="linkIcon12"
-                           aria-expanded="false"><i class="la la-bookmark"></i> Research</a>
-                    </li>
+                    @include('hrm::employee.partial.tab')
 
                 </ul>
                 <div class="tab-content ">

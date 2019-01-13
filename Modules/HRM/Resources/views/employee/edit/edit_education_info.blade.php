@@ -1,6 +1,6 @@
 {{--{{ dd($employee->employeeEducationInfo) }}--}}
 
-<div class="repeater-default">
+<div class="education-repeater">
 
     <div data-repeater-list="education">
         @php
@@ -15,96 +15,90 @@
                         <div class=" col-md-10">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_institute_id") ? ' error' : '' }}">
-                                        {{ Form::label('academic_institute_id', 'Institute Name') }}
-                                        {{ Form::select('academic_institute_id',$institutes, $education['academic_institute_id'] , ['class' => 'form-control', 'placeholder' => 'University of Dhaka', 'data-validation-required-message'=>'Please Select Designation']) }}
-                                        <div class="help-block"></div>
-                                        @if ($errors->educationError->has("education.".$key.".academic_institute_id"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.academic_institute_id") }}</div>
-                                        @endif
+                                    <section class="basic-select2">
+                                        <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_institute_id") ? ' error' : '' }}">
+                                            {{ Form::label('academic_institute_id', trans('hrm::education.institute_name'), ['class' => 'required']) }}
+                                            <br/>
+                                            {{ Form::select('academic_institute_id',$institutes,  $education['academic_institute_id'] , ['class' => 'select2 form-control instituteSelection',
+                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                                            <div class="help-block"></div>
+                                            @if ($errors->educationError->has("education.".$key.".academic_institute_id"))
+                                                <div class="help-block">  {{ trans('labels.This field is required') }}</div>
+                                            @endif
 
-                                    </div>
+                                        </div>
+                                    </section>
                                 </div>
 
+                                <div class="help-block"></div>
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_department_id") ? ' error' : '' }}">
-                                        {{ Form::label('academic_department_id', 'Department/Section/Group') }}
-                                        {{ Form::select('academic_department_id',$academicDepartments,  $education['academic_department_id'], ['class' => 'form-control', 'placeholder' => 'Please select Department/Section/Group', 'data-validation-required-message'=>'Please enter department name']) }}
+                                        {{ Form::label('academic_department_id', trans('hrm::education.department_section_group'), ['class' => 'required']) }}
+                                        {{ Form::select('academic_department_id',$academicDepartments,  $education['academic_department_id'], ['class' => 'form-control', 'placeholder' => trans('labels.select'),'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".academic_department_id"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.academic_department_id") }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".academic_degree_id") ? ' error' : '' }}">
-                                        {{ Form::label('academic_degree_id', 'Degree Name') }}
-                                        {{ Form::select('academic_degree_id',$academicDegree, $education['academic_degree_id'], ['class' => 'form-control', 'placeholder' => 'Please select degree name', 'data-validation-required-message'=>'Please enter degree name']) }}
+                                        {{ Form::label('academic_degree_id', trans('hrm::education.degree_name'), ['class' => 'required']) }}
+                                        {{ Form::select('academic_degree_id', $academicDegree, $education['academic_degree_id'],  ['class' => 'form-control', 'placeholder' => trans('labels.select'),'data-validation-required-message' => trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".academic_degree_id"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.academic_degree_id") }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
-                                {{--<div class="col-md-6">--}}
-                                {{--<div class="form-group">--}}
-                                {{--{{ Form::label('academic_degree_id', 'Degree Name') }}--}}
-                                {{--{{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}--}}
-                                {{--<div class="help-block"></div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
 
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".passing_year") ? ' error' : '' }}">
-                                        {{ Form::label('passing_year', 'Passing Year') }}
-                                        {{ Form::text('passing_year',  $education['passing_year'], ['class' => 'form-control datepicker-default', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+                                        {{ Form::label('passing_year', trans('hrm::education.passing_year'), ['class' => 'required']) }}
+                                        {{ Form::text('passing_year',  $education['passing_year'],
+                                        ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date', 'data-validation-required-message'=>'Please enter passing year']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".passing_year"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.passing_year") }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group ">
-                                        {{ Form::label('medium', 'Medium') }}
-                                        {{ Form::select('medium', Config('constants.employee_education_medium'),  $education['medium'], ['class' => 'form-control']) }}
+                                        {{ Form::label('medium', trans('hrm::education.medium')) }}
+                                        {{ Form::select('medium', Config('constants.employee_education_medium'),
+                                        $education['medium'], ['placeholder' =>trans('labels.select'), 'class' => 'form-control']) }}
                                     </div>
                                 </div>
-                                {{--<div class="col-md-6">--}}
-                                {{--<div class="form-group">--}}
-                                {{--{{ Form::label('duration', 'Duration') }}--}}
-                                {{--{{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}--}}
-                                {{--<div class="help-block"></div>--}}
-                                {{--</div>--}}
-                                {{--</div>--}}
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".duration") ? ' error' : '' }}">
-                                        {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::select('duration', $academicDurations, $education['duration'], ['class' => 'form-control', 'placeholder' =>'Select duration', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::label('duration', trans('hrm::education.duration'), ['class' => 'required']) }}
+                                        {{ Form::select('duration',  $academicDurations, $education['duration'],
+                                         ['class' => 'form-control', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".duration"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.duration") }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->educationError->has("education.".$key.".result") ? ' error' : '' }}">
-                                        {{ Form::label('result', 'Result') }}
+                                        {{ Form::label('result', trans('hrm::education.result'), ['class' => 'required']) }}
                                         {{ Form::text('result',  $education['result'], ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division', 'data-validation-required-message'=>'Please enter result']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".result"))
-                                            <div class="help-block">  {{ $errors->educationError->first("education.*.result") }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('achievement', 'Achievement') }}
+                                        {{ Form::label('achievement', trans('hrm::education.achievement')) }}
                                         {{ Form::text('achievement',  $education['achievement'], ['class' => 'form-control', 'placeholder' => 'eg. President Gold Madel']) }}
                                     </div>
                                 </div>
@@ -118,7 +112,7 @@
                             <div class="form-group col-sm-12 col-md-2 mt-2">
                                 <button type="button" class="btn btn-danger" data-repeater-delete=""><i
                                             class="ft-x"></i>
-                                    Remove
+                                    @lang('labels.remove')
                                 </button>
                             </div>
                         </div>
@@ -139,9 +133,10 @@
                                 <div class="col-md-6">
                                     <section class="basic-select2">
                                         <div class="form-group">
-                                            {{ Form::label('academic_institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                            {{ Form::label('academic_institute_id', trans('hrm::education.institute_name'), ['class' => 'required']) }}
                                             <br/>
-                                            {{ Form::select('academic_institute_id', $institutes, $education->academic_institute_id, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                            {{ Form::select('academic_institute_id', $institutes, $education->academic_institute_id,
+                                            ['class' => 'select2 form-control instituteSelection', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>'Please Select Institute']) }}
 
                                             <div class="help-block"></div>
                                         </div>
@@ -151,8 +146,10 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('academic_department_id', 'Department/Section/Group', ['class' => 'required']) }}
-                                        {{ Form::select('academic_department_id',  $academicDepartments, $education->academic_department_id, ['class' => 'select2 academicDepartmentSelect form-control', 'placeholder' => 'Please select department/section/group', 'data-validation-required-message'=>'Please enter department name']) }}
+                                        {{ Form::label('academic_department_id', trans('hrm::education.department_section_group'), ['class' => 'required']) }}
+                                        {{ Form::select('academic_department_id',  $academicDepartments, $education->academic_department_id,
+                                        ['class' => 'select2 academicDepartmentSelect form-control', 'placeholder' => trans('labels.select'),
+                                        'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
@@ -160,16 +157,17 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('academic_degree_id', 'Degree Name') }}
-                                        {{ Form::select('academic_degree_id', $academicDegree, $education->academic_degree_id, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}
+                                        {{ Form::label('academic_degree_id', trans('hrm::education.degree_name'), ['class' => 'required']) }}
+                                        {{ Form::select('academic_degree_id', $academicDegree, $education->academic_degree_id,
+                                        ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => trans('labels.select'), 'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6 addDegreeSection">
                                     <div class="form-group ">
-                                        {{ Form::label('other_degree_name', 'Enter degree name') }}<br/>
-                                        {{ Form::text('other_degree_name',  null, ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => 'Enter Your degree Name']) }}
+                                        {{ Form::label('other_degree_name', trans('hrm::education.other_degree')) }}<br/>
+                                        {{ Form::text('other_degree_name',  null, ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => trans('labels.select')]) }}
 
                                         <div class="help-block"></div>
                                     </div>
@@ -183,12 +181,13 @@
                                 {{--</div>--}}
                                 <div class="col-md-6">
                                     <fieldset class="form-group">
-                                        {{ Form::label('passing_year', 'Passing Year') }}
+                                        {{ Form::label('passing_year', trans('hrm::education.passing_year'), ['class' => 'required']) }}
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ft-calendar"></i></span>
                                             </div>
-                                            {{ Form::text('passing_year',  $education->passing_year, ['class' => 'form-control datepicker-default ', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+                                            {{ Form::text('passing_year',  $education->passing_year, ['class' => 'form-control DatePicker ',
+                                            'placeholder' => 'Pick the date', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
                                             <div class="help-block"></div>
                                         </div>
@@ -197,28 +196,30 @@
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('medium', 'Medium') }}
-                                        {{ Form::select('medium', Config('constants.employee_education_medium'),  $education->medium, ['class' => 'form-control']) }}
+                                        {{ Form::label('medium', trans('hrm::education.medium')) }}
+                                        {{ Form::select('medium', Config('constants.employee_education_medium'),  $education->medium, ['class' => 'form-control', 'placeholder' =>trans('labels.select')    ]) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('duration', 'Duration') }}
-                                        {{ Form::select('duration', $academicDurations, $education->duration, ['class' => 'form-control', 'placeholder' =>'Please Select duration', 'data-validation-required-message'=>'Please enter course duration']) }}
+                                        {{ Form::label('duration', trans('hrm::education.duration'), ['class' => 'required']) }}
+                                        {{ Form::select('duration', $academicDurations, $education->duration,
+                                        ['class' => 'form-control', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('result', 'Result') }}
-                                        {{ Form::text('result',  $education->result, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division', 'data-validation-required-message'=>'Please enter result']) }}
+                                        {{ Form::label('result', trans('hrm::education.result'), ['class' => 'required']) }}
+                                        {{ Form::text('result',  $education->result,
+                                        ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        {{ Form::label('achievement', 'Achievement') }}
+                                        {{ Form::label('achievement', trans('hrm::education.achievement')) }}
                                         {{ Form::text('achievement',  $education->achievement, ['class' => 'form-control', 'placeholder' => 'eg. President Gold Madel']) }}
                                     </div>
                                 </div>
@@ -232,7 +233,7 @@
                             <div class="form-group col-sm-12 col-md-2 mt-2">
                                 <button type="button" class="btn btn-danger" data-repeater-delete=""><i
                                             class="ft-x"></i>
-                                    Remove
+                                  @lang('labels.remove')
                                 </button>
                             </div>
                         </div>
@@ -245,15 +246,16 @@
             <div data-repeater-item="">
                 <div class="row">
                     {{--<form class="form">--}}
-
                     <div class=" col-md-10">
                         <div class="row">
                             <div class="col-md-6">
                                 <section class="basic-select2">
                                     <div class="form-group">
-                                        {{ Form::label('academic_institute_id', 'Select Your Institute ', ['class' => 'required']) }}
+                                        {{ Form::label('academic_institute_id', trans('hrm::education.institute_name'), ['class' => 'required']) }}
                                         <br/>
-                                        {{ Form::select('academic_institute_id', $institutes, null, ['class' => 'select2 form-control instituteSelection', 'placeholder' =>'Please select institute', 'data-validation-required-message'=>'Please Select Institute']) }}
+                                        {{ Form::select('academic_institute_id', $institutes, null,
+                                        ['placeholder' =>trans('labels.select'), 'class' => 'select2 form-control instituteSelection',
+                                         'data-validation-required-message'=> trans('labels.This field is required')]) }}
 
                                         <div class="help-block"></div>
                                     </div>
@@ -261,25 +263,30 @@
                             </div>
                             <div class="col-md-6 addOtherInstitute">
                                 <div class="form-group ">
-                                    {{ Form::label('other_institute_name', 'Enter Your Institute Name') }}<br/>
-                                    {{ Form::text('other_institute_name',  null, ['id'=>'', 'class' => 'addInstituteInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
+                                    {{ Form::label('other_institute_name', trans('hrm::education.other_institute_name')) }}
+                                    <br/>
+                                    {{ Form::text('other_institute_name',  null,
+                                    ['placeholder' =>trans('labels.select'),'id'=>'', 'class' => 'addInstituteInput form-control']) }}
 
                                     <div class="help-block"></div>
                                 </div>
-                            </div>
 
+                            </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('academic_department_id', 'Department/Section/Group', ['class' => 'required']) }}
-                                    {{ Form::select('academic_department_id',  $academicDepartments, null, ['class' => 'select2 academicDepartmentSelect form-control', 'placeholder' => 'Please select department/section/group', 'data-validation-required-message'=>'Please enter department name']) }}
+                                    {{ Form::label('academic_department_id', trans('hrm::education.department_section_group'), ['class' => 'required']) }}
+                                    {{ Form::select('academic_department_id',  $academicDepartments, null,
+                                     ['placeholder' =>trans('labels.select'),'class' => 'select2 academicDepartmentSelect form-control',
+                                     'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6 addDepartmentSection">
                                 <div class="form-group ">
-                                    {{ Form::label('other_department_name', 'Enter Your Department/section/group Name') }}
+                                    {{ Form::label('other_department_name', trans('hrm::education.other_department')) }}
                                     <br/>
-                                    {{ Form::text('other_department_name',  null, ['id'=>'', 'class' => 'addDepartmentInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
+                                    {{ Form::text('other_department_name',  null,
+                                    ['id'=>'', 'class' => 'addDepartmentInput form-control', 'placeholder' => 'Enter Your Institute Name']) }}
 
                                     <div class="help-block"></div>
                                 </div>
@@ -287,77 +294,90 @@
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('academic_degree_id', 'Degree Name') }}
-                                    {{ Form::select('academic_degree_id', $academicDegree, null, ['class' => 'select2 form-control academicDegreeSelect', 'placeholder' => 'Select Academic Degree', 'data-validation-required-message'=>'Please select degree name']) }}
+                                    {{ Form::label('academic_degree_id', trans('hrm::education.degree_name'), ['class' => 'required']) }}
+                                    {{ Form::select('academic_degree_id', $academicDegree, null,
+                                    ['placeholder' =>trans('labels.select'),'class' => 'select2 form-control academicDegreeSelect',
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 addDegreeSection">
                                 <div class="form-group ">
-                                    {{ Form::label('other_degree_name', 'Enter degree name') }}<br/>
-                                    {{ Form::text('other_degree_name',  null, ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => 'Enter Your degree Name']) }}
+                                    {{ Form::label('other_degree_name', trans('hrm::education.other_degree')) }}<br/>
+                                    {{ Form::text('other_degree_name',  null,
+                                    ['id'=>'', 'class' => 'addDegreeInput form-control', 'placeholder' => 'Enter Your degree Name']) }}
 
                                     <div class="help-block"></div>
                                 </div>
                             </div>
 
+
                             <div class="col-md-6">
+
+
                                 <fieldset class="form-group">
-                                    {{ Form::label('passing_year', 'Passing Year') }}
+                                    {{ Form::label('passing_year', trans('hrm::education.passing_year'), ['class' => 'required'] ) }}
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="ft-calendar"></i></span>
                                         </div>
-                                        {{ Form::text('passing_year',  null, ['class' => 'form-control datepicker-default ', 'placeholder' => '', 'data-validation-required-message'=>'Please enter passing year']) }}
+
+                                        {{ Form::text('passing_year',  null,
+                                        ['class' => 'form-control DatePicker ', 'placeholder' => 'Pick the date',
+                                        'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
                                         <div class="help-block"></div>
                                     </div>
                                 </fieldset>
                             </div>
+
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('medium', 'Medium') }}
-                                    {{ Form::select('medium', Config('constants.employee_education_medium'),  null, ['class' => 'form-control']) }}
+                                    {{ Form::label('medium',  trans('hrm::education.medium')) }}
+                                    {{ Form::select('medium', Config('constants.employee_education_medium'),  null,
+                                    ['placeholder' =>trans('labels.select'),'class' => 'form-control']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('duration', 'Duration') }}
-                                    {{ Form::select('duration',  $academicDurations, null, ['class' => 'form-control', 'placeholder' =>'select duration', 'data-validation-required-message'=>'Please select course duration']) }}
+                                    {{ Form::label('duration',  trans('hrm::education.duration'), ['class' => 'required']) }}
+                                    {{ Form::select('duration',  $academicDurations, null,
+                                    ['placeholder' =>trans('labels.select'),'class' => 'form-control',
+                                    'data-validation-required-message'=> trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('result', 'Result') }}
-                                    {{ Form::text('result',  null, ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division', 'data-validation-required-message'=>'Please enter result']) }}
+                                    {{ Form::label('result',  trans('hrm::education.result'), ['class' => 'required']) }}
+                                    {{ Form::text('result',  null,
+                                    ['class' => 'form-control', 'placeholder' => trans('labels.select'),
+                                    'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    {{ Form::label('achievement', 'Achievement') }}
+                                    {{ Form::label('achievement',  trans('hrm::education.achievement')) }}
                                     {{ Form::text('achievement',  null, ['class' => 'form-control', 'placeholder' => 'eg. President Gold Madel']) }}
                                 </div>
                             </div>
                             {{ Form::hidden('employee_id', $employee->id, ['class' =>'EmployeeId']) }}
+
                             <hr>
                         </div>
                     </div>
-
                     <div class=" col-md-2">
                         <div class="form-group col-sm-12 col-md-2 mt-2">
-                            <button type="button" class="btn btn-danger" data-repeater-delete=""><i
-                                        class="ft-x"></i>
-                                Remove
+                            <button type="button" class="btn btn-danger" data-repeater-delete=""><i class="ft-x"></i>
+                                @lang('labels.remove')
                             </button>
                         </div>
                     </div>
                 </div>
                 <hr style="border-bottom: 1px solid #1E9FF2">
-
             </div>
         @endif
     </div>
@@ -365,14 +385,14 @@
 
 
     <div class="col-md-12">
-        <button type="button" data-repeater-create="" class="btn btn-primary addMore"><i class="ft-plus"></i> Add More
+        <button type="button" data-repeater-create="" class="btn btn-primary addMore"><i class="ft-plus"></i> @lang('labels.add_more')
         </button>
     </div>
     <div class="form-actions col-md-12 ">
         <div class="pull-right">
-            {{ Form::button('<i class="la la-check-square-o"></i> Save', ['type' => 'submit', 'id' => 'SubmitButton', 'class' => 'btn btn-primary'] )  }}
+            {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['type' => 'submit', 'id' => 'SubmitButton', 'class' => 'btn btn-primary'] )  }}
             <a href="{{ url('/hrm/employee') }}">
-                <button type="button" class="btn btn-warning mr-1"><i class="la la-times"></i> Cancel</button>
+                <button type="button" class="btn btn-warning mr-1"><i class="la la-times"></i> @lang('labels.cancel')</button>
             </a>
         </div>
     </div>
@@ -418,6 +438,23 @@
                 } else {
                     $(".addDegreeSection").hide();
 
+                }
+            });
+            $('.education-repeater').repeater({
+                show: function () {
+                    $(this).find('.select2-container').remove();
+                    $(this).find('select').select2({
+                        placeholder: selectPlaceholder
+                    });
+
+                    // remove error span
+                    $('div:hidden[data-repeater-item]')
+                        .find('input.is-invalid, select.is-invalid')
+                        .each((index, element) => {
+                            $(element).removeClass('is-invalid');
+                        });
+
+                    $(this).slideDown();
                 }
             });
         })

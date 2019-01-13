@@ -3,33 +3,39 @@
         <tbody>
 
         <tr>
-            <th scope="col">Institute name</th>
+            <th scope="col">@lang('hrm::education.institute_name')</th>
             <td>{{ $education->institutes->name}}</td>
         </tr>
         <tr>
-            <th scope="col">Department/Section/Group</th>
+            <th scope="col">@lang('hrm::education.department_section_group')</th>
+
             <td>{{ $education->academicDepartments->name}}</td>
         </tr>
         <tr>
-            <th scope="col">Degree name</th>
+            <th scope="col">@lang('hrm::education.degree_name')</th>
+
             <td>{{ $education->academicDegree->name}}</td>
         </tr>
 
 
         <tr>
-            <th scope="col">Passing year</th>
+            <th scope="col">@lang('hrm::education.passing_year')</th>
+
             <td>{{ $education->passing_year}}</td>
         </tr>
         <tr>
-            <th scope="col">Medium</th>
+            <th scope="col">@lang('hrm::education.medium')</th>
+
             <td>{{ $education->medium}}</td>
         </tr>
         <tr>
-            <th scope="col">Result</th>
+            <th scope="col">@lang('hrm::education.result')</th>
+
             <td>{{ $education->result}}</td>
         </tr>
         <tr>
-            <th scope="col">Achievement</th>
+            <th scope="col">@lang('hrm::education.achievement')</th>
+
             <td>{{ $education->achievement}}</td>
         </tr>
 
