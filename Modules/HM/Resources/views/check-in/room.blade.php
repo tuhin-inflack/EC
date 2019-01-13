@@ -92,12 +92,6 @@
 </div>
 @push('page-js')
     <script type="text/javascript">
-        $('#selectionModal').on('show.bs.modal', function (event) {
-            alert('gg');
-            var td = $(event.relatedTarget);// td that triggered the modal
-            var roomId = td.data('roomid');
-            $('#room-id').val(roomId);
-        });
         $(document).ready(function () {
             $('#add-room').on('click', function () {
                 var roomDetails = [];
@@ -107,7 +101,6 @@
                 }).get().join(',');
                 $('.room-numbers').val(rooms);
                 $('.rooms').val(roomDetails.toString());
-                console.log(roomDetails);
                 $('#selectionModal').modal('hide');
             });
         });
