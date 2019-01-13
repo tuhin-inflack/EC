@@ -88,5 +88,8 @@ return [
     'edit_it' => 'এটা সম্পাদনা করুন',
     'select_refferer' => 'রেফারার নির্বাচন করুন',
     'create_booking_request' => 'বুকিং অনুরোধ তৈরি করুন',
-
+    'relation_family' => 'পরিবার',
+    'relation_friend' => 'বন্ধু',
+    'relation_coworker' => 'সহকারী',
+    'relation_trainee' => 'শিক্ষানবিস',
 ];

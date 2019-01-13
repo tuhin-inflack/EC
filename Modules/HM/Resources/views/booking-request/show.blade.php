@@ -203,7 +203,7 @@
                                                     <td>{{ $guestInfo->age }}</td>
                                                     <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
                                                     <td>{{ $guestInfo->address }}</td>
-                                                    <td>{{ $guestInfo->relation }}</td>
+                                                    <td>{{ trans('hm::booking-request.relation_' . $guestInfo->relation) }}</td>
                                                     <td>{{ $guestInfo->nid_no }}</td>
                                                 </tr>
                                             @endforeach

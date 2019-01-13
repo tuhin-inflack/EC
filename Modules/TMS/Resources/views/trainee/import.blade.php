@@ -54,7 +54,8 @@
                                         </button> {{trans('tms::training.trainee_full')}}
                                     </div>
                                 @endif
-                                @if((sizeof($traineeList) && !sizeof($traineeListErr)) && ($training->no_of_trainee > ($traineeCount + count($traineeList))))
+
+                                @if((sizeof($traineeList) && !sizeof($traineeListErr)) && ($training->no_of_trainee >= ($traineeCount + count($traineeList))))
                                     <button class="btn btn-success" type="submit" name="import_trainee"><i class="ft ft-upload" aria-hidden="true"></i> {{trans('tms::training.save_imported')}}</button>
                                 @endif
                             </center>
