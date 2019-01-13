@@ -188,10 +188,9 @@
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required"
-                                           for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
+                                    <label class="required" for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                     <br>
-                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required Quantity', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.rate') }}</label>
@@ -225,10 +224,11 @@
         @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
-                <button type="button" data-repeater-create=""
+                <button type="button" data-repeater-create="" id="add_more_room"
                         class="pull-right btn btn-sm btn-outline-primary">
                     <i class="ft-plus"></i> @lang('labels.add')
                 </button>
+                <button id="testData" type="button">Test</button>
             </div>
         </div>
     </div>
