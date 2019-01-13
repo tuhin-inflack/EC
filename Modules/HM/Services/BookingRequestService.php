@@ -19,6 +19,7 @@ use Modules\HM\Entities\BookingCheckin;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\CheckinRoom;
+use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
@@ -72,15 +73,12 @@ class BookingRequestService
 
             if ($type == 'checkin' && isset($data['booking_id'])) {
                 BookingCheckin::create(['checkin_id' => $roomBooking->id, 'booking_id' => (int)$data['booking_id']]);
-//                $roomBooking->booking()->save($bookingCheckin);
             }
             if ($type == 'checkin' && isset($data['room_numbers'])) {
                 $this->saveRoomNumbers($roomBooking, $data['room_numbers']);
             }
             if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])
-//                    ->cc($moreUsers)
-//                    ->bcc($evenMoreUsers)
                     ->send(new BookingRequestMail($roomBooking));
             }
             return $roomBooking;
@@ -248,5 +246,50 @@ class BookingRequestService
     public function pluckTrainingTitleBookingIdForApprovedBooking()
     {
         return $this->roomBookingRepository->pluckTrainingTitleBookingId();
+    }
+
+    public function updateStatus(RoomBooking $roomBooking, array $data)
+    {
+        $collectionOfBookedRooms = collect();
+
+        $oldRoomBookings = RoomBooking::whereDate('end_date', '>', $roomBooking->start_date)
+            ->join('booking_checkin', 'booking_checkin.booking_id', '!=', 'room_bookings.id')
+            ->select('room_bookings.*')
+            ->get();
+
+        $oldRoomBookings->each(function ($booking) use ($collectionOfBookedRooms) {
+            if ($booking->type == 'checkin') {
+                $booking->rooms->each(function ($checkedinRoom) use ($collectionOfBookedRooms) {
+                    $collectionOfBookedRooms->push(['room_type_id' => $checkedinRoom->room->room_type_id, 'quantity' => 1]);
+                });
+            } else {
+                $booking->roomInfos->each(function ($roomInfo) use ($collectionOfBookedRooms) {
+                    $collectionOfBookedRooms->push($roomInfo);
+                });
+            }
+        });
+
+        $sumOfBookedRoomTypes = $collectionOfBookedRooms->groupBy('room_type_id')->map(function ($roomInfos) {
+            return $roomInfos->sum('quantity');
+        });
+
+        $rooms = Room::all();
+        $totalRoomsByRoomType = $rooms->groupBy('room_type_id')->map(function ($rooms) {
+            return $rooms->count();
+        });
+
+        $requestedRoomsByRoomTypes = $roomBooking->roomInfos->groupBy('room_type_id')->map(function ($roomInfos) {
+            return $roomInfos->sum('quantity');
+        });
+
+        foreach ($requestedRoomsByRoomTypes as $roomTypeId => $quantity) {
+            if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes)) {
+                $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
+            } else {
+                $availableRooms = $totalRoomsByRoomType[$roomTypeId];
+            }
+        }
+        dd('test');
+        return $this->update($roomBooking, $data);
     }
 }
