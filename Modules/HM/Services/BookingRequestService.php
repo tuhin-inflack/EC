@@ -13,13 +13,13 @@ use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\BookingCheckin;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\CheckinRoom;
-use Modules\HM\Entities\Room;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
@@ -37,19 +37,31 @@ class BookingRequestService
     private $bookingGuestInfoRepository;
     private $roomBookingRequesterRepository;
     private $roomService;
+    /**
+     * @var RoomTypeService
+     */
+    private $roomTypeService;
 
     /**
      * BookingRequestService constructor.
      * @param RoomBookingRepository $roomBookingRepository
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
+     * @param RoomTypeService $roomTypeService
+     * @param RoomService $roomService
      */
-    public function __construct(RoomBookingRepository $roomBookingRepository, BookingGuestInfoRepository $bookingGuestInfoRepository,
-                                RoomBookingRequesterRepository $roomBookingRequesterRepository, RoomService $roomService)
+    public function __construct(
+        RoomBookingRepository $roomBookingRepository,
+        BookingGuestInfoRepository $bookingGuestInfoRepository,
+        RoomBookingRequesterRepository $roomBookingRequesterRepository,
+        RoomTypeService $roomTypeService,
+        RoomService $roomService
+    )
     {
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
+        $this->roomTypeService = $roomTypeService;
         $this->roomService = $roomService;
         $this->setActionRepository($roomBookingRepository);
     }
@@ -250,13 +262,18 @@ class BookingRequestService
 
     public function updateStatus(RoomBooking $roomBooking, array $data)
     {
+        if ($this->checkRoomsAvailability($roomBooking)) {
+            return $this->update($roomBooking, $data);
+        }
+    }
+
+    /**
+     * @param $oldRoomBookings
+     * @return \Illuminate\Support\Collection
+     */
+    private function getBookedRooms($oldRoomBookings): \Illuminate\Support\Collection
+    {
         $collectionOfBookedRooms = collect();
-
-        $oldRoomBookings = RoomBooking::whereDate('end_date', '>', $roomBooking->start_date)
-            ->join('booking_checkin', 'booking_checkin.booking_id', '!=', 'room_bookings.id')
-            ->select('room_bookings.*')
-            ->get();
-
         $oldRoomBookings->each(function ($booking) use ($collectionOfBookedRooms) {
             if ($booking->type == 'checkin') {
                 $booking->rooms->each(function ($checkedinRoom) use ($collectionOfBookedRooms) {
@@ -264,32 +281,59 @@ class BookingRequestService
                 });
             } else {
                 $booking->roomInfos->each(function ($roomInfo) use ($collectionOfBookedRooms) {
-                    $collectionOfBookedRooms->push($roomInfo);
+                    $collectionOfBookedRooms->push(['room_type_id' => $roomInfo->room_type_id, 'quantity' => $roomInfo->quantity]);
                 });
             }
         });
+        return $collectionOfBookedRooms;
+    }
+
+    /**
+     * @param $rooms
+     * @return mixed
+     */
+    private function getTotalRoomsByRoomType()
+    {
+        $rooms = $this->roomService->findAll();
+
+        $totalRoomsByRoomType = $rooms->groupBy('room_type_id')->map(function ($rooms) {
+            return $rooms->count();
+        });
+        return $totalRoomsByRoomType;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @return bool
+     */
+    private function checkRoomsAvailability(RoomBooking $roomBooking): bool
+    {
+        $oldRoomBookings = $this->roomBookingRepository->getOldRoombookings($roomBooking);
+
+        $collectionOfBookedRooms = $this->getBookedRooms($oldRoomBookings);
 
         $sumOfBookedRoomTypes = $collectionOfBookedRooms->groupBy('room_type_id')->map(function ($roomInfos) {
             return $roomInfos->sum('quantity');
         });
 
-        $rooms = Room::all();
-        $totalRoomsByRoomType = $rooms->groupBy('room_type_id')->map(function ($rooms) {
-            return $rooms->count();
-        });
+        $totalRoomsByRoomType = $this->getTotalRoomsByRoomType();
 
         $requestedRoomsByRoomTypes = $roomBooking->roomInfos->groupBy('room_type_id')->map(function ($roomInfos) {
             return $roomInfos->sum('quantity');
         });
 
         foreach ($requestedRoomsByRoomTypes as $roomTypeId => $quantity) {
-            if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes)) {
+            if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
                 $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
             } else {
                 $availableRooms = $totalRoomsByRoomType[$roomTypeId];
             }
+
+            if ($quantity > $availableRooms) {
+                Session::flash('error', 'Not enough rooms of ' . $this->roomTypeService->findOne($roomTypeId)->name);
+                return false;
+            }
         }
-        dd('test');
-        return $this->update($roomBooking, $data);
+        return true;
     }
 }
