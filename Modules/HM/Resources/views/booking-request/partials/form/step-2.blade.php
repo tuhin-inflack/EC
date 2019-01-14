@@ -96,7 +96,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.email') }}</label>
-                    {!! Form::email('email', $page == 'create' ? old('email') : $roomBooking->requester->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'john@example.com', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At least 50 characters')]) !!}
+                    {!! Form::email('email', $page == 'create' ? old('email') : $roomBooking->requester->email, ['class' => 'form-control' . ($errors->has('email') ? ' is-invalid' : ''), 'placeholder' => 'john@example.com', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At least 50 characters'), 'data-msg-email' => trans('labels.Please enter a valid email address')]) !!}
 
                     @if ($errors->has('email'))
                         <span class="invalid-feedback" role="alert">

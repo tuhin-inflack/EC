@@ -115,6 +115,7 @@ return [
     'At least 50 characters' => 'অন্তত 50 অক্ষর',
     'At most 11 characters' => 'সর্বাধিক 11 অক্ষর',
     'At most 10 characters' => 'সর্বাধিক 10 অক্ষর',
+    'Please enter a valid email address' => 'বৈধ ইমেইল ঠিকানা লিখুন',
     'User list' => 'ব্যবহারকারীর তালিকা',
     'User create' => 'ব্যবহারকারী তৈরি করুন',
     'optional' => 'ঐচ্ছিক',
