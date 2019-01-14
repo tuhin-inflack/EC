@@ -19,7 +19,7 @@ class RolePolicy
      */
     public function view(User $user)
     {
-        return true;
+        return $user->hasPermission('view', 'Role');
     }
 
     /**
@@ -80,6 +80,7 @@ class RolePolicy
     {
         return true;
     }
+
 
     public function before($user, $ability)
     {

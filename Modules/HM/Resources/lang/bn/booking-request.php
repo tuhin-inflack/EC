@@ -21,6 +21,7 @@ return [
     'booking_type' => 'বুকিং টাইপ',
     'checkin_type' => 'চেকইন টাইপ',
     'general' => 'সাধারন',
+    'venue' => 'ভেন্যু',
     'training' => 'প্রশিক্ষণ',
     'room_details' => 'রুম বিস্তারিত',
     'room_type' => 'ঘরের বিবরণ',
