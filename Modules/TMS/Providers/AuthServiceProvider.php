@@ -5,8 +5,7 @@ namespace Modules\TMS\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Modules\TMS\Policies\TrainingPolicy;
 use Modules\TMS\Entities\Training;
-use App\Entities\User;
-
+use Modules\TMS\Entities\Trainee;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -18,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     //protected $defer = false;
     protected $policies = [
         Training::class => TrainingPolicy::class,
+        Trainee::class => TrainingPolicy::class,
         ];
 
     /**
@@ -27,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerPolicies();
         //
     }
     /**
