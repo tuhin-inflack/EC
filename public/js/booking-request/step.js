@@ -5,14 +5,14 @@ function setRequesterAsGuest() {
     let address = $('textarea[name=address]').val();
     let gender = $('input[type=radio][name=gender]').val();
     let nid = $('input[name=nid]').val();
-    
+
     let $guestInfoRepeater = $('.repeater-guest-information').show();
     let $addMoreGuestBtn = $guestInfoRepeater.find('button[data-repeater-create]').show();
-    
+
     if (!$guestInfoRepeater.has('div[data-repeater-item]').length) {
         $addMoreGuestBtn.click();
     }
-    
+
     $('input[name="guests[0][first_name]"]').val(firstName);
     $('input[name="guests[0][middle_name]"]').val(middleName);
     $('input[name="guests[0][last_name]"]').val(lastName);
@@ -33,13 +33,13 @@ function renderRoomInfos() {
         <td>${Number.parseFloat(roomInfo.rate.split('_')[1] * roomInfo.quantity).toFixed(2)}</td>
         </tr>`;
     });
-    
+
     $('#billing-table').find('tbody').html(roomInfoRows);
 }
 
 function renderRequesterInfo() {
     $('#primary-contact-name').html($('input[name=first_name]').val() + ' ' + $('input[name=middle_name]').val()
-    + ' ' + $('input[name=last_name]').val());
+        + ' ' + $('input[name=last_name]').val());
     $('#primary-contact-contact').html($('#primary-contact-contact-input').val());
     $('#start_date_display').html($('#start_date').val());
     $('#end_date_display').html($('#end_date').val());
@@ -84,10 +84,99 @@ $('.booking-request-tab-steps').steps({
                 alert('Please select room details');
                 return false;
             }
+            // added by sumon mahmud
+
+
+            // capturing data from matrix
+            var selectedRoomTypeNumberFromMatrix = {};
+            var allSelectedRoom = [];
+            $('.ck-rooms:checked').map(function () {
+                allSelectedRoom.push($(this).data('roomType'));
+                return this.value;
+            });
+
+            //making array of same type counter value
+            allSelectedRoom.forEach(function (i) {
+                selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;
+            });
+
+            // counting the total number of room taken from input
+            var totalSelectedRoomFromMatrix = 0;
+            for (var i in selectedRoomTypeNumberFromMatrix) {
+                totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
+            }
+
+            // Capturing data from repetitive form
+            var data = $('.repeater-room-infos').repeaterVal('roomInfos');
+            var roomInfoFromInput = data['roomInfos'];
+
+            // counting the total number of room taken from input
+            var totalRoomSelectedFromInput = 0;
+            for (i = 0; i < roomInfoFromInput.length; i++) {
+                totalRoomSelectedFromInput += Number(roomInfoFromInput[i]['quantity']);
+            }
+
+            // console.log(selectedRoomTypeNumberFromMatrix);
+
+            // Checking validation
+            var validationStatus = false;
+            if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {
+                min = totalRoomSelectedFromInput - totalSelectedRoomFromMatrix;
+                $('#validationError').html('Upnak aro ' + min + ' ta room select korte hobe');
+                $('#validationError').show();
+
+            } else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {
+                min = totalSelectedRoomFromMatrix - totalRoomSelectedFromInput;
+                $('#validationError').html(min + ' ta room besi select kore felsen');
+            } else {
+
+
+                for (i = 0; i < roomInfoFromInput.length; i++) {
+                    var singleRoom = roomInfoFromInput[i];
+                    roomTypeIdFromForm = singleRoom['room_type_id'];
+                    roomQuantity = Number(singleRoom['quantity']);
+                    // console.log("Room Type " + roomTypeIdFromForm + " Selected #" +  roomQuantity)
+
+
+                    if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {
+
+                        roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);
+                        console.log('from matrix' + roomCountFromMatrix)
+                        console.log('from input' + roomQuantity)
+
+
+                        if (roomCountFromMatrix > roomQuantity) {
+                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');
+                            return;
+                        } else if (roomCountFromMatrix < roomQuantity) {
+                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');
+                            return;
+                        } else {
+                            validationStatus = true;
+                        }
+                    } else {
+                        $('#validationError').html('Upnak ' + room_type_names[roomTypeIdFromForm] + ' room select korte hobe upni onno room select korecen');
+                        return;
+                    }
+                }
+
+            }
+            if (!validationStatus) {
+                return false;
+                $('#validationError').show();
+            }else{
+                $('#validationError').hide();
+            }
+            // console.log(selectedRoomTypeNumberFromMatrix)
+
+
+            // end sumon mahmud
+
+
         }
         if (newIndex == 2) {
             let trainingId = $('select[name=training_id]').val();
-            
+
             if (!trainingId) {
                 $('.trainee-list').find('table').remove();
                 setRequesterAsGuest();
@@ -96,9 +185,9 @@ $('.booking-request-tab-steps').steps({
         if (newIndex == 3) {
             // render summary
             renderRoomInfos();
-            
+
             renderRequesterInfo();
-            
+
             let hasGuestInfo = $('.repeater-guest-information').has('div[data-repeater-item]').length >= 1;
             if (hasGuestInfo) {
                 $('.guests-info-div').show();
@@ -106,7 +195,7 @@ $('.booking-request-tab-steps').steps({
             } else {
                 // $('.guests-info-div').hide();
             }
-            
+
             let isReferencePresent = $('#referee-select').val();
             if (isReferencePresent) {
                 $('.bard-referee-summary-div').show();

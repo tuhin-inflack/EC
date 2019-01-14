@@ -219,8 +219,11 @@
                 <br>
                 {!! Form::text('room-show', null, ['class' => 'form-control required rooms',
                 'data-toggle'=>'modal', 'data-target' => '#selectionModal']) !!}
+
+                <div class="alert alert-danger col-md-6" id="validationError"></div>
                 <input type="hidden" class="room-numbers" name="room_numbers" value=""/>
             </div>
+
         @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
@@ -228,7 +231,6 @@
                         class="pull-right btn btn-sm btn-outline-primary">
                     <i class="ft-plus"></i> @lang('labels.add')
                 </button>
-                <button id="testData" type="button">Test</button>
             </div>
         </div>
     </div>

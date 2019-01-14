@@ -83,6 +83,7 @@
         let employees = JSON.parse('{!! json_encode($employees) !!}');
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
+        let room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');
 
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';

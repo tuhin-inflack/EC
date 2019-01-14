@@ -97,32 +97,116 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
-
-            $('#testData').on('click', function () {
-                var data = $('.repeater-room-infos').repeaterVal('roomInfos');
-                console.log(data['roomInfos']);
-            })
-
+            $('#validationError').hide();
             // -------------------
-
-
             $('#add-room').on('click', function () {
 
                 var roomDetails = [];
-                var test = [];
+
+                // allSelectedRoom variable capture the data which selected by input form
+                // var allSelectedRoom = [];
                 var rooms = $('.ck-rooms:checked').map(function () {
                     roomDetails.push($(this).data('rmn'));
-                    test.push($(this).data('roomType'));
+                    // allSelectedRoom.push($(this).data('roomType'));
                     return this.value;
                 }).get().join(',');
                 $('.room-numbers').val(rooms);
                 $('.rooms').val(roomDetails.toString());
                 $('#selectionModal').modal('hide');
 
-                // console.log($('.ck-rooms:checked'));
-                console.log(test);
+                // counting the number of room & room type and making an array
+
 
             });
+
+            {{--$('#testData').on('click', function () {--}}
+
+                {{--var room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');--}}
+
+                {{--// capturing data from matrix--}}
+                {{--var selectedRoomTypeNumberFromMatrix = {};--}}
+                {{--var allSelectedRoom = [];--}}
+                {{--$('.ck-rooms:checked').map(function () {--}}
+                    {{--allSelectedRoom.push($(this).data('roomType'));--}}
+                    {{--return this.value;--}}
+                {{--});--}}
+
+                {{--//making array of same type counter value--}}
+                {{--allSelectedRoom.forEach(function (i) {--}}
+                    {{--selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;--}}
+                {{--});--}}
+
+                {{--// counting the total number of room taken from input--}}
+                {{--var totalSelectedRoomFromMatrix = 0;--}}
+                {{--for (var i in selectedRoomTypeNumberFromMatrix) {--}}
+                    {{--totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];--}}
+                {{--}--}}
+
+                {{--// Capturing data from repetitive form--}}
+                {{--var data = $('.repeater-room-infos').repeaterVal('roomInfos');--}}
+                {{--var roomInfoFromInput = data['roomInfos'];--}}
+
+                {{--// counting the total number of room taken from input--}}
+                {{--var totalRoomSelectedFromInput = 0;--}}
+                {{--for (i = 0; i < roomInfoFromInput.length; i++) {--}}
+                    {{--totalRoomSelectedFromInput += Number(roomInfoFromInput[i]['quantity']);--}}
+                {{--}--}}
+
+                {{--// console.log(selectedRoomTypeNumberFromMatrix);--}}
+
+                {{--// Checking validation--}}
+
+                {{--if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {--}}
+                    {{--min = totalRoomSelectedFromInput - totalSelectedRoomFromMatrix;--}}
+                    {{--$('#validationError').html('Upnak aro ' + min + ' ta room select korte hobe');--}}
+                    {{--$('#validationError').show();--}}
+                {{--} else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {--}}
+                    {{--min = totalSelectedRoomFromMatrix - totalRoomSelectedFromInput;--}}
+                    {{--$('#validationError').html(min + ' ta room besi select kore felsen');--}}
+                    {{--$('#validationError').show();--}}
+                {{--} else {--}}
+                    {{--var validationStatus = false;--}}
+
+                    {{--for (i = 0; i < roomInfoFromInput.length; i++) {--}}
+                        {{--var singleRoom = roomInfoFromInput[i];--}}
+                        {{--roomTypeIdFromForm = singleRoom['room_type_id'];--}}
+                        {{--roomQuantity = Number(singleRoom['quantity']);--}}
+                        {{--// console.log("Room Type " + roomTypeIdFromForm + " Selected #" +  roomQuantity)--}}
+
+
+                        {{--if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {--}}
+
+                            {{--roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);--}}
+                            {{--console.log('from matrix' + roomCountFromMatrix)--}}
+                            {{--console.log('from input' + roomQuantity)--}}
+
+
+                            {{--if (roomCountFromMatrix > roomQuantity) {--}}
+                                {{--$('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');--}}
+                                {{--$('#validationError').show();--}}
+                                {{--return;--}}
+                            {{--} else if (roomCountFromMatrix < roomQuantity) {--}}
+                                {{--$('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');--}}
+                                {{--$('#validationError').show();--}}
+                                {{--return;--}}
+                            {{--} else {--}}
+                                {{--$('#validationError').html('');--}}
+                                {{--$('#validationError').hide();--}}
+                            {{--}--}}
+                        {{--} else {--}}
+                            {{--$('#validationError').html('Upnak ' + room_type_names[roomTypeIdFromForm] + ' room select korte hobe upni onno room select korecen');--}}
+                            {{--$('#validationError').show();--}}
+                            {{--return;--}}
+                        {{--}--}}
+                    {{--}--}}
+                    {{--if (validationStatus) {--}}
+                        {{--$('#validationError').html('');--}}
+                    {{--}--}}
+                {{--}--}}
+                {{--// console.log(selectedRoomTypeNumberFromMatrix)--}}
+
+
+            {{--})--}}
         });
 
     </script>
