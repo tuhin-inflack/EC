@@ -72,8 +72,6 @@
 </div>
 </div>
 {!! Form::close() !!}
-{{--<form action="#" class="dropzone dropzone-area" id="dpz-multiple-files">
-    <div class="dz-message">Drop Files Here To Upload</div>
-</form>--}}
+
 
 

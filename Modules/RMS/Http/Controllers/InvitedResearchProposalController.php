@@ -5,8 +5,11 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Entities\ResearchRequestAttachment;
+use Modules\RMS\Http\Requests\CreateDateExtendRequest;
+use Modules\RMS\Services\DateExtendRequestService;
 use Modules\RMS\Services\ResearchRequestService;
 
 /**
@@ -15,10 +18,12 @@ use Modules\RMS\Services\ResearchRequestService;
 class InvitedResearchProposalController extends Controller
 {
     private $researchRequestService;
+    private $dateExtendRequestService;
 
-    public function __construct(ResearchRequestService $researchRequestService)
+    public function __construct(ResearchRequestService $researchRequestService, DateExtendRequestService $dateExtendRequestService)
     {
         $this->researchRequestService = $researchRequestService;
+        $this->dateExtendRequestService = $dateExtendRequestService;
     }
 
     /**
@@ -55,7 +60,6 @@ class InvitedResearchProposalController extends Controller
      */
     public function show(ResearchRequest $researchRequest)
     {
-        /*return $researchRequest->researchRequestAttachments;*/
         return view('rms::proposal.invited.show', compact('researchRequest'));
     }
 
@@ -91,4 +95,18 @@ class InvitedResearchProposalController extends Controller
         $fileName = $researchRequestAttachment->attachments;
         return response()->download(storage_path($basePath . $fileName));
     }
+
+    public function requestDateExtend(ResearchRequest $researchRequest)
+    {
+        return view('rms::proposal.invited.date_extend_form', compact('researchRequest'));
+    }
+
+    /*Research Proposal date extend request store method*/
+    public function storeDateExtendRequest(CreateDateExtendRequest $request)
+    {
+        $this->dateExtendRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('invited-research-proposal.index');
+    }
+
 }

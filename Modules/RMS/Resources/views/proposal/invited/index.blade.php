@@ -26,7 +26,7 @@
                                     <tbody>
                                     @foreach($research_requests as $research_request)
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $research_request->title }}</td>
                                             <td>{{ substr($research_request->remarks, 0,50) }} {{ strlen($research_request->remarks)>50 ? "..." : "" }}</td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>

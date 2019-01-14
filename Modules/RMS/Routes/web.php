@@ -37,6 +37,8 @@ Route::prefix('rms')->group(function() {
         Route::get('/','InvitedResearchProposalController@index')->name('invited-research-proposal.index');
         Route::get('{researchRequest}','InvitedResearchProposalController@show')->name('invited-research-proposal.show');
         Route::get('file-download/{researchRequestAttachment}','InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
+        Route::get('{researchRequest}/request-date-extend','InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
+        Route::post('/','InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
     });
 
 });

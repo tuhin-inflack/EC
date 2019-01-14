@@ -33,7 +33,7 @@
                                     <tbody>
                                     @foreach($research_requests as $research_request)
                                         <tr>
-                                            <th scope="row">1</th>
+                                            <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $research_request->title }}</td>
                                             <td>{{ $research_request->remarks }}</td>
                                             <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
