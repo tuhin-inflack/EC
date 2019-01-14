@@ -84,6 +84,10 @@
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
         let room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');
+        let minimum = '{!! trans('hm::check_in.minimum') !!}';
+        let maximum = '{!! trans('hm::check_in.maximum') !!}';
+        let selection_message = '{!! trans('hm::check_in.selection_message') !!}';
+        let wrong_selection = '{!! trans('hm::check_in.wrong_selection') !!}';
 
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';

@@ -121,13 +121,12 @@ $('.booking-request-tab-steps').steps({
             // Checking validation
             var validationStatus = false;
             if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {
-                min = totalRoomSelectedFromInput - totalSelectedRoomFromMatrix;
-                $('#validationError').html('Upnak aro ' + min + ' ta room select korte hobe');
+                $('#validationError').html(minimum + " " + totalRoomSelectedFromInput + " " + selection_message);
                 $('#validationError').show();
 
             } else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {
-                min = totalSelectedRoomFromMatrix - totalRoomSelectedFromInput;
-                $('#validationError').html(min + ' ta room besi select kore felsen');
+                $('#validationError').html(maximum + " " + totalRoomSelectedFromInput + " " + selection_message);
+                $('#validationError').show();
             } else {
 
 
@@ -139,23 +138,19 @@ $('.booking-request-tab-steps').steps({
 
 
                     if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {
-
                         roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);
-                        console.log('from matrix' + roomCountFromMatrix)
-                        console.log('from input' + roomQuantity)
-
-
                         if (roomCountFromMatrix > roomQuantity) {
-                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');
+                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + " " + selection_message );
                             return;
                         } else if (roomCountFromMatrix < roomQuantity) {
-                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + ' ta select korte hobe ');
+                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity  + " " + selection_message);
                             return;
                         } else {
                             validationStatus = true;
                         }
                     } else {
-                        $('#validationError').html('Upnak ' + room_type_names[roomTypeIdFromForm] + ' room select korte hobe upni onno room select korecen');
+                        $('#validationError').html(wrong_selection + " ! " );
+                       $('#validationError').show();
                         return;
                     }
                 }
