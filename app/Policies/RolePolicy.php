@@ -19,6 +19,7 @@ class RolePolicy
      */
     public function view(User $user)
     {
+//        return $user->hasPermission('view', 'Role');
         return true;
     }
 

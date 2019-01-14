@@ -48,6 +48,24 @@
                             </div>
                         </li>
                     @endguest
+                        <?php
+                        $curr = App::getLocale();
+                        if(Session::has('locale')) {
+                            $curr = Session::get('locale');
+                        }
+                        $key = $curr=='bn' ? 'en':'bn';
+                        ?>
+                        <li class="nav-item"><a class="nav-link" href="{{url('/lang/'.$key)}}"
+                               title="Switch language"><strong>
+                                    <?php
+                                    if($key=='en') {
+                                        echo 'English';
+                                    } else {
+                                        echo 'বাংলা ';
+                                    }
+                                    ?>
+
+                                </strong></a></li>
                 </ul>
             </div>
         </div>
