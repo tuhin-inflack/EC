@@ -58,7 +58,7 @@
                 <div class="widget-content tab-content bg-white p-20">
                     @foreach($hostels as $hostel)
                         <div
-                            class="{{ 1 == $hostel->id ? 'active' : '' }} tab-pane hostel-{{ $hostel->id }}">
+                                class="{{ 1 == $hostel->id ? 'active' : '' }} tab-pane hostel-{{ $hostel->id }}">
                             <div class="table table-bordered text-center overflow-auto">
                                 <table>
                                     <tbody>
@@ -69,8 +69,11 @@
                                                 <td data-hostelid="{{$room->hostel_id}}" data-roomid="{{$room->id}}"
                                                     class="room-block {{$room->status}}"
                                                     title="{{'Status: '.$room->status}} {{'Capacity: '.$room->roomType->capacity}}">
-                                                    <input data-hosn="{{$hostel->name}}", data-rmn="{{$room->room_number}}"
-                                                           name="rooms" class="ck-rooms" value="{{$room->id}}" type="checkbox"/>
+                                                    <input data-hosn="{{$hostel->name}}" ,
+                                                           data-rmn="{{$room->room_number}}" name="rooms"
+                                                           class="ck-rooms" value="{{$room->id}}"
+                                                           data-room-type="{{$room->roomType->id}}"
+                                                           type="checkbox"/>
                                                     {{$room->room_number}}<br/>{{$room->roomType->name}}
                                                 </td>
                                             @endforeach
@@ -92,23 +95,33 @@
 </div>
 @push('page-js')
     <script type="text/javascript">
-        $('#selectionModal').on('show.bs.modal', function (event) {
-            alert('gg');
-            var td = $(event.relatedTarget);// td that triggered the modal
-            var roomId = td.data('roomid');
-            $('#room-id').val(roomId);
-        });
         $(document).ready(function () {
+
+
+            $('#testData').on('click', function () {
+                var data = $('.repeater-room-infos').repeaterVal('roomInfos');
+                console.log(data['roomInfos']);
+            })
+
+            // -------------------
+
+
             $('#add-room').on('click', function () {
+
                 var roomDetails = [];
-                var rooms = $('.ck-rooms:checked').map(function() {
+                var test = [];
+                var rooms = $('.ck-rooms:checked').map(function () {
                     roomDetails.push($(this).data('rmn'));
+                    test.push($(this).data('roomType'));
                     return this.value;
                 }).get().join(',');
                 $('.room-numbers').val(rooms);
                 $('.rooms').val(roomDetails.toString());
-                console.log(roomDetails);
                 $('#selectionModal').modal('hide');
+
+                // console.log($('.ck-rooms:checked'));
+                console.log(test);
+
             });
         });
 
