@@ -59,8 +59,8 @@
                         @endif
                     </div>
                 </div>
+            </fieldset>
         </div>
-        </fieldset>
     </div>
 </div>
 <div class="form-actions text-center">
@@ -69,7 +69,6 @@
     <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </a>
-</div>
 </div>
 {!! Form::close() !!}
 

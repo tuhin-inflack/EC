@@ -48,7 +48,7 @@
                                     <i class="ft-plus white"></i> {{ trans('rms::research_proposal.extend_date_request') }}
                                 </a>
                             @else
-                                <a href="{{route('research-proposal-submission.create')}}" class="btn btn-primary mr-1">
+                                <a href="{{route('research-proposal-submission.create',$researchRequest->id)}}" class="btn btn-primary mr-1">
                                     <i class="ft-plus white"></i> {{ trans('rms::research_proposal.research_proposal_submission') }}
                                 </a>
                             @endif

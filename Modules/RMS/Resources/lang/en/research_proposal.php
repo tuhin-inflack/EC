@@ -26,6 +26,9 @@ return [
     'extend_date_request_form' => 'Date Extend Request Form',
     'extend_date_request_create' => 'Date Extend Request Create',
     'res_pro_related_title' => 'Research Proposal Related Title',
-    'submitted_by' => 'Submitted by',
-    'pms' => 'Project Management System',
+    'submitted_research_proposal_list' => 'Research Proposal Submission List',
+    'research_proposal_creation' => 'Create Research Proposal',
+    'research_proposal_creation_form' => 'Create Research Proposal Form',
+    'proposal_invitation_info' => 'Research Proposal Invitation Information',
+    'invitation_date' => 'Invitation Date',
 ];

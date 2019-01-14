@@ -25,7 +25,7 @@ Route::prefix('rms')->group(function() {
 
     Route::prefix('research-proposal-submission')->group(function(){
         Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
-        Route::get('create','ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
         Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
     });
 

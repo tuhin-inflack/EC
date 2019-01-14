@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchRequest;
 
 class ProposalSubmitController extends Controller
 {
@@ -23,9 +24,9 @@ class ProposalSubmitController extends Controller
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create(ResearchRequest $researchRequest)
     {
-        return view('rms::proposal.submission.create');
+        return view('rms::proposal.submission.create', compact('researchRequest'));
     }
 
     /**

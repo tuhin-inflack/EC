@@ -26,7 +26,10 @@ return [
     'extend_date_request_form' => 'বর্ধিত তারিখ অনুরোধ ফর্ম',
     'extend_date_request_create' => 'বর্ধিত তারিখ অনুরোধ তৈরি করুন',
     'res_pro_related_title' => 'গবেষণা প্রস্তাব সম্পর্কিত শিরোনাম',
-    'submitted_by' => 'জমাদানকারী',
-    'pms' => 'প্রকল্প ম্যানেজমেন্ট সিস্টেম',
+    'submitted_research_proposal_list' => 'জমাকৃত গবেষণা প্রস্তাব তালিকা',
+    'research_proposal_creation' => 'গবেষণা প্রস্তাব তৈরি',
+    'research_proposal_creation_form' => 'গবেষণা প্রস্তাব তৈরি ফর্ম',
+    'proposal_invitation_info' => 'আমন্ত্রিত গবেষণা প্রস্তাব সম্পর্কিত তথ্য',
+    'invitation_date' => 'আমন্ত্রণ তারিখ',
 ];
 
