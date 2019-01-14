@@ -109,8 +109,8 @@
                 });
                 // $(".instituteSelection, .addDepartmentSection, .academicDegreeSelect").select2({width: '100%'});
 
-                // $('input,select,textarea').jqBootstrapValidation('destroy');
-                // $('input,select,textarea').jqBootstrapValidation();
+                $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
 
             });
 

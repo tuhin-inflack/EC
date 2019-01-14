@@ -82,6 +82,7 @@ class RolePolicy
         return true;
     }
 
+
     public function before($user, $ability)
     {
         if ($user->hasRole('ROLE_SUPER_ADMIN')) {

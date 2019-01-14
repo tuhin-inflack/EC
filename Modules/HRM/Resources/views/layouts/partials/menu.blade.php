@@ -4,7 +4,7 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class="nav-item">
                     <a href="{{ url('hrm') }}"><i class="la la-home"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">Dashboard </span></a>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.dashboard') </span></a>
                 </li>
 
                 <li class="{{ is_active_match('hrm/employee') }}">

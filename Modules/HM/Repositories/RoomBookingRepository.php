@@ -25,4 +25,13 @@ class RoomBookingRepository extends AbstractBaseRepository
             ->whereNotNull('room_bookings.training_id')
             ->pluck('trainings.training_title', 'room_bookings.id');
     }
+
+    public function getOldRoombookings($roomBooking)
+    {
+        return $this->model->whereDate('end_date', '>', $roomBooking->start_date)
+            ->where('room_bookings.id', '!=', $roomBooking->id)
+            ->join('booking_checkin', 'booking_checkin.booking_id', '!=', 'room_bookings.id')
+            ->select('room_bookings.*')
+            ->get();
+    }
 }
