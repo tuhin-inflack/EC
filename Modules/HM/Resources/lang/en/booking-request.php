@@ -21,6 +21,7 @@ return [
     'booking_type' => 'Booking Type',
     'checkin_type' => 'Checkin Type',
     'general' => 'General',
+    'venue' => 'Venue',
     'training' => 'Training',
     'room_details' => 'Room Details',
     'room_type' => 'Room Type',
