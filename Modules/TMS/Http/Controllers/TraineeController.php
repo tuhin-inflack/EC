@@ -7,7 +7,6 @@ use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Modules\TMS\Services\TraineeService;
 use Modules\TMS\Services\TrainingsService;
-use Modules\TMS\Policies\TraineePolicy;
 use Modules\TMS\Entities\Trainee;
 use Modules\TMS\Http\Requests\TraineeRequest;
 use Illuminate\Support\Facades\Session;
