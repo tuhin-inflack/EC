@@ -36,6 +36,7 @@ class BookingRequestStatusController extends Controller
         if ($this->bookingRequestService->updateStatus($roomBooking, $request->all())) {
             Session::flash('success', trans('labels.update_success'));
         }
+        Session::flash('error', trans('hm::booking-request.not_enough_available_rooms'));
 
         return redirect()->back();
     }

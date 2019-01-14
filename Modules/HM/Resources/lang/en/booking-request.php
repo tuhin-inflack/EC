@@ -92,4 +92,5 @@ return [
     'relation_friend' => 'Friend',
     'relation_coworker' => 'Coworker',
     'relation_trainee' => 'Trainee',
+    'not_enough_available_rooms' => 'Not Enough Available Rooms',
 ];

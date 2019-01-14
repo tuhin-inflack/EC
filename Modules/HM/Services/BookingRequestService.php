@@ -330,7 +330,6 @@ class BookingRequestService
             }
 
             if ($quantity > $availableRooms) {
-                Session::flash('error', 'Not enough rooms of ' . $this->roomTypeService->findOne($roomTypeId)->name);
                 return false;
             }
         }

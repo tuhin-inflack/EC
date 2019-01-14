@@ -92,4 +92,5 @@ return [
     'relation_friend' => 'বন্ধু',
     'relation_coworker' => 'সহকারী',
     'relation_trainee' => 'শিক্ষানবিস',
+    'not_enough_available_rooms' => 'পর্যাপ্ত কক্ষ নেই',
 ];
