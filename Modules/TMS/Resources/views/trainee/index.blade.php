@@ -13,6 +13,15 @@
                         <div class="heading-elements">
                             <a href="{{url('/tms/training/create')}}" class="btn btn-primary btn-sm"><i
                                     class="ft-plus white"></i> {{trans('tms::training.create_button')}}</a>
+                            @if(!empty($selectedTrainingId))
+                                <a href="{{route('trainee.add', $selectedTrainingId )}}" class="btn btn-info btn-sm">
+                                    <i class="ft-plus white"></i> {{trans('tms::training.add_trainee')}}
+                                </a>
+                                <a href="{{route('trainee.import', $selectedTrainingId )}}" class="btn btn-info btn-sm">
+                                    <i class="ft-plus white"></i> {{trans('tms::training.trainee_import')}}
+                                </a>
+                            @endif
+
                         </div>
 
                     </div>
@@ -51,7 +60,7 @@
                                     @foreach($trainees as $trainee)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="training/show/{{$trainee->training_id}}">{{$trainee->training->training_id}}</a></td>
+                                            <td><a href="{{route( 'training.show' ,$trainee->training_id)}}">{{$trainee->training->training_id}}</a></td>
                                             <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>

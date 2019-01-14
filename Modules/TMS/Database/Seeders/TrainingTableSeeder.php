@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\TMS\Entities\Training;
+use Modules\TMS\Database\Seeders\TraineeTableSeeder;
 
 class TrainingTableSeeder extends Seeder
 {
@@ -33,6 +34,8 @@ class TrainingTableSeeder extends Seeder
                 'status' => 1
             ]);
         }
+
+        $this->call(TraineeTableSeeder::class);
 
     }
 }

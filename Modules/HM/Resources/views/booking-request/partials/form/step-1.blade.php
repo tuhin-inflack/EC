@@ -41,17 +41,19 @@
 
     <div class="row">
         <div class="form-group col-md-6">
-            <label class="required">{{ $type=='checkin'?trans('hm::booking-request.checkin_type')
-            :trans('hm::booking-request.booking_type') }}</label>
+            <label class="required">{{ $type=='checkin'? trans('hm::booking-request.checkin_type') : trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
-                <label>{{ trans('hm::booking-request.general') }}</label>
+                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.general')</label>
             </div>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
-                <label>{{ trans('hm::booking-request.training') }}</label>
+                {!! Form::radio('booking_type', 'venue', $page == 'create' ? old('booking_type') == 'venue' : ($roomBooking->booking_type == 'venue'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.venue')</label>
             </div>
-
+            <div class="skin skin-flat">
+                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.training')</label>
+            </div>
             <div class="row col-md-12 radio-error">
                 @if ($errors->has('booking_type'))
                     <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
@@ -78,10 +80,9 @@
                 </span>
             @endif
         </div>
-
     </div>
 
-    <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
+    <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::booking-request.room_details')
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">

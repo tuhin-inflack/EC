@@ -21,6 +21,7 @@ return [
     'booking_type' => 'বুকিং টাইপ',
     'checkin_type' => 'চেকইন টাইপ',
     'general' => 'সাধারন',
+    'venue' => 'ভেন্যু',
     'training' => 'প্রশিক্ষণ',
     'room_details' => 'রুম বিস্তারিত',
     'room_type' => 'ঘরের বিবরণ',
@@ -92,4 +93,5 @@ return [
     'relation_friend' => 'বন্ধু',
     'relation_coworker' => 'সহকারী',
     'relation_trainee' => 'শিক্ষানবিস',
+    'not_enough_available_rooms' => 'পর্যাপ্ত কক্ষ নেই',
 ];

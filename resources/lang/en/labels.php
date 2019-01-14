@@ -114,9 +114,9 @@ return [
     'At least 50 characters' => 'At least 50 characters',
     'At most 11 characters' => 'At most 11 characters',
     'At most 10 characters' => 'At most 10 characters',
+    'Please enter a valid email address' => 'Please enter a valid email address',
     'User list' => 'User list',
     'User create' => 'User create',
-
     'optional' => 'Optional',
     'remove' => 'Remove',
     'confirm_delete' => 'Confirm Delete',
