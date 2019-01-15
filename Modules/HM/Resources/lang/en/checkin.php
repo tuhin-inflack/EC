@@ -13,7 +13,7 @@ return [
     'estimated_no_of_day' => 'Estimated # of Day',
     'from_approved_booking' => 'Checkin from Approved Booking Request',
     'from_approved_training_booking' => 'Checkin from Approved Training Booking Request',
-    'walkin_checkin' =>  'Walkin Checkin',
+    'walkin_checkin' => 'Walkin Checkin',
     'search_approved_booking' => 'Search Approved Booking',
     'checkin_request_update_form' => 'Checkin Request Update Form',
     'room_allocation' => 'Room Allocation',
@@ -26,6 +26,7 @@ return [
     'total_payment' => 'Total Payment',
     'cash' => 'Cash',
     'card' => 'Card',
+    'rooms' => 'Rooms',
     'check' => 'Check',
     'checkin_type' => 'Checkin Type',
     'total_bill' => 'Total Bill',
@@ -35,5 +36,19 @@ return [
     'for_guest_assaingment' => 'For Guest Assignment',
     'grand_total_bill' => 'Grand Total Rate',
     'hostel_name' => 'Hostel Name',
-    'room_numbers' => 'Room Numbers'
+    'room_numbers' => 'Room Numbers',
+
+    'minimum' => 'Minimum',
+    'maximum' => 'Maximum',
+    'selection_message' => 'select room',
+    'wrong_selection' => 'You have selected wrong room',
+
+    'minimum_message' => 'You have to select at least ',
+    'maximum_message' => 'You can select maximum ',
+
+    'at_least' => 'You have to select at least',
+    'at_most' => 'You can select maximum ',
+    'room' => ' room',
+    'room_selection' => '',
+    'the' => '',
 ];

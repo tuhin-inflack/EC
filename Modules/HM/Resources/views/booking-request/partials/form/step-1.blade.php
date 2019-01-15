@@ -221,7 +221,7 @@
                 {!! Form::text('room-show', null, ['class' => 'form-control required rooms',
                 'data-toggle'=>'modal', 'data-target' => '#selectionModal']) !!}
 
-                <div class="alert alert-danger col-md-6" id="validationError"></div>
+                <div class="col-md-6" id="validationError" style="color: red"></div>
                 <input type="hidden" class="room-numbers" name="room_numbers" value=""/>
             </div>
 

@@ -38,4 +38,18 @@ return [
     'hostel_name' => 'হোস্টেল নাম',
     'room_numbers' => 'রুম সংখ্যা',
     'grand_total_bill' => 'সর্বমোট হার',
+
+
+    'selection_message' => 'টা কক্ষ নির্বাচন করুন',
+    'wrong_selection' => 'আপনি ভুল রুম নির্বাচন করেছেন ',
+    'minimum' => 'সর্বনিম্ন',
+    'maximum' => 'সর্বোচ্চ',
+
+    'minimum_message' => 'সর্বনিম্ন ',
+    'maximum_message' => 'সর্বোচ্চ ',
+    'at_least' => 'সর্বনিম্ন নির্বাচন করতে হবে',
+    'at_most' => 'সর্বোচ্চ নির্বাচন করতে হবে',
+    'room' => 'টা কক্ষ নির্বাচন করতে হবে',
+    'room_selection' => ' কক্ষ নির্বাচন করতে হবে',
+    'the' => 'টা',
 ];
