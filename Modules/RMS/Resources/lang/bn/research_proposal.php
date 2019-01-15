@@ -7,7 +7,9 @@ return [
     'research_proposal_request_creation' => 'গবেষণা প্রস্তাব অনুরোধ তৈরি করুন',
     'request_form' => 'গবেষণা প্রস্তাব অনুরোধ ফর্ম',
     'last_sub_date' => 'সর্বশেষ জমা তারিখ',
+    'end_date' => 'শেষ তারিখ',
     'sub_start_date' => 'জমা শুরু তারিখ',
+    'start_date' => 'শুরু তারিখ',
     'attachment' => 'ফাইল সংযুক্ত করুন',
     'pick_a_date'=> 'একটি তারিখ নিন',
     'write_here' => 'এখানে লিখুন',
@@ -31,5 +33,9 @@ return [
     'research_proposal_creation_form' => 'গবেষণা প্রস্তাব তৈরি ফর্ম',
     'proposal_invitation_info' => 'আমন্ত্রিত গবেষণা প্রস্তাব সম্পর্কিত তথ্য',
     'invitation_date' => 'আমন্ত্রণ তারিখ',
+    'description' => 'বিবরণ',
+    'responded_by' => 'ব্যক্তির দ্বারা জমা',
+    'department' => 'বিভাগ',
+    'designation' => 'উপাধি',
 ];
 

@@ -15,16 +15,23 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Modules\HRM\Entities\Employee;
+use Modules\HRM\Repositories\EmployeeRepository;
+use Modules\HRM\Services\EmployeeServices;
 
 class UserService
 {
     use CrudTrait;
 
     private $userRepository;
+    /**
+     * @var EmployeeServices
+     */
+    private $employeeServices;
 
     /**
      * UserService constructor.
-     * @param $userRepository
+     * @param UserRepository $userRepository
      */
     public function __construct(UserRepository $userRepository)
     {
@@ -70,6 +77,20 @@ class UserService
         });
 
         return new Response("User has been deleted successfully");
+    }
+
+    public function getDepartmentName($username)
+    {
+        $employee = Employee::where('employee_id', $username)->first();
+        $departmentName = isset($employee->employeeDepartment) ? $employee->employeeDepartment->name : null;
+        return $departmentName;
+    }
+
+    public function getDesignation($username)
+    {
+        $employee = Employee::where('employee_id', $username)->first();
+        $designation = isset($employee->designation) ? $employee->designation->name : null;
+        return $designation;
     }
 
 

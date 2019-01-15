@@ -31,4 +31,8 @@ return [
     'research_proposal_creation_form' => 'Create Research Proposal Form',
     'proposal_invitation_info' => 'Research Proposal Invitation Information',
     'invitation_date' => 'Invitation Date',
+    'description' => 'Description',
+    'responded_by' => 'Responded By',
+    'department' => 'Department',
+    'designation' => 'Designation',
 ];

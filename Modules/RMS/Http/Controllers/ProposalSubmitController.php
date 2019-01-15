@@ -2,15 +2,24 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\UserService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchRequest;
 
 class ProposalSubmitController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -26,7 +35,13 @@ class ProposalSubmitController extends Controller
      */
     public function create(ResearchRequest $researchRequest)
     {
-        return view('rms::proposal.submission.create', compact('researchRequest'));
+        // departmentName, designation
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $departmentName = $this->userService->getDepartmentName($username);
+        $designation = $this->userService->getDesignation($username);
+        return view('rms::proposal.submission.create', compact('researchRequest', 'departmentName', 'designation', 'name', 'auth_user_id'));
     }
 
     /**
