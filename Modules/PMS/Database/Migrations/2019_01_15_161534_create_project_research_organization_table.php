@@ -17,7 +17,7 @@ class CreateProjectResearchOrganizationTable extends Migration
             $table->increments('id');
             $table->string('organization_id');
             $table->string('organization_for_id')->comment('project or research id');
-            $table->string('type')->comment('project or research');
+            $table->string('type')->comment('1 = project, 2 = research');
             $table->timestamps();
         });
     }

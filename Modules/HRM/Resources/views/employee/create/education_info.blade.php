@@ -78,6 +78,7 @@
                                         {{ Form::label('duration', trans('hrm::education.duration'), ['class' => 'required']) }}
                                         {{ Form::select('duration',  $academicDurations, $education['duration'],
                                          ['class' => 'form-control', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
+
                                         <div class="help-block"></div>
                                         @if ($errors->educationError->has("education.".$key.".duration"))
                                             <div class="help-block">  {{ trans('labels.This field is required') }}</div>
