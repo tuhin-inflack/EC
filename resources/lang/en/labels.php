@@ -121,4 +121,6 @@ return [
     'remove' => 'Remove',
     'confirm_delete' => 'Confirm Delete',
     'confirm_action' => 'Are you sure',
+    'approve' => 'Approve',
+    'reject' => 'Reject'
 ];

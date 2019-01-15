@@ -46,12 +46,11 @@
                                                         aria-haspopup="true"
                                                         aria-expanded="false" class="btn btn-info dropdown-toggle"><i
                                                             class="la la-cog"></i></button>
-                                                <span aria-labelledby="btnSearchDrop2"
-                                                      class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                   class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
+                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="" class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
+                                                    <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
+                                                    <hr>
+                                                    <a href="{{route('task.index', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('pms::task.title')}}</a>
                                                 </span>
                                             </span>
                                         </td>

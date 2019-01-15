@@ -22,4 +22,13 @@ class ProjectResearchTask extends Model
         return $this->hasMany(TaskComment::class);
     }
 
+    public function project()
+    {
+        return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id');
+    }
+
+    public function taskName()
+    {
+        return $this->hasOne(Task::class, 'id', 'task_id');
+    }
 }

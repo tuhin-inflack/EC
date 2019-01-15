@@ -5,67 +5,48 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Services\ProjectResearchTaskService;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function index()
+    private $projectResearchTaskService;
+
+    public function __construct(ProjectResearchTaskService $projectResearchTaskService)
     {
-        return view('pms::index');
+        $this->projectResearchTaskService = $projectResearchTaskService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
+    public function index($projectId)
+    {
+        $tasks = $this->projectResearchTaskService->getTasks($projectId);
+        $project = $this->projectResearchTaskService->findOrFail($projectId)->project;
+
+        return view('pms::task.index', compact('tasks', 'project'));
+    }
+
     public function create()
     {
-        return view('pms::create');
+        return view('pms::task.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
     public function store(Request $request)
     {
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
     public function show()
     {
         return view('pms::show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
     public function edit()
     {
         return view('pms::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
     public function update(Request $request)
     {
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
     public function destroy()
     {
     }
