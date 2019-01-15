@@ -8,6 +8,7 @@
 
 namespace Modules\PMS\Services;
 
+use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Entities\ProjectRequest;
@@ -19,6 +20,7 @@ use Modules\PMS\Repositories\ProjectRequestRepository;
 
 class ProjectProposalService
 {
+    use CrudTrait;
     private $projectProposalRepository;
 
     /**
@@ -29,6 +31,7 @@ class ProjectProposalService
     public function __construct(ProjectProposalRepository $projectProposalRepository)
     {
         $this->projectProposalRepository = $projectProposalRepository;
+        $this->setActionRepository($this->projectProposalRepository);
     }
 
     public function getAll()

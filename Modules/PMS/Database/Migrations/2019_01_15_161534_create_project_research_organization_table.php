@@ -15,6 +15,7 @@ class CreateProjectResearchOrganizationTable extends Migration
     {
         Schema::create('project_research_organization', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('organization_id');
             $table->string('organization_for_id')->comment('project or research id');
             $table->string('type')->comment('project or research');
             $table->timestamps();
