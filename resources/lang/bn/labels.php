@@ -122,4 +122,5 @@ return [
     'remove' => 'মুছে ফেলুন',
     'confirm_delete' => 'নিশ্চিত বাতিল',
     'confirm_action' => 'আপনি নিশ্চিত'
+
 ];

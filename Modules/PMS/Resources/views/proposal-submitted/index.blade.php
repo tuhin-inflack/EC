@@ -49,9 +49,9 @@
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href=""
-                                                   class="dropdown-item"><i class="ft-minus-square"></i> Reject</a>
+                                                   class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
                                                     <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
+                                                       class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
                                                 </span>
                                             </span>
                                         </td>

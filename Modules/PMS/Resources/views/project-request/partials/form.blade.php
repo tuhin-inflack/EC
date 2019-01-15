@@ -7,7 +7,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="name" class="form-label">{{trans('pms::project_proposal.send_to')}} <span
-                                    class="danger">*</span></label>
+                                class="danger">*</span></label>
                         <div class="input-group">
                             <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" multiple="multiple" name="send_to[]" autofocus required>
                                 <option value="tuhin@inflack.com">tuhin@inflack.com</option>
@@ -21,11 +21,10 @@
 
                             {{ Form::select('send_to', ['L' => 'Large', 'S' => 'Small'], ['class' => 'select2 form-control']) }}--}}
 
-
                             @if ($errors->has('send_to'))
                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('send_to') }}</strong>
-                                                </span>
+                                    <strong>{{ $errors->first('send_to') }}</strong>
+                                </span>
                             @endif
                         </div>
                     </div>
@@ -55,7 +54,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="">{{trans('pms::project_proposal.attachment')}} <span
-                                    class="danger">*</span></label>
+                                class="danger">*</span></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                             </div>

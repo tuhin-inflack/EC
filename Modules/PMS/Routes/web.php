@@ -36,4 +36,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/','ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
     });
 
+    Route::prefix('task')->group(function (){
+        Route::get('/', 'TaskController@index')->name('task.index');
+    });
 });
