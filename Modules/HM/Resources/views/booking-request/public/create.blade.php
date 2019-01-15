@@ -91,18 +91,22 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
-        // gender localization
+        //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
+        let firstNameLabel = '{!! trans('labels.first_name') !!}';
+        let lastNameLabel = '{!! trans('labels.last_name') !!}';
+        let genderLabel = '{!! trans('labels.gender') !!}';
+        let mobileLabel = '{!! trans('labels.mobile') !!}';
         // select2 placholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
-
+        
         // entities variables passed from server
         let roomTypes = JSON.parse('{!! json_encode($roomTypes) !!}');
         let employees = JSON.parse('{!! json_encode($employees) !!}');
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
-
+        
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
     </script>

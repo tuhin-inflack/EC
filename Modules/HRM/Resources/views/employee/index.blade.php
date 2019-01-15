@@ -105,7 +105,7 @@
                         }
                     },
                     {
-                        extend: 'pdf', className: 'pdf',
+                        extend: 'pdf', className: 'pdf', "charset": "utf-8",
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6, 7, 8],
                         }
@@ -120,6 +120,7 @@
                 paging: true,
                 searching: true,
                 "bDestroy": true,
+
             });
         });
 

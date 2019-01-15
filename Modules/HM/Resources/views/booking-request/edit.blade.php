@@ -68,9 +68,13 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
-        // gender localization
+        //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
+        let firstNameLabel = '{!! trans('labels.first_name') !!}';
+        let lastNameLabel = '{!! trans('labels.last_name') !!}';
+        let genderLabel = '{!! trans('labels.gender') !!}';
+        let mobileLabel = '{!! trans('labels.mobile') !!}';
         // select2 placholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
 
@@ -79,9 +83,26 @@
         let employees = JSON.parse('{!! json_encode($employees) !!}');
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
+        let room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');
+        // added by sumon
+        let minimum = '{!! trans('hm::checkin.minimum') !!}';
+        let maximum = '{!! trans('hm::checkin.maximum') !!}';
+        let minimum_message = '{!! trans('hm::checkin.minimum_message') !!}';
+        let maximum_message = '{!! trans('hm::checkin.maximum_message') !!}';
+        let room = '{!! trans('hm::checkin.room') !!}';
+        let wrong_selection = '{!! trans('hm::checkin.wrong_selection') !!}';
+        let at_least = '{!! trans('hm::checkin.at_least') !!}';
+        let at_most = '{!! trans('hm::checkin.at_most') !!}';
+        let room_selection = '{!! trans('hm::checkin.room_selection') !!}';
+        let the = '{!! trans('hm::checkin.the') !!}';
+        let current_lang = '{!!  Lang::locale()  !!}';
 
+        {{--let maximum = '{!! trans('hm::checkin.maximum') !!}';--}}
+        {{--let selection_message = '{!! trans('hm::checkin.selection_message') !!}';--}}
+        // end by sumon
         // url to get trainees of selected training
-        let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
+        let
+            traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
         var roomInfos = JSON.parse('{!! json_encode($roomBooking->roomInfos) !!}');
     </script>
     <script src="{{ asset('js/booking-request/step.js') }}"></script>

@@ -78,7 +78,7 @@
 
                                         {{ Form::label('published_date', trans('hrm::publication.published_date'), ['class' => 'required']) }}
                                         {{ Form::date('published_date',  $publication['published_date'],
-                                        ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                                        ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->publicationError->has("publication.".$key.".published_date"))
                                             <div class="help-block">  {{ trans('labels.This field is required') }}</div>
@@ -172,7 +172,7 @@
                                 <div class="form-group">
                                     {{ Form::label('published_date', trans('hrm::publication.published_date'), ['class' => 'required']) }}
                                     {{ Form::date('published_date',  null,
-                                     ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>
+                                     [ 'class' => 'form-control DatePicker', 'placeholder' => 'Pick the date', 'data-validation-required-message'=>
                                      trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
                                 </div>

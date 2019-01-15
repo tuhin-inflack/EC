@@ -30,7 +30,7 @@
                                             <td width="15%" class="hostel-level"><strong>Level {{$key}}</strong></td>
                                             <td width="80%">
                                                 @foreach($roomDetail as $room)
-                                                    <div title="Type:{{$room->roomType->name}}   Status:{{$room->status}}   Capacity:{{$room->roomType->capacity}}" data-toggle="tooltip"
+                                                    <div title="{{$room->roomType->name}} ( {{$room->status}} ), {{ trans('hm::roomtype.capacity') }}:- {{$room->roomType->capacity}}" data-toggle="tooltip"
                                                             class="badge badge-capsule rooms {{$room->status}}">
                                                         {{$room->room_number}}
                                                     </div>

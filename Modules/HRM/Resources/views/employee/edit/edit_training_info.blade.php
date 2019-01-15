@@ -45,13 +45,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('training_year', trans('hrm::training.training_year'))}}
-                                        {{ Form::text('training_year',  $training['training_year'], ['class' => 'form-control datepicker-default', 'placeholder' => '']) }}
+                                        {{ Form::text('training_year',  $training['training_year'], ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group {{ $errors->trainingError->has("training.".$key.".result") ? ' error' : '' }}">
                                         {{ Form::label('result', trans('hrm::training.result')) }}
-                                        {{ Form::text('result',  $training['result'], ['class' => 'form-control', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>__('labels.This field is required')]) }}
+                                        {{ Form::text('result',  $training['result'], ['class' => 'form-control ', 'placeholder' => 'CGPA / Grade / Division / Certificate name / Course Completed', 'data-validation-required-message'=>__('labels.This field is required')]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->trainingError->has("training.".$key.".result"))
                                             <div class="help-block">  {{ __('labels.This field is required') }}</div>
@@ -129,7 +129,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         {{ Form::label('training_year', trans('hrm::training.training_year')) }}
-                                        {{ Form::text('training_year',  $training->training_year, ['class' => 'form-control datepicker-default', ]) }}
+                                        {{ Form::text('training_year',  $training->training_year, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -212,7 +212,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     {{ Form::label('training_year', trans('hrm::training.training_year')) }}
-                                    {{ Form::text('training_year',  null, ['class' => 'form-control datepicker-default', 'placeholder' => '']) }}
+                                    {{ Form::text('training_year',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick the date']) }}
                                 </div>
                             </div>
                             <div class="col-md-6">

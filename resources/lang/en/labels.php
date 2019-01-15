@@ -115,6 +115,7 @@ return [
     'At most 10 characters' => 'At most 10 characters',
     'At most 100 characters' => 'At most 100 characters',
     'At most 5000 characters' => 'At most 5000 characters',
+    'Please enter a valid email address' => 'Please enter a valid email address',
     'User list' => 'User list',
     'User create' => 'User create',
     'attachments' => 'Attachments',

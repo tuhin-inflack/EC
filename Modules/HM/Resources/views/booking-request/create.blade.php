@@ -67,9 +67,13 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
-        // gender localization
+        //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
+        let firstNameLabel = '{!! trans('labels.first_name') !!}';
+        let lastNameLabel = '{!! trans('labels.last_name') !!}';
+        let genderLabel = '{!! trans('labels.gender') !!}';
+        let mobileLabel = '{!! trans('labels.mobile') !!}';
         // select2 placholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
 
@@ -78,6 +82,9 @@
         let employees = JSON.parse('{!! json_encode($employees) !!}');
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
+        let room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');
+
+        {{--let abc = 'test';--}}
 
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
@@ -90,3 +97,4 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
 @endpush
+        

@@ -20,5 +20,7 @@ class HMDatabaseSeeder extends Seeder
 	    $this->call(HostelBudgetTitleTableSeeder::class);
 	    $this->call(RoomTypeTableSeeder::class);
 	    $this->call(RoomAndHostelTableSeeder::class);
+	    $this->call(BookingRequestTableSeeder::class);
+	    $this->call(CheckInTableSeeder::class);
     }
 }

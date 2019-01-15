@@ -34,5 +34,7 @@
 <li class="nav-item">
     <a class="nav-link " id="research-tab" data-toggle="tab" href="#research"
        aria-controls="linkIcon12"
-       aria-expanded="false"><i class="la la-bookmark"></i> Research</a>
+       aria-expanded="false"><i class="la la-bookmark"></i>
+        @lang('hrm::research.research_tab_name')
+    </a>
 </li>

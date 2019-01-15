@@ -31,7 +31,9 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->PersonalInfo->has('date_of_birth') ? ' error' : '' }}">
             {{ Form::label('date_of_birth', trans('hrm::personal_info.date_of_birth'), ['class' => 'required']) }}
-            {{ Form::date('date_of_birth',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
+            {{--{{ Form::text('date_of_birth', date('j F, Y'),  ['id' => 'date_of_birth', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Date of birth', 'required' => 'required',  'data-validation-required-message'=>trans('labels.This field is required')]) }}--}}
+            {{ Form::text('date_of_birth', null, [ 'class' => 'form-control required DatePicker' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
+
             <div class="help-block"></div>
             @if ($errors->PersonalInfo->has('date_of_birth'))
                 <div class="help-block">  {{ $errors->PersonalInfo->first('date_of_birth') }}</div>
@@ -41,7 +43,7 @@
     <div class="col-md-6">
         <div class="form-group {{ $errors->PersonalInfo->has('job_joining_date') ? ' error' : '' }}">
             {{ Form::label('job_joining_date', trans('hrm::personal_info.joining_date'), ['class' => 'required']) }}
-            {{ Form::date('job_joining_date',  null, ['class' => 'form-control', 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
+            {{ Form::date('job_joining_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick end date', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
             @if ($errors->PersonalInfo->has('job_joining_date'))
                 <div class="help-block">  {{ $errors->PersonalInfo->first('job_joining_date') }}</div>
@@ -51,13 +53,13 @@
     <div class="col-md-6">
         <div class="form-group">
             {{ Form::label('current_position_joining_date', trans('hrm::personal_info.current_position_joining_date')) }}
-            {{ Form::date('current_position_joining_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('current_position_joining_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick end date']) }}
         </div>
     </div>
     <div class="col-md-6">
         <div clarclass="form-group">
             {{ Form::label('current_position_expire_date', trans('hrm::personal_info.current_position_expire_date')) }}
-            {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control', 'placeholder' => '']) }}
+            {{ Form::date('current_position_expire_date',  null, ['class' => 'form-control DatePicker', 'placeholder' => 'Pick end date']) }}
         </div>
     </div>
     <div class="col-md-6">

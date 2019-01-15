@@ -29,3 +29,9 @@ Route::middleware(['auth'])->group(function () {
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
 Route::post('booking-requests', 'PublicBookingRequestController@store')->name('public-booking-requests.store');
+
+Route::get('/lang/{key}', function ($key) {
+    Session::put('locale', $key);
+    Session::save();
+    return redirect()->back();
+});

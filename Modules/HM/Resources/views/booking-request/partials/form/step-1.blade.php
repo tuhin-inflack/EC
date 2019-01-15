@@ -41,17 +41,19 @@
 
     <div class="row">
         <div class="form-group col-md-6">
-            <label class="required">{{ $type=='checkin'?trans('hm::booking-request.checkin_type')
-            :trans('hm::booking-request.booking_type') }}</label>
+            <label class="required">{{ $type=='checkin'? trans('hm::booking-request.checkin_type') : trans('hm::booking-request.booking_type') }}</label>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
-                <label>{{ trans('hm::booking-request.general') }}</label>
+                {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.general')</label>
             </div>
             <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
-                <label>{{ trans('hm::booking-request.training') }}</label>
+                {!! Form::radio('booking_type', 'venue', $page == 'create' ? old('booking_type') == 'venue' : ($roomBooking->booking_type == 'venue'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.venue')</label>
             </div>
-
+            <div class="skin skin-flat">
+                {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                <label>@lang('hm::booking-request.training')</label>
+            </div>
             <div class="row col-md-12 radio-error">
                 @if ($errors->has('booking_type'))
                     <span class="small text-danger"><strong>{{ $errors->first('booking_type') }}</strong></span>
@@ -78,10 +80,9 @@
                 </span>
             @endif
         </div>
-
     </div>
 
-    <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.room_details') }}
+    <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::booking-request.room_details')
     </h4>
     @if($errors->has('roomInfos'))
         <span class="danger small">
@@ -188,10 +189,9 @@
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
-                                    <label class="required"
-                                           for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
+                                    <label class="required" for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                     <br>
-                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
+                                    {!! Form::number('quantity', $roomInfo->quantity, ['class' => 'form-control required Quantity', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'e.g. 2', 'min' => 1]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.rate') }}</label>
@@ -220,12 +220,15 @@
                 <br>
                 {!! Form::text('room-show', null, ['class' => 'form-control required rooms',
                 'data-toggle'=>'modal', 'data-target' => '#selectionModal']) !!}
+
+                <div class="col-md-6" id="validationError" style="color: red"></div>
                 <input type="hidden" class="room-numbers" name="room_numbers" value=""/>
             </div>
+
         @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
-                <button type="button" data-repeater-create=""
+                <button type="button" data-repeater-create="" id="add_more_room"
                         class="pull-right btn btn-sm btn-outline-primary">
                     <i class="ft-plus"></i> @lang('labels.add')
                 </button>

@@ -21,6 +21,7 @@ return [
     'booking_type' => 'Booking Type',
     'checkin_type' => 'Checkin Type',
     'general' => 'General',
+    'venue' => 'Venue',
     'training' => 'Training',
     'room_details' => 'Room Details',
     'room_type' => 'Room Type',
@@ -87,6 +88,10 @@ return [
     'booking_request_update_form' => 'Booking Request Update Form',
     'edit_it' => 'Edit',
     'select_refferer' => 'Select Referee',
-
     'create_booking_request' => 'Create Booking Request',
+    'relation_family' => 'Family',
+    'relation_friend' => 'Friend',
+    'relation_coworker' => 'Coworker',
+    'relation_trainee' => 'Trainee',
+    'not_enough_available_rooms' => 'Not Enough Available Rooms',
 ];
