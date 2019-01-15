@@ -121,11 +121,12 @@ $('.booking-request-tab-steps').steps({
             // Checking validation
             var validationStatus = false;
             if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {
-                $('#validationError').html(minimum + " " + totalRoomSelectedFromInput + " " + selection_message);
+                $('#validationError').html(minimum_message + " " + totalRoomSelectedFromInput + " " + room);
                 $('#validationError').show();
 
             } else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {
-                $('#validationError').html(maximum + " " + totalRoomSelectedFromInput + " " + selection_message);
+                $('#validationError').html(maximum_message + " " + totalRoomSelectedFromInput + " " + room);
+
                 $('#validationError').show();
             } else {
 
@@ -136,21 +137,35 @@ $('.booking-request-tab-steps').steps({
                     roomQuantity = Number(singleRoom['quantity']);
                     // console.log("Room Type " + roomTypeIdFromForm + " Selected #" +  roomQuantity)
 
-
                     if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {
                         roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);
-                        if (roomCountFromMatrix > roomQuantity) {
-                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity + " " + selection_message );
+
+                        console.log(roomQuantity);
+                        console.log(roomCountFromMatrix);
+                        if (roomQuantity < roomCountFromMatrix) {
+                            if (current_lang == 'bn') {
+                                var message = maximum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
+                            } else {
+                                var message = at_most + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
+                            }
+                            $('#validationError').html(message);
+                            $('#validationError').show();
                             return;
-                        } else if (roomCountFromMatrix < roomQuantity) {
-                            $('#validationError').html(room_type_names[roomTypeIdFromForm] + " " + roomQuantity  + " " + selection_message);
+                        } else if (roomQuantity > roomCountFromMatrix) {
+                            if (current_lang == 'bn') {
+                                var message = minimum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
+                            } else {
+                                var message = at_least + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
+                            }
+                            $('#validationError').html(message);
+                            $('#validationError').show();
                             return;
                         } else {
                             validationStatus = true;
                         }
                     } else {
-                        $('#validationError').html(wrong_selection + " ! " );
-                       $('#validationError').show();
+                        $('#validationError').html(wrong_selection + " ! ");
+                        $('#validationError').show();
                         return;
                     }
                 }
@@ -159,7 +174,7 @@ $('.booking-request-tab-steps').steps({
             if (!validationStatus) {
                 return false;
                 $('#validationError').show();
-            }else{
+            } else {
                 $('#validationError').hide();
             }
             // console.log(selectedRoomTypeNumberFromMatrix)
