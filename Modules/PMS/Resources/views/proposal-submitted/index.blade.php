@@ -48,10 +48,10 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                   class="dropdown-item"><i class="ft-minus-square"></i> Reject</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-check"></i> Approve</a>
+                                                    <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> View</a>
+                                                    <a href="" class="dropdown-item"><i class="ft-minus-square"></i> Reject</a>
+                                                    <a href="" class="dropdown-item"><i class="ft-check"></i> Approve</a>
+                                                    <a href="" class="dropdown-item"><i class="ft-plus"></i> Add Organization</a>
                                                 </span>
                                             </span>
                                         </td>

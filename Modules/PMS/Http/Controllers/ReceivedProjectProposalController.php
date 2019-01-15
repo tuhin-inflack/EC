@@ -51,9 +51,11 @@ class ReceivedProjectProposalController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('pms::show');
+        $proposal = $this->projectProposalService->findOrFail($id);
+//        dd($proposal);
+        return view('pms::proposal-submitted.show', compact('proposal'));
     }
 
     /**

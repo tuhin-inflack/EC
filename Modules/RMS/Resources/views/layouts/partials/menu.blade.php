@@ -2,40 +2,28 @@
     <div class="main-menu-content">
         @auth
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item">
-                    <a href="{{ url('rms') }}"><i class="la la-home"></i><span class="menu-title" data-i18n="nav.dash.main">Dashboard</span></a>
+                <li class="{{ is_active_route('rms.index') }}">
+                    <a href="{{ route('rms.index') }}">
+                        <i class="la la-home"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">{{ trans('labels.dashboard') }}</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.menu_title')}}</span></a>
-                    <ul class="menu-content">
-                        <li class="{{is_active_route('research-request.create')}}">
-                            <a href="{{route('research-request.create')}}">
-                                <i class="la la-plus-circle"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('rms::research_proposal.create_request')}}</span>
-                            </a>
-                        </li>
-                        <li class="{{is_active_route('research-request.index')}}">
-                            <a href="{{route('research-request.index')}}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Proposal Request</span>
-                            </a>
-                        </li>
-                    </ul>
+                <li class="{{is_active_route('research-request.index')}}">
+                    <a href="{{route('research-request.index')}}">
+                        <i class="la la-briefcase"></i>
+                        <span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.menu_title')}}</span>
+                    </a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title" data-i18n="nav.navbars.main">Submission Research Proposal</span></a>
-                    <ul class="menu-content">
-                        <li class="{{is_active_route('research-proposal-submission.create')}}">
-                            <a href="{{route('research-proposal-submission.create')}}">
-                                <i class="la la-plus-circle"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">Create Proposal</span>
-                            </a>
-                        </li>
-                        <li class="{{is_active_route('research-proposal-submission.index')}}">
-                            <a href="{{route('research-proposal-submission.index')}}">
-                                <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">List of Proposal Request</span>
-                            </a>
-                        </li>
-                    </ul>
+                <li class="{{is_active_route('invited-research-proposal.index')}}">
+                    <a href="{{route('invited-research-proposal.index')}}">
+                        <i class="la la-list"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">{{ trans('rms::research_proposal.invited_research_proposal') }}</span>
+                    </a>
+                </li>
+                <li class="{{is_active_route('research-proposal-submission.index')}}">
+                    <a href="{{route('research-proposal-submission.index')}}">
+                        <i class="la la-list"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('rms::research_proposal.submitted_research_proposal_list')</span>
+                    </a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title" data-i18n="nav.navbars.main">Submitted Research Proposal</span></a>
                     <ul class="menu-content">
