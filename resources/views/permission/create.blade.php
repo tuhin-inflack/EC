@@ -5,7 +5,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('usermanagement.permission_create_title')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('user-management.permission_create_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -19,14 +19,14 @@
                         <div class="card-body">
                             {!! Form::open(['url' =>  '/user/permission', 'class' => 'form', 'novalidate']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> {{trans('usermanagement.permission_create_form_title')}}</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{trans('user-management.permission_create_form_title')}}</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="model_name" class="form-label required">{{trans('usermanagement.permission_create_model_name')}}</label>
+                                            <label for="model_name" class="form-label required">{{trans('user-management.permission_create_model_name')}}</label>
                                             <input name="model_name" type="text" id="model_name" value="{{ old('model_name') }}"
                                                    class="form-control {{ $errors->has('model_name') ? 'is-invalid' : '' }}"
-                                                   placeholder="eg. User" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('usermanagement.permission_create_model_name')])}}">
+                                                   placeholder="eg. User" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('user-management.permission_create_model_name')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('model_name'))
                                                 <span class="invalid-feedback">

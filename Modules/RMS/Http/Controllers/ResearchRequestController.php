@@ -2,20 +2,33 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
+use Modules\RMS\Services\ResearchRequestService;
 
 class ResearchRequestController extends Controller
 {
+    private $researchRequestService;
+
+
+    public function __construct(ResearchRequestService $researchRequestService)
+    {
+        $this->researchRequestService = $researchRequestService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('rms::researh-request.index');
+        $research_requests = $this->researchRequestService->getAll();
+        return view('rms::researh-request.index', compact('research_requests'));
     }
 
     /**
@@ -34,7 +47,9 @@ class ResearchRequestController extends Controller
      */
     public function store(CreateResearchRequestRequest $request)
     {
-        return $request->all();
+        $this->researchRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-request.index');
     }
 
     /**
@@ -71,4 +86,20 @@ class ResearchRequestController extends Controller
     public function destroy()
     {
     }
+
+    public function requestAttachmentDownload(ResearchRequest $researchRequest)
+    {
+        $basePath = 'app/research-requests/';
+        $filePaths = $researchRequest->researchRequestAttachments
+            ->map(function ($attachment) use ($basePath) {
+                return storage_path($basePath . $attachment->attachments);
+            })->toArray();
+
+        $fileName = time() . '.zip';
+
+        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
+
+        return response()->download(storage_path($basePath . $fileName));
+    }
+
 }

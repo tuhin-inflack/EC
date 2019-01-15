@@ -1,130 +1,76 @@
-<div class="row match-height">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title"
-                >{{trans('rms::research_proposal.research_proposal_request_creation')}}</h4>
-                <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                <div class="heading-elements">
-                    <ul class="list-inline mb-0">
-                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                        <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                        {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
-                    </ul>
-                </div>
-            </div>
-            <div class="card-content collapse show">
-                <div class="card-body">
-                    {!! Form::open(['route' => 'research-request.store', 'class' => 'form research-request-form', 'enctype' => 'multipart/form-data']) !!}
-                    <div class="form-body">
-                        <h4 class="form-section"><i
-                                    class="la la-briefcase"></i> {{trans('rms::research_proposal.request_form')}}</h4>
+{!! Form::open(['route' =>  'research-request.store', 'class' => 'research-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+<div class="form-body">
+    <h4 class="form-section"><i
+                class="la la-briefcase"></i> {{trans('rms::research_proposal.request_form')}}</h4>
 
-                        <div class="row">
-                            <div class="col-md-8 offset-2">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {!! Form::label('to', __('rms::research_proposal.send_to'), ['class' => 'form-label required']) !!}
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <fieldset>
+                <div class="form row">
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">{{ trans('rms::research_proposal.send_to') }}</label>
+                        <br>
+                        {!! Form::select('to[]', ['1' => 'Sahib Bin Ron - CTO', '2' => 'Shadman Ahmed - SE', '3' => 'Tanvir Hossain - SE'], null, ['class' => 'select2 form-control required'.($errors->has('to') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
-                                            {!! Form::select('to[]', [
-                                            'AK' => 'Shadnan Ahmed - Software Engineer',
-                                            'HI' => 'Mehedi Hasan - Senior Software Engineer',
-                                            'RR' => 'Sahib Bin Ron - Cheif Executive Officer'
-                                            ], null,
-                                            ['class'=>'required form-control select2'.($errors->has('title') ? ' is-invalid' : ''),
-                                            'multiple',
-                                            'required',
-                                            ]) !!}
-
-                                            <span class="select-error"></span>
-                                            @if ($errors->has('to'))
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('to') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    {{--<div class="col-md-12">
-                                        <div class="form-group">
-                                            {!! Form::label('title', __('rms::research_proposal.title'), ['class' => 'form-label required']) !!}
-                                            {!! Form::text('title', old('title'), ['class' => 'form-control'.($errors->has('title') ? ' is-invalid' : ''), 'required',
-                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('rms::research_proposal.title')])]) !!}
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('title'))
-                                                <span class="invalid-feedback">{{ $errors->first('title') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {!! Form::label('end_date', __('rms::research_proposal.last_sub_date'), ['class' => 'form-label required']) !!}
-                                            {{ Form::date('end_date', null, ['class' => 'form-control'.($errors->has('title') ? ' is-invalid' : ''), 'required','pickadate-format-db',
-                                             'data-validation-required-message'=>trans('validation.required', ['attribute' => __('rms::research_proposal.title')])]) }}
-
-                                            @if ($errors->has('end_date'))
-                                                <span class="invalid-feedback" role="alert">
-                                                            <strong>{{ $errors->first('end_date') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="remarks"
-                                                   class="">{{trans('rms::research_proposal.remarks')}}</label>
-                                            <textarea name="remarks"
-                                                      data-rule-minlength="10"
-                                                      data-msg-minlength="khela hobe"
-                                                      class="form-control{{ $errors->has('remarks') ? ' is-invalid' : '' }}"
-                                                      placeholder="{{trans('rms::research_proposal.write_here')}}..."
-                                                      id="" cols="30" rows="5">{{ old('remarks') }}</textarea>
-
-                                            @if ($errors->has('remarks'))
-                                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('remarks') }}</strong>
-                                        </span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="">{{trans('rms::research_proposal.attachment')}} <span
-                                                        class="danger">*</span></label>
-                                            <div class="input-group">
-                                                <div class="input-group-prepend">
-                                                </div>
-                                                <input type="file" name="attachment[]" multiple="multiple" id=""
-                                                       class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}"
-                                                       required>
-                                                @if ($errors->has('attachment'))
-                                                    <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('attachment') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                    </div>--}}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-actions text-center">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="la la-check-square-o"></i> {{trans('labels.save')}}
-                            </button>
-
-                            <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
-                                <i class="ft-x"></i> {{trans('labels.cancel')}}
-                            </a>
-                        </div>
+                        @if ($errors->has('to'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('to') }}</strong>
+                        </span>
+                        @endif
                     </div>
-                    {!! Form::close() !!}
-                </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">{{ trans('labels.title') }}</label>
+                        <br>
+                        {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
-            </div>
+                        @if ($errors->has('title'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('title') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">{{ trans('rms::research_proposal.last_sub_date') }}</label>
+                        {{ Form::text('end_date', date('j F, Y'), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date', 'data-msg-required' => Lang::get('labels.This field is required')]) }}
+                        @if ($errors->has('end_date'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('end_date') }}</strong>
+                        </span>
+                        @endif
+                    </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label for="remarks" class="form-label">{{trans('labels.remarks')}}</label>
+                        {!! Form::textarea('remarks', old('remarks'), ['class' => 'form-control' . ($errors->has('remarks') ? ' is-invalid' : ''), 'placeholder' => 'Write here...', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 5000, 'data-msg-maxlength'=>Lang::get('labels.At most 5000 characters')]) !!}
+
+                        @if ($errors->has('remarks'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('remarks') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
+                        {!! Form::file('attachment[]', ['class' => 'form-control required' . ($errors->has('attachment') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
+
+                        @if ($errors->has('attachment'))
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('attachment') }}</strong>
+                                </span>
+                        @endif
+                    </div>
+                </div>
+            </fieldset>
         </div>
     </div>
 </div>
+<div class="form-actions text-center">
+    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+
+    <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
+        <i class="ft-x"></i> {{trans('labels.cancel')}}
+    </a>
+</div>
+{!! Form::close() !!}
+
+
+

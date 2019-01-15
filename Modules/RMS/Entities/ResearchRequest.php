@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResearchRequest extends Model
 {
-    protected $fillable = ['to','title','end_date','remarks','attachment'];
+    protected $fillable = ['title','end_date','remarks'];
     protected $table = 'research_requests';
+
+    public function researchRequestAttachments()
+    {
+        return $this->hasMany(ResearchRequestAttachment::class, 'research_request_id', 'id');
+    }
+
+    public function researchRequestReceivers()
+    {
+        return $this->hasMany(ResearchRequestReceiver::class, 'research_request_id', 'id');
+    }
 }
