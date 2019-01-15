@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Modules\HRM\Entities\Employee;
 
 class User extends Authenticatable
 {
@@ -78,4 +79,9 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    /*public function employeeInfo()
+    {
+        return Employee::where('employee_id', $this->username)->first();
+    }*/
 }

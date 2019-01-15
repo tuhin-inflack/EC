@@ -25,7 +25,7 @@ define("tinymce/imagetoolsplugin/Proxy", [
 	};
 
 	var proxyServiceError = function (error) {
-		Promise.reject("ImageProxy Service error: " + error);
+		Promise.reject("ImageProxy Services error: " + error);
 	};
 
 	var handleServiceError = function (status, blob) {

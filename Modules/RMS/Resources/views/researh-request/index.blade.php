@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'All Research Proposal Request ')
+@section('title', trans('rms::research_proposal.research_request_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,10 +7,10 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Request Research Proposal List</h4>
+                        <h4 class="card-title">{{ trans('rms::research_proposal.research_request_list') }}</h4>
                         <div class="heading-elements">
                             <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> New Proposal Request</a>
+                                        class="ft-plus white"></i> {{ trans('rms::research_proposal.new_proposal_request') }}</a>
 
                         </div>
                     </div>
@@ -21,37 +21,27 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">SL</th>
-                                        <th scope="col">Notice</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">Deadline</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Created at</th>
+                                        <th scope="col">{{ trans('labels.serial') }}</th>
+                                        <th scope="col">{{ trans('labels.title') }}</th>
+                                        <th scope="col">{{ trans('labels.remarks') }}</th>
+                                        <th scope="col">{{trans('rms::research_proposal.attached_file')}}</th>
+                                        <th scope="col">{{ trans('rms::research_proposal.last_sub_date') }}</th>
+                                        <th scope="col">{{ trans('labels.status') }}</th>
+                                        <th scope="col">{{ trans('labels.created_at') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>08/10/2018</td>
-                                        <td>08/11/2018</td>
-                                        <td>
-                                            <span class="badge badge-warning">Ongoing</span>
-                                        </td>
-                                        <td>2018-11-08 16:15:12</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit</td>
-                                        <td>08/10/2018</td>
-                                        <td>26/07/2019</td>
-                                        <td>
-                                            <span class="badge badge-success">Completed</span>
-                                        </td>
-                                        <td>2018-11-08 16:15:12</td>
-                                    </tr>
-
+                                    @foreach($research_requests as $research_request)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $research_request->title }}</td>
+                                            <td>{{ $research_request->remarks }}</td>
+                                            <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
+                                            <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
+                                            <td>@lang('labels.status_' . $research_request->status)</td>
+                                            <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

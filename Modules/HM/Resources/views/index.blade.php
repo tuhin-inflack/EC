@@ -91,7 +91,7 @@
 
             // Chart Data
             var chartData = {
-                labels: ["{{ __('hm::hostel.available') }}", "{{ __('hm::hostel.partially_available')  }}", "{{ __('hm::hostel.booked') }}"], // Not in Service
+                labels: ["{{ __('hm::hostel.available') }}", "{{ __('hm::hostel.partially_available')  }}", "{{ __('hm::hostel.booked') }}"], // Not in Services
                 datasets: [{
                     label: "Hostel",
                     data: [

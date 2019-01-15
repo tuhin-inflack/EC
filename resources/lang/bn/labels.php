@@ -9,6 +9,7 @@ return [
     'information' => 'তথ্য',
     'date' => 'তারিখ',
     'amount' => 'পরিমাণ',
+    'remarks' => 'মন্তব্য',
     'name' => 'নাম',
     'short_name' => 'সংক্ষিপ্ত নাম',
     'first_name' => 'নামের প্রথম অংশ',
@@ -93,12 +94,11 @@ return [
     'HM' => 'হোস্টেল ব্যবস্থাপনা',
     'HRM' => 'মানব সম্পদ ব্যবস্থাপনা',
     'PMS' => 'প্রকল্প ব্যবস্থাপনা সিস্টেম',
-    'RMS' => 'গবেষণা ব্যবস্থাপনা সিস্টেম',
+    'RMS' => 'গবেষণা ব্যবস্থাপনা',
     'TMS' => 'প্রশিক্ষণ ব্যবস্থাপনা সিস্টেম',
     'Admin' => 'অ্যাডমিন',
     'Administration' => 'প্রশাসন',
     'comment' => 'মন্তব্য',
-
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
     'first' => 'প্রথম',
@@ -116,13 +116,15 @@ return [
     'At most 11 characters' => 'সর্বাধিক 11 অক্ষর',
     'At most 10 characters' => 'সর্বাধিক 10 অক্ষর',
     'Please enter a valid email address' => 'বৈধ ইমেইল ঠিকানা লিখুন',
+    'At most 100 characters' => 'সর্বাধিক 100 অক্ষর',
+    'At most 5000 characters' => 'সর্বাধিক 5000 অক্ষর',
     'User list' => 'ব্যবহারকারীর তালিকা',
     'User create' => 'ব্যবহারকারী তৈরি করুন',
     'optional' => 'ঐচ্ছিক',
     'remove' => 'মুছে ফেলুন',
     'confirm_delete' => 'নিশ্চিত বাতিল',
     'confirm_action' => 'আপনি নিশ্চিত',
+    'attachments' => 'সংযুক্তি',
     'approve' => 'অনুমোদন করুন',
     'reject' => 'বাতিল করুন'
-
 ];

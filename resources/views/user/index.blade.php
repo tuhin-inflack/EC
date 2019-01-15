@@ -7,11 +7,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('usermanagement.user_list_page_title')}}</h4>
+                        <h4 class="card-title">{{trans('user-management.user_list_page_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/system/user/create')}}" class="btn btn-primary btn-sm"><i
-                                    class="ft-plus white"></i> {{trans('usermanagement.create_user_button')}}</a>
+                                    class="ft-plus white"></i> {{trans('user-management.create_user_button')}}</a>
                             <a href="{{url('/system/user')}}" class="btn btn-warning btn-sm"> <i class="ft-download white"></i></a>
 
                         </div>
@@ -26,7 +26,7 @@
                                     <th>{{trans('labels.username')}}</th>
                                     <th>{{trans('labels.mobile')}}</th>
                                     <th>{{trans('labels.email_address')}}</th>
-                                    <th>{{trans('usermanagement.user_type')}}</th>
+                                    <th>{{trans('user-management.user_type')}}</th>
                                     <th>{{trans('labels.status')}}</th>
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>

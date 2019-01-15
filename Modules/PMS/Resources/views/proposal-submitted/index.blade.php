@@ -27,34 +27,37 @@
                                     </thead>
                                     <tbody>
                                     @foreach($proposals as $proposal)
-                                    <tr>
-                                        <th scope="row">{{$loop->iteration}}</th>
-                                        <td>{{ $proposal->title }}</td>
-                                        <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
-                                        <td>{{ $proposal->remarks }}</td>
-                                        <td>Dummy Text</td>
-                                        <td>
-                                            @if($proposal->status == 0)
-                                                <span class="badge badge-warning">Pending</span>
-                                            @else
-                                                <span class="badge badge-success">Approved</span>
-                                            @endif
-                                        </td>
-                                        <td>
+                                        <tr>
+                                            <th scope="row">{{$loop->iteration}}</th>
+                                            <td>{{ $proposal->title }}</td>
+                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
+                                            <td>{{ $proposal->remarks }}</td>
+                                            <td>Dummy Text</td>
+                                            <td>
+                                                @if($proposal->status == 0)
+                                                    <span class="badge badge-warning">Pending</span>
+                                                @else
+                                                    <span class="badge badge-success">Approved</span>
+                                                @endif
+                                            </td>
+                                            <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                         aria-haspopup="true"
                                                         aria-expanded="false" class="btn btn-info dropdown-toggle"><i
-                                                            class="la la-cog"></i></button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        class="la la-cog"></i></button>
+                                                <span aria-labelledby="btnSearchDrop2"
+                                                      class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> View</a>
                                                     <a href="" class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
                                                     <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
                                                     <hr>
                                                     <a href="{{route('task.index', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('pms::task.title')}}</a>
+                                                    <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i> Add Organization</a>
                                                 </span>
                                             </span>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
                                     @endforeach
                                     </tbody>
                                 </table>

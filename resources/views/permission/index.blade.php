@@ -1,16 +1,16 @@
 @extends('layouts.master')
-
+@section('title', trans('user-management.permission_list_title'))
 @section('content')
     <section id="permission-list">
         <div class="row">
             <div class="col-12">
                 <div c lass="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('usermanagement.permission_list_title')}}</h4>
+                        <h4 class="card-title">{{trans('user-management.permission_list_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/user/permission/create')}}" class="btn btn-primary btn-sm"><i
-                                    class="ft-plus white"></i> {{trans('usermanagement.permission_create_button')}}</a>
+                                    class="ft-plus white"></i> {{trans('user-management.permission_create_button')}}</a>
                             <a href="{{url('/user/permission/create')}}" class="btn btn-warning btn-sm"> <i
                                     class="ft-download white"></i></a>
 
