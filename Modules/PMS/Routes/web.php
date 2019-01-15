@@ -37,4 +37,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
     });
 
+    Route::prefix('attribute')->group(function () {
+       Route::get('create', 'AttributeController@create');
+    });
 });
