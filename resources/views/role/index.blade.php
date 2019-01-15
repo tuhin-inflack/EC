@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Role list')
+@section('title', trans('user-management.list_page_title'))
 
 @section('content')
     <section id="role-list">
@@ -7,11 +7,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('usermanagement.list_page_title')}}</h4>
+                        <h4 class="card-title">@lang('user-management.list_page_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/user/role/create')}}" class="btn btn-primary btn-sm"><i
-                                    class="ft-plus white"></i> {{trans('usermanagement.create_button')}}</a>
+                                    class="ft-plus white"></i> {{trans('user-management.create_button')}}</a>
                             <a href="{{url('/user/role/create')}}" class="btn btn-warning btn-sm"> <i
                                     class="ft-download white"></i></a>
 
