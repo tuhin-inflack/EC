@@ -25,5 +25,12 @@ return [
     'received_proposal_list' => 'গৃহীত প্রকল্প প্রস্তাব তালিকা',
     'submitted_by' => 'জমাদানকারী',
     'pms' => 'প্রকল্প ম্যানেজমেন্ট সিস্টেম',
+
+    'add_organization' => 'প্রতিষ্ঠান যোগ করুন',
+    'organization_add_form' => 'প্রতিষ্ঠান ফর্ম',
+    'organization_name' => 'প্রতিষ্ঠানের নাম',
+    'add_new_organization' => 'নতুন প্রতিষ্ঠান যোগ করুন',
+    'organization_name_for_project' => 'এই প্রকল্পের জন্য প্রতিষ্ঠানের নাম তালিকা'
+
 ];
 

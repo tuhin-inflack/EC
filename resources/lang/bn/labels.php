@@ -14,6 +14,7 @@ return [
     'short_name' => 'সংক্ষিপ্ত নাম',
     'first_name' => 'নামের প্রথম অংশ',
     'last_name' => 'নামের শেষাংশ',
+    'address' => 'ঠিকানা',
     'action' => 'পদক্ষেপ',
     'title' => 'খেতাব',
     'description' => 'বর্ণনা',

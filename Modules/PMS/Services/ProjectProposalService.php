@@ -67,4 +67,15 @@ class ProjectProposalService
 
     }
 
+    public function getProposalById($id)
+    {
+        $proposal = $this->findOne($id);
+        if (is_null($proposal)) {
+            abort(404);
+        } else {
+            return $proposal;
+        }
+
+    }
+
 }
