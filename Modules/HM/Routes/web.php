@@ -13,7 +13,6 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
     Route::prefix('hm')->group(function () {
         Route::get('/', 'HMController@index')->name('hm');
         Route::get('show', 'HMController@show'); // Temporary & Demo
-        Route::get('room-chart', 'HMController@roomsChart')->name('room.chart'); // Temporary & Demo
 
         Route::prefix('hostels')->group(function () {
             Route::get('/', 'HostelController@index')->name('hostels.index');

@@ -93,5 +93,9 @@ class UserService
         return $designation;
     }
 
+    public function getUsersExceptLoggedInUser(array $findBy)
+    {
+        return $this->findBy($findBy)->except($this->getLoggedInUser()->id);
+    }
 
 }
