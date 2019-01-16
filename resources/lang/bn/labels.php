@@ -125,4 +125,6 @@ return [
     'confirm_delete' => 'নিশ্চিত বাতিল',
     'confirm_action' => 'আপনি নিশ্চিত',
     'attachments' => 'সংযুক্তি',
+    'approve' => 'অনুমোদন করুন',
+    'reject' => 'বাতিল করুন'
 ];

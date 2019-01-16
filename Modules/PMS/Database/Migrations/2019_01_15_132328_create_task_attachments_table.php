@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectResearchOrganizationTable extends Migration
+class CreateTaskAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateProjectResearchOrganizationTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_research_organization', function (Blueprint $table) {
+        Schema::create('task_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('organization_id');
-            $table->string('organization_for_id')->comment('project or research id');
-            $table->string('type')->comment('1 = project, 2 = research');
+            $table->unsignedInteger('project_research_task_id');
+            $table->string('file_name');
+            $table->string('file_ext', 10);
+            $table->string('file_path')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +31,6 @@ class CreateProjectResearchOrganizationTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_research_organization');
+        Schema::dropIfExists('task_attachments');
     }
 }
