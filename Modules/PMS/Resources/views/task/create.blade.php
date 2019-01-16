@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'pms::task.title')
+@section('title', __('pms::task.create_card_title'))
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
 
@@ -13,7 +13,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('tms::training.create_card_title')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('pms::task.create_card_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -26,36 +26,36 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['url' =>  route('training.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+                            {!! Form::open(['url' =>  route('task.store', $project->id), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> {{trans('tms::training.create_form_title')}}</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{trans('pms::task.create_form_title')}}</h4>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{$project->title}}</span></label>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="training_id" class="form-label required">{{trans('tms::training.training_id')}}</label>
-                                            <input id="training_id" type="text"
-                                                   class="form-control {{ $errors->has('training_id') ? ' is-invalid' : '' }}"
-                                                   name="training_id" value="{{$trainingId}}" readonly required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_id')])}}" autofocus>
+                                            <label for="training_id" class="form-label required">{{trans('pms::task.task_name')}}</label>
+                                            <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" multiple="multiple" name="task_name" data-msg-required="kfdjkfjdkf">
+                                                @foreach($taskNames as $taskName)
+                                                    <option value="{{$taskName->id}}">{{$taskName->name}}</option>
+                                                @endforeach
+                                            </select>
+
                                             <div class="help-block"></div>
-                                            @if ($errors->has('training_id'))
+                                            @if ($errors->has('task_id'))
                                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('training_id') }}</strong>
+                                        <strong>{{ $errors->first('task_id') }}</strong>
                                     </span>
                                             @endif
                                         </div>
                                     </div>
-
                                     <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="training_name" class="form-label required">{{trans('tms::training.training_name')}}</label>
-                                            <input id="training_name" type="text" class="form-control {{ $errors->has('training_title') ? ' is-invalid' : '' }}" name="training_title" value="{{ old('email') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_name')])}}">
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('training_title'))
-                                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('training_title') }}</strong>
-                                    </span>
-                                            @endif
-                                        </div>
+                                        <div class="form-group"></div>
                                     </div>
                                 </div>
 
@@ -63,9 +63,9 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_start_date"
-                                                   class="form-label required">{{trans('tms::training.start_date')}}</label>
+                                                   class="form-label required">{{trans('pms::task.expected_start_date')}}</label>
                                             <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                                                   name="start_date" placeholder="Pick Date" id="training_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
+                                                   name="expected_start_time" placeholder="Pick Date" id="training_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.start_date')])}}">
                                             <input type="hidden" name="status" value="1">
                                             <div class="help-block"></div>
                                             @if ($errors->has('start_date'))
@@ -77,13 +77,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="training_end_date" class="form-label required">{{trans('tms::training.end_date')}}</label>
+                                            <label for="training_end_date required" class="form-label required">{{trans('pms::task.expected_end_date')}}</label>
                                             <input type='text' onchange="dateDifference()"
                                                    class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                                                   placeholder="Pick a Date" id="training_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
-                                            {{--<input type="date"--}}
-                                            {{--class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"--}}
-                                            {{--name="end_date" id="end_date" value="{{ old('end_date') }}" onchange="dateDifference()" onkeyup="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">--}}
+                                                   placeholder="Pick a Date" id="training_end_date" name="expected_end_time" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.end_date')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('end_date'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('end_date') }}</strong></span>
@@ -95,7 +92,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_len"
-                                                   class="form-label">{{trans('tms::training.training_period')}}</label>
+                                                   class="form-label">{{trans('pms::task.task_description')}}</label>
                                             <input type="text" name="training_len" id="training_len" class="form-control" readonly>
 
                                         </div>
@@ -104,10 +101,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="end_date"
-                                                   class="form-label required">{{trans('tms::training.training_participant_no')}}</label>
+                                                   class="form-label required">{{trans('pms::task.training_participant_no')}}</label>
                                             <input type="number"
                                                    class="form-control {{ $errors->has('no_of_trainee') ? ' is-invalid' : '' }}"
-                                                   name="no_of_trainee" id="no_of_trainee" value="{{ old('no_of_trainee') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_participant_no')])}}">
+                                                   name="no_of_trainee" id="no_of_trainee" value="{{ old('no_of_trainee') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.training_participant_no')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('no_of_trainee'))
                                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('no_of_trainee') }}</strong></span>

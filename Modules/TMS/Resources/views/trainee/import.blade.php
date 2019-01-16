@@ -17,7 +17,8 @@
 
                     </div>
                     <div class="card-content collapse show">
-                        <center><label>{{trans('tms::training.trainee_import_to')}} : </label> <span class="badge badge-info" style="font-weight: bold">{{$training->training_title}}</span></center>
+                        <center>
+                            <label>{{trans('tms::training.trainee_import_to')}} : </label> <span class="badge badge-info" style="font-weight: bold">{{$training->training_title}}</span></center>
                         <div class="card-body card-dashboard">
                             <div class="card-body">
                                 {!! Form::open(['url' =>  '/tms/trainee/import/to/'.$trainingId, 'class' => 'form', 'novalidate', 'method' => 'post', 'enctype' => 'multipart/form-data']) !!}
@@ -31,7 +32,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <button class="btn btn-primary" type="submit" name="fetch_trainee">{{trans('tms::training.file_import')}}</button>
-                                            <a class="btn btn-primary" href="{{url('/files/import_trainne.csv')}}" >{{trans('tms::training.file_sample')}}</a>
+                                            <a class="btn btn-primary" href="{{url('/files/import_trainee.csv')}}" >{{trans('tms::training.file_sample')}}</a>
                                         </div>
                                     </div>
                                 </div>
