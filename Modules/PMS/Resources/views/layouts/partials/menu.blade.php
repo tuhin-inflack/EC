@@ -61,9 +61,9 @@
 
                     </ul>
                 </li>
-                <li class="{{ is_active_route('attributes.create') }} nav-item">
-                    <a href="{{ route('attributes.create') }}"><i class="la la-plus"></i><span class="menu-title"
-                                                                               data-i18n="nav.dash.main">@lang('pms::attribute.create_attribute')</span></a>
+                <li class="{{ is_active_route('attributes.index') }} nav-item">
+                    <a href="{{ route('attributes.index') }}"><i class="la la-list"></i><span class="menu-title"
+                                                                               data-i18n="nav.dash.main">@lang('pms::attribute.attribute_list')</span></a>
                 </li>
             </ul>
         @endauth
