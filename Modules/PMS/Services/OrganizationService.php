@@ -16,17 +16,30 @@ class OrganizationService
 {
     use CrudTrait;
     private $organizationRepository;
+    private $projectResearchOrgService;
+    private $projectProposalService;
 
-    public function __construct(OrganizationRepository $organizationRepository)
+    public function __construct(OrganizationRepository $organizationRepository, ProjectResearchOrgService $projectResearchOrgService, ProjectProposalService $projectProposalService)
     {
         $this->organizationRepository = $organizationRepository;
+        $this->projectResearchOrgService = $projectResearchOrgService;
+        $this->projectProposalService = $projectProposalService;
         $this->setActionRepository($this->organizationRepository);
 
     }
 
-    public function getAllOrganization()
+    public function getAllOrganization($proposalId, $type)
     {
-        return $this->findAll();
+
+        $alreadyAddedIds  = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
+
+
+        $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
+//        dd($organizations);
+//        $organizations = $this->organizationRepository->findAll()->pluck( 'name', 'id' )->toArray();
+
+        $organizations['other_organization'] = '+ '. trans('pms::project_proposal.add_new_organization');
+        return $organizations;
     }
 
 }

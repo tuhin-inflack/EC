@@ -25,4 +25,10 @@ return [
     'received_proposal_list' => 'List of Received Project Proposal',
     'submitted_by' => 'Submitted by',
     'pms' => 'Project Management System',
+
+    'add_organization' => 'Add organization',
+    'organization_add_form' => 'Organization add form',
+    'organization_name' => 'Organization name',
+    'add_new_organization' => 'Add new organization',
+    'organization_name_for_project' => 'List organization for this project'
 ];

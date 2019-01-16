@@ -10,9 +10,11 @@ namespace Modules\PMS\Repositories;
 
 
 use App\Repositories\AbstractBaseRepository;
+use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\ProjectResearchOrganization;
 
 class ProjectResearchOrgRepository extends AbstractBaseRepository
 {
     protected $modelName = ProjectResearchOrganization::class;
+
 }
