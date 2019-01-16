@@ -25,7 +25,7 @@
                 <div class="form-group ">
                     {{ Form::label('name', 'Organization Name') }}
                     <br/>
-                    {{ Form::text('name',  null,  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name']) }}
+                    {{ Form::text('name',  null,  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name', 'data-validation-required-message' => trans('labels.This field is required')]) }}
 
                     <div class="help-block"></div>
                 </div>
@@ -65,7 +65,7 @@
     <div class="row">
         <div class="form-actions col-md-12 ">
             <div class="pull-right">
-                {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
+                {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['id' => 'submitOrganization', 'type' => 'submit', 'class' => 'btn btn-primary'] )  }}
                 <a href="{{ route('project-proposal-submitted.index') }}">
                     <button type="button" class="btn btn-warning mr-1">
                         <i class="la la-times"></i> @lang('labels.cancel')
@@ -84,8 +84,10 @@
         $(document).ready(function () {
             $(".addNewOrganization").hide();
             $('.organizationSelect').on('select2:select', function (e) {
+                $('input,select,textarea').jqBootstrapValidation();
                 var value = $(".organizationSelect option:selected").val();
                 if (value === 'other_organization') {
+                    $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").show();
                     $(".addOrganizationInput").focus();
                 } else {
@@ -93,6 +95,10 @@
 
                 }
             });
+            $("#submitOrganization").on('click', function () {
+                $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation();
+            })
         });
     </script>
 @endpush
