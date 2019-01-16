@@ -38,11 +38,13 @@ Route::prefix('pms')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('project-proposal-submitted.add-organization');
         Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('project-proposal-submitted.store-organization');
     });
-    Route::prefix('project-proposal-submitted')->group(function () {
-
-    });
 
     Route::prefix('task')->group(function (){
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
+    });
+
+    Route::prefix('attributes')->group(function () {
+       Route::get('create', 'AttributeController@create')->name('attributes.create');
+       Route::post('/', 'AttributeController@store')->name('attributes.store');
     });
 });
