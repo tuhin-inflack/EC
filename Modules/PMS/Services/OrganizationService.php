@@ -38,7 +38,7 @@ class OrganizationService
 //        dd($organizations);
 //        $organizations = $this->organizationRepository->findAll()->pluck( 'name', 'id' )->toArray();
 
-        $organizations['other_organization'] = '+ Add new organization';
+        $organizations['other_organization'] = '+ '. trans('pms::project_proposal.add_new_organization');
         return $organizations;
     }
 

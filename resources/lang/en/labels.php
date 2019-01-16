@@ -13,6 +13,7 @@ return [
     'short_name' => 'Short Name',
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
+    'address' => 'Address',
     'action' => 'Action',
     'title' => 'Title',
     'description' => 'Description',

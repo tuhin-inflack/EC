@@ -1,11 +1,11 @@
 <div class="form-body">
-    <h4 class="form-section"><i class="ft-grid"></i> Organization add form </h4>
+    <h4 class="form-section"><i class="ft-grid"></i> @lang('pms::project_proposal.organization_add_form') </h4>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 {{--{{ dd($organizations->pluck('name', 'id')) }}--}}
                 <div class="form-group {{ $errors->has('organization_id') ? ' error' : '' }}">
-                    {{ Form::label('organization_id', 'Add organization for ( ' .  isset($proposal->title)  ? $proposal->title : ""." )") }}
+                    {{ Form::label('organization_id',  trans('pms::project_proposal.project_title') . ' ( ' . $proposal->title ." )") }}
                     {{ Form::select('organization_id',  $organizations, null,
                     ['class' => 'form-control addSelect2Class organizationSelect', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
@@ -24,7 +24,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
-                {{ Form::label('name', 'Organization Name') }}
+                {{ Form::label('name', trans('pms::project_proposal.organization_name')) }}
                     <br/>
                     {{ Form::text('name',  old('name'),  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name', 'data-validation-required-message' => trans('labels.This field is required')]) }}
                     <div class="help-block"></div>
@@ -37,7 +37,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group {{ $errors->has('email') ? ' error' : '' }}">
-                    {{ Form::label('email', 'Organization Email') }}
+                    {{ Form::label('email', trans('labels.email_address')) }}
                     <br/>
                     {{ Form::text('email',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter organization email']) }}
                     <div class="help-block"></div>
@@ -50,7 +50,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group ">
-                    {{ Form::label('mobile', 'Organization Mobile') }}
+                    {{ Form::label('mobile', trans('labels.mobile')) }}
                     <br/>
                     {{ Form::text('mobile',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter organization mobile']) }}
                     <div class="help-block"></div>
@@ -60,7 +60,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group ">
-                    {{ Form::label('address', 'Organization address') }}
+                    {{ Form::label('address', trans('labels.address')) }}
                     <br/>
                     {{ Form::text('address',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter organization address']) }}
                     <div class="help-block"></div>

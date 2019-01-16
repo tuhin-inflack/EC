@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'Show Project Proposal Request')
+@section('title', trans('pms::project_proposal.menu_title'))
 
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">Proposal details</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -29,10 +29,10 @@
                         <hr>
                         <div class="row">
                             <div class="col-12">
-                               <strong>Title:</strong> {{ $proposal->title }}
+                               <strong>@lang('pms::project_proposal.project_title'):</strong> {{ $proposal->title }}
                             </div>
                             <div class="col-12">
-                              <strong>  Remarks:  </strong>{{  $proposal->remarks }}
+                              <strong>  @lang('pms::project_proposal.remarks') :  </strong>{{  $proposal->remarks }}
                             </div>
                         </div>
                     </div>
@@ -41,15 +41,17 @@
             </div>
         </div>
     </div>
+
     <section id="role-list">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">List of organization of this project</h4>
-                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>Add Organization</a>
+                        <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
+                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
 
                     </div>
+
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
                             <div class="table-responsive">
@@ -57,11 +59,11 @@
                                     <thead>
                                     <tr>
 
-                                        <th scope="col">Serial</th>
-                                        <th scope="col">Organization name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Phone Number</th>
-                                        <th scope="col">Address</th>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('pms::project_proposal.organization_name')</th>
+                                        <th scope="col">@lang('labels.email_address')</th>
+                                        <th scope="col">@lang('labels.mobile')</th>
+                                        <th scope="col">@lang('labels.address')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
