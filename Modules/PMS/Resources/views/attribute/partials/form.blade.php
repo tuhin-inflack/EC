@@ -4,8 +4,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="organization_id" class="form-label required">@lang('pms::attribute.organization')</label>
-                <!-- TODO: make select options dynamic -->
-                {!! Form::select('organization_id', ['1' => 'BS-23', '2' => 'Inflack'], isset($attribute) ? $attribute->organization_id : null, ['class' => 'form-control select2' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => trans('labels.select'), 'required']) !!}
+                {!! Form::select('organization_id', $organizations, isset($attribute) ? $attribute->organization_id : null, ['class' => 'form-control select2' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => trans('labels.select'), 'required']) !!}
 
                 @if ($errors->has('organization_id'))
                     <span class="invalid-feedback">
