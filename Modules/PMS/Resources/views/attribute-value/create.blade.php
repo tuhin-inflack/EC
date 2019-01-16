@@ -36,7 +36,7 @@
                                         <div class="form-group">
                                             <label for="date"
                                                    class="form-label required">Date</label>
-                                            {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required', 'min' => 1]) !!}
+                                            {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
 
                                             @if ($errors->has('date'))
                                                 <span class="invalid-feedback">

@@ -5,10 +5,26 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Attribute;
+use Modules\PMS\Services\AttributeValueService;
 
 class AttributeValueController extends Controller
 {
+    /**
+     * @var AttributeValueService
+     */
+    private $attributeValueService;
+
+    /**
+     * AttributeValueController constructor.
+     * @param AttributeValueService $attributeValueService
+     */
+    public function __construct(AttributeValueService $attributeValueService)
+    {
+        $this->attributeValueService = $attributeValueService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -36,7 +52,10 @@ class AttributeValueController extends Controller
      */
     public function store(Request $request, Attribute $attribute)
     {
-        return $request->all();
+        $this->attributeValueService->save(array_merge($request->all(), ['attribute_id' => $attribute->id]));
+        Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->back();
     }
 
     /**
