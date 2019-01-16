@@ -58,6 +58,7 @@ class ReceivedProjectProposalController extends Controller
 
     public function storeOrganization(Request $request)
     {
+//        dd($request->all());
         $response = $this->projectResearchOrgService->storeData($request->all());
         Session::flash('message', $response->getContent());
 

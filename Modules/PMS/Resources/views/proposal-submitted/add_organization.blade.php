@@ -24,13 +24,10 @@
                             <div class="col-6">
                                 {{--<h5>Last Submission Date: {{date('d-M-Y', strtotime($projectRequest->end_date))}}</h5>--}}
                             </div>
-
                         </div>
                         <hr>
                         <div class="row">
-                            <div class="col-12">
-
-                            </div>
+                            <div class="col-12"></div>
                             <div class="col-12">
                                 {{--<strong> Remarks: </strong>{{  $proposal->remarks }}--}}
                             </div>
@@ -39,6 +36,8 @@
                         {!! Form::open(['route' =>  'project-proposal-submitted.store-organization', 'class' => 'form',' novalidate']) !!}
                         @include('pms::proposal-submitted.form.organization_add_form')
                         {!! Form::close() !!}
+
+
                     </div>
 
                 </div>
@@ -46,11 +45,57 @@
         </div>
     </div>
 
+    <section id="role-list">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Already added organization name</h4>
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered alt-pagination">
+                                    <thead>
+                                    <tr>
+
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Organization name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone Number</th>
+                                        <th scope="col">Address</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(count($proposal->projectResearchOrg)>0)
+                                        @foreach($proposal->projectResearchOrg as $projectResearchOrganization)
+                                            <tr>
+                                                <th scope="row">{{$loop->iteration}}</th>
+                                                <td>{{ $projectResearchOrganization->organization->name }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->email }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->mobile }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->address }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
 @endsection
 @push('page-js')
     <script>
         $(document).ready(function () {
-            $(".addSelect2Class").select2({width: '100%'});
+            $(".addSelect2Class").select2({
+                width: '100%',
+
+            });
         });
     </script>
 @endpush
