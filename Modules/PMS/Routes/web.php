@@ -39,12 +39,16 @@ Route::prefix('pms')->group(function () {
         Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('project-proposal-submitted.store-organization');
     });
 
-    Route::prefix('task')->group(function (){
+    Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
     });
 
     Route::prefix('attributes')->group(function () {
-       Route::get('create', 'AttributeController@create')->name('attributes.create');
-       Route::post('/', 'AttributeController@store')->name('attributes.store');
+        Route::get('/', 'AttributeController@index')->name('attributes.index');
+        Route::get('create', 'AttributeController@create')->name('attributes.create');
+        Route::post('/', 'AttributeController@store')->name('attributes.store');
+        Route::get('{attribute}/edit', 'AttributeController@edit')->name('attributes.edit');
+        Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
+        Route::delete('{attribute}', 'AttributeController@destroy')->name('attributes.destroy');
     });
 });
