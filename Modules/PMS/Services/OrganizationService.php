@@ -26,7 +26,9 @@ class OrganizationService
 
     public function getAllOrganization()
     {
-        return $this->findAll();
+        $organizations = $this->organizationRepository->findAll()->pluck( 'name', 'id' )->toArray();
+        $organizations['other_organization'] = '+ Add new organization';
+        return $organizations;
     }
 
 }

@@ -12,4 +12,9 @@ class ProjectResearchOrganization extends Model
         'organization_for_id',
         'type'
     ];
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id', 'id');
+    }
 }
