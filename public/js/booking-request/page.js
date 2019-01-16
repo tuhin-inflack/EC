@@ -4,13 +4,13 @@ $(document).ready(function () {
     $('#start_date').pickadate({
         min: new Date()
     });
-    
+
     $('#end_date').pickadate({
         min: +1,
     });
-    
+
     $('#start_date, #end_date').pickadate();
-    
+
     // form-repeater
     $('.repeater-room-infos').repeater({
         show: function () {
@@ -18,14 +18,14 @@ $(document).ready(function () {
             $(this).find('select').select2({
                 placeholder: selectPlaceholder
             });
-            
+
             // remove error span
             $('div:hidden[data-repeater-item]')
-            .find('input.is-invalid, select.is-invalid')
-            .each((index, element) => {
-                $(element).removeClass('is-invalid');
-            });
-            
+                .find('input.is-invalid, select.is-invalid')
+                .each((index, element) => {
+                    $(element).removeClass('is-invalid');
+                });
+
             $(this).slideDown();
         }
     });
@@ -33,33 +33,33 @@ $(document).ready(function () {
         show: function () {
             // remove error span
             $('div:hidden[data-repeater-item]')
-            .find('input.is-invalid, select.is-invalid, textarea.is-invalid')
-            .each((index, element) => {
-                $(element).removeClass('is-invalid');
-            });
-            
+                .find('input.is-invalid, select.is-invalid, textarea.is-invalid')
+                .each((index, element) => {
+                    $(element).removeClass('is-invalid');
+                });
+
             $(this).find('.select2-container').remove();
             $(this).find('select').select2({
                 placeholder: selectPlaceholder
             });
-            
+
             $(this).slideDown();
         }
     });
-    
+
     // select2
     $('.training-select, .room-type-select, .rate-select, .guest-gender-select, #department-select, .relation-select')
-    .select2({
-        placeholder: selectPlaceholder
-    });
-    
+        .select2({
+            placeholder: selectPlaceholder
+        });
+
     // validation
     jQuery.validator.addMethod("greaterThanOrEqual",
-    function (value, element, params) {
-        let comparingDate = params == '#start_date' ? $(params).val() : params;
-        return Date.parse(value) >= Date.parse(comparingDate);
-    }, 'Must be greater than or equal to {0}.');
-    
+        function (value, element, params) {
+            let comparingDate = params == '#start_date' ? $(params).val() : params;
+            return Date.parse(value) >= Date.parse(comparingDate);
+        }, 'Must be greater than or equal to {0}.');
+
     $('.booking-request-tab-steps').validate({
         ignore: 'input[type=hidden]', // ignore hidden fields
         errorClass: 'danger',
@@ -101,7 +101,7 @@ $(document).ready(function () {
             },
         },
     });
-    
+
     $('input[type=radio][name=booking_type]').on('ifChecked', function (event) {
         if ($(this).val() == 'training') {
             $('.select-training-div').show();
@@ -110,32 +110,32 @@ $(document).ready(function () {
             $('.select-training-div').hide();
         }
     });
-    
+
     $('.training-select').on('change', function () {
         let trainingId = $(this).val();
         if (trainingId) {
             let $guestInfoRepeater = $('.repeater-guest-information').show();
-            
+
             $.ajax({
                 url: traineesUrl + '/' + trainingId,
                 method: 'get',
                 dataType: 'json'
             })
-            .done(function (data) {
-                // remove form repeater inputs
-                $guestInfoRepeater.find('div[data-repeater-item]').remove();
-                // hide add more button
-                $guestInfoRepeater.find('button[data-repeater-create]').hide();
-                // render trainees table
-                $('.trainee-list').html(traineesListFromTraining(data));
-                $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
-            })
-            .fail(function () {
-                alert('Failed to get content from server');
-            });
+                .done(function (data) {
+                    // remove form repeater inputs
+                    $guestInfoRepeater.find('div[data-repeater-item]').remove();
+                    // hide add more button
+                    $guestInfoRepeater.find('button[data-repeater-create]').hide();
+                    // render trainees table
+                    $('.trainee-list').html(traineesListFromTraining(data));
+                    $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
+                })
+                .fail(function () {
+                    alert('Failed to get content from server');
+                });
         }
     });
-    
+
     try {
         if (typeof roomInfos != undefined) {
             dynamicallySelectRateForRooms();
@@ -147,7 +147,7 @@ $(document).ready(function () {
 
 function getRoomTypeRates(event, roomTypeId) {
     let selectedRoomType = roomTypes.find(roomType => roomType.id == roomTypeId);
-    
+
     $(event.target).parents('.form.row').find('select.rate-select').html(`<option value=""></option>
     <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
     <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
@@ -158,13 +158,13 @@ function getRoomTypeRates(event, roomTypeId) {
 function getRateType(shortCode) {
     switch (shortCode) {
         case 'ge':
-        return 'General Rate';
+            return 'General Rate';
         case 'govt':
-        return 'Government Rate';
+            return 'Government Rate';
         case 'bard-emp':
-        return 'BARD Employee Rate';
+            return 'BARD Employee Rate';
         case 'special':
-        return 'Special Rate';
+            return 'Special Rate';
     }
 }
 
@@ -173,15 +173,15 @@ function getRefereeInformation(employeeId) {
         $('#bard-referee-div').hide();
         return;
     }
-    
+
     let employee = employees.find(emp => emp.id == employeeId);
     let designation = designations.find(designation => designation.id == employee.designation_code);
     let department = departments.find(dept => dept.id == employee.department_id);
-    
+
     $('#referee-name').html(employee.first_name + ' ' + employee.last_name);
     $('#referee-designation').html(designation.name);
     $('#referee-department').html(department.name);
-    
+
     $('#bard-referee-div').show();
 }
 
@@ -189,14 +189,12 @@ function dynamicallySelectRateForRooms() {
     $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
         let roomInfo = roomInfos[index];
         let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
-        
         // create options of select
         $(selectElement).html(`<option value=""></option>
         <option value="ge_${selectedRoomType.general_rate}">GE ${selectedRoomType.general_rate}</option>
         <option value="govt_${selectedRoomType.govt_rate}">GOVT ${selectedRoomType.govt_rate}</option>
         <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
         <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
-        
         // set value of select
         $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
     });
@@ -204,7 +202,7 @@ function dynamicallySelectRateForRooms() {
 
 function traineesListFromTraining(trainees) {
     let tableRows = '';
-    
+
     trainees.forEach((trainee, index) => {
         tableRows += `<tr>
         <input type="hidden" name="guests[${index}][first_name]" value="${trainee.trainee_first_name}"/>
@@ -219,7 +217,7 @@ function traineesListFromTraining(trainees) {
         <td>${trainee.mobile}</td>
         </tr>`;
     });
-    
+
     return `<table class="table table-bordered">
     <thead>
     <tr>
@@ -237,7 +235,7 @@ function traineesListFromTraining(trainees) {
 
 function traineesInfoListFromTraining(trainees) {
     let tbody = '';
-    
+
     trainees.forEach((trainee) => {
         tbody += `<tr>
         <td>${trainee.trainee_first_name} ${trainee.trainee_last_name}</td>
@@ -247,6 +245,6 @@ function traineesInfoListFromTraining(trainees) {
         <td>বাংলাদেশ</td>
         </tr>`;
     });
-    
+
     return tbody;
 }
