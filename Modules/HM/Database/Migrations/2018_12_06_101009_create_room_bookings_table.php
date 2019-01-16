@@ -19,7 +19,7 @@ class CreateRoomBookingsTable extends Migration
             $table->date('end_date');
             $table->date('actual_end_date')->nullable();
             $table->string('shortcode');
-            $table->enum('booking_type', ['general', 'training']);
+            $table->enum('booking_type', ['general', 'training', 'venue']);
             $table->enum('status', ['approved', 'pending', 'rejected']);
             $table->string('note')->nullable();
             $table->unsignedInteger('employee_id')->nullable();
