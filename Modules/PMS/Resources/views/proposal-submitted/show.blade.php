@@ -41,6 +41,50 @@
             </div>
         </div>
     </div>
+    <section id="role-list">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">List of organization of this project</h4>
+                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>Add Organization</a>
+
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body card-dashboard">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered alt-pagination">
+                                    <thead>
+                                    <tr>
+
+                                        <th scope="col">Serial</th>
+                                        <th scope="col">Organization name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Phone Number</th>
+                                        <th scope="col">Address</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @if(count($proposal->projectResearchOrg)>0)
+                                        @foreach($proposal->projectResearchOrg as $projectResearchOrganization)
+                                            <tr>
+                                                <th scope="row">{{$loop->iteration}}</th>
+                                                <td>{{ $projectResearchOrganization->organization->name }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->email }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->mobile }}</td>
+                                                <td>{{ $projectResearchOrganization->organization->address }}</td>
+                                            </tr>
+                                        @endforeach
+                                    @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 @endsection
 @push('page-js')
