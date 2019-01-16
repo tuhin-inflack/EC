@@ -57,7 +57,7 @@
                                                   'title' => 'Delete the training',
                                                   'onclick'=>'return confirm("Confirm delete?")',
                                                   )) !!}
-                                                  {!! Form::close() !!}
+                                                  {!!Form::close()!!}
                                               </span>
                                             </span>
                                         </td>
