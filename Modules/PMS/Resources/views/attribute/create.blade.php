@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Create Attribute</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('pms::attribute.create_attribute')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -21,7 +21,21 @@
                         <div class="card-body">
                             {!! Form::open(['url' =>  '/user/role', 'class' => 'form', 'novalidate']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-at-sign"></i>Attribute Create Form</h4>
+                                <h4 class="form-section"><i class="ft-at-sign"></i>@lang('pms::attribute.attribute_create_form')</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="organization_id" class="form-label required">@lang('pms::attribute.organization')</label>
+                                            {!! Form::select('organization_id', [], null, ['class' => 'form-control select2' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => trans('labels.select')]) !!}
+
+                                            @if ($errors->has('organization_id'))
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('organization_id') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -34,11 +48,12 @@
                                                 </span>
                                             @endif
                                         </div>
-
                                     </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="unit" class="form-label required">Unit</label>
+                                            <label for="unit" class="form-label required">@lang('pms::attribute.unit')</label>
                                             {!! Form::text('unit', null, ['class' => 'form-control' . ($errors->has('unit') ? ' is-invalid' : '')]) !!}
 
                                             @if ($errors->has('unit'))
