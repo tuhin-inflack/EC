@@ -5,7 +5,7 @@
             <div class="form-group">
                 {{--{{ dd($organizations->pluck('name', 'id')) }}--}}
                 <div class="form-group {{ $errors->has('organization_id') ? ' error' : '' }}">
-                    {{ Form::label('organization_id', 'Add organization for ( ' .  $proposal->title ." )") }}
+                    {{ Form::label('organization_id', 'Add organization for ( ' .  isset($proposal->title)  ? $proposal->title : ""." )") }}
                     {{ Form::select('organization_id',  $organizations, null,
                     ['class' => 'form-control addSelect2Class organizationSelect', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
@@ -19,25 +19,31 @@
             </div>
         </div>
     </div>
-    <div class="row addNewOrganization " style="display: none">
+
+    <div class="row addNewOrganization " style="{{ $errors->has('name') ? '' : 'display: none'}}">
         <div class="col-md-6 ">
             <div class="form-group ">
-                <div class="form-group ">
-                    {{ Form::label('name', 'Organization Name') }}
+                <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
+                {{ Form::label('name', 'Organization Name') }}
                     <br/>
-                    {{ Form::text('name',  null,  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name', 'data-validation-required-message' => trans('labels.This field is required')]) }}
-
+                    {{ Form::text('name',  old('name'),  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name', 'data-validation-required-message' => trans('labels.This field is required')]) }}
                     <div class="help-block"></div>
+                    @if ($errors->has('name'))
+                        <div class="help-block">  {{ $errors->first('name') }}</div>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="col-md-6 ">
             <div class="form-group ">
-                <div class="form-group ">
+                <div class="form-group {{ $errors->has('email') ? ' error' : '' }}">
                     {{ Form::label('email', 'Organization Email') }}
                     <br/>
                     {{ Form::text('email',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter organization email']) }}
                     <div class="help-block"></div>
+                    @if ($errors->has('email'))
+                        <div class="help-block">  {{ $errors->first('email') }}</div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -54,7 +60,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group ">
-                    {{ Form::label('address', 'Organization Mobile') }}
+                    {{ Form::label('address', 'Organization address') }}
                     <br/>
                     {{ Form::text('address',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter organization address']) }}
                     <div class="help-block"></div>
@@ -99,10 +105,6 @@
 
                 }
             });
-            // $("#submitOrganization").on('click', function () {
-            //     $('input,select,textarea').jqBootstrapValidation('destroy');
-            //     $('input,select,textarea').jqBootstrapValidation();
-            // })
         });
     </script>
 @endpush

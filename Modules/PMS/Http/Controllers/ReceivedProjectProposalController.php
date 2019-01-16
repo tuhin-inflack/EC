@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\StoreOrganization;
+use Modules\PMS\Http\Requests\StoreOrganizationRequest;
 use Modules\PMS\Repositories\ProjectResearchOrgRepository;
 use Modules\PMS\Services\OrganizationService;
 use Modules\PMS\Services\ProjectProposalService;
@@ -52,14 +54,13 @@ class ReceivedProjectProposalController extends Controller
         $type = Config::get('constants.project');
 
         $organizations = $this->organizationService->getAllOrganization($proposalId, $type);
-        $proposal = $this->projectProposalService->findOrFail($proposalId);
-
+        $proposal = $this->projectProposalService->getProposalById($proposalId);
 
         return view('pms::proposal-submitted.add_organization', compact('proposal', 'organizations', 'type'));
 
     }
 
-    public function storeOrganization(Request $request)
+    public function storeOrganization(StoreOrganizationRequest $request)
     {
 //        dd($request->all());
         $response = $this->projectResearchOrgService->storeData($request->all());

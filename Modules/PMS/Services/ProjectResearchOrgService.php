@@ -53,8 +53,13 @@ class ProjectResearchOrgService
 
     public function getAlreadyAddedOrganizationIds($proposalId)
     {
-        $ids = $this->projectProposalService->findOne($proposalId)->projectResearchOrg->toArray();
-        $alreadyAddedIds = array_column($ids, 'organization_id');
+        $ids = $this->projectProposalService->findOne($proposalId);
+        $alreadyAddedIds = [];
+        if (!is_null($ids)) {
+            $ids = $ids->projectResearchOrg->toArray();
+            $alreadyAddedIds = array_column($ids, 'organization_id');
+        }
+
         return $alreadyAddedIds;
 
     }

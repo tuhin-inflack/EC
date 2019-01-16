@@ -33,6 +33,7 @@ class OrganizationService
 
         $alreadyAddedIds  = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
 
+
         $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
 //        dd($organizations);
 //        $organizations = $this->organizationRepository->findAll()->pluck( 'name', 'id' )->toArray();
