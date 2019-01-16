@@ -84,105 +84,90 @@ $('.booking-request-tab-steps').steps({
                 alert('Please select room details');
                 return false;
             }
-            // added by sumon mahmud
 
+            if (pageType == 'checkin') {
+                // added by sumon mahmud
+                // capturing data from matrix
+                var selectedRoomTypeNumberFromMatrix = [];
+                var allSelectedRoom = [];
+                $('.ck-rooms:checked').map(function () {
+                    allSelectedRoom.push($(this).data('roomType'));
+                    return this.value;
+                });
 
-            // capturing data from matrix
-            var selectedRoomTypeNumberFromMatrix = {};
-            var allSelectedRoom = [];
-            $('.ck-rooms:checked').map(function () {
-                allSelectedRoom.push($(this).data('roomType'));
-                return this.value;
-            });
-
-            //making array of same type counter value
-            allSelectedRoom.forEach(function (i) {
-                selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;
-            });
-
-            // counting the total number of room taken from input
-            var totalSelectedRoomFromMatrix = 0;
-            for (var i in selectedRoomTypeNumberFromMatrix) {
-                totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
-            }
-
-            // Capturing data from repetitive form
-            var data = $('.repeater-room-infos').repeaterVal('roomInfos');
-            var roomInfoFromInput = data['roomInfos'];
-
-            // counting the total number of room taken from input
-            var totalRoomSelectedFromInput = 0;
-            for (i = 0; i < roomInfoFromInput.length; i++) {
-                totalRoomSelectedFromInput += Number(roomInfoFromInput[i]['quantity']);
-            }
-
-            // console.log(selectedRoomTypeNumberFromMatrix);
-
-            // Checking validation
-            var validationStatus = false;
-            if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {
-                $('#validationError').html(minimum_message + " " + totalRoomSelectedFromInput + " " + room);
-                $('#validationError').show();
-
-            } else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {
-                $('#validationError').html(maximum_message + " " + totalRoomSelectedFromInput + " " + room);
-
-                $('#validationError').show();
-            } else {
-
-
-                for (i = 0; i < roomInfoFromInput.length; i++) {
-                    var singleRoom = roomInfoFromInput[i];
-                    roomTypeIdFromForm = singleRoom['room_type_id'];
-                    roomQuantity = Number(singleRoom['quantity']);
-                    // console.log("Room Type " + roomTypeIdFromForm + " Selected #" +  roomQuantity)
-
-                    if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {
-                        roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);
-
-                        console.log(roomQuantity);
-                        console.log(roomCountFromMatrix);
-                        if (roomQuantity < roomCountFromMatrix) {
-                            if (current_lang == 'bn') {
-                                var message = maximum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
-                            } else {
-                                var message = at_most + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
-                            }
-                            $('#validationError').html(message);
-                            $('#validationError').show();
-                            return;
-                        } else if (roomQuantity > roomCountFromMatrix) {
-                            if (current_lang == 'bn') {
-                                var message = minimum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
-                            } else {
-                                var message = at_least + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
-                            }
-                            $('#validationError').html(message);
-                            $('#validationError').show();
-                            return;
-                        } else {
-                            validationStatus = true;
-                        }
-                    } else {
-                        $('#validationError').html(wrong_selection + " ! ");
-                        $('#validationError').show();
-                        return;
-                    }
+                // making array of same type counter value
+                allSelectedRoom.forEach(function (i) {
+                    selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;
+                });
+                // counting the total number of room taken from input
+                var totalSelectedRoomFromMatrix = 0;
+                for (var i in selectedRoomTypeNumberFromMatrix) {
+                    totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
                 }
 
+                // Capturing data from repetitive form
+                var data = $('.repeater-room-infos').repeaterVal('roomInfos');
+                var roomInfoFromInput = data['roomInfos'];
+
+                // counting the total number of room taken from input
+                var totalRoomSelectedFromInput = 0;
+                for (i = 0; i < roomInfoFromInput.length; i++) {
+                    totalRoomSelectedFromInput += Number(roomInfoFromInput[i]['quantity']);
+                }
+
+                // Checking validation
+                var validationStatus = false;
+                if (totalRoomSelectedFromInput > totalSelectedRoomFromMatrix) {
+                    $('#validationError').html(minimum_message + " " + totalRoomSelectedFromInput + " " + room);
+                    $('#validationError').show();
+                } else if (totalRoomSelectedFromInput < totalSelectedRoomFromMatrix) {
+                    $('#validationError').html(maximum_message + " " + totalRoomSelectedFromInput + " " + room);
+                    $('#validationError').show();
+                } else {
+                    for (i = 0; i < roomInfoFromInput.length; i++) {
+                        var singleRoom = roomInfoFromInput[i];
+                        roomTypeIdFromForm = singleRoom['room_type_id'];
+                        roomQuantity = Number(singleRoom['quantity']);
+
+                        if (roomTypeIdFromForm in selectedRoomTypeNumberFromMatrix) {
+                            roomCountFromMatrix = Number(selectedRoomTypeNumberFromMatrix[roomTypeIdFromForm]);
+
+                            if (roomQuantity < roomCountFromMatrix) {
+                                if (current_lang == 'bn') {
+                                    var message = maximum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
+                                } else {
+                                    var message = at_most + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
+                                }
+                                $('#validationError').html(message);
+                                $('#validationError').show();
+                                return;
+                            } else if (roomQuantity > roomCountFromMatrix) {
+                                if (current_lang == 'bn') {
+                                    var message = minimum + " " + roomQuantity + " " + the + " " + room_type_names[roomTypeIdFromForm] + " " + room_selection;
+                                } else {
+                                    var message = at_least + " " + roomQuantity + " " + room_type_names[roomTypeIdFromForm] + room;
+                                }
+                                $('#validationError').html(message);
+                                $('#validationError').show();
+                                return;
+                            } else {
+                                validationStatus = true;
+                            }
+                        } else {
+                            $('#validationError').html(wrong_selection + " ! ");
+                            $('#validationError').show();
+                            return;
+                        }
+                    }
+                }
+                if (!validationStatus) {
+                    return false;
+                    $('#validationError').show();
+                } else {
+                    $('#validationError').hide();
+                }
+                // end sumon mahmud
             }
-            if (!validationStatus) {
-                return false;
-                $('#validationError').show();
-            } else {
-                $('#validationError').hide();
-            }
-            // console.log(selectedRoomTypeNumberFromMatrix)
-
-
-            // end sumon mahmud
-
-
         }
         if (newIndex == 2) {
             let trainingId = $('select[name=training_id]').val();
