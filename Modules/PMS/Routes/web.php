@@ -46,5 +46,7 @@ Route::prefix('pms')->group(function () {
     Route::prefix('attributes')->group(function () {
        Route::get('create', 'AttributeController@create')->name('attributes.create');
        Route::post('/', 'AttributeController@store')->name('attributes.store');
+       Route::get('{attribute}/edit', 'AttributeController@edit')->name('attributes.edit');
+       Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
     });
 });
