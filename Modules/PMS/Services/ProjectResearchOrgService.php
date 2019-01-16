@@ -21,11 +21,15 @@ class ProjectResearchOrgService
     use CrudTrait;
     private $projectResearchOrgRepository;
     private $organizationRepository;
+    private $projectProposalService;
 
-    public function __construct(ProjectResearchOrgRepository $projectResearchOrgRepository, OrganizationRepository $organizationRepository)
+    public function __construct(ProjectResearchOrgRepository $projectResearchOrgRepository,
+                                OrganizationRepository $organizationRepository, ProjectProposalService $projectProposalService)
+
     {
         $this->projectResearchOrgRepository = $projectResearchOrgRepository;
         $this->organizationRepository = $organizationRepository;
+        $this->projectProposalService = $projectProposalService;
         $this->setActionRepository($this->projectResearchOrgRepository);
     }
 
@@ -45,6 +49,14 @@ class ProjectResearchOrgService
         if ($status) {
             return new Response(trans('labels.save_success'));
         }
+    }
+
+    public function getAlreadyAddedOrganizationIds($proposalId)
+    {
+        $ids = $this->projectProposalService->findOne($proposalId)->projectResearchOrg->toArray();
+        $alreadyAddedIds = array_column($ids, 'organization_id');
+        return $alreadyAddedIds;
+
     }
 
 }

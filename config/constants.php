@@ -1,6 +1,7 @@
 <?php
 
 return [
+//    used in HRM
     'gender' => [
         'male' => 'Male',
         'female' => 'Female',
@@ -21,6 +22,9 @@ return [
     'employee_education_medium' => [
         'bangla' => 'Bangla',
         'english' => 'English'
-    ]
+    ],
+//Use in PMS
+    'project' => 1,
+    'research' => 2,
 
 ];

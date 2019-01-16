@@ -15,4 +15,10 @@ use Modules\PMS\Entities\Organization;
 class OrganizationRepository extends AbstractBaseRepository
 {
     protected $modelName = Organization::class;
+
+    public function getOrganizationExceptIds($alreadyAddedIds)
+    {
+        $organizations = Organization::whereNotIn('id', $alreadyAddedIds)->get()->pluck('name', 'id')->toArray();
+        return $organizations;
+    }
 }

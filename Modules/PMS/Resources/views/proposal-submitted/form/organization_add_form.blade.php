@@ -19,7 +19,7 @@
             </div>
         </div>
     </div>
-    <div class="row addNewOrganization " >
+    <div class="row addNewOrganization " style="display: none">
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group ">
@@ -82,23 +82,27 @@
 @push('page-js')
     <script>
         $(document).ready(function () {
-            $(".addNewOrganization").hide();
+            // $(".addNewOrganization").hide();
             $('.organizationSelect').on('select2:select', function (e) {
-                $('input,select,textarea').jqBootstrapValidation();
                 var value = $(".organizationSelect option:selected").val();
                 if (value === 'other_organization') {
                     $('input,select,textarea').jqBootstrapValidation('destroy');
+                    $('input,select,textarea').jqBootstrapValidation();
                     $(".addNewOrganization").show();
                     $(".addOrganizationInput").focus();
+                } else if (value == "") {
+                    $('input,select,textarea').jqBootstrapValidation();
+                    $(".addNewOrganization").hide();
                 } else {
+                    $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").hide();
 
                 }
             });
-            $("#submitOrganization").on('click', function () {
-                $('input,select,textarea').jqBootstrapValidation('destroy');
-                $('input,select,textarea').jqBootstrapValidation();
-            })
+            // $("#submitOrganization").on('click', function () {
+            //     $('input,select,textarea').jqBootstrapValidation('destroy');
+            //     $('input,select,textarea').jqBootstrapValidation();
+            // })
         });
     </script>
 @endpush
