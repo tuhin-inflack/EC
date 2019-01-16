@@ -7,4 +7,5 @@ return [
     'attribute_create_form' => 'Attribute Create Form',
     'edit_attribute' => 'Edit Attribute',
     'attribute_edit_form' => 'Attribute Edit Form',
+    'attribute_list' => 'Attribute List',
 ];

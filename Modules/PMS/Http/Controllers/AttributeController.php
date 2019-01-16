@@ -34,6 +34,12 @@ class AttributeController extends Controller
         $this->organizationService = $organizationService;
     }
 
+    public function index()
+    {
+        $attributes = $this->attributeService->findAll();
+        return view('pms::attribute.index', compact('attributes'));
+    }
+
     public function create()
     {
         $organizations = $this->organizationService->getAllOrganization();
@@ -46,7 +52,7 @@ class AttributeController extends Controller
         $this->attributeService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
 
-        return redirect()->back();
+        return redirect()->route('attributes.index');
     }
 
     public function edit(Attribute $attribute)
@@ -61,10 +67,10 @@ class AttributeController extends Controller
         $this->attributeService->update($attribute, $request->all());
         Session::flash('success', trans('labels.update_success'));
 
-        return redirect()->back();
+        return redirect()->route('attributes.index');
     }
 
-    public function delete(Attribute $attribute)
+    public function destroy(Attribute $attribute)
     {
         $this->attributeService->delete($attribute->id);
         Session::flash('message', trans('labels.delete_success'));

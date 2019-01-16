@@ -46,7 +46,7 @@
         <button type="submit" class="btn btn-primary">
             <i class="la la-check-square-o"></i> {{trans('labels.save')}}
         </button>
-        <a class="btn btn-warning mr-1" role="button" href="{{url('pms')}}">
+        <a class="btn btn-warning mr-1" role="button" href="{{ route('attributes.index') }}">
             <i class="ft-x"></i> {{trans('labels.cancel')}}
         </a>
     </div>
