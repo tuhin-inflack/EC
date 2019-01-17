@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -23,6 +24,7 @@ use Modules\HM\Entities\CheckinRoom;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
+use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
 
@@ -36,6 +38,7 @@ class BookingRequestService
 
     private $bookingGuestInfoRepository;
     private $roomBookingRequesterRepository;
+    private $bookingRequesteForwardRepository;
     private $roomService;
     /**
      * @var RoomTypeService
@@ -47,6 +50,7 @@ class BookingRequestService
      * @param RoomBookingRepository $roomBookingRepository
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
+     * @param BookingRequestForwardRepository $bookingRequesteForwardRepository
      * @param RoomTypeService $roomTypeService
      * @param RoomService $roomService
      */
@@ -54,6 +58,7 @@ class BookingRequestService
         RoomBookingRepository $roomBookingRepository,
         BookingGuestInfoRepository $bookingGuestInfoRepository,
         RoomBookingRequesterRepository $roomBookingRequesterRepository,
+        BookingRequestForwardRepository $bookingRequesteForwardRepository,
         RoomTypeService $roomTypeService,
         RoomService $roomService
     )
@@ -61,6 +66,7 @@ class BookingRequestService
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
+        $this->bookingRequesteForwardRepository = $bookingRequesteForwardRepository;
         $this->roomTypeService = $roomTypeService;
         $this->roomService = $roomService;
         $this->setActionRepository($roomBookingRepository);
@@ -265,6 +271,15 @@ class BookingRequestService
         if ($this->checkRoomsAvailability($roomBooking)) {
             return $this->update($roomBooking, $data);
         }
+    }
+
+    public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
+    {
+        $data['room_booking_id'] = $roomBooking->id;
+        $data['forwarded_to'] = Auth::user()->id;
+        $data['forwarded_by'] = $data['forwardTo'];
+
+        return $this->bookingRequesteForwardRepository->save($data);
     }
 
     /**

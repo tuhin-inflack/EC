@@ -2,6 +2,7 @@
 
 namespace Modules\HM\Http\Controllers;
 
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -40,9 +41,13 @@ class BookingRequestController extends Controller
      */
     private $designationService;
     /**
-     * @var DesignationService
+     * @var TrainingsService
      */
     private $trainingService;
+    /**
+     * @var DesignationService
+     */
+    private $userService;
 
     /**
      * BookingRequestController constructor.
@@ -52,6 +57,7 @@ class BookingRequestController extends Controller
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
      * @param TrainingsService $trainingService
+     * @param UserService $userService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
@@ -59,7 +65,8 @@ class BookingRequestController extends Controller
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
         DesignationService $designationService,
-        TrainingsService $trainingService
+        TrainingsService $trainingService,
+        UserService $userService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -68,6 +75,7 @@ class BookingRequestController extends Controller
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
         $this->trainingService = $trainingService;
+        $this->userService = $userService;
     }
 
     /**
@@ -128,8 +136,9 @@ class BookingRequestController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
+        $forwardToUsers = $this->userService->getAdminExceptLoggedInUserRole();
         $type = 'booking';
-        return view('hm::booking-request.show', compact('roomBooking', 'type'));
+        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers'));
     }
 
     /**

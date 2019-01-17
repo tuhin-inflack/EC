@@ -11,6 +11,7 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use App\Traits\CrudTrait;
+use function foo\func;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -93,9 +94,10 @@ class UserService
         return $designation;
     }
 
-    public function getUsersExceptLoggedInUser(array $findBy)
+    public function getAdminExceptLoggedInUserRole()
     {
-        return $this->findBy($findBy)->except($this->getLoggedInUser()->id);
+        $logginUserRoleId = $this->getLoggedInUser()->roles[0]->id;
+        return $this->userRepository->getAdminsExceptLoginInUser($logginUserRoleId);
     }
 
 }
