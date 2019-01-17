@@ -22,4 +22,12 @@ class ProjectResearchTaskRepository extends AbstractBaseRepository
             $query->where('id', $projectId);
         })->get();
     }
+
+    public function saveAttachments($taskId, $data)
+    {
+        $task = $this->findOrFail($taskId);
+        $save = $task->attachments()->create($data);
+
+        return $save->getAttribute('id');
+    }
 }

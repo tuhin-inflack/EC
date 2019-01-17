@@ -54,7 +54,6 @@
                                                 @if(empty($task->start_time) || empty($task->end_time))
                                                       <a href="{{route('task.toggleStartEnd', ['taskId' => $task['id']])}}" class="dropdown-item"><i class="ft-edit-2"></i> {{(empty($task->start_time))? trans('pms::task.start_date') : trans('pms::task.end_date')}}</a>
                                                   @endif
-                                                <a href="{{route('trainee.import', ['training_id' => $task['id']])}}" class="dropdown-item"><i class="ft-download"></i> {{trans('pms::task.trainee_import')}}</a>
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',

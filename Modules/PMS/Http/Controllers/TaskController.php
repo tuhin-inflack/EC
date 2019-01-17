@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
 
@@ -46,8 +47,23 @@ class TaskController extends Controller
         return view('pms::task.create', compact('project', 'taskNames'));
     }
 
-    public function store(Request $request)
+    public function store($projectId, TaskRequest $request)
     {
+        $data = $request->all();
+        $data['type'] = 'project';
+        $data['task_for_id'] = $projectId;
+        $saveData = $this->projectResearchTaskService->save($data);
+        $savedTaskId = $saveData->getAttribute('id');
+        if($savedTaskId)
+        {
+            $files = $request->file('attachments');
+            $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
+        }
+
+        $msg = ($saveData->getAttribute('id'))? __('labels.save_success') : __('labels.save_fail');
+        Session::flash('message', $msg);
+
+        return back();
     }
 
     public function show()

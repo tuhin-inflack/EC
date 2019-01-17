@@ -14,7 +14,7 @@ class ProjectResearchTask extends Model
 
     public function attachments()
     {
-        return $this->hasMany(ProjectResearchAttachment::class);
+        return $this->hasMany(TaskAttachments::class);
     }
 
     public function comments()

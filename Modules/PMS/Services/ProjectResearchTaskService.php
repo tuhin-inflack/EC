@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tuhin
- * Date: 10/18/18
- * Time: 5:18 PM
- */
-
 namespace Modules\PMS\Services;
 
 use App\Traits\CrudTrait;
@@ -31,21 +24,23 @@ class ProjectResearchTaskService
         return $this->projectResearchTaskRepository->getTasks($projectId);
     }
 
-    public function store(array $data)
+    public function saveAttachments($taskId, $files)
     {
-        $proposal = $this->projectProposalRepository->save($data);
-
-        foreach ($data['attachment'] as $image) {
-            $filename = $image->getClientOriginalName();
-            $image->storeAs('public/uploads', $filename);
-
-            $image = new ProjectProposalFile([
-                'attachments' => $filename,
-            ]);
-
-            $proposal->projectProposalFiles()->save($image);
+        $cnt = 0;
+        foreach ($files as $file)
+        {
+            $fileName = uniqid();
+            $fileExt = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
+            $filePath = $fileName.".".$fileExt;
+            $attachmentData = array(
+                'project_research_task_id' => $taskId,
+                'file_name' => $fileName,
+                'file_ext' => $fileExt,
+                'file_path' => $filePath
+            );
+            $saveAttachment = $this->projectResearchTaskRepository->saveAttachments($taskId,$attachmentData);
+            if($saveAttachment) $cnt++;
         }
-
-        return new Response(trans('labels.save_success'), Response::HTTP_OK);
+        return $cnt;
     }
 }

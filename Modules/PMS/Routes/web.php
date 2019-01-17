@@ -38,6 +38,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('project-proposal-submitted.add-organization');
         Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('project-proposal-submitted.store-organization');
     });
+
     Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
         Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
