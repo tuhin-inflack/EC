@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">Attribute Value Input</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('pms::attribute.attribute_value_input')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -21,12 +21,12 @@
                         <div class="card-body">
                             {!! Form::open(['route' =>  ['attribute-values.store', $attribute->id], 'class' => 'form']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-at-sign"></i>Attribute Value Input Form</h4>
+                                <h4 class="form-section"><i class="ft-at-sign"></i>@lang('pms::attribute.attribute_value_input_form')</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="attribute"
-                                                   class="form-label required">Attribute</label>
+                                                   class="form-label required">@lang('pms::attribute.attribute_name')</label>
                                             {!! Form::text('attribute', $attribute->name, ['class' => 'form-control', 'disabled']) !!}
                                         </div>
                                     </div>
@@ -35,7 +35,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="date"
-                                                   class="form-label required">Date</label>
+                                                   class="form-label required">@lang('labels.date')</label>
                                             {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
 
                                             @if ($errors->has('date'))
@@ -50,7 +50,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="value"
-                                                   class="form-label required">Value</label>
+                                                   class="form-label required">@lang('pms::attribute.value') <i>( {{ $attribute->unit }} )</i></label>
                                             {!! Form::number('value', null, ['class' => 'form-control' . ($errors->has('value') ? ' is-invalid' : ''), 'required', 'min' => 1]) !!}
 
                                             @if ($errors->has('value'))
