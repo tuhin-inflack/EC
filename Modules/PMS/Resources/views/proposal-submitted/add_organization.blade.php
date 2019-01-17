@@ -33,7 +33,7 @@
                             </div>
                         </div>
 
-                        {!! Form::open(['route' =>  'project-proposal-submitted.store-organization', 'class' => 'form',' novalidate']) !!}
+                        {!! Form::open(['route' =>  'organization.store-organization', 'class' => 'form',' novalidate']) !!}
                         @include('pms::proposal-submitted.form.organization_add_form')
                         {!! Form::close() !!}
 

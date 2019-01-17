@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
-                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
 
                     </div>
 
@@ -64,9 +64,11 @@
                                         <th scope="col">@lang('labels.email_address')</th>
                                         <th scope="col">@lang('labels.mobile')</th>
                                         <th scope="col">@lang('labels.address')</th>
+                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     @if(count($proposal->projectResearchOrg)>0)
                                         @foreach($proposal->projectResearchOrg as $projectResearchOrganization)
                                             <tr>
@@ -75,6 +77,17 @@
                                                 <td>{{ $projectResearchOrganization->organization->email }}</td>
                                                 <td>{{ $projectResearchOrganization->organization->mobile }}</td>
                                                 <td>{{ $projectResearchOrganization->organization->address }}</td>
+                                                <td>
+
+
+                                                <span class="dropdown">
+                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
+                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> Add Member</a>
+                                                    </span>
+                                                </span>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

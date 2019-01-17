@@ -49,25 +49,7 @@ class ReceivedProjectProposalController extends Controller
         return view('pms::proposal-submitted.show', compact('proposal'));
     }
 
-    public function addOrganization($proposalId)
-    {
-        $type = Config::get('constants.project');
 
-        $organizations = $this->organizationService->getAllOrganization($proposalId, $type);
-        $proposal = $this->projectProposalService->getProposalById($proposalId);
-
-        return view('pms::proposal-submitted.add_organization', compact('proposal', 'organizations', 'type'));
-
-    }
-
-    public function storeOrganization(StoreOrganizationRequest $request)
-    {
-//        dd($request->all());
-        $response = $this->projectResearchOrgService->storeData($request->all());
-        Session::flash('message', $response->getContent());
-
-        return redirect()->route('project-proposal-submitted.index');
-    }
 
     public function edit()
     {

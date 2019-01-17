@@ -35,8 +35,12 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
-        Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('project-proposal-submitted.add-organization');
-        Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('project-proposal-submitted.store-organization');
+
+    });
+
+    Route::prefix('organization')->group(function () {
+        Route::get('/add-organization/{id?}', 'OrganizationController@addOrganization')->name('organization.add-organization');
+        Route::post('/store-organization/{id?}', 'OrganizationController@storeOrganization')->name('organization.store-organization');
     });
 
     Route::prefix('task')->group(function () {
