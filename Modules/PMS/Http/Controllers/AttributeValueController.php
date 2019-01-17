@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Attribute;
+use Modules\PMS\Http\Requests\StoreAttributeValueRequest;
 use Modules\PMS\Services\AttributeValueService;
 
 class AttributeValueController extends Controller
@@ -50,9 +51,9 @@ class AttributeValueController extends Controller
      * @param Attribute $attribute
      * @return array
      */
-    public function store(Request $request, Attribute $attribute)
+    public function store(StoreAttributeValueRequest $request, Attribute $attribute)
     {
-        $this->attributeValueService->save(array_merge($request->all(), ['attribute_id' => $attribute->id]));
+        $this->attributeValueService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
 
         return redirect()->back();

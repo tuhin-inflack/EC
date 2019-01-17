@@ -21,13 +21,22 @@
                         <div class="card-body">
                             {!! Form::open(['route' =>  ['attribute-values.store', $attribute->id], 'class' => 'form']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-at-sign"></i>@lang('pms::attribute.attribute_value_input_form')</h4>
+                                <h4 class="form-section"><i
+                                            class="ft-at-sign"></i>@lang('pms::attribute.attribute_value_input_form')
+                                </h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="attribute"
                                                    class="form-label required">@lang('pms::attribute.attribute_name')</label>
                                             {!! Form::text('attribute', $attribute->name, ['class' => 'form-control', 'disabled']) !!}
+                                            {!! Form::hidden('attribute_id', $attribute->id) !!}
+
+                                            @if ($errors->has('date'))
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('date') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -50,7 +59,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="value"
-                                                   class="form-label required">@lang('pms::attribute.value') <i>( {{ $attribute->unit }} )</i></label>
+                                                   class="form-label required">@lang('pms::attribute.value')
+                                                <i>( {{ $attribute->unit }} )</i></label>
                                             {!! Form::number('value', null, ['class' => 'form-control' . ($errors->has('value') ? ' is-invalid' : ''), 'required', 'min' => 1]) !!}
 
                                             @if ($errors->has('value'))
