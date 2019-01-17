@@ -19,4 +19,9 @@ class ProjectProposal extends Model
     {
         return $this->hasMany(ProjectResearchOrganization::class, 'organization_for_id', 'id');
     }
+
+    public function organizations()
+    {
+        return $this->morphToMany(Organization::class, 'type', 'project_research_organization', 'organization_for_id', 'organization_id');
+    }
 }
