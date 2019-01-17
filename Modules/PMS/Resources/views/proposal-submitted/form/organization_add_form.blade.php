@@ -1,11 +1,12 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('pms::project_proposal.organization_add_form') </h4>
+    <h4>@lang('pms::project_proposal.project_title') : {{ $proposal->title  }}</h4><br/>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 {{--{{ dd($organizations->pluck('name', 'id')) }}--}}
                 <div class="form-group {{ $errors->has('organization_id') ? ' error' : '' }}">
-                    {{ Form::label('organization_id',  trans('pms::project_proposal.project_title') . ' ( ' . $proposal->title ." )") }}
+                    {{ Form::label('organization_id',  trans('pms::project_proposal.organization_name'), ['class' => 'required']) }}
                     {{ Form::select('organization_id',  $organizations, null,
                     ['class' => 'form-control addSelect2Class organizationSelect', 'placeholder' =>trans('labels.select'), 'data-validation-required-message'=>trans('labels.This field is required')]) }}
 
@@ -24,7 +25,7 @@
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
-                {{ Form::label('name', trans('pms::project_proposal.organization_name')) }}
+                {{ Form::label('name', trans('pms::project_proposal.organization_name'), ['class' => 'required']) }}
                     <br/>
                     {{ Form::text('name',  old('name'),  ['id'=>'', 'class' => 'addOrganizationInput form-control', 'placeholder' => 'Enter organization name', 'data-validation-required-message' => trans('labels.This field is required')]) }}
                     <div class="help-block"></div>

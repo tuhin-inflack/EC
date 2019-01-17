@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.menu_title'))
+@section('title', 'Add member')
 
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
+                    <h4 class="card-title" id="basic-layout-form">Add Member</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -24,17 +24,20 @@
                             <div class="col-6">
                                 {{--<h5>Last Submission Date: {{date('d-M-Y', strtotime($projectRequest->end_date))}}</h5>--}}
                             </div>
-
                         </div>
                         <hr>
                         <div class="row">
+                            <div class="col-12"></div>
                             <div class="col-12">
-                               <strong>@lang('pms::project_proposal.project_title'):</strong> {{ $proposal->title }}
-                            </div>
-                            <div class="col-12">
-                              <strong>  @lang('pms::project_proposal.remarks') :  </strong>{{  $proposal->remarks }}
+                                {{--<strong> Remarks: </strong>{{  $proposal->remarks }}--}}
                             </div>
                         </div>
+
+                        {!! Form::open(['route' =>  'member.store-organization-member', 'class' => 'form',' novalidate']) !!}
+                        @include('pms::project-members.form.add_organization_member_form')
+                        {!! Form::close() !!}
+
+
                     </div>
 
                 </div>
@@ -47,11 +50,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
-                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
-
+                        <h4 class="card-title">Member list</h4>
                     </div>
-
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
                             <div class="table-responsive">
@@ -60,34 +60,21 @@
                                     <tr>
 
                                         <th scope="col">@lang('labels.serial')</th>
-                                        <th scope="col">@lang('pms::project_proposal.organization_name')</th>
+                                        <th scope="col">@lang('labels.name')</th>
                                         <th scope="col">@lang('labels.email_address')</th>
                                         <th scope="col">@lang('labels.mobile')</th>
                                         <th scope="col">@lang('labels.address')</th>
-                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                    @if(count($proposal->projectResearchOrg)>0)
-                                        @foreach($proposal->projectResearchOrg as $projectResearchOrganization)
+                                    @if(count($organization->members)>0)
+                                        @foreach($organization->members as $members)
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <td>{{ $projectResearchOrganization->organization->name }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->email }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->mobile }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->address }}</td>
-                                                <td>
-
-
-                                                <span class="dropdown">
-                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
-                                                            aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
-                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('member.add-member', $projectResearchOrganization->organization->id)}}" class="dropdown-item"><i class="ft-plus"></i> Add Member</a>
-                                                    </span>
-                                                </span>
-                                                </td>
+                                                <td>{{ $members->name }}</td>
+                                                <td>{{ $members->email }}</td>
+                                                <td>{{ $members->mobile }}</td>
+                                                <td>{{ $members->address }}</td>
                                             </tr>
                                         @endforeach
                                     @endif
@@ -103,5 +90,12 @@
 
 @endsection
 @push('page-js')
+    <script>
+        $(document).ready(function () {
+            $(".addSelect2Class").select2({
+                width: '100%',
 
+            });
+        });
+    </script>
 @endpush

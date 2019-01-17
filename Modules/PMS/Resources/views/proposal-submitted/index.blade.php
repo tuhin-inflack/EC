@@ -47,7 +47,7 @@
                                                         <a href="" class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
                                                         <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
                                                         <a href="{{route('task.index', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('pms::task.title')}}</a>
-                                                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                                                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                     </span>
                                                 </span>
                                         </td>
