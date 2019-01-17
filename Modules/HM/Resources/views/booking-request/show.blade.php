@@ -43,147 +43,148 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div id="Data">
-                            <div class="card-body" style="padding-left: 20px;">
-                                <p>
-                                    <span
-                                            class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
-                                </p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive table-bordered mb-0">
-                                                <tbody>
-                                                <tr>
-                                                    <td class="width-150">@lang('hm::booking-request.request_id')</td>
-                                                    <td class="width-300">{{ $roomBooking->shortcode }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.requested_on')</td>
-                                                    <td>{{ $roomBooking->created_at->format('d/m/Y') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.booked_by')</td>
-                                                    <td>{{ $roomBooking->requester->getName() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.organization')</td>
-                                                    <td>{{ $roomBooking->requester->organization }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.designation')</td>
-                                                    <td>{{ $roomBooking->requester->designation }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.organization_type')</td>
-                                                    <td>{{ $roomBooking->requester->organization_type }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.contact')</td>
-                                                    <td>{{ $roomBooking->requester->contact }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.email')</td>
-                                                    <td>{{ $roomBooking->requester->email }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.address')</td>
-                                                    <td>{{ $roomBooking->requester->address }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive table-bordered mb-0">
-                                                <tbody>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.booking_type')</td>
-                                                    <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
-                                                </tr>
-                                                @if($type == 'checkin')
-                                                    <tr>
-                                                        <td>@lang('hm::checkin.hostel_name')</td>
-                                                        <td>
-                                                            @foreach($roomBooking->rooms as $room)
-                                                                {{ $room->room->hostel->name }}<br>
-                                                            @endforeach
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>@lang('hm::checkin.room_numbers')</td>
-                                                        <td>
-                                                            @foreach($roomBooking->rooms as $room)
-                                                                @if($loop->iteration == count($roomBooking->rooms))
-                                                                    {{ $room->room->room_number }}
-                                                                @else
-                                                                    {{ $room->room->room_number }},
-                                                                @endif
-                                                            @endforeach
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.check_in')</td>
-                                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->start_date)->format('d/m/Y') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.check_out')</td>
-                                                    <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->end_date)->format('d/m/Y') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.no_of_guests')</td>
-                                                    <td>{{ $roomBooking->guestInfos->count() }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.no_of_rooms')</td>
-                                                    <td>{{ $roomBooking->roomInfos->sum('quantity') }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.room_details')</td>
-                                                    <td>
-                                                        @foreach($roomBooking->roomInfos as $roomInfo)
-                                                            {{ $roomInfo->quantity }} ({{ $roomInfo->roomType->name }})
-                                                        @endforeach
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <br>
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive table-bordered mb-0">
-                                                <tbody>
-                                                <tr>
-                                                    <td class="width-150">@lang('hm::booking-request.bard_reference')</td>
-                                                    <td class="width-300">{{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.designation')</td>
-                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.department')</td>
-                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>@lang('hm::booking-request.contact')</td>
-                                                    <td>{{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+
+                        <div class="card-body" id="Data">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <p>
+                                        <span class="text-bold-600">{{ $type == 'checkin' ? trans('hm::booking-request.check_in') . ' ' . trans('labels.details') : trans('hm::booking-request.booking_details') }}</span>
+                                    </p>
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="width-150">@lang('hm::booking-request.request_id')</td>
+                                            <td class="width-300">{{ $roomBooking->shortcode }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.requested_on')</td>
+                                            <td>{{ $roomBooking->created_at->format('d/m/Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.booked_by')</td>
+                                            <td>{{ $roomBooking->requester->getName() }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.organization')</td>
+                                            <td>{{ $roomBooking->requester->organization }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.designation')</td>
+                                            <td>{{ $roomBooking->requester->designation }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.organization_type')</td>
+                                            <td>{{ $roomBooking->requester->organization_type }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.contact')</td>
+                                            <td>{{ $roomBooking->requester->contact }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.email')</td>
+                                            <td>{{ $roomBooking->requester->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.address')</td>
+                                            <td>{{ $roomBooking->requester->address }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-3">
+                                    <p>
+                                        <span class="text-bold-600">@lang('labels.others') @lang('labels.info')</span>
+                                    </p>
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.booking_type')</td>
+                                            <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
+                                        </tr>
+                                        @if($type == 'checkin')
+                                            <tr>
+                                                <td>@lang('hm::checkin.hostel_name')</td>
+                                                <td>
+                                                    @foreach($roomBooking->rooms as $room)
+                                                        {{ $room->room->hostel->name }}<br>
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>@lang('hm::checkin.room_numbers')</td>
+                                                <td>
+                                                    @foreach($roomBooking->rooms as $room)
+                                                        @if($loop->iteration == count($roomBooking->rooms))
+                                                            {{ $room->room->room_number }}
+                                                        @else
+                                                            {{ $room->room->room_number }},
+                                                        @endif
+                                                    @endforeach
+                                                </td>
+                                            </tr>
+                                        @endif
+                                        <tr>
+                                            <td>@lang('hm::booking-request.check_in')</td>
+                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->start_date)->format('d/m/Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.check_out')</td>
+                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->end_date)->format('d/m/Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.no_of_guests')</td>
+                                            <td>{{ $roomBooking->guestInfos->count() }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.no_of_rooms')</td>
+                                            <td>{{ $roomBooking->roomInfos->sum('quantity') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.room_details')</td>
+                                            <td>
+                                                @foreach($roomBooking->roomInfos as $roomInfo)
+                                                    {{ $roomInfo->quantity }} ({{ $roomInfo->roomType->name }})
+                                                @endforeach
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-4">
+                                    <p>
+                                        <span class="text-bold-600">@lang('hm::booking-request.bard_reference')</span>
+                                    </p>
+                                    <table class="table table-bordered mb-0">
+                                        <tbody>
+                                        <tr>
+                                            <td class="width-150">@lang('hm::booking-request.bard_reference')</td>
+                                            <td class="width-300">{{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.designation')</td>
+                                            <td>{{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.department')</td>
+                                            <td>{{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>@lang('hm::booking-request.contact')</td>
+                                            <td>{{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
+
                             @if($roomBooking->guestInfos->count())
-                                <div class="card-body" style="padding-left: 20px;">
-                                    <p><span class="text-bold-600">@lang('hm::booking-request.guest_information')</span>
-                                    </p>
-                                    <div class="row">
-                                        <table class="table table-striped table-bordered"
-                                               style="margin-left: 15px;margin-right: 15px;">
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>
+                                            <span class="text-bold-600">@lang('hm::booking-request.guest_information')</span>
+                                        </p>
+                                        <table class="table table-striped table-bordered md-0">
                                             <thead>
                                             <tr>
                                                 <th>@lang('labels.serial')</th>
@@ -212,84 +213,88 @@
                                     </div>
                                 </div>
                             @endif
-                            <div class="card-body">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
-                                <div class="row card-deck">
-                                    @if ($roomBooking->requester->photo)
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
-                                               itemprop="contentUrl"
-                                               data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top"
-                                                     style="height: 150px;width: 150px;"
-                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
-                                                     itemprop="thumbnail">
-                                            </a>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
-                                            </div>
-                                        </figure>
-                                    @else
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <p>@lang('labels.no_doc_available')</p>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
-                                            </div>
-                                        </figure>
-                                    @endif
-                                    @if ($roomBooking->requester->nid_doc)
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
-                                               itemprop="contentUrl"
-                                               data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top"
-                                                     style="height: 150px;width: 150px;"
-                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
-                                                     itemprop="thumbnail">
-                                            </a>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
-                                            </div>
-                                        </figure>
-                                    @else
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <p>@lang('labels.no_doc_available')</p>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
-                                            </div>
-                                        </figure>
-                                    @endif
-                                    @if ($roomBooking->requester->passport_doc)
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
-                                               itemprop="contentUrl"
-                                               data-size="480x360">
-                                                <img class="gallery-thumbnail card-img-top"
-                                                     style="height: 150px;width: 150px;"
-                                                     src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
-                                                     itemprop="thumbnail">
-                                            </a>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
-                                            </div>
-                                        </figure>
-                                    @else
-                                        <figure class="card card-img-top border-grey border-lighten-2"
-                                                itemprop="associatedMedia" itemscope="">
-                                            <p>@lang('labels.no_doc_available')</p>
-                                            <div class="card-body px-0">
-                                                <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
-                                            </div>
-                                        </figure>
-                                    @endif
-                                </div>
+
+                            <br>
+                            <p><span class="text-bold-600">@lang('hm::booking-request.documents')</span></p>
+                            <div class="row card-deck">
+                                @if ($roomBooking->requester->photo)
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                           itemprop="contentUrl"
+                                           data-size="480x360">
+                                            <img class="gallery-thumbnail card-img-top"
+                                                 style="height: 150px;width: 150px;"
+                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
+                                                 itemprop="thumbnail">
+                                        </a>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
+                                        </div>
+                                    </figure>
+                                @else
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <p>@lang('labels.no_doc_available')</p>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.your_photo')</h4>
+                                        </div>
+                                    </figure>
+                                @endif
+                                @if ($roomBooking->requester->nid_doc)
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                           itemprop="contentUrl"
+                                           data-size="480x360">
+                                            <img class="gallery-thumbnail card-img-top"
+                                                 style="height: 150px;width: 150px;"
+                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                                 itemprop="thumbnail">
+                                        </a>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                        </div>
+                                    </figure>
+                                @else
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <p>@lang('labels.no_doc_available')</p>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.nid_copy')</h4>
+                                        </div>
+                                    </figure>
+                                @endif
+                                @if ($roomBooking->requester->passport_doc)
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                           itemprop="contentUrl"
+                                           data-size="480x360">
+                                            <img class="gallery-thumbnail card-img-top"
+                                                 style="height: 150px;width: 150px;"
+                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                                 itemprop="thumbnail">
+                                        </a>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
+                                        </div>
+                                    </figure>
+                                @else
+                                    <figure class="card card-img-top border-grey border-lighten-2"
+                                            itemprop="associatedMedia" itemscope="">
+                                        <p>@lang('labels.no_doc_available')</p>
+                                        <div class="card-body px-0">
+                                            <h4 class="card-title">@lang('hm::booking-request.passport_copy')</h4>
+                                        </div>
+                                    </figure>
+                                @endif
                             </div>
                         </div>
+
+                        @if($type == 'checkin')
+
+                        @endif
 
                         @if($type == 'checkin')
                             <div class="card-body" style="padding-left: 20px;">
@@ -326,7 +331,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
-                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 6, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 3, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
                                             @if ($errors->has('note'))
                                                 <span class="invalid-feedback" role="alert">
@@ -364,9 +369,9 @@
                                                             class="ft-check"></i> @lang('hm::booking-request.approve')
                                                 </button>
                                             @endif
-                                                <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
-                                                            class="ft-printer"></i> @lang('labels.print')
-                                                </button>
+                                            <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
+                                                        class="ft-printer"></i> @lang('labels.print')
+                                            </button>
                                         @endif
                                     @endcan
                                 </div>
@@ -395,7 +400,7 @@
 
             var printContent = function (id, division, report_type) {
                 var table = document.getElementById(id).innerHTML;
-                newwin = window.open('', 'printwin', 'left=70,top=70,width=500,height=500');
+                newwin = window.open('', 'printwin', 'left=70,top=70,width=850,height=500');
                 newwin.document.write(' <html>\n <head>\n');
 
                 @php

@@ -26,7 +26,7 @@ return [
     'trainee' => 'Trainee',
     'trainee_import' => 'Trainee Import',
     'trainee_import_to' => 'Importing Trainee to',
-    'trainee_import_filetype_alert' => 'File type must be CSV/Xlsx',
+    'trainee_import_filetype_alert' => 'File type has to be CSV/Xlsx',
     'trainee_import_data_error_alert' => 'Invalid information detected that are marked red. Please fix and tray again',
     'add_trainee' => 'Add Trainee',
     'edit_trainee' => 'Edit Trainee',
