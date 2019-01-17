@@ -42,6 +42,11 @@ Route::prefix('pms')->group(function () {
         Route::get('/add-organization/{id?}', 'OrganizationController@addOrganization')->name('organization.add-organization');
         Route::post('/store-organization/{id?}', 'OrganizationController@storeOrganization')->name('organization.store-organization');
     });
+    Route::prefix('member')->group(function () {
+        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-member');
+        Route::post('/store-organization-member/{organizationId?}', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-organization-member');
+    });
+
     Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
         Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
