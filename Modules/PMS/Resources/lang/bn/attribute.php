@@ -12,4 +12,5 @@ return [
     'attribute_value_input' => 'বৈশিষ্ট্য মান ইনপুট',
     'attribute_value_input_form' => 'বৈশিষ্ট্য মান ইনপুট ফর্ম',
     'value' => 'মান',
+    'enter_value' => 'মান লিখুন',
 ];

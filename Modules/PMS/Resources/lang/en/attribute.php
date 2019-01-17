@@ -12,4 +12,5 @@ return [
     'attribute_value_input' => 'Attribute Value Input',
     'attribute_value_input_form' => 'Attribute Value Input Form',
     'value' => 'Value',
+    'enter_value' => 'Enter Value',
 ];
