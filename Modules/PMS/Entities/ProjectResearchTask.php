@@ -14,12 +14,12 @@ class ProjectResearchTask extends Model
 
     public function attachments()
     {
-        return $this->hasMany(TaskAttachments::class);
+        return $this->hasMany(TaskAttachments::class, 'project_research_task_id', 'id');
     }
 
     public function comments()
     {
-        return $this->hasMany(TaskComment::class);
+        return $this->hasMany(TaskComment::class, 'project_research_task_id', 'id' );
     }
 
     public function project()

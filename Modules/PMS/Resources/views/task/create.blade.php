@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
 @endpush
+
 @section('content')
     <section id="user-form-layouts">
         <div class="row match-height">
@@ -122,7 +123,7 @@
                                 <a href="{{route('task.index', $project->id)}}" class="btn btn-primary">
                                     <i class="ft-check-square"></i> {{trans('pms::task.card_title')}}
                                 </a>
-                                <button class="btn btn-warning" type="button" onclick="window.location = '{{route('training.index')}}'">
+                                <button class="btn btn-warning" type="button" onclick="window.location = '{{route('project-proposal-submitted.view', $project->id)}}'">
                                     <i class="ft-x"></i> {{trans('labels.cancel')}}
                                 </button>
                             </div>

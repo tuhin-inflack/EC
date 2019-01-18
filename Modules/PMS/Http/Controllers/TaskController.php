@@ -7,22 +7,24 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\TaskRequest;
+use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
 
 class TaskController extends Controller
 {
-    private $projectResearchTaskService;
+    private $projectResearchTaskService, $projectProposalService;
 
-    public function __construct(ProjectResearchTaskService $projectResearchTaskService)
+    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ProjectProposalService $projectProposalService)
     {
         $this->projectResearchTaskService = $projectResearchTaskService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     public function index($projectId)
     {
         $tasks = $this->projectResearchTaskService->getTasks($projectId);
-        $project = $this->projectResearchTaskService->findOrFail($projectId)->project;
+        $project = $this->projectProposalService->findOrFail($projectId);
 
         return view('pms::task.index', compact('tasks', 'project'));
     }
@@ -41,7 +43,7 @@ class TaskController extends Controller
 
     public function create($projectId)
     {
-        $project = $this->projectResearchTaskService->findOrFail($projectId)->project;
+        $project = $this->projectProposalService->findOrFail($projectId);
         $taskNames = Task::where('id', '!=', 0)->get();
 
         return view('pms::task.create', compact('project', 'taskNames'));
@@ -66,9 +68,11 @@ class TaskController extends Controller
         return back();
     }
 
-    public function show()
+    public function show($taskId)
     {
-        return view('pms::show');
+        $task = $this->projectResearchTaskService->findOrFail($taskId);
+
+        return view('pms::task.show', compact('task'));
     }
 
     public function edit()
