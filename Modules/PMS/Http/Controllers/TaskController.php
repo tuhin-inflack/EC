@@ -36,7 +36,7 @@ class TaskController extends Controller
         $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
         Session::flash('message', $msg);
 
-        return redirect(route('task.index', $task->task_for_id));
+        return redirect(route('project-proposal-submitted.view', $task->task_for_id));
     }
 
     public function create($projectId)
@@ -80,7 +80,12 @@ class TaskController extends Controller
     {
     }
 
-    public function destroy()
+    public function destroy($taskId)
     {
+        $del = $this->projectResearchTaskService->delete($taskId);
+        $msg = ($del)? __('labels.delete_success') : __('labels.delete_fail');
+        Session::flash('message', $msg);
+
+        return back();
     }
 }

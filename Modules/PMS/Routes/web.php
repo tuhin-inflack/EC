@@ -53,6 +53,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
         Route::post('/create/{projectId}', 'TaskController@store')->name('task.store');
         Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('task.toggleStartEnd');
+        Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('task.delete');
 
     });
 
@@ -68,5 +69,4 @@ Route::prefix('pms')->group(function () {
         Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
 
     });
-
 });

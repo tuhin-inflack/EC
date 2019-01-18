@@ -57,7 +57,7 @@
                                                 <div class="dropdown-divider"></div>
                                                   {!! Form::open([
                                                   'method'=>'DELETE',
-                                                  'url' => [ '/tms/training', $task['id']],
+                                                  'url' => [ route('task.delete', $task->id)],
                                                   'style' => 'display:inline'
                                                   ]) !!}
                                                   {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(

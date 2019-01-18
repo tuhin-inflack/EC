@@ -4,8 +4,8 @@ namespace Modules\PMS\Services;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Repositories\ProjectResearchTaskRepository;
-
 
 class ProjectResearchTaskService
 {
@@ -32,6 +32,8 @@ class ProjectResearchTaskService
             $fileName = uniqid();
             $fileExt = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
             $filePath = $fileName.".".$fileExt;
+            $storeFile = $file->storeAs('attachments',$filePath);
+
             $attachmentData = array(
                 'project_research_task_id' => $taskId,
                 'file_name' => $fileName,
