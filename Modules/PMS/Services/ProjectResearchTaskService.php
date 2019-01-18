@@ -45,4 +45,12 @@ class ProjectResearchTaskService
         }
         return $cnt;
     }
+
+    public function deleteAttachments($attachments)
+    {
+        foreach ($attachments as $attachment)
+        {
+            $del = $this->projectResearchTaskRepository->deleteAttachment($attachment);
+        }
+    }
 }

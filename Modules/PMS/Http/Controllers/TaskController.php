@@ -75,13 +75,37 @@ class TaskController extends Controller
         return view('pms::task.show', compact('task'));
     }
 
-    public function edit()
+    public function edit($taskId)
     {
-        return view('pms::edit');
+        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $taskNames = Task::where('id', '!=', 0)->get();
+
+        return view('pms::task.edit', compact('task', 'taskNames'));
     }
 
-    public function update(Request $request)
+    public function update(TaskRequest $request, $taskId)
     {
+        $data = array(
+            "description" => $request->input('description'),
+            "expected_start_time" => $request->input('expected_start_time'),
+            "expected_end_time" => $request->input('expected_end_time')
+        );
+
+        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $update = $this->projectResearchTaskService->update($task, $data);
+
+        // Adjusting attachments
+        $deletedAttachmentIds = $request->input('deleted_attachments', array());
+        if(count($deletedAttachmentIds)) $deleteAttachments = $this->projectResearchTaskService->deleteAttachments($deletedAttachmentIds);
+
+        if($request->hasFile('attachments'))
+        {
+            $files = $request->file('attachments');
+            $saveAttachments = $this->projectResearchTaskService->saveAttachments($taskId, $files);
+        }
+        Session::flash('message', __('labels.update_success'));
+
+        return back();
     }
 
     public function destroy($taskId)

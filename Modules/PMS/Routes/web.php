@@ -53,6 +53,8 @@ Route::prefix('pms')->group(function () {
         Route::get('/show/{taskId}', 'TaskController@show')->name('task.show');
         Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
         Route::post('/create/{projectId}', 'TaskController@store')->name('task.store');
+        Route::get('/edit/{taskId}', 'TaskController@edit')->name('task.edit');
+        Route::post('/edit/{taskId}', 'TaskController@update')->name('task.update');
         Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('task.toggleStartEnd');
         Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('task.delete');
     });

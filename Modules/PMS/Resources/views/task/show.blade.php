@@ -1,5 +1,5 @@
-@extends('tms::layouts.master')
-@section('title', 'Training details')
+@extends('pms::layouts.master')
+@section('title', __('pms::task.show_form_title'))
 
 @section('content')
     <div class="row">
@@ -55,7 +55,7 @@
                                     @if(count($task->attachments))
                                         <ul class="list-inline">
                                             @foreach($task->attachments as $attachment)
-                                                <li class="list-group-item"><span class="badge bg-info text-highlight">{{$attachment->file_name}}</span><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
+                                                <li class="list-group-item"><span class="badge bg-info">{{$attachment->file_name}}</span><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
                                             @endforeach
                                         </ul>
                                     @else
@@ -67,7 +67,7 @@
                             </tbody>
                         </table>
                         <div class="form-actions">
-                            <a href="{{URL::to( '/tms/training/'.$task->id.'/edit')}}" class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                            <a href="{{route( 'task.edit', $task->id)}}" class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                             <a class="btn btn-warning mr-1" role="button" href="{{route('project-proposal-submitted.view', $task->project->id)}}">
                                 <i class="ft-x"></i> {{trans('labels.back_page')}}
                             </a>

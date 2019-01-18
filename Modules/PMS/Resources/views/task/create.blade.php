@@ -156,29 +156,7 @@
         });
 
         $('#add').click(function () {
-            console.log('add done');
             $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');
         });
-
-        // function dateDifference() {
-        //     var val1 =  document.getElementById('training_start_date').value;
-        //     var val2 =  document.getElementById('training_end_date').value;
-        //     var date1 = new Date(val1);
-        //     var date2 = new Date(val2);
-        //
-        //     console.log('triggered');
-        //
-        //     if(date2 > date1)
-        //     {
-        //         var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        //         var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        //         if(diffDays>0)
-        //             document.getElementById('training_len').value = diffDays + " days";
-        //         else
-        //             document.getElementById('training_len').value = "...";
-        //     }
-        //     else
-        //         document.getElementById('training_len').value = "...";
-        // }
     </script>
 @endpush
