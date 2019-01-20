@@ -1,7 +1,7 @@
 <div class="form-body">
-    <h4 class="form-section"><i class="ft-grid"></i> Member adding form </h4>
+    <h4 class="form-section"><i class="ft-grid"></i> Member Editing form </h4>
 
-    <h3>Add member for <strong>{{ $organization->name }}</strong></h3>
+    <h3>Edit member of <strong>{{ $member->organization->name }}</strong></h3>
     <div class="row " style="">
         <div class="col-md-6 ">
             <div class="form-group ">
@@ -54,11 +54,11 @@
                 {!! Form::label('nid', 'National ID', ['class' => 'required']) !!}
 
 
-                {{ Form::file('nid',  [ 'class' => ' form-control', 'data-validation-required-message' => trans('labels.This field is required')]) }}
+                {{ Form::file('nid',  [ 'class' => ' form-control']) }}
                 <div class="help-block"></div>
             </div>
         </div>
-        {{ Form::hidden('organization_id', $organization->id) }}
+        {{ Form::hidden('id', $member->id) }}
     </div>
     <div class="row">
         <div class="form-actions col-md-12 ">
@@ -75,28 +75,3 @@
     </div>
 </div>
 
-</div>
-
-@push('page-js')
-    <script>
-        // $(document).ready(function () {
-        //     // $(".addNewOrganization").hide();
-        //     $('.organizationSelect').on('select2:select', function (e) {
-        //         var value = $(".organizationSelect option:selected").val();
-        //         if (value === 'other_organization') {
-        //             $('input,select,textarea').jqBootstrapValidation('destroy');
-        //             $('input,select,textarea').jqBootstrapValidation();
-        //             $(".addNewOrganization").show();
-        //             $(".addOrganizationInput").focus();
-        //         } else if (value == "") {
-        //             $('input,select,textarea').jqBootstrapValidation();
-        //             $(".addNewOrganization").hide();
-        //         } else {
-        //             $('input,select,textarea').jqBootstrapValidation('destroy');
-        //             $(".addNewOrganization").hide();
-        //
-        //         }
-        //     });
-        // });
-    </script>
-@endpush

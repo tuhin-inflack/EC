@@ -54,7 +54,7 @@
                 {!! Form::label('nid', 'National ID', ['class' => 'required']) !!}
 
 
-                {{ Form::file('nid',  [ 'class' => ' form-control', 'data-validation-required-message' => trans('labels.This field is required')]) }}
+                {{ Form::file('nid',  [ 'class' => ' form-control']) }}
                 <div class="help-block"></div>
             </div>
         </div>
@@ -74,29 +74,3 @@
         </div>
     </div>
 </div>
-
-</div>
-
-@push('page-js')
-    <script>
-        // $(document).ready(function () {
-        //     // $(".addNewOrganization").hide();
-        //     $('.organizationSelect').on('select2:select', function (e) {
-        //         var value = $(".organizationSelect option:selected").val();
-        //         if (value === 'other_organization') {
-        //             $('input,select,textarea').jqBootstrapValidation('destroy');
-        //             $('input,select,textarea').jqBootstrapValidation();
-        //             $(".addNewOrganization").show();
-        //             $(".addOrganizationInput").focus();
-        //         } else if (value == "") {
-        //             $('input,select,textarea').jqBootstrapValidation();
-        //             $(".addNewOrganization").hide();
-        //         } else {
-        //             $('input,select,textarea').jqBootstrapValidation('destroy');
-        //             $(".addNewOrganization").hide();
-        //
-        //         }
-        //     });
-        // });
-    </script>
-@endpush

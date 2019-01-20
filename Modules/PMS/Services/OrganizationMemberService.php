@@ -11,6 +11,7 @@ namespace Modules\PMS\Services;
 
 use App\Traits\CrudTrait;
 use Modules\PMS\Repositories\OrganizationMemberRepository;
+use Nexmo\Response;
 
 class OrganizationMemberService
 {
@@ -26,6 +27,25 @@ class OrganizationMemberService
     public function saveOrganizationMember($member)
     {
         $this->organizationMemberRepository->save($member);
+    }
+
+    public function findMemberById($memberId)
+    {
+        $member = $this->findOne($memberId);
+        if (is_null($member)) {
+            abort(404);
+        } else {
+            return $member;
+        }
+
+    }
+
+    public function updateOrganizationMember($memberData, $memberId)
+    {
+        $member = $this->findOne($memberId);
+        $status = $member->update($memberData);
+        if ($status)
+            return Response('successfully updated');
     }
 
 }
