@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
 use Modules\RMS\Services\ResearchRequestService;
@@ -14,11 +15,16 @@ use Modules\RMS\Services\ResearchRequestService;
 class ResearchRequestController extends Controller
 {
     private $researchRequestService;
+    /**
+     * @var EmployeeServices
+     */
+    private $employeeServices;
 
 
-    public function __construct(ResearchRequestService $researchRequestService)
+    public function __construct(ResearchRequestService $researchRequestService, EmployeeServices $employeeServices)
     {
         $this->researchRequestService = $researchRequestService;
+        $this->employeeServices = $employeeServices;
     }
 
     /**
@@ -37,7 +43,8 @@ class ResearchRequestController extends Controller
      */
     public function create()
     {
-        return view('rms::researh-request.create');
+        $employees =  $this->employeeServices->getEmployeeListForRessearchRequestReceiver();
+        return view('rms::researh-request.create', compact('employees'));
     }
 
     /**

@@ -86,4 +86,17 @@ class EmployeeServices
 
         return $employeeOptions;
     }
+
+    public function getEmployeeListForRessearchRequestReceiver()
+    {
+        $employees = $this->employeeRepository->findAll();
+
+        $employeeOptions = [];
+        foreach ($employees as $employee)
+        {
+            $employeeOptions[$employee->id] = $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+        }
+
+        return $employeeOptions;
+    }
 }

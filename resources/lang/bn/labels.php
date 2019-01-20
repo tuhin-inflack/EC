@@ -122,7 +122,7 @@ return [
     'User create' => 'ব্যবহারকারী তৈরি করুন',
     'optional' => 'ঐচ্ছিক',
     'remove' => 'মুছে ফেলুন',
-    'confirm_delete' => 'নিশ্চিত বাতিল',
     'confirm_action' => 'আপনি নিশ্চিত',
     'attachments' => 'সংযুক্তি',
+    'save_draft' => 'খসড়া সংরক্ষণ করুন',
 ];

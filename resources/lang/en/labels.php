@@ -123,4 +123,5 @@ return [
     'remove' => 'Remove',
     'confirm_delete' => 'Confirm Delete',
     'confirm_action' => 'Are you sure',
+    'save_draft' => 'Save as Draft',
 ];
