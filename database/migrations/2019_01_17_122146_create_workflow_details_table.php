@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttributeValuesTable extends Migration
+class CreateWorkflowDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateAttributeValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_values', function (Blueprint $table) {
+        Schema::create('workflow_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('attribute_id');
-            $table->decimal('planned_value', 8, 2);
-            $table->decimal('achieved_value', 8, 2);
-            $table->date('date');
+            $table->integer('workflow_master_id');
+            $table->integer('rule_details_id');
+            $table->integer('notification_order');
+            $table->integer('creator_id');
+            $table->integer('responder_id');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateAttributeValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_values');
+        Schema::dropIfExists('workflow_details');
     }
 }

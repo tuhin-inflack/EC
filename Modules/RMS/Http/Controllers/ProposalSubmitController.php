@@ -8,16 +8,23 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchRequest;
+use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class ProposalSubmitController extends Controller
 {
     private $userService;
+    private $researchProposalSubmissionService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
+        /** @var UserService $userService */
         $this->userService = $userService;
+        /** @var ResearchProposalSubmissionService $researchProposalSubmissionService */
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
     }
 
     /**
@@ -58,8 +65,16 @@ class ProposalSubmitController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProposalSubmissionRequest $request)
     {
+        if ($request->input('type') == 'draft') {
+            return 'draft';
+        } else {
+            return 'save';
+        }
+        $this->researchProposalSubmissionService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-proposal-submission.index');
     }
 
     /**

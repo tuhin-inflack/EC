@@ -42,8 +42,7 @@ class AttributeController extends Controller
 
     public function create()
     {
-        $organizations = $this->organizationService->getAllOrganization();
-        array_pop($organizations);
+        $organizations = $this->organizationService->findAll()->pluck('name', 'id');
         return view('pms::attribute.create', compact('organizations'));
     }
 
@@ -57,8 +56,7 @@ class AttributeController extends Controller
 
     public function edit(Attribute $attribute)
     {
-        $organizations = $this->organizationService->getAllOrganization();
-        array_pop($organizations);
+        $organizations = $this->organizationService->findAll()->pluck('name', 'id');
         return view('pms::attribute.edit', compact('attribute', 'organizations'));
     }
 

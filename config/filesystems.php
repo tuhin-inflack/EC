@@ -72,5 +72,8 @@ return [
         ],
 
     ],
+    'paths' => [
+        'test' => 'test',
+    ]
 
 ];

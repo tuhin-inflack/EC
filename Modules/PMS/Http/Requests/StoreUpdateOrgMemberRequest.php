@@ -3,21 +3,21 @@
 namespace Modules\PMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class StoreAttributeValueRequest extends FormRequest
+class StoreUpdateOrgMemberRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            'attribute_id' => 'required|exists:attributes,id',
-            'date' => 'required|date',
-            'planned_value' => 'required|numeric|min:0',
-            'achieved_value' => 'required|numeric|min:0'
+            'name' => 'required',
+            'mobile' => 'required',
+            'gender' => 'required',
         ];
     }
 
