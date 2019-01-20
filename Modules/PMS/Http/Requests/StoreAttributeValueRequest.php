@@ -16,7 +16,8 @@ class StoreAttributeValueRequest extends FormRequest
         return [
             'attribute_id' => 'required|exists:attributes,id',
             'date' => 'required|date',
-            'value' => 'required|numeric|min:0'
+            'planned_value' => 'required|numeric|min:0',
+            'achieved_value' => 'required|numeric|min:0'
         ];
     }
 
