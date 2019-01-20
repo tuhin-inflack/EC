@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAttributeValuesTable extends Migration
+class CreateResearchProposalSubmissionAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateAttributeValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('attribute_values', function (Blueprint $table) {
+        Schema::create('research_proposal_submission_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('attribute_id');
-            $table->decimal('planned_value', 8, 2);
-            $table->decimal('achieved_value', 8, 2);
-            $table->date('date');
+            $table->integer('submissions_id');
+            $table->string('attachments');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateAttributeValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('attribute_values');
+        Schema::dropIfExists('research_proposal_submission_attachments');
     }
 }

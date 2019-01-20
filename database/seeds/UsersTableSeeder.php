@@ -14,8 +14,17 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             (object)[
+                'name' => 'Director General',
+                'email' => 'dg@bard.com',
+                'username' => 'directorgeneral',
+                'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS', // 123123
+                'user_type' => 'Admin',
+                'mobile' => '01710000000',
+                'last_password_change' => date('Y-m-d H:i:s')
+            ],
+            (object)[
                 'name' => 'Director Admin',
-                'email' => 'dg@abc.com',
+                'email' => 'da@bard.com',
                 'username' => 'directoradmin',
                 'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS', // 123123
                 'user_type' => 'Admin',
@@ -23,21 +32,21 @@ class UsersTableSeeder extends Seeder
                 'last_password_change' => date('Y-m-d H:i:s')
             ],
             (object)[
-                'name' => 'Hostel Manager',
-                'email' => 'hm@test.com',
-                'username' => 'hostelmanager',
-                'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS', // 123123
-                'user_type' => 'Admin',
-                'mobile' => '01710000000',
-                'last_password_change' => date('Y-m-d H:i:s')
-            ],
-            (object)[
-                'name' => 'Training Director',
-                'email' => 'td@bard.com',
-                'username' => 'trainingdirector',
+                'name' => 'Director Training',
+                'email' => 'dt@bard.com',
+                'username' => 'directortraining',
                 'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS', // 123123
                 'user_type' => 'Admin',
                 'mobile' => '01711111111',
+                'last_password_change' => date('Y-m-d H:i:s')
+            ],
+            (object)[
+                'name' => 'Hostel Manager',
+                'email' => 'hm@bard.com',
+                'username' => 'hostelmanager',
+                'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS', // 123123
+                'user_type' => 'Employee',
+                'mobile' => '01710000000',
                 'last_password_change' => date('Y-m-d H:i:s')
             ],
         ];
@@ -53,6 +62,17 @@ class UsersTableSeeder extends Seeder
                 'last_password_change' => $user->last_password_change,
             ]);
 
+            if ($user->username == 'directorgeneral') {
+                $roleId = DB::table('roles')->insertGetId([
+                    'name' => 'ROLE_DIRECTOR_GENERAL',
+                    'description' => 'Has general admin role'
+                ]);
+                DB::table('role_user')->insert([
+                    'role_id' => $roleId,
+                    'user_id' => $createdUserId,
+                ]);
+            }
+
             if ($user->username == 'directoradmin') {
                 $roleId = DB::table('roles')->insertGetId([
                     'name' => 'ROLE_DIRECTOR_ADMIN',
@@ -64,6 +84,17 @@ class UsersTableSeeder extends Seeder
                 ]);
             }
 
+            if ($user->username == 'directortraining') {
+                $roleIdTms = DB::table('roles')->insertGetId([
+                    'name' => 'ROLE_DIRECTOR_TRAINING',
+                    'description' => 'Has Training access',
+                ]);
+                DB::table('role_user')->insert([
+                    'role_id' => $roleIdTms,
+                    'user_id' => $createdUserId,
+                ]);
+            }
+
             if ($user->username == 'hostelmanager') {
                 $roleIdHm = DB::table('roles')->insertGetId([
                     'name' => 'ROLE_HOSTEL_MANAGER',
@@ -71,17 +102,6 @@ class UsersTableSeeder extends Seeder
                 ]);
                 DB::table('role_user')->insert([
                     'role_id' => $roleIdHm,
-                    'user_id' => $createdUserId,
-                ]);
-            }
-
-            if ($user->username == 'trainingdirector') {
-                $roleIdTms = DB::table('roles')->insertGetId([
-                    'name' => 'Training',
-                    'description' => 'Has Training access',
-                ]);
-                DB::table('role_user')->insert([
-                    'role_id' => $roleIdTms,
                     'user_id' => $createdUserId,
                 ]);
             }

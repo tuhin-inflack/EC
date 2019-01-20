@@ -59,13 +59,29 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="value"
-                                                   class="form-label required">@lang('pms::attribute.value')
+                                                   class="form-label required">@lang('pms::attribute.planned_value')
                                                 <i>( {{ $attribute->unit }} )</i></label>
-                                            {!! Form::number('value', null, ['class' => 'form-control' . ($errors->has('value') ? ' is-invalid' : ''), 'required', 'min' => 1]) !!}
+                                            {!! Form::number('planned_value', null, ['class' => 'form-control' . ($errors->has('planned_value') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
 
-                                            @if ($errors->has('value'))
+                                            @if ($errors->has('planned_value'))
                                                 <span class="invalid-feedback">
-                                                    <strong>{{ $errors->first('value') }}</strong>
+                                                    <strong>{{ $errors->first('planned_value') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="value"
+                                                   class="form-label required">@lang('pms::attribute.achieved_value')
+                                                <i>( {{ $attribute->unit }} )</i></label>
+                                            {!! Form::number('achieved_value', null, ['class' => 'form-control' . ($errors->has('achieved_value') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
+
+                                            @if ($errors->has('achieved_value'))
+                                                <span class="invalid-feedback">
+                                                    <strong>{{ $errors->first('achieved_value') }}</strong>
                                                 </span>
                                             @endif
                                         </div>

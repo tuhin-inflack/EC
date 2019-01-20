@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\PMS\Http\Requests;
+namespace Modules\RMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAttributeValueRequest extends FormRequest
+class CreateProposalSubmissionRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -14,10 +14,11 @@ class StoreAttributeValueRequest extends FormRequest
     public function rules()
     {
         return [
-            'attribute_id' => 'required|exists:attributes,id',
-            'date' => 'required|date',
-            'planned_value' => 'required|numeric|min:0',
-            'achieved_value' => 'required|numeric|min:0'
+            'title' => 'required|max:100',
+            'end_date' => 'date_format:"j F, Y"|required',
+            'start_date' => 'date_format:"j F, Y"|required',
+            'description' => 'required',
+            'attachments.*' => 'required|mimes:doc,pdf,docx,csv,xlsx,xls|max:3072'
         ];
     }
 
