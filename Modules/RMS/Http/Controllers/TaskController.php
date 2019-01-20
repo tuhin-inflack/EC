@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PMS\Http\Controllers;
+namespace Modules\RMS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -26,36 +26,37 @@ class TaskController extends Controller
         $tasks = $this->projectResearchTaskService->getTasks($projectId);
         $project = $this->projectProposalService->findOrFail($projectId);
 
-        return view('pms::task.index', compact('tasks', 'project'));
+        return view('task.index', compact('tasks', 'project'));
     }
 
     public function toggleStartEndTask($taskId)
     {
-        $update = $this->projectResearchTaskService->toggleStarEndTask($taskId);
+        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $dateNow = date('y-m-d H:i:s');
+        $updateData = (empty($task->start_time)) ? array('start_time' => $dateNow) : array('end_time' => $dateNow);
+        $update = $this->projectResearchTaskService->update($task, $updateData);
         $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
         Session::flash('message', $msg);
 
-        return redirect(route('project-proposal-submitted.view', $update[1]));
+        return redirect(route('project-proposal-submitted.view', $task->task_for_id));
     }
 
     public function create($projectId)
     {
         $project = $this->projectProposalService->findOrFail($projectId);
         $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('task.store', $project->id);
 
-        return view('pms::task.create', compact('project', 'taskNames', 'action'));
+        return view('task.create', compact('project', 'taskNames'));
     }
 
     public function store($projectId, TaskRequest $request)
     {
         $data = $request->all();
-        if(!is_numeric($request->input('task_id'))) $data['task_id'] = $this->projectResearchTaskService->saveTaskName($request->input('task_id'));
         $data['type'] = 'project';
         $data['task_for_id'] = $projectId;
         $saveData = $this->projectResearchTaskService->save($data);
         $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId && $request->hasFile('attachments'))
+        if($savedTaskId)
         {
             $files = $request->file('attachments');
             $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
@@ -71,16 +72,15 @@ class TaskController extends Controller
     {
         $task = $this->projectResearchTaskService->findOrFail($taskId);
 
-        return view('pms::task.show', compact('task'));
+        return view('task.show', compact('task'));
     }
 
     public function edit($taskId)
     {
         $task = $this->projectResearchTaskService->findOrFail($taskId);
         $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('task.update', $taskId);
 
-        return view('pms::task.edit', compact('task', 'taskNames', 'action'));
+        return view('task.edit', compact('task', 'taskNames'));
     }
 
     public function update(TaskRequest $request, $taskId)
