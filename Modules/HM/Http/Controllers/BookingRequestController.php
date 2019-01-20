@@ -86,17 +86,22 @@ class BookingRequestController extends Controller
     {
         $bookingRequests = [];
 
-        if ($this->userService->isDirectorGeneral()) {
-
-            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
-
-        } else if($this->userService->isDirectorAdmin()) {
-
-            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
-
-        } else if($this->userService->isDirectorTraining()) {
-
-            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+        switch (1){
+            case $this->userService->isDirectorGeneral():
+                // show only forwarded requests
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
+                break;
+            case $this->userService->isDirectorAdmin():
+                // show all General requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['general']);
+                break;
+            case $this->userService->isDirectorTraining():
+                // show all Training and Venue requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['training', 'venue']);
+                break;
+            default:
+                $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+                break;
         }
 
         return view('hm::booking-request.index', compact('bookingRequests'));

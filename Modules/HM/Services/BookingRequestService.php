@@ -282,6 +282,28 @@ class BookingRequestService
         return $this->bookingRequesteForwardRepository->save($data);
     }
 
+    public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
+    {
+        $ids = $ids ? : $this->getBookingRequestIdsWithForwadedByBookingTypes($searchCriteria);
+        return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
+    }
+
+    public function getBookingRequestIdsWithForwadedByBookingTypes(array $searchCriteria)
+    {
+        $bookingRequestIds = $this->actionRepository->getModel()->select('id')
+            ->where('type', 'booking')
+            ->whereIn('booking_type', $searchCriteria)->get()->toArray();
+
+        $bookingRequestIds = array_column($bookingRequestIds, 'id');
+
+        $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
+            ->where('forwarded_to', Auth::user()->id)->get()->toArray();
+
+        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'id');
+
+        return array_merge($bookingRequestIds, $forwardedBookingRequestIds);
+    }
+
     /**
      * @param $oldRoomBookings
      * @return \Illuminate\Support\Collection
