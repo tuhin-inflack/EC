@@ -11,6 +11,7 @@ namespace Modules\PMS\Repositories;
 use App\Repositories\AbstractBaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PMS\Entities\ProjectResearchTask;
+use Modules\PMS\Entities\Task;
 use Modules\PMS\Entities\TaskAttachments;
 
 
@@ -36,5 +37,11 @@ class ProjectResearchTaskRepository extends AbstractBaseRepository
     public function deleteAttachment($attachmentId)
     {
         return TaskAttachments::where('id', $attachmentId)->delete();
+    }
+
+    public function saveTaskName($taskNameData)
+    {
+         $task = new Task;
+         return $task->insertGetId($taskNameData);
     }
 }

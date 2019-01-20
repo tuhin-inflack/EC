@@ -14,7 +14,7 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'task_id' => 'required|exists:tasks,id',
+            'task_id' => 'required',
             'expected_start_time' => 'required|date',
             'expected_end_time' => 'required|date',
             'description' => 'required'

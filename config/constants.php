@@ -24,7 +24,7 @@ return [
         'english' => 'English'
     ],
 //Use in PMS
-    'project' => 1,
-    'research' => 2,
+    'project' => 'project',
+    'research' => 'research',
 
 ];
