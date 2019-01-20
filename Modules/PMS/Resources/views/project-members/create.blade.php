@@ -64,6 +64,7 @@
                                         <th scope="col">@lang('labels.email_address')</th>
                                         <th scope="col">@lang('labels.mobile')</th>
                                         <th scope="col">@lang('labels.address')</th>
+                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -75,6 +76,15 @@
                                                 <td>{{ $members->email }}</td>
                                                 <td>{{ $members->mobile }}</td>
                                                 <td>{{ $members->address }}</td>
+                                                <td>
+                                                <span class="dropdown">
+                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
+                                                            aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
+                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{route('project-proposal-submitted.view', $members->id)}}" class="dropdown-item"><i class="ft-edit"></i> Edit</a>
+                                                    </span>
+                                                </span>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
