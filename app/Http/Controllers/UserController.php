@@ -121,5 +121,8 @@ class UserController extends Controller
         return redirect('/system/user');
     }
 
+    public function demo(){
+        return $this->userService->getUsersExceptLoggedInUser(['user_type' => "Admin"]);
+    }
 
 }

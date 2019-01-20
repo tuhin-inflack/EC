@@ -13,6 +13,7 @@ return [
     'short_name' => 'Short Name',
     'first_name' => 'First Name',
     'last_name' => 'Last Name',
+    'address' => 'Address',
     'action' => 'Action',
     'title' => 'Title',
     'description' => 'Description',
@@ -124,4 +125,6 @@ return [
     'confirm_delete' => 'Confirm Delete',
     'confirm_action' => 'Are you sure',
     'save_draft' => 'Save as Draft',
+    'approve' => 'Approve',
+    'reject' => 'Reject'
 ];

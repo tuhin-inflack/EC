@@ -25,7 +25,7 @@
                         <div class="card-body">
                             {!! Form::open(['url' => [ '/system/user', $user->id], 'method' => 'put', 'files' => true, 'novalidate']) !!}
                             <div class="form-body">
-                                <h4 class="form-section"><i class="ft-user"></i> {{__('usermanagement.user_update_form_title')}}</h4>
+                                <h4 class="form-section"><i class="ft-user"></i> {{__('user-management.user_update_form_title')}}</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -88,7 +88,7 @@
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label for="roles" class="form-label">{{__('usermanagement.select_user_roles')}}</label>
+                                            <label for="roles" class="form-label">{{__('user-management.select_user_roles')}}</label>
                                             {{ Form::select("roles", $roles, $user->roles, ["class"=>"form-control select2", "id"=>"roles",
                                              'multiple' => 'multiple', 'name'=>'roles[]']) }}
                                             @if ($errors->has('roles'))
@@ -104,11 +104,11 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="user_type"
-                                                   class="col-form-label required">{{ __('usermanagement.user_type') }}</label>
+                                                   class="col-form-label required">{{ __('user-management.user_type') }}</label>
                                             @foreach($userTypes as $key => $value)
                                                 <fieldset class="radio">
                                                     <input type="radio"
-                                                           name="user_type" value="{{$value}}" {{$value == $user->user_type ? 'checked' : ''}} required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('usermanagement.user_type')])}}">
+                                                           name="user_type" value="{{$value}}" {{$value == $user->user_type ? 'checked' : ''}} required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('user-management.user_type')])}}">
                                                     <label for="user_type">
                                                         {{$value}}
                                                     </label>

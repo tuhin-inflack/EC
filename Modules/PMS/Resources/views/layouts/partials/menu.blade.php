@@ -2,9 +2,9 @@
     <div class="main-menu-content">
         @auth
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item">
+                <li class="{{ is_active_route('pms') }} nav-item">
                     <a href="{{ url('pms') }}"><i class="la la-home"></i><span class="menu-title"
-                                                                               data-i18n="nav.dash.main">Dashboard</span></a>
+                                                                               data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                                                                                   data-i18n="nav.navbars.main">{{trans('pms::project_proposal.menu_title')}}</span></a>
@@ -60,6 +60,10 @@
                         </li>
 
                     </ul>
+                </li>
+                <li class="{{ is_active_route('attributes.index') }} nav-item">
+                    <a href="{{ route('attributes.index') }}"><i class="la la-list"></i><span class="menu-title"
+                                                                               data-i18n="nav.dash.main">@lang('pms::attribute.attribute_list')</span></a>
                 </li>
             </ul>
         @endauth

@@ -27,7 +27,7 @@
                                 </div>
                             @endif
                             {!! Form::open(['route' =>  'hostels.store', 'class' => 'form', 'novalidate']) !!}
-                                <h4 class="form-section"><i class="la  la-building-o"></i>@lang('hm::hostel.create_button')</h4>
+                                <h4 class="form-section"><i class="la la-building-o"></i>@lang('hm::hostel.create_button')</h4>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">

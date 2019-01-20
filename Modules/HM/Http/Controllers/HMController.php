@@ -43,10 +43,4 @@ class HMController extends Controller
     public function show(){
         return $this->hostelService->getRoomsCountBasedOnStatus();
     }
-
-    public function roomsChart()
-    {
-        return view('hm::dashboard.chart');
-    }
-
 }

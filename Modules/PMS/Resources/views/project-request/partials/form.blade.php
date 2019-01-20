@@ -9,24 +9,27 @@
                         <label for="name" class="form-label">{{trans('pms::project_proposal.send_to')}} <span
                                     class="danger">*</span></label>
                         <div class="input-group">
-                            <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" multiple="multiple" name="send_to[]" data-msg-required="kfdjkfjdkf">
+                            <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required"
+                                    multiple="multiple" name="send_to[]" data-msg-required="kfdjkfjdkf">
                                 <option value="tuhin@inflack.com">tuhin@inflack.com</option>
                                 <option value="sahib@inflack.com">sahib@inflack.com</option>
                                 <option value="siam@inflack.com">siam@inflack.com</option>
                                 <option value="tanvir@inflack.com">tanvir@inflack.com</option>
                                 <option value="jahangir@inflack.com">jahangir@inflack.com</option>
                             </select>
+
                             @if ($errors->has('send_to'))
                                 <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('send_to') }}</strong>
-                                                </span>
+                                    <strong>{{ $errors->first('send_to') }}</strong>
+                                </span>
                             @endif
                         </div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">
-                        <label for="name" class="form-label">{{trans('pms::project_proposal.last_sub_date')}}   <span class="danger">*</span></label>
+                        <label for="name" class="form-label">{{trans('pms::project_proposal.last_sub_date')}} <span
+                                    class="danger">*</span></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                     <span class="input-group-text">
@@ -53,7 +56,8 @@
                         <div class="input-group">
                             <div class="input-group-prepend">
                             </div>
-                            <input type="file" name="attachment[]" multiple="multiple" id="" class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required>
+                            <input type="file" name="attachment[]" multiple="multiple" id=""
+                                   class="form-control{{ $errors->has('attachment') ? ' is-invalid' : '' }}" required>
                             @if ($errors->has('attachment'))
                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $errors->first('attachment') }}</strong>
@@ -67,7 +71,8 @@
                     <div class="form-group">
                         <label for="name" class="form-label">{{trans('pms::project_proposal.remarks')}}</label>
                         <textarea name="message"
-                                  class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}" placeholder="Write here..."
+                                  class="form-control{{ $errors->has('message') ? ' is-invalid' : '' }}"
+                                  placeholder="Write here..."
                                   id="" cols="30" rows="5">{{ old('message') }}</textarea>
 
                         @if ($errors->has('message'))
