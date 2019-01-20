@@ -43,11 +43,11 @@
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> View</a>
+                                                        <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
                                                         <a href="" class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
                                                         <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
                                                         <a href="{{route('task.index', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('pms::task.title')}}</a>
-                                                        <a href="{{route('project-proposal-submitted.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                                                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                     </span>
                                                 </span>
                                         </td>

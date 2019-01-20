@@ -19,4 +19,9 @@ class ProjectProposal extends Model
     {
         return $this->hasMany(ProjectResearchOrganization::class, 'organization_for_id', 'id');
     }
+
+    public function task()
+    {
+        return $this->hasMany(ProjectResearchTask::class, 'task_for_id');
+    }
 }

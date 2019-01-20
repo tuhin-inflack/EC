@@ -30,16 +30,21 @@ class OrganizationService
 
     public function getAllOrganization($proposalId, $type)
     {
-
-        $alreadyAddedIds  = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
-
-
+        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
         $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
-//        dd($organizations);
-//        $organizations = $this->organizationRepository->findAll()->pluck( 'name', 'id' )->toArray();
-
-        $organizations['other_organization'] = '+ '. trans('pms::project_proposal.add_new_organization');
+        $organizations['other_organization'] = '+ ' . trans('pms::project_proposal.add_new_organization');
         return $organizations;
+    }
+
+    public function findOrganizationById($id)
+    {
+        $organization = $this->findOne($id);
+        if (is_null($organization)) {
+            abort(404);
+
+        } else {
+            return $organization;
+        }
     }
 
 }

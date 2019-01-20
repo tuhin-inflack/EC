@@ -44,7 +44,7 @@
                                                     class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{ route('attribute-values.create', $attribute->id) }}"
                                                    class="dropdown-item"><i
-                                                            class="la la-keyboard-o"></i>Input Value</a>
+                                                            class="la la-keyboard-o"></i>@lang('pms::attribute.enter_value')</a>
                                                 <a href="{{ route('attributes.edit', $attribute->id) }}"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
