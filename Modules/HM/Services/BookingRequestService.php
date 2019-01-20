@@ -276,8 +276,8 @@ class BookingRequestService
     public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
     {
         $data['room_booking_id'] = $roomBooking->id;
-        $data['forwarded_to'] = Auth::user()->id;
-        $data['forwarded_by'] = $data['forwardTo'];
+        $data['forwarded_to'] = $data['forwardTo'];
+        $data['forwarded_by'] = Auth::user()->id;
 
         return $this->bookingRequesteForwardRepository->save($data);
     }

@@ -84,7 +84,20 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+        $bookingRequests = [];
+
+        if ($this->userService->isDirectorGeneral()) {
+
+            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+
+        } else if($this->userService->isDirectorAdmin()) {
+
+            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+
+        } else if($this->userService->isDirectorTraining()) {
+
+            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+        }
 
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
