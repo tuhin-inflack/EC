@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\StoreUpdateOrgMemberRequest;
 use Modules\PMS\Services\OrganizationMemberService;
 use Modules\PMS\Services\OrganizationService;
 use Modules\PMS\Services\ProjectProposalService;
@@ -31,11 +32,12 @@ class OrganizationMemberController extends Controller
 
     }
 
-    public function storeOrganizationMember(Request $request)
+    public function storeOrganizationMember(StoreUpdateOrgMemberRequest $request)
     {
-        $member = $request->all();
 
-        $response = $this->organizationMemberService->saveOrganizationMember($member);
+        $response = $this->organizationMemberService->saveOrganizationMember($request->all(), $request->file('nid'));
+        Session::flash('success', $response->getContent());
+        return redirect()->route('member.add-member', $request->organization_id);
     }
 
     public function editOrganizationMember($memberId)
@@ -46,7 +48,7 @@ class OrganizationMemberController extends Controller
 
     }
 
-    public function UpdateOrganizationMember(Request $request, $memberId)
+    public function UpdateOrganizationMember(StoreUpdateOrgMemberRequest $request, $memberId)
     {
         $response = $this->organizationMemberService->updateOrganizationMember($request->all(), $memberId);
         Session::flash('success', $response->getContent());

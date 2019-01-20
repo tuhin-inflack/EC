@@ -33,8 +33,8 @@
                             </div>
                         </div>
 
-                        {!! Form::open(['route' =>  'member.store-organization-member', 'class' => 'form',' novalidate']) !!}
-                        @include('pms::project-members.form.add_organization_member_form')
+                        {!! Form::open(['route' =>  'member.store-organization-member', 'files' => true, 'class' => 'form',' novalidate']) !!}
+                        @include('pms::project-members.form.add_edit_organization_member_form')
                         {!! Form::close() !!}
 
 

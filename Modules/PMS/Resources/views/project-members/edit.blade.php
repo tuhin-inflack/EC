@@ -34,7 +34,7 @@
                         </div>
 
                         {!! Form::model($member, ['route' =>  ['member.update-organization-member', $member->id], 'class' => 'form',' novalidate']) !!}
-                        @include('pms::project-members.form.edit_organization_member_form')
+                        @include('pms::project-members.form.add_edit_organization_member_form')
                         {!! Form::close() !!}
 
 

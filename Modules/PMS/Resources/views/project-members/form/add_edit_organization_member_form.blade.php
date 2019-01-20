@@ -1,7 +1,7 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> Member adding form </h4>
 
-    <h3>Add member for <strong>{{ $organization->name }}</strong></h3>
+    <h3>Add member</h3>
     <div class="row " style="">
         <div class="col-md-6 ">
             <div class="form-group ">
@@ -49,16 +49,19 @@
                 @endif
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group {{ $errors->has('nid') ? ' is-invalid' : '' }}">
-                {!! Form::label('nid', 'National ID', ['class' => 'required']) !!}
-
-
-                {{ Form::file('nid',  [ 'class' => ' form-control']) }}
-                <div class="help-block"></div>
+        <div class="col-md-6 ">
+            <div class="form-group ">
+                <div class="form-group ">
+                    {{ Form::label('nid', trans('labels.nid')) }}
+                    <br/>
+                    {{ Form::text('nid',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter NID number']) }}
+                    <div class="help-block"></div>
+                </div>
             </div>
         </div>
-        {{ Form::hidden('organization_id', $organization->id) }}
+        {{ Form::hidden('organization_id', isset($organization->id) ? $organization->id : null) }}
+        {{ Form::hidden('id', isset($member->id)  ? $member->id : null ) }}
+
     </div>
     <div class="row">
         <div class="form-actions col-md-12 ">
