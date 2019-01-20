@@ -3,12 +3,14 @@
  * Created by PhpStorm.
  * User: bs110
  * Date: 1/20/19
- * Time: 4:32 PM
+ * Time: 3:53 PM
  */
 ?>
-@extends('pms::layouts.master')
-@section('title', __('pms::task.edit_trainee_form_title'))
+@extends('rms::layouts.master')
+@section('title', __('pms::task.create_card_title'))
 @push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
@@ -20,7 +22,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">{{trans('pms::task.update_button')}}</h4>
+                        <h4 class="card-title" id="basic-layout-form">{{trans('pms::task.create_card_title')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -31,13 +33,11 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('task.update', ['page' => 'edit'])
+                            @include('task.form', ['page'=>'create'])
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -65,16 +65,11 @@
             $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');
         });
 
-        function deleteAttachment(id) {
-            document.getElementById(id).className = 'list-group-item list-group-item-dark';
-            $('#repeat-attachments').append('<input type="hidden" name="deleted_attachments[]" value="'+id+'">');
-        }
-
         $('.select2').select2({
             tags:true,
             newTag: false,
             placeholder: "{{__('pms::task.task_name_create')}}",
         });
+
     </script>
 @endpush
-

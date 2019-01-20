@@ -12,7 +12,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="task_id" class="form-label required">{{trans('pms::task.task_name')}}</label>
-                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" multiple="multiple" name="task_id">
+                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" name="task_id">
                     @foreach($taskNames as $taskName)
                         <option value="{{$taskName->id}}" @if($task->task_id == $taskName->id) selected @endif>{{$taskName->name}}</option>
                     @endforeach
@@ -21,8 +21,8 @@
                 <div class="help-block"></div>
                 @if ($errors->has('task_id'))
                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('task_id') }}</strong>
-                                                </span>
+                        <strong>{{$errors->first('task_id')}}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -42,12 +42,12 @@
                 <label for="expected_start_time"
                        class="form-label required">{{trans('pms::task.expected_start_date')}}</label>
                 <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                       name="expected_start_time" placeholder="Pick Date" id="expected_start_time" value="{{$task->expected_start_time}}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.start_date')])}}">
+                       name="expected_start_time" placeholder="Pick Date" id="expected_start_time" value="{{$task->expected_start_time}}"  required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.start_date')])}}">
                 <div class="help-block"></div>
-                @if ($errors->has('expected_start_time'))
+                @if($errors->has('expected_start_time'))
                     <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $errors->first('expected_start_time') }}</strong>
-                                                </span>
+                        <strong>{{ $errors->first('expected_start_time') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>

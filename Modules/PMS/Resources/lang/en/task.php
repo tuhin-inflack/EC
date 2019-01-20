@@ -26,4 +26,5 @@ return [
     'task_description' => 'Task Description',
     'task_for' => 'Creating task for',
     'task_name_create' => 'Select or Create Task Name',
+    'no_attachments' => 'No Attachments',
 ];

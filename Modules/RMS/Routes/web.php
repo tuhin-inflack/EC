@@ -45,8 +45,8 @@ Route::prefix('rms')->group(function() {
     Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('research.task.index');
         Route::get('/show/{taskId}', 'TaskController@show')->name('research.task.show');
-        Route::get('/create/{projectId}', 'TaskController@create')->name('research.task.create');
-        Route::post('/create/{projectId}', 'TaskController@store')->name('research.task.store');
+        Route::get('/create/{researchId}', 'TaskController@create')->name('research.task.create');
+        Route::post('/create/{researchId}', 'TaskController@store')->name('research.task.store');
         Route::get('/edit/{taskId}', 'TaskController@edit')->name('research.task.edit');
         Route::post('/edit/{taskId}', 'TaskController@update')->name('research.task.update');
         Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('research.task.toggleStartEnd');

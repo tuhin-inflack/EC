@@ -21,42 +21,41 @@ class TaskController extends Controller
         $this->projectProposalService = $projectProposalService;
     }
 
-    public function index($projectId)
+    public function index($researchId)
     {
-        $tasks = $this->projectResearchTaskService->getTasks($projectId);
-        $project = $this->projectProposalService->findOrFail($projectId);
+        $tasks = $this->projectResearchTaskService->getTasks($researchId);
+        $research = $this->projectProposalService->findOrFail($researchId);
 
-        return view('task.index', compact('tasks', 'project'));
+        return view('rms::task.index', compact('tasks', 'research'));
     }
 
     public function toggleStartEndTask($taskId)
     {
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
-        $dateNow = date('y-m-d H:i:s');
-        $updateData = (empty($task->start_time)) ? array('start_time' => $dateNow) : array('end_time' => $dateNow);
-        $update = $this->projectResearchTaskService->update($task, $updateData);
+        $update = $this->projectResearchTaskService->toggleStarEndTask($taskId);
         $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
         Session::flash('message', $msg);
 
-        return redirect(route('project-proposal-submitted.view', $task->task_for_id));
+        return redirect(route('research-proposal-submitted.show', $update[1]));
     }
 
-    public function create($projectId)
+    public function create($researchId)
     {
-        $project = $this->projectProposalService->findOrFail($projectId);
+        $research = $this->projectProposalService->findOrFail($researchId);
         $taskNames = Task::where('id', '!=', 0)->get();
+        $action = route('task.store', $research->id);
 
-        return view('task.create', compact('project', 'taskNames'));
+        return view('pms::task.create', compact('project', 'taskNames', 'action'));
     }
 
-    public function store($projectId, TaskRequest $request)
+    public function store($researchId, TaskRequest $request)
     {
         $data = $request->all();
-        $data['type'] = 'project';
-        $data['task_for_id'] = $projectId;
+        if(!is_numeric($request->input('task_id'))) $data['task_id'] = $this->projectResearchTaskService->saveTaskName($request->input('task_id'));
+        $data['type'] = 'research';
+        $data['task_for_id'] = $researchId;
         $saveData = $this->projectResearchTaskService->save($data);
         $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId)
+        if($savedTaskId && $request->hasFile('attachments'))
         {
             $files = $request->file('attachments');
             $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
@@ -72,20 +71,22 @@ class TaskController extends Controller
     {
         $task = $this->projectResearchTaskService->findOrFail($taskId);
 
-        return view('task.show', compact('task'));
+        return view('rms::task.show', compact('task'));
     }
 
     public function edit($taskId)
     {
         $task = $this->projectResearchTaskService->findOrFail($taskId);
         $taskNames = Task::where('id', '!=', 0)->get();
+        $action = route('task.update', $taskId);
 
-        return view('task.edit', compact('task', 'taskNames'));
+        return view('rms::task.edit', compact('task', 'taskNames', 'action'));
     }
 
     public function update(TaskRequest $request, $taskId)
     {
         $data = array(
+            "task_id" => (!is_numeric($request->input('task_id'))) ? $this->projectResearchTaskService->saveTaskName($request->input('task_id')): $request->input('task_id'),
             "description" => $request->input('description'),
             "expected_start_time" => $request->input('expected_start_time'),
             "expected_end_time" => $request->input('expected_end_time')

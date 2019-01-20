@@ -40,7 +40,7 @@
                             @endforeach
                         </ul>
                     @else
-                        No Attachments
+                        {{__('pms::task.no_attachments')}}
                     @endif
                 </td>
             </tr>

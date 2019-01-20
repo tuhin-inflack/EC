@@ -86,6 +86,7 @@ class TaskController extends Controller
     public function update(TaskRequest $request, $taskId)
     {
         $data = array(
+            "task_id" => (!is_numeric($request->input('task_id'))) ? $this->projectResearchTaskService->saveTaskName($request->input('task_id')): $request->input('task_id'),
             "description" => $request->input('description'),
             "expected_start_time" => $request->input('expected_start_time'),
             "expected_end_time" => $request->input('expected_end_time')
