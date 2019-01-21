@@ -11,7 +11,6 @@ namespace Modules\HRM\Services;
 use App\Http\Responses\DataResponse;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
-use Illuminate\Support\Facades\Hash;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices
@@ -87,14 +86,23 @@ class EmployeeServices
         return $employeeOptions;
     }
 
-    public function getEmployeeListForRessearchRequestReceiver()
+    /**
+     * <h3>Employee Dropdown</h3>
+     * <p>Custom Implementation of concatenation</p>
+     *
+     * @param Callable $anonymousValue Anonymous Implementation of Value
+     * @param Callable $anonymousKey Anonymous Implementation Key index
+     * @return array
+     */
+    public function getEmployeesWithCustomizedField($anonymousValue, $anonymousKey = null)
     {
         $employees = $this->employeeRepository->findAll();
 
         $employeeOptions = [];
-        foreach ($employees as $employee)
-        {
-            $employeeOptions[$employee->id] = $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+
+        foreach ($employees as $employee) {
+            $employeeId = $anonymousKey ? $anonymousKey($employee) : $employee->id;
+            $employeeOptions[$employeeId] = $anonymousValue($employee);
         }
 
         return $employeeOptions;
