@@ -98,17 +98,7 @@ class ResearchRequestController extends Controller
 
     public function requestAttachmentDownload(ResearchRequest $researchRequest)
     {
-        $basePath = 'app/research-requests/';
-        $filePaths = $researchRequest->researchRequestAttachments
-            ->map(function ($attachment) use ($basePath) {
-                return storage_path($basePath . $attachment->attachments);
-            })->toArray();
-
-        $fileName = time() . '.zip';
-
-        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
-
-        return response()->download(storage_path($basePath . $fileName));
+        return response()->download($this->researchRequestService->getZipFilePath($researchRequest->id));
     }
 
 }
