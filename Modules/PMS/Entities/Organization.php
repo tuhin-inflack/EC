@@ -12,4 +12,9 @@ class Organization extends Model
     {
         return $this->hasMany(OrganizationMember::class, 'organization_id', 'id');
     }
+
+    public function projects()
+    {
+        return $this->morphedByMany(ProjectProposal::class, 'organizable');
+    }
 }
