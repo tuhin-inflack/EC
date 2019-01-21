@@ -25,9 +25,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
-
-
-    Route::get('/demo', 'UserController@demo');
 });
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');

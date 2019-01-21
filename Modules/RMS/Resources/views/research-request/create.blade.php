@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('rms::researh-request.form')
+                                        @include('rms::research-request.form')
                                     </div>
                                 </div>
                             </div>

@@ -34,7 +34,7 @@ class ResearchRequestController extends Controller
     public function index()
     {
         $research_requests = $this->researchRequestService->getAll();
-        return view('rms::researh-request.index', compact('research_requests'));
+        return view('rms::research-request.index', compact('research_requests'));
     }
 
     /**
@@ -43,8 +43,10 @@ class ResearchRequestController extends Controller
      */
     public function create()
     {
-        $employees =  $this->employeeServices->getEmployeeListForRessearchRequestReceiver();
-        return view('rms::researh-request.create', compact('employees'));
+        $employees =  $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+            return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+        });
+        return view('rms::research-request.create', compact('employees'));
     }
 
     /**

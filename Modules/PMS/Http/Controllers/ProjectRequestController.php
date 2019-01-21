@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Entities\ProjectRequestForward;
@@ -23,14 +24,17 @@ use ZipArchive;
 class ProjectRequestController extends Controller
 {
     private $projectRequestService;
+    private $employeeServices;
 
     /**
      * ProjectRequestController constructor.
      * @param ProjectRequestService $projectRequestService
+     * @param EmployeeServices $employeeServices
      */
-    public function __construct(ProjectRequestService $projectRequestService)
+    public function __construct(ProjectRequestService $projectRequestService, EmployeeServices $employeeServices)
     {
         $this->projectRequestService = $projectRequestService;
+        $this->employeeServices = $employeeServices;
     }
 
     /**
@@ -49,7 +53,12 @@ class ProjectRequestController extends Controller
      */
     public function create()
     {
-        return view('pms::project-request.create');
+        $employees = $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+            return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+        }, function ($employee){
+            return $employee->email;
+        });
+        return view('pms::project-request.create', compact('employees'));
     }
 
     /**
