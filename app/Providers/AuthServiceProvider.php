@@ -46,11 +46,11 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('hm-access', function ($user) {
-            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER', 'ROLE_DIRECTOR_TRAINING']);
         });
 
         Gate::define('hrm-access', function ($user) {
-            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN']);
         });
 
         Gate::define('pms-access', function ($user) {
@@ -62,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('tms-access', function ($user) {
-            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_TRAINING']);
         });
     }
 }

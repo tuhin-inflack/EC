@@ -11,6 +11,7 @@ return [
     'attribute_name' => 'বৈশিষ্ট্য তালিকা',
     'attribute_value_input' => 'বৈশিষ্ট্য মান ইনপুট',
     'attribute_value_input_form' => 'বৈশিষ্ট্য মান ইনপুট ফর্ম',
-    'value' => 'মান',
+    'planned_value' => 'পরিকল্পিত মূল্য',
+    'achieved_value' => 'মান অর্জন',
     'enter_value' => 'মান লিখুন',
 ];

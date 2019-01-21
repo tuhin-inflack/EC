@@ -122,7 +122,7 @@ class UserController extends Controller
     }
 
     public function demo(){
-        return $this->userService->getUsersExceptLoggedInUser(['user_type' => "Admin"]);
+        return $this->userService->getAdminExceptLoggedInUserRole();
     }
 
 }

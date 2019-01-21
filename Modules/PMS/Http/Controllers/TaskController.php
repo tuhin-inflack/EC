@@ -31,32 +31,31 @@ class TaskController extends Controller
 
     public function toggleStartEndTask($taskId)
     {
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
-        $dateNow = date('y-m-d H:i:s');
-        $updateData = (empty($task->start_time)) ? array('start_time' => $dateNow) : array('end_time' => $dateNow);
-        $update = $this->projectResearchTaskService->update($task, $updateData);
+        $update = $this->projectResearchTaskService->toggleStarEndTask($taskId);
         $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
         Session::flash('message', $msg);
 
-        return redirect(route('project-proposal-submitted.view', $task->task_for_id));
+        return redirect(route('project-proposal-submitted.view', $update[1]));
     }
 
     public function create($projectId)
     {
         $project = $this->projectProposalService->findOrFail($projectId);
         $taskNames = Task::where('id', '!=', 0)->get();
+        $action = route('task.store', $project->id);
 
-        return view('pms::task.create', compact('project', 'taskNames'));
+        return view('pms::task.create', compact('project', 'taskNames', 'action'));
     }
 
     public function store($projectId, TaskRequest $request)
     {
         $data = $request->all();
+        if(!is_numeric($request->input('task_id'))) $data['task_id'] = $this->projectResearchTaskService->saveTaskName($request->input('task_id'));
         $data['type'] = 'project';
         $data['task_for_id'] = $projectId;
         $saveData = $this->projectResearchTaskService->save($data);
         $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId)
+        if($savedTaskId && $request->hasFile('attachments'))
         {
             $files = $request->file('attachments');
             $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
@@ -79,13 +78,15 @@ class TaskController extends Controller
     {
         $task = $this->projectResearchTaskService->findOrFail($taskId);
         $taskNames = Task::where('id', '!=', 0)->get();
+        $action = route('task.update', $taskId);
 
-        return view('pms::task.edit', compact('task', 'taskNames'));
+        return view('pms::task.edit', compact('task', 'taskNames', 'action'));
     }
 
     public function update(TaskRequest $request, $taskId)
     {
         $data = array(
+            "task_id" => (!is_numeric($request->input('task_id'))) ? $this->projectResearchTaskService->saveTaskName($request->input('task_id')): $request->input('task_id'),
             "description" => $request->input('description'),
             "expected_start_time" => $request->input('expected_start_time'),
             "expected_end_time" => $request->input('expected_end_time')

@@ -24,4 +24,9 @@ class ProjectProposal extends Model
     {
         return $this->hasMany(ProjectResearchTask::class, 'task_for_id');
     }
+
+    public function organizations()
+    {
+        return $this->morphToMany(Organization::class, 'organizable');
+    }
 }

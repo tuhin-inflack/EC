@@ -25,6 +25,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
+
+
+    Route::get('/demo', 'UserController@demo');
 });
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
@@ -38,6 +41,6 @@ Route::get('/lang/{key}', function ($key) {
 
 Route::get('/test/upload', 'AttachmentController@index')->name('test.upload-index');
 Route::post('/test/upload', 'AttachmentController@uploadFile')->name('test.upload');
-Route::get('/test/download/{fileName}', 'AttachmentController@downloadFile')->name('test.download');
-Route::get('/file/get/{fileName}', 'AttachmentController@get')->name('file.getfile');
+Route::get('/file/download', 'AttachmentController@downloadFile')->name('file.download');
+Route::get('/file/get', 'AttachmentController@get')->name('file.getfile');
 Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.fileUrl');

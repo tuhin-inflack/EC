@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'Add member')
+@section('title', trans('pms::member.add_member'))
 
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">Add Member</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('pms::member.add_member')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -33,8 +33,8 @@
                             </div>
                         </div>
 
-                        {!! Form::open(['route' =>  'member.store-organization-member', 'class' => 'form',' novalidate']) !!}
-                        @include('pms::project-members.form.add_organization_member_form')
+                        {!! Form::open(['route' =>  'member.store-organization-member', 'files' => true, 'class' => 'form',' novalidate']) !!}
+                        @include('pms::project-members.form.add_edit_organization_member_form', ['mode' => trans('pms::member.add_member'), 'form-mode' => trans('pms::member.member_editing_form')])
                         {!! Form::close() !!}
 
 
@@ -81,7 +81,7 @@
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('member.edit-organization-member', $members->id)}}" class="dropdown-item"><i class="ft-edit"></i> Edit</a>
+                                                        <a href="{{route('member.edit-organization-member', $members->id)}}" class="dropdown-item"><i class="ft-edit"></i> @lang('labels.edit')</a>
                                                     </span>
                                                 </span>
                                                 </td>
