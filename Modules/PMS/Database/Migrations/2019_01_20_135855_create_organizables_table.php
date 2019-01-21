@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkflowDetailsTable extends Migration
+class CreateOrganizablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateWorkflowDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('workflow_details', function (Blueprint $table) {
+        Schema::create('organizables', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('workflow_master_id');
-            $table->integer('rule_detail_id');
-            $table->integer('notification_order');
-            $table->integer('creator_id');
-            $table->integer('responder_id');
+            $table->unsignedInteger('organization_id');
+            $table->unsignedInteger('organizable_id');
+            $table->string('organizable_type');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class CreateWorkflowDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workflow_details');
+        Schema::dropIfExists('organizables');
     }
 }

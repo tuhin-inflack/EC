@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateWorkflowDetailsTable extends Migration
+class CreateWorkflowConversationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateWorkflowDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('workflow_details', function (Blueprint $table) {
+        Schema::create('workflow_conversations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('workflow_master_id');
-            $table->integer('rule_detail_id');
-            $table->integer('notification_order');
-            $table->integer('creator_id');
-            $table->integer('responder_id');
+            $table->integer('workflow_details_id');
+            $table->integer('feature_id');
+            $table->string('message')->nullable();
+            $table->char('status');
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateWorkflowDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workflow_details');
+        Schema::dropIfExists('workflow_conversations');
     }
 }
