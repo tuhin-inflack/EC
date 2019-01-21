@@ -16,5 +16,4 @@ use Modules\PMS\Entities\ProjectProposal;
 class ProjectProposalRepository extends AbstractBaseRepository
 {
     protected $modelName = ProjectProposal::class;
-
 }

@@ -37,7 +37,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
     });
 
-    Route::get('monitoring-tabular-view/{projectProposal}', function (\Modules\PMS\Entities\ProjectRequest $projectProposal) {
+    Route::get('monitoring-tabular-view/{projectProposal}', function (\Modules\PMS\Entities\ProjectProposal $projectProposal) {
         return view('pms::monitoring-tabular-view.index', compact('projectProposal'));
     })->name('monitoring-tabular-view.index');
 
@@ -46,12 +46,20 @@ Route::prefix('pms')->group(function () {
         Route::post('/store-organization/{id?}', 'OrganizationController@storeOrganization')->name('organization.store-organization');
     });
 
+    Route::prefix('member')->group(function () {
+        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-member');
+        Route::post('/store-organization-member/{organizationId?}', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-organization-member');
+    });
+
     Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
+        Route::get('/show/{taskId}', 'TaskController@show')->name('task.show');
         Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
         Route::post('/create/{projectId}', 'TaskController@store')->name('task.store');
+        Route::get('/edit/{taskId}', 'TaskController@edit')->name('task.edit');
+        Route::post('/edit/{taskId}', 'TaskController@update')->name('task.update');
         Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('task.toggleStartEnd');
-
+        Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('task.delete');
     });
 
     Route::prefix('attributes')->group(function () {
