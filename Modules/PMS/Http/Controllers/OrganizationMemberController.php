@@ -42,9 +42,9 @@ class OrganizationMemberController extends Controller
 
     public function editOrganizationMember($memberId)
     {
-
         $member = $this->organizationMemberService->findMemberById($memberId);
-        return view('pms::project-members.edit', compact('member'));
+        $organization = $member->organization;
+        return view('pms::project-members.edit', compact('member', 'organization'));
 
     }
 

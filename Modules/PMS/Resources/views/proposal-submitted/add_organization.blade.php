@@ -83,7 +83,7 @@
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('member.add-member', $projectResearchOrganization->organization->id)}}" class="dropdown-item"><i class="ft-plus"></i> Add Member</a>
+                                                        <a href="{{route('member.add-member', $projectResearchOrganization->organization->id)}}" class="dropdown-item"><i class="ft-plus"></i> @lang('pms::member.add_member')</a>
                                                     </span>
                                                 </span>
                                                 </td>
