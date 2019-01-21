@@ -53,44 +53,44 @@
 </div>--}}
 <div class="container">
     <div id="crypto-stats-3" class="row" style="margin-top: 32px">
-            @foreach(array_keys(\Nwidart\Modules\Facades\Module::all()) as $module)
-            @can(strtolower($module).'-access')
-                <div class="col-xl-4 col-12">
-                    <div class="card crypto-card-3 pull-up">
-                        <div class="card-content">
-                            <div class="card-body pb-0">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h1><i class="ft-grid warning font-large-2" title="BTC"></i></h1>
-                                    </div>
-                                    <div class="col-8 pl-2">
-                                        <h4>{{ trans('labels.' . $module) }}</h4>
-                                        <h6 class="text-muted"><a href="{{url(strtolower($module)).'/'}}">{{ trans('labels.' . $module) }}</a></h6>
-                                    </div>
+        @foreach(array_keys(\Nwidart\Modules\Facades\Module::all()) as $module)
+        @can(strtolower($module).'-access')
+            <div class="col-xl-4 col-12">
+                <div class="card crypto-card-3 pull-up">
+                    <div class="card-content">
+                        <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-2">
+                                    <h1><i class="ft-grid warning font-large-2" title="BTC"></i></h1>
+                                </div>
+                                <div class="col-8 pl-2">
+                                    <h4>{{ trans('labels.' . $module) }}</h4>
+                                    <h6 class="text-muted"><a href="{{url(strtolower($module)).'/'}}">{{ trans('labels.' . $module) }}</a></h6>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endcan
-            @endforeach
-                <div class="col-xl-4 col-12">
-                    <div class="card crypto-card-3 pull-up">
-                        <div class="card-content">
-                            <div class="card-body pb-0">
-                                <div class="row">
-                                    <div class="col-2">
-                                        <h1><i class="ft-stop-circle warning font-large-2" title="BTC"></i></h1>
-                                    </div>
-                                    <div class="col-5 pl-2">
-                                        <h4>{{ trans('labels.Admin') }}</h4>
-                                        <h6 class="text-muted"><a href="{{url('system/user')}}">{{ trans('labels.Administration') }}</a></h6>
-                                    </div>
-                                </div>
+            </div>
+        @endcan
+        @endforeach
+        <div class="col-xl-4 col-12">
+            <div class="card crypto-card-3 pull-up">
+                <div class="card-content">
+                    <div class="card-body pb-0">
+                        <div class="row">
+                            <div class="col-2">
+                                <h1><i class="ft-stop-circle warning font-large-2" title="BTC"></i></h1>
+                            </div>
+                            <div class="col-5 pl-2">
+                                <h4>{{ trans('labels.Admin') }}</h4>
+                                <h6 class="text-muted"><a href="{{url('system/user')}}">{{ trans('labels.Administration') }}</a></h6>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
     </div>
 </div>
 <!-- ////////////////////////////////////////////////////////////////////////////-->
