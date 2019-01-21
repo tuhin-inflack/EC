@@ -3,8 +3,11 @@
 namespace Modules\RMS\Services;
 
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Carbon\Carbon;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Entities\ResearchRequestReceiver;
 use Modules\RMS\Repositories\ResearchRequestRepository;
@@ -12,6 +15,7 @@ use Modules\RMS\Repositories\ResearchRequestRepository;
 class ResearchRequestService
 {
     use CrudTrait;
+    use FileTrait;
 
     private $researchRequestRepository;
 
@@ -31,11 +35,10 @@ class ResearchRequestService
             $researchRequest = $this->save($data);
 
             foreach ($data['attachment'] as $file) {
-                $filename = $file->getClientOriginalName();
-                $file->storeAs('research-requests', $filename);
+                $path = $this->upload($file, 'research-requests');
 
                 $file = new ResearchRequestAttachment([
-                    'attachments' => $filename,
+                    'attachments' => $path,
                     'research_request_id' => $researchRequest->id
                 ]);
 
@@ -58,5 +61,22 @@ class ResearchRequestService
     public function getAll()
     {
         return $this->researchRequestRepository->findAll();
+    }
+
+    public function getZipFilePath($researchId)
+    {
+        $researchRequest = $this->findOne($researchId);
+
+        $filePaths = $researchRequest->researchRequestAttachments->map(function ($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 }
