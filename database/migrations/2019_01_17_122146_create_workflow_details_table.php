@@ -16,7 +16,7 @@ class CreateWorkflowDetailsTable extends Migration
         Schema::create('workflow_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('workflow_master_id');
-            $table->integer('rule_details_id');
+            $table->integer('rule_detail_id');
             $table->integer('notification_order');
             $table->integer('creator_id');
             $table->integer('responder_id');

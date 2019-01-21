@@ -33,14 +33,14 @@ class AttachmentController extends Controller
     /*
      * Download the attachments
      */
-    public function downloadFile($fileName)
+    public function downloadFile($filePath, $displayName)
     {
-        return $this->download('test/' . $fileName, 'test-file');
+        return $this->download($filePath, $displayName);
     }
 
-    public function get($fileName)
+    public function get($filePath)
     {
-        return $this->view('test/' . $fileName);
+        return $this->view($filePath);
     }
 
     public function fileUrl($fileName = 'abc')
