@@ -124,6 +124,8 @@ return [
     'remove' => 'Remove',
     'confirm_delete' => 'Confirm Delete',
     'confirm_action' => 'Are you sure',
+    'save_draft' => 'Save as Draft',
     'approve' => 'Approve',
-    'reject' => 'Reject'
+    'reject' => 'Reject',
+    'nid_number' => 'NID Number'
 ];

@@ -10,7 +10,7 @@
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{ trans('rms::research_proposal.send_to') }}</label>
                         <br>
-                        {!! Form::select('to[]', ['1' => 'Sahib Bin Ron - CTO', '2' => 'Shadman Ahmed - SE', '3' => 'Tanvir Hossain - SE'], null, ['class' => 'select2 form-control required'.($errors->has('to') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                        {!! Form::select('to[]', $employees, null, ['class' => 'select2 form-control required'.($errors->has('to') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
                         @if ($errors->has('to'))
                             <span class="invalid-feedback" role="alert">

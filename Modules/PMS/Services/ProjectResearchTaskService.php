@@ -53,4 +53,23 @@ class ProjectResearchTaskService
             $del = $this->projectResearchTaskRepository->deleteAttachment($attachment);
         }
     }
+
+    public function saveTaskName($taskName)
+    {
+        $data = array(
+            'name' => $taskName,
+            'created_at' => date('Y-m-d H:i:s')
+        );
+
+        return $this->projectResearchTaskRepository->saveTaskName($data);
+    }
+
+    public function toggleStarEndTask($taskId)
+    {
+        $task = $this->findOrFail($taskId);
+        $dateNow = date('y-m-d H:i:s');
+        $updateData = (empty($task->start_time)) ? array('start_time' => $dateNow) : array('end_time' => $dateNow);
+
+        return array($this->update($task, $updateData), $task->task_for_id );
+    }
 }

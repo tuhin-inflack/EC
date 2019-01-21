@@ -48,7 +48,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
-                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="btn btn-grey-blue pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                        <a href="{{route('organization.add-organization', $proposal->id)}}" class="btn btn-primary btn-sm pull-right"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
 
                     </div>
 

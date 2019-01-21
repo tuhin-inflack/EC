@@ -16,8 +16,9 @@ class CreateAttributeValuesTable extends Migration
         Schema::create('attribute_values', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('attribute_id');
+            $table->decimal('planned_value', 8, 2);
+            $table->decimal('achieved_value', 8, 2);
             $table->date('date');
-            $table->decimal('value', 8, 2);
             $table->timestamps();
         });
     }

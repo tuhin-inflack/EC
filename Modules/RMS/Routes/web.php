@@ -26,6 +26,7 @@ Route::prefix('rms')->group(function() {
     Route::prefix('research-proposal-submission')->group(function(){
         Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
         Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
         Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
     });
 
@@ -41,4 +42,14 @@ Route::prefix('rms')->group(function() {
         Route::post('/','InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
     });
 
+    Route::prefix('task')->group(function () {
+        Route::get('/{projectId}', 'TaskController@index')->name('research.task.index');
+        Route::get('/show/{taskId}', 'TaskController@show')->name('research.task.show');
+        Route::get('/create/{researchId}', 'TaskController@create')->name('research.task.create');
+        Route::post('/create/{researchId}', 'TaskController@store')->name('research.task.store');
+        Route::get('/edit/{taskId}', 'TaskController@edit')->name('research.task.edit');
+        Route::post('/edit/{taskId}', 'TaskController@update')->name('research.task.update');
+        Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('research.task.toggleStartEnd');
+        Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('research.task.delete');
+    });
 });
