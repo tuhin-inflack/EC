@@ -116,7 +116,9 @@ class BookingRequestController extends Controller
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
-        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $employeeOptions = $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+            return $employee->employee_id . ' - ' . $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->mobile_one;
+        });
         $designations = $this->designationService->findAll();
         $type = 'booking';
 

@@ -68,8 +68,7 @@ class ProjectRequestController extends Controller
      */
     public function store(CreateProjectRequestRequest $request)
     {
-        $data = $request->all();
-        $response = $this->projectRequestService->store($data);
+        $response = $this->projectRequestService->store($request->all());
         return redirect()->route('project-request.index')->with('message', $response->getContent());
     }
 
