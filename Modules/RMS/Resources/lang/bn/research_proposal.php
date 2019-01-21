@@ -24,11 +24,13 @@ return [
     'invited_research_proposal_list' => 'আমন্ত্রিত গবেষণা প্রস্তাব তালিকা',
     'invited_research_proposal_details' => 'আমন্ত্রিত গবেষণা প্রস্তাব বিস্তারিত',
     'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',
+    'download_attachments' => 'সংযুক্তি ডাউনলোড',
     'extend_date_request' => 'বর্ধিত তারিখ অনুরোধ',
     'extend_date_request_form' => 'বর্ধিত তারিখ অনুরোধ ফর্ম',
     'extend_date_request_create' => 'বর্ধিত তারিখ অনুরোধ তৈরি করুন',
     'res_pro_related_title' => 'গবেষণা প্রস্তাব সম্পর্কিত শিরোনাম',
     'submitted_research_proposal_list' => 'জমাকৃত গবেষণা প্রস্তাব তালিকা',
+    'submitted_research_proposal' => 'জমাকৃত গবেষণা প্রস্তাব',
     'research_proposal_creation' => 'গবেষণা প্রস্তাব তৈরি',
     'research_proposal_creation_form' => 'গবেষণা প্রস্তাব তৈরি ফর্ম',
     'proposal_invitation_info' => 'আমন্ত্রিত গবেষণা প্রস্তাব সম্পর্কিত তথ্য',
@@ -37,5 +39,9 @@ return [
     'responded_by' => 'ব্যক্তির দ্বারা জমা',
     'department' => 'বিভাগ',
     'designation' => 'উপাধি',
+    'submitted_by' => 'জমাদানকারী',
+    'submission_date' => 'জমাদানের তারিখ',
+    'received_research_proposal' => 'গৃহীত গবেষণা প্রস্তাব',
+    'received_research_proposal_list' => 'গৃহীত গবেষণা প্রস্তাব তালিকা',
 ];
 

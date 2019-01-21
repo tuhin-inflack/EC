@@ -3,6 +3,7 @@
 namespace Modules\RMS\Services;
 
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
@@ -12,6 +13,7 @@ use Modules\RMS\Repositories\ResearchProposalSubmissionRepository;
 class ResearchProposalSubmissionService
 {
     use CrudTrait;
+    use FileTrait;
 
     private $researchProposalSubmissionRepository;
 
@@ -33,12 +35,13 @@ class ResearchProposalSubmissionService
             $proposalSubmission= $this->save($data);
 
             foreach ($data['attachments'] as $file) {
-                $filename = $file->getClientOriginalName();
-                $file->storeAs('research-submissions', $filename);
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'research-submissions');
 
                 $file = new ResearchProposalSubmissionAttachment([
-                    'attachments' => $filename,
-                    'submissions_id' => $proposalSubmission->id
+                    'attachments' => $path,
+                    'submissions_id' => $proposalSubmission->id,
+                    'file_name' => $fileName
                 ]);
 
                 $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
@@ -46,5 +49,10 @@ class ResearchProposalSubmissionService
 
             return $proposalSubmission;
         });
+    }
+
+    public function getAll()
+    {
+        return $this->researchProposalSubmissionRepository->findAll();
     }
 }

@@ -41,7 +41,7 @@ class ResearchRequestService
                 $file = new ResearchRequestAttachment([
                     'attachments' => $path,
                     'research_request_id' => $researchRequest->id,
-                    'file_name' => $fileName,
+                    'file_name' => $fileName
                 ]);
 
                 $researchRequest->researchRequestAttachments()->save($file);
