@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{$project->title}}</span></label>
+                <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{$item->title}}</span></label>
             </div>
         </div>
     </div>
@@ -92,10 +92,10 @@
     <button type="submit" class="btn btn-primary">
         <i class="ft-check-square"></i> {{trans('labels.save')}}
     </button>
-    <a href="{{route('task.index', $project->id)}}" class="btn btn-primary">
+    <a href="{{route('task.index', $item->id)}}" class="btn btn-primary">
         <i class="ft-check-square"></i> {{trans('pms::task.card_title')}}
     </a>
-    <button class="btn btn-warning" type="button" onclick="window.location = '{{route('project-proposal-submitted.view', $project->id)}}'">
+    <button class="btn btn-warning" type="button" onclick="window.location = '{{($task->type == 'project') ? route('project-proposal-submitted.view',  $item->id) : route('research-proposal-submission.show', $item->id )}}'">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </button>
 </div>

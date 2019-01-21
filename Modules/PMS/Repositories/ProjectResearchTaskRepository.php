@@ -19,10 +19,17 @@ class ProjectResearchTaskRepository extends AbstractBaseRepository
 {
     protected $modelName = ProjectResearchTask::class;
 
-    public function getTasks($projectId)
+    public function getProjectTask($projectId)
     {
         return $this->model->whereHas('project', function($query) use($projectId) {
-            $query->where('id', $projectId);
+            $query->where('id', $projectId)->where('type', 'project');
+        })->get();
+    }
+
+    public function getResearchTask($researchId)
+    {
+        return $this->model->whereHas('research', function($query) use($researchId) {
+            $query->where('id', $researchId)->where('type', 'research');
         })->get();
     }
 

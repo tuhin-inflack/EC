@@ -21,9 +21,14 @@ class ProjectResearchTaskService
         $this->setActionRepository($projectResearchTaskRepository);
     }
 
-    public function getTasks($projectId)
+    public function getProjectTasks($projectId)
     {
-        return $this->projectResearchTaskRepository->getTasks($projectId);
+        return $this->projectResearchTaskRepository->getProjectTask($projectId);
+    }
+
+    public function getResearchTasks($researchId)
+    {
+        return $this->projectResearchTaskRepository->getResearchTasks($researchId);
     }
 
     public function saveAttachments($taskId, $files)

@@ -22,7 +22,7 @@ class ProjectProposal extends Model
 
     public function task()
     {
-        return $this->hasMany(ProjectResearchTask::class, 'task_for_id');
+        return $this->hasMany(ProjectResearchTask::class, 'task_for_id')->where('type', 'project');
     }
 
     public function organizations()

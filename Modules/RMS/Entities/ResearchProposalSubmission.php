@@ -3,6 +3,7 @@
 namespace Modules\RMS\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\ProjectResearchTask;
 
 class ResearchProposalSubmission extends Model
 {
@@ -12,5 +13,10 @@ class ResearchProposalSubmission extends Model
     public function researchProposalSubmissionAttachments()
     {
         return $this->hasMany(ResearchProposalSubmissionAttachment::class, 'submissions_id', 'id');
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(ProjectResearchTask::class, 'task_for_id')->where('type', 'research');
     }
 }
