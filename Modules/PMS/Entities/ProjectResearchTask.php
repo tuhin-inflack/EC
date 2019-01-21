@@ -27,6 +27,11 @@ class ProjectResearchTask extends Model
         return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id');
     }
 
+    public function research()
+    {
+        return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id');
+    }
+
     public function taskName()
     {
         return $this->hasOne(Task::class, 'id', 'task_id');
