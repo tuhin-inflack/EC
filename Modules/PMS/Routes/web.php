@@ -46,7 +46,7 @@ Route::prefix('pms')->group(function () {
 
         $attributeValues = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)->get();
 
-        return $groupedAttributeValuesByMonth = $attributeValues->groupBy(function ($attributeValue) {
+        $groupedAttributeValuesByMonth = $attributeValues->groupBy(function ($attributeValue) {
             return \Carbon\Carbon::parse($attributeValue->date)->format('F');
         })->map(function ($groupedRows) {
             return $groupedRows->groupBy(function ($row) {
@@ -58,7 +58,6 @@ Route::prefix('pms')->group(function () {
                 ];
             })->toArray();
         })->toArray();
-
 
         return view('pms::monitoring-tabular-view.index', compact('projectProposal', 'groupedAttributeValuesByMonth'));
     })->name('monitoring-tabular-view.index');

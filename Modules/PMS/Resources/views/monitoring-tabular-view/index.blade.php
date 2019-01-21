@@ -12,43 +12,47 @@
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
                             <div class="table-responsive">
-                                {{ $groupedAttributeValuesByMonth }}
+
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col" rowspan="2" class="text-center">Attributes</th>
-                                        <th colspan="3" class="text-center">Jan</th>
-                                        <th colspan="3" class="text-center">Feb</th>
-                                        <th colspan="3" class="text-center">Mar</th>
+                                        @foreach($groupedAttributeValuesByMonth as $month => $value)
+                                            <th colspan="3" class="text-center">{{ $month }}</th>
+                                        @endforeach
                                     </tr>
                                     <tr>
-                                        <th>Planned</th>
-                                        <th>Achieved</th>
-                                        <th>%</th>
-                                        <th>Planned</th>
-                                        <th>Achieved</th>
-                                        <th>%</th>
-                                        <th>Planned</th>
-                                        <th>Achieved</th>
-                                        <th>%</th>
+                                        @foreach($groupedAttributeValuesByMonth as $month => $value)
+                                            <th>Planned</th>
+                                            <th>Achieved</th>
+                                            <th>%</th>
+                                        @endforeach
                                     </tr>
                                     <tbody>
-                                      @foreach($projectProposal->organizations as $organization)
-                                          @foreach($organization->attributes as $attribute)
-                                              <tr>
-                                                  <td>{{ $attribute->name }}</td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                                  <td></td>
-                                              </tr>
-                                          @endforeach
-                                      @endforeach
+                                    @foreach($projectProposal->organizations as $organization)
+                                        @foreach($organization->attributes as $attribute)
+                                            <tr>
+                                                <td>{{ $attribute->name }}</td>
+                                                @foreach($groupedAttributeValuesByMonth as $month => $value)
+                                                    <td>
+                                                        @if(isset($value[$attribute->id]))
+                                                            {{ $value[$attribute->id]['total_planned_values'] }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if(isset($value[$attribute->id]))
+                                                            {{ $value[$attribute->id]['total_achieved_values'] }}
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if(isset($value[$attribute->id]))
+                                                            {{ ($value[$attribute->id]['total_achieved_values'] / $value[$attribute->id]['total_planned_values']) * 100 }}
+                                                        @endif
+                                                    </td>
+                                                @endforeach
+                                            </tr>
+                                        @endforeach
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
