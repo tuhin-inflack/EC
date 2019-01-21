@@ -17,4 +17,9 @@ class Organization extends Model
     {
         return $this->morphedByMany(ProjectProposal::class, 'organizable');
     }
+
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class, 'organization_id', 'id');
+    }
 }

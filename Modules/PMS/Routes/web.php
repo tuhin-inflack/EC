@@ -35,8 +35,11 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
-
     });
+
+    Route::get('monitoring-tabular-view/{projectProposal}', function (\Modules\PMS\Entities\ProjectProposal $projectProposal) {
+        return view('pms::monitoring-tabular-view.index', compact('projectProposal'));
+    })->name('monitoring-tabular-view.index');
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'OrganizationController@addOrganization')->name('organization.add-organization');
@@ -69,6 +72,5 @@ Route::prefix('pms')->group(function () {
         // values
         Route::get('{attribute}/values/create', 'AttributeValueController@create')->name('attribute-values.create');
         Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
-
     });
 });
