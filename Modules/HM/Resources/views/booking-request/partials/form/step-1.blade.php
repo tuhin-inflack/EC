@@ -99,7 +99,7 @@
                                 <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
                                 <br>
                                 <!-- Start For Edit Old Room Type -->
-                            @if($oldInput['id'])
+                            @if(isset($oldInput['id']))
                                 {{ Form::hidden('id', $oldInput['id']) }}
                             @endif
                             <!-- End For Edit Old Room Type -->
