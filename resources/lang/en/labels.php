@@ -52,6 +52,7 @@ return [
     'setup' => 'Setup',
     'bangladesh_govt' => 'People\'s Republic of Bangladesh Govt.',
     'print' => 'Print',
+    'forward' => 'Forward',
     'select' => 'Select',
     'code' => 'Code',
     'info' => 'Info',
