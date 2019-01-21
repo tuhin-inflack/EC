@@ -299,7 +299,7 @@ class BookingRequestService
         $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
             ->where('forwarded_to', Auth::user()->id)->get()->toArray();
 
-        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'id');
+        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'room_booking_id');
 
         return array_merge($bookingRequestIds, $forwardedBookingRequestIds);
     }
