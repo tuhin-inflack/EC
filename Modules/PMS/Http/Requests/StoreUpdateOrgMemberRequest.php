@@ -3,21 +3,21 @@
 namespace Modules\PMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class TaskRequest extends FormRequest
+class StoreUpdateOrgMemberRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
-            'task_id' => 'required',
-            'expected_start_time' => 'required|date',
-            'expected_end_time' => 'required|date',
-            'description' => 'required'
+            'name' => 'required',
+            'mobile' => 'required',
+            'gender' => 'required',
         ];
     }
 

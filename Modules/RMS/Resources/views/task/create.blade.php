@@ -6,7 +6,7 @@
  * Time: 3:53 PM
  */
 ?>
-@extends('pms::layouts.master')
+@extends('rms::layouts.master')
 @section('title', __('pms::task.create_card_title'))
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
