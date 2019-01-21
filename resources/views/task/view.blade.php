@@ -36,7 +36,7 @@
                     @if(count($task->attachments))
                         <ul class="list-inline">
                             @foreach($task->attachments as $attachment)
-                                <li class="list-group-item"><span class="badge bg-info">{{$attachment->file_name}}</span><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
+                                <li class="list-group-item"><a href="{{$attachment->file_path}}" class="badge bg-info white" title="{{$attachment->file_name}}">{{strlen($attachment->file_name)? substr($attachment->file_name,0,10).'...': $attachment->file_name }}</a><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
                             @endforeach
                         </ul>
                     @else
