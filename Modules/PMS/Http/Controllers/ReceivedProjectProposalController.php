@@ -18,15 +18,14 @@ class ReceivedProjectProposalController extends Controller
 {
     private $projectProposalService;
     private $organizationService;
-    private $projectResearchOrgService;
+//    private $projectResearchOrgService;
 
     public function __construct(ProjectProposalService $projectProposalService,
-                                OrganizationService $organizationService,
-                                ProjectResearchOrgService $projectResearchOrgService)
+                                OrganizationService $organizationService)
     {
         $this->projectProposalService = $projectProposalService;
         $this->organizationService = $organizationService;
-        $this->projectResearchOrgService = $projectResearchOrgService;
+//        $this->projectResearchOrgService = $projectResearchOrgService;
     }
 
     public function index()
@@ -44,6 +43,7 @@ class ReceivedProjectProposalController extends Controller
 
     public function show($id)
     {
+//        dd($id);
         $proposal = $this->projectProposalService->findOrFail($id);
 //        dd($proposal);
         return view('pms::proposal-submitted.show', compact('proposal'));

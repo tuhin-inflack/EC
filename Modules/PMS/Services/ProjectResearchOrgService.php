@@ -11,10 +11,8 @@ namespace Modules\PMS\Services;
 
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
-use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Repositories\OrganizationRepository;
 use Modules\PMS\Repositories\ProjectResearchOrgRepository;
-use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ProjectResearchOrgService
 {
@@ -33,33 +31,30 @@ class ProjectResearchOrgService
         $this->setActionRepository($this->projectResearchOrgRepository);
     }
 
-    public function storeData($projectResearchData)
+    public function storeData($projectResearchData, $projectId)
     {
-//        dd($projectResearchData);
+        $project = $this->projectProposalService->findOne($projectId);
         $organizationId = (int)$projectResearchData['organization_id'];
-        $status = false;
+
         if ($organizationId > 0) {
-            $status = $this->save($projectResearchData);
+            $project->organizations()->attach($organizationId);
         } else {
             $organization = $this->organizationRepository->save($projectResearchData);
-            $projectResearchData['organization_id'] = $organization['id'];
-            $status = $this->projectResearchOrgRepository->save($projectResearchData);
+            $project->organizations()->attach($organization['id']);
         }
-
-        if ($status) {
-            return new Response(trans('labels.save_success'));
-        }
+        return new Response(trans('labels.save_success'));
     }
 
     public function getAlreadyAddedOrganizationIds($proposalId)
     {
-        $ids = $this->projectProposalService->findOne($proposalId);
+        $project = $this->projectProposalService->findOne($proposalId);
         $alreadyAddedIds = [];
-        if (!is_null($ids)) {
-            $ids = $ids->projectResearchOrg->toArray();
-            $alreadyAddedIds = array_column($ids, 'organization_id');
+        if (is_null($project)) {
+            abort(404);
+        } else {
+            $ids = $project->organizations->toArray();
+            $alreadyAddedIds = array_column($ids, 'id');
         }
-
         return $alreadyAddedIds;
 
     }

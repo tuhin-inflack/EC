@@ -25,21 +25,20 @@ class OrganizationController extends Controller
         $this->projectProposalService = $projectProposalService;
     }
 
-    public function addOrganization($proposalId)
+    public function addOrganization($projectId)
     {
         $type = Config::get('constants.project');
 
-        $organizations = $this->organizationService->getAllOrganization($proposalId, $type);
-        $proposal = $this->projectProposalService->getProposalById($proposalId);
+        $organizations = $this->organizationService->getAllOrganization($projectId, $type);
+        $proposal = $this->projectProposalService->getProposalById($projectId);
 
         return view('pms::proposal-submitted.add_organization', compact('proposal', 'organizations', 'type'));
 
     }
 
-    public function storeOrganization(StoreOrganizationRequest $request)
+    public function storeOrganization(StoreOrganizationRequest $request, $projectId)
     {
-//        dd($request->all());
-        $response = $this->projectResearchOrgService->storeData($request->all());
+        $response = $this->projectResearchOrgService->storeData($request->all(), $projectId);
         Session::flash('message', $response->getContent());
 
         return redirect()->route('project-proposal-submitted.index');
