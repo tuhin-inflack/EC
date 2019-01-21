@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'All Project Proposal Request ')
+@section('title', trans('pms::attribute.attribute_list'))
 
 @section('content')
     <section id="role-list">

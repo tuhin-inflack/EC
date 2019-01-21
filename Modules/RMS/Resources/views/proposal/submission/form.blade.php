@@ -1,4 +1,4 @@
-{!! Form::open(['route' =>  'research-request.store', 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['route' =>  'research-proposal-submission.store', 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
                 class="la la-briefcase"></i> {{trans('rms::research_proposal.request_form')}}</h4>
@@ -8,6 +8,7 @@
             <fieldset>
                 <div class="form row">
                     {!! Form::hidden('auth_user_id', $auth_user_id) !!}
+                    {!! Form::hidden('research_request_id', $researchRequest->id) !!}
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="form-label">@lang('rms::research_proposal.responded_by')</label>
                         {!! Form::text('title', $name, ['class' => 'form-control', 'readonly']) !!}
@@ -68,13 +69,16 @@
                                 </span>
                         @endif
                     </div>
+                    <input type="hidden" name="type" id="type">
                 </div>
             </fieldset>
         </div>
     </div>
 </div>
 <div class="form-actions text-center">
-    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save_draft') , ['type' => 'submit', 'class' => 'btn btn-success', 'name' => 'type', 'value' => 'draft'] ) !!}
+
+    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'save'] ) !!}
 
     <a class="btn btn-warning mr-1" role="button" href="{{route('invited-research-proposal.index')}}">
         <i class="ft-x"></i> {{trans('labels.cancel')}}

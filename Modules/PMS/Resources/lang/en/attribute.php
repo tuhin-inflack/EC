@@ -11,6 +11,7 @@ return [
     'attribute_name' => 'Attribute Name',
     'attribute_value_input' => 'Attribute Value Input',
     'attribute_value_input_form' => 'Attribute Value Input Form',
-    'value' => 'Value',
+    'planned_value' => 'Planned Value',
+    'achieved_value' => 'Achieved Value',
     'enter_value' => 'Enter Value',
 ];
