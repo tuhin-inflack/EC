@@ -33,7 +33,8 @@ class ProposalSubmitController extends Controller
      */
     public function index()
     {
-        return view('rms::proposal.submission.index');
+        $proposals = $this->researchProposalSubmissionService->getAll();
+        return view('rms::proposal.submission.index', compact('proposals'));
     }
 
     /**
@@ -51,14 +52,6 @@ class ProposalSubmitController extends Controller
         return view('rms::proposal.submission.create', compact('researchRequest', 'departmentName', 'designation', 'name', 'auth_user_id'));
     }
 
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function submittedList()
-    {
-        return view('rms::proposal.submitted.index');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -67,11 +60,11 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-        if ($request->input('type') == 'draft') {
+        /*if ($request->input('type') == 'draft') {
             return 'draft';
         } else {
             return 'save';
-        }
+        }*/
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research-proposal-submission.index');
