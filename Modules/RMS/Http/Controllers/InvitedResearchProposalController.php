@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Http\Requests\CreateDateExtendRequest;
@@ -91,9 +92,8 @@ class InvitedResearchProposalController extends Controller
 
     public function fileDownload(ResearchRequestAttachment $researchRequestAttachment)
     {
-        $basePath = 'app/research-requests/';
-        $fileName = $researchRequestAttachment->attachments;
-        return response()->download(storage_path($basePath . $fileName));
+        $basePath = Storage::disk('internal')->path($researchRequestAttachment->attachments);
+        return response()->download($basePath);
     }
 
     public function requestDateExtend(ResearchRequest $researchRequest)

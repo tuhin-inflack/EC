@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResearchProposalSubmissionAttachmentsTable extends Migration
+class CreateWorkflowConversationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('research_proposal_submission_attachments', function (Blueprint $table) {
+        Schema::create('workflow_conversations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('submissions_id');
-            $table->string('attachments');
-            $table->string('file_name');
+            $table->integer('workflow_master_id');
+            $table->integer('workflow_details_id');
+            $table->integer('feature_id');
+            $table->string('message')->nullable();
+            $table->char('status');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('research_proposal_submission_attachments');
+        Schema::dropIfExists('workflow_conversations');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\HM\Http\Controllers;
 
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -40,9 +41,13 @@ class BookingRequestController extends Controller
      */
     private $designationService;
     /**
-     * @var DesignationService
+     * @var TrainingsService
      */
     private $trainingService;
+    /**
+     * @var DesignationService
+     */
+    private $userService;
 
     /**
      * BookingRequestController constructor.
@@ -52,6 +57,7 @@ class BookingRequestController extends Controller
      * @param EmployeeServices $employeeServices
      * @param DesignationService $designationService
      * @param TrainingsService $trainingService
+     * @param UserService $userService
      */
     public function __construct(
         BookingRequestService $bookingRequestService,
@@ -59,7 +65,8 @@ class BookingRequestController extends Controller
         DepartmentService $departmentService,
         EmployeeServices $employeeServices,
         DesignationService $designationService,
-        TrainingsService $trainingService
+        TrainingsService $trainingService,
+        UserService $userService
     )
     {
         $this->roomTypeService = $roomTypeService;
@@ -68,6 +75,7 @@ class BookingRequestController extends Controller
         $this->employeeServices = $employeeServices;
         $this->designationService = $designationService;
         $this->trainingService = $trainingService;
+        $this->userService = $userService;
     }
 
     /**
@@ -76,7 +84,25 @@ class BookingRequestController extends Controller
      */
     public function index()
     {
-        $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+        $bookingRequests = [];
+
+        switch (1){
+            case $this->userService->isDirectorGeneral():
+                // show only forwarded requests
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
+                break;
+            case $this->userService->isDirectorAdmin():
+                // show all General requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['general']);
+                break;
+            case $this->userService->isDirectorTraining():
+                // show all Training and Venue requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['training', 'venue']);
+                break;
+            default:
+                $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+                break;
+        }
 
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
@@ -90,7 +116,9 @@ class BookingRequestController extends Controller
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
-        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $employeeOptions = $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+            return $employee->employee_id . ' - ' . $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->mobile_one;
+        });
         $designations = $this->designationService->findAll();
         $type = 'booking';
 
@@ -128,8 +156,9 @@ class BookingRequestController extends Controller
      */
     public function show(RoomBooking $roomBooking)
     {
+        $forwardToUsers = $this->userService->getAdminExceptLoggedInUserRole();
         $type = 'booking';
-        return view('hm::booking-request.show', compact('roomBooking', 'type'));
+        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers'));
     }
 
     /**

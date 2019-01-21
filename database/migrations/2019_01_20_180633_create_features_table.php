@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResearchProposalSubmissionAttachmentsTable extends Migration
+class CreateFeaturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('research_proposal_submission_attachments', function (Blueprint $table) {
+        Schema::create('features', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('submissions_id');
-            $table->string('attachments');
-            $table->string('file_name');
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +28,6 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('research_proposal_submission_attachments');
+        Schema::dropIfExists('features');
     }
 }

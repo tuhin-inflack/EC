@@ -91,7 +91,7 @@ return [
     'create_booking_request' => 'বুকিং অনুরোধ তৈরি করুন',
     'relation_family' => 'পরিবার',
     'relation_friend' => 'বন্ধু',
-    'relation_coworker' => 'সহকারী',
+    'relation_coworker' => 'সহকর্মী',
     'relation_trainee' => 'শিক্ষানবিস',
     'not_enough_available_rooms' => 'পর্যাপ্ত কক্ষ নেই',
 ];

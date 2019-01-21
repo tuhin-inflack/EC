@@ -11,6 +11,7 @@ namespace App\Services;
 
 use App\Repositories\UserRepository;
 use App\Traits\CrudTrait;
+use function foo\func;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Modules\HRM\Entities\Employee;
 use Modules\HRM\Repositories\EmployeeRepository;
 use Modules\HRM\Services\EmployeeServices;
+use PhpParser\Node\Scalar\String_;
 
 class UserService
 {
@@ -41,6 +43,10 @@ class UserService
 
     public function getLoggedInUser() {
         return Auth::user();
+    }
+
+    public function getLoggedInUserRole() {
+        return Auth::user()->roles;
     }
 
     public function store(array $data)
@@ -93,9 +99,36 @@ class UserService
         return $designation;
     }
 
-    public function getUsersExceptLoggedInUser(array $findBy)
+    public function getAdminExceptLoggedInUserRole()
     {
-        return $this->findBy($findBy)->except($this->getLoggedInUser()->id);
+        $loggedInUserRoleId = $this->getLoggedInUser()->roles[0]->id;
+        return $this->userRepository->getUsersExceptLoginInUser($loggedInUserRoleId, 'Admin');
+    }
+
+    /**
+     * @param String $roleName
+     * @return boolean|int
+     */
+    public function doseLoggedInUserHasRole($roleName)
+    {
+        $roles = $this->getLoggedInUserRole();
+        $roles = array_column( $roles->toArray(), 'name');
+        return in_array($roleName, $roles);
+    }
+
+    public function isDirectorGeneral()
+    {
+        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_GENERAL");
+    }
+
+    public function isDirectorAdmin()
+    {
+        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_ADMIN");
+    }
+
+    public function isDirectorTraining()
+    {
+        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_TRAINING");
     }
 
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResearchProposalSubmissionAttachmentsTable extends Migration
+class CreateBookingRequestForwardsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('research_proposal_submission_attachments', function (Blueprint $table) {
+        Schema::create('booking_request_forwards', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('submissions_id');
-            $table->string('attachments');
-            $table->string('file_name');
+            $table->unsignedInteger('room_booking_id');
+            $table->unsignedInteger('forwarded_to');
+            $table->unsignedInteger('forwarded_by');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('research_proposal_submission_attachments');
+        Schema::dropIfExists('booking_request_forwards');
     }
 }

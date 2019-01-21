@@ -26,7 +26,7 @@ class UpdateResearchRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
+        Schema::table('research_requests', function (Blueprint $table) {
 
         });
     }
