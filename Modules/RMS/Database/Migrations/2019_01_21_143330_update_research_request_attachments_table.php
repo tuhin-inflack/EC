@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateResearchRequestsTable extends Migration
+class UpdateResearchRequestAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class UpdateResearchRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::table('research_requests', function (Blueprint $table) {
-            $table->dropColumn(['to', 'attachment']);
-            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
+        Schema::table('research_request_attachments', function (Blueprint $table) {
+            $table->string('file_name');
         });
     }
 
@@ -26,7 +25,7 @@ class UpdateResearchRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::table('research_requests', function (Blueprint $table) {
+        Schema::table('research_request_attachments', function (Blueprint $table) {
 
         });
     }

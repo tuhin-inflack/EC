@@ -35,11 +35,13 @@ class ResearchRequestService
             $researchRequest = $this->save($data);
 
             foreach ($data['attachment'] as $file) {
+                $fileName = $file->getClientOriginalName();
                 $path = $this->upload($file, 'research-requests');
 
                 $file = new ResearchRequestAttachment([
                     'attachments' => $path,
-                    'research_request_id' => $researchRequest->id
+                    'research_request_id' => $researchRequest->id,
+                    'file_name' => $fileName,
                 ]);
 
                 $researchRequest->researchRequestAttachments()->save($file);
