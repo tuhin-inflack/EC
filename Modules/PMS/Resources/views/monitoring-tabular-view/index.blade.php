@@ -16,12 +16,12 @@
                                     <thead>
                                     <tr>
                                         <th scope="col" rowspan="2" class="text-center">@lang('pms::attribute.attribute')</th>
-                                        @foreach($groupedAttributeValuesByMonth as $date => $value)
+                                        @foreach($attributeValueSumsByMonth as $date => $value)
                                             <th colspan="3" class="text-center">@lang('month.' . explode(' ', $date)[0]) ({{ explode(' ', $date)[1] }})</th>
                                         @endforeach
                                     </tr>
                                     <tr>
-                                        @foreach($groupedAttributeValuesByMonth as $month => $value)
+                                        @foreach($attributeValueSumsByMonth as $month => $value)
                                             <th>@lang('pms::attribute.planned_value')</th>
                                             <th>@lang('pms::attribute.achieved_value')</th>
                                             <th>%</th>
@@ -32,7 +32,7 @@
                                         @foreach($organization->attributes as $attribute)
                                             <tr>
                                                 <td>{{ $attribute->name }}</td>
-                                                @foreach($groupedAttributeValuesByMonth as $month => $value)
+                                                @foreach($attributeValueSumsByMonth as $value)
                                                     <td>
                                                         @if(isset($value[$attribute->id]))
                                                             {{ $value[$attribute->id]['total_planned_values'] }}

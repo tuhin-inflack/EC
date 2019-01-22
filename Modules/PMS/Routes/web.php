@@ -37,30 +37,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
     });
 
-    Route::get('monitoring-tabular-view/{projectProposal}', function (\Modules\PMS\Entities\ProjectProposal $projectProposal) {
-        $attributeIds = $projectProposal->organizations->map(function ($organization) {
-            return $organization->attributes->map(function ($attribute) {
-                return $attribute->id;
-            });
-        })->flatten();
-
-        $attributeValues = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)->get();
-
-        $groupedAttributeValuesByMonth = $attributeValues->groupBy(function ($attributeValue) {
-            return \Carbon\Carbon::parse($attributeValue->date)->format('F Y');
-        })->map(function ($groupedRows) {
-            return $groupedRows->groupBy(function ($row) {
-                return $row->attribute_id;
-            })->map(function ($rows) {
-                return [
-                    'total_planned_values' => $rows->sum('planned_value'),
-                    'total_achieved_values' => $rows->sum('achieved_value')
-                ];
-            })->toArray();
-        })->toArray();
-
-        return view('pms::monitoring-tabular-view.index', compact('projectProposal', 'groupedAttributeValuesByMonth'));
-    })->name('monitoring-tabular-view.index');
+    Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'OrganizationController@addOrganization')->name('organization.add-organization');
