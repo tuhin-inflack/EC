@@ -95,7 +95,7 @@
     <a href="{{route('task.index', $item->id)}}" class="btn btn-primary">
         <i class="ft-check-square"></i> {{trans('pms::task.card_title')}}
     </a>
-    <button class="btn btn-warning" type="button" onclick="window.location = '{{($task->type == 'project') ? route('project-proposal-submitted.view',  $item->id) : route('research-proposal-submission.show', $item->id )}}'">
+    <button class="btn btn-warning" type="button" onclick="window.location = '{{($item->getTable() == 'project_proposals') ? route('project-proposal-submitted.view',  $item->id) : route('research-proposal-submission.show', $item->id )}}'">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </button>
 </div>

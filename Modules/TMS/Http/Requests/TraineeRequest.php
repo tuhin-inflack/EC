@@ -14,7 +14,11 @@ class TraineeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'training_id' => 'required|numeric',
+            'trainee_first_name' => 'required|string|min:3|max:100',
+            'trainee_last_name' => 'required|string|min:3|max:100',
+            'trainee_gender' => 'string|required|max:6',
+            'mobile' => 'string|required|max:15',
         ];
     }
 
@@ -25,13 +29,6 @@ class TraineeRequest extends FormRequest
      */
     public function authorize()
     {
-        return [
-            'training_id' => 'required|numeric|min:2|max:100',
-            'trainee_first_name' => 'required|string|min:3|max:100',
-            'trainee_last_name' => 'required|string|min:3|max:100',
-            'trainee_gender' => 'string|required|max:6',
-            'mobile' => 'string|required|max:15',
-
-        ];
+       return true;
     }
 }

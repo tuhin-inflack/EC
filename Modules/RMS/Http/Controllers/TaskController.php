@@ -7,24 +7,24 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\TaskRequest;
-use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class TaskController extends Controller
 {
-    private $projectResearchTaskService, $projectProposalService;
+    private $projectResearchTaskService, $researchProposalSubmissionService;
 
-    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ProjectProposalService $projectProposalService)
+    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
         $this->projectResearchTaskService = $projectResearchTaskService;
-        $this->projectProposalService = $projectProposalService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
     }
 
     public function index($researchId)
     {
         $tasks = $this->projectResearchTaskService->getProjectTasks($researchId);
-        $research = $this->projectProposalService->findOrFail($researchId);
+        $research = $this->researchProposalSubmissionService->findOrFail($researchId);
 
         return view('rms::task.index', compact('tasks', 'research'));
     }
@@ -40,7 +40,7 @@ class TaskController extends Controller
 
     public function create($researchId)
     {
-        $item = $this->projectProposalService->findOne($researchId);
+        $item = $this->researchProposalSubmissionService->findOne($researchId);
         $taskNames = Task::where('id', '!=', 0)->get();
         $action = route('research.task.store', $item->id);
 

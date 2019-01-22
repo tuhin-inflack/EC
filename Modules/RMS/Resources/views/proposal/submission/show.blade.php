@@ -22,6 +22,7 @@
                             </ul>
                         </div>
                     </div>
+
                     <div class="card-content collapse show print-view">
                         <div class="card-body">
                             <div class="row">
