@@ -65,9 +65,6 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div class="row">
-                                <div class="col-md-12"><p><b>{{trans('labels.note')}}</b> ** {{trans('labels.currency')}} {{trans('labels.bdt')}}</p></div>
-                            </div>
                         </div>
                     </div>
                 </div>

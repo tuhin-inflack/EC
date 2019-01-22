@@ -54,7 +54,7 @@ class ProjectRequestController extends Controller
      */
     public function create()
     {
-        $employees = $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+        $employees = $this->employeeServices->getEmployeeListForBardReference(function ($employee){
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
         }, function ($employee){
             return $employee->email;

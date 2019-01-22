@@ -25,10 +25,10 @@
             <td>{{(!empty($task->end_time))? date('d-m-Y', strtotime($task->end_time)) : '-'}}</td>
             {{--<td>{{($training->status == 1)? "Active":"Inactive"}}</td>--}}
             <td>
-                                            <span class="dropdown">
-                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
+                <span class="dropdown">
+                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
-                                              <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{route('task.show', ['taskId' => $task['id']])}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
                                                 @if(empty($task->start_time) || empty($task->end_time))
                                                       <a href="{{route('task.toggleStartEnd', ['taskId' => $task['id']])}}" class="dropdown-item"><i class="ft-edit-2"></i> {{(empty($task->start_time))? trans('pms::task.start_date') : trans('pms::task.end_date')}}</a>
