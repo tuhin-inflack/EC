@@ -3,6 +3,7 @@
 return [
     'organization' => 'Organization',
     'unit' => 'Unit',
+    'attribute' => 'Attribute',
     'create_attribute' => 'Create Attribute',
     'attribute_create_form' => 'Attribute Create Form',
     'edit_attribute' => 'Edit Attribute',

@@ -47,7 +47,7 @@ Route::prefix('pms')->group(function () {
         $attributeValues = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)->get();
 
         $groupedAttributeValuesByMonth = $attributeValues->groupBy(function ($attributeValue) {
-            return \Carbon\Carbon::parse($attributeValue->date)->format('F');
+            return \Carbon\Carbon::parse($attributeValue->date)->format('F Y');
         })->map(function ($groupedRows) {
             return $groupedRows->groupBy(function ($row) {
                 return $row->attribute_id;

@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'Monitoring Tabular View')
+@section('title', trans('pms::project.project_monitoring_tabular_view'))
 
 @section('content')
     <section id="role-list">
@@ -7,24 +7,23 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Project Monitoring Tabular View</h4>
+                        <h4 class="card-title">@lang('pms::project.project_monitoring_tabular_view')</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
                             <div class="table-responsive">
-
                                 <table class="table table-striped table-bordered">
                                     <thead>
                                     <tr>
-                                        <th scope="col" rowspan="2" class="text-center">Attributes</th>
-                                        @foreach($groupedAttributeValuesByMonth as $month => $value)
-                                            <th colspan="3" class="text-center">{{ $month }}</th>
+                                        <th scope="col" rowspan="2" class="text-center">@lang('pms::attribute.attribute')</th>
+                                        @foreach($groupedAttributeValuesByMonth as $date => $value)
+                                            <th colspan="3" class="text-center">@lang('month.' . explode(' ', $date)[0]) ({{ explode(' ', $date)[1] }})</th>
                                         @endforeach
                                     </tr>
                                     <tr>
                                         @foreach($groupedAttributeValuesByMonth as $month => $value)
-                                            <th>Planned</th>
-                                            <th>Achieved</th>
+                                            <th>@lang('pms::attribute.planned_value')</th>
+                                            <th>@lang('pms::attribute.achieved_value')</th>
                                             <th>%</th>
                                         @endforeach
                                     </tr>
