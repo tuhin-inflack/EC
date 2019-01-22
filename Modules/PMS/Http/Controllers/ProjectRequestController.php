@@ -43,6 +43,7 @@ class ProjectRequestController extends Controller
      */
     public function index()
     {
+
         $requests = $this->projectRequestService->getAll();
         return view('pms::project-request.index', compact('requests'));
     }

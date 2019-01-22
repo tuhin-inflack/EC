@@ -6,29 +6,32 @@
  * Time: 7:37 PM
  */
 
-namespace Modules\PMS\Services;
+namespace App\Services;
 
 
+use App\Repositories\Organization\OrganizableRepository;
+use App\Repositories\Organization\OrganizationRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
-use Modules\PMS\Repositories\OrganizationRepository;
-use Modules\PMS\Repositories\ProjectResearchOrgRepository;
+use Modules\PMS\Services\ProjectProposalService;
 
-class ProjectResearchOrgService
+class OrganizableService
 {
     use CrudTrait;
-    private $projectResearchOrgRepository;
+    private $organizableRepository;
     private $organizationRepository;
     private $projectProposalService;
 
-    public function __construct(ProjectResearchOrgRepository $projectResearchOrgRepository,
-                                OrganizationRepository $organizationRepository, ProjectProposalService $projectProposalService)
+    public function __construct(OrganizableRepository $organizableRepository,
+                                OrganizationRepository $organizationRepository,
+                                ProjectProposalService $projectProposalService)
 
     {
-        $this->projectResearchOrgRepository = $projectResearchOrgRepository;
+
+        $this->organizableRepository = $organizableRepository;
         $this->organizationRepository = $organizationRepository;
         $this->projectProposalService = $projectProposalService;
-        $this->setActionRepository($this->projectResearchOrgRepository);
+        $this->setActionRepository($this->organizableRepository);
     }
 
     public function storeData($projectResearchData, $projectId)
@@ -47,6 +50,7 @@ class ProjectResearchOrgService
 
     public function getAlreadyAddedOrganizationIds($proposalId)
     {
+
         $project = $this->projectProposalService->findOne($proposalId);
         $alreadyAddedIds = [];
         if (is_null($project)) {

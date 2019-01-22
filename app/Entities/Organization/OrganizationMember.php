@@ -1,11 +1,12 @@
 <?php
 
-namespace Modules\PMS\Entities;
+namespace App\Entities\Organization;
 
 use Illuminate\Database\Eloquent\Model;
 
 class OrganizationMember extends Model
 {
+    protected $table = 'organization_members';
     protected $fillable = [
         'organization_id',
         'name',
