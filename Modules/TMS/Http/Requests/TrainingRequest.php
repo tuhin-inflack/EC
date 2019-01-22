@@ -16,8 +16,8 @@ class TrainingRequest extends FormRequest
         return [
             'training_id' => 'required',
             'training_title' => 'required|string|min:3|max:100',
-            'start_date' => 'string|date|required',
-            'end_date' => 'string|date|required',
+            'start_date' => 'string|date_format:"j F, Y"|required',
+            'end_date' => 'string|date_format:"j F, Y"|required',
             'no_of_trainee' => 'required',
             'training_len' => 'required'
         ];

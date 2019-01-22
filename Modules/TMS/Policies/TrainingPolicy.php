@@ -15,14 +15,14 @@ class TrainingPolicy
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $user)
     {
         //
     }
 
     public function view(User $user)
     {
-        return $user->hasPermission('view','Training');
+        return true;
         //return false;
     }
 
@@ -34,7 +34,7 @@ class TrainingPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermission('create', 'Training');
+        return true;
         //return true;
     }
 
@@ -47,7 +47,7 @@ class TrainingPolicy
      */
     public function update(User $user, Role $role)
     {
-        return $user->hasPermission('update', 'Training');
+        return true;
         //return true;
     }
 
@@ -60,7 +60,7 @@ class TrainingPolicy
      */
     public function delete(User $user, Role $role)
     {
-        return $user->hasPermission('delete', 'Training');
+        return true;
         //return true;
     }
 
@@ -90,7 +90,7 @@ class TrainingPolicy
 
     public function before(User $user)
     {
-        return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_TRAINING']);
     }
 
 }
