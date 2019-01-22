@@ -128,5 +128,7 @@ return [
     'save_draft' => 'Save as Draft',
     'approve' => 'Approve',
     'reject' => 'Reject',
-    'nid_number' => 'NID Number'
+    'nid_number' => 'NID Number',
+    'open' => 'Open',
+    'closed' => 'Closed',
 ];
