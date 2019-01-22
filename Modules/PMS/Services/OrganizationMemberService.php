@@ -22,7 +22,7 @@ class OrganizationMemberService
     {
         $status = $this->organizationMemberRepository->save($member);
         if ($status)
-            return Response('successfully updated');
+            return new Response(trans('labels.save_success'));
     }
 
     public function findMemberById($memberId)
@@ -41,7 +41,7 @@ class OrganizationMemberService
         $member = $this->findOne($memberId);
         $status = $member->update($memberData);
         if ($status)
-            return Response('successfully updated');
+            return new Response(trans('labels.update_success'));
     }
 
 }

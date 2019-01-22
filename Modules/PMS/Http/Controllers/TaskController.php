@@ -23,8 +23,8 @@ class TaskController extends Controller
 
     public function index($projectId)
     {
-        $tasks = $this->projectResearchTaskService->getTasks($projectId);
         $project = $this->projectProposalService->findOrFail($projectId);
+        $tasks = $project->task;
 
         return view('pms::task.index', compact('tasks', 'project'));
     }
@@ -40,11 +40,11 @@ class TaskController extends Controller
 
     public function create($projectId)
     {
-        $project = $this->projectProposalService->findOrFail($projectId);
+        $item = $this->projectProposalService->findOrFail($projectId);
         $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('task.store', $project->id);
+        $action = route('task.store', $item->id);
 
-        return view('pms::task.create', compact('project', 'taskNames', 'action'));
+        return view('pms::task.create', compact('item', 'taskNames', 'action'));
     }
 
     public function store($projectId, TaskRequest $request)

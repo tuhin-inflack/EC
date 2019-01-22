@@ -6,15 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectResearchOrganization extends Model
 {
-    protected $table = 'project_research_organization';
+    protected $table = 'organizables';
     protected $fillable = [
         'organization_id',
-        'organization_for_id',
-        'type'
+        'organizable_id',
+        'organization_type',
     ];
 
-    public function organization()
+//    public function organization()
+//    {
+//        return $this->belongsTo(Organization::class, 'organization_id', 'id');
+//    }
+    public function organizations()
     {
-        return $this->belongsTo(Organization::class, 'organization_id', 'id');
+        return $this->morphToMany(Organization::class, 'organizable');
     }
 }

@@ -4,7 +4,7 @@
             <tbody>
             <tr>
                 <th>{{trans('pms::project_proposal.project_title')}}</th>
-                <td>{{$task->project->title}}</td>
+                <td>@if($task->type == 'project') {{$task->project->title}} @elseif($task->type == 'research') {{$task->research->title}} @else None @endif</td>
             </tr>
             <tr>
                 <th>{{trans('pms::task.task_name')}}</th>
@@ -36,7 +36,7 @@
                     @if(count($task->attachments))
                         <ul class="list-inline">
                             @foreach($task->attachments as $attachment)
-                                <li class="list-group-item"><span class="badge bg-info">{{$attachment->file_name}}</span><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
+                                <li class="list-group-item"><a href="{{route('file.download', ['filePath' => $attachment->file_path, 'displayName' => $attachment->file_name.'.'.$attachment->file_ext])}}" class="badge bg-info white" title="{{$attachment->file_name}}">{{strlen($attachment->file_name)? substr($attachment->file_name,0,10).'...': $attachment->file_name }}</a><br><label class="label"><strong>{{$attachment->file_ext}}</strong> file</label></li>
                             @endforeach
                         </ul>
                     @else
@@ -48,8 +48,8 @@
             </tbody>
         </table>
         <div class="form-actions">
-            <a href="{{route( 'task.edit', $task->id)}}" class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
-            <a class="btn btn-warning mr-1" role="button" href="{{route('project-proposal-submitted.view', $task->project->id)}}">
+            <a href="{{route( ($task->type == 'project') ? 'task.edit': 'research.task.edit', $task->id)}}" class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+            <a class="btn btn-warning mr-1" role="button" href="{{($task->type == 'project') ? route('project-proposal-submitted.view',  $task->project->id) : route('research-proposal-submission.show', $task->research->id )}}">
                 <i class="ft-x"></i> {{trans('labels.back_page')}}
             </a>
         </div>

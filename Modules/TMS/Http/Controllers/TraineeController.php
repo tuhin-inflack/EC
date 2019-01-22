@@ -62,6 +62,7 @@ class TraineeController extends Controller
     public function store(TraineeRequest $request)
     {
         $this->authorize('create', Trainee::class);
+        $request->merge(['trainee_gender' => strtolower($request->input('trainee_gender'))]);
         $storeData = $this->traineeService->save($request->all());
         if($storeData) $msg = __('labels.save_success'); else $msg = __('labels.save_fail');
         Session::flash('message', $msg);

@@ -2,7 +2,6 @@
 @section('title', trans('pms::project_proposal.menu_title'))
 
 @section('content')
-
     <div class="row match-height">
         <div class="col-md-12">
             <div class="card">
@@ -33,7 +32,7 @@
                             </div>
                         </div>
 
-                        {!! Form::open(['route' =>  'organization.store-organization', 'class' => 'form',' novalidate']) !!}
+                        {!! Form::open(['route' =>  ['organization.store-organization', $proposal->id], 'class' => 'form',' novalidate']) !!}
                         @include('pms::proposal-submitted.form.organization_add_form')
                         {!! Form::close() !!}
 
@@ -68,14 +67,17 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($proposal->projectResearchOrg)>0)
-                                        @foreach($proposal->projectResearchOrg as $projectResearchOrganization)
+                                    @if(count($proposal->organizations)>0)
+                                        @foreach($proposal->organizations as $organization)
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <td>{{ $projectResearchOrganization->organization->name }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->email }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->mobile }}</td>
-                                                <td>{{ $projectResearchOrganization->organization->address }}</td>
+                                                <td>{{ $organization->name }}</td>
+                                                <td>{{ $organization->email }}</td>
+                                                <td>{{ $organization->mobile }}</td>
+                                                <td>{{ $organization->address }}</td>
+                                                {{--<td>{{ $projectResearchOrganization->organization->email }}</td>--}}
+                                                {{--<td>{{ $projectResearchOrganization->organization->mobile }}</td>--}}
+                                                {{--<td>{{ $projectResearchOrganization->organization->address }}</td>--}}
                                                 <td>
 
 
@@ -83,7 +85,7 @@
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('member.add-member', $projectResearchOrganization->organization->id)}}" class="dropdown-item"><i class="ft-plus"></i> @lang('pms::member.add_member')</a>
+                                                        <a href="{{route('member.add-member', $organization->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::member.add_member')</a>
                                                     </span>
                                                 </span>
                                                 </td>
