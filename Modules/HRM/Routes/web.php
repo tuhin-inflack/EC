@@ -12,7 +12,8 @@
 */
 //Route::middleware( 'auth:web' )->group( function () {
 Route::prefix( 'hrm' )->group( function () {
-	Route::get( '/', 'HRMController@index' );
+	Route::get('/', 'HRMController@index' );
+	Route::get('/show', 'HRMController@show' ); // Temporary & Demo
 
 	Route::prefix( 'employee' )->group( function () {
 
