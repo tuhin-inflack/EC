@@ -30,13 +30,14 @@ class MonitorProjectTabularViewController extends Controller
             return $groupedRows->groupBy(function ($row) {
                 return $row->attribute_id;
             })->map(function ($rows) {
+                // check for max
                 return [
                     'total_planned_values' => $rows->sum('planned_value'),
                     'total_achieved_values' => $rows->sum('achieved_value')
                 ];
-            })->toArray();
-        })->toArray();
+            });
+        });
 
-        return view('pms::monitoring-tabular-view.index', compact('projectProposal', 'attributeValueSumsByMonth'));
+        return view('pms::project.monitor.tabular-view', compact('projectProposal', 'attributeValueSumsByMonth'));
     }
 }
