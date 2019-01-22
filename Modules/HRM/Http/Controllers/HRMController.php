@@ -4,9 +4,16 @@ namespace Modules\HRM\Http\Controllers;
 
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HRM\Services\EmployeeServices;
 
 class HRMController extends Controller
 {
+    private $employeeService;
+    public function __construct(EmployeeServices $employeeServices)
+    {
+        $this->employeeService = $employeeServices;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -18,12 +25,9 @@ class HRMController extends Controller
 
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
     public function show()
     {
-        return view('hrm::show');
+        // Test
+        return $this->employeeService->getEmployeeListForBardReference();
     }
 }
