@@ -13,7 +13,10 @@ use App\Repositories\Organization\OrganizableRepository;
 use App\Repositories\Organization\OrganizationRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Config;
 use Modules\PMS\Services\ProjectProposalService;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class OrganizableService
 {
@@ -21,42 +24,53 @@ class OrganizableService
     private $organizableRepository;
     private $organizationRepository;
     private $projectProposalService;
+    private $researchProposalSubmissionService;
 
     public function __construct(OrganizableRepository $organizableRepository,
                                 OrganizationRepository $organizationRepository,
-                                ProjectProposalService $projectProposalService)
+                                ProjectProposalService $projectProposalService,
+                                ResearchProposalSubmissionService $researchProposalSubmissionService)
 
     {
 
         $this->organizableRepository = $organizableRepository;
         $this->organizationRepository = $organizationRepository;
         $this->projectProposalService = $projectProposalService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->setActionRepository($this->organizableRepository);
     }
 
-    public function storeData($projectResearchData, $projectId)
+    public function storeData($projectResearchData, $projectOrResearchId)
     {
-        $project = $this->projectProposalService->findOne($projectId);
+
+        if ($projectResearchData['organizable_type'] == Config::get('constants.research')) {
+            $projectResearch = $this->researchProposalSubmissionService->findOne($projectOrResearchId);
+        }else{
+            $projectResearch = $this->projectProposalService->findOne($projectOrResearchId);
+        }
         $organizationId = (int)$projectResearchData['organization_id'];
 
         if ($organizationId > 0) {
-            $project->organizations()->attach($organizationId);
+            $projectResearch->organizations()->attach($organizationId);
         } else {
             $organization = $this->organizationRepository->save($projectResearchData);
-            $project->organizations()->attach($organization['id']);
+            $projectResearch->organizations()->attach($organization['id']);
         }
         return new Response(trans('labels.save_success'));
     }
 
-    public function getAlreadyAddedOrganizationIds($proposalId)
+    public function getAlreadyAddedOrganizationIds($projectOrResearchId, $type)
     {
-
-        $project = $this->projectProposalService->findOne($proposalId);
+        if ($type == Config::get('constants.research')) {
+            $projectResearch = $this->researchProposalSubmissionService->findOne($projectOrResearchId);
+       }else{
+            $projectResearch = $this->projectProposalService->findOne($projectOrResearchId);
+        }
         $alreadyAddedIds = [];
-        if (is_null($project)) {
+        if (is_null($projectResearch)) {
             abort(404);
         } else {
-            $ids = $project->organizations->toArray();
+            $ids = $projectResearch->organizations->toArray();
             $alreadyAddedIds = array_column($ids, 'id');
         }
         return $alreadyAddedIds;

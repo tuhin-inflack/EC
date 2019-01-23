@@ -30,11 +30,9 @@ class OrganizationService
 
     }
 
-    public function getAllOrganization($proposalId, $type)
+    public function getAllOrganization($projectResearchId, $type)
     {
-
-        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
-
+        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($projectResearchId, $type);
         $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
         $organizations['other_organization'] = '+ ' . trans('pms::project_proposal.add_new_organization');
         return $organizations;
