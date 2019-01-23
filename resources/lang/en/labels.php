@@ -45,6 +45,7 @@ return [
     'history' => 'History',
     'number' => 'Number',
     'list' => 'List',
+    'create' => 'Create',
     'new' => 'New',
     'add' => 'Add',
     'add_more' => 'Add More',

@@ -82,7 +82,7 @@ class EmployeeServices
      * @param Null | Callable $implementedKey Anonymous Implementation Key index
      * @return array
      */
-    public function getEmployeeListForBardReference($implementedValue = null, $implementedKey = null)
+    public function getEmployeesForDropdown($implementedValue = null, $implementedKey = null)
     {
         $employees = $this->employeeRepository->findAll();
 

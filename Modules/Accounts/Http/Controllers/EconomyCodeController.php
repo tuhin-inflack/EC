@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Entities\EconomyCode;
+use Modules\Accounts\Http\Requests\CreateEconomyCodeRequest;
+use Modules\Accounts\Http\Requests\UpdateEconomyCodeRequest;
 use Modules\Accounts\Services\EconomyCodeService;
 
 class EconomyCodeController extends Controller
@@ -43,7 +45,7 @@ class EconomyCodeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateEconomyCodeRequest $request)
     {
         $this->economyCodeService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
@@ -77,7 +79,7 @@ class EconomyCodeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(EconomyCode $economyCode, Request $request)
+    public function update(EconomyCode $economyCode, UpdateEconomyCodeRequest $request)
     {
         $this->economyCodeService->update($economyCode, $request->all());
         Session::flash('success', trans('labels.update_success'));
