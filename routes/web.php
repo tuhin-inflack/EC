@@ -38,3 +38,5 @@ Route::get('/lang/{key}', function ($key) {
     Session::save();
     return redirect()->back();
 });
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
