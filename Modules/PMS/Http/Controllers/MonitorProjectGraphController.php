@@ -18,7 +18,6 @@ class MonitorProjectGraphController extends Controller
      */
     public function index(ProjectProposal $projectProposal)
     {
-
         $attributes = $projectProposal->organizations->map(function ($organization) {
             return $organization->attributes->map(function ($attribute) {
                 return $attribute;
@@ -29,12 +28,26 @@ class MonitorProjectGraphController extends Controller
             return $attrbute->id;
         });
 
-        $attributeValueSumsByMonth = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)
-            ->select(DB::raw('date_format(date, "%M %Y") as date, attribute_id, sum(planned_value) as total_planned_value, sum(achieved_value) as total_achieved_value'))
+        $attributeValueSumsByMonthYear = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)
+            ->select(DB::raw('date, attribute_id, sum(planned_value) as total_planned_value, sum(achieved_value) as total_achieved_value'))
             ->groupBy('date')
             ->groupBy('attribute_id')
+            ->orderBy('date')
             ->get();
 
-        return view('pms::project.monitor.graph', compact('attributes', 'attributeValueSumsByMonth'));
+        $uniqueMonthYear = $attributeValueSumsByMonthYear->map(function ($row) {
+            return Carbon::parse($row->date)->format('F Y');
+        })->unique()->values();
+
+        foreach ($attributes as $index => $attribute) {
+            $attributeValueDetails[$index]['id'] = $attribute->id;
+            $attributeValueDetails[$index]['name'] = $attribute->name;
+            $attributeValueDetails[$index]['monthly_planned_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
+                ->pluck('total_planned_value');
+            $attributeValueDetails[$index]['monthly_achieved_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
+                ->pluck('total_achieved_value');
+        }
+
+        return view('pms::project.monitor.graph', compact('attributeValueDetails', 'uniqueMonthYear'));
     }
 }
