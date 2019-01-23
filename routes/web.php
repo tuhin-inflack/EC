@@ -41,3 +41,5 @@ Route::post('/test/upload', 'AttachmentController@uploadFile')->name('test.uploa
 Route::get('/file/download', 'AttachmentController@downloadFile')->name('file.download');
 Route::get('/file/get', 'AttachmentController@get')->name('file.getfile');
 Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.fileUrl');
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

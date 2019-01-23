@@ -1,10 +1,10 @@
 <?php
 
-namespace Modules\PMS\Entities;
+namespace App\Entities\Organization;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProjectResearchOrganization extends Model
+class Organizable extends Model
 {
     protected $table = 'organizables';
     protected $fillable = [
@@ -13,10 +13,7 @@ class ProjectResearchOrganization extends Model
         'organization_type',
     ];
 
-//    public function organization()
-//    {
-//        return $this->belongsTo(Organization::class, 'organization_id', 'id');
-//    }
+
     public function organizations()
     {
         return $this->morphToMany(Organization::class, 'organizable');

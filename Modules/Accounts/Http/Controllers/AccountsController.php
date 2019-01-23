@@ -5,15 +5,18 @@ namespace Modules\Accounts\Http\Controllers;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\Accounts\Services\AccountService;
+use Modules\Accounts\Services\EconomyCodeService;
 
 class AccountsController extends Controller
 {
 
     private $accountService;
+    private $economyCodeService;
 
-    public function __construct(AccountService $accountService)
+    public function __construct(AccountService $accountService, EconomyCodeService $economyCodeService)
     {
         $this->accountService = $accountService;
+        $this->economyCodeService = $economyCodeService;
     }
 
     /**
@@ -23,6 +26,12 @@ class AccountsController extends Controller
     public function index()
     {
         return view('accounts::index');
+    }
+
+    public function show(){
+        return $this->economyCodeService->getEconomyCodesForDropdown(function ($eCode){
+            return $eCode->bangla_name . ' (' . $eCode->code . ')';
+        });
     }
 
     /**

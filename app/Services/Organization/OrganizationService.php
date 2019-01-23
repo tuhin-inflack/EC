@@ -6,11 +6,13 @@
  * Time: 6:31 PM
  */
 
-namespace Modules\PMS\Services;
+namespace App\Services;
 
 
+use App\Repositories\Organization\OrganizationRepository;
 use App\Traits\CrudTrait;
-use Modules\PMS\Repositories\OrganizationRepository;
+use Modules\PMS\Services\ProjectProposalService;
+use Modules\PMS\Services\ProjectResearchOrgService;
 
 class OrganizationService
 {
@@ -19,18 +21,18 @@ class OrganizationService
     private $projectResearchOrgService;
     private $projectProposalService;
 
-    public function __construct(OrganizationRepository $organizationRepository, ProjectResearchOrgService $projectResearchOrgService, ProjectProposalService $projectProposalService)
+    public function __construct(OrganizationRepository $organizationRepository, OrganizableService $organizableService, ProjectProposalService $projectProposalService)
     {
         $this->organizationRepository = $organizationRepository;
-        $this->projectResearchOrgService = $projectResearchOrgService;
+        $this->projectResearchOrgService = $organizableService;
         $this->projectProposalService = $projectProposalService;
         $this->setActionRepository($this->organizationRepository);
 
     }
 
-    public function getAllOrganization($proposalId, $type)
+    public function getAllOrganization($projectResearchId, $type)
     {
-        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($proposalId);
+        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($projectResearchId, $type);
         $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
         $organizations['other_organization'] = '+ ' . trans('pms::project_proposal.add_new_organization');
         return $organizations;

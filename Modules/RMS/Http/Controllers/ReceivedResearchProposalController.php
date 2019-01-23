@@ -2,9 +2,15 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\OrganizableService;
+use App\Services\OrganizationService;
+use function GuzzleHttp\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\StoreOrganizationRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class ReceivedResearchProposalController extends Controller
@@ -13,12 +19,16 @@ class ReceivedResearchProposalController extends Controller
      * @var ResearchProposalSubmissionService
      */
     private $researchProposalSubmissionService;
+    private $organizationService;
+    private $organizableService;
 
-    public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
+    OrganizableService $organizableService, OrganizationService $organizationService)
     {
-
         /** @var ResearchProposalSubmissionService $researchProposalSubmissionService */
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->organizationService = $organizationService;
+        $this->organizableService = $organizableService;
     }
 
     /**
@@ -82,5 +92,24 @@ class ReceivedResearchProposalController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function addOrganization($researchId)
+    {
+
+        $type = Config::get('constants.research');
+        $organizations = $this->organizationService->getAllOrganization($researchId, $type);
+        $research = $this->researchProposalSubmissionService->findOne($researchId);
+
+
+        return view('rms::organization.add_organization', compact('research', 'organizations', 'type'));
+
+    }
+
+    public function storeOrganization(StoreOrganizationRequest $request, $researchId)
+    {
+        $response = $this->organizableService->storeData($request->all(), $researchId);
+        Session::flash('message', $response->getContent());
+        return redirect()->route('organization.add-research-organization', $researchId);
     }
 }

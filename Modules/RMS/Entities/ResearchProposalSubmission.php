@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Entities;
 
+use App\Entities\Organization\Organization;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PMS\Entities\ProjectResearchTask;
@@ -24,5 +25,9 @@ class ResearchProposalSubmission extends Model
     public function submittedBy()
     {
         return $this->belongsTo(User::class, 'auth_user_id', 'id');
+    }
+    public function organizations()
+    {
+        return $this->morphToMany(Organization::class, 'organizable');
     }
 }

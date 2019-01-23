@@ -6,11 +6,12 @@
  * Time: 5:14 PM
  */
 
-namespace Modules\PMS\Repositories;
+namespace App\Repositories\Organization;
 
 
+use App\Entities\Organization\OrganizationMember;
 use App\Repositories\AbstractBaseRepository;
-use Modules\PMS\Entities\OrganizationMember;
+//use Modules\PMS\Entities\OrganizationMember;
 
 class OrganizationMemberRepository extends AbstractBaseRepository
 {

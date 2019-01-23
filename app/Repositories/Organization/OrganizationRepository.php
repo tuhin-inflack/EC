@@ -6,11 +6,12 @@
  * Time: 6:30 PM
  */
 
-namespace Modules\PMS\Repositories;
+namespace App\Repositories\Organization;
 
 
+//use App\Entities\Organization\Organizable;
+use App\Entities\Organization\Organization;
 use App\Repositories\AbstractBaseRepository;
-use Modules\PMS\Entities\Organization;
 
 class OrganizationRepository extends AbstractBaseRepository
 {
@@ -21,4 +22,6 @@ class OrganizationRepository extends AbstractBaseRepository
         $organizations = Organization::whereNotIn('id', $alreadyAddedIds)->get()->pluck('name', 'id')->toArray();
         return $organizations;
     }
+
+
 }

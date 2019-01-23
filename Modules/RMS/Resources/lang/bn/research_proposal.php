@@ -2,6 +2,8 @@
 return [
     'title' => 'গবেষণা প্রস্তাব',
     'menu_title' => 'গবেষণা প্রস্তাব অনুরোধ',
+    'research_title' => 'গবেষণা শিরনাম',
+    'organization_name_for_research' => 'এই গবেষণার জন্য প্রতিষ্ঠানের নাম তালিকা',
     'send_to' => 'যাকে পাঠাবেন',
     'create_request' => 'অনুরোধ তৈরি করুন',
     'research_proposal_request_creation' => 'গবেষণা প্রস্তাব অনুরোধ তৈরি করুন',
