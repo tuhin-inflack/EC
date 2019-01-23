@@ -168,15 +168,26 @@
             let chart = new Chart(ctx, config);
 
             $('select[name=attribute_id]').on('change', function () {
-                console.log($(this).val());
+                let attributeId = $(this).val();
+                let attributeGraphUrl = '/pms/projects/{{ $projectProposal->id }}/monitors/graphs/' + attributeId;
+                $.get(attributeGraphUrl).done(function (data) {
+                    let serverChartDate = Object.assign({}, chartData);
+
+                    serverChartDate.label = data.uniqueMonthYear;
+                    serverChartDate.datasets[0].data = data.attributeValueDetail.monthly_planned_values;
+                    serverChartDate.datasets[1].data = data.attributeValueDetail.monthly_achieved_values;
+
+                    let newChartConfig = Object.assign({}, config);
+
+                    chart.destroy();
+                    chart = new Chart(ctx, newChartConfig);
+                }).fail(function (error) {
+                    alert(error);
+                });
             });
 
             $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
                 let chartType = $(this).val();
-
-                if (chart) {
-                    chart.destroy();
-                }
 
                 let currentOptions = JSON.parse(JSON.stringify(chartOptions));
 
@@ -187,6 +198,8 @@
                 } else {
                     config.options = currentOptions;
                 }
+
+                chart.destroy();
                 chart = new Chart(ctx, config);
             });
         });
