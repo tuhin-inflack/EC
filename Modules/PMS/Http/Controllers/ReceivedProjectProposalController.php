@@ -76,7 +76,7 @@ class ReceivedProjectProposalController extends Controller
         $response = $this->organizableService->storeData($request->all(), $projectId);
         Session::flash('message', $response->getContent());
 
-        return redirect()->route('project-proposal-submitted.index');
+        return redirect()->route('project-proposal-submitted.view', $projectId);
     }
 
 

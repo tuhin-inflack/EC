@@ -1,12 +1,13 @@
 @extends('rms::layouts.master')
-@section('title', trans('pms::project_proposal.menu_title'))
+@section('title', trans('pms::member.add_member'))
 
 @section('content')
+
     <div class="row match-height">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('pms::member.add_member')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -32,8 +33,8 @@
                             </div>
                         </div>
 
-                        {!! Form::open(['route' =>  ['organization.store-research-organization', $research->id], 'class' => 'form',' novalidate']) !!}
-                        @include('rms::organization.form.research_organization_add_form')
+                        {!! Form::open(['route' =>  'member.store-org-member', 'files' => true, 'class' => 'form',' novalidate']) !!}
+                        @include('pms::project-members.form.add_edit_organization_member_form', ['mode' => trans('pms::member.add_member'), 'form-mode' => trans('pms::member.member_editing_form')])
                         {!! Form::close() !!}
 
 
@@ -49,7 +50,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
+                        <h4 class="card-title">Member list</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
@@ -59,33 +60,28 @@
                                     <tr>
 
                                         <th scope="col">@lang('labels.serial')</th>
-                                        <th scope="col">@lang('pms::project_proposal.organization_name')</th>
-                                        <th scope="col">@lang('labels.email_address')</th>
+                                        <th scope="col">@lang('labels.name')</th>
                                         <th scope="col">@lang('labels.mobile')</th>
                                         <th scope="col">@lang('labels.address')</th>
+                                        <th scope="col">@lang('labels.gender')</th>
                                         <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(count($research->organizations)>0)
-                                        @foreach($research->organizations as $organization)
+                                    @if(count($organization->members)>0)
+                                        @foreach($organization->members as $members)
                                             <tr>
                                                 <th scope="row">{{$loop->iteration}}</th>
-                                                <td>{{ $organization->name }}</td>
-                                                <td>{{ $organization->email }}</td>
-                                                <td>{{ $organization->mobile }}</td>
-                                                <td>{{ $organization->address }}</td>
-                                                {{--<td>{{ $projectResearchOrganization->organization->email }}</td>--}}
-                                                {{--<td>{{ $projectResearchOrganization->organization->mobile }}</td>--}}
-                                                {{--<td>{{ $projectResearchOrganization->organization->address }}</td>--}}
+                                                <td>{{ $members->name }}</td>
+                                                <td>{{ $members->mobile }}</td>
+                                                <td>{{ $members->address }}</td>
+                                                <td>{{ $members->gender }}</td>
                                                 <td>
-
-
                                                 <span class="dropdown">
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
                                                             aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('member.add-org-member', $organization->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::member.add_member')</a>
+                                                        <a href="{{route('member.edit-org-member', $members->id)}}" class="dropdown-item"><i class="ft-edit"></i> @lang('labels.edit')</a>
                                                     </span>
                                                 </span>
                                                 </td>

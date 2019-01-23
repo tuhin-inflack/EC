@@ -38,6 +38,12 @@ Route::prefix('rms')->group(function() {
         Route::get('/add-organization/{id?}', 'ReceivedResearchProposalController@addOrganization')->name('organization.add-research-organization');
         Route::post('/store-organization/{id?}', 'ReceivedResearchProposalController@storeOrganization')->name('organization.store-research-organization');
     });
+    Route::prefix('member')->group(function () {
+        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-org-member');
+        Route::post('/store-organization-member/', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-org-member');
+        Route::get('/edit-organization-member/{memberId?}', 'OrganizationMemberController@editOrganizationMember')->name('member.edit-org-member');
+        Route::post('/update-organization-member/{memberId?}', 'OrganizationMemberController@UpdateOrganizationMember')->name('member.update-org-member');
+    });
 
     Route::prefix('invited-research-proposals')->group(function (){
         Route::get('/','InvitedResearchProposalController@index')->name('invited-research-proposal.index');
