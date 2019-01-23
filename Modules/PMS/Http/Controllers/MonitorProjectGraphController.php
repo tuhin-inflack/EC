@@ -24,11 +24,9 @@ class MonitorProjectGraphController extends Controller
             });
         })->flatten();
 
-        $attributeIds = $attributes->map(function ($attrbute) {
-            return $attrbute->id;
-        });
+        $attribute = $attributes->first();
 
-        $attributeValueSumsByMonthYear = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)
+        $attributeValueSumsByMonthYear = \Modules\PMS\Entities\AttributeValue::where('attribute_id', $attribute->id)
             ->select(DB::raw('date, attribute_id, sum(planned_value) as total_planned_value, sum(achieved_value) as total_achieved_value'))
             ->groupBy('date')
             ->groupBy('attribute_id')
@@ -39,15 +37,15 @@ class MonitorProjectGraphController extends Controller
             return Carbon::parse($row->date)->format('F Y');
         })->unique()->values();
 
-        foreach ($attributes as $index => $attribute) {
-            $attributeValueDetails[$index]['id'] = $attribute->id;
-            $attributeValueDetails[$index]['name'] = $attribute->name;
-            $attributeValueDetails[$index]['monthly_planned_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
-                ->pluck('total_planned_value');
-            $attributeValueDetails[$index]['monthly_achieved_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
-                ->pluck('total_achieved_value');
-        }
+        $attributeValueDetail['id'] = $attribute->id;
+        $attributeValueDetail['name'] = $attribute->name;
+        $attributeValueDetail['monthly_planned_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
+            ->pluck('total_planned_value');
+        $attributeValueDetail['monthly_achieved_values'] = $attributeValueSumsByMonthYear->where('attribute_id', $attribute->id)
+            ->pluck('total_achieved_value');
 
-        return view('pms::project.monitor.graph', compact('attributeValueDetails', 'uniqueMonthYear'));
+        $attributeSelectOptions = $attributes->pluck('name', 'id');
+
+        return view('pms::project.monitor.graph', compact('attributeValueDetail', 'uniqueMonthYear', 'attributeSelectOptions'));
     }
 }

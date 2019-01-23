@@ -2,7 +2,6 @@
 @section('title', trans('pms::project.project_monitoring_tabular_view'))
 
 @section('content')
-    <!-- Line Chart -->
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -18,8 +17,54 @@
                     </div>
                 </div>
                 <div class="card-content collapse show">
-                    <div class="card-body chartjs">
-                        <canvas id="line-chart" height="500"></canvas>
+                    <div class="card-body">
+                        <h4 class="form-section"><i class="ft-bar-chart-2"></i> Attribute Chart Filters</h4>
+                        <div class="form-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="attribute_id">Attribute</label>
+
+                                        {{ Form::select('attribute_id', $attributeSelectOptions, null, ['class' => 'form-control select2']) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="chart_type">Chart Types</label>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="skin skin-flat">
+                                                    {!! Form::radio('chart_type', 'line', 'line') !!}
+                                                    <label>Line</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="skin skin-flat">
+                                                    {!! Form::radio('chart_type', 'bar') !!}
+                                                    <label>Bar</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="skin skin-flat">
+                                                    {!! Form::radio('chart_type', 'horizontalBar') !!}
+                                                    <label>Column</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="skin skin-flat">
+                                                    {!! Form::radio('chart_type', 'polarArea') !!}
+                                                    <label>Area</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body chartjs">
+                            <canvas id="chart" height="500"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -27,52 +72,25 @@
     </div>
 @endsection
 
+@push('page-css')
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
+@endpush
+
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             let uniqueMonthYear = JSON.parse('{!! json_encode($uniqueMonthYear) !!}');
-            let attributeValueDetails = JSON.parse('{!! json_encode($attributeValueDetails) !!}');
-
-            let plannedDatasets = attributeValueDetails.map((attributeValueDetail) => {
-               return {
-                   label: `${attributeValueDetail.name} - Planned`,
-                   data: attributeValueDetail.monthly_planned_values,
-                   fill: false,
-                   borderDash: [5, 5],
-                   borderColor: "#00A5A8",
-                   pointBorderColor: "#00A5A8",
-                   pointBackgroundColor: "#FFF",
-                   pointBorderWidth: 2,
-                   pointHoverBorderWidth: 2,
-                   pointRadius: 4,
-               };
-            });
-
-            let achievedDatasets = attributeValueDetails.map((attributeValueDetail) => {
-               return {
-                   label: `${attributeValueDetail.name} - Achieved`,
-                   data: attributeValueDetail.monthly_achieved_values,
-                   lineTension: 0,
-                   fill: false,
-                   borderColor: "#FF7D4D",
-                   pointBorderColor: "#FF7D4D",
-                   pointBackgroundColor: "#FFF",
-                   pointBorderWidth: 2,
-                   pointHoverBorderWidth: 2,
-                   pointRadius: 4,
-               };
-            });
-
-            let datasets = plannedDatasets.map((dataset, index) => {
-                return [dataset, achievedDatasets[index]];
-            }).flat();
+            let attributeValueDetail = JSON.parse('{!! json_encode($attributeValueDetail) !!}');
 
             //Get the context of the Chart canvas element we want to select
-            var ctx = $("#line-chart");
+            let ctx = $("#chart");
 
             // Chart Options
-            var chartOptions = {
+            let chartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
                 legend: {
@@ -91,6 +109,9 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Month'
+                        },
+                        ticks: {
+                            beginAtZero: true
                         }
                     }],
                     yAxes: [{
@@ -102,6 +123,9 @@
                         scaleLabel: {
                             display: true,
                             labelString: 'Value'
+                        },
+                        ticks: {
+                            beginAtZero: true
                         }
                     }]
                 },
@@ -112,22 +136,59 @@
             };
 
             // Chart Data
-            var chartData = {
+            let chartData = {
                 labels: uniqueMonthYear,
-                datasets: datasets
+                datasets: [{
+                    label: `${attributeValueDetail.name} - Planned`,
+                    data: attributeValueDetail.monthly_planned_values,
+                    fill: false,
+                    borderDash: [5, 5],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1
+                }, {
+                    label: `${attributeValueDetail.name} - Achieved`,
+                    data: attributeValueDetail.monthly_achieved_values,
+                    lineTension: 0,
+                    fill: false,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
             };
 
-            var config = {
+            let config = {
                 type: 'line',
-
                 // Chart Options
-                options : chartOptions,
-
-                data : chartData
+                options: chartOptions,
+                data: chartData
             };
 
             // Create the chart
-            var lineChart = new Chart(ctx, config);
+            let chart = new Chart(ctx, config);
+
+            $('select[name=attribute_id]').on('change', function () {
+                console.log($(this).val());
+            });
+
+            $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
+                let chartType = $(this).val();
+
+                if (chart) {
+                    chart.destroy();
+                }
+
+                let currentOptions = JSON.parse(JSON.stringify(chartOptions));
+
+                config.type = chartType;
+                if (chartType == 'polarArea') {
+                    delete currentOptions['scales'];
+                    config.options = currentOptions;
+                } else {
+                    config.options = currentOptions;
+                }
+                chart = new Chart(ctx, config);
+            });
         });
     </script>
 @endpush
