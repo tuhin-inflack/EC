@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('pms::member.add_member'))
+@section('title', trans('rms::member.add_member'))
 
 @section('content')
 
@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('pms::member.add_member')</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('rms::member.add_member')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -34,7 +34,7 @@
                         </div>
 
                         {!! Form::open(['route' =>  'member.store-org-member', 'files' => true, 'class' => 'form',' novalidate']) !!}
-                        @include('pms::project-members.form.add_edit_organization_member_form', ['mode' => trans('pms::member.add_member'), 'form-mode' => trans('pms::member.member_editing_form')])
+                        @include('rms::project-members.form.add_edit_organization_member_form', ['mode' => trans('rms::member.add_member'), 'form-mode' => trans('rms::member.member_editing_form')])
                         {!! Form::close() !!}
 
 

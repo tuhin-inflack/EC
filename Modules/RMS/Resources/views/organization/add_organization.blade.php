@@ -49,7 +49,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.organization_name_for_project')</h4>
+                        <h4 class="card-title">@lang('rms::research_proposal.organization_name_for_research')</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">

@@ -1,6 +1,6 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('pms::project_proposal.organization_add_form') </h4>
-    <h4>@lang('pms::project_proposal.project_title') : {{ $research->title  }}</h4><br/>
+    <h4>@lang('rms::research_proposal.research_title') : {{ $research->title  }}</h4><br/>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -73,7 +73,7 @@
         <div class="form-actions col-md-12 ">
             <div class="pull-right">
                 {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['id' => 'submitOrganization', 'type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                <a href="{{ route('project-proposal-submitted.index') }}">
+                <a href="{{ route('received-research-proposal.index') }}">
                     <button type="button" class="btn btn-warning mr-1">
                         <i class="la la-times"></i> @lang('labels.cancel')
                     </button>
