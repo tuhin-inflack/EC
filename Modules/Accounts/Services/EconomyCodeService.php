@@ -27,4 +27,31 @@ class EconomyCodeService
         $this->economyCodeRepository = $economyCodeRepository;
         $this->setActionRepository($this->economyCodeRepository);
     }
+
+    /**
+     * <h3>Economy Codes</h3>
+     * <p>Custom Implementation of concatenation</p>
+     *
+     * @param Null | Callable $implementedValue Anonymous Implementation of Value
+     * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @return array
+     */
+    public function getEconomyCodesForDropdown($implementedValue = null, $implementedKey = null)
+    {
+        $economyCodes = $this->actionRepository->findAll();
+
+        $economyCodeOptions = [];
+
+        foreach ($economyCodes as $economyCode) {
+            $economyCodeKey = $implementedKey ? $implementedKey($economyCode) : $economyCode->id;
+
+            $implementedValue = $implementedValue ? : function() use($economyCode) {
+                return $economyCode->code . ' - ' . $economyCode->bangla_name;
+            };
+
+            $economyCodeOptions[$economyCodeKey] = $implementedValue($economyCode);
+        }
+
+        return $economyCodeOptions;
+    }
 }

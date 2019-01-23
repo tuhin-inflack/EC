@@ -19,12 +19,12 @@
                             <table id="room-type" class="table table-striped table-bordered alt-pagination">
                                 <thead>
                                 <tr>
-                                    <th>@lang('labels.serial')</th>
+                                    <th width="5%">@lang('labels.serial')</th>
                                     <th>@lang('labels.code')</th>
-                                    <th>@lang('labels.name') (বাংলা)</th>
-                                    <th>@lang('labels.name') (English)</th>
+                                    <th width="25%">@lang('labels.name') (বাংলা)</th>
+                                    <th width="25%">@lang('labels.name') (English)</th>
                                     <th>@lang('labels.description')</th>
-                                    <th>@lang('labels.action')</th>
+                                    <th width="15%">@lang('labels.action')</th>
                                 </tr>
                                 </thead>
                                 <tbody>
