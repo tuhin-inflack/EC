@@ -94,4 +94,7 @@ return [
     'relation_coworker' => 'Coworker',
     'relation_trainee' => 'Trainee',
     'not_enough_available_rooms' => 'Not Enough Available Rooms',
+    'approval_done_mail' => 'Your booking request has been Approved. Please check out the booking information below',
+    'approval_reject_mail' => 'Your booking request has been Rejected. Please check out the booking information below',
+    'recipient_addressing' => 'Dear'
 ];
