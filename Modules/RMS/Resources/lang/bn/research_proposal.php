@@ -49,5 +49,7 @@ return [
     'research' => 'গবেষণা',
     'research_list' => 'সকল গবেষণা তালিকা',
     'create_research' => 'গবেষণা তৈরি',
+    'research_creation' => 'গবেষণা তৈরি',
+    'research_create_form' => 'গবেষণা তৈরি ফর্ম',
 ];
 

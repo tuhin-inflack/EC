@@ -47,4 +47,6 @@ return [
     'research' => 'Research',
     'research_list' => 'All Research List',
     'create_research' => 'Create Research',
+    'research_creation' => 'Create Research',
+    'research_create_form' => 'Create Research Form',
 ];

@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <h4 class="card-title">{{ trans('rms::research_proposal.research_list') }}</h4>
                         <div class="heading-elements">
-                            <a href="" class="btn btn-primary btn-sm"><i
+                            <a href="{{route('research.create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> {{ trans('rms::research_proposal.create_research') }}</a>
 
                         </div>

@@ -18,6 +18,7 @@ Route::prefix('rms')->group(function() {
 
     Route::prefix('research')->group(function (){
         Route::get('/','ResearchController@index')->name('research.index');
+        Route::get('/create','ResearchController@create')->name('research.create');
     });
 
     Route::prefix('research-requests')->group(function () {
