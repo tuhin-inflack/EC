@@ -7,6 +7,12 @@
                         <i class="la la-home"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{{ trans('labels.dashboard') }}</span></a>
                 </li>
+                <li class="{{ is_active_route('research.index') }}">
+                    <a href="{{ route('research.index') }}">
+                        <i class="la la-briefcase"></i>
+                        <span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.research')}}</span>
+                    </a>
+                </li>
                 <li class="{{is_active_route('research-request.index')}}">
                     <a href="{{route('research-request.index')}}">
                         <i class="la la-briefcase"></i>

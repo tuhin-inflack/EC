@@ -44,4 +44,7 @@ return [
     'draft' => 'Draft',
     'publish' => 'Publish',
     'type' => 'Type',
+    'research' => 'Research',
+    'research_list' => 'All Research List',
+    'create_research' => 'Create Research',
 ];

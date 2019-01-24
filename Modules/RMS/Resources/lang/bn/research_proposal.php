@@ -46,5 +46,8 @@ return [
     'draft' => 'খসড়া',
     'publish' => 'প্রকাশিত',
     'type' => 'নমুনা',
+    'research' => 'গবেষণা',
+    'research_list' => 'সকল গবেষণা তালিকা',
+    'create_research' => 'গবেষণা তৈরি',
 ];
 

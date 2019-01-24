@@ -16,6 +16,10 @@ use Illuminate\Http\Request;
 Route::prefix('rms')->group(function() {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
+    Route::prefix('research')->group(function (){
+        Route::get('/','ResearchController@index')->name('research.index');
+    });
+
     Route::prefix('research-requests')->group(function () {
         Route::get('/create', 'ResearchRequestController@create')->name('research-request.create');
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
