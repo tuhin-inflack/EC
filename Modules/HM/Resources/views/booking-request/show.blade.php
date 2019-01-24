@@ -324,7 +324,7 @@
                                 </div>
                             </div>
                         @else
-                            {{ Form::open(['route' => ['booking-request-status.edit', $roomBooking], 'method' => 'put', 'id' => 'booking-request-status-form']) }}
+                            {{ Form::open(['method' => 'put', 'id' => 'booking-request-status-form']) }}
                             <div class="card-body">
                                 <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
                                 <div class="row">
@@ -367,7 +367,8 @@
                                                     class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                         @endif
-                                        <button class="btn btn-facebook mr-1 pull-right" type="button" data-toggle="modal" data-target="#selectionModal" id="selectionModal">
+                                        <button class="btn btn-facebook mr-1 pull-right" type="button"
+                                                data-toggle="modal" data-target="#selectionModal" id="selectionModal">
                                             <i class="ft-fast-forward"></i> @lang('labels.forward')
                                         </button>
                                         <button class="btn btn-info mr-1 pull-right" type="button" id="PrintCommand">
@@ -389,7 +390,15 @@
     <script>
         function changeStatus(payload) {
             $('#status-input-hidden').val(payload);
-            $('#booking-request-status-form').submit();
+            let $bookingRequestStatusForm = $('#booking-request-status-form');
+
+            if (payload == 'approved') {
+                $bookingRequestStatusForm.attr('action', '{!! route('booking-request-status.approve', $roomBooking) !!}');
+            } else {
+                $bookingRequestStatusForm.attr('action', '{!! route('booking-request-status.edit', $roomBooking) !!}');
+            }
+
+            $bookingRequestStatusForm.submit();
         }
     </script>
     <script>
