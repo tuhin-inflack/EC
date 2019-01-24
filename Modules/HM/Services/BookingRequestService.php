@@ -268,9 +268,7 @@ class BookingRequestService
 
     public function updateStatus(RoomBooking $roomBooking, array $data)
     {
-        if ($this->checkRoomsAvailability($roomBooking)) {
-            return $this->update($roomBooking, $data);
-        }
+        return $this->update($roomBooking, $data);
     }
 
     public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
@@ -371,5 +369,18 @@ class BookingRequestService
             }
         }
         return true;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @param array $data
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     */
+    public function approveBookingRequest(RoomBooking $roomBooking, array $data)
+    {
+        if ($this->checkRoomsAvailability($roomBooking)) {
+            return $this->update($roomBooking, $data);
+        }
+        return false;
     }
 }
