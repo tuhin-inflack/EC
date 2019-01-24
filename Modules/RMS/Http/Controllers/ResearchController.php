@@ -7,9 +7,13 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Modules\RMS\Http\Requests\CreateResearchRequest;
+use Modules\RMS\Services\ResearchService;
 
 /**
  * @property  userService
+ * @property  researchService
  */
 class ResearchController extends Controller
 {
@@ -17,11 +21,13 @@ class ResearchController extends Controller
      * @var UserService
      */
     private $userService;
+    private $researchService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, ResearchService $researchService)
     {
 
         $this->userService = $userService;
+        $this->researchService = $researchService;
     }
 
     /**
@@ -52,8 +58,11 @@ class ResearchController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateResearchRequest $request)
     {
+        $this->researchService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research.index');
     }
 
     /**

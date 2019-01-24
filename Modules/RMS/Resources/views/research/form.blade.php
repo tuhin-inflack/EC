@@ -1,4 +1,4 @@
-{!! Form::open(['route' =>  'research-proposal-submission.store', 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::open(['route' =>  'research.store', 'class' => 'research-submission-tab-steps wizard-circle']) !!}
 
 <div class="form-body">
     <h4 class="form-section"><i
@@ -8,7 +8,7 @@
         <div class="col-md-8 offset-2">
             <fieldset>
                 <div class="form row">
-                    {!! Form::hidden('auth_user_id', $auth_user_id) !!}
+                    {!! Form::hidden('submitted_by', $auth_user_id) !!}
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="form-label">@lang('rms::research_proposal.responded_by')</label>
                         {!! Form::text('title', $name, ['class' => 'form-control', 'readonly']) !!}
