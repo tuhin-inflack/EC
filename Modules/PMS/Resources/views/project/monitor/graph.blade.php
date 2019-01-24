@@ -6,7 +6,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">Project Monitoring Line Chart</h4>
+                    <h4 class="card-title">@lang('pms::attribute.project_monitoring_line_chart')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -18,43 +18,43 @@
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        <h4 class="form-section"><i class="ft-bar-chart-2"></i> Attribute Chart Filters</h4>
+                        <h4 class="form-section"><i class="ft-bar-chart-2"></i> @lang('pms::attribute.attribute_chart_filters')</h4>
                         <div class="form-body">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="attribute_id">Attribute</label>
+                                        <label for="attribute_id">@lang('pms::attribute.attribute')</label>
 
                                         {{ Form::select('attribute_id', $attributeSelectOptions, null, ['class' => 'form-control select2']) }}
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="chart_type">Chart Types</label>
+                                        <label for="chart_type">@lang('pms::attribute.chart_types')</label>
 
                                         <div class="row">
                                             <div class="col">
                                                 <div class="skin skin-flat">
                                                     {!! Form::radio('chart_type', 'line', 'line') !!}
-                                                    <label>Line</label>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="skin skin-flat">
-                                                    {!! Form::radio('chart_type', 'bar') !!}
-                                                    <label>Bar</label>
+                                                    <label>@lang('pms::attribute.line')</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="skin skin-flat">
                                                     {!! Form::radio('chart_type', 'horizontalBar') !!}
-                                                    <label>Column</label>
+                                                    <label>@lang('pms::attribute.bar')</label>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="skin skin-flat">
+                                                    {!! Form::radio('chart_type', 'bar') !!}
+                                                    <label>@lang('pms::attribute.column')</label>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="skin skin-flat">
                                                     {!! Form::radio('chart_type', 'polarArea') !!}
-                                                    <label>Area</label>
+                                                    <label>@lang('pms::attribute.area')</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -82,14 +82,25 @@
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script>
-        $(document).ready(function () {
-            let uniqueMonthYear = JSON.parse('{!! json_encode($uniqueMonthYear) !!}');
-            let attributeValueDetail = JSON.parse('{!! json_encode($attributeValueDetail) !!}');
+        async function getAttributeValueDetailsByMonthYear(attributeId) {
+            let attributeGraphUrl = '/pms/projects/{{ $projectProposal->id }}/monitors/graphs/' + attributeId;
+            return await $.get(attributeGraphUrl);
+        }
 
-            //Get the context of the Chart canvas element we want to select
-            let ctx = $("#chart");
+        function generateChart(uniqueMonthYear, attributeValue, chartType) {
+            function doesChartExist() {
+                return chartObject !== undefined;
+            }
 
-            // Chart Options
+            function destroyChart() {
+                if (doesChartExist()) {
+                    chartObject.destroy();
+                }
+            }
+
+            let chartContext = $('#chart');
+            let chartPersistentKey = "chart";
+            let chartObject = chartContext.data(chartPersistentKey);
             let chartOptions = {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -108,7 +119,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: '{!! trans('month.month') !!}'
                         },
                         ticks: {
                             beginAtZero: true
@@ -122,7 +133,7 @@
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Value'
+                            labelString: '{!! trans('pms::attribute.value') !!}'
                         },
                         ticks: {
                             beginAtZero: true
@@ -131,24 +142,22 @@
                 },
                 title: {
                     display: true,
-                    text: 'Attribute Values Line Chart'
+                    text: '{!! trans('pms::attribute.attribute_values_line_chart') !!}'
                 }
             };
-
-            // Chart Data
             let chartData = {
                 labels: uniqueMonthYear,
                 datasets: [{
-                    label: `${attributeValueDetail.name} - Planned`,
-                    data: attributeValueDetail.monthly_planned_values,
+                    label: `${attributeValue.name} - {!! trans('pms::attribute.planned') !!}`,
+                    data: attributeValue.monthly_planned_values,
                     fill: false,
                     borderDash: [5, 5],
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(255,99,132,1)',
                     borderWidth: 1
                 }, {
-                    label: `${attributeValueDetail.name} - Achieved`,
-                    data: attributeValueDetail.monthly_achieved_values,
+                    label: `${attributeValue.name} - {!! trans('pms::attribute.achieved') !!}`,
+                    data: attributeValue.monthly_achieved_values,
                     lineTension: 0,
                     fill: false,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
@@ -156,51 +165,56 @@
                     borderWidth: 1
                 }]
             };
-
-            let config = {
-                type: 'line',
-                // Chart Options
+            let chartConfig = {
+                type: chartType,
                 options: chartOptions,
                 data: chartData
             };
 
-            // Create the chart
-            let chart = new Chart(ctx, config);
+            if (chartType == 'polarArea') {
+                delete chartOptions['scales'];
+            }
+
+            destroyChart();
+            chartContext.data(chartPersistentKey, new Chart(chartContext, chartConfig));
+        }
+
+        $(document).ready(function () {
+            let attributeId = $('select[name=attribute_id]').val();
+            let self = this;
+            let uniqueMonthYear = [];
+            let attributeValue = {};
+
+            getAttributeValueDetailsByMonthYear(attributeId)
+                .then(({uniqueMonthYear, attributeValue}) => {
+                    self.uniqueMonthYear = uniqueMonthYear;
+                    self.attributeValue = attributeValue;
+                    let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                    generateChart(uniqueMonthYear, attributeValue, chartType);
+                })
+                .catch(error => {
+                    // TODO: show lang error message
+                    console.log(error)
+                });
 
             $('select[name=attribute_id]').on('change', function () {
                 let attributeId = $(this).val();
-                let attributeGraphUrl = '/pms/projects/{{ $projectProposal->id }}/monitors/graphs/' + attributeId;
-                $.get(attributeGraphUrl).done(function (data) {
-                    let serverChartDate = Object.assign({}, chartData);
-
-                    serverChartDate.label = data.uniqueMonthYear;
-                    serverChartDate.datasets[0].data = data.attributeValueDetail.monthly_planned_values;
-                    serverChartDate.datasets[1].data = data.attributeValueDetail.monthly_achieved_values;
-
-                    let newChartConfig = Object.assign({}, config);
-
-                    chart.destroy();
-                    chart = new Chart(ctx, newChartConfig);
-                }).fail(function (error) {
-                    alert(error);
-                });
+                getAttributeValueDetailsByMonthYear(attributeId)
+                    .then(({uniqueMonthYear, attributeValue}) => {
+                        self.uniqueMonthYear = uniqueMonthYear;
+                        self.attributeValue = attributeValue;
+                        let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                        generateChart(uniqueMonthYear, attributeValue, chartType);
+                    })
+                    .catch(error => {
+                        // TODO: show lang error message
+                        console.log(error)
+                    });
             });
 
             $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
                 let chartType = $(this).val();
-
-                let currentOptions = JSON.parse(JSON.stringify(chartOptions));
-
-                config.type = chartType;
-                if (chartType == 'polarArea') {
-                    delete currentOptions['scales'];
-                    config.options = currentOptions;
-                } else {
-                    config.options = currentOptions;
-                }
-
-                chart.destroy();
-                chart = new Chart(ctx, config);
+                generateChart(self.uniqueMonthYear, self.attributeValue, chartType);
             });
         });
     </script>

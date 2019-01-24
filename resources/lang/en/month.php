@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'month' => 'Month',
     'January' => 'January',
     'February' => 'February',
     'March' => 'March',
