@@ -74,6 +74,7 @@ return [
     ],
     'paths' => [
         'test' => 'test',
+        'task_attachments' => 'task_attachments',
     ]
 
 ];

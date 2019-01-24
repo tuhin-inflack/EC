@@ -84,4 +84,5 @@ class User extends Authenticatable
     {
         return Employee::where('employee_id', $this->username)->first();
     }*/
+
 }

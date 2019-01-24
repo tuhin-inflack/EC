@@ -4,6 +4,7 @@ namespace Modules\PMS\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\RMS\Entities\ResearchProposalSubmission;
 
 class ProjectResearchTask extends Model
 {
@@ -25,6 +26,11 @@ class ProjectResearchTask extends Model
     public function project()
     {
         return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id');
+    }
+
+    public function research()
+    {
+        return $this->belongsTo(ResearchProposalSubmission::class, 'task_for_id', 'id');
     }
 
     public function taskName()

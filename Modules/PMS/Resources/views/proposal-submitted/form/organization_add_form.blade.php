@@ -15,8 +15,8 @@
                         <div class="help-block">  {{ $errors->first('organization_id') }}</div>
                     @endif
                 </div>
-                {{ Form::hidden('type', $type) }}
-                {{ Form::hidden('organization_for_id', $proposal->id) }}
+                {{ Form::hidden('organizable_type', $type) }}
+                {{ Form::hidden('organizable_id', $proposal->id) }}
             </div>
         </div>
     </div>

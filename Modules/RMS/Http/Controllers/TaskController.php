@@ -7,24 +7,24 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\TaskRequest;
-use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class TaskController extends Controller
 {
-    private $projectResearchTaskService, $projectProposalService;
+    private $projectResearchTaskService, $researchProposalSubmissionService;
 
-    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ProjectProposalService $projectProposalService)
+    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
         $this->projectResearchTaskService = $projectResearchTaskService;
-        $this->projectProposalService = $projectProposalService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
     }
 
     public function index($researchId)
     {
-        $tasks = $this->projectResearchTaskService->getTasks($researchId);
-        $research = $this->projectProposalService->findOrFail($researchId);
+        $tasks = $this->projectResearchTaskService->getProjectTasks($researchId);
+        $research = $this->researchProposalSubmissionService->findOrFail($researchId);
 
         return view('rms::task.index', compact('tasks', 'research'));
     }
@@ -35,16 +35,16 @@ class TaskController extends Controller
         $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
         Session::flash('message', $msg);
 
-        return redirect(route('research-proposal-submitted.show', $update[1]));
+        return redirect(route('research-proposal-submission.show', $update[1]));
     }
 
     public function create($researchId)
     {
-        $research = $this->projectProposalService->findOrFail($researchId);
+        $item = $this->researchProposalSubmissionService->findOne($researchId);
         $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('task.store', $research->id);
+        $action = route('research.task.store', $item->id);
 
-        return view('pms::task.create', compact('project', 'taskNames', 'action'));
+        return view('rms::task.create', compact('item', 'taskNames', 'action'));
     }
 
     public function store($researchId, TaskRequest $request)
@@ -69,16 +69,16 @@ class TaskController extends Controller
 
     public function show($taskId)
     {
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $task = $this->projectResearchTaskService->findOne($taskId);
 
         return view('rms::task.show', compact('task'));
     }
 
     public function edit($taskId)
     {
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $task = $this->projectResearchTaskService->findOne($taskId);
         $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('task.update', $taskId);
+        $action = route('research.task.update', $taskId);
 
         return view('rms::task.edit', compact('task', 'taskNames', 'action'));
     }

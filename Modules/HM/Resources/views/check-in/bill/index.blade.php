@@ -116,7 +116,7 @@
                                                                             <td>{{ $guestInfo->first_name }}  {{ $guestInfo->middle_name }} {{ $guestInfo->last_name }}</td>
                                                                             <td>{{ $guestInfo->age }}</td>
                                                                             <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
-                                                                            <td>{{ $guestInfo->relation }}</td>
+                                                                            <td>@if($guestInfo->relation == 'family') @lang('hm::booking-request.relation_family') @elseif($guestInfo->relation == 'friend') @lang('hm::booking-request.relation_friend') @else @lang('hm::booking-request.relation_coworker') @endif</td>
                                                                             <td>{{ $guestInfo->address}}</td>
                                                                         </tr>
                                                                     @endforeach

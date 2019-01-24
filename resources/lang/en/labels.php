@@ -45,6 +45,7 @@ return [
     'history' => 'History',
     'number' => 'Number',
     'list' => 'List',
+    'create' => 'Create',
     'new' => 'New',
     'add' => 'Add',
     'add_more' => 'Add More',
@@ -52,6 +53,7 @@ return [
     'setup' => 'Setup',
     'bangladesh_govt' => 'People\'s Republic of Bangladesh Govt.',
     'print' => 'Print',
+    'forward' => 'Forward',
     'select' => 'Select',
     'code' => 'Code',
     'info' => 'Info',
@@ -116,6 +118,7 @@ return [
     'At most 10 characters' => 'At most 10 characters',
     'At most 100 characters' => 'At most 100 characters',
     'At most 5000 characters' => 'At most 5000 characters',
+    'Please enter a valid number' => 'Please enter a valid number',
     'Please enter a valid email address' => 'Please enter a valid email address',
     'User list' => 'User list',
     'User create' => 'User create',
@@ -127,5 +130,7 @@ return [
     'save_draft' => 'Save as Draft',
     'approve' => 'Approve',
     'reject' => 'Reject',
-    'nid_number' => 'NID Number'
+    'nid_number' => 'NID Number',
+    'open' => 'Open',
+    'closed' => 'Closed',
 ];

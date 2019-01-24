@@ -120,9 +120,4 @@ class UserController extends Controller
         Session::flash('message', $response->getContent());
         return redirect('/system/user');
     }
-
-    public function demo(){
-        return $this->userService->getUsersExceptLoggedInUser(['user_type' => "Admin"]);
-    }
-
 }

@@ -13,6 +13,7 @@
 
 Route::prefix('accounts')->group(function() {
     Route::get('/', 'AccountsController@index')->name('accounts');
+    Route::get('show', 'AccountsController@show'); // Temporary & demo
     Route::get('/chart-of-account', 'AccountsController@chartOfAccount')->name('chart-of-account');
 
     Route::prefix('account-head')->group(function () {
@@ -29,5 +30,14 @@ Route::prefix('accounts')->group(function() {
         Route::get('edit/{id}', 'AccountLedgerController@edit')->name('account-ledger.edit');
         Route::put('update/{id}', 'AccountLedgerController@update')->name('account-ledger.update');
         Route::delete('delete/{id}', 'AccountLedgerController@destroy')->name('account-ledger.destroy');
+    });
+
+    Route::prefix('economy-code')->group(function () {
+        Route::get('/', 'EconomyCodeController@index')->name('economy-code.index');
+        Route::get('create', 'EconomyCodeController@create')->name('economy-code.create');
+        Route::post('store', 'EconomyCodeController@store')->name('economy-code.store');
+        Route::get('edit/{economyCode}', 'EconomyCodeController@edit')->name('economy-code.edit');
+        Route::put('update/{economyCode}', 'EconomyCodeController@update')->name('economy-code.update');
+        Route::delete('delete/{economyCode}', 'EconomyCodeController@destroy')->name('economy-code.destroy');
     });
 });

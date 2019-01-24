@@ -17,6 +17,7 @@ class CreateResearchProposalSubmissionAttachmentsTable extends Migration
             $table->increments('id');
             $table->integer('submissions_id');
             $table->string('attachments');
+            $table->string('file_name');
             $table->timestamps();
         });
     }

@@ -20,4 +20,12 @@ class UserRepository extends AbstractBaseRepository
      * @var string
      */
     protected $modelName = User::class;
+
+    public function getUsersExceptLoginInUser($roleId, $userType = null)
+    {
+        $userType = $userType ? : "Admim";
+        return $this->model->where('user_type', $userType)->whereHas('roles', function($query) use ($roleId){
+            $query->where('roles.id', '!=', $roleId);
+        })->pluck('name', 'id');
+    }
 }

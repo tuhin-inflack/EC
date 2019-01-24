@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('rms::proposal.submission.form')
+                                        @include('rms::proposal.submission.form', ['page' => 'create'])
                                     </div>
                                 </div>
                             </div>

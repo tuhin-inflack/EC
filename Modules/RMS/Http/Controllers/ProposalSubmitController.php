@@ -10,6 +10,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
@@ -33,7 +34,8 @@ class ProposalSubmitController extends Controller
      */
     public function index()
     {
-        return view('rms::proposal.submission.index');
+        $proposals = $this->researchProposalSubmissionService->getAll();
+        return view('rms::proposal.submission.index', compact('proposals'));
     }
 
     /**
@@ -42,7 +44,6 @@ class ProposalSubmitController extends Controller
      */
     public function create(ResearchRequest $researchRequest)
     {
-        // departmentName, designation
         $username = Auth::user()->username;
         $name = Auth::user()->name;
         $auth_user_id = Auth::user()->id;
@@ -51,14 +52,6 @@ class ProposalSubmitController extends Controller
         return view('rms::proposal.submission.create', compact('researchRequest', 'departmentName', 'designation', 'name', 'auth_user_id'));
     }
 
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
-    public function submittedList()
-    {
-        return view('rms::proposal.submitted.index');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -67,11 +60,6 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-        if ($request->input('type') == 'draft') {
-            return 'draft';
-        } else {
-            return 'save';
-        }
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research-proposal-submission.index');
@@ -83,28 +71,43 @@ class ProposalSubmitController extends Controller
      */
     public function show($id)
     {
+
 //        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
         $filePath = 'files/pdf-sample.pdf';
 
-        return view('rms::proposal.submission.show', compact('filePath'));
+        $research = $this->researchProposalSubmissionService->findOne($id);
+        $organizations = $research->organizations;
+        if(!is_null($research)) $tasks = $research->tasks; else $tasks = array();
+
+        return view('rms::proposal.submission.show', compact('research','tasks','filePath', 'organizations'));
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(ResearchProposalSubmission $researchProposal)
     {
-        return view('rms::edit');
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $departmentName = $this->userService->getDepartmentName($username);
+        $designation = $this->userService->getDesignation($username);
+        return view('rms::proposal.submission.edit', compact('researchProposal', 'departmentName', 'designation', 'name', 'auth_user_id'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @param ResearchProposalSubmission $researchProposalSubmission
+     * @return void
      */
-    public function update(Request $request)
+    public function update(Request $request, ResearchProposalSubmission $researchProposalSubmission)
     {
+        /** @var ResearchProposalSubmission $researchProposalSubmission */
+        $this->researchProposalSubmissionService->updateRequest($request->all(), $researchProposalSubmission);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-proposal-submission.index');
     }
 
     /**

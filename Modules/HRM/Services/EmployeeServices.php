@@ -11,7 +11,6 @@ namespace Modules\HRM\Services;
 use App\Http\Responses\DataResponse;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
-use Illuminate\Support\Facades\Hash;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices
@@ -75,26 +74,28 @@ class EmployeeServices
         return $this->employeeRepository->getSalaryScale();
     }
 
-    public function getEmployeeListForBardReference()
+    /**
+     * <h3>Employee Dropdown</h3>
+     * <p>Custom Implementation of concatenation</p>
+     *
+     * @param Null | Callable $implementedValue Anonymous Implementation of Value
+     * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @return array
+     */
+    public function getEmployeesForDropdown($implementedValue = null, $implementedKey = null)
     {
         $employees = $this->employeeRepository->findAll();
 
         $employeeOptions = [];
+
         foreach ($employees as $employee) {
-            $employeeOptions[$employee->id] = $employee->employee_id . ' - ' . $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->mobile_one;
-        }
+            $employeeId = $implementedKey ? $implementedKey($employee) : $employee->id;
 
-        return $employeeOptions;
-    }
+            $implementedValue = $implementedValue ? : function() use($employee) {
+                return $employee->employee_id . ' - ' . $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->mobile_one;
+            };
 
-    public function getEmployeeListForRessearchRequestReceiver()
-    {
-        $employees = $this->employeeRepository->findAll();
-
-        $employeeOptions = [];
-        foreach ($employees as $employee)
-        {
-            $employeeOptions[$employee->id] = $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+            $employeeOptions[$employeeId] = $implementedValue($employee);
         }
 
         return $employeeOptions;

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{$task->project->title}}</span></label>
+                <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{($task->type == 'project') ? $task->project->title : $task->research->title}}</span></label>
             </div>
         </div>
     </div>
@@ -101,7 +101,7 @@
     <button type="submit" class="btn btn-primary">
         <i class="ft-check-square"></i> {{trans('labels.save')}}
     </button>
-    <button class="btn btn-warning" type="button" onclick="window.location = '{{route('project-proposal-submitted.view', $task->project->id)}}'">
+    <button class="btn btn-warning" type="button" onclick="window.location = '{{($task->type == 'project') ? route('project-proposal-submitted.view',  $task->project->id) : route('research-proposal-submission.show', $task->research->id )}}'">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </button>
 </div>
