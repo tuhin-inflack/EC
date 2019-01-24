@@ -33,7 +33,7 @@
                                     @foreach($researches as $research)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $research->title }}</td>
+                                            <td><a href="{{ route('research.show', $research->id) }}">{{ $research->title }}</a></td>
                                             <td>{{ $research->researchSubmittedByUser->name }}</td>
                                             <td>{{ date('d/m/Y,  h:mA', strtotime($research->created_at)) }}</td>
                                             <td>@lang('rms::research_proposal.' . $research->status)</td>

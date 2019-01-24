@@ -20,6 +20,7 @@ Route::prefix('rms')->group(function() {
         Route::get('/','ResearchController@index')->name('research.index');
         Route::get('/create','ResearchController@create')->name('research.create');
         Route::post('/','ResearchController@store')->name('research.store');
+        Route::get('show/{research}','ResearchController@show')->name('research.show');
     });
 
     Route::prefix('research-requests')->group(function () {

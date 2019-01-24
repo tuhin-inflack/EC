@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
 use Modules\RMS\Services\ResearchService;
 
@@ -70,9 +71,9 @@ class ResearchController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Research $research)
     {
-        return view('rms::show');
+        return view('rms::research.show', compact('research'));
     }
 
     /**
