@@ -32,7 +32,7 @@
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
-                                                        class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
                                             </a></li>
                                     @endif
                                 @endcan
@@ -319,12 +319,12 @@
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
                                     <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
-                                                class="ft-printer"></i> @lang('labels.print')
+                                            class="ft-printer"></i> @lang('labels.print')
                                     </button>
                                 </div>
                             </div>
                         @else
-                            {{ Form::open(['route' => ['booking-request-status.edit', $roomBooking], 'method' => 'put', 'id' => 'booking-request-status-form']) }}
+                            {{ Form::open(['method' => 'put', 'id' => 'booking-request-status-form']) }}
                             <div class="card-body">
                                 <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
                                 <div class="row">
@@ -352,22 +352,23 @@
                                         @if($roomBooking->status != 'pending')
                                             <button class="btn btn-secondary mr-1" type="button"
                                                     onclick="changeStatus('pending')"><i
-                                                        class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'rejected')
                                             <button class="btn btn-danger mr-1" type="button"
                                                     onclick="changeStatus('rejected')"><i
-                                                        class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'approved')
                                             <button class="btn btn-success mr-1" type="button"
                                                     onclick="changeStatus('approved')"><i
-                                                        class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                         @endif
-                                        <button class="btn btn-facebook mr-1 pull-right" type="button" data-toggle="modal" data-target="#selectionModal" id="selectionModal">
+                                        <button class="btn btn-facebook mr-1 pull-right" type="button"
+                                                data-toggle="modal" data-target="#selectionModal" id="selectionModal">
                                             <i class="ft-fast-forward"></i> @lang('labels.forward')
                                         </button>
                                         <button class="btn btn-info mr-1 pull-right" type="button" id="PrintCommand">
@@ -389,7 +390,15 @@
     <script>
         function changeStatus(payload) {
             $('#status-input-hidden').val(payload);
-            $('#booking-request-status-form').submit();
+            let $bookingRequestStatusForm = $('#booking-request-status-form');
+
+            if (payload == 'approved') {
+                $bookingRequestStatusForm.attr('action', '{!! route('booking-request-status.approve', $roomBooking) !!}');
+            } else {
+                $bookingRequestStatusForm.attr('action', '{!! route('booking-request-status.edit', $roomBooking) !!}');
+            }
+
+            $bookingRequestStatusForm.submit();
         }
     </script>
     <script>

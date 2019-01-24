@@ -71,13 +71,15 @@ class ProposalSubmitController extends Controller
      */
     public function show($id)
     {
+
 //        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
         $filePath = 'files/pdf-sample.pdf';
 
         $research = $this->researchProposalSubmissionService->findOne($id);
+        $organizations = $research->organizations;
         if(!is_null($research)) $tasks = $research->tasks; else $tasks = array();
 
-        return view('rms::proposal.submission.show', compact('research','tasks','filePath'));
+        return view('rms::proposal.submission.show', compact('research','tasks','filePath', 'organizations'));
     }
 
     /**

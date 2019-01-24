@@ -40,6 +40,7 @@ class TrainingController extends Controller
     public function store(TrainingRequest $request)
     {
         $this->authorize('create', Training::class);
+        $request->merge(['start_date'=> date('Y-m-d H:i:s', strtotime($request->input('start_date'))), 'end_date'=> date('Y-m-d H:i:s', strtotime($request->input('end_date')))]);
         $response = $this->trainingService->save($request->all());
 
         if($response == true) $msg = __('labels.save_success'); else $msg = __('labels.save_fail');;

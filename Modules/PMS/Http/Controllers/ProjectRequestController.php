@@ -43,6 +43,7 @@ class ProjectRequestController extends Controller
      */
     public function index()
     {
+
         $requests = $this->projectRequestService->getAll();
         return view('pms::project-request.index', compact('requests'));
     }
@@ -53,7 +54,7 @@ class ProjectRequestController extends Controller
      */
     public function create()
     {
-        $employees = $this->employeeServices->getEmployeesWithCustomizedField(function ($employee){
+        $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee){
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
         }, function ($employee){
             return $employee->email;

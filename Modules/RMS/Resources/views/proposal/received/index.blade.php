@@ -36,10 +36,10 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('research-proposal-submission.show', 1) }}"
+                                                    <a href="{{ route('research-proposal-submission.show',  $proposal->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-file-plus"></i>@lang('rms::research_proposal.download_attachments')</a>
+                                                    <a href="" class="dropdown-item"><i class="ft-file-plus"></i>@lang('rms::research_proposal.download_attachments')</a>
+                                                                                                        <a href="{{route('organization.add-research-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                 </span>
                                             </span>
                                             </td>

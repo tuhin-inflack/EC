@@ -2,6 +2,8 @@
 return [
     'title' => 'Research Proposal',
     'menu_title' => 'Research Proposal Request',
+    'research_title' => 'Research title',
+    'organization_name_for_research' => 'List of organization for this research',
     'send_to' => 'To',
     'create_request' => 'Create Request',
     'research_proposal_request_creation' => 'Research Proposal Request Creation',

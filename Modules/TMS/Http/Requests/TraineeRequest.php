@@ -14,7 +14,7 @@ class TraineeRequest extends FormRequest
     public function rules()
     {
         return [
-            'training_id' => 'required|numeric',
+            'training_id' => 'required',
             'trainee_first_name' => 'required|string|min:3|max:100',
             'trainee_last_name' => 'required|string|min:3|max:100',
             'trainee_gender' => 'string|required|max:6',

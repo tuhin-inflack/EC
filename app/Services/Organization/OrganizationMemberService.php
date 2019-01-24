@@ -1,10 +1,11 @@
 <?php
 
-namespace Modules\PMS\Services;
+namespace App\Services;
 
 
+use App\Repositories\Organization\OrganizationMemberRepository;
 use App\Traits\CrudTrait;
-use Modules\PMS\Repositories\OrganizationMemberRepository;
+use Illuminate\Http\Response;
 
 class OrganizationMemberService
 {
