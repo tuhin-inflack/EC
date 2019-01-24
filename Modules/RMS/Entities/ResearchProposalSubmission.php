@@ -9,7 +9,7 @@ use Modules\PMS\Entities\ProjectResearchTask;
 class ResearchProposalSubmission extends Model
 {
     protected $table = "research_proposal_submissions";
-    protected $fillable = ['research_request_id', 'auth_user_id', 'title', 'start_date', 'end_date', 'description', 'status'];
+    protected $fillable = ['research_request_id', 'auth_user_id', 'title', 'start_date', 'end_date', 'description', 'status', 'type'];
 
     public function researchProposalSubmissionAttachments()
     {

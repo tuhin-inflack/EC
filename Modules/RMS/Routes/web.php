@@ -28,6 +28,8 @@ Route::prefix('rms')->group(function() {
         Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
         Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
         Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
+        Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
+        Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
     });
 
     Route::prefix('received-research-proposals')->group(function(){

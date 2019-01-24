@@ -15,7 +15,7 @@ return [
     'project_request_list' => 'List of Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',
     'research_proposal_submission' => 'Submission Research Proposal',
-    'invited_research_proposal' => 'Invited Research Proposal',
+    'invited_research_proposal_request' => 'Invited Research Proposal Request',
     'received_at' => 'Received at',
     'submit_proposal' => 'Submit Proposal',
     'recipient' => 'Recipient',
@@ -41,4 +41,7 @@ return [
     'submission_date' => 'Submission Date',
     'received_research_proposal' => 'Received Research Proposals',
     'received_research_proposal_list' => 'Received Research Proposals List',
+    'draft' => 'Draft',
+    'publish' => 'Publish',
+    'type' => 'Type',
 ];
