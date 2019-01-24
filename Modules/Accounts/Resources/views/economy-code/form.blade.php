@@ -8,7 +8,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('code', trans('labels.code'), ['class' => 'form-label required']) !!}
+            {!! Form::label('code', trans('labels.code'), ['class' => 'form-label']) !!} <span class="danger">*</span>
             {!! Form::text('code', $page == 'create' ? old('code') : $economyCode->code, ['class' => 'form-control'.($errors->has('code') ? ' is-invalid' : ''), 'required',
             "placeholder" => "e.g 1152154", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('labels.code')])]) !!}
             <div class="help-block"></div>
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('english_name', trans('labels.name') .' (English)', ['class' => 'form-label required']) !!}
+            {!! Form::label('english_name', trans('labels.name') .' (English)', ['class' => 'form-label required']) !!} <span class="danger">*</span>
             {!! Form::text('english_name', $page == 'create' ? old('english_name') : $economyCode->english_name, ['class' => 'form-control'.($errors->has('english_name') ? ' is-invalid' : ''), 'required',
             "placeholder" => "e.g Assets", 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.name')])]) !!}
             <div class="help-block"></div>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('name', trans('labels.name') .' (বাংলা)', ['class' => 'form-label required']) !!}
+            {!! Form::label('name', trans('labels.name') .' (বাংলা)', ['class' => 'form-label required']) !!} <span class="danger">*</span>
             {!! Form::text('bangla_name', $page == 'create' ? old('bangla_name') : $economyCode->bangla_name, ['class' => 'form-control'.($errors->has('bangla_name') ? ' is-invalid' : ''), 'required',
             "placeholder" => "e.g Assets", 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.name')])]) !!}
             <div class="help-block"></div>
