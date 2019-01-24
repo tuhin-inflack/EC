@@ -30,14 +30,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($researches as $research)
                                         <tr>
-                                            <th scope="row"></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $research->title }}</td>
+                                            <td>{{ $research->researchSubmittedByUser->name }}</td>
+                                            <td>{{ date('d/m/Y,  h:mA', strtotime($research->created_at)) }}</td>
+                                            <td>@lang('rms::research_proposal.' . $research->status)</td>
+                                            <td>
+                                                <span class="dropdown">
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
+                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href=""
+                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                </span>
+                                            </span>
+                                            </td>
                                         </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

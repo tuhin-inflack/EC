@@ -36,7 +36,8 @@ class ResearchController extends Controller
      */
     public function index()
     {
-        return view('rms::research.index');
+        $researches = $this->researchService->getAll();
+        return view('rms::research.index', compact('researches'));
     }
 
     /**

@@ -34,4 +34,9 @@ class ResearchService{
         });
     }
 
+    public function getAll()
+    {
+        return $this->researchRepository->findAll();
+    }
+
 }
