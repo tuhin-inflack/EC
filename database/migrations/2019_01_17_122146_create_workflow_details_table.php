@@ -17,9 +17,12 @@ class CreateWorkflowDetailsTable extends Migration
             $table->increments('id');
             $table->integer('workflow_master_id');
             $table->integer('rule_detail_id');
+            $table->integer('designation_id');
             $table->integer('notification_order');
             $table->integer('creator_id');
-            $table->integer('responder_id');
+            $table->integer('responder_id')->nullable();
+            $table->string('responder_remarks')->nullable();
+            $table->enum('status', ['INITIATED', 'PENDING', 'APPROVED', 'REJECTED', 'CLOSED', 'REINITIATED']);
             $table->timestamps();
         });
     }
