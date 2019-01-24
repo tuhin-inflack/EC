@@ -32,7 +32,7 @@
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
-                                                        class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
                                             </a></li>
                                     @endif
                                 @endcan
@@ -319,7 +319,7 @@
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
                                     <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
-                                                class="ft-printer"></i> @lang('labels.print')
+                                            class="ft-printer"></i> @lang('labels.print')
                                     </button>
                                 </div>
                             </div>
@@ -352,19 +352,19 @@
                                         @if($roomBooking->status != 'pending')
                                             <button class="btn btn-secondary mr-1" type="button"
                                                     onclick="changeStatus('pending')"><i
-                                                        class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'rejected')
                                             <button class="btn btn-danger mr-1" type="button"
                                                     onclick="changeStatus('rejected')"><i
-                                                        class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'approved')
                                             <button class="btn btn-success mr-1" type="button"
                                                     onclick="changeStatus('approved')"><i
-                                                        class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                         @endif
                                         <button class="btn btn-facebook mr-1 pull-right" type="button" data-toggle="modal" data-target="#selectionModal" id="selectionModal">
