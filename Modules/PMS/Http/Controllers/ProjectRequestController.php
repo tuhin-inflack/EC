@@ -70,7 +70,7 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('research-request.index');
+        return redirect()->route('project-request.index');
     }
 
     /**
@@ -124,17 +124,7 @@ class ProjectRequestController extends Controller
 
     public function requestAttachmentDownload(ProjectRequest $projectRequest)
     {
-        $basePath = 'app/public/uploads/';
-        $filePaths = $projectRequest->projectRequestImages
-            ->map(function ($attachment) use ($basePath) {
-                return storage_path($basePath . $attachment->attachment);
-            })->toArray();
-
-        $fileName = time() . '.zip';
-
-        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
-
-        return response()->download(storage_path($basePath . $fileName));
+        return response()->download($this->projectRequestService->getZipFilePath($projectRequest->id));
     }
 
     public function statusUpdate(ProjectRequest $projectRequest)
