@@ -36,6 +36,7 @@ return [
     'new_project_create' => 'নতুন প্রকল্প তৈরি',
     'project_creation' => 'প্রকল্প তৈরি',
     'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
+    'pending' => 'বিচারাধীন',
 
 ];
 

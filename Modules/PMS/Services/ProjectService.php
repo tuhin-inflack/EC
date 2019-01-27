@@ -34,4 +34,9 @@ class ProjectService
             return $project;
         });
     }
+
+    public function getAll()
+    {
+        return $this->projectRepository->findAll();
+    }
 }

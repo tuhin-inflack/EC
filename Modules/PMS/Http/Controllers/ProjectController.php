@@ -35,7 +35,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return view('pms::project.index');
+        $projects = $this->projectService->getAll();
+        return view('pms::project.index', compact('projects'));
     }
 
     /**
