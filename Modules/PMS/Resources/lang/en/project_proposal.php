@@ -9,6 +9,7 @@ return [
     'remarks' => 'Remarks',
     'attachment' => 'File Attach',
     'project_request_list' => 'List of Project Proposal Request',
+    'project_request' => 'Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',
     'attached_file' => 'Attachment File',
     'requested_project_project' => 'Requested Project Proposal',
@@ -30,8 +31,13 @@ return [
     'organization_name' => 'Organization name',
     'add_new_organization' => 'Add new organization',
     'organization_name_for_project' => 'List organization for this project',
-    'project' => 'Project',
+    'projects' => 'All Projects',
     'project_list' => 'All Project List',
     'submission_date' => 'Submission Date',
+    'new_project_create' => 'Create New Project',
+    'project_creation' => 'Project Creation',
+    'project_create_form' => 'Project Creation Form',
+    'pending' => 'Pending',
+    'project_details' => 'Project Details',
 
 ];

@@ -1,8 +1,8 @@
-{!! Form::open(['route' =>  'research.store', 'class' => 'research-submission-tab-steps wizard-circle']) !!}
+{!! Form::open(['route' =>  'project.store', 'class' => 'project-submission-tab-steps wizard-circle']) !!}
 
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i> {{trans('rms::research_proposal.research_create_form')}}</h4>
+                class="la la-briefcase"></i> {{trans('pms::project_proposal.project_create_form')}}</h4>
 
     <div class="row">
         <div class="col-md-8 offset-2">
@@ -40,7 +40,7 @@
 <div class="form-actions text-center">
     {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
 
-    <a class="btn btn-warning mr-1" role="button" href="{{route('research.index')}}">
+    <a class="btn btn-warning mr-1" role="button" href="{{route('project.index')}}">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </a>
 </div>

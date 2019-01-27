@@ -15,10 +15,10 @@ class CreateProjectRequestsTable extends Migration
     {
         Schema::create('project_requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('send_to');
+            $table->string('title');
             $table->date('end_date');
-            $table->text('message');
-            $table->tinyInteger('status')->default(0);
+            $table->text('remarks')->nullable();
+            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
             $table->timestamps();
         });
     }
