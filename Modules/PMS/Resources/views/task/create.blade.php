@@ -37,8 +37,8 @@
                         <div class="card-body">
                             @include('task.form', ['page'=>'create'])
                         </div>
-                    </div>
-                </div>
+                    <iv>
+                </iv>
             </div>
         </div>
     </section>
