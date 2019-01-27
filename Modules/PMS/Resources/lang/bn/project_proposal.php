@@ -25,12 +25,19 @@ return [
     'received_proposal_list' => 'গৃহীত প্রকল্প প্রস্তাব তালিকা',
     'submitted_by' => 'জমাদানকারী',
     'pms' => 'প্রকল্প ম্যানেজমেন্ট সিস্টেম',
-
     'add_organization' => 'প্রতিষ্ঠান যোগ করুন',
     'organization_add_form' => 'প্রতিষ্ঠান ফর্ম',
     'organization_name' => 'প্রতিষ্ঠানের নাম',
     'add_new_organization' => 'নতুন প্রতিষ্ঠান যোগ করুন',
-    'organization_name_for_project' => 'এই প্রকল্পের জন্য প্রতিষ্ঠানের নাম তালিকা'
+    'organization_name_for_project' => 'এই প্রকল্পের জন্য প্রতিষ্ঠানের নাম তালিকা',
+    'projects' => 'প্রকল্প সমূহ',
+    'project_list' => 'সকল প্রকল্প তালিকা',
+    'submission_date' => 'জমাদানের তারিখ',
+    'new_project_create' => 'নতুন প্রকল্প তৈরি',
+    'project_creation' => 'প্রকল্প তৈরি',
+    'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
+    'pending' => 'বিচারাধীন',
+    'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
 
 ];
 

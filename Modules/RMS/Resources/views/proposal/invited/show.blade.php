@@ -35,7 +35,7 @@
                         <pre>
                             <ul>
                                 @foreach($researchRequest->researchRequestAttachments as $file)
-                                    <li><a href="{{url('rms/invited-research-proposals/file-download/'.$file->id)}}">{{ $file->attachments }}</a></li>
+                                    <li><a href="{{url('rms/invited-research-proposals/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
                                 @endforeach
                             </ul>
                             <ul>

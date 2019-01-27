@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -23,6 +24,7 @@ use Modules\HM\Entities\CheckinRoom;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
+use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
 
@@ -36,6 +38,7 @@ class BookingRequestService
 
     private $bookingGuestInfoRepository;
     private $roomBookingRequesterRepository;
+    private $bookingRequesteForwardRepository;
     private $roomService;
     /**
      * @var RoomTypeService
@@ -47,6 +50,7 @@ class BookingRequestService
      * @param RoomBookingRepository $roomBookingRepository
      * @param BookingGuestInfoRepository $bookingGuestInfoRepository
      * @param RoomBookingRequesterRepository $roomBookingRequesterRepository
+     * @param BookingRequestForwardRepository $bookingRequesteForwardRepository
      * @param RoomTypeService $roomTypeService
      * @param RoomService $roomService
      */
@@ -54,6 +58,7 @@ class BookingRequestService
         RoomBookingRepository $roomBookingRepository,
         BookingGuestInfoRepository $bookingGuestInfoRepository,
         RoomBookingRequesterRepository $roomBookingRequesterRepository,
+        BookingRequestForwardRepository $bookingRequesteForwardRepository,
         RoomTypeService $roomTypeService,
         RoomService $roomService
     )
@@ -61,6 +66,7 @@ class BookingRequestService
         $this->roomBookingRepository = $roomBookingRepository;
         $this->bookingGuestInfoRepository = $bookingGuestInfoRepository;
         $this->roomBookingRequesterRepository = $roomBookingRequesterRepository;
+        $this->bookingRequesteForwardRepository = $bookingRequesteForwardRepository;
         $this->roomTypeService = $roomTypeService;
         $this->roomService = $roomService;
         $this->setActionRepository($roomBookingRepository);
@@ -262,9 +268,38 @@ class BookingRequestService
 
     public function updateStatus(RoomBooking $roomBooking, array $data)
     {
-        if ($this->checkRoomsAvailability($roomBooking)) {
-            return $this->update($roomBooking, $data);
-        }
+        return $this->update($roomBooking, $data);
+    }
+
+    public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
+    {
+        $data['room_booking_id'] = $roomBooking->id;
+        $data['forwarded_to'] = $data['forwardTo'];
+        $data['forwarded_by'] = Auth::user()->id;
+
+        return $this->bookingRequesteForwardRepository->save($data);
+    }
+
+    public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
+    {
+        $ids = $ids ? : $this->getBookingRequestIdsWithForwadedByBookingTypes($searchCriteria);
+        return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
+    }
+
+    public function getBookingRequestIdsWithForwadedByBookingTypes(array $searchCriteria)
+    {
+        $bookingRequestIds = $this->actionRepository->getModel()->select('id')
+            ->where('type', 'booking')
+            ->whereIn('booking_type', $searchCriteria)->get()->toArray();
+
+        $bookingRequestIds = array_column($bookingRequestIds, 'id');
+
+        $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
+            ->where('forwarded_to', Auth::user()->id)->get()->toArray();
+
+        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'room_booking_id');
+
+        return array_merge($bookingRequestIds, $forwardedBookingRequestIds);
     }
 
     /**
@@ -308,9 +343,9 @@ class BookingRequestService
      */
     private function checkRoomsAvailability(RoomBooking $roomBooking): bool
     {
-        $oldRoomBookings = $this->roomBookingRepository->getOldRoombookings($roomBooking);
+        $approvedBookingRequests = $this->roomBookingRepository->getApprovedBookingRequest($roomBooking);
 
-        $collectionOfBookedRooms = $this->getBookedRooms($oldRoomBookings);
+        $collectionOfBookedRooms = $this->getBookedRooms($approvedBookingRequests);
 
         $sumOfBookedRoomTypes = $collectionOfBookedRooms->groupBy('room_type_id')->map(function ($roomInfos) {
             return $roomInfos->sum('quantity');
@@ -322,17 +357,42 @@ class BookingRequestService
             return $roomInfos->sum('quantity');
         });
 
-        foreach ($requestedRoomsByRoomTypes as $roomTypeId => $quantity) {
-            if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
-                $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
-            } else {
-                $availableRooms = $totalRoomsByRoomType[$roomTypeId];
-            }
+        foreach ($requestedRoomsByRoomTypes as $roomTypeId => $roomQuantities) {
+            $availableRooms = $this->getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType);
 
-            if ($quantity > $availableRooms) {
+            if ($roomQuantities > $availableRooms) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @param array $data
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     */
+    public function approveBookingRequest(RoomBooking $roomBooking, array $data)
+    {
+        if ($this->checkRoomsAvailability($roomBooking)) {
+            return $this->update($roomBooking, $data);
+        }
+        return false;
+    }
+
+    /**
+     * @param $roomTypeId
+     * @param $sumOfBookedRoomTypes
+     * @param $totalRoomsByRoomType
+     * @return mixed
+     */
+    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    {
+        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
+            $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
+        } else {
+            $availableRooms = $totalRoomsByRoomType[$roomTypeId];
+        }
+        return $availableRooms;
     }
 }

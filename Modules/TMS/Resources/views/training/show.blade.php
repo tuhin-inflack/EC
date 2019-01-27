@@ -35,11 +35,11 @@
                             </tr>
                             <tr>
                                 <th>{{trans('tms::training.start_date')}}</th>
-                                <td>{{$training->start_date}}</td>
+                                <td>{{date('d-m-Y', strtotime($training->start_date))}}</td>
                             </tr>
                             <tr>
                                 <th>{{trans('tms::training.end_date')}}</th>
-                                <td>{{$training->end_date}}</td>
+                                <td>{{date('d-m-Y', strtotime($training->end_date))}}</td>
                             </tr>
                             <tr>
                                 <th>{{trans('labels.status')}}</th>

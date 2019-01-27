@@ -91,7 +91,10 @@ return [
     'create_booking_request' => 'বুকিং অনুরোধ তৈরি করুন',
     'relation_family' => 'পরিবার',
     'relation_friend' => 'বন্ধু',
-    'relation_coworker' => 'সহকারী',
+    'relation_coworker' => 'সহকর্মী',
     'relation_trainee' => 'শিক্ষানবিস',
     'not_enough_available_rooms' => 'পর্যাপ্ত কক্ষ নেই',
+    'approval_done_mail' => 'আপানার বুকিং অনুরোধটি অনুমোদিত হয়েছে। বুকিং সম্পর্কিত তথ্য নিচে দেখুন',
+    'approval_reject_mail' => 'আপানার বুকিং অনুরোধটি বাতিল করা হয়েছে। বুকিং সম্পর্কিত তথ্য নিচে দেখুন',
+    'recipient_addressing' => 'প্রিয়'
 ];

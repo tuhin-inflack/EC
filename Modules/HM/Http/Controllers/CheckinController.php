@@ -110,7 +110,7 @@ class CheckinController extends Controller
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
-        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $employeeOptions = $this->employeeServices->getEmployeesForDropdown();
         $designations = $this->designationService->findAll();
         $type = 'checkin';
         $checkinType = $roomBooking ? 'from-booking' : 'walkin';
@@ -192,7 +192,7 @@ class CheckinController extends Controller
         $roomTypes = $this->roomTypeService->findAll();
         $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
-        $employeeOptions = $this->employeeServices->getEmployeeListForBardReference();
+        $employeeOptions = $this->employeeServices->getEmployeesForDropdown();
         $designations = $this->designationService->findAll();
         $trainings = $this->trainingsService->findAll();
 

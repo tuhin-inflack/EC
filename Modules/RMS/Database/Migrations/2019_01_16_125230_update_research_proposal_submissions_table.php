@@ -15,6 +15,7 @@ class UpdateResearchProposalSubmissionsTable extends Migration
     {
         Schema::table('research_proposal_submissions', function (Blueprint $table) {
             $table->dropColumn(['attachments']);
+            $table->string('type');
         });
     }
 
@@ -25,7 +26,7 @@ class UpdateResearchProposalSubmissionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
+        Schema::table('research_proposal_submissions', function (Blueprint $table) {
 
         });
     }

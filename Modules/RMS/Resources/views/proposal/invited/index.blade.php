@@ -13,34 +13,32 @@
                         <div class="card-body card-dashboard">
 
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered alt-pagination">
+                                <table class="table table-striped table-bordered alt-pagination" id="researchProposalRequestList">
                                     <thead>
                                     <tr>
-                                        <th scope="col">{{ trans('labels.serial') }}</th>
-                                        <th scope="col">{{ trans('labels.title') }}</th>
-                                        <th scope="col">{{ trans('labels.remarks') }}</th>
-                                        <th scope="col">{{ trans('rms::research_proposal.last_sub_date') }}</th>
-                                        <th scope="col">@lang('labels.action')</th>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('labels.created_at')</th>
+                                        <th scope="col">@lang('rms::research_proposal.last_sub_date')</th>
+                                        <th scope="col">@lang('labels.status')</th>
+                                        <th scope="col">@lang('labels.attachments')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($research_requests as $research_request)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $research_request->title }}</td>
-                                            <td>{{ substr($research_request->remarks, 0,50) }} {{ strlen($research_request->remarks)>50 ? "..." : "" }}</td>
-                                            <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
+                                            <td><a href="{{ route('invited-research-proposal.show', $research_request->id) }}">{{ $research_request->title }}</a></td>
+                                            <td>{{ date('d/m/Y,  h:mA', strtotime($research_request->created_at)) }}</td>
+                                            <td>{{ date('d/m/Y,  h:mA', strtotime($research_request->end_date)) }}</td>
                                             <td>
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true"
-                                                        aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i></button>
-                                                <span aria-labelledby="btnSearchDrop2"
-                                                      class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('invited-research-proposal.show', $research_request->id) }}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                </span>
+                                                @if(\Carbon\Carbon::parse($research_request->end_date)->lessThan(\Carbon\Carbon::now()))
+                                                    @lang('labels.closed')
+                                                @else
+                                                    @lang('labels.open')
+                                                @endif
                                             </td>
+                                            <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -53,4 +51,35 @@
         </div>
     </section>
 @endsection
+
+@push('page-js')
+    <script>
+
+        //        table export configuration
+        $(document).ready(function () {
+            $('#researchProposalRequestList').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel', className: 'excel',
+                        exportOptions: {
+                            columns: [0, 1],
+                        }
+                    },
+                    {
+                        extend: 'pdf', className: 'pdf',
+                        exportOptions: {
+                            columns: [0, 1],
+                        }
+                    },
+                ],
+                paging: true,
+                searching: true,
+                "bDestroy": true,
+            });
+        });
+
+
+    </script>
+@endpush
 

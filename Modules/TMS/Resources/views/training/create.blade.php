@@ -48,7 +48,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="training_name" class="form-label required">{{trans('tms::training.training_name')}}</label>
-                                            <input id="training_name" type="text" class="form-control {{ $errors->has('training_title') ? ' is-invalid' : '' }}" name="training_title" value="{{ old('email') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_name')])}}">
+                                            <input id="training_name" type="text" class="form-control {{ $errors->has('training_title') ? ' is-invalid' : '' }}" name="training_title" value="{{ old('training_title') }}" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.training_name')])}}">
                                             <div class="help-block"></div>
                                             @if ($errors->has('training_title'))
                                                 <span class="invalid-feedback" role="alert">
@@ -79,7 +79,7 @@
                                         <div class="form-group">
                                             <label for="training_end_date" class="form-label required">{{trans('tms::training.end_date')}}</label>
                                             <input type='text' onchange="dateDifference()"
-                                                   class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
+                                                   class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}" value="{{ old('end_date') }}"
                                                    placeholder="Pick a Date" id="training_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
                                             {{--<input type="date"--}}
                                             {{--class="form-control {{ $errors->has('end_date') ? ' is-invalid' : '' }}"--}}
@@ -152,7 +152,7 @@
         });
 
         $('#training_start_date, #training_end_date').pickadate({
-            format: 'yyyy-mm-dd',
+            format: 'dd mmmm, yyyy',
         });
 
         function dateDifference() {

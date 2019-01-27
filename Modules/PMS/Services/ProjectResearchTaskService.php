@@ -2,6 +2,7 @@
 namespace Modules\PMS\Services;
 
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Storage;
@@ -10,6 +11,7 @@ use Modules\PMS\Repositories\ProjectResearchTaskRepository;
 class ProjectResearchTaskService
 {
     use CrudTrait;
+    use FileTrait;
 
     private $projectResearchTaskRepository;
 
@@ -19,9 +21,14 @@ class ProjectResearchTaskService
         $this->setActionRepository($projectResearchTaskRepository);
     }
 
-    public function getTasks($projectId)
+    public function getProjectTasks($projectId)
     {
-        return $this->projectResearchTaskRepository->getTasks($projectId);
+        return $this->projectResearchTaskRepository->getProjectTask($projectId);
+    }
+
+    public function getResearchTasks($researchId)
+    {
+        return $this->projectResearchTaskRepository->getResearchTasks($researchId);
     }
 
     public function saveAttachments($taskId, $files)
@@ -29,16 +36,16 @@ class ProjectResearchTaskService
         $cnt = 0;
         foreach ($files as $file)
         {
-            $fileName = uniqid();
+            $storeFile = $this->upload($file, config('filesystems.paths.task_attachments'));
             $fileExt = pathinfo($file->getClientOriginalName(), PATHINFO_EXTENSION);
-            $filePath = $fileName.".".$fileExt;
-            $storeFile = $file->storeAs('attachments',$filePath);
+            $fileName = trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
 
             $attachmentData = array(
                 'project_research_task_id' => $taskId,
                 'file_name' => $fileName,
                 'file_ext' => $fileExt,
-                'file_path' => $filePath
+                'file_path' =>
+                    $storeFile
             );
             $saveAttachment = $this->projectResearchTaskRepository->saveAttachments($taskId,$attachmentData);
             if($saveAttachment) $cnt++;

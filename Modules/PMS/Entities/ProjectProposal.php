@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Entities;
 
+use App\Entities\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectProposal extends Model
@@ -22,7 +23,7 @@ class ProjectProposal extends Model
 
     public function task()
     {
-        return $this->hasMany(ProjectResearchTask::class, 'task_for_id');
+        return $this->hasMany(ProjectResearchTask::class, 'task_for_id')->where('type', 'project');
     }
 
     public function organizations()

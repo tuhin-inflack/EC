@@ -4,27 +4,16 @@
     <div class="row">
         <div class="col-md-8 offset-2">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label for="name" class="form-label">{{trans('pms::project_proposal.send_to')}} <span
-                                    class="danger">*</span></label>
-                        <div class="input-group">
-                            <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required"
-                                    multiple="multiple" name="send_to[]" data-msg-required="kfdjkfjdkf">
-                                <option value="tuhin@inflack.com">tuhin@inflack.com</option>
-                                <option value="sahib@inflack.com">sahib@inflack.com</option>
-                                <option value="siam@inflack.com">siam@inflack.com</option>
-                                <option value="tanvir@inflack.com">tanvir@inflack.com</option>
-                                <option value="jahangir@inflack.com">jahangir@inflack.com</option>
-                            </select>
+                <div class="form-group mb-1 col-sm-12 col-md-12">
+                    <label class="required">{{ trans('pms::project_proposal.send_to') }}</label>
+                    <br>
+                    {!! Form::select('send_to[]', $employees, null, ['class' => 'select2 form-control required'.($errors->has('send_to') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
-                            @if ($errors->has('send_to'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('send_to') }}</strong>
-                                </span>
-                            @endif
-                        </div>
-                    </div>
+                    @if ($errors->has('send_to'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('send_to') }}</strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="col-md-12">
                     <div class="form-group">

@@ -30,6 +30,7 @@ class ProjectProposalService
 
     public function __construct(ProjectProposalRepository $projectProposalRepository)
     {
+
         $this->projectProposalRepository = $projectProposalRepository;
         $this->setActionRepository($this->projectProposalRepository);
     }

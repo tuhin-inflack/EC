@@ -32,4 +32,9 @@ class WorkflowMaster extends Model
     {
         $this->belongsTo(User::class, 'initiator_id');
     }
+
+    public function workflowDetails()
+    {
+        return $this->hasMany(WorkflowDetail::class, 'workflow_master_id');
+    }
 }

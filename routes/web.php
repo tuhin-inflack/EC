@@ -38,6 +38,8 @@ Route::get('/lang/{key}', function ($key) {
 
 Route::get('/test/upload', 'AttachmentController@index')->name('test.upload-index');
 Route::post('/test/upload', 'AttachmentController@uploadFile')->name('test.upload');
-Route::get('/file/download/{filePath}/{displayName}', 'AttachmentController@downloadFile')->name('file.download');
-Route::get('/file/get/{filePath}', 'AttachmentController@get')->name('file.getfile');
+Route::get('/file/download', 'AttachmentController@downloadFile')->name('file.download');
+Route::get('/file/get', 'AttachmentController@get')->name('file.getfile');
 Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.fileUrl');
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

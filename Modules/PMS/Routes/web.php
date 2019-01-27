@@ -14,6 +14,13 @@
 Route::prefix('pms')->group(function () {
     Route::get('/', 'PMSController@index')->name('pms');
 
+    Route::prefix('project')->group(function () {
+        Route::get('/', 'ProjectController@index')->name('project.index');
+        Route::get('/create', 'ProjectController@create')->name('project.create');
+        Route::post('/', 'ProjectController@store')->name('project.store');
+        Route::get('show/{project}', 'ProjectController@show')->name('project.show');
+    });
+
     Route::prefix('project-requests')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
@@ -35,6 +42,9 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
+        Route::get('/monthly-update/{id}', 'ReceivedProjectProposalController@monthlyUpdate')->name('project-proposal-submitted.monthly-update');
+        Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
+
     });
 
     Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
@@ -42,8 +52,8 @@ Route::prefix('pms')->group(function () {
     Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
     Route::prefix('organization')->group(function () {
-        Route::get('/add-organization/{id?}', 'OrganizationController@addOrganization')->name('organization.add-organization');
-        Route::post('/store-organization/{id?}', 'OrganizationController@storeOrganization')->name('organization.store-organization');
+        Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('organization.add-organization');
+        Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('organization.store-organization');
     });
 
     Route::prefix('member')->group(function () {
