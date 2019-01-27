@@ -35,7 +35,7 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td><a href="{{ route('research.show', $research->id) }}">{{ $research->title }}</a></td>
                                             <td>{{ $research->researchSubmittedByUser->name }}</td>
-                                            <td>{{ date('d/m/Y,  h:mA', strtotime($research->created_at)) }}</td>
+                                            <td>{{ date('d/m/Y,  h:iA', strtotime($research->created_at)) }}</td>
                                             <td>@lang('rms::research_proposal.' . $research->status)</td>
                                             <td>
                                                 <span class="dropdown">
@@ -44,7 +44,7 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                    <a href="{{ route('research.show', $research->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                 </span>
                                             </span>
@@ -61,10 +61,3 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-    <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
-    </script>
-@endpush
