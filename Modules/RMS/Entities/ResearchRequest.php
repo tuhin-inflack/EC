@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ResearchRequest extends Model
 {
-    protected $fillable = ['title','end_date','remarks'];
+    protected $fillable = ['title','end_date','remarks', 'status'];
     protected $table = 'research_requests';
 
     public function researchRequestAttachments()

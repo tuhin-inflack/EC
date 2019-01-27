@@ -96,7 +96,7 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::put('/{roomBooking}', 'BookingRequestController@update')->name('booking-requests.update')->middleware('can:admin-access');
             Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
             Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit')->middleware('can:admin-access');
-            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@update')->name('booking-request-status.approve')->middleware('can:admin-access');
+            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@approve')->name('booking-request-status.approve')->middleware('can:admin-access');
             Route::post('forward/{roomBooking}', 'BookingRequestForwardController@store')->name('booking-requests-forward')->middleware('can:admin-access');
         });
 

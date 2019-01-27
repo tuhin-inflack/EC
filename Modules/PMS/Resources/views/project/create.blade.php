@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.project_proposal_request_creation'))
+@section('title', trans('pms::project_proposal.project_creation'))
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">@lang('pms::project_proposal.project_proposal_request_creation')</h4>
+                                    <h4 class="card-title">@lang('pms::project_proposal.project_creation')</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project-request.partials.form')
+                                        @include('pms::project.form')
                                     </div>
                                 </div>
                             </div>
@@ -60,23 +60,19 @@
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
-
-
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/editors/ckeditor/ckeditor.js')  }}"></script>
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#end_date').pickadate({
+            $('#end_date, #start_date').pickadate({
                 min: new Date()
             });
 
-            $('#end_date').pickadate();
-
+            $('#end_date, #start_date').pickadate();
 
 
             // validation
-            $('.project-request-tab-steps').validate({
+            $('.project-submission-tab-steps').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',
                 successClass: 'success',
@@ -91,6 +87,8 @@
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
                         error.insertAfter(element.siblings('.select2-container'));
+                    } else if (element.attr('id') == 'ckeditor') {
+                        error.insertAfter(element.siblings('#cke_ckeditor'));
                     } else {
                         error.insertAfter(element);
                     }

@@ -12,7 +12,6 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Entities\ProjectRequestForward;
-use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
 use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
 use Modules\PMS\Http\Requests\ProjectRequestForwardRequest;
@@ -57,7 +56,7 @@ class ProjectRequestController extends Controller
         $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee){
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
         }, function ($employee){
-            return $employee->email;
+            return $employee->id;
         });
         return view('pms::project-request.create', compact('employees'));
     }
@@ -69,8 +68,9 @@ class ProjectRequestController extends Controller
      */
     public function store(CreateProjectRequestRequest $request)
     {
-        $response = $this->projectRequestService->store($request->all());
-        return redirect()->route('project-request.index')->with('message', $response->getContent());
+        $this->projectRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-request.index');
     }
 
     /**

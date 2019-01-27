@@ -10,8 +10,9 @@
                         <h4 class="card-title">{{trans('pms::project_proposal.project_list')}}</h4>
 
                         <div class="heading-elements">
-                            <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{trans('pms::project_proposal.new_proposal_request')}}</a>
+                            <a href="{{route('project.create')}}" class="btn btn-primary btn-sm">
+                                <i class="ft-plus white"></i> {{trans('pms::project_proposal.new_project_create')}}
+                            </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
@@ -30,23 +31,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {{--@foreach($requests as $request)
+                                    @foreach($projects as $project)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $request->message }}</td>
-                                            <td>{{ $request->send_to }}</td>
-                                            <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">Attachment</a></td>
-                                            <td>{{ $request->end_date }}</td>
+                                            <td><a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a></td>
+                                            <td>{{ $project->projectSubmittedByUser->name }}</td>
+                                            <td>{{ date('d/m/Y, h:iA', strtotime($project->created_at)) }}</td>
+                                            <td>@lang('pms::project_proposal.' . $project->status)</td>
                                             <td>
-                                                @if($request->status == 0)
-                                                    <span class="badge badge-warning">Ongoing</span>
-                                                @else
-                                                    <span class="badge badge-warning">Success</span>
-                                                @endif
+                                                <span class="dropdown">
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
+                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="{{ route('project.show', $project->id) }}"
+                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                </span>
+                                            </span>
                                             </td>
-                                            <td>{{$request->created_at}}</td>
                                         </tr>
-                                    @endforeach--}}
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -57,10 +62,3 @@
         </div>
     </section>
 @endsection
-@push('page-js')
-    <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
-    </script>
-@endpush

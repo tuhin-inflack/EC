@@ -48,7 +48,7 @@ return [
     'draft' => 'খসড়া',
     'publish' => 'প্রকাশিত',
     'type' => 'নমুনা',
-    'research' => 'গবেষণা',
+    'all_research' => 'গবেষণা সমূহ',
     'research_list' => 'সকল গবেষণা তালিকা',
     'create_research' => 'গবেষণা তৈরি',
     'research_creation' => 'গবেষণা তৈরি',

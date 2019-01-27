@@ -16,6 +16,9 @@ Route::prefix('pms')->group(function () {
 
     Route::prefix('project')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project.index');
+        Route::get('/create', 'ProjectController@create')->name('project.create');
+        Route::post('/', 'ProjectController@store')->name('project.store');
+        Route::get('show/{project}', 'ProjectController@show')->name('project.show');
     });
 
     Route::prefix('project-requests')->group(function () {
