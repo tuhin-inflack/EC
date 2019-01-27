@@ -19,7 +19,7 @@ class CreateWorkflowConversationsTable extends Migration
             $table->integer('workflow_details_id');
             $table->integer('feature_id');
             $table->string('message')->nullable();
-            $table->char('status');
+            $table->enum('status', ['ACTIVE', 'CLOSED']);
             $table->timestamps();
         });
     }
