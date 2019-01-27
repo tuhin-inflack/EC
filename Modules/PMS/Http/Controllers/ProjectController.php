@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\CreateProjectRequest;
+use Modules\PMS\Services\ProjectService;
 
 class ProjectController extends Controller
 {
@@ -15,10 +18,15 @@ class ProjectController extends Controller
      * @var UserService
      */
     private $userService;
+    /**
+     * @var ProjectService
+     */
+    private $projectService;
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, ProjectService $projectService)
     {
         $this->userService = $userService;
+        $this->projectService = $projectService;
     }
 
     /**
@@ -49,8 +57,11 @@ class ProjectController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProjectRequest $request)
     {
+        $this->projectService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project.index');
     }
 
     /**
