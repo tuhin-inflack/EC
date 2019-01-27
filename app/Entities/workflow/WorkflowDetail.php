@@ -15,7 +15,8 @@ class WorkflowDetail extends Model
 {
     protected $table = 'workflow_details';
 
-    protected $fillable = ['workflow_master_id', 'rule_detail_id', 'notification_order', 'creator_id', 'responder_id'];
+    protected $fillable = ['workflow_master_id', 'rule_detail_id', 'designation_id', 'notification_order', 'creator_id',
+        'responder_id', 'responder_remarks', 'status'];
 
     public function workflowMaster()
     {

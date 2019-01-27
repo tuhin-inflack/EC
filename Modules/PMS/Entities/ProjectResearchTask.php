@@ -25,7 +25,7 @@ class ProjectResearchTask extends Model
 
     public function project()
     {
-        return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id')->where('type', 'project');
+        return $this->belongsTo(ProjectProposal::class, 'task_for_id', 'id');
     }
 
     public function research()
