@@ -14,6 +14,10 @@
 Route::prefix('pms')->group(function () {
     Route::get('/', 'PMSController@index')->name('pms');
 
+    Route::prefix('project')->group(function () {
+        Route::get('/', 'ProjectController@index')->name('project.index');
+    });
+
     Route::prefix('project-requests')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');

@@ -6,6 +6,10 @@
                     <a href="{{ url('pms') }}"><i class="la la-home"></i><span class="menu-title"
                                                                                data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
                 </li>
+                <li class="{{ is_active_route('project.index') }} nav-item">
+                    <a href="{{ route('project.index') }}"><i class="la la-home"></i><span class="menu-title"
+                                                                               data-i18n="nav.dash.main">@lang('pms::project_proposal.project')</span></a>
+                </li>
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                                                                                   data-i18n="nav.navbars.main">{{trans('pms::project_proposal.menu_title')}}</span></a>
                     <ul class="menu-content">
