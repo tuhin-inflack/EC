@@ -10,6 +10,6 @@ class RoomType extends Model
 
     public function rooms()
     {
-        $this->hasMany(RoomType::class);
+        return $this->hasMany(Room::class, 'room_type_id', 'id');
     }
 }
