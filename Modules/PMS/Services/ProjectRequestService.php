@@ -8,15 +8,22 @@
 
 namespace Modules\PMS\Services;
 
+use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\ProjectRequest;
-
-use Modules\PMS\Entities\ProjectRequestImage;
+use Modules\PMS\Entities\ProjectRequestAttachment;
+use Modules\PMS\Entities\ProjectRequestReceiver;
 use Modules\PMS\Repositories\ProjectRequestRepository;
 
 
 class ProjectRequestService
 {
+    use CrudTrait;
+    use FileTrait;
+
     private $projectRequestRepository;
 
     /**
@@ -27,6 +34,7 @@ class ProjectRequestService
     public function __construct(ProjectRequestRepository $projectRequestRepository)
     {
         $this->projectRequestRepository = $projectRequestRepository;
+        $this->setActionRepository($projectRequestRepository);
     }
 
     public function getAll()
@@ -36,25 +44,36 @@ class ProjectRequestService
 
     public function store(array $data)
     {
-        $send_to = $data['send_to'];
-        $send_to = implode(',', $send_to);
-        $data['send_to'] = $send_to;
+        return DB::transaction(function () use ($data) {
+            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+            $data['status'] = 'pending';
 
-        $projectRequest = $this->projectRequestRepository->save($data);
+            $projectRequest = $this->save($data);
 
-        foreach ($data['attachment'] as $image) {
-            $filename = $image->getClientOriginalName();
-            $image->storeAs('public/uploads', $filename);
+            foreach ($data['attachment'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'project-requests');
 
-            $image = new ProjectRequestImage([
-                'attachment' => $filename,
-                'request_id' => $projectRequest->id
-            ]);
+                $file = new ProjectRequestAttachment([
+                    'attachments' => $path,
+                    'project_request_id' => $projectRequest->id,
+                    'file_name' => $fileName
+                ]);
 
-            $projectRequest->projectRequestImages()->save($image);
-        }
+                $projectRequest->projectRequestAttachments()->save($file);
+            }
 
-        return new Response(trans('labels.save_success'), Response::HTTP_OK);
+            foreach ($data['receiver'] as $receiver) {
+                $receiver = new ProjectRequestReceiver([
+                    'receiver' => $receiver,
+                    'project_request_id' => $projectRequest->id
+                ]);
+
+                $projectRequest->projectRequestReceivers()->save($receiver);
+            }
+
+            return $projectRequest;
+        });
     }
 
     public function update(ProjectRequest $projectRequest, array $data)

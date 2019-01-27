@@ -9,6 +9,7 @@ return [
     'remarks' => 'Remarks',
     'attachment' => 'File Attach',
     'project_request_list' => 'List of Project Proposal Request',
+    'project_request' => 'Project Proposal Request',
     'new_proposal_request' => 'New Proposal Request',
     'attached_file' => 'Attachment File',
     'requested_project_project' => 'Requested Project Proposal',

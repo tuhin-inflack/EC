@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRequestsTable extends Migration
+class CreateProjectRequestAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateProjectRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_requests', function (Blueprint $table) {
+        Schema::create('project_request_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->date('end_date');
-            $table->text('remarks')->nullable();
-            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
+            $table->integer('project_request_id');
+            $table->string('attachments');
+            $table->string('file_name');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateProjectRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_requests');
+        Schema::dropIfExists('project_request_attachments');
     }
 }

@@ -9,6 +9,7 @@ return [
     'remarks' => 'মন্তব্য',
     'attachment' => 'ফাইল সংযুক্ত করুন',
     'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
+    'project_request' => 'প্রকল্প প্রস্তাব অনুরোধ',
     'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
     'attached_file' => 'সংযুক্ত ফাইল',
     'requested_project_project' => 'প্রকল্প প্রস্তাব অনুরোধ',

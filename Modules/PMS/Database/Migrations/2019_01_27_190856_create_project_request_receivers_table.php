@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRequestImagesTable extends Migration
+class CreateProjectRequestReceiversTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateProjectRequestImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_request_images', function (Blueprint $table) {
+        Schema::create('project_request_receivers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('request_id');
-            $table->string('attachment');
+            $table->integer('project_request_id');
+            $table->integer('receiver');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateProjectRequestImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_request_images');
+        Schema::dropIfExists('project_request_receivers');
     }
 }
