@@ -37,5 +37,6 @@ return [
     'project_creation' => 'Project Creation',
     'project_create_form' => 'Project Creation Form',
     'pending' => 'Pending',
+    'project_details' => 'Project Details',
 
 ];

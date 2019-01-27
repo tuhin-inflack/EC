@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\Project;
 use Modules\PMS\Http\Requests\CreateProjectRequest;
 use Modules\PMS\Services\ProjectService;
 
@@ -69,9 +70,9 @@ class ProjectController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Project $project)
     {
-        return view('pms::show');
+        return view('pms::project.show', compact('project'));
     }
 
     /**

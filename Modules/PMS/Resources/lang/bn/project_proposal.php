@@ -37,6 +37,7 @@ return [
     'project_creation' => 'প্রকল্প তৈরি',
     'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
+    'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
 
 ];
 
