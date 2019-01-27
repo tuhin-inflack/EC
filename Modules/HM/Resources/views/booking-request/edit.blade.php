@@ -87,6 +87,7 @@
         let room_selection = '{!! trans('hm::checkin.room_selection') !!}';
         let the = '{!! trans('hm::checkin.the') !!}';
         let current_lang = '{!!  Lang::locale()  !!}';
+        let testabc = 'yes this is testing';
         // end by sumon
 
         // select2 placholder localization

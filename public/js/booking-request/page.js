@@ -61,6 +61,16 @@ $(document).ready(function () {
             return Date.parse(value) >= Date.parse(comparingDate);
         }, 'Must be greater than or equal to {0}.');
 
+    // jQuery.validator.addMethod("CheckRoomValidation",
+    //     function (value, element, params) {
+    //         if (validationStatus) {
+    //             return true
+    //         } else {
+    //             return false;
+    //         }
+    //     }, customErrorMessage);
+
+
     $('.booking-request-tab-steps').validate({
         ignore: 'input[type=hidden]', // ignore hidden fields
         errorClass: 'danger',
@@ -82,6 +92,7 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
+
         rules: {
             end_date: {
                 greaterThanOrEqual: '#start_date'
@@ -89,6 +100,9 @@ $(document).ready(function () {
             first_name: {
                 maxlength: 50
             },
+            // 'room-show': {
+            //     CheckRoomValidation: 0
+            // },
             contact: {
                 minlength: 11,
                 maxlength: 11
@@ -148,7 +162,7 @@ $(document).ready(function () {
 
 function initializeSelectReferee() {
     let $selectReferee = $('#referee-select').select2();
-    
+
     let bookingRequestRefereeId = $selectReferee.val();
 
     if (bookingRequestRefereeId) {
