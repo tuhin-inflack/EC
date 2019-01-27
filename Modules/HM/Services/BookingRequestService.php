@@ -268,9 +268,7 @@ class BookingRequestService
 
     public function updateStatus(RoomBooking $roomBooking, array $data)
     {
-        if ($this->checkRoomsAvailability($roomBooking)) {
-            return $this->update($roomBooking, $data);
-        }
+        return $this->update($roomBooking, $data);
     }
 
     public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
@@ -345,9 +343,9 @@ class BookingRequestService
      */
     private function checkRoomsAvailability(RoomBooking $roomBooking): bool
     {
-        $oldRoomBookings = $this->roomBookingRepository->getOldRoombookings($roomBooking);
+        $approvedBookingRequests = $this->roomBookingRepository->getApprovedBookingRequest($roomBooking);
 
-        $collectionOfBookedRooms = $this->getBookedRooms($oldRoomBookings);
+        $collectionOfBookedRooms = $this->getBookedRooms($approvedBookingRequests);
 
         $sumOfBookedRoomTypes = $collectionOfBookedRooms->groupBy('room_type_id')->map(function ($roomInfos) {
             return $roomInfos->sum('quantity');
@@ -359,17 +357,42 @@ class BookingRequestService
             return $roomInfos->sum('quantity');
         });
 
-        foreach ($requestedRoomsByRoomTypes as $roomTypeId => $quantity) {
-            if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
-                $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
-            } else {
-                $availableRooms = $totalRoomsByRoomType[$roomTypeId];
-            }
+        foreach ($requestedRoomsByRoomTypes as $roomTypeId => $roomQuantities) {
+            $availableRooms = $this->getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType);
 
-            if ($quantity > $availableRooms) {
+            if ($roomQuantities > $availableRooms) {
                 return false;
             }
         }
         return true;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @param array $data
+     * @return \Illuminate\Database\Eloquent\Model|mixed
+     */
+    public function approveBookingRequest(RoomBooking $roomBooking, array $data)
+    {
+        if ($this->checkRoomsAvailability($roomBooking)) {
+            return $this->update($roomBooking, $data);
+        }
+        return false;
+    }
+
+    /**
+     * @param $roomTypeId
+     * @param $sumOfBookedRoomTypes
+     * @param $totalRoomsByRoomType
+     * @return mixed
+     */
+    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    {
+        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
+            $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
+        } else {
+            $availableRooms = $totalRoomsByRoomType[$roomTypeId];
+        }
+        return $availableRooms;
     }
 }

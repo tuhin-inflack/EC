@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $(this).find('#referee-select').select2()
+    initializeSelectReferee();
+
     // datepicker
     $('#start_date').pickadate({
         min: new Date()
@@ -144,6 +145,16 @@ $(document).ready(function () {
         console.debug(e)
     }
 });
+
+function initializeSelectReferee() {
+    let $selectReferee = $('#referee-select').select2();
+    
+    let bookingRequestRefereeId = $selectReferee.val();
+
+    if (bookingRequestRefereeId) {
+        $selectReferee.val(bookingRequestRefereeId).trigger('change');
+    }
+}
 
 function getRoomTypeRates(event, roomTypeId) {
     let selectedRoomType = roomTypes.find(roomType => roomType.id == roomTypeId);
