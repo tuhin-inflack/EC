@@ -30,9 +30,12 @@ return [
     'organization_name' => 'প্রতিষ্ঠানের নাম',
     'add_new_organization' => 'নতুন প্রতিষ্ঠান যোগ করুন',
     'organization_name_for_project' => 'এই প্রকল্পের জন্য প্রতিষ্ঠানের নাম তালিকা',
-    'project' => 'প্রকল্প',
+    'projects' => 'প্রকল্প সমূহ',
     'project_list' => 'সকল প্রকল্প তালিকা',
     'submission_date' => 'জমাদানের তারিখ',
+    'new_project_create' => 'নতুন প্রকল্প তৈরি',
+    'project_creation' => 'প্রকল্প তৈরি',
+    'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
 
 ];
 

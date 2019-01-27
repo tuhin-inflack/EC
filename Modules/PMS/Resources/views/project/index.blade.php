@@ -10,8 +10,9 @@
                         <h4 class="card-title">{{trans('pms::project_proposal.project_list')}}</h4>
 
                         <div class="heading-elements">
-                            <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{trans('pms::project_proposal.new_proposal_request')}}</a>
+                            <a href="{{route('project.create')}}" class="btn btn-primary btn-sm">
+                                <i class="ft-plus white"></i> {{trans('pms::project_proposal.new_project_create')}}
+                            </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
