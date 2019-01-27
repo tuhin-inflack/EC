@@ -27,4 +27,9 @@ class WorkflowRuleMaster extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    public function ruleDetails()
+    {
+        return $this->hasMany(WorkflowRuleDetail::class, 'rule_master_id');
+    }
 }

@@ -69,7 +69,7 @@ class TaskController extends Controller
 
     public function show($taskId)
     {
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
+        $task = $this->projectResearchTaskService->findOne($taskId);
 
         return view('pms::task.show', compact('task'));
     }

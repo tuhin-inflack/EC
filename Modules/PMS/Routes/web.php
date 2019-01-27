@@ -14,6 +14,10 @@
 Route::prefix('pms')->group(function () {
     Route::get('/', 'PMSController@index')->name('pms');
 
+    Route::prefix('project')->group(function () {
+        Route::get('/', 'ProjectController@index')->name('project.index');
+    });
+
     Route::prefix('project-requests')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
@@ -34,6 +38,8 @@ Route::prefix('pms')->group(function () {
 
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
+        Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
+        Route::get('/monthly-update/{id}', 'ReceivedProjectProposalController@monthlyUpdate')->name('project-proposal-submitted.monthly-update');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
 
     });

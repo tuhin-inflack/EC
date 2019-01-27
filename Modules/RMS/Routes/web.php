@@ -16,6 +16,13 @@ use Illuminate\Http\Request;
 Route::prefix('rms')->group(function() {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
+    Route::prefix('research')->group(function (){
+        Route::get('/','ResearchController@index')->name('research.index');
+        Route::get('/create','ResearchController@create')->name('research.create');
+        Route::post('/','ResearchController@store')->name('research.store');
+        Route::get('show/{research}','ResearchController@show')->name('research.show');
+    });
+
     Route::prefix('research-requests')->group(function () {
         Route::get('/create', 'ResearchRequestController@create')->name('research-request.create');
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
@@ -28,6 +35,8 @@ Route::prefix('rms')->group(function() {
         Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
         Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
         Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
+        Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
+        Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
     });
 
     Route::prefix('received-research-proposals')->group(function(){

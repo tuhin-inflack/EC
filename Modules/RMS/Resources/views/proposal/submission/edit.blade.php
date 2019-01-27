@@ -22,32 +22,9 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <h4 style="border-bottom: 1px solid #2C303B;">
-                                            <i class="la la-briefcase"></i> @lang('rms::research_proposal.proposal_invitation_info')
-                                        </h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">@lang('labels.title')</h5>
-                                        <pre>{{ $researchRequest->title }}</pre>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">@lang('rms::research_proposal.invitation_date')</h5>
-                                        <pre>{{ date('d/m/Y', strtotime($researchRequest->created_at)) }}</pre>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ trans('rms::research_proposal.last_sub_date') }}</h5>
-                                        <pre>{{ date('d/m/Y', strtotime($researchRequest->end_date)) }}</pre>
-                                    </div>
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ trans('labels.remarks') }}</h5>
-                                        <pre>{{ $researchRequest->remarks }}</pre>
-                                    </div>
-                                </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('rms::proposal.submission.form', ['page' => 'create'])
+                                        @include('rms::proposal.submission.form', ['page' => 'edit'])
                                     </div>
                                 </div>
                             </div>
