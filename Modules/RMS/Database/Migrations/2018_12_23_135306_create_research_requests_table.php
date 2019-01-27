@@ -18,7 +18,7 @@ class CreateResearchRequestsTable extends Migration
             $table->string('to');
             $table->text('title');
             $table->dateTime('end_date');
-            $table->text('remarks');
+            $table->text('remarks')->nullable();
             $table->string('attachment');
             $table->timestamps();
         });
