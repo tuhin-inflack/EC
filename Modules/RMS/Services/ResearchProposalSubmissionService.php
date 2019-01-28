@@ -5,8 +5,10 @@ namespace Modules\RMS\Services;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchProposalSubmissionRepository;
@@ -81,5 +83,22 @@ class ResearchProposalSubmissionService
 
             return $proposalSubmission;
         });
+    }
+
+    public function getZipFilePath($proposalId)
+    {
+        $researchProposal = $this->findOne($proposalId);
+
+        $filePaths = $researchProposal->researchProposalSubmissionAttachments->map(function ($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 }

@@ -113,4 +113,9 @@ class ProposalSubmitController extends Controller
     public function destroy()
     {
     }
+
+    public function submissionAttachmentDownload(ResearchProposalSubmission $researchProposalSubmission)
+    {
+        return response()->download($this->researchProposalSubmissionService->getZipFilePath($researchProposalSubmission->id));
+    }
 }
