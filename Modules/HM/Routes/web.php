@@ -92,12 +92,12 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::get('/', 'BookingRequestController@index')->name('booking-requests.index');
             Route::get('create', 'BookingRequestController@create')->name('booking-requests.create');
             Route::post('/', 'BookingRequestController@store')->name('booking-requests.store');
-            Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit')->middleware('can:admin-access');
-            Route::put('/{roomBooking}', 'BookingRequestController@update')->name('booking-requests.update')->middleware('can:admin-access');
+            Route::get('/{roomBooking}/edit', 'BookingRequestController@edit')->name('booking-requests.edit')->middleware('can:admin-hm-access');
+            Route::put('/{roomBooking}', 'BookingRequestController@update')->name('booking-requests.update')->middleware('can:admin-hm-access');
             Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
-            Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit')->middleware('can:admin-access');
-            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@approve')->name('booking-request-status.approve')->middleware('can:admin-access');
-            Route::post('forward/{roomBooking}', 'BookingRequestForwardController@store')->name('booking-requests-forward')->middleware('can:admin-access');
+            Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit')->middleware('can:admin-hm-access');
+            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@approve')->name('booking-request-status.approve')->middleware('can:admin-hm-access');
+            Route::post('forward/{roomBooking}', 'BookingRequestForwardController@store')->name('booking-requests-forward')->middleware('can:admin-hm-access');
         });
 
 
