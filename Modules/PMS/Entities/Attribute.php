@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Entities;
 
+use App\Entities\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;
 
 class Attribute extends Model

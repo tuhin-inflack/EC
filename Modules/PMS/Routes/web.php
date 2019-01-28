@@ -47,7 +47,7 @@ Route::prefix('pms')->group(function () {
 
     });
 
-    Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
+    Route::get('organizations/{organization}/attribute-values/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
     Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
     Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
