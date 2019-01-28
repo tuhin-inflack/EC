@@ -36,8 +36,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
-        $userId = 1;
-        $designationId = 1;
+        $designationId = 2;
         $workflows = $this->workflowService->getWorkflowDetailsByUser($user->id, [$designationId]);
         foreach ($workflows as $workflow) {
             $dashboardItem = new DashboardItem();
@@ -51,6 +50,8 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
+            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id
+            $dashboardItem->setDynamicValues();
             array_push($dashboardItems, $dashboardItem);
         }
         $dashboardItemSummary->setDashboardItems($dashboardItems);
