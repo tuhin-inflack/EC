@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
+use Modules\PMS\Entities\ProjectRequestAttachment;
 use Modules\PMS\Entities\ProjectRequestForward;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
 use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
@@ -125,6 +126,12 @@ class ProjectRequestController extends Controller
     public function requestAttachmentDownload(ProjectRequest $projectRequest)
     {
         return response()->download($this->projectRequestService->getZipFilePath($projectRequest->id));
+    }
+
+    public function fileDownload(ProjectRequestAttachment $projectRequestAttachment)
+    {
+        $basePath = Storage::disk('internal')->path($projectRequestAttachment->attachments);
+        return response()->download($basePath);
     }
 
     public function statusUpdate(ProjectRequest $projectRequest)

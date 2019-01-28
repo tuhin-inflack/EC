@@ -34,7 +34,7 @@
                                         @foreach($requests as $request)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
-                                                <td><a href="">{{ $request->title }}</a></td>
+                                                <td><a href="{{ route('project-request.show', $request->id) }}">{{ $request->title }}</a></td>
                                                 <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
                                                 <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
                                                 <td>{{ $request->end_date }}</td>
@@ -46,7 +46,7 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                    <a href="{{ route('project-request.show', $request->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                 </span>
                                             </span>

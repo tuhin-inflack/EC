@@ -25,7 +25,9 @@ Route::prefix('pms')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
+        Route::get('{projectRequest}/show', 'ProjectRequestController@show')->name('project-request.show');
         Route::get('attachment-download/{projectRequest}', 'ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
+        Route::get('file-download/{projectRequestAttachment}','ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
     Route::prefix('requested-project-proposals')->group(function () {
