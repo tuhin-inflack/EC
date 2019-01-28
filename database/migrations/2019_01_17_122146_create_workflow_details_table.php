@@ -19,6 +19,7 @@ class CreateWorkflowDetailsTable extends Migration
             $table->integer('rule_detail_id');
             $table->integer('designation_id');
             $table->integer('notification_order');
+            $table->boolean('is_group_notification')->default(true);
             $table->integer('creator_id');
             $table->integer('responder_id')->nullable();
             $table->string('responder_remarks')->nullable();

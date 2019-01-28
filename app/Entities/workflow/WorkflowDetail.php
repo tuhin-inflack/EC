@@ -28,4 +28,9 @@ class WorkflowDetail extends Model
         return $this->belongsTo(WorkflowRuleDetail::class, 'rule_detail_id');
     }
 
+    public function workflowConversations()
+    {
+        return $this->hasMany(WorkflowConversation::class, 'workflow_details_id');
+    }
+
 }

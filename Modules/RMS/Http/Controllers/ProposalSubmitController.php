@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchProposalSubmission;
+use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
@@ -44,12 +45,8 @@ class ProposalSubmitController extends Controller
      */
     public function create(ResearchRequest $researchRequest)
     {
-        $username = Auth::user()->username;
-        $name = Auth::user()->name;
         $auth_user_id = Auth::user()->id;
-        $departmentName = $this->userService->getDepartmentName($username);
-        $designation = $this->userService->getDesignation($username);
-        return view('rms::proposal.submission.create', compact('researchRequest', 'departmentName', 'designation', 'name', 'auth_user_id'));
+        return view('rms::proposal.submission.create', compact('researchRequest', 'auth_user_id'));
     }
 
 
@@ -71,15 +68,11 @@ class ProposalSubmitController extends Controller
      */
     public function show($id)
     {
-
-//        $filePath = 'storage/app/public/uploads/pdf-sample.pdf';
-        $filePath = 'files/pdf-sample.pdf';
-
         $research = $this->researchProposalSubmissionService->findOne($id);
         $organizations = $research->organizations;
         if(!is_null($research)) $tasks = $research->tasks; else $tasks = array();
 
-        return view('rms::proposal.submission.show', compact('research','tasks','filePath', 'organizations'));
+        return view('rms::proposal.submission.show', compact('research','tasks', 'organizations'));
     }
 
     /**
@@ -116,5 +109,16 @@ class ProposalSubmitController extends Controller
      */
     public function destroy()
     {
+    }
+
+    public function submissionAttachmentDownload(ResearchProposalSubmission $researchProposalSubmission)
+    {
+        return response()->download($this->researchProposalSubmissionService->getZipFilePath($researchProposalSubmission->id));
+    }
+
+    public function fileDownload(ResearchProposalSubmissionAttachment $researchSubmissionAttachment)
+    {
+        $basePath = Storage::disk('internal')->path($researchSubmissionAttachment->attachments);
+        return response()->download($basePath);
     }
 }
