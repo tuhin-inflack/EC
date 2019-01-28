@@ -86,8 +86,7 @@ Route::prefix('pms')->group(function () {
         Route::post('/', 'AttributeController@store')->name('attributes.store');
         Route::get('{attribute}/edit', 'AttributeController@edit')->name('attributes.edit');
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
-        Route::delete('{attribute}', 'AttributeController@destroy')->name('attributes.destroy');
-        // values
+        // attribute-values
         Route::prefix('{attribute}')->group(function () {
             Route::get('values', 'AttributeValueController@index')->name('attribute-values.index');
             Route::get('values/create', 'AttributeValueController@create')->name('attribute-values.create');

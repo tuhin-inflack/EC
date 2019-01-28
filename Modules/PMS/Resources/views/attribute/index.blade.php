@@ -51,19 +51,6 @@
                                                 <a href="{{ route('attributes.edit', $attribute->id) }}"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
-                                                <div class="dropdown-divider"></div>
-                                                  {!! Form::open([
-                                                  'method'=>'DELETE',
-                                                  'route' => [ 'attributes.destroy', $attribute->id],
-                                                  'style' => 'display:inline'
-                                                  ]) !!}
-                                                  {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                  'type' => 'submit',
-                                                  'class' => 'dropdown-item',
-                                                  'title' => 'Delete the role',
-                                                  'onclick'=>'return confirm(" ' . trans('labels.confirm_delete') . ' ")',
-                                                  )) !!}
-                                                  {!! Form::close() !!}
                                               </span>
                                             </span>
                                             </td>
