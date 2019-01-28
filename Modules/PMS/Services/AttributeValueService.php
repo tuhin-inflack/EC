@@ -10,6 +10,7 @@ namespace Modules\PMS\Services;
 
 
 use App\Traits\CrudTrait;
+use Carbon\Carbon;
 use Modules\PMS\Repositories\AttributeValueRepository;
 
 class AttributeValueService
@@ -28,5 +29,11 @@ class AttributeValueService
     {
         $this->attributeValueRepository = $attributeValueRepository;
         $this->setActionRepository($attributeValueRepository);
+    }
+
+    public function store(array $data)
+    {
+        $data['date'] = Carbon::createFromFormat('F Y', $data['date']);
+        return $this->save($data);
     }
 }
