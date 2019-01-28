@@ -3,6 +3,7 @@
 return [
     'organization' => 'Organization',
     'unit' => 'Unit',
+    'attribute' => 'Attribute',
     'create_attribute' => 'Create Attribute',
     'attribute_create_form' => 'Attribute Create Form',
     'edit_attribute' => 'Edit Attribute',
@@ -14,4 +15,15 @@ return [
     'planned_value' => 'Planned Value',
     'achieved_value' => 'Achieved Value',
     'enter_value' => 'Enter Value',
+    'planned' => 'Planned',
+    'achieved' => 'Achieved',
+    'value' => 'Value',
+    'attribute_values_line_chart' => 'Attribute Values Line Chart',
+    'line' => 'Line',
+    'bar' => 'Bar',
+    'column' => 'Column',
+    'area' => 'Area',
+    'chart_types' => 'Chart Types',
+    'attribute_chart_filters' => 'Attribute Chart Filters',
+    'project_monitoring_line_chart' => 'Project Monitoring Line Chart',
 ];

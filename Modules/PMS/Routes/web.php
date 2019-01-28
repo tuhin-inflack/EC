@@ -44,10 +44,18 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
-        Route::get('/monthly-update/{id}', 'ReceivedProjectProposalController@monthlyUpdate')->name('project-proposal-submitted.monthly-update');
-        Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
 
+        //Routes related to Project Monthly Update
+        Route::prefix('monthly-update')->group(function (){
+            Route::get('/view/{projectId}/{monthYear?}', 'ProjectMonthlyUpdateController@index')->name('project-proposal-submitted.monthly-update');
+            Route::get('/create/{projectId}', 'ProjectMonthlyUpdateController@create')->name('project-proposal-submitted.create-monthly-update');
+            Route::post('/store/{projectId}', 'ProjectMonthlyUpdateController@store')->name('project-proposal-submitted.store-monthly-update');
+        });
     });
+
+    Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
+    Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
+    Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('organization.add-organization');
@@ -82,6 +90,5 @@ Route::prefix('pms')->group(function () {
         // values
         Route::get('{attribute}/values/create', 'AttributeValueController@create')->name('attribute-values.create');
         Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
-
     });
 });

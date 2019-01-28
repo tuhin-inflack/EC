@@ -13,17 +13,20 @@ class CreateProjectResearchUpdateTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_research_update', function (Blueprint $table) {
+        Schema::create('project_research_monthly_update', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('update_for_id');
+            $table->enum('type', ['project', 'research'])->default('project');
             $table->tinyInteger('month');
             $table->integer('year');
-            $table->text('achievements');
+            $table->text('achievements')->nullable();
             $table->text('plannings');
             $table->string('tasks')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['update_for_id', 'type', 'month', 'year']);
         });
     }
 
@@ -34,6 +37,6 @@ class CreateProjectResearchUpdateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_research_update');
+        Schema::dropIfExists('project_research_monthly_update');
     }
 }

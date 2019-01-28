@@ -66,7 +66,7 @@ class CheckinService
         $this->roomBookingRepository->update($checkin, ['actual_end_date' => $checkoutTime]);
 
         $checkin->checkinDetails->each(function ($checkinDetail) {
-           $checkinDetail->room()->update(['status' => 'available']);
+            $checkinDetail->room()->update(['status' => 'available']);
         });
         $checkin->rooms()->update(['status' => 'checkedout', 'checkout_date' => $checkoutTime]);
         $checkin->checkinDetails()->update(['checkout_date' => $checkoutTime]);
@@ -86,5 +86,11 @@ class CheckinService
         } else {
             return 'partially-available';
         }
+    }
+
+    public function getAlreadyCheckinGuestInfo($roomId, $checkinId)
+    {
+      return  $this->checkinRepository->getCheckinInfoRoomIdAndCheckinId($roomId, $checkinId);
+
     }
 }

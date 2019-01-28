@@ -44,8 +44,10 @@
                                                         aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href="{{route('project-proposal-submitted.view', $proposal->id)}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                    <a href="{{ route('project-monitor-tables.index', $proposal->id) }}" class="dropdown-item"><i class="ft-bar-chart-2"></i>Monitoring Tabular View</a>
                                                     <a href="" class="dropdown-item"><i class="ft-minus-square"></i> {{trans('labels.reject')}}</a>
                                                     <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
+                                                    <a href="{{route('project-proposal-submitted.monthly-update', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('monthly-update.create_card_title')}}</a>
                                                     <a href="{{route('task.create', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i> {{trans('pms::task.create_card_title')}}</a>
                                                     <a href="{{route('organization.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                 </span>

@@ -25,12 +25,11 @@ class ProjectProposalService
 
     /**
      * ProjectRequestService constructor.
-     * @param $projectRequestRepository $projectRequestRepository
+     * @param ProjectProposalRepository $projectProposalRepository
      */
 
     public function __construct(ProjectProposalRepository $projectProposalRepository)
     {
-
         $this->projectProposalRepository = $projectProposalRepository;
         $this->setActionRepository($this->projectProposalRepository);
     }

@@ -69,6 +69,7 @@ class ResearchController extends Controller
 
     /**
      * Show the specified resource.
+     * @param Research $research
      * @return Response
      */
     public function show(Research $research)

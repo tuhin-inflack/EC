@@ -74,6 +74,24 @@
         let lastNameLabel = '{!! trans('labels.last_name') !!}';
         let genderLabel = '{!! trans('labels.gender') !!}';
         let mobileLabel = '{!! trans('labels.mobile') !!}';
+
+
+        // added by sumon
+        let minimum = '{!! trans('hm::checkin.minimum') !!}';
+        let maximum = '{!! trans('hm::checkin.maximum') !!}';
+        let minimum_message = '{!! trans('hm::checkin.minimum_message') !!}';
+        let maximum_message = '{!! trans('hm::checkin.maximum_message') !!}';
+        let room = '{!! trans('hm::checkin.room') !!}';
+        let wrong_selection = '{!! trans('hm::checkin.wrong_selection') !!}';
+        let at_least = '{!! trans('hm::checkin.at_least') !!}';
+        let at_most = '{!! trans('hm::checkin.at_most') !!}';
+        let room_selection = '{!! trans('hm::checkin.room_selection') !!}';
+        let the = '{!! trans('hm::checkin.the') !!}';
+        let current_lang = '{!!  Lang::locale()  !!}';
+        // end by sumon
+
+
+
         // select2 placeholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
 

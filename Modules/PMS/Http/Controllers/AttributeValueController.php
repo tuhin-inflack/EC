@@ -47,13 +47,13 @@ class AttributeValueController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
+     * @param StoreAttributeValueRequest $request
      * @param Attribute $attribute
      * @return array
      */
     public function store(StoreAttributeValueRequest $request, Attribute $attribute)
     {
-        $this->attributeValueService->save($request->all());
+        $this->attributeValueService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
 
         return redirect()->back();

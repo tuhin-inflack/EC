@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 Route::prefix('rms')->group(function() {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
-    Route::prefix('research')->group(function (){
+    Route::prefix('researches')->group(function (){
         Route::get('/','ResearchController@index')->name('research.index');
         Route::get('/create','ResearchController@create')->name('research.create');
         Route::post('/','ResearchController@store')->name('research.store');
-        Route::get('show/{research}','ResearchController@show')->name('research.show');
+        Route::get('{research}/show','ResearchController@show')->name('research.show');
     });
 
     Route::prefix('research-requests')->group(function () {
