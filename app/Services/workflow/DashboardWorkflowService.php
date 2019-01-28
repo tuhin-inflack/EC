@@ -9,10 +9,13 @@
 namespace App\Services\workflow;
 
 
+use App\Models\DashboardItemSummary;
+
 class DashboardWorkflowService
 {
-    public function getDashboardWorkflowItems()
+    public function getDashboardWorkflowItems($feature) : DashboardItemSummary
     {
-
+        $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
+        return $itemGenerator->generateItems();
     }
 }

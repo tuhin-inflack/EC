@@ -21,17 +21,17 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
-{{--                                {!! print_r($proposal->task->toArray()) !!}--}}
                                 <div id="GanttChartDIV"></div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <h5>Last Submission Date: {{date('d-M-Y', strtotime($proposal->end_date))}}</h5>
-                                <h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>
-                                <h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>
-                            </div>
-                        </div>
+                        {{-- {!! print_r($proposal->task->toArray()) !!}--}}
+                        {{--<div class="row">--}}
+                            {{--<div class="col-12">--}}
+                                {{--<h5>Last Submission Date: {{date('d-M-Y', strtotime($proposal->end_date))}}</h5>--}}
+                                {{--<h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>--}}
+                                {{--<h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
                     </div>
                 </div>
             </div>
@@ -180,13 +180,49 @@
 
 
 @push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
 @endpush
 
 @push('page-js')
+    <script type="text/javascript">
+        let mountElement = document.getElementById('GanttChartDIV');
+        let presentedFormat = "week";
+        let jsonData = [
+            {
+                "pID": 11,
+                "pName": "Chart Object",
+                "pStart": "2018-08-09",
+                "pEnd": "2018-09-15",
+                "pClass": "gtaskblue",
+                "pLink": "",
+                // "pMile": 0,
+                // "pRes": "Henrique",
+                // "pComp": 100,
+                // "pGroup": 0,
+                // "pParent": 0,
+                "pOpen": 1,
+                // "pDepend": "",
+                "pNotes": "SDisas ascas cacasc",
+            },
+            {
+                "pID": 12,
+                "pName": "Task Objects",
+                "pStart": "2018-08-10",
+                "pEnd": "2018-09-20",
+                "pClass": "gtaskgreen",
+                "pLink": "",
+                // "pMile": 0,
+                // "pRes": "Henrique",
+                // "pComp": 40,
+                // "pGroup": 0,
+                // "pParent": 0,
+                "pOpen": 1,
+                // "pDepend": "",
+                "pNotes": "Disas ascas cacasc",
+            }
+        ];
+    </script>
     <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/chart.js') }}" type="text/javascript"></script>
-    <script type="text/javascript">
 
-    </script>
 @endpush

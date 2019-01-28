@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Services;
 
+use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
@@ -20,11 +21,13 @@ class ResearchProposalSubmissionService
     use FileTrait;
 
     private $researchProposalSubmissionRepository;
+    private $workflowService;
 
-    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository)
+    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService)
     {
         /** @var ResearchProposalSubmissionRepository $researchProposalSubmissionRepository */
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
+        $this->workflowService = $workflowService;
 
         $this->setActionRepository($researchProposalSubmissionRepository);
     }
@@ -34,23 +37,29 @@ class ResearchProposalSubmissionService
             return DB::transaction(function () use ($data) {
             $data['status'] = 'pending';
 
-            $proposalSubmission= $this->save($data);
+                $proposalSubmission = $this->save($data);
 
-            foreach ($data['attachments'] as $file) {
-                $fileName = $file->getClientOriginalName();
-                $path = $this->upload($file, 'research-submissions');
+                foreach ($data['attachments'] as $file) {
+                    $fileName = $file->getClientOriginalName();
+                    $path = $this->upload($file, 'research-submissions');
 
-                $file = new ResearchProposalSubmissionAttachment([
-                    'attachments' => $path,
-                    'submissions_id' => $proposalSubmission->id,
-                    'file_name' => $fileName
-                ]);
+                    $file = new ResearchProposalSubmissionAttachment([
+                        'attachments' => $path,
+                        'submissions_id' => $proposalSubmission->id,
+                        'file_name' => $fileName
+                    ]);
 
-                $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
-            }
+                    $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
+                }
 
-            return $proposalSubmission;
-        });
+                //Save workflow
+                //TODO: Fill appropriate data instead of static data
+                $this->workflowService->createWorkflow(['rule_master_id' => 1, 'feature_id' => 1,
+                    'ref_table_id' => $proposalSubmission->id, 'message' => 'Please review the item']);
+
+                return $proposalSubmission;
+            });
+        }
     }
 
     public function getAll()

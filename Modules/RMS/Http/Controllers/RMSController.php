@@ -2,19 +2,33 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class RMSController extends Controller
 {
+    private $dashboardService;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param DashboardWorkflowService $dashboardService
+     */
+    public function __construct(DashboardWorkflowService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('rms::index');
+        //TODO:get the feature name from config file
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
+        return view('rms::index', compact('pendingTasks'));
     }
 
     /**
