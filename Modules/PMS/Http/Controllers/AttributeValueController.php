@@ -28,11 +28,14 @@ class AttributeValueController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Attribute $attribute
      * @return Response
      */
-    public function index()
+    public function index(Attribute $attribute)
     {
-        return view('pms::index');
+        $attributeValues = $attribute->values;
+
+        return view('pms::attribute-value.index', compact('attributeValues'));
     }
 
     /**
@@ -57,40 +60,5 @@ class AttributeValueController extends Controller
         Session::flash('success', trans('labels.save_success'));
 
         return redirect()->back();
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('pms::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('pms::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
     }
 }
