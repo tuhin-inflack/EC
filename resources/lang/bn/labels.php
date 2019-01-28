@@ -9,6 +9,7 @@ return [
     'information' => 'তথ্য',
     'date' => 'তারিখ',
     'amount' => 'পরিমাণ',
+    'paid_amount' => 'পরিশোধিত টাকার পরিমান',
     'remarks' => 'মন্তব্য',
     'name' => 'নাম',
     'short_name' => 'সংক্ষিপ্ত নাম',

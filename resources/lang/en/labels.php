@@ -9,6 +9,7 @@ return [
     'information' => 'Information',
     'date' => 'Date',
     'amount' => 'Amount',
+    'paid_amount' => 'Paid Amount',
     'name' => 'Name',
     'short_name' => 'Short Name',
     'first_name' => 'First Name',
