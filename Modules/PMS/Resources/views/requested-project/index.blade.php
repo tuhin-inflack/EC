@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'All Project Proposal Request ')
+@section('title', trans('pms::project_proposal.invited_project_request'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('pms::project_proposal.requested_project_project_list')}}</h4>
+                        <h4 class="card-title">{{trans('pms::project_proposal.invited_project_project_list')}}</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">

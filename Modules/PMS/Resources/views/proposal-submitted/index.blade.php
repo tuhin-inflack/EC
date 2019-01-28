@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'All Project Proposal Request ')
+@section('title', trans('pms::project_proposal.received_proposal'))
 
 @section('content')
     <section id="user-list">

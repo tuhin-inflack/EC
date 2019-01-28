@@ -28,19 +28,26 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <iframe src="{{ asset($filePath) }}" width="100%" height="500px"></iframe>
+                                    <ul>
+                                        @foreach($research->researchProposalSubmissionAttachments as $file)
+                                            <li><a href="{{url('rms/research-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
+                                        @endforeach
+                                    </ul>
+                                    <ul>
+                                        <li><b><a href="{{url('rms/research-proposal-submission/attachment-download/'.$research->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b></li>
+                                    </ul>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <label class="black">Proposal Title: </label>
-                                            <p class="card-text">Lorem ipsum dolor sit amet</p>
+                                            <p class="card-text">{{ $research->title }}</p>
 
                                             <label class="black">Submission Date: </label>
-                                            <p> 21/05/2018 </p>
+                                            <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
 
                                             <label class="black">Submitted by: </label>
-                                            <p> Faculty Member </p>
+                                            <p> {{ $research->submittedBy->name }} </p>
                                         </div>
                                         <div class="col-md-12">
                                             <hr/>
@@ -85,7 +92,7 @@
                         <div class="card-footer">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <a class="btn btn-warning mr-1" role="button" href="{{ route('bill.index') }}">
+                                    <a class="btn btn-warning mr-1" role="button" href="{{ route('research-proposal-submission.index') }}">
                                         <i class="ft-x"></i> Cancel
                                     </a>
                                 </div>
