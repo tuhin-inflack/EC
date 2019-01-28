@@ -10,6 +10,7 @@ return [
     'attachment' => 'ফাইল সংযুক্ত করুন',
     'project_request_list' => 'প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'project_request' => 'প্রকল্প প্রস্তাব অনুরোধ',
+    'project_request_details' => 'প্রকল্প প্রস্তাব অনুরোধ সম্পর্কিত বিস্তারিত',
     'new_proposal_request' => 'নতুন প্রস্তাব অনুরোধ',
     'attached_file' => 'সংযুক্ত ফাইল',
     'requested_project_project' => 'প্রকল্প প্রস্তাব অনুরোধ',
@@ -39,6 +40,8 @@ return [
     'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
     'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
+    'receiver' => 'গ্রাহক',
+    'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',
 
 ];
 

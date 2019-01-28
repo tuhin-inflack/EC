@@ -2,6 +2,7 @@
 
 namespace Modules\HM\Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HM\Entities\BookingGuestInfo;
@@ -105,8 +106,8 @@ class CheckInTableSeeder extends Seeder
         return [
             [
                 'room_bookings' => [
-                    "start_date" => date('Y-m-d'),
-                    "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
+                    "start_date" => Carbon::now(),
+                    "end_date" => Carbon::now()->addDays(rand(1, 7)),
                     "shortcode" => time(),
                     "booking_type" => "general",
                     "status" => "approved",
@@ -125,8 +126,8 @@ class CheckInTableSeeder extends Seeder
             ],
             [
                 'room_bookings' => [
-                    "start_date" => date('Y-m-d'),
-                    "end_date" => date('Y-') . date('m-') . (date('d') + rand(1, 5)),
+                    "start_date" => Carbon::now(),
+                    "end_date" => Carbon::now()->addDays(rand(1, 7)),
                     "shortcode" => time() + 2,
                     "booking_type" => "general",
                     "status" => "approved",

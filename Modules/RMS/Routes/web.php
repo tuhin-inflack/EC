@@ -28,6 +28,8 @@ Route::prefix('rms')->group(function() {
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
         Route::post('/','ResearchRequestController@store')->name('research-request.store');
         Route::get('attachment-download/{researchRequest}','ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
+        Route::get('file-download/{researchRequestAttachment}','ResearchRequestController@fileDownload')->name('research-request.file-download');
+        Route::get('{researchRequest}/show','ResearchRequestController@show')->name('research-request.show');
     });
 
     Route::prefix('research-proposal-submission')->group(function(){

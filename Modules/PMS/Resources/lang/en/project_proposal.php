@@ -10,6 +10,7 @@ return [
     'attachment' => 'File Attach',
     'project_request_list' => 'List of Project Proposal Request',
     'project_request' => 'Project Proposal Request',
+    'project_request_details' => 'Project Proposal Request Details',
     'new_proposal_request' => 'New Proposal Request',
     'attached_file' => 'Attachment File',
     'requested_project_project' => 'Requested Project Proposal',
@@ -39,5 +40,7 @@ return [
     'project_create_form' => 'Project Creation Form',
     'pending' => 'Pending',
     'project_details' => 'Project Details',
+    'receiver' => 'Receiver',
+    'download_all_attachments' => 'Download all Attachments',
 
 ];
