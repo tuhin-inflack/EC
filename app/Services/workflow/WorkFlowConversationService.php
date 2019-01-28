@@ -25,7 +25,30 @@ class WorkFlowConversationService
     public function __construct(WorkflowConversationRepository $flowConversationRepository)
     {
         $this->flowConversationRepository = $flowConversationRepository;
+        $this->setActionRepository($this->flowConversationRepository);
     }
 
+    public function closeConversation($flowMasterId, $flowDetailsId)
+    {
+        $flowConversation = $this->getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId);
+        if ($flowConversation != null) {
+            $flowConversation->status = 'CLOSED';
+            $flowConversation->update();
+        }
+    }
 
+    public function getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId)
+    {
+        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId, 'workflow_details_id' => $flowDetailsId]);
+    }
+
+    public function getActiveConversationByWorkFlow($flowMasterId)
+    {
+        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId]);
+    }
+
+    public function getActiveConversation($workFlowConversationId)
+    {
+        return $this->flowConversationRepository->findBy(['id' => $workFlowConversationId, 'status' => 'ACTIVE']);
+    }
 }
