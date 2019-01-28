@@ -2,42 +2,45 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\Organization\Organization;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Entities\ProjectProposal;
+use Modules\PMS\Services\AttributeValueService;
 
 class MonitorProjectTabularViewController extends Controller
 {
     /**
+     * @var AttributeValueService
+     */
+    private $attributeValueService;
+
+    /**
+     * MonitorProjectTabularViewController constructor.
+     * @param AttributeValueService $attributeValueService
+     */
+    public function __construct(AttributeValueService $attributeValueService)
+    {
+        $this->attributeValueService = $attributeValueService;
+    }
+
+    /**
      * Display a listing of the resource.
-     * @param ProjectProposal $projectProposal
+     * @param Organization $organization
      * @return Response
      */
-    public function index(ProjectProposal $projectProposal)
+    public function index(Organization $organization)
     {
-        $attributeIds = $projectProposal->organizations->map(function ($organization) {
-            return $organization->attributes->map(function ($attribute) {
-                return $attribute->id;
-            });
-        })->flatten();
+        $attributeIds = $organization->attributes->map(function ($attribute) {
+            return $attribute->id;
+        })->toArray();
 
-        $attributeValues = \Modules\PMS\Entities\AttributeValue::whereIn('attribute_id', $attributeIds)->get();
+        $attributeValues = $this->attributeValueService->findIn('attribute_id', $attributeIds);
 
-        $attributeValueSumsByMonth = $attributeValues->groupBy(function ($attributeValue) {
-            return \Carbon\Carbon::parse($attributeValue->date)->format('F Y');
-        })->map(function ($groupedRows) {
-            return $groupedRows->groupBy(function ($row) {
-                return $row->attribute_id;
-            })->map(function ($rows) {
-                // check for max
-                return [
-                    'total_planned_values' => $rows->sum('planned_value'),
-                    'total_achieved_values' => $rows->sum('achieved_value')
-                ];
-            });
-        });
+        $attributeValueSumsByMonth = $this->attributeValueService->getAttributeValuesSumByMonth($attributeValues);
 
-        return view('pms::project.monitor.tabular-view', compact('projectProposal', 'attributeValueSumsByMonth'));
+        return view('attribute-value.tabular-view', compact('organization', 'attributeValueSumsByMonth'));
     }
 }
