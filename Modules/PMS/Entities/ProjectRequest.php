@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectRequest extends Model
 {
-    protected $fillable = ['send_to','end_date','message','status'];
+    protected $fillable = ['title','end_date','remarks', 'status'];
     protected $table = 'project_requests';
 
-    public function projectRequestImages()
+    public function projectRequestAttachments()
     {
-        return $this->hasMany(ProjectRequestImage::class,'request_id','id');
+        return $this->hasMany(ProjectRequestAttachment::class, 'project_request_id', 'id');
+    }
+
+    public function projectRequestReceivers()
+    {
+        return $this->hasMany(ProjectRequestReceiver::class, 'project_request_id', 'id');
     }
 }

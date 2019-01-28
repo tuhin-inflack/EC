@@ -14,9 +14,10 @@ class CreateProjectRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'send_to' => 'required',
-            'end_date' => 'required',
-            'message' => 'max:200',
+            'end_date' => 'date_format:"j F, Y"|required',
+            'title' => 'required|max:100',
+            'remarks' => 'nullable|max:5000',
+            'receiver' => 'required',
             'attachment.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
         ];
     }

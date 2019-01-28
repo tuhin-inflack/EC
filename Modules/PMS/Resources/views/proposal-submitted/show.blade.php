@@ -20,22 +20,19 @@
                 <div class="card-content collapse show">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
-                                {{--<h5>Last Submission Date: {{date('d-M-Y', strtotime($projectRequest->end_date))}}</h5>--}}
+                            <div class="col-12">
+{{--                                {!! print_r($proposal->task->toArray()) !!}--}}
+                                <div id="GanttChartDIV"></div>
                             </div>
-
                         </div>
-                        <hr>
                         <div class="row">
                             <div class="col-12">
-                                <strong>@lang('pms::project_proposal.project_title'):</strong> {{ $proposal->title }}
-                            </div>
-                            <div class="col-12">
-                                <strong>  @lang('pms::project_proposal.remarks') :  </strong>{{  $proposal->remarks }}
+                                <h5>Last Submission Date: {{date('d-M-Y', strtotime($proposal->end_date))}}</h5>
+                                <h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>
+                                <h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -180,3 +177,16 @@
         </div>
     </section>
 @endsection
+
+
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}">
+@endpush
+
+@push('page-js')
+    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/chart.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+
+    </script>
+@endpush

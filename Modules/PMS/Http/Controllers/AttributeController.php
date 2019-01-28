@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\OrganizationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -10,7 +11,7 @@ use Modules\PMS\Entities\Attribute;
 use Modules\PMS\Http\Requests\StoreAttributeRequest;
 use Modules\PMS\Http\Requests\UpdateAttributeRequest;
 use Modules\PMS\Services\AttributeService;
-use Modules\PMS\Services\OrganizationService;
+
 
 class AttributeController extends Controller
 {

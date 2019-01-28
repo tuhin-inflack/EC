@@ -16,6 +16,9 @@ Route::prefix('pms')->group(function () {
 
     Route::prefix('project')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project.index');
+        Route::get('/create', 'ProjectController@create')->name('project.create');
+        Route::post('/', 'ProjectController@store')->name('project.store');
+        Route::get('show/{project}', 'ProjectController@show')->name('project.show');
     });
 
     Route::prefix('project-requests')->group(function () {
@@ -47,6 +50,10 @@ Route::prefix('pms')->group(function () {
             Route::post('/store/{projectId}', 'ProjectMonthlyUpdateController@store')->name('project-proposal-submitted.store-monthly-update');
         });
     });
+
+    Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
+    Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
+    Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('organization.add-organization');
@@ -81,6 +88,5 @@ Route::prefix('pms')->group(function () {
         // values
         Route::get('{attribute}/values/create', 'AttributeValueController@create')->name('attribute-values.create');
         Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
-
     });
 });

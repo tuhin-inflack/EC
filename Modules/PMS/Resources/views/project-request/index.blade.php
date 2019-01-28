@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'All Project Proposal Request ')
+@section('title', trans('pms::project_proposal.project_request_list'))
 
 @section('content')
     <section id="role-list">
@@ -11,7 +11,7 @@
 
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{trans('pms::project_proposal.new_proposal_request')}}</a>
+                                        class="ft-plus white"></i> @lang('pms::project_proposal.new_proposal_request')</a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
