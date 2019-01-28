@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::attribute.attribute_list'))
+@section('title', trans('pms::attribute.attribute_value_list'))
 
 @section('content')
     <section>
@@ -7,10 +7,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::attribute.attribute_value_list')</h4>
+                        <h4 class="card-title">@lang('pms::attribute.attribute_value_list') - {{ $attribute->organization->name }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
+                                <li><a href="{{ route('attribute-values.create', $attribute->id) }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> @lang('pms::attribute.enter_value')</a></li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -31,7 +32,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($attributeValues as $attributeValue)
+                                    @foreach($attribute->values as $attributeValue)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ \Carbon\Carbon::parse($attributeValue->date)->format('d/m/Y') }}</td>

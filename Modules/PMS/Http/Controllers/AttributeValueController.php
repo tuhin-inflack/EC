@@ -33,9 +33,7 @@ class AttributeValueController extends Controller
      */
     public function index(Attribute $attribute)
     {
-        $attributeValues = $attribute->values;
-
-        return view('pms::attribute-value.index', compact('attributeValues'));
+        return view('pms::attribute-value.index', compact('attribute'));
     }
 
     /**
