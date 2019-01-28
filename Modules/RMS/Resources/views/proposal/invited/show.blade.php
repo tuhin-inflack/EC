@@ -49,7 +49,7 @@
                                 </a>
                             @else
                                 <a href="{{route('research-proposal-submission.create',$researchRequest->id)}}" class="btn btn-primary mr-1">
-                                    <i class="ft-plus white"></i> {{ trans('rms::research_proposal.research_proposal_submission') }}
+                                    <i class="ft-plus white"></i> @lang('rms::research_proposal.research_proposal_submission')
                                 </a>
                             @endif
 

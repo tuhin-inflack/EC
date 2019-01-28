@@ -9,9 +9,13 @@
 namespace App\Services\workflow;
 
 
+use App\Entities\User;
 use App\Entities\workflow\WorkflowDetail;
 use App\Entities\workflow\WorkflowMaster;
 use App\Entities\workflow\WorkflowRuleMaster;
+use App\Repositories\workflow\WorkflowConversationRepository;
+use App\Repositories\workflow\WorkflowDetailRepository;
+use App\Repositories\workflow\WorkflowMasterRepository;
 use App\Repositories\workflow\WorkflowRuleMasterRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Auth;
@@ -22,31 +26,33 @@ class WorkflowService
 
     private $workFlowMasterRepository;
     private $workflowRuleMasterRepository;
-    private $flowConversationService;
+    private $flowConversationRepository;
+    private $workflowDetailRepository;
 
     /**
      * WorkflowService constructor.
      * @param WorkFlowMasterRepository $workFlowMasterRepository
      * @param WorkflowRuleMasterRepository $workflowRuleMasterRepository
-     * @param WorkFlowConversationService $flowConversationService
+     * @param WorkflowConversationRepository $flowConversationRepository
      */
     public function __construct(WorkFlowMasterRepository $workFlowMasterRepository, WorkflowRuleMasterRepository $workflowRuleMasterRepository,
-                                WorkFlowConversationService $flowConversationService)
+                                WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository)
     {
         $this->workFlowMasterRepository = $workFlowMasterRepository;
         $this->workflowRuleMasterRepository = $workflowRuleMasterRepository;
-        $this->flowConversationService = $flowConversationService;
+        $this->flowConversationRepository = $flowConversationRepository;
         $this->setActionRepository($workflowRuleMasterRepository);
+        $this->workflowDetailRepository = $workflowDetailRepository;
     }
 
     public function createWorkflow($data)
     {
         $ruleMaster = $this->workflowRuleMasterRepository->findOne($data['rule_master_id']);
-        $workflowMaster = $this->workflowRuleMasterRepository->save(['feature_id' => $data['feature_id'], 'rule_master_id' => $ruleMaster->id,
-            'ref_table_id' => $data['ref_table_id'], 'status' => 'PENDING', 'initiator_id' => Auth::user()->id]);
-        $workflowDetails = $this->getWorkflowDetails($workflowMaster);
-        $workflowMaster->workflowDetails()->saveMany([$workflowDetails]);
-        $this->flowConversationService->save(['workflow_master_id' => $workflowMaster->id, $workflowMaster->workflowDetails[0]->id,
+        $workflowMaster = $this->workFlowMasterRepository->save(['feature_id' => $data['feature_id'], 'rule_master_id' => $ruleMaster->id,
+            'ref_table_id' => $data['ref_table_id'], 'status' => 1, 'initiator_id' => Auth::user()->id]);
+        $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
+        $workflowMaster->workflowDetails()->saveMany($workflowDetails);
+        $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
             'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => 'ACTIVE']);
     }
 
@@ -57,10 +63,10 @@ class WorkflowService
         $workflowRuleDetailList = $workflowRuleMaster->ruleDetails;
 
         foreach ($workflowRuleDetailList as $ruleDetail) {
-            for ($i = 0; $i <= $ruleDetail->number_of_responder; $i++) {
+            for ($i = 0; $i < $ruleDetail->number_of_responder; $i++) {
                 $workflowDetail = new WorkflowDetail(['workflow_master_id' => $workflowMaster->id, 'rule_detail_id' => $ruleDetail->id,
-                    'designation_id' => $ruleDetail->designation_id, 'notification_order' => $notificationOrder,
-                    'status' => $notificationOrder == 1 ? 'INITIATED' : 'PENDING']);
+                    'designation_id' => $ruleDetail->designation_id, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
+                    'is_group_notification' => $ruleDetail->is_group_notification, 'status' => $notificationOrder == 1 ? 'PENDING' : 'INITIATED']);
                 array_push($workflowDetailList, $workflowDetail);
                 $notificationOrder++;
             }
@@ -70,9 +76,14 @@ class WorkflowService
 
     }
 
-    public function getWorkFlowNotification($userId, $designationId)
+    public function getWorkFlowNotification($userId, array $designationIds)
     {
-        $workFlowMasterList = $this->workFlowMasterRepository->getByDesignationAndUser($userId, $designationId);
+        $workFlowMasterList = $this->workFlowMasterRepository->getByDesignationAndUser($userId, $designationIds);
         return $workFlowMasterList;
+    }
+
+    public function getWorkflowDetailsByUser($userId, array $designationIds)
+    {
+        return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds);
     }
 }
