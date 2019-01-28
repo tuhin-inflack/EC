@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Services\ProjectProposalService;
+use Modules\PMS\Http\Requests\MontlhyUpdateRequest;
 
 class ProjectMonthlyUpdateController extends Controller
 {
@@ -48,9 +49,23 @@ class ProjectMonthlyUpdateController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store($projectId, Request $request)
+    public function store($projectId, MontlhyUpdateRequest $request)
     {
+        $request->merge(['update_for_id'=> $projectId, 'type' => 'project']);
 
+        $saveData = $this->projectResearchUpdateService->save($request->all());
+        dd($saveData);
+        $savedTaskId = $saveData->getAttribute('id');
+        if($savedTaskId && $request->hasFile('attachments'))
+        {
+            $files = $request->file('attachments');
+            $saveAttachments = $this->projectResearchUpdateService->saveAttachments($savedTaskId, $files);
+        }
+
+        $msg = ($savedTaskId)? __('labels.save_success') : __('labels.save_fail');
+        Session::flash('message', $msg);
+
+        return back();
     }
 
     /**
