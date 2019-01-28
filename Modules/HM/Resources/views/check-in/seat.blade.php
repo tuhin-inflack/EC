@@ -62,7 +62,8 @@
                                 </div>
                             </div>
                             <hr/>
-                            <ul class="nav nav-pills nav-pills-rounded chart-action float-left btn-group" role="group">
+                            <ul class="nav nav-pills nav-pills-rounded chart-action float-left btn-group mb-1"
+                                role="group">
                                 @foreach($hostels as $hostel)
                                     <li class="nav-item">
                                         <a data-hosid="{{$hostel->id}}"
@@ -70,11 +71,13 @@
                                            data-toggle="tab" href=".hostel-{{ $hostel->id }}">{{ $hostel->name }}</a>
                                     </li>
                                 @endforeach
+
                             </ul>
-                            <div class="widget-content tab-content bg-white p-20">
+
+                            <div class="widget-content tab-content bg-white p-20 mt-5">
                                 @foreach($hostels as $hostel)
                                     <div
-                                        class="{{ $selectedHostelId == $hostel->id ? 'active' : '' }} tab-pane hostel-{{ $hostel->id }}">
+                                            class="{{ $selectedHostelId == $hostel->id ? 'active' : '' }} tab-pane hostel-{{ $hostel->id }}">
                                         <div class="table table-bordered text-center overflow-auto">
                                             <table>
                                                 <tbody>
@@ -110,6 +113,24 @@
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+
+                <div class="container" id="showAssignedGuest">
+                <br/>
+                    <p>The following guest already assigned into this room</p>
+                    <table class="table" id="guestInfo">
+                        <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Address</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+
+
                 <div class="modal-header">
                     <h5 class="modal-title" id="selectionModalLabel">@lang('hm::checkin.room_allocation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -138,6 +159,7 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('labels.cancel')</button>
                 </div>
                 {!! Form::close() !!}
+
             </div>
         </div>
     </div>
@@ -149,6 +171,29 @@
             var td = $(event.relatedTarget);// td that triggered the modal
             var roomId = td.data('roomid');
             $('#room-id').val(roomId);
+
+            // displaying already assigned member
+            $.ajax({
+                type: 'GET',
+                url: '/hm/rooms/assigned-guest/' + roomId + '/' + '{{$roomCheckinDetails->id}}',
+                data: '_token = @php echo csrf_token() @endphp',
+                success: function (data) {
+                    $('#guestInfo').empty();
+                    guestInfo = JSON.parse(data);
+                    if (guestInfo.length > 0) {
+
+                        var row = '';
+                        $.each(guestInfo, function (i, item) {
+                            row += '<tr><td>' + item.first_name + '</td><td>' + item.last_name + '</td><td>' + item.address + '</td></tr>';
+                        });
+                        $('#guestInfo').append(row);
+                        $('#showAssignedGuest').show();
+                    } else {
+                        $('#showAssignedGuest').hide();
+                    }
+
+                }
+            });
         });
         $('.nav-link').on('click', function () {
             $('#selected-hostel-id').val($(this).data('hosid'));

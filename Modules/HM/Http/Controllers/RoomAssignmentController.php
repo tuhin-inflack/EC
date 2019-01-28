@@ -54,7 +54,7 @@ class RoomAssignmentController extends Controller
         $roomDetails = [];
         $hostels = $this->hostelService->getHostelByWithRooms($hostelIds, $roomIds);
 
-        foreach ($hostels as $hostel){
+        foreach ($hostels as $hostel) {
             $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
         }
 
@@ -62,10 +62,12 @@ class RoomAssignmentController extends Controller
 
         $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();
         $guests = $this->roomBookingService->getBookingGuestInfo($roomCheckinDetails->id, 'booked');
+        $alreadyAssignedGuest = $this->roomBookingService->getBookingGuestInfo($roomCheckinDetails->id, 'checkin');
+
         $guests->prepend(__('hm::checkin.select_guest'), '');
         $today = Carbon::now()->format('d M, Y');
         return view('hm::check-in.seat', compact('hostels', 'roomDetails', 'roomCheckinDetails', 'guests',
-            'allRoomsCountBasedOnStatus', 'today', 'selectedHostelId'));
+            'allRoomsCountBasedOnStatus', 'today', 'selectedHostelId', 'alreadyAssignedGuest'));
     }
 
     public function store(Request $request)
@@ -74,7 +76,7 @@ class RoomAssignmentController extends Controller
         $data['checkin_date'] = new \DateTime();
         $this->checkinService->store($data);
         Session::flash('success', __('hm::checkin.room_allocation_success'));
-        return redirect(route('room.assign', ['selectedHostelId'=>$request['selected_hostel_id'], 'roomCheckinId'=>$request['checkin_id']]));
+        return redirect(route('room.assign', ['selectedHostelId' => $request['selected_hostel_id'], 'roomCheckinId' => $request['checkin_id']]));
     }
 
     public function getHostelList(Request $request)
@@ -90,5 +92,12 @@ class RoomAssignmentController extends Controller
         }
         $hostels = $this->hostelService->getHostelByBookedRooms($hostelIds);
         return view('hm::check-in.hostel', compact('hostels', 'roomCheckinId'));
+    }
+
+    public function getAlreadyAssignedGuest($roomId, $checkinId)
+    {
+        $guestList = $this->checkinService->getAlreadyCheckinGuestInfo($roomId, $checkinId);
+        echo json_encode($guestList);
+
     }
 }

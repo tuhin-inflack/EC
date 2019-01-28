@@ -31,4 +31,10 @@ class CheckinDetail extends Model
     {
         return $this->hasOne(BookingGuestInfo::class);
     }
+
+    public function checkinGuest()
+    {
+        return $this->belongsTo(BookingGuestInfo::class,  'booking_guest_info_id', 'id');
+    }
+
 }
