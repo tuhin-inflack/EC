@@ -53,4 +53,5 @@ return [
     'research_create_form' => 'Create Research Form',
     'pending' => 'Pending',
     'research_details' => 'Research Details',
+    'research_request_details' => 'Research Proposal Request Details',
 ];

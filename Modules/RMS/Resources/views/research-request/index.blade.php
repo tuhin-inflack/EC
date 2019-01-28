@@ -21,25 +21,38 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">{{ trans('labels.serial') }}</th>
-                                        <th scope="col">{{ trans('labels.title') }}</th>
-                                        <th scope="col">{{ trans('labels.remarks') }}</th>
-                                        <th scope="col">{{trans('rms::research_proposal.attached_file')}}</th>
-                                        <th scope="col">{{ trans('rms::research_proposal.last_sub_date') }}</th>
-                                        <th scope="col">{{ trans('labels.status') }}</th>
-                                        <th scope="col">{{ trans('labels.created_at') }}</th>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('labels.remarks')</th>
+                                        <th scope="col">@lang('rms::research_proposal.attached_file')</th>
+                                        <th scope="col">@lang('rms::research_proposal.last_sub_date') </th>
+                                        <th scope="col">@lang('labels.status')</th>
+                                        <th scope="col">@lang('labels.created_at')</th>
+                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($research_requests as $research_request)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $research_request->title }}</td>
-                                            <td>{{ $research_request->remarks }}</td>
+                                            <td><a href="{{ route('research-request.show', $research_request->id) }}">{{ $research_request->title }}</a></td>
+                                            <td>{{ substr($research_request->remarks, 0,100) }} {{ strlen($research_request->remarks)>100 ? "..." : "" }}</td>
                                             <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
                                             <td>@lang('labels.status_' . $research_request->status)</td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
+                                            <td>
+                                                <span class="dropdown">
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
+                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="{{ route('research-request.show', $research_request->id) }}"
+                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                </span>
+                                            </span>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

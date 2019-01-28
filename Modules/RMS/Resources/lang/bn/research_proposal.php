@@ -55,5 +55,6 @@ return [
     'research_create_form' => 'গবেষণা তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
     'research_details' => 'গবেষণা সম্পর্কিত বিস্তারিত',
+    'research_request_details' => 'গবেষণা প্রস্তাব অনুরোধ সম্পর্কিত বিস্তারিত',
 ];
 

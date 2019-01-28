@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchRequest;
+use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
 use Modules\RMS\Services\ResearchRequestService;
 
@@ -65,9 +67,9 @@ class ResearchRequestController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(ResearchRequest $researchRequest)
     {
-        return view('rms::show');
+        return view('rms::research-request.show', compact('researchRequest'));
     }
 
     /**
@@ -99,6 +101,12 @@ class ResearchRequestController extends Controller
     public function requestAttachmentDownload(ResearchRequest $researchRequest)
     {
         return response()->download($this->researchRequestService->getZipFilePath($researchRequest->id));
+    }
+
+    public function fileDownload(ResearchRequestAttachment $researchRequestAttachment)
+    {
+        $basePath = Storage::disk('internal')->path($researchRequestAttachment->attachments);
+        return response()->download($basePath);
     }
 
 }
