@@ -6,14 +6,18 @@ use App\Services\ProjectResearchUpdateService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Entities\ProjectProposal;
+use Modules\PMS\Services\ProjectProposalService;
 
 class ProjectMonthlyUpdateController extends Controller
 {
-    protected $projectResearchUpdateService;
+    private $projectResearchUpdateService;
+    private $projectProposalService;
 
-    public function __construct(ProjectResearchUpdateService $projectResearchUpdateService)
+    public function __construct(ProjectResearchUpdateService $projectResearchUpdateService, ProjectProposalService $projectProposalService)
     {
         $this->projectResearchUpdateService = $projectResearchUpdateService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     /**
@@ -22,17 +26,21 @@ class ProjectMonthlyUpdateController extends Controller
      */
     public function index($projectId, $monthYear = "")
     {
+        $project = $this->projectProposalService->findOne($projectId);
+        if($monthYear == "") $monthlyUpdate = ""; else $monthlyUpdate = $this->projectResearchUpdateService->getMonthlyUpdate($projectId, 'project', $monthYear);
 
-        return view('pms::index');
+        return view('pms::monthly-update.index', compact('project', 'monthlyUpdate', 'monthYear'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create($projectId)
     {
-        return view('pms::create');
+        $item = $this->projectProposalService->findOne($projectId);
+        $action = route('project-proposal-submitted.store-monthly-update', $projectId);
+        return view('pms::monthly-update.create', compact( 'item', 'action'));
     }
 
     /**
@@ -40,8 +48,9 @@ class ProjectMonthlyUpdateController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store($projectId, Request $request)
     {
+
     }
 
     /**
