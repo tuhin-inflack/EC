@@ -68,12 +68,4 @@ class AttributeController extends Controller
 
         return redirect()->route('attributes.index');
     }
-
-    public function destroy(Attribute $attribute)
-    {
-        $this->attributeService->delete($attribute->id);
-        Session::flash('message', trans('labels.delete_success'));
-
-        return redirect()->back();
-    }
 }

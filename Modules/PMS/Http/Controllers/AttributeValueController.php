@@ -7,7 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Attribute;
+use Modules\PMS\Entities\AttributeValue;
 use Modules\PMS\Http\Requests\StoreAttributeValueRequest;
+use Modules\PMS\Http\Requests\UpdateAttributeValueRequest;
 use Modules\PMS\Services\AttributeValueService;
 
 class AttributeValueController extends Controller
@@ -43,7 +45,8 @@ class AttributeValueController extends Controller
      */
     public function create(Attribute $attribute)
     {
-        return view('pms::attribute-value.create', compact('attribute'));
+        $pageType = 'create';
+        return view('pms::attribute-value.create', compact('attribute', 'pageType'));
     }
 
     /**
@@ -56,6 +59,37 @@ class AttributeValueController extends Controller
     {
         $this->attributeValueService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->back();
+    }
+
+    public function edit(Attribute $attribute, AttributeValue $attributeValue)
+    {
+        if (!$attribute->values->where('id', $attributeValue->id)->count()) {
+            abort(404);
+        }
+        $pageType = 'edit';
+
+        return view('pms::attribute-value.edit', compact('attribute', 'attributeValue', 'pageType'));
+    }
+
+    /**
+     * @param UpdateAttributeValueRequest $request
+     * @param Attribute $attribute
+     * @param AttributeValue $attributeValue
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(UpdateAttributeValueRequest $request, Attribute $attribute, AttributeValue $attributeValue)
+    {
+        if (!$attribute->values->where('id', $attributeValue->id)->count()) {
+            abort(404);
+        }
+
+        if ($this->attributeValueService->update($attributeValue, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
+        }
 
         return redirect()->back();
     }
