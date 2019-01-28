@@ -3,6 +3,7 @@
 namespace Modules\PMS\Entities;
 
 use App\Entities\Organization\Organization;
+use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectProposal extends Model
@@ -29,5 +30,10 @@ class ProjectProposal extends Model
     public function organizations()
     {
         return $this->morphToMany(Organization::class, 'organizable');
+    }
+
+    public function monthlyUpdates()
+    {
+        return $this->hasMany(ProjectResearchMonthlyUpdate::class, 'update_for_id')->where('type', 'project');
     }
 }

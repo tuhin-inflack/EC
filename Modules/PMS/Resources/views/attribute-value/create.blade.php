@@ -29,12 +29,12 @@
                                         <div class="form-group">
                                             <label for="attribute"
                                                    class="form-label required">@lang('pms::attribute.attribute_name')</label>
-                                            {!! Form::text('attribute', $attribute->name, ['class' => 'form-control', 'disabled']) !!}
+                                            {!! Form::text('attribute', $attribute->name, ['class' => 'form-control' . ($errors->has('attribute_id') ? ' is-invalid' : ''), 'disabled']) !!}
                                             {!! Form::hidden('attribute_id', $attribute->id) !!}
 
-                                            @if ($errors->has('date'))
+                                            @if ($errors->has('attribute_id'))
                                                 <span class="invalid-feedback">
-                                                    <strong>{{ $errors->first('date') }}</strong>
+                                                    <strong>{{ $errors->first('attribute_id') }}</strong>
                                                 </span>
                                             @endif
                                         </div>
@@ -45,7 +45,7 @@
                                         <div class="form-group">
                                             <label for="date"
                                                    class="form-label required">@lang('labels.date')</label>
-                                            {!! Form::date('date', \Carbon\Carbon::now(), ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
+                                            {!! Form::text('date', null, ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required']) !!}
 
                                             @if ($errors->has('date'))
                                                 <span class="invalid-feedback">
@@ -105,3 +105,40 @@
         </div>
     </div>
 @endsection
+
+@push('page-css')
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/ui/jquery-ui.min.css') }}">
+    <style>
+        .ui-datepicker-calendar {
+            display: none;
+        }
+    </style>
+@endpush
+
+@push('page-js')
+    <script src="{{ asset('theme/js/core/libraries/jquery_ui/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/ui/jquery-ui/date-pickers.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('input[name=date]').datepicker({
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'MM yy',
+                onClose: function() {
+                    var iMonth = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var iYear = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
+                },
+                beforeShow: function() {
+                    if ((selDate = $(this).val()).length > 0)
+                    {
+                        iYear = selDate.substring(selDate.length - 4, selDate.length);
+                        iMonth = jQuery.inArray(selDate.substring(0, selDate.length - 5), $(this).datepicker('option', 'monthNames'));
+                        $(this).datepicker('option', 'defaultDate', new Date(iYear, iMonth, 1));
+                        $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
