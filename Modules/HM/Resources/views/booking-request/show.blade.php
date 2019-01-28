@@ -28,7 +28,7 @@
                                     @endif
                                 @endif
 
-                                @can('admin-access')
+                                @can('admin-hm-access')
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
@@ -359,7 +359,7 @@
                                    href="{{ route('booking-requests.index') }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
-                                @can('admin-access')
+                                @can('admin-hm-access')
                                     @if($roomBooking->status == 'pending')
                                         @if($roomBooking->status != 'pending')
                                             <button class="btn btn-secondary mr-1" type="button"
