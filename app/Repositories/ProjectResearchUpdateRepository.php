@@ -9,9 +9,26 @@
 namespace App\Repositories;
 
 
-use App\Entities\ProjectResearchUpdate;
+use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
 
-class ProjectResearchUpdateRepository
+class ProjectResearchUpdateRepository extends AbstractBaseRepository
 {
-    protected $modelName = ProjectResearchUpdate::class;
+    protected $modelName = ProjectResearchMonthlyUpdate::class;
+
+    public function getMonthlyUpdate($updateForId, $type, $month, $year)
+    {
+        return $this->model->where('update_for_id', $updateForId)
+            ->where('type', $type)
+            ->where('month', $month)
+            ->where('year', $year)
+            ->first();
+    }
+
+    public function saveAttachments($monthlyUpdateId, $data)
+    {
+        $monthlyUpdate = $this->findOne($monthlyUpdateId);
+        $save = $monthlyUpdate->attachments()->create($data);
+
+        return $save->getAttribute('id');
+    }
 }

@@ -46,6 +46,7 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
             Route::get('/hostel/selection', 'RoomAssignmentController@getHostelList')->name('hostel.selection');
             Route::put('{room}/status', 'RoomStatusController@update')->name('rooms.status.update');
+            Route::get('/assigned-guest/{roomId}/{checkinId}', 'RoomAssignmentController@getAlreadyAssignedGuest');
         });
 
         Route::prefix('inventory-types')->group(function () {

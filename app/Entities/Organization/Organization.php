@@ -3,6 +3,7 @@
 namespace App\Entities\Organization;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\Attribute;
 
 class Organization extends Model
 {
@@ -17,5 +18,10 @@ class Organization extends Model
     public function projects()
     {
         return $this->morphedByMany(ProjectProposal::class, 'organizable');
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class, 'organization_id', 'id');
     }
 }

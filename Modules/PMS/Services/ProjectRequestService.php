@@ -11,8 +11,9 @@ namespace Modules\PMS\Services;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
-use Illuminate\Http\Response;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Entities\ProjectRequestAttachment;
 use Modules\PMS\Entities\ProjectRequestReceiver;
@@ -108,6 +109,23 @@ class ProjectRequestService
     public function getForwardList()
     {
         return $this->projectRequestRepository->findAll(null, ['requestForwards']);
+    }
+
+    public function getZipFilePath($projectId)
+    {
+        $projectRequest = $this->findOne($projectId);
+
+        $filePaths = $projectRequest->projectRequestAttachments->map(function ($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 
 

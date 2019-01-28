@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 Route::prefix('rms')->group(function() {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
-    Route::prefix('research')->group(function (){
+    Route::prefix('researches')->group(function (){
         Route::get('/','ResearchController@index')->name('research.index');
         Route::get('/create','ResearchController@create')->name('research.create');
         Route::post('/','ResearchController@store')->name('research.store');
-        Route::get('show/{research}','ResearchController@show')->name('research.show');
+        Route::get('{research}/show','ResearchController@show')->name('research.show');
     });
 
     Route::prefix('research-requests')->group(function () {
@@ -28,6 +28,8 @@ Route::prefix('rms')->group(function() {
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
         Route::post('/','ResearchRequestController@store')->name('research-request.store');
         Route::get('attachment-download/{researchRequest}','ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
+        Route::get('file-download/{researchRequestAttachment}','ResearchRequestController@fileDownload')->name('research-request.file-download');
+        Route::get('{researchRequest}/show','ResearchRequestController@show')->name('research-request.show');
     });
 
     Route::prefix('research-proposal-submission')->group(function(){

@@ -34,7 +34,7 @@
                                             <td>{{ $attribute->organization->name }}</td>
                                             <td>{{ $attribute->name }}</td>
                                             <td>{{ $attribute->unit }}</td>
-                                            <td>
+                                            <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                     aria-haspopup="true"
@@ -42,25 +42,15 @@
                                                         class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2"
                                                     class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{ route('attribute-values.create', $attribute->id) }}"
+                                                <a href="{{ route('attribute-values.index', $attribute->id) }}"
                                                    class="dropdown-item"><i
-                                                            class="la la-keyboard-o"></i>@lang('pms::attribute.enter_value')</a>
+                                                            class="la la-list"></i>@lang('labels.details')</a>
+                                                  <a href="{{ route('attribute-values.create', $attribute->id) }}"
+                                                     class="dropdown-item"><i
+                                                              class="la la-keyboard-o"></i>@lang('pms::attribute.enter_value')</a>
                                                 <a href="{{ route('attributes.edit', $attribute->id) }}"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
-                                                <div class="dropdown-divider"></div>
-                                                  {!! Form::open([
-                                                  'method'=>'DELETE',
-                                                  'route' => [ 'attributes.destroy', $attribute->id],
-                                                  'style' => 'display:inline'
-                                                  ]) !!}
-                                                  {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                  'type' => 'submit',
-                                                  'class' => 'dropdown-item',
-                                                  'title' => 'Delete the role',
-                                                  'onclick'=>'return confirm(" ' . trans('labels.confirm_delete') . ' ")',
-                                                  )) !!}
-                                                  {!! Form::close() !!}
                                               </span>
                                             </span>
                                             </td>

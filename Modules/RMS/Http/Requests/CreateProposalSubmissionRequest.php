@@ -15,9 +15,6 @@ class CreateProposalSubmissionRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'end_date' => 'date_format:"j F, Y"|required',
-            'start_date' => 'date_format:"j F, Y"|required',
-            'description' => 'required',
             'attachments.*' => 'required|mimes:doc,pdf,docx,csv,xlsx,xls|max:3072'
         ];
     }

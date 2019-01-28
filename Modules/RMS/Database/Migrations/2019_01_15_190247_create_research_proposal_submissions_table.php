@@ -18,9 +18,6 @@ class CreateResearchProposalSubmissionsTable extends Migration
             $table->integer('research_request_id');
             $table->integer('auth_user_id');
             $table->text('title');
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
-            $table->longText('description');
             $table->string('attachments');
             $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
             $table->timestamps();
