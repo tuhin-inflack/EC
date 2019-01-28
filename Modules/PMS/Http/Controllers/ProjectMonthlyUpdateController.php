@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Http\Requests\MontlhyUpdateRequest;
+use Illuminate\Support\Facades\Session;
 
 class ProjectMonthlyUpdateController extends Controller
 {
@@ -51,17 +52,14 @@ class ProjectMonthlyUpdateController extends Controller
      */
     public function store($projectId, MontlhyUpdateRequest $request)
     {
-        $request->merge(['update_for_id'=> $projectId, 'type' => 'project']);
-
+        $request->merge(['update_for_id'=> $projectId, 'type' => 'project', 'tasks' => implode(", ", $request->input('tasks'))]);
         $saveData = $this->projectResearchUpdateService->save($request->all());
-        dd($saveData);
         $savedTaskId = $saveData->getAttribute('id');
         if($savedTaskId && $request->hasFile('attachments'))
         {
             $files = $request->file('attachments');
             $saveAttachments = $this->projectResearchUpdateService->saveAttachments($savedTaskId, $files);
         }
-
         $msg = ($savedTaskId)? __('labels.save_success') : __('labels.save_fail');
         Session::flash('message', $msg);
 
@@ -81,9 +79,13 @@ class ProjectMonthlyUpdateController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit($monthlyUpdateId)
     {
-        return view('pms::edit');
+        $monthlyUpdate = $this->projectResearchUpdateService->findOne($monthlyUpdateId);
+        $item = $monthlyUpdate->project;
+        $action = route('project-proposal-submitted.update-monthly-update', $monthlyUpdateId);
+
+        return view('pms::monthly-update.edit', compact('monthlyUpdate', 'action', 'item'));
     }
 
     /**
@@ -91,8 +93,29 @@ class ProjectMonthlyUpdateController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update($monthlyUpdateId,MontlhyUpdateRequest $request)
     {
+        $updateData = array(
+            'achievements' => $request->input('achievements'),
+            'plannings' => $request->input('plannings'),
+            'tasks' => implode(',',$request->input('tasks')),
+        );
+
+        $monthlyUpdate = $this->projectResearchUpdateService->findOrFail($monthlyUpdateId);
+        $update = $this->projectResearchUpdateService->update($monthlyUpdate, $updateData);
+
+        // Adjusting attachments
+        $deletedAttachmentIds = $request->input('deleted_attachments', array());
+        if(count($deletedAttachmentIds)) $deleteAttachments = $this->projectResearchUpdateService->deleteAttachments($deletedAttachmentIds);
+
+        if($request->hasFile('attachments'))
+        {
+            $files = $request->file('attachments');
+            $saveAttachments = $this->projectResearchUpdateService->saveAttachments($monthlyUpdateId, $files);
+        }
+        Session::flash('message', __('labels.update_success'));
+
+        return back();
     }
 
     /**

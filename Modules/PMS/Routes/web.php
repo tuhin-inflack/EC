@@ -50,6 +50,8 @@ Route::prefix('pms')->group(function () {
             Route::get('/view/{projectId}/{monthYear?}', 'ProjectMonthlyUpdateController@index')->name('project-proposal-submitted.monthly-update');
             Route::get('/create/{projectId}', 'ProjectMonthlyUpdateController@create')->name('project-proposal-submitted.create-monthly-update');
             Route::post('/store/{projectId}', 'ProjectMonthlyUpdateController@store')->name('project-proposal-submitted.store-monthly-update');
+            Route::get('/edit/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@edit')->name('project-proposal-submitted.edit-monthly-update');
+            Route::post('/update/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@update')->name('project-proposal-submitted.update-monthly-update');
         });
     });
 

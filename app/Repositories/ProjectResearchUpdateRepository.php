@@ -9,6 +9,7 @@
 namespace App\Repositories;
 
 
+use App\Entities\monthlyUpdate\MonthlyUpdateAttachment;
 use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
 
 class ProjectResearchUpdateRepository extends AbstractBaseRepository
@@ -30,5 +31,10 @@ class ProjectResearchUpdateRepository extends AbstractBaseRepository
         $save = $monthlyUpdate->attachments()->create($data);
 
         return $save->getAttribute('id');
+    }
+
+    public function deleteAttachment($attachmentId)
+    {
+        return MonthlyUpdateAttachment::where('id', $attachmentId)->delete();
     }
 }

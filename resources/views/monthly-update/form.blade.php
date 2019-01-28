@@ -12,11 +12,10 @@
         <div class="col-md-3">
             <div class="form-group">
                 <label for="task_id" class="form-label required">{{trans('monthly-update.month')}}</label>
-
                 <select name="month" class="form-control" id="month" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.month')])}}">
                     <option value=""> - {{trans('monthly-update.select_month')}} -</option>
-                    @for($i = 0; $i<12; $i++)
-                        <option value="{{$i}}">{{date('F', strtotime($i.' month'))}}</option>
+                    @for($i = 1; $i<= 12; $i++)
+                        <option value="{{$i}}">{{date('F', strtotime('2019-'.$i.'-01'))}}</option>
                     @endfor
                 </select>
                 <input type="hidden" name="update_for_id" value="{{$item->id}}">
@@ -33,7 +32,7 @@
                 <select name="year" class="form-control" id="year" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.year')])}}">
                     <option value=""> - {{trans('monthly-update.select_year')}} -</option>
 
-                    @for($i = date('Y', strtotime($item->created_at)); $i <= date('Y'); $i++)
+                    @for($i = date('Y', strtotime($item->created_at)); $i <= (date('Y')+5); $i++)
                         <option value="{{$i}}">{{$i}}</option>
                     @endfor
                 </select>
@@ -44,7 +43,7 @@
             <div class="form-group">
                 <label for="task_id" class="form-label required">{{trans('monthly-update.related_tasks')}}</label>
 
-                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" name="task_id" multiple>
+                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" name="tasks[]" multiple="multiple">
                     <option></option>
                     @foreach($item->task as $taskName)
                         <option value="{{$taskName->id}}">{{$taskName->taskName->name}}</option>
@@ -52,8 +51,8 @@
                 </select>
 
                 <div class="help-block"></div>
-                @if ($errors->has('task_id'))
-                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('task_id') }}</strong></span>
+                @if ($errors->has('tasks'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('tasks') }}</strong></span>
                 @endif
             </div>
 
