@@ -25,8 +25,6 @@ class CreateProjectResearchUpdateTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-            $table->unique(['update_for_id', 'type', 'month', 'year']);
         });
     }
 
