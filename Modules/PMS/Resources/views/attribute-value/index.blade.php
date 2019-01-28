@@ -39,7 +39,7 @@
                                             <td>{{ $attributeValue->planned_value }}</td>
                                             <td>{{ $attributeValue->achieved_value }}</td>
                                             <td class="text-center">
-                                                <a href="#" class="btn btn-sm btn-info"><span
+                                                <a href="{{ route('attribute-values.edit', [$attribute->id, $attributeValue->id]) }}" class="btn btn-sm btn-info"><span
                                                             class="ft ft-edit"></span></a>
                                             </td>
                                         </tr>
