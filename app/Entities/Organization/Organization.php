@@ -3,6 +3,7 @@
 namespace App\Entities\Organization;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\Attribute;
 
 class Organization extends Model
 {

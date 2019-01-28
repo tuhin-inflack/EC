@@ -53,7 +53,7 @@ Route::prefix('pms')->group(function () {
         });
     });
 
-    Route::get('projects/{projectProposal}/monitors/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
+    Route::get('organizations/{organization}/attribute-values/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
     Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
     Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
@@ -88,7 +88,10 @@ Route::prefix('pms')->group(function () {
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
         Route::delete('{attribute}', 'AttributeController@destroy')->name('attributes.destroy');
         // values
-        Route::get('{attribute}/values/create', 'AttributeValueController@create')->name('attribute-values.create');
-        Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
+        Route::prefix('{attribute}')->group(function () {
+            Route::get('values', 'AttributeValueController@index')->name('attribute-values.index');
+            Route::get('values/create', 'AttributeValueController@create')->name('attribute-values.create');
+            Route::post('values', 'AttributeValueController@store')->name('attribute-values.store');
+        });
     });
 });
