@@ -11,8 +11,8 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Constants\PMSConstants;
 use Modules\PMS\Entities\ProjectRequest;
+use Modules\PMS\Entities\ProjectRequestAttachment;
 use Modules\PMS\Entities\ProjectRequestForward;
-use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Http\Requests\CreateProjectRequestRequest;
 use Modules\PMS\Http\Requests\UpdateProjectRequestRequest;
 use Modules\PMS\Http\Requests\ProjectRequestForwardRequest;
@@ -57,7 +57,7 @@ class ProjectRequestController extends Controller
         $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee){
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
         }, function ($employee){
-            return $employee->email;
+            return $employee->id;
         });
         return view('pms::project-request.create', compact('employees'));
     }
@@ -69,8 +69,9 @@ class ProjectRequestController extends Controller
      */
     public function store(CreateProjectRequestRequest $request)
     {
-        $response = $this->projectRequestService->store($request->all());
-        return redirect()->route('project-request.index')->with('message', $response->getContent());
+        $this->projectRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-request.index');
     }
 
     /**
@@ -124,17 +125,13 @@ class ProjectRequestController extends Controller
 
     public function requestAttachmentDownload(ProjectRequest $projectRequest)
     {
-        $basePath = 'app/public/uploads/';
-        $filePaths = $projectRequest->projectRequestImages
-            ->map(function ($attachment) use ($basePath) {
-                return storage_path($basePath . $attachment->attachment);
-            })->toArray();
+        return response()->download($this->projectRequestService->getZipFilePath($projectRequest->id));
+    }
 
-        $fileName = time() . '.zip';
-
-        Zipper::make(storage_path($basePath . $fileName))->add($filePaths)->close();
-
-        return response()->download(storage_path($basePath . $fileName));
+    public function fileDownload(ProjectRequestAttachment $projectRequestAttachment)
+    {
+        $basePath = Storage::disk('internal')->path($projectRequestAttachment->attachments);
+        return response()->download($basePath);
     }
 
     public function statusUpdate(ProjectRequest $projectRequest)

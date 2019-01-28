@@ -16,13 +16,18 @@ Route::prefix('pms')->group(function () {
 
     Route::prefix('project')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project.index');
+        Route::get('/create', 'ProjectController@create')->name('project.create');
+        Route::post('/', 'ProjectController@store')->name('project.store');
+        Route::get('show/{project}', 'ProjectController@show')->name('project.show');
     });
 
     Route::prefix('project-requests')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
+        Route::get('{projectRequest}/show', 'ProjectRequestController@show')->name('project-request.show');
         Route::get('attachment-download/{projectRequest}', 'ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
+        Route::get('file-download/{projectRequestAttachment}','ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
     Route::prefix('requested-project-proposals')->group(function () {
@@ -39,10 +44,18 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
-        Route::get('/monthly-update/{id}', 'ReceivedProjectProposalController@monthlyUpdate')->name('project-proposal-submitted.monthly-update');
-        Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
 
+        //Routes related to Project Monthly Update
+        Route::prefix('monthly-update')->group(function (){
+            Route::get('/view/{projectId}/{monthYear?}', 'ProjectMonthlyUpdateController@index')->name('project-proposal-submitted.monthly-update');
+            Route::get('/create/{projectId}', 'ProjectMonthlyUpdateController@create')->name('project-proposal-submitted.create-monthly-update');
+            Route::post('/store/{projectId}', 'ProjectMonthlyUpdateController@store')->name('project-proposal-submitted.store-monthly-update');
+        });
     });
+
+    Route::get('organizations/{organization}/attribute-values/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
+    Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
+    Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('organization.add-organization');
@@ -73,10 +86,13 @@ Route::prefix('pms')->group(function () {
         Route::post('/', 'AttributeController@store')->name('attributes.store');
         Route::get('{attribute}/edit', 'AttributeController@edit')->name('attributes.edit');
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
-        Route::delete('{attribute}', 'AttributeController@destroy')->name('attributes.destroy');
-        // values
-        Route::get('{attribute}/values/create', 'AttributeValueController@create')->name('attribute-values.create');
-        Route::post('{attribute}/values', 'AttributeValueController@store')->name('attribute-values.store');
-
+        // attribute-values
+        Route::prefix('{attribute}')->group(function () {
+            Route::get('values', 'AttributeValueController@index')->name('attribute-values.index');
+            Route::get('values/create', 'AttributeValueController@create')->name('attribute-values.create');
+            Route::post('values', 'AttributeValueController@store')->name('attribute-values.store');
+            Route::get('values/{attributeValue}/edit', 'AttributeValueController@edit')->name('attribute-values.edit');
+            Route::put('values/{attributeValue}', 'AttributeValueController@update')->name('attribute-values.update');
+        });
     });
 });

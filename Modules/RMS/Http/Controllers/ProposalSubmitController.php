@@ -44,12 +44,8 @@ class ProposalSubmitController extends Controller
      */
     public function create(ResearchRequest $researchRequest)
     {
-        $username = Auth::user()->username;
-        $name = Auth::user()->name;
         $auth_user_id = Auth::user()->id;
-        $departmentName = $this->userService->getDepartmentName($username);
-        $designation = $this->userService->getDesignation($username);
-        return view('rms::proposal.submission.create', compact('researchRequest', 'departmentName', 'designation', 'name', 'auth_user_id'));
+        return view('rms::proposal.submission.create', compact('researchRequest', 'auth_user_id'));
     }
 
 
@@ -60,6 +56,7 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
+        return $request->all();
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research-proposal-submission.index');

@@ -290,7 +290,19 @@
                                     </figure>
                                 @endif
                             </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        <span class="text-bold-600">@lang('labels.remarks')</span>
+                                    </p>
+                                    {{ $roomBooking->note }}
+                                </div>
+                            </div>
                         </div>
+
+
 
                         @if($type == 'booking')
                             @include('hm::booking-request.partials.modal.request-forward', ['forwardToUsers' => $forwardToUsers, 'roomBookingId' => $roomBooking->id])
@@ -380,6 +392,7 @@
                             {{ Form::close() }}
                         @endif
                     </div>
+
                 </div>
             </div>
         </div>

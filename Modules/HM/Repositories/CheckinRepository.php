@@ -20,4 +20,16 @@ class CheckinRepository extends AbstractBaseRepository
     {
         return $this->model->where('room_id', $roomId)->where('checkout_date', null)->count();
     }
+
+    public function getCheckinInfoRoomIdAndCheckinId($roomId, $checkinId)
+    {
+        $assignedGuest = $this->model->whereRoomId($roomId)->whereCheckinId($checkinId)->get();
+
+        $guestList = [];
+        foreach ($assignedGuest as $key => $guest){
+            $guestList[$key] = $guest->checkinGuest->toArray();
+        }
+        return $guestList;
+
+    }
 }

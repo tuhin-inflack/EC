@@ -46,6 +46,7 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::post('/seat/assign', 'RoomAssignmentController@store')->name('room.assign');
             Route::get('/hostel/selection', 'RoomAssignmentController@getHostelList')->name('hostel.selection');
             Route::put('{room}/status', 'RoomStatusController@update')->name('rooms.status.update');
+            Route::get('/assigned-guest/{roomId}/{checkinId}', 'RoomAssignmentController@getAlreadyAssignedGuest');
         });
 
         Route::prefix('inventory-types')->group(function () {
@@ -96,7 +97,7 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::put('/{roomBooking}', 'BookingRequestController@update')->name('booking-requests.update')->middleware('can:admin-access');
             Route::get('/{roomBooking}', 'BookingRequestController@show')->name('booking-requests.show');
             Route::put('{roomBooking}/status', 'BookingRequestStatusController@update')->name('booking-request-status.edit')->middleware('can:admin-access');
-            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@update')->name('booking-request-status.approve')->middleware('can:admin-access');
+            Route::put('{roomBooking}/status/approve', 'BookingRequestStatusController@approve')->name('booking-request-status.approve')->middleware('can:admin-access');
             Route::post('forward/{roomBooking}', 'BookingRequestForwardController@store')->name('booking-requests-forward')->middleware('can:admin-access');
         });
 

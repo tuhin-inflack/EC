@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectRequestImagesTable extends Migration
+class CreateMonthlyUpdateAttachmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateProjectRequestImagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_request_images', function (Blueprint $table) {
+        Schema::create('monthly_update_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('request_id');
-            $table->string('attachment');
+            $table->unsignedInteger('monthly_update_id');
+            $table->string('file_name');
+            $table->string('file_ext', 10);
+            $table->string('file_path')->nullable();
+
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +32,6 @@ class CreateProjectRequestImagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_request_images');
+        Schema::dropIfExists('monthly_update_attachments');
     }
 }
