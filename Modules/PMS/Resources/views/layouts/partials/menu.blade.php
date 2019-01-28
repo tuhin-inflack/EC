@@ -16,20 +16,6 @@
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_request')}}</span>
                     </a>
                 </li>
-                {{--<li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
-                                                                                  data-i18n="nav.navbars.main">{{trans('pms::project_proposal.menu_title')}}</span></a>
-                    <ul class="menu-content">
-
-                        <li class="{{ is_active_route('project-request.create') }}">
-                            <a href="{{ route('project-request.create') }}">
-                                <i class="la la-plus-circle"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.create_project_proposal')}}</span>
-                            </a>
-                        </li>
-
-
-                    </ul>
-                </li>--}}
                 <li class=" nav-item"><a href="#"><i class="la la-briefcase"></i><span class="menu-title"
                                                                                        data-i18n="nav.navbars.main">{{trans('pms::project_proposal.requested_project_project')}}</span></a>
                     <ul class="menu-content">

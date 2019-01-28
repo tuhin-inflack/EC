@@ -40,6 +40,7 @@ Route::prefix('rms')->group(function() {
         Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
         Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}','ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
+        Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
     });
 
     Route::prefix('received-research-proposals')->group(function(){
