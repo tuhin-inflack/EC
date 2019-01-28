@@ -8,8 +8,6 @@
 
 namespace App\Services\workflow;
 
-
-use App\Entities\User;
 use App\Entities\workflow\WorkflowDetail;
 use App\Entities\workflow\WorkflowMaster;
 use App\Entities\workflow\WorkflowRuleMaster;
@@ -27,6 +25,7 @@ class WorkflowService
     private $workFlowMasterRepository;
     private $workflowRuleMasterRepository;
     private $flowConversationRepository;
+    private $flowConversationService;
     private $workflowDetailRepository;
 
     /**
@@ -36,13 +35,14 @@ class WorkflowService
      * @param WorkflowConversationRepository $flowConversationRepository
      */
     public function __construct(WorkFlowMasterRepository $workFlowMasterRepository, WorkflowRuleMasterRepository $workflowRuleMasterRepository,
-                                WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository)
+                                WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository, WorkFlowConversationService $flowConversationService)
     {
         $this->workFlowMasterRepository = $workFlowMasterRepository;
         $this->workflowRuleMasterRepository = $workflowRuleMasterRepository;
         $this->flowConversationRepository = $flowConversationRepository;
         $this->setActionRepository($workflowRuleMasterRepository);
         $this->workflowDetailRepository = $workflowDetailRepository;
+        $this->flowConversationService = $flowConversationService;
     }
 
     public function createWorkflow($data)
@@ -85,5 +85,90 @@ class WorkflowService
     public function getWorkflowDetailsByUser($userId, array $designationIds)
     {
         return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds);
+    }
+
+    private function isFlowCompleted($getBackStatus, $flowDetailsList)
+    {
+        return ($getBackStatus == 'NONE') || !$this->isPendingWorkFlow($flowDetailsList);
+    }
+
+    private function isPendingWorkFlow($flowDetailsList)
+    {
+        foreach ($flowDetailsList as $flowDetail) {
+            if ($flowDetail . getStatus() == 'PENDING') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function isFlowAccepted($workFlowDetails)
+    {
+        foreach ($workFlowDetails as $flowDetail) {
+            if ($flowDetail . getStatus() != 'APPROVED') {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function updateWorkFlow($workFlowId, $workFlowConversationId, $responderId, $status, $remarks, $message)
+    {
+
+        $workFlowConversation = $this->flowConversationService($workFlowConversationId);
+        $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
+
+        $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
+            $workFlowMaster->ruleMaster->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
+        if ($this->isFlowCompleted($workFlowMaster->workflowRuleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
+            if ($this->isFlowAccepted($workFlowMaster->workflowDetails)) {
+                $workFlowMaster->status = 'APPROVED';
+            } else {
+                $workFlowMaster->status = 'REJECTED';
+            }
+            //TODO: Notify respective users
+        }
+        $workFlowMaster->setUpdateDate(new \DateTime());
+        $workFlowMaster->update();
+    }
+
+    private function updateWorkFlowDetails($flowDetailsList, $responseStatus, $getBackStatus,
+                                           $responderId, $message, $workFlowDetailsId, $remarks)
+    {
+        for ($count = 0; $count < $flowDetailsList->size(); $count++) {
+            $flowDetails = $flowDetailsList[$count];
+
+            if ($flowDetails->id == $workFlowDetailsId && $flowDetails->status == 'PENDING') {
+                //set response
+                $flowDetails->status = $responseStatus;
+                $flowDetails->responder_id = 'responder_id';
+                $flowDetails->responder_remarks = $remarks;
+                $this->flowConversationService->closeConversation($flowDetails->workflowMaster->id, $flowDetails->id);
+
+                //Set next responder
+                $flowDetailsNext = null;
+                if ($responseStatus == 'APPROVED' && ($count + 1 < $flowDetailsList->size())) {
+                    $flowDetailsNext = $flowDetailsList[$count + 1];
+                    $flowDetailsNext->status('PENDING');
+                    $flowDetailsNext->setCreatorId($responderId); //Responder of previous step is the creator of next step
+                } else
+                    if ($responseStatus == 'REJECTED' && $getBackStatus != 'NONE') {
+                        if ($getBackStatus == 'INITIAL' || ($count - 1 < 0)) {
+                            $flowDetailsNext = $flowDetailsList[0];
+                        } else {
+                            $flowDetailsNext = $flowDetailsList[$count - 1];
+                            $flowDetailsNext->status = 'PENDING';
+                        }
+                    }
+                if ($flowDetailsNext != null) {
+                    $this->flowConversationService->save(['workflow_master_id' => $flowDetailsNext->workflowMaster->id,
+                        'workflow_details_id' => $flowDetailsNext->id, 'feature_id' => $flowDetailsNext->workflowMaster->feature->id,
+                        'message' => $message, 'status' => 'ACTIVE']);
+                }
+
+                $flowDetails->update();
+                break;
+            }
+        }
     }
 }
