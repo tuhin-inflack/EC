@@ -7,7 +7,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Attribute;
+use Modules\PMS\Entities\AttributeValue;
 use Modules\PMS\Http\Requests\StoreAttributeValueRequest;
+use Modules\PMS\Http\Requests\UpdateAttributeValueRequest;
 use Modules\PMS\Services\AttributeValueService;
 
 class AttributeValueController extends Controller
@@ -28,11 +30,12 @@ class AttributeValueController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Attribute $attribute
      * @return Response
      */
-    public function index()
+    public function index(Attribute $attribute)
     {
-        return view('pms::index');
+        return view('pms::attribute-value.index', compact('attribute'));
     }
 
     /**
@@ -42,7 +45,8 @@ class AttributeValueController extends Controller
      */
     public function create(Attribute $attribute)
     {
-        return view('pms::attribute-value.create', compact('attribute'));
+        $pageType = 'create';
+        return view('pms::attribute-value.create', compact('attribute', 'pageType'));
     }
 
     /**
@@ -59,38 +63,34 @@ class AttributeValueController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
+    public function edit(Attribute $attribute, AttributeValue $attributeValue)
     {
-        return view('pms::show');
+        if (!$attribute->values->where('id', $attributeValue->id)->count()) {
+            abort(404);
+        }
+        $pageType = 'edit';
+
+        return view('pms::attribute-value.edit', compact('attribute', 'attributeValue', 'pageType'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * @param UpdateAttributeValueRequest $request
+     * @param Attribute $attribute
+     * @param AttributeValue $attributeValue
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit()
+    public function update(UpdateAttributeValueRequest $request, Attribute $attribute, AttributeValue $attributeValue)
     {
-        return view('pms::edit');
-    }
+        if (!$attribute->values->where('id', $attributeValue->id)->count()) {
+            abort(404);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
+        if ($this->attributeValueService->update($attributeValue, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return redirect()->back();
     }
 }

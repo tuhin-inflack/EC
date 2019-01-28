@@ -13,35 +13,38 @@
             <div class="form-group">
                 <label for="task_id" class="form-label required">{{trans('monthly-update.month')}}</label>
 
-                <select name="month" class="form-control" id="month" >
-                    <option> - {{trans('monthly-update.select_month')}} -</option>
+                <select name="month" class="form-control" id="month" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.month')])}}">
+                    <option value=""> - {{trans('monthly-update.select_month')}} -</option>
                     @for($i = 0; $i<12; $i++)
                         <option value="{{$i}}">{{date('F', strtotime($i.' month'))}}</option>
                     @endfor
                 </select>
+                <input type="hidden" name="update_for_id" value="{{$item->id}}">
+                <input type="hidden" name="type" value="">
                 <div class="help-block"></div>
-                @if ($errors->has('task_id'))
-                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('task_id') }}</strong></span>
+                @if ($errors->has('month'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('month') }}</strong></span>
                 @endif
             </div>
         </div>
         <div class="col-md-3">
             <div class="form-group">
                 <label>{{trans('monthly-update.year')}}</label>
-                <select name="month" class="form-control" id="month" >
-                    <option> - {{trans('monthly-update.select_year')}} -</option>
+                <select name="year" class="form-control" id="year" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.year')])}}">
+                    <option value=""> - {{trans('monthly-update.select_year')}} -</option>
 
                     @for($i = date('Y', strtotime($item->created_at)); $i <= date('Y'); $i++)
                         <option value="{{$i}}">{{$i}}</option>
                     @endfor
                 </select>
+                <div class="help-block"></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="task_id" class="form-label required">{{trans('monthly-update.related_tasks')}}</label>
 
-                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" name="task_id" multiple>
+                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" name="task_id" multiple>
                     <option></option>
                     @foreach($item->task as $taskName)
                         <option value="{{$taskName->id}}">{{$taskName->taskName->name}}</option>
@@ -62,7 +65,8 @@
             <div class="form-group">
                 <label for=""
                        class="form-label">{{trans('monthly-update.plannings')}}</label>
-                <textarea name="plannings" class="form-control"></textarea>
+                <textarea name="plannings" class="form-control" data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.plannings')])}}"></textarea>
+                <div class="help-block"></div>
             </div>
         </div>
 

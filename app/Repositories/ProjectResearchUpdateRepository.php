@@ -23,4 +23,12 @@ class ProjectResearchUpdateRepository extends AbstractBaseRepository
             ->where('year', $year)
             ->first();
     }
+
+    public function saveAttachments($monthlyUpdateId, $data)
+    {
+        $monthlyUpdate = $this->findOne($monthlyUpdateId);
+        $save = $monthlyUpdate->attachments()->create($data);
+
+        return $save->getAttribute('id');
+    }
 }
