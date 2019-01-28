@@ -29,13 +29,8 @@ class ResearchProposalSubmissionService
 
     public function store(array $data)
     {
-
-        if ($data['type'] == 'draft') {
             return DB::transaction(function () use ($data) {
-            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
-            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'pending';
-            $data['type'] = $data['type'];
 
             $proposalSubmission= $this->save($data);
 
@@ -54,31 +49,6 @@ class ResearchProposalSubmissionService
 
             return $proposalSubmission;
         });
-        } else {
-            return DB::transaction(function () use ($data) {
-            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
-            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-            $data['status'] = 'pending';
-            $data['type'] = $data['type'];
-
-            $proposalSubmission= $this->save($data);
-
-            foreach ($data['attachments'] as $file) {
-                $fileName = $file->getClientOriginalName();
-                $path = $this->upload($file, 'research-submissions');
-
-                $file = new ResearchProposalSubmissionAttachment([
-                    'attachments' => $path,
-                    'submissions_id' => $proposalSubmission->id,
-                    'file_name' => $fileName
-                ]);
-
-                $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
-            }
-
-            return $proposalSubmission;
-        });
-        }
     }
 
     public function getAll()

@@ -56,7 +56,6 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-        return $request->all();
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research-proposal-submission.index');
