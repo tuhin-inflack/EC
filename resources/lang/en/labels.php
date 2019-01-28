@@ -134,4 +134,5 @@ return [
     'nid_number' => 'NID Number',
     'open' => 'Open',
     'closed' => 'Closed',
+    'message_to_receiver' => 'Write message to receiver'
 ];

@@ -2,11 +2,13 @@
 
 namespace Modules\RMS\Services;
 
+use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
@@ -20,19 +22,20 @@ class ResearchProposalSubmissionService
 
     private $researchProposalSubmissionRepository;
     private $workflowService;
+    private $featureService;
 
-    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService)
+    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService, FeatureService $featureService)
     {
         /** @var ResearchProposalSubmissionRepository $researchProposalSubmissionRepository */
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
+        $this->featureService = $featureService;
 
         $this->setActionRepository($researchProposalSubmissionRepository);
     }
 
     public function store(array $data)
     {
-
         if ($data['type'] == 'draft') {
             return DB::transaction(function () use ($data) {
                 $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
@@ -58,7 +61,9 @@ class ResearchProposalSubmissionService
                 return $proposalSubmission;
             });
         } else {
+
             return DB::transaction(function () use ($data) {
+                dd($data);
                 $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
                 $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
                 $data['status'] = 'pending';
@@ -81,8 +86,16 @@ class ResearchProposalSubmissionService
 
                 //Save workflow
                 //TODO: Fill appropriate data instead of static data
-                $this->workflowService->createWorkflow(['rule_master_id' => 1, 'feature_id' => 1,
-                    'ref_table_id' => $proposalSubmission->id, 'message' => 'Please review the item']);
+
+                $featureName = Config::get('constants.research_proposal_feature_name');
+                $feature = $this->featureService->findBy(['name' => $featureName])->first();
+                $workflowData = [
+                    'feature_id' => $feature->id,
+                    'rule_master_id' => $feature->workflowRuleMaster->id,
+                    'ref_table_id' => $feature->workflowRuleMaster->id,
+                    'message' => $data['message'],
+                ];
+                $this->workflowService->createWorkflow($workflowData);
 
                 return $proposalSubmission;
             });

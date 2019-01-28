@@ -14,7 +14,7 @@
                 <div class="form row">
                     {!! Form::hidden('auth_user_id', $auth_user_id) !!}
                     @if($page == 'create')
-                    {!! Form::hidden('research_request_id', $researchRequest->id) !!}
+                        {!! Form::hidden('research_request_id', $researchRequest->id) !!}
                     @endif
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{ trans('labels.title') }}</label>
@@ -27,6 +27,13 @@
                         </span>
                         @endif
                     </div>
+                    @if($page == 'create')
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="">{{ trans('labels.message_to_receiver') }}</label>
+                        <br>
+                        {!! Form::text('message', null, ['class' => 'form-control',  'placeholder' => 'Message',]) !!}
+                    </div>
+                    @endif
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
                         {!! Form::file('attachments[]', ['class' => 'form-control required' . ($errors->has('attachments') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
