@@ -88,6 +88,7 @@
                                                             <td data-roomid="{{$room->id}}"
                                                                 class="room-block available"
                                                                 title="{{'Capacity: '.$room->roomType->capacity}}"
+                                                                data-room-capacity="{{ $room->roomType->capacity }}"
                                                                 data-toggle="modal" data-target="#selectionModal">
                                                                 {{$room->room_number}}<br/>{{$room->roomType->name}}
                                                             </td>
@@ -115,17 +116,17 @@
             <div class="modal-content">
 
                 <div class="container" id="showAssignedGuest">
-                <br/>
+                    <br/>
                     <p>The following guest already assigned into this room</p>
                     <table class="table" id="guestInfo">
                         <thead>
                         <tr>
-                            <th>Firstname</th>
-                            <th>Lastname</th>
+                            <th>First name</th>
+                            <th>Last name</th>
                             <th>Address</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="TableBody">
                         </tbody>
                     </table>
                 </div>
@@ -155,7 +156,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">@lang('labels.add')</button>
+                    <button type="submit" id="addGuest" class="btn btn-primary">@lang('labels.add')</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('labels.cancel')</button>
                 </div>
                 {!! Form::close() !!}
@@ -170,16 +171,23 @@
         $('#selectionModal').on('show.bs.modal', function (event) {
             var td = $(event.relatedTarget);// td that triggered the modal
             var roomId = td.data('roomid');
+            var roomCapacity = td.data('room-capacity')
             $('#room-id').val(roomId);
 
-            // displaying already assigned member
+            // displaying already assigned member list
             $.ajax({
                 type: 'GET',
                 url: '/hm/rooms/assigned-guest/' + roomId + '/' + '{{$roomCheckinDetails->id}}',
                 data: '_token = @php echo csrf_token() @endphp',
                 success: function (data) {
-                    $('#guestInfo').empty();
+                    $('#TableBody').empty();
                     guestInfo = JSON.parse(data);
+                    numberOfAlreadyAssigned = guestInfo.length;
+                    if (roomCapacity <= numberOfAlreadyAssigned) {
+                        $("#addGuest").attr("disabled","disabled");
+                    }else{
+                        $("#addGuest").attr("disabled", false);
+                    }
                     if (guestInfo.length > 0) {
 
                         var row = '';
