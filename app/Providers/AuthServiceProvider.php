@@ -50,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('admin-hm-access', function ($user) {
-            return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER', 'ROLE_DIRECTOR_TRAINING']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_TRAINING']);
         });
 
         Gate::define('hrm-access', function ($user) {
