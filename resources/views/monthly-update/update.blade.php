@@ -1,65 +1,65 @@
-{!! Form::open(['url' =>  $action, 'class' => 'form', 'novalidate', 'method' => 'post', 'files'=>'true']) !!}
+{!! Form::open(['url' => $action, 'class' => 'form', 'novalidate', 'method' => 'post', 'files'=>'true']) !!}
 <div class="form-body">
-    <h4 class="form-section"><i class="ft-user"></i> {{trans('pms::task.edit_trainee_form_title')}}</h4>
+    <h4 class="form-section"><i class="ft-user"></i> {{trans('monthly-update.create_form_title')}}</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
-                <label>{{trans('pms::task.task_for')}}: <span class="badge bg-blue-grey">{{($task->type == 'project') ? $task->project->title : $task->research->title}}</span></label>
+                <label>{{trans('monthly-update.update_for')}}: <span class="badge bg-blue-grey">{{$item->title}}</span></label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="task_id" class="form-label required">{{trans('pms::task.task_name')}}</label>
-                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }} required" name="task_id">
-                    @foreach($taskNames as $taskName)
-                        <option value="{{$taskName->id}}" @if($task->task_id == $taskName->id) selected @endif>{{$taskName->name}}</option>
+                <label for="month" class="form-label required">{{trans('monthly-update.month')}}</label>
+                <input type="text" class="form-control" readonly value="{{date('F, Y', strtotime($monthlyUpdate->year.'-'.$monthlyUpdate->month.'-01'))}}">
+
+                <input type="hidden" name="update_for_id" value="{{$item->id}}">
+                <input type="hidden" name="type" value="">
+                <div class="help-block"></div>
+                @if ($errors->has('month'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('month') }}</strong></span>
+                @endif
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="task_id" class="form-label required">{{trans('monthly-update.related_tasks')}}</label>
+
+                <select class="select2 form-control{{ $errors->has('send_to') ? ' is-invalid' : '' }}" name="tasks[]" multiple="multiple">
+                    <option></option>
+                    @php
+                    $tasksAr = explode(',', $monthlyUpdate->tasks);
+                    @endphp
+                    @foreach($item->task as $taskName)
+                        <option value="{{$taskName->id}}" {{(in_array($taskName->id, $tasksAr))? 'selected': ''}}>{{$taskName->taskName->name}}</option>
                     @endforeach
                 </select>
 
                 <div class="help-block"></div>
-                @if ($errors->has('task_id'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{$errors->first('task_id')}}</strong>
-                    </span>
+                @if ($errors->has('tasks'))
+                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('tasks') }}</strong></span>
                 @endif
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="description"
-                       class="form-label">{{trans('pms::task.task_description')}}</label>
-                <textarea name="description" id="description" class="form-control">{{$task->description}}</textarea>
-                <input type="hidden" >
-            </div>
+
         </div>
     </div>
 
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="expected_start_time"
-                       class="form-label required">{{trans('pms::task.expected_start_date')}}</label>
-                <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                       name="expected_start_time" placeholder="Pick Date" id="expected_start_time" value="{{$task->expected_start_time}}"  required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.start_date')])}}">
+                <label for=""
+                       class="form-label">{{trans('monthly-update.plannings')}}</label>
+                <textarea name="plannings" class="form-control" data-validation-required-message="{{trans('validation.required', ['attribute' => trans('monthly-update.plannings')])}}">{{$monthlyUpdate->plannings}}</textarea>
                 <div class="help-block"></div>
-                @if($errors->has('expected_start_time'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('expected_start_time') }}</strong>
-                    </span>
-                @endif
             </div>
         </div>
+
         <div class="col-md-6">
             <div class="form-group">
-                <label for="training_end_date required" class="form-label required">{{trans('pms::task.expected_end_date')}}</label>
-                <input type='text' class="form-control required {{ $errors->has('expected_end_time') ? ' is-invalid' : '' }}" value="{{$task->expected_end_time}}"
-                       placeholder="Pick a Date" id="expected_end_time" name="expected_end_time" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.expected_end_date')])}}">
-                <div class="help-block"></div>
-                @if ($errors->has('expected_end_time'))
-                    <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('expected_end_time') }}</strong></span>
-                @endif
+                <label for=""
+                       class="form-label">{{trans('monthly-update.achievement')}}</label>
+                <textarea name="achievements" class="form-control">{{$monthlyUpdate->achievements}}</textarea>
             </div>
         </div>
     </div>
@@ -67,9 +67,9 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="attachments" class="form-label required">{{trans('labels.attachments')}}</label>
-                @if(count($task->attachments))
+                @if(count($monthlyUpdate->attachments))
                     <ul class="list-inline">
-                        @foreach($task->attachments as $attachment)
+                        @foreach($monthlyUpdate->attachments as $attachment)
                             <li class="list-group-item" id="{{$attachment->id}}">
                                 <a class="btn-close pull-right" title="Remove Attachment" onclick="deleteAttachment({{$attachment->id}}); style.display='none';"><i class="ft-x"></i></a> <br>
                                 <span class="badge bg-info">{{$attachment->file_name}}</span><br>
@@ -101,9 +101,9 @@
     <button type="submit" class="btn btn-primary">
         <i class="ft-check-square"></i> {{trans('labels.save')}}
     </button>
-    <button class="btn btn-warning" type="button" onclick="window.location = '{{($task->type == 'project') ? route('project-proposal-submitted.view',  $task->project->id) : route('research-proposal-submission.show', $task->research->id )}}'">
+    <button class="btn btn-warning" type="button" onclick="window.location = '{{($monthlyUpdate->type == 'project') ? route('project-proposal-submitted.monthly-update',  $item->id) : route('research-proposal-submission.show', $item->id )}}'">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
     </button>
 </div>
 </div>
-{!! Form::close() !!}
+{!!Form::close()!!}
