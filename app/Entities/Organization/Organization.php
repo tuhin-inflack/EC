@@ -4,6 +4,8 @@ namespace App\Entities\Organization;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\PMS\Entities\Attribute;
+use Modules\PMS\Entities\Project;
+use Modules\RMS\Entities\Research;
 
 class Organization extends Model
 {
@@ -15,9 +17,14 @@ class Organization extends Model
         return $this->hasMany(OrganizationMember::class, 'organization_id', 'id');
     }
 
+    public function researches()
+    {
+        return $this->morphedByMany(Research::class, 'organizable');
+    }
+
     public function projects()
     {
-        return $this->morphedByMany(ProjectProposal::class, 'organizable');
+        return $this->morphedByMany(Project::class, 'organizable');
     }
 
     public function attributes()
