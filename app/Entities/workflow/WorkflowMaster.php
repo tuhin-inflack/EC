@@ -35,6 +35,6 @@ class WorkflowMaster extends Model
 
     public function workflowDetails()
     {
-        return $this->hasMany(WorkflowDetail::class, 'workflow_master_id');
+        return $this->hasMany(WorkflowDetail::class, 'workflow_master_id')->orderBy('notification_order');
     }
 }
