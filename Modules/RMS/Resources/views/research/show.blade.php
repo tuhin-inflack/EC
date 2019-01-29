@@ -5,8 +5,9 @@
     <section class="row">
         <div class="col-md-7">
             @include('../../../organization.table', [
-                'organizations' => $research->organizations,
-                'url' => route('rms-organizations.create', $research->id)
+                'organizable' => $research,
+                'url' => route('rms-organizations.create', $research->id),
+                'organizationShowRoute' => function ($organizableId, $organizationId) { return route('rms-organizations.show', [$organizableId, $organizationId]); }
             ])
         </div>
         
