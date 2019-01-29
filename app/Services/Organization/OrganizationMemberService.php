@@ -19,6 +19,11 @@ class OrganizationMemberService
         $this->setActionRepository($this->organizationMemberRepository);
     }
 
+    public function store(array $data)
+    {
+
+    }
+
     public function saveOrganizationMember($member)
     {
         $status = $this->organizationMemberRepository->save($member);

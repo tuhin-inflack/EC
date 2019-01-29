@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 
+use App\Entities\Organization\Organization;
 use App\Services\OrganizationMemberService;
 use App\Services\OrganizationService;
 use Illuminate\Http\Request;
@@ -16,7 +17,6 @@ use Modules\PMS\Services\ProjectProposalService;
 
 class OrganizationMemberController extends Controller
 {
-
     private $organizationService;
     private $organizationMemberService;
 
@@ -26,16 +26,18 @@ class OrganizationMemberController extends Controller
         $this->organizationMemberService = $organizationMemberService;
     }
 
-    public function addOrganizationMember($organizationId)
+    public function create(Organization $organization)
     {
-        $organization = $this->organizationService->findOrganizationById($organizationId);
         return view('rms::project-members.create', compact('organization'));
+    }
 
+    public function store(Request $request, Organization $organization)
+    {
+        return $request->all();
     }
 
     public function storeOrganizationMember(StoreUpdateOrgMemberRequest $request)
     {
-
         $response = $this->organizationMemberService->saveOrganizationMember($request->all(), $request->file('nid'));
         Session::flash('success', $response->getContent());
         return redirect()->route('member.add-org-member', $request->organization_id);

@@ -28,6 +28,11 @@ Route::prefix('rms')->group(function () {
         });
     });
 
+    Route::prefix('organizations/{organization}/members')->group(function () {
+       Route::get('create', 'OrganizationMemberController@create')->name('rms-organization-members.create');
+       Route::post('/', 'OrganizationMemberController@store')->name('rms-organization-members.store');
+    });
+
     Route::prefix('research-requests')->group(function () {
         Route::get('/create', 'ResearchRequestController@create')->name('research-request.create');
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
@@ -55,10 +60,6 @@ Route::prefix('rms')->group(function () {
         Route::get('/', 'ReceivedResearchProposalController@index')->name('received-research-proposal.index');
     });
 
-    Route::prefix('organization')->group(function () {
-        Route::get('/add-organization/{id?}', 'ReceivedResearchProposalController@addOrganization')->name('organization.add-research-organization');
-        Route::post('/store-organization/{id?}', 'ReceivedResearchProposalController@storeOrganization')->name('organization.store-research-organization');
-    });
     Route::prefix('member')->group(function () {
         Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-org-member');
         Route::post('/store-organization-member/', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-org-member');
