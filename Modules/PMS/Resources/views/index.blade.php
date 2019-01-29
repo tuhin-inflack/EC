@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h1>Project Management System</h1>
+                    <h1>{{trans('labels.PMS')}}</h1>
                 </div>
             </div>
             <div class="card-body">

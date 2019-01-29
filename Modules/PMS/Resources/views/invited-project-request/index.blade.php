@@ -11,7 +11,6 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
-
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
