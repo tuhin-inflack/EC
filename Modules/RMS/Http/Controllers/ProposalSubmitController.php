@@ -23,9 +23,7 @@ class ProposalSubmitController extends Controller
 
     public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
-        /** @var UserService $userService */
         $this->userService = $userService;
-        /** @var ResearchProposalSubmissionService $researchProposalSubmissionService */
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
     }
 

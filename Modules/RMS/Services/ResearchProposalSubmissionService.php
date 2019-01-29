@@ -25,7 +25,6 @@ class ResearchProposalSubmissionService
 
     public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService)
     {
-        /** @var ResearchProposalSubmissionRepository $researchProposalSubmissionRepository */
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
 
@@ -34,31 +33,31 @@ class ResearchProposalSubmissionService
 
     public function store(array $data)
     {
-            return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data) {
             $data['status'] = 'pending';
 
-                $proposalSubmission = $this->save($data);
+            $proposalSubmission = $this->save($data);
 
-                foreach ($data['attachments'] as $file) {
-                    $fileName = $file->getClientOriginalName();
-                    $path = $this->upload($file, 'research-submissions');
+            foreach ($data['attachments'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'research-submissions');
 
-                    $file = new ResearchProposalSubmissionAttachment([
-                        'attachments' => $path,
-                        'submissions_id' => $proposalSubmission->id,
-                        'file_name' => $fileName
-                    ]);
+                $file = new ResearchProposalSubmissionAttachment([
+                    'attachments' => $path,
+                    'submissions_id' => $proposalSubmission->id,
+                    'file_name' => $fileName
+                ]);
 
-                    $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
-                }
+                $proposalSubmission->researchProposalSubmissionAttachments()->save($file);
+            }
 
-                //Save workflow
-                //TODO: Fill appropriate data instead of static data
-                $this->workflowService->createWorkflow(['rule_master_id' => 1, 'feature_id' => 1,
-                    'ref_table_id' => $proposalSubmission->id, 'message' => 'Please review the item']);
+            //Save workflow
+            //TODO: Fill appropriate data instead of static data
+            $this->workflowService->createWorkflow(['rule_master_id' => 1, 'feature_id' => 1,
+                'ref_table_id' => $proposalSubmission->id, 'message' => 'Please review the item']);
 
-                return $proposalSubmission;
-            });
+            return $proposalSubmission;
+        });
     }
 
     public function getAll()
@@ -69,11 +68,7 @@ class ResearchProposalSubmissionService
     public function updateRequest(array $data, ResearchProposalSubmission $researchProposalSubmission)
     {
         return DB::transaction(function () use ($data, $researchProposalSubmission) {
-            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
-            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'pending';
-            $data['type'] = $data['type'];
-
             $proposalSubmission = $this->update($researchProposalSubmission, $data);
 
             foreach ($data['attachments'] as $file) {
@@ -103,7 +98,7 @@ class ResearchProposalSubmissionService
 
         $fileName = time() . '.zip';
 
-        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
 
         Zipper::make($zipFilePath)->add($filePaths)->close();
 
