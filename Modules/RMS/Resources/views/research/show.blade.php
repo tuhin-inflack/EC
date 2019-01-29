@@ -2,7 +2,40 @@
 @section('title', trans('rms::research_proposal.research_details'))
 
 @section('content')
-    @include('../../../organization.table', ['organizations' => $research->organizations, 'url' => route('rms-organizations.create', $research->id)])
+    <section class="row">
+        <div class="col-md-7">
+            @include('../../../organization.table', [
+                'organizations' => $research->organizations,
+                'url' => route('rms-organizations.create', $research->id)
+            ])
+        </div>
+        
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Task List</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <th>SL</th>
+                            <th>Name</th>
+                            </thead>
+                            <tbody>
+                            @foreach(range(0, 4) as $task)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>Task {{ $loop->iteration }}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="row">
         <div class=" col-12">
