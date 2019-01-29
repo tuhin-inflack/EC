@@ -25,10 +25,10 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($organizations as $organization)
+                    @foreach($organizable->organizations as $organization)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
-                            <td><a href="#">{{ $organization->name }}</a></td>
+                            <td><a href="{{ $organizationShowRoute($organizable->id, $organization->id) }}">{{ $organization->name }}</a></td>
                             <td>{{ $organization->attributes->count() }}</td>
                         </tr>
                     @endforeach
