@@ -28,7 +28,6 @@ class ResearchProposalSubmissionService
 
     public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService, FeatureService $featureService)
     {
-        /** @var ResearchProposalSubmissionRepository $researchProposalSubmissionRepository */
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
@@ -38,6 +37,7 @@ class ResearchProposalSubmissionService
 
     public function store(array $data)
     {
+
 
         return DB::transaction(function () use ($data) {
             $data['status'] = 'pending';
@@ -72,6 +72,7 @@ class ResearchProposalSubmissionService
 
             $this->workflowService->createWorkflow($workflowData);
 
+
             return $proposalSubmission;
         });
     }
@@ -84,11 +85,7 @@ class ResearchProposalSubmissionService
     public function updateRequest(array $data, ResearchProposalSubmission $researchProposalSubmission)
     {
         return DB::transaction(function () use ($data, $researchProposalSubmission) {
-            $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
-            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'pending';
-            $data['type'] = $data['type'];
-
             $proposalSubmission = $this->update($researchProposalSubmission, $data);
 
             foreach ($data['attachments'] as $file) {

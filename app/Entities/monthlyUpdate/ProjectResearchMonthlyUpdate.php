@@ -11,7 +11,7 @@ use App\Entities\monthlyUpdate\MonthlyUpdateAttachment;
 class ProjectResearchMonthlyUpdate extends Model
 {
     protected $table = 'project_research_monthly_update';
-    protected $fillable = ['month', 'year', 'achievements', 'plannings', 'tasks'];
+    protected $fillable = ['update_for_id','type','month', 'year', 'achievements', 'plannings', 'tasks'];
 
     public function attachments()
     {

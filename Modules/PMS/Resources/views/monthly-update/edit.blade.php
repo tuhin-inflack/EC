@@ -7,7 +7,7 @@
  */
 ?>
 @extends('pms::layouts.master')
-@section('title', __('pms::task.edit_trainee_form_title'))
+@section('title', __('monthly-update.update_button'))
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
@@ -34,7 +34,7 @@
 
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('task.update', ['page' => 'edit'])
+                            @include('monthly-update.update', ['page' => 'edit'])
                         </div>
                     </div>
 
@@ -53,13 +53,6 @@
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-        $('#expected_start_time').change(function(){
-            $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
-        });
-
-        $('#expected_start_time, #expected_end_time').pickadate({
-            format: 'yyyy-mm-dd',
-        });
 
         $('#add').click(function () {
             $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');

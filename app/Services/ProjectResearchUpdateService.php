@@ -11,16 +11,20 @@ namespace App\Services;
 
 use App\Repositories\ProjectResearchUpdateRepository;
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
+use Illuminate\Support\Facades\Session;
 
 class ProjectResearchUpdateService
 {
     use CrudTrait;
+    use FileTrait;
 
     private $projectResearchUpdateRepository;
 
     public function __construct(ProjectResearchUpdateRepository $projectResearchUpdateRepository)
     {
         $this->projectResearchUpdateRepository = $projectResearchUpdateRepository;
+        $this->setActionRepository($projectResearchUpdateRepository);
     }
 
     public function getMonthlyUpdate($updateForId, $type, $monthYear)
@@ -28,7 +32,7 @@ class ProjectResearchUpdateService
         $monthYearAr = explode("-", $monthYear);
         $month = $monthYearAr[0]; $year = $monthYearAr[1];
 
-        return $this->projectResearchRepository->getMonthlyUpdate($updateForId, $type, $month, $year);
+        return $this->projectResearchUpdateRepository->getMonthlyUpdate($updateForId, $type, $month, $year);
     }
 
     public function saveAttachments($monthlyUpdateId, $files)
@@ -50,5 +54,13 @@ class ProjectResearchUpdateService
             if($saveAttachment) $cnt++;
         }
         return $cnt;
+    }
+
+    public function deleteAttachments($attachments)
+    {
+        foreach ($attachments as $attachment)
+        {
+            $del = $this->projectResearchUpdateRepository->deleteAttachment($attachment);
+        }
     }
 }
