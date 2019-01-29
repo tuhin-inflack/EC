@@ -39,24 +39,30 @@ class WorkflowSeeder extends Seeder
             ['employee_id' => 100003, 'first_name' => 'Research', 'last_name' => 'Director', 'email' => 'rd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_code' => 1, 'mobile_one' => '01711111113'],
         ];
 
-        foreach ($employees as $employee) {
-            DB::table('employees')->insert($employee);
-            $user = [];
-            $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
-            $user['email'] = $employee['email'];
-//            123123
-            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';
-            $user['username'] = $employee['mobile_one'];
-            $user['user_type'] = 'Employee';
-            $user['mobile'] = $employee['mobile_one'];
-            \App\Entities\User::create($user);
+//        foreach ($employees as $employee) {
+//            DB::table('employees')->insert($employee);
+//            $user = [];
+//            $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
+//            $user['email'] = $employee['email'];
+////            123123
+//            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';
+//            $user['username'] = $employee['mobile_one'];
+//            $user['user_type'] = 'Employee';
+//            $user['mobile'] = $employee['mobile_one'];
+//            \App\Entities\User::create($user);
+//
+//        }
 
+//        feature seeding
+        $features = [
+            ['name' => \Illuminate\Support\Facades\Config::get('constants.research_proposal_feature_name')],
+            ['name' => \Illuminate\Support\Facades\Config::get('constants.project_proposal_feature_name')],
+        ];
+        foreach ($features as $feature) {
+            DB::table('features')->insert($feature);
         }
 
-//        feature
-        $feature = [
-            ['name' => ]
-        ]
+//        workflow rule master seeding
 
 
     }
