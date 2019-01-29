@@ -37,20 +37,26 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
 
     public function generateItems(): DashboardItemSummary
     {
+
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
+//        dd($user);
         $designationId = $this->userService->getDesignationId($user->username);
+//        dd($designationId);
         $workflows = $this->workflowService->getWorkflowDetailsByUser($user->id, [$designationId]);
+//        dd($workflows);
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
+//            dd($workflowMaster);
 //            dd($workflowMaster->researchProposalSubmission->requester);
             $researchData = [
                 'proposal_title' => $workflowMaster->researchProposalSubmission->title,
                 'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
                 'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
             ];
+
 
 
             $workflowConversation = $workflow->workflowConversations[0];
