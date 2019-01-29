@@ -98,6 +98,11 @@ class UserService
         $designation = isset($employee->designation) ? $employee->designation->name : null;
         return $designation;
     }
+    public function getDesignationId($username){
+        $employee = Employee::where('employee_id', $username)->first();
+        $designationId = isset($employee->designation_code) ? $employee->designation_code : null;
+        return $designationId;
+    }
 
     public function getAdminExceptLoggedInUserRole()
     {

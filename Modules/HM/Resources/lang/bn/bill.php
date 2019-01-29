@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: tanvirinflack
- * Date: 12/24/18
- * Time: 4:30 PM
- */
 return [
     'title' => 'বিল',
     'list' => 'বিল তালিকা',
