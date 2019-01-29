@@ -66,9 +66,10 @@ class ResearchProposalSubmissionService
             $workflowData = [
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
-                'ref_table_id' => $feature->workflowRuleMaster->id,
+                'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
             ];
+
 
             $this->workflowService->createWorkflow($workflowData);
 

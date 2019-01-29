@@ -41,14 +41,13 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-            dd($workflowMaster);
+//            dd($workflowMaster);
 
-            $descriptionData[$key] = [
+            $researchData = [
                 'feature_name' => $workflowMaster->feature->name,
                 'rule_master_name' => $workflowMaster->ruleMaster->name,
                 'rule_details' => $workflowMaster->ruleMaster->rule,
             ];
-            dd($descriptionData);
 
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
@@ -60,9 +59,10 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
             //TODO: add dynamic items as array. Receive data from $workflowMaster reference id
-//            $dashboardItem->setDynamicValues();
+            $dashboardItem->setDynamicValues($researchData);
             array_push($dashboardItems, $dashboardItem);
         }
+
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
     }

@@ -53,6 +53,7 @@ class WorkflowService
         $workflowMaster = $this->workFlowMasterRepository->save(['feature_id' => $data['feature_id'], 'rule_master_id' => $ruleMaster->id,
             'ref_table_id' => $data['ref_table_id'], 'status' => WorkflowStatus::INITIATED, 'initiator_id' => Auth::user()->id]);
         $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
+
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
         $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
             'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
