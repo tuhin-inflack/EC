@@ -9,7 +9,9 @@
 namespace App\Services\workflow;
 
 
+use App\Constants\WorkflowStatus;
 use App\Models\DashboardItemSummary;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardWorkflowService
 {
@@ -28,7 +30,7 @@ class DashboardWorkflowService
     }
 
 
-    public function getDashboardWorkflowItems($feature) : DashboardItemSummary
+    public function getDashboardWorkflowItems($feature): DashboardItemSummary
     {
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
         return $itemGenerator->generateItems();
@@ -36,6 +38,12 @@ class DashboardWorkflowService
 
     public function updateDashboardItem($data)
     {
+        $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($data['feature']);
+        $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
+            $data['status'], $data['remarks'], $data['message']);
         $workFlowMaster = $this->workFlowService->getWorkFlowMaster($data['workflow_master_id']);
+        if ($workFlowMaster->status != WorkFlowStatus::PENDING) {
+            $itemGenerator->updateItem($data['item_id'], $data['status'], $data['feature']);
+        }
     }
 }

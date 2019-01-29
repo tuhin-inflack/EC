@@ -14,5 +14,5 @@ use App\Models\DashboardItemSummary;
 abstract class BaseDashboardItemGenerator
 {
      abstract public function generateItems(): DashboardItemSummary;
-     abstract public function updateItem($refTableId, $status, $feature);
+     abstract public function updateItem($refTableId, $status);
 }

@@ -13,21 +13,25 @@ use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Services\UserService;
 use App\Services\workflow\WorkflowService;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
 {
     private $workflowService;
     private $userService;
+    private $proposalSubmissionService;
 
     /**
      * ResearchProposalItemGenerator constructor.
-     * @param $workflowService
-     * @param $userService
+     * @param WorkflowService $workflowService
+     * @param UserService $userService
+     * @param ResearchProposalSubmissionService $proposalSubmissionService
      */
-    public function __construct(WorkflowService $workflowService, UserService $userService)
+    public function __construct(WorkflowService $workflowService, UserService $userService, ResearchProposalSubmissionService $proposalSubmissionService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->proposalSubmissionService = $proposalSubmissionService;
     }
 
 
@@ -67,8 +71,9 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         return $dashboardItemSummary;
     }
 
-    public function updateItem($refTableId, $status, $feature)
+    public function updateItem($itemId, $status)
     {
-        $this->workflowService->updateWorkFlow();
+        $proposal = $this->proposalSubmissionService->findOne($itemId);
+        $this->proposalSubmissionService->update($proposal, $status);
     }
 }
