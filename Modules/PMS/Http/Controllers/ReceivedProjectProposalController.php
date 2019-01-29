@@ -79,5 +79,12 @@ class ReceivedProjectProposalController extends Controller
         return redirect()->route('project-proposal-submitted.view', $projectId);
     }
 
+    public function review($proposalId)
+    {
+        $proposal = $this->projectProposalService->findOrFail($proposalId);
+
+        return view('pms::proposal-submitted.review', compact('proposal'));
+    }
+
 
 }

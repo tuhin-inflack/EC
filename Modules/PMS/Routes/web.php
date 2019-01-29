@@ -50,6 +50,7 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
+        Route::get('/review/{proposalId}', 'ReceivedProjectProposalController@review')->name('project-proposal-submitted-review');
 
         //Routes related to Project Monthly Update
         Route::prefix('monthly-update')->group(function (){
