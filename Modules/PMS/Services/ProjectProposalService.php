@@ -15,6 +15,7 @@ use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
 
@@ -30,6 +31,8 @@ class ProjectProposalService
     /**
      * ProjectRequestService constructor.
      * @param ProjectProposalRepository $projectProposalRepository
+     * @param FeatureService $featureService
+     * @param WorkflowService $workflowService
      */
 
     public function __construct(ProjectProposalRepository $projectProposalRepository,
@@ -123,4 +126,23 @@ class ProjectProposalService
         return $zipFilePath;
     }
 
+    public function getGanttChartData(ProjectProposal $projectProposal)
+    {
+        $tasks = $projectProposal->task;
+        $chartData = [];
+
+        foreach ($tasks as $task){
+            array_push($chartData, array(
+                "pID" => $task->id,
+                "pName" => $task->taskName->name,
+                "pStart" => $task->start_time,
+                "pEnd" => $task->end_time,
+                "pPlanStart" => $task->expected_start_time,
+                "pPlanEnd" => $task->expected_end_time,
+                "pClass" => "gtaskblue",
+                "pNotes" => "SDisas ascas cacasc",
+            ));
+        }
+        return $chartData;
+    }
 }
