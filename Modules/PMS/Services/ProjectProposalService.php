@@ -8,6 +8,8 @@
 
 namespace Modules\PMS\Services;
 
+use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Http\Response;
 use Modules\PMS\Entities\ProjectProposalFile;
@@ -22,15 +24,21 @@ class ProjectProposalService
 {
     use CrudTrait;
     private $projectProposalRepository;
+    private $featureService;
+    private $workflowService;
 
     /**
      * ProjectRequestService constructor.
      * @param ProjectProposalRepository $projectProposalRepository
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository)
+    public function __construct(ProjectProposalRepository $projectProposalRepository,
+                                FeatureService $featureService,
+                                WorkflowService $workflowService)
     {
         $this->projectProposalRepository = $projectProposalRepository;
+        $this->featureService = $featureService;
+        $this->workflowService = $workflowService;
         $this->setActionRepository($this->projectProposalRepository);
     }
 
@@ -42,6 +50,18 @@ class ProjectProposalService
     public function store(array $data)
     {
         $proposal = $this->projectProposalRepository->save($data);
+
+        // Initiating Workflow
+        $featureName = config('constants.project_proposal_feature_name');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $workflowData = [
+            'feature_id' => $feature->id,
+            'rule_master_id' => $feature->workflowRuleMaster->id,
+            'ref_table_id' => $proposal->id,
+            'message' => "",
+        ];
+        $this->workflowService->createWorkflow($workflowData);
+        // Workflow initiate done
 
         foreach ($data['attachment'] as $image) {
             $filename = $image->getClientOriginalName();

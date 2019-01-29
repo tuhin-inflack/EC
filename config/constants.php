@@ -29,5 +29,6 @@ return [
 
 //    USE IN PMS & RMS
     'research_proposal_feature_name' => 'Research Proposal',
+    'project_proposal_feature_name' => 'Project Proposal',
 
 ];

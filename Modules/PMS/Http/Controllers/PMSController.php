@@ -2,19 +2,28 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 
 class PMSController extends Controller
 {
+    private $dashboardService;
+
+    public function __construct(DashboardWorkflowService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('pms::index');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems(config('constants.project_proposal_feature_name'));
+        return view('pms::index', compact('pendingTasks'));
     }
 
     /**

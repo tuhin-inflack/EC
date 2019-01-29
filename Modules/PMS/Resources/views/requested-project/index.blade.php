@@ -17,6 +17,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.project_title')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.received_at')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
@@ -29,6 +30,7 @@
                                     @foreach($requests as $request)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
+                                        <td>{{$request->title}}</td>
                                         <td>{{$request->created_at}}</td>
                                         <td>{{ $request->message }}</td>
                                         <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">Attachment</a></td>
