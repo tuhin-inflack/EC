@@ -101,7 +101,6 @@ class ResearchProposalSubmissionService
 
                 $researchProposalSubmission->researchProposalSubmissionAttachments()->save($file);
             }
-
             return $proposalSubmission;
         });
     }
