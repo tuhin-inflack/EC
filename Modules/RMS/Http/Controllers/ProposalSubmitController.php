@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Services\UserService;
+use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,11 +21,14 @@ class ProposalSubmitController extends Controller
 {
     private $userService;
     private $researchProposalSubmissionService;
+    private $dashboardWorkflowService;
 
-    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
+                                DashboardWorkflowService $dashboardWorkflowService)
     {
         $this->userService = $userService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->dashboardWorkflowService = $dashboardWorkflowService;
     }
 
     /**
@@ -126,7 +130,12 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-        dd($request->all());
+        //TODO: set appropriate data
+        $data = ['feature' => '', 'workflow_master_id' => '', 'workflow_conversation_id' => '', 'status' => '', 'item_id'=>'',
+            'remarks' => '', 'message' => ''];
+        $this->dashboardWorkflowService->updateDashboardItem($data);
+        //Send user to research dashboard
+        return redirect()->route('research-proposal-submission');
 
     }
 }
