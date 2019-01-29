@@ -13,27 +13,17 @@ use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Services\UserService;
 use App\Services\workflow\WorkflowService;
-use Modules\RMS\Services\ResearchProposalSubmissionService;
 
-class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
+class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 {
     private $workflowService;
     private $userService;
-    private $proposalSubmissionService;
 
-    /**
-     * ResearchProposalItemGenerator constructor.
-     * @param WorkflowService $workflowService
-     * @param UserService $userService
-     * @param ResearchProposalSubmissionService $proposalSubmissionService
-     */
-    public function __construct(WorkflowService $workflowService, UserService $userService, ResearchProposalSubmissionService $proposalSubmissionService)
+    public function __construct(WorkflowService $workflowService, UserService $userService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
-        $this->proposalSubmissionService = $proposalSubmissionService;
     }
-
 
     public function generateItems(): DashboardItemSummary
     {
@@ -42,38 +32,33 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $designationId = $this->userService->getDesignationId($user->username);
         $workflows = $this->workflowService->getWorkflowDetailsByUser($user->id, [$designationId]);
+
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-//            dd($workflowMaster->researchProposalSubmission->requester);
-            $researchData = [
-                'proposal_title' => $workflowMaster->researchProposalSubmission->title,
-                'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
-                'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
-            ];
+//            dd($workflowMaster);
 
+            $projectData = [
+                'feature_name' => $workflowMaster->feature->name,
+                'rule_master_name' => $workflowMaster->ruleMaster->name,
+                'rule_details' => $workflowMaster->ruleMaster->rule,
+            ];
 
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url (done)
-            $dashboardItem->setCheckUrl('/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id);
+            //TODO: set appropriate url
+            $dashboardItem->setCheckUrl('/edit/' . $workflowMaster->ref_table_id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
-            $dashboardItem->setDynamicValues($researchData);
+            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id
+            $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }
 
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
-    }
-
-    public function updateItem($itemId, $status)
-    {
-        $proposal = $this->proposalSubmissionService->findOne($itemId);
-        $this->proposalSubmissionService->update($proposal, $status);
     }
 }

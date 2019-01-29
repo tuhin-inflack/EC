@@ -2,9 +2,40 @@
 @section('title', trans('labels.PMS'))
 
 @section('content')
-    <h1>Project Management System</h1>
-
-    <p>
-        This view is loaded from module: {!! config('pms.name') !!}
-    </p>
+    <section id="pending-tasks">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <h1>Project Management System</h1>
+                </div>
+            </div>
+            <div class="card-body">
+                @if(!empty($pendingTasks->dashboardItems))
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>Feature</th>
+                        <th>Message</th>
+                        <th>Details</th>
+                        <th>Check</th>
+                        </thead>
+                        <tbody>
+                        @foreach($pendingTasks->dashboardItems as $item)
+                            <tr>
+                                <td>{{$item->featureName}}</td>
+                                <td>{{$item->message}}</td>
+                                {{--                                {{ dd($item->dynamicValues) }}--}}
+                                {{--                                <td>{{$item->dynamicValues}}</td>--}}
+                                <td><a href="{{url($item->checkUrl)}}">Details</a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    @else
+                    <div class="card-body">
+                        <span><i class="ft-info"></i> No Pending Items</span>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </section>
 @stop
