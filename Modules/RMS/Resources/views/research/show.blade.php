@@ -4,43 +4,33 @@
 @section('content')
     <section class="row">
         <div class="col-md-7">
+            @include('../../../organization.table', [
+                'organizations' => $research->organizations,
+                'url' => route('rms-organizations.create', $research->id)
+            ])
+        </div>
+        
+        <div class="col-md-5">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">@lang('organization.organization_list')</h4>
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a href="{{ route('rms-organizations.create', $research->id) }}"
-                                   class="btn btn-sm btn-primary"><i
-                                            class="ft ft-plus"></i> @lang('organization.add_organization')</a></li>
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                        </ul>
-                    </div>
+                    <h4>Task List</h4>
                 </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered organization-table">
-                                <thead>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                            <th>SL</th>
+                            <th>Name</th>
+                            </thead>
+                            <tbody>
+                            @foreach(range(0, 4) as $task)
                                 <tr>
-                                    <th>@lang('labels.serial')</th>
-                                    <th>@lang('organization.organization')</th>
-                                    <th>@lang('organization.attribute')</th>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>Task {{ $loop->iteration }}</td>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                @foreach($research->organizations as $organization)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td><a href="#">{{ $organization->name }}</a></td>
-                                        <td>{{ $organization->attributes->count() }}</td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
