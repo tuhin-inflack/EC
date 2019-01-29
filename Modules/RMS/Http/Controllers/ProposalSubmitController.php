@@ -119,20 +119,21 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
     {
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
-        return view('rms::proposal.review.show', compact('research', 'tasks', 'organizations'));
+        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId'));
 
     }
 
     public function reviewUpdate(Request $request)
     {
+        $data = $request->except('_token');
         //TODO: set appropriate data
-        $data = ['feature' => '', 'workflow_master_id' => '', 'workflow_conversation_id' => '', 'status' => '', 'item_id'=>'',
-            'remarks' => '', 'message' => ''];
+//        $data = ['feature' => '', 'workflow_master_id' => '', 'workflow_conversation_id' => '', 'status' => '', 'item_id'=>'',
+//            'remarks' => '', 'message' => ''];
         $this->dashboardWorkflowService->updateDashboardItem($data);
         //Send user to research dashboard
         return redirect()->route('research-proposal-submission');

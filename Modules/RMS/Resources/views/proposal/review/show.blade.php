@@ -32,7 +32,6 @@
 
                                             <label class="black">Submission Date: </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
-
                                             <label class="black">Submitted by: </label>
                                             <p> {{ $research->submittedBy->name }} </p>
                                         </div>
@@ -89,11 +88,15 @@
                                         {!! Form::label('remarks', 'Remarks', ['class' => 'black']) !!}
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                     </div>
+                                    {!! Form::hidden('feature', $featureName) !!}
+                                    {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
+                                    {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
+                                    {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
 {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     <a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">
                                         <i class="ft-skip-back"></i> Back</a>
-                                    {!! Form::button(' <i class="ft-check"></i> Approved', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'type', 'value' => 'approved'] ) !!}
-                                    {!! Form::button('  <i class="ft-x"></i> Reject', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'type', 'value' => 'reject'] ) !!}
+                                    {!! Form::button(' <i class="ft-check"></i> Approved', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                    {!! Form::button('  <i class="ft-x"></i> Reject', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
 
                                     {!! Form::close() !!}
                                 </div>

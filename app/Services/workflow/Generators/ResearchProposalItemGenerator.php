@@ -64,7 +64,9 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url (done)
-            $dashboardItem->setCheckUrl('/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setCheckUrl(
+                '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
+                '/'.$workflowMaster->feature->name  . '/' . $workflowMaster->id . '/' . $workflowConversation->id );
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
