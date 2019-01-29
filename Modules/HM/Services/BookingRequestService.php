@@ -283,7 +283,6 @@ class BookingRequestService
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
         $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
-        dd($ids);
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 
@@ -298,14 +297,16 @@ class BookingRequestService
         $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
             ->where('forwarded_to', Auth::user()->id)->get()->toArray();
 
-        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'id');
+        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'room_booking_id');
+
+        $mergedBookingRequests = array_merge($bookingRequestIds, $forwardedBookingRequestIds);
 
         $forwardedBookingRequestIdsByUser = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
             ->where('forwarded_by', Auth::user()->id)->get()->toArray();
 
-        $forwardedBookingRequestIds = array_diff($forwardedBookingRequestIds, $forwardedBookingRequestIdsByUser);
+        $forwardedBookingRequestIdsByUsers = array_column($forwardedBookingRequestIdsByUser, 'room_booking_id');
 
-        return array_merge($bookingRequestIds, $forwardedBookingRequestIds);
+        return array_diff($mergedBookingRequests, $forwardedBookingRequestIdsByUsers);
     }
 
     /**
