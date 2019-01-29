@@ -56,4 +56,9 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
     }
+
+    public function updateItem($refTableId, $status, $feature)
+    {
+        $this->workflowService->updateWorkFlow();
+    }
 }
