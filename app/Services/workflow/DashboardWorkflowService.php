@@ -43,7 +43,7 @@ class DashboardWorkflowService
             $data['status'], $data['remarks'], $data['message']);
         $workFlowMaster = $this->workFlowService->getWorkFlowMaster($data['workflow_master_id']);
         if ($workFlowMaster->status != WorkFlowStatus::PENDING) {
-            $itemGenerator->updateItem($data['item_id'], $data['status'], $data['feature']);
+            $itemGenerator->updateItem($data['item_id'], $data['status']);
         }
     }
 }
