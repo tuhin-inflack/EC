@@ -39,12 +39,14 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-//            dd($workflowMaster);
 
+            //dd($workflowMaster);
             $projectData = [
                 'feature_name' => $workflowMaster->feature->name,
                 'rule_master_name' => $workflowMaster->ruleMaster->name,
                 'rule_details' => $workflowMaster->ruleMaster->rule,
+                'project_title' => $workflowMaster->projectProposalSubmission->title,
+                'requested_by' => $workflowMaster->projectProposalSubmission->proposalSubmittedBy->name,
             ];
 
             $workflowConversation = $workflow->workflowConversations[0];
@@ -52,7 +54,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url
-            $dashboardItem->setCheckUrl('/edit/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', $workflowMaster->ref_table_id));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
