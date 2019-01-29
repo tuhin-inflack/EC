@@ -70,9 +70,9 @@ class ProposalSubmitController extends Controller
     {
         $research = $this->researchProposalSubmissionService->findOne($id);
         $organizations = $research->organizations;
-        if(!is_null($research)) $tasks = $research->tasks; else $tasks = array();
+        if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
 
-        return view('rms::proposal.submission.show', compact('research','tasks', 'organizations'));
+        return view('rms::proposal.submission.show', compact('research', 'tasks', 'organizations'));
     }
 
     /**
@@ -103,13 +103,6 @@ class ProposalSubmitController extends Controller
         return redirect()->route('research-proposal-submission.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
 
     public function submissionAttachmentDownload(ResearchProposalSubmission $researchProposalSubmission)
     {
@@ -120,5 +113,20 @@ class ProposalSubmitController extends Controller
     {
         $basePath = Storage::disk('internal')->path($researchSubmissionAttachment->attachments);
         return response()->download($basePath);
+    }
+
+    public function review($researchProposalSubmissionId)
+    {
+        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $organizations = $research->organizations;
+        if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
+        return view('rms::proposal.review.show', compact('research', 'tasks', 'organizations'));
+
+    }
+
+    public function reviewUpdate(Request $request)
+    {
+        dd($request->all());
+
     }
 }

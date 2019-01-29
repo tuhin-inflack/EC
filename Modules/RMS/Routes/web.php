@@ -45,6 +45,9 @@ Route::prefix('rms')->group(function () {
         Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}','ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
+        Route::get('review/{researchProposalSubmissionId}','ProposalSubmitController@review');
+        Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
+
     });
 
     Route::prefix('received-research-proposals')->group(function () {
