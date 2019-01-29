@@ -13,16 +13,19 @@ use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Services\UserService;
 use App\Services\workflow\WorkflowService;
+use Modules\PMS\Services\ProjectProposalService;
 
 class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 {
     private $workflowService;
     private $userService;
+    private $projectProposalService;
 
-    public function __construct(WorkflowService $workflowService, UserService $userService)
+    public function __construct(WorkflowService $workflowService, UserService $userService, ProjectProposalService $projectProposalService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -60,5 +63,11 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
+    }
+
+    public function updateItem($itemId, $status)
+    {
+        $proposal = $this->projectProposalService->findOne($itemId);
+        $this->projectProposalService->update($proposal, ['status' => $status]);
     }
 }
