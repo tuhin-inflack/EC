@@ -18,7 +18,7 @@ class CreateWorkflowMastersTable extends Migration
             $table->integer('feature_id');
             $table->integer('rule_master_id');
             $table->integer('ref_table_id');
-            $table->smallInteger('status');
+            $table->enum('status', ['INITIATED', 'PENDING', 'APPROVED', 'REJECTED', 'CLOSED', 'REINITIATED']);
             $table->integer('initiator_id');
             $table->integer('reinitiate_ref_id')->nullable();
 
