@@ -17,6 +17,7 @@ class CreateProjectProposalFilesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('proposal_id');
             $table->string('attachments');
+            $table->string('file_name');
             $table->timestamps();
         });
     }

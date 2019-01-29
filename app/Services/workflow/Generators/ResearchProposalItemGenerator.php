@@ -41,20 +41,20 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-//            dd($workflowMaster);
-
+//            dd($workflowMaster->researchProposalSubmission->requester);
             $researchData = [
-                'feature_name' => $workflowMaster->feature->name,
-                'rule_master_name' => $workflowMaster->ruleMaster->name,
-                'rule_details' => $workflowMaster->ruleMaster->rule,
+                'proposal_title' => $workflowMaster->researchProposalSubmission->title,
+                'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
+                'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
             ];
+
 
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url
-            $dashboardItem->setCheckUrl('/edit/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setCheckUrl('/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);

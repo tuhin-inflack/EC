@@ -11,6 +11,7 @@ namespace App\Entities\workflow;
 
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
+use Modules\RMS\Entities\ResearchProposalSubmission;
 
 class WorkflowMaster extends Model
 {
@@ -37,4 +38,10 @@ class WorkflowMaster extends Model
     {
         return $this->hasMany(WorkflowDetail::class, 'workflow_master_id')->orderBy('notification_order');
     }
+
+    public function researchProposalSubmission()
+    {
+        return $this->belongsTo(ResearchProposalSubmission::class, 'ref_table_id', 'id');
+    }
+
 }

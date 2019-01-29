@@ -59,6 +59,7 @@ class OrganizableService
         return new Response(trans('labels.save_success'));
     }
 
+    // TODO: Remove unless necessary
     public function getAlreadyAddedOrganizationIds($projectOrResearchId, $type)
     {
         if ($type == Config::get('constants.research')) {

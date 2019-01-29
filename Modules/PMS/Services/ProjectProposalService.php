@@ -11,18 +11,18 @@ namespace Modules\PMS\Services;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
-use Illuminate\Http\Response;
+use App\Traits\FileTrait;
+use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposalFile;
-use Modules\PMS\Entities\ProjectRequest;
-
-use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Repositories\ProjectProposalRepository;
-use Modules\PMS\Repositories\ProjectRequestRepository;
 
 
 class ProjectProposalService
 {
     use CrudTrait;
+    use FileTrait;
     private $projectProposalRepository;
     private $featureService;
     private $workflowService;
@@ -39,7 +39,9 @@ class ProjectProposalService
         $this->projectProposalRepository = $projectProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
-        $this->setActionRepository($this->projectProposalRepository);
+
+        $this->setActionRepository($projectProposalRepository);
+
     }
 
     public function getAll()
@@ -49,32 +51,38 @@ class ProjectProposalService
 
     public function store(array $data)
     {
-        $proposal = $this->projectProposalRepository->save($data);
+        return DB::transaction(function () use ($data) {
+            $data['status'] = 'pending';
 
-        // Initiating Workflow
-        $featureName = config('constants.project_proposal_feature_name');
-        $feature = $this->featureService->findBy(['name' => $featureName])->first();
-        $workflowData = [
-            'feature_id' => $feature->id,
-            'rule_master_id' => $feature->workflowRuleMaster->id,
-            'ref_table_id' => $proposal->id,
-            'message' => "",
-        ];
-        $this->workflowService->createWorkflow($workflowData);
-        // Workflow initiate done
+            $proposalSubmission = $this->save($data);
 
-        foreach ($data['attachment'] as $image) {
-            $filename = $image->getClientOriginalName();
-            $image->storeAs('public/uploads', $filename);
+            foreach ($data['attachments'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'project-submissions');
 
-            $image = new ProjectProposalFile([
-                'attachments' => $filename,
-            ]);
+                $file = new ProjectProposalFile([
+                    'proposal_id' => $proposalSubmission->id,
+                    'attachments' => $path,
+                    'file_name' => $fileName
+                ]);
 
-            $proposal->projectProposalFiles()->save($image);
-        }
+                $proposalSubmission->projectProposalFiles()->save($file);
+            }
 
-        return new Response(trans('labels.save_success'), Response::HTTP_OK);
+            // Initiating Workflow
+            $featureName = config('constants.project_proposal_feature_name');
+            $feature = $this->featureService->findBy(['name' => $featureName])->first();
+            $workflowData = [
+                'feature_id' => $feature->id,
+                'rule_master_id' => $feature->workflowRuleMaster->id,
+                'ref_table_id' => $proposalSubmission->id,
+                'message' => "",
+            ];
+            $this->workflowService->createWorkflow($workflowData);
+            // Workflow initiate done
+
+            return $proposalSubmission;
+        });
     }
 
     public function update()
@@ -96,6 +104,23 @@ class ProjectProposalService
             return $proposal;
         }
 
+    }
+
+    public function getZipFilePath($proposalId)
+    {
+        $researchProposal = $this->findOne($proposalId);
+
+        $filePaths = $researchProposal->projectProposalFiles->map(function ($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 
 }

@@ -30,4 +30,7 @@ class ResearchProposalSubmission extends Model
     {
         return $this->morphToMany(Organization::class, 'organizable');
     }
+    public function requester(){
+        return $this->belongsTo(ResearchRequest::class, 'research_request_id', 'id');
+    }
 }
