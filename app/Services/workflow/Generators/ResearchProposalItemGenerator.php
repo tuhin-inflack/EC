@@ -74,6 +74,6 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
     public function updateItem($itemId, $status)
     {
         $proposal = $this->proposalSubmissionService->findOne($itemId);
-        $this->proposalSubmissionService->update($proposal, $status);
+        $this->proposalSubmissionService->update($proposal, ['status' => $status]);
     }
 }

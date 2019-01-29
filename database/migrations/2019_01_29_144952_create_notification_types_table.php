@@ -19,7 +19,7 @@ class CreateNotificationTypesTable extends Migration
             $table->string('description')->nullable();
             $table->boolean('is_application_notification')->default(true);
             $table->boolean('is_email_notification')->default(false);
-            $table->boolean('is_email_notification')->default(false);
+            $table->boolean('is_sms_notification')->default(false);
             $table->timestamps();
         });
     }
