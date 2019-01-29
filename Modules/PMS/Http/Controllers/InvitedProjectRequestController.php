@@ -5,9 +5,10 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Services\ProjectRequestService;
 
-class RequestedProjectProposalController extends Controller
+class InvitedProjectRequestController extends Controller
 {
     private $projectRequestService;
 
@@ -27,7 +28,7 @@ class RequestedProjectProposalController extends Controller
     public function index()
     {
         $requests = $this->projectRequestService->getAll();
-        return view('pms::requested-project.index', compact('requests'));
+        return view('pms::invited-project-request.index', compact('requests'));
     }
 
 
@@ -36,9 +37,9 @@ class RequestedProjectProposalController extends Controller
     }
 
 
-    public function show()
+    public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::show');
+        return view('pms::invited-project-request.show', compact('projectRequest'));
     }
 
 

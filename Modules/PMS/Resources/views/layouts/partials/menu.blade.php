@@ -16,8 +16,8 @@
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_request')}}</span>
                     </a>
                 </li>
-                <li class="{{is_active_route('requested-project.index')}}">
-                    <a href="{{route('requested-project.index')}}">
+                <li class="{{is_active_route('invited-project-request.index')}}">
+                    <a href="{{route('invited-project-request.index')}}">
                         <i class="la la-list"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.invited_project_request')}}</span>
                     </a>

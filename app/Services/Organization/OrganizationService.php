@@ -11,8 +11,12 @@ namespace App\Services;
 
 use App\Repositories\Organization\OrganizationRepository;
 use App\Traits\CrudTrait;
-use Modules\PMS\Services\ProjectProposalService;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Modules\PMS\Services\ProjectResearchOrgService;
+use Modules\PMS\Services\ProjectService;
+use Modules\RMS\Entities\Research;
+use Modules\RMS\Services\ResearchService;
 
 class OrganizationService
 {
@@ -20,33 +24,58 @@ class OrganizationService
     private $organizationRepository;
     private $projectResearchOrgService;
     private $projectProposalService;
+    /**
+     * @var ResearchService
+     */
+    private $researchService;
+    /**
+     * @var ProjectService
+     */
+    private $projectService;
 
-    public function __construct(OrganizationRepository $organizationRepository, OrganizableService $organizableService, ProjectProposalService $projectProposalService)
+    /**
+     * OrganizationService constructor.
+     * @param OrganizationRepository $organizationRepository
+     * @param ResearchService $researchService
+     * @param ProjectService $projectService
+     */
+    public function __construct(
+        OrganizationRepository $organizationRepository,
+        ResearchService $researchService,
+        ProjectService $projectService
+    )
     {
         $this->organizationRepository = $organizationRepository;
-        $this->projectResearchOrgService = $organizableService;
-        $this->projectProposalService = $projectProposalService;
+        $this->researchService = $researchService;
+        $this->projectService = $projectService;
         $this->setActionRepository($this->organizationRepository);
-
     }
 
-    public function getAllOrganization($projectResearchId, $type)
+    public function getUnmappedOrganizations($organizable)
     {
-        $alreadyAddedIds = $this->projectResearchOrgService->getAlreadyAddedOrganizationIds($projectResearchId, $type);
-        $organizations = $this->organizationRepository->getOrganizationExceptIds($alreadyAddedIds);
-        $organizations['other_organization'] = '+ ' . trans('pms::project_proposal.add_new_organization');
-        return $organizations;
+        $organizationIds = $organizable->organizations->pluck('id');
+
+        return $this->organizationRepository->getOrganizationExceptIds($organizationIds);
     }
 
-    public function findOrganizationById($id)
+    public function store(array $data)
     {
-        $organization = $this->findOne($id);
-        if (is_null($organization)) {
-            abort(404);
+        return DB::transaction(function () use ($data) {
+            if ($data['organization_id'] == 'add_new') {
+                $organization = $this->save($data);
+            } else {
+                $organization = $this->findOne($data['organization_id']);
+            }
 
-        } else {
+            if ($data['organizable_type'] == Config::get('constants.research')) {
+                $research = $this->researchService->findOne($data['organizable_id']);
+                $research->organizations()->attach($organization);
+            } else {
+                $project = $this->projectService->findOne($data['organizable_id']);
+                $project->organizations()->attach($organization);
+            }
+
             return $organization;
-        }
+        });
     }
-
 }

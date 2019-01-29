@@ -19,6 +19,10 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
         Route::get('show/{project}', 'ProjectController@show')->name('project.show');
+
+        Route::prefix('{project}/organizations')->group(function () {
+            Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
+        });
     });
 
     Route::prefix('project-requests')->group(function () {
@@ -30,13 +34,14 @@ Route::prefix('pms')->group(function () {
         Route::get('file-download/{projectRequestAttachment}','ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
-    Route::prefix('requested-project-proposals')->group(function () {
-        Route::get('/', 'RequestedProjectProposalController@index')->name('requested-project.index');
+    Route::prefix('invited-project-requests')->group(function () {
+        Route::get('/', 'InvitedProjectRequestController@index')->name('invited-project-request.index');
+        Route::get('{projectRequest}/show', 'InvitedProjectRequestController@show')->name('invited-project-request.show');
     });
 
     Route::prefix('project-proposal-submission')->group(function () {
         Route::get('/', 'ProjectProposalController@index')->name('project-proposal-submission.index');
-        Route::get('/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');
+        Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');
         Route::post('/', 'ProjectProposalController@store')->name('project-proposal-submission.store');
         Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-proposal.attachment-download');
     });

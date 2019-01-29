@@ -39,6 +39,7 @@ class ProposalSubmitController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param ResearchRequest $researchRequest
      * @return Response
      */
     public function create(ResearchRequest $researchRequest)

@@ -16,11 +16,12 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">{{trans('labels.serial')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.project_title')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
-                                        <th scope="col">{{trans('labels.status')}}</th>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('pms::project_proposal.attached_file')</th>
+                                        <th scope="col">@lang('pms::project_proposal.submitted_by')</th>
+                                        <th scope="col">@lang('rms::research_proposal.submission_date')</th>
+                                        <th scope="col">@lang('labels.status')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -29,15 +30,10 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>{{ $proposal->title }}</td>
-                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">Attachment</a></td>
-                                            <td>{{ $proposal->remarks }}</td>
-                                            <td>
-                                                @if($proposal->status == 0)
-                                                    <span class="badge badge-warning">Pending</span>
-                                                @else
-                                                    <span class="badge badge-success">Approved</span>
-                                                @endif
-                                            </td>
+                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
+                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
+                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>@lang('labels.status_' . $proposal->status)</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
