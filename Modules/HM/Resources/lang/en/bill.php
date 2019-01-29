@@ -17,4 +17,5 @@ return [
     'bill_for' => 'Bill For',
     'bill_details' => 'Bill Details',
     'payment_details' => 'Payment Details',
+    'bill_number' => 'Bill Number',
 ];

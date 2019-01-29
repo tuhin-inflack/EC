@@ -27,4 +27,7 @@ return [
     'project' => 'project',
     'research' => 'research',
 
+//    USE IN PMS & RMS
+    'research_proposal_feature_name' => 'Research Proposal',
+
 ];

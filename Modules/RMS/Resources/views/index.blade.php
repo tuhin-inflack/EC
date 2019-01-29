@@ -20,7 +20,8 @@
                             <tr>
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
-                                <td>{{$item->dynamicValues}}</td>
+{{--                                {{ dd($item->dynamicValues) }}--}}
+{{--                                <td>{{$item->dynamicValues}}</td>--}}
                                 <td><a href="{{url($item->checkUrl)}}">Details</a></td>
                             </tr>
                         @endforeach
