@@ -20,6 +20,8 @@ abstract class DashboardItemGeneratorFactory
         switch ($feature) {
             case 'Research Proposal':
                 return app()->make('App\Services\workflow\Generators\ResearchProposalItemGenerator');
+            case 'Project Proposal':
+                return app()->make('App\Services\workflow\Generators\ProjectProposalItemGenerator');
         }
     }
 }

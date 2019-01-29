@@ -8,6 +8,8 @@
 
 namespace Modules\PMS\Services;
 
+use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
@@ -22,16 +24,24 @@ class ProjectProposalService
     use CrudTrait;
     use FileTrait;
     private $projectProposalRepository;
+    private $featureService;
+    private $workflowService;
 
     /**
      * ProjectRequestService constructor.
      * @param ProjectProposalRepository $projectProposalRepository
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository)
+    public function __construct(ProjectProposalRepository $projectProposalRepository,
+                                FeatureService $featureService,
+                                WorkflowService $workflowService)
     {
         $this->projectProposalRepository = $projectProposalRepository;
+        $this->featureService = $featureService;
+        $this->workflowService = $workflowService;
+
         $this->setActionRepository($projectProposalRepository);
+
     }
 
     public function getAll()
@@ -58,6 +68,18 @@ class ProjectProposalService
 
                 $proposalSubmission->projectProposalFiles()->save($file);
             }
+
+            // Initiating Workflow
+            $featureName = config('constants.project_proposal_feature_name');
+            $feature = $this->featureService->findBy(['name' => $featureName])->first();
+            $workflowData = [
+                'feature_id' => $feature->id,
+                'rule_master_id' => $feature->workflowRuleMaster->id,
+                'ref_table_id' => $proposalSubmission->id,
+                'message' => "",
+            ];
+            $this->workflowService->createWorkflow($workflowData);
+            // Workflow initiate done
 
             return $proposalSubmission;
         });
