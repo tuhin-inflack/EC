@@ -24,6 +24,7 @@ Route::prefix('rms')->group(function () {
 
         Route::prefix('{research}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
+            Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
         });
     });
 

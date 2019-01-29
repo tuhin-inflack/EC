@@ -22,6 +22,7 @@ Route::prefix('pms')->group(function () {
 
         Route::prefix('{project}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
+            Route::get('{organization}/show', 'OrganizationController@show')->name('pms-organizations.show');
         });
     });
 

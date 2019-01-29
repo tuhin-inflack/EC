@@ -5,8 +5,9 @@
     <section class="row">
         <div class="col-md-7">
             @include('../../../organization.table', [
-                'organizations' => $project->organizations,
-                'url' => route('pms-organizations.create', $project->id)
+                'organizable' => $project,
+                'url' => route('rms-organizations.create', $project->id),
+                'organizationShowRoute' => function ($organizableId, $organizationId) { return route('pms-organizations.show', [$organizableId, $organizationId]); }
             ])
         </div>
 
