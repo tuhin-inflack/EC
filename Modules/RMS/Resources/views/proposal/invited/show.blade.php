@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ trans('labels.remarks') }}</h5>
-                        <pre>{{ $researchRequest->remarks }}</pre>
+                        <p style="background-color: #f7f7f9;font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ trans('labels.attachments') }}</h5>

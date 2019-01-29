@@ -9,18 +9,18 @@
 namespace Modules\PMS\Services;
 
 use App\Traits\CrudTrait;
-use Illuminate\Http\Response;
+use App\Traits\FileTrait;
+use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposalFile;
-use Modules\PMS\Entities\ProjectRequest;
-
-use Modules\PMS\Entities\ProjectRequestImage;
 use Modules\PMS\Repositories\ProjectProposalRepository;
-use Modules\PMS\Repositories\ProjectRequestRepository;
 
 
 class ProjectProposalService
 {
     use CrudTrait;
+    use FileTrait;
     private $projectProposalRepository;
 
     /**
@@ -31,7 +31,7 @@ class ProjectProposalService
     public function __construct(ProjectProposalRepository $projectProposalRepository)
     {
         $this->projectProposalRepository = $projectProposalRepository;
-        $this->setActionRepository($this->projectProposalRepository);
+        $this->setActionRepository($projectProposalRepository);
     }
 
     public function getAll()
@@ -41,20 +41,26 @@ class ProjectProposalService
 
     public function store(array $data)
     {
-        $proposal = $this->projectProposalRepository->save($data);
+        return DB::transaction(function () use ($data) {
+            $data['status'] = 'pending';
 
-        foreach ($data['attachment'] as $image) {
-            $filename = $image->getClientOriginalName();
-            $image->storeAs('public/uploads', $filename);
+            $proposalSubmission = $this->save($data);
 
-            $image = new ProjectProposalFile([
-                'attachments' => $filename,
-            ]);
+            foreach ($data['attachments'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'project-submissions');
 
-            $proposal->projectProposalFiles()->save($image);
-        }
+                $file = new ProjectProposalFile([
+                    'proposal_id' => $proposalSubmission->id,
+                    'attachments' => $path,
+                    'file_name' => $fileName
+                ]);
 
-        return new Response(trans('labels.save_success'), Response::HTTP_OK);
+                $proposalSubmission->projectProposalFiles()->save($file);
+            }
+
+            return $proposalSubmission;
+        });
     }
 
     public function update()
@@ -76,6 +82,23 @@ class ProjectProposalService
             return $proposal;
         }
 
+    }
+
+    public function getZipFilePath($proposalId)
+    {
+        $researchProposal = $this->findOne($proposalId);
+
+        $filePaths = $researchProposal->projectProposalFiles->map(function ($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 
 }

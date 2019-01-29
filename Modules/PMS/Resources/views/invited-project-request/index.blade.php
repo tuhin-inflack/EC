@@ -17,9 +17,10 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">{{trans('labels.serial')}}</th>
-                                        <th scope="col">{{trans('pms::project_proposal.received_at')}}</th>
+                                        <th scope="col">@lang('labels.title')</th>
                                         <th scope="col">{{trans('pms::project_proposal.remarks')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.attached_file')}}</th>
+                                        <th scope="col">{{trans('pms::project_proposal.received_at')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.last_sub_date')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
                                         <th scope="col">{{trans('labels.action')}}</th>
@@ -29,17 +30,12 @@
                                     @foreach($requests as $request)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
-                                        <td>{{$request->created_at}}</td>
-                                        <td>{{ $request->message }}</td>
+                                        <td><a href="{{ route('invited-project-request.show', $request->id) }}">{{ $request->title }}</a></td>
+                                        <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
                                         <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">Attachment</a></td>
+                                        <td>{{ date('d/m/Y hi:A', strtotime($request->created_at)) }}</td>
                                         <td>{{ $request->end_date }}</td>
-                                        <td>
-                                            @if($request->status == 0)
-                                                <span class="badge badge-warning">Ongoing</span>
-                                            @else
-                                                <span class="badge badge-warning">Success</span>
-                                            @endif
-                                        </td>
+                                        <td>@lang('labels.status_' . $request->status)</td>
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -48,7 +44,7 @@
                                                             class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                <a href="{{route('project-proposal-submission.create')}}"
+                                                <a href="{{route('project-proposal-submission.create', $request->id)}}"
                                                    class="dropdown-item"><i class="ft-fast-forward"></i> {{trans('pms::project_proposal.submit_proposal')}}</a>
                                                 </span>
                                             </span>
