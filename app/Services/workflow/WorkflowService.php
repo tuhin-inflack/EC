@@ -9,6 +9,7 @@
 namespace App\Services\workflow;
 
 use App\Constants\WorkflowConversationStatus;
+use App\Constants\WorkflowGetBackStatus;
 use App\Constants\WorkflowStatus;
 use App\Entities\workflow\WorkflowDetail;
 use App\Entities\workflow\WorkflowMaster;
@@ -35,6 +36,8 @@ class WorkflowService
      * @param WorkFlowMasterRepository $workFlowMasterRepository
      * @param WorkflowRuleMasterRepository $workflowRuleMasterRepository
      * @param WorkflowConversationRepository $flowConversationRepository
+     * @param WorkflowDetailRepository $workflowDetailRepository
+     * @param WorkFlowConversationService $flowConversationService
      */
     public function __construct(WorkFlowMasterRepository $workFlowMasterRepository, WorkflowRuleMasterRepository $workflowRuleMasterRepository,
                                 WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository, WorkFlowConversationService $flowConversationService)
@@ -42,18 +45,24 @@ class WorkflowService
         $this->workFlowMasterRepository = $workFlowMasterRepository;
         $this->workflowRuleMasterRepository = $workflowRuleMasterRepository;
         $this->flowConversationRepository = $flowConversationRepository;
-        $this->setActionRepository($workflowRuleMasterRepository);
         $this->workflowDetailRepository = $workflowDetailRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->setActionRepository($workflowRuleMasterRepository);
     }
 
     public function createWorkflow($data)
     {
         $ruleMaster = $this->workflowRuleMasterRepository->findOne($data['rule_master_id']);
+
+        //Save Workflow master
         $workflowMaster = $this->workFlowMasterRepository->save(['feature_id' => $data['feature_id'], 'rule_master_id' => $ruleMaster->id,
             'ref_table_id' => $data['ref_table_id'], 'status' => WorkflowStatus::INITIATED, 'initiator_id' => Auth::user()->id]);
+
+        //Save workflow details
         $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
+
+        //Save conversation
         $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
             'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
     }
@@ -91,7 +100,7 @@ class WorkflowService
 
     private function isFlowCompleted($getBackStatus, $flowDetailsList)
     {
-        return ($getBackStatus == 'NONE') || !$this->isPendingWorkFlow($flowDetailsList);
+        return ($getBackStatus == WorkflowGetBackStatus::NONE) || !$this->isPendingWorkFlow($flowDetailsList);
     }
 
     private function isPendingWorkFlow($flowDetailsList)
@@ -154,8 +163,8 @@ class WorkflowService
                     $flowDetailsNext->status = WorkflowStatus::PENDING;
                     $flowDetailsNext->setCreatorId($responderId); //Responder of previous step is the creator of next step
                 } else
-                    if ($responseStatus == WorkflowStatus::REJECTED && $getBackStatus != 'NONE') {
-                        if ($getBackStatus == 'INITIAL' || ($count - 1 < 0)) {
+                    if ($responseStatus == WorkflowStatus::REJECTED && $getBackStatus != WorkflowGetBackStatus::NONE) {
+                        if ($getBackStatus == WorkflowGetBackStatus::INITIAL || ($count - 1 < 0)) {
                             $flowDetailsNext = $flowDetailsList[0];
                         } else {
                             $flowDetailsNext = $flowDetailsList[$count - 1];
