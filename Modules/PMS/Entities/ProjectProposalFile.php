@@ -8,5 +8,5 @@ class ProjectProposalFile extends Model
 {
     protected $table = 'project_proposal_files';
 
-    protected $fillable = ['proposal_id','attachments'];
+    protected $fillable = ['proposal_id','attachments','file_name'];
 }

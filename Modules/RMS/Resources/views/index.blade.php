@@ -20,7 +20,12 @@
                             <tr>
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
-                                <td>{{$item->dynamicValues}}</td>
+                                <td>
+                                    Proposal Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Remarks: {{ $item->dynamicValues['remarks'] }}
+
+                                </td>
                                 <td><a href="{{url($item->checkUrl)}}">Details</a></td>
                             </tr>
                         @endforeach

@@ -15,9 +15,10 @@ class CreateProjectProposalsTable extends Migration
     {
         Schema::create('project_proposals', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('project_request_id');
+            $table->integer('auth_user_id');
             $table->string('title');
-            $table->text('remarks');
-            $table->tinyInteger('status');
+            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
             $table->timestamps();
         });
     }

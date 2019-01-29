@@ -60,6 +60,7 @@ class WorkflowService
 
         //Save workflow details
         $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
+
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
 
         //Save conversation

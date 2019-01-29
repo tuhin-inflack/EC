@@ -4,13 +4,14 @@ namespace Modules\PMS\Entities;
 
 use App\Entities\Organization\Organization;
 use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
+use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ProjectProposal extends Model
 {
     protected $table = 'project_proposals';
 
-    protected $fillable = ['title', 'remarks', 'status'];
+    protected $fillable = ['project_request_id', 'auth_user_id', 'title', 'status'];
 
     public function projectProposalFiles()
     {
@@ -35,5 +36,10 @@ class ProjectProposal extends Model
     public function monthlyUpdates()
     {
         return $this->hasMany(ProjectResearchMonthlyUpdate::class, 'update_for_id')->where('type', 'project');
+    }
+
+    public function proposalSubmittedBy()
+    {
+        return $this->belongsTo(User::class, 'auth_user_id', 'id');
     }
 }

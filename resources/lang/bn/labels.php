@@ -9,6 +9,7 @@ return [
     'information' => 'তথ্য',
     'date' => 'তারিখ',
     'amount' => 'পরিমাণ',
+    'paid_amount' => 'পরিশোধিত টাকার পরিমান',
     'remarks' => 'মন্তব্য',
     'name' => 'নাম',
     'short_name' => 'সংক্ষিপ্ত নাম',
@@ -134,4 +135,5 @@ return [
     'nid_number' => 'ন্যাশনাল আইডি কার্ড নম্বর',
     'open' => 'উন্মুক্ত',
     'closed' => 'সমাপ্ত',
+    'message_to_receiver' => 'রিসিভার জন্য বার্তা লিখুন'
 ];

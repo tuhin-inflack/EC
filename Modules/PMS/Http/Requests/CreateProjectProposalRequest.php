@@ -15,8 +15,7 @@ class CreateProjectProposalRequest extends FormRequest
     {
         return [
             'title' => 'required|max:150',
-            'message' => 'max:300',
-            'attachment.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
+            'attachments.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
         ];
     }
 
