@@ -49,10 +49,10 @@ class ReceivedProjectProposalController extends Controller
     {
 //        dd($id);
         $proposal = $this->projectProposalService->findOrFail($id);
+        $ganttChart = $this->projectProposalService->getGanttChartData($proposal);
 //        dd($proposal);
-        return view('pms::proposal-submitted.show', compact('proposal'));
+        return view('pms::proposal-submitted.show', compact('proposal', 'ganttChart'));
     }
-
 
     public function edit()
     {
