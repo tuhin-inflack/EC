@@ -41,13 +41,13 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-//            dd($workflowMaster);
-
+//            dd($workflowMaster->researchProposalSubmission->requester);
             $researchData = [
-                'feature_name' => $workflowMaster->feature->name,
-                'rule_master_name' => $workflowMaster->ruleMaster->name,
-                'rule_details' => $workflowMaster->ruleMaster->rule,
+                'proposal_title' => $workflowMaster->researchProposalSubmission->title,
+                'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
+                'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
             ];
+
 
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
