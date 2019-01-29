@@ -10,7 +10,7 @@
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
-                            <li><a href="{{ route('organization.add-research-organization', $research->id) }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> Add Organization</a></li>
+                            <li><a href="{{ route('organizations.create', $research->id) }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> Add Organization</a></li>
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>

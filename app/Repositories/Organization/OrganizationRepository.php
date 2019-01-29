@@ -17,10 +17,9 @@ class OrganizationRepository extends AbstractBaseRepository
 {
     protected $modelName = Organization::class;
 
-    public function getOrganizationExceptIds($alreadyAddedIds)
+    public function getOrganizationExceptIds($ids)
     {
-        $organizations = Organization::whereNotIn('id', $alreadyAddedIds)->get()->pluck('name', 'id')->toArray();
-        return $organizations;
+        return $this->model->whereNotIn('id', $ids)->get();
     }
 
 

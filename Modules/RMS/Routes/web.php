@@ -13,37 +13,42 @@
 
 use Illuminate\Http\Request;
 
-Route::prefix('rms')->group(function() {
+Route::prefix('rms')->group(function () {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
-    Route::prefix('researches')->group(function (){
-        Route::get('/','ResearchController@index')->name('research.index');
-        Route::get('/create','ResearchController@create')->name('research.create');
-        Route::post('/','ResearchController@store')->name('research.store');
-        Route::get('{research}/show','ResearchController@show')->name('research.show');
+    Route::prefix('researches')->group(function () {
+        Route::get('/', 'ResearchController@index')->name('research.index');
+        Route::get('/create', 'ResearchController@create')->name('research.create');
+        Route::post('/', 'ResearchController@store')->name('research.store');
+        Route::get('{research}/show', 'ResearchController@show')->name('research.show');
+
+        Route::prefix('{research}/organizations')->group(function () {
+            Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
+        });
     });
 
     Route::prefix('research-requests')->group(function () {
         Route::get('/create', 'ResearchRequestController@create')->name('research-request.create');
         Route::get('/', 'ResearchRequestController@index')->name('research-request.index');
-        Route::post('/','ResearchRequestController@store')->name('research-request.store');
-        Route::get('attachment-download/{researchRequest}','ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
-        Route::get('file-download/{researchRequestAttachment}','ResearchRequestController@fileDownload')->name('research-request.file-download');
-        Route::get('{researchRequest}/show','ResearchRequestController@show')->name('research-request.show');
+        Route::post('/', 'ResearchRequestController@store')->name('research-request.store');
+        Route::get('attachment-download/{researchRequest}', 'ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
+        Route::get('file-download/{researchRequestAttachment}', 'ResearchRequestController@fileDownload')->name('research-request.file-download');
+        Route::get('{researchRequest}/show', 'ResearchRequestController@show')->name('research-request.show');
     });
 
-    Route::prefix('research-proposal-submission')->group(function(){
-        Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
-        Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
-        Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
-        Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
-        Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
-        Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
+    Route::prefix('research-proposal-submission')->group(function () {
+        Route::get('/', 'ProposalSubmitController@index')->name('research-proposal-submission.index');
+        Route::get('{researchRequest}/create', 'ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::post('/', 'ProposalSubmitController@store')->name('research-proposal-submission.store');
+        Route::get('show/{id}', 'ProposalSubmitController@show')->name('research-proposal-submission.show');
+        Route::get('{researchProposal}/edit', 'ProposalSubmitController@edit')->name('research-proposal-submission.edit');
+        Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
     });
 
-    Route::prefix('received-research-proposals')->group(function(){
-        Route::get('/','ReceivedResearchProposalController@index')->name('received-research-proposal.index');
+    Route::prefix('received-research-proposals')->group(function () {
+        Route::get('/', 'ReceivedResearchProposalController@index')->name('received-research-proposal.index');
     });
+
 
     Route::prefix('organization')->group(function () {
         Route::get('/add-organization/{id?}', 'ReceivedResearchProposalController@addOrganization')->name('organization.add-research-organization');
@@ -56,12 +61,12 @@ Route::prefix('rms')->group(function() {
         Route::post('/update-organization-member/{memberId?}', 'OrganizationMemberController@UpdateOrganizationMember')->name('member.update-org-member');
     });
 
-    Route::prefix('invited-research-proposals')->group(function (){
-        Route::get('/','InvitedResearchProposalController@index')->name('invited-research-proposal.index');
-        Route::get('{researchRequest}','InvitedResearchProposalController@show')->name('invited-research-proposal.show');
-        Route::get('file-download/{researchRequestAttachment}','InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
-        Route::get('{researchRequest}/request-date-extend','InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
-        Route::post('/','InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
+    Route::prefix('invited-research-proposals')->group(function () {
+        Route::get('/', 'InvitedResearchProposalController@index')->name('invited-research-proposal.index');
+        Route::get('{researchRequest}', 'InvitedResearchProposalController@show')->name('invited-research-proposal.show');
+        Route::get('file-download/{researchRequestAttachment}', 'InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
+        Route::get('{researchRequest}/request-date-extend', 'InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
+        Route::post('/', 'InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
     });
 
     Route::prefix('task')->group(function () {
