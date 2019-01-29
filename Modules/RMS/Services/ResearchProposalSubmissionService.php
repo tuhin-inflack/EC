@@ -59,7 +59,6 @@ class ResearchProposalSubmissionService
 
                 return $proposalSubmission;
             });
-        }
     }
 
     public function getAll()
