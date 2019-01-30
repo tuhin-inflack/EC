@@ -141,4 +141,19 @@ class ProposalSubmitController extends Controller
         return redirect('/rms');
 
     }
+
+    public function reInitiate($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    {
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $researchProposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        return view('rms::proposal.reinitiate.research-re-initiate', compact('researchProposal', 'name', 'auth_user_id', 'researchRequest'));
+    }
+
+    public function storeInitiate(Request $request, $researchProposalId)
+    {
+
+        $this->researchProposalSubmissionService->updateReInitiate($request->all(), $researchProposalId);
+    }
 }

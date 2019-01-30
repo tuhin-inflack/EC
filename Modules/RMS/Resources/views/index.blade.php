@@ -14,7 +14,7 @@
                         <th>Feature</th>
                         <th>Message</th>
                         <th>Details</th>
-                        <th>Check</th>
+                        <th>Action</th>
                         </thead>
                         <tbody>
                         @foreach($pendingTasks->dashboardItems as $item)
@@ -59,7 +59,11 @@
                                     Remarks: {{ $item->dynamicValues['remarks'] }}
 
                                 </td>
-                                <td><a href="{{url($item->checkUrl)}}">Details</a></td>
+
+                                <td>
+                                    <a href="{{url($item->checkUrl. '/re-initiate')}}">Re-initiate</a> |
+                                    <a href="{{url($item->checkUrl)}}">Close</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
