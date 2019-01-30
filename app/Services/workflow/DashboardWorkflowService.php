@@ -12,18 +12,12 @@ namespace App\Services\workflow;
 use App\Constants\WorkflowStatus;
 use App\Models\DashboardItemSummary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class DashboardWorkflowService
 {
-    /**
-     * @param WorkflowService $workflowService
-     */
     private $workflowService;
 
-    /**
-     * DashboardWorkflowService constructor.
-     * @param WorkflowService $workflowService
-     */
     public function __construct(WorkflowService $workflowService)
     {
         $this->workflowService = $workflowService;
@@ -38,16 +32,15 @@ class DashboardWorkflowService
 
     public function updateDashboardItem($data)
     {
+        DB::transaction(function () use ($data) {
+            $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($data['feature']);
+            $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
+                $data['status'], $data['remarks'], $data['message']);
+            $workFlowMaster = $this->workflowService->getWorkflowMaster($data['workflow_master_id']);
 
-        dd($data);
-        $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($data['feature']);
-        $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
-            $data['status'], $data['remarks'], $data['message']);
-
-        $workFlowMaster = $this->workFlowService->getWorkFlowMaster($data['workflow_master_id']);
-
-        if ($workFlowMaster->status != WorkFlowStatus::PENDING) {
-            $itemGenerator->updateItem($data['item_id'], $data['status']);
-        }
+            if ($workFlowMaster->status != WorkFlowStatus::INITIATED) {
+                $itemGenerator->updateItem($data['item_id'], $data['status']);
+            }
+        });
     }
 }
