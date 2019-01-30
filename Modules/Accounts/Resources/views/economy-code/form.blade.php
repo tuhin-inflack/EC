@@ -9,7 +9,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('code', trans('labels.code'), ['class' => 'form-label']) !!} <span class="danger">*</span>
-            {!! Form::text('code', $page == 'create' ? old('code') : $economyCode->code, ['class' => 'form-control'.($errors->has('code') ? ' is-invalid' : ''), 'required',
+            {!! Form::number('code', $page == 'create' ? old('code') : $economyCode->code, ['class' => 'form-control'.($errors->has('code') ? ' is-invalid' : ''), 'required',
             "placeholder" => "e.g 1152154", 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('labels.code')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('code'))

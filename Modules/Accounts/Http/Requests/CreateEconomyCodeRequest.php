@@ -14,7 +14,7 @@ class CreateEconomyCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|alpha_num|unique:economy_codes,code',
+            'code' => 'required|numeric|unique:economy_codes,code',
             'english_name' => 'required|max:200',
             'bangla_name' => 'required|max:200',
         ];
