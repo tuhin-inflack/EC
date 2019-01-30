@@ -38,6 +38,15 @@ class WorkFlowConversationService
         }
     }
 
+    public function closeByFlowMaster($flowMasterId)
+    {
+        $flowConversations = $this->getActiveConversationByWorkFlowAndDetails($flowMasterId);
+        foreach ($flowConversations as $flowConversation) {
+            $flowConversation->status = 'CLOSED';
+            $flowConversation->update();
+        }
+    }
+
     public function getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId)
     {
         return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId, 'workflow_details_id' => $flowDetailsId, 'status' => WorkflowConversationStatus::ACTIVE]);

@@ -186,4 +186,22 @@ class WorkflowService
     {
         return $this->workFlowMasterRepository->findOne($id);
     }
+
+    public function reinitializeWorkflow($data)
+    {
+        $workflowMaster = $this->workFlowMasterRepository->findOneBy(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id']]);
+        $workflowDetails = $workflowMaster->workflowDetails;
+        foreach ($workflowDetails as $workflowDetail)
+        {
+            $workflowDetail->status = $workflowDetail->notification_order == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED;
+            $workflowDetail->update();
+        }
+        $workflowMaster->status = WorkflowStatus::INITIATED;
+        $workflowMaster->update();
+
+        //Save conversation
+        $this->flowConversationService->closeByFlowMaster($workflowMaster->id);
+        $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
+            'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
+    }
 }
