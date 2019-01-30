@@ -56,5 +56,6 @@ return [
     'pending' => 'বিচারাধীন',
     'research_details' => 'গবেষণা সম্পর্কিত বিস্তারিত',
     'research_request_details' => 'গবেষণা প্রস্তাব অনুরোধ সম্পর্কিত বিস্তারিত',
+    're_initiate_success' => 'সফলভাবে পুনরায় শুরু করেছেন',
 ];
 

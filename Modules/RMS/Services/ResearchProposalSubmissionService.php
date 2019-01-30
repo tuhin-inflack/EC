@@ -9,6 +9,7 @@ use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -154,7 +155,8 @@ class ResearchProposalSubmissionService
             ];
 
             $this->workflowService->reinitializeWorkflow($reInitializeData);
-            return $proposalSubmission;
+            return new Response(trans('rms::research_proposal.re_initiate_success'));
+
         });
     }
 
