@@ -79,7 +79,7 @@ class ProjectProposalService
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
-                'message' => "",
+                'message' => "Project submitted on ".date('d-m-Y'),
             ];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
