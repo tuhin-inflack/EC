@@ -85,9 +85,23 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td><a href="#">{{ $attribute->name }}</a></td>
                                         <td>{{ $attribute->unit }}</td>
-                                        <td class="text-center"><a
-                                                    href="{{ route('rms-attributes.edit', [$organization->id, $attribute->id]) }}"
-                                                    class="btn btn-sm btn-info"><i class="ft ft-edit"></i></a></td>
+                                        <td class="text-center">
+                                            <span class="dropdown">
+                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false" class="btn btn-info btn-sm dropdown-toggle"><i
+                                                        class="la la-cog"></i></button>
+                                              <span aria-labelledby="btnSearchDrop2"
+                                                    class="dropdown-menu mt-1 dropdown-menu-right">
+                                                  <a href="{{ route('rms-attribute-values.create', $attribute->id) }}"
+                                                     class="dropdown-item"><i
+                                                              class="la la-keyboard-o"></i>@lang('attribute.enter_value')</a>
+                                                <a href="{{ route('rms-attributes.edit', [$organization->id, $attribute->id]) }}"
+                                                   class="dropdown-item"><i
+                                                            class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                                              </span>
+                                            </span>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>

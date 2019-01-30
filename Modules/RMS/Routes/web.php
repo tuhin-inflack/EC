@@ -37,10 +37,16 @@ Route::prefix('rms')->group(function () {
         });
         // organization attribute
         Route::prefix('attributes')->group(function () {
-            $attributeController = '\App\Http\Controllers\AttributeController';
-           Route::get('create', $attributeController . '@create')->name('rms-attributes.create');
-           Route::get('{attribute}/edit', $attributeController . '@edit')->name('rms-attributes.edit');
+            $AttributeController = '\App\Http\Controllers\AttributeController';
+            Route::get('create', $AttributeController . '@create')->name('rms-attributes.create');
+            Route::get('{attribute}/edit', $AttributeController . '@edit')->name('rms-attributes.edit');
         });
+    });
+    // attributes attribute values
+    Route::prefix('attributes/{attribute}/values')->group(function () {
+        $AttributeValueController = '\App\Http\Controllers\AttributeValueController';
+        Route::get('create', $AttributeValueController . '@create')->name('rms-attribute-values.create');
+        Route::get('{attributeValue}/edit', $AttributeValueController . '@edit')->name('rms-attribute-values.edit');
     });
 
     Route::prefix('research-requests')->group(function () {
