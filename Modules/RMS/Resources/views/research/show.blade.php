@@ -37,38 +37,41 @@
             </div>
         </div>
     </section>
-
-    <section class="row">
-        <div class=" col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">{{ trans('rms::research_proposal.research_details') }}</h4>
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <ul class="list-inline mb-0">
-                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            <li><a data-action="close"><i class="ft-x"></i></a></li>
-                        </ul>
+    <section>
+        <div class="row match-height">
+            <div class="col-sm-12 col-md-7">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{ trans('rms::research_proposal.research_details') }}</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="card-content">
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('labels.title')</h5>
-                        <pre>{{ $research->title }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('rms::research_proposal.submitted_by')</h5>
-                        <pre>{{ $research->researchSubmittedByUser->name }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('rms::research_proposal.submission_date')</h5>
-                        <pre>{{ date('d/m/Y,  h:mA', strtotime($research->created_at)) }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('labels.status')</h5>
-                        <pre>@lang('rms::research_proposal.' . $research->status)</pre>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="card-text">
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('labels.title')</dt>
+                                    <dd class="col-sm-9">{{ $research->title }}</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('rms::research_proposal.submitted_by')</dt>
+                                    <dd class="col-sm-9">{{ $research->researchSubmittedByUser->name }}</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('rms::research_proposal.submission_date')</dt>
+                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:mA', strtotime($research->created_at)) }}</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('labels.status')</dt>
+                                    <dd class="col-sm-9">@lang('rms::research_proposal.' . $research->status)</dd>
+                                </dl>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

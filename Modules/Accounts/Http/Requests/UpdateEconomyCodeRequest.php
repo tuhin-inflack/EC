@@ -14,7 +14,7 @@ class UpdateEconomyCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|alpha_num|unique:economy_codes,code,' . $this->economyCode->id,
+            'code' => 'required|numeric|unique:economy_codes,code,' . $this->economyCode->id,
             'english_name' => 'required|max:200',
             'bangla_name' => 'required|max:200',
         ];
