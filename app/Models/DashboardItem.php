@@ -20,6 +20,7 @@ class DashboardItem
     public $workFlowMasterStatus;
     public $reInitiationUrl;
     public $message;
+    public $remarks;
 
     /**
      * @return mixed
@@ -166,6 +167,19 @@ class DashboardItem
         $this->message = $message;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getRemarks()
+    {
+        return $this->remarks;
+    }
 
-
+    /**
+     * @param mixed $remarks
+     */
+    public function setRemarks($remarks): void
+    {
+        $this->remarks = $remarks;
+    }
 }
