@@ -107,7 +107,7 @@ class WorkflowService
     private function isPendingWorkFlow($flowDetailsList)
     {
         foreach ($flowDetailsList as $flowDetail) {
-            if ($flowDetail . getStatus() == WorkflowStatus::PENDING) {
+            if ($flowDetail->status == WorkflowStatus::PENDING) {
                 return true;
             }
         }
@@ -117,7 +117,7 @@ class WorkflowService
     private function isFlowAccepted($workFlowDetails)
     {
         foreach ($workFlowDetails as $flowDetail) {
-            if ($flowDetail . getStatus() != WorkflowStatus::APPROVED) {
+            if ($flowDetail->status != WorkflowStatus::APPROVED) {
                 return false;
             }
         }
@@ -126,16 +126,11 @@ class WorkflowService
 
     public function updateWorkFlow($workFlowId, $workFlowConversationId, $responderId, $status, $remarks, $message)
     {
-
-//Todo: error in line 131
-        $workFlowConversation = $this->flowConversationService->getActiveConversation($workFlowConversationId);
-//        dd($workFlowConversation);
+        $workFlowConversation = $this->flowConversationService->findOne($workFlowConversationId);
         $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
-
-//Todo: error in line 137
         $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
             $workFlowMaster->ruleMaster->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
-        if ($this->isFlowCompleted($workFlowMaster->workflowRuleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
+        if ($this->isFlowCompleted($workFlowMaster->ruleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
             if ($this->isFlowAccepted($workFlowMaster->workflowDetails)) {
                 $workFlowMaster->status = WorkflowStatus::APPROVED;
             } else {
@@ -143,29 +138,28 @@ class WorkflowService
             }
             //TODO: Notify respective users
         }
-        $workFlowMaster->setUpdateDate(new \DateTime());
         $workFlowMaster->update();
     }
 
     private function updateWorkFlowDetails($flowDetailsList, $responseStatus, $getBackStatus,
                                            $responderId, $message, $workFlowDetailsId, $remarks)
     {
-        for ($count = 0; $count < $flowDetailsList->size(); $count++) {
+        for ($count = 0; $count < count($flowDetailsList); $count++) {
             $flowDetails = $flowDetailsList[$count];
 
             if ($flowDetails->id == $workFlowDetailsId && $flowDetails->status == WorkflowStatus::PENDING) {
                 //set response
                 $flowDetails->status = $responseStatus;
-                $flowDetails->responder_id = 'responder_id';
+//                $flowDetails->responder_id = 'responder_id';
                 $flowDetails->responder_remarks = $remarks;
                 $this->flowConversationService->closeConversation($flowDetails->workflowMaster->id, $flowDetails->id);
 
                 //Set next responder
                 $flowDetailsNext = null;
-                if ($responseStatus == WorkflowStatus::APPROVED && ($count + 1 < $flowDetailsList->size())) {
+                if ($responseStatus == WorkflowStatus::APPROVED && ($count + 1 < count($flowDetailsList))) {
                     $flowDetailsNext = $flowDetailsList[$count + 1];
                     $flowDetailsNext->status = WorkflowStatus::PENDING;
-                    $flowDetailsNext->setCreatorId($responderId); //Responder of previous step is the creator of next step
+                    $flowDetailsNext->creator_id= $responderId; //Responder of previous step is the creator of next step
                 } else
                     if ($responseStatus == WorkflowStatus::REJECTED && $getBackStatus != WorkflowGetBackStatus::NONE) {
                         if ($getBackStatus == WorkflowGetBackStatus::INITIAL || ($count - 1 < 0)) {
@@ -179,11 +173,17 @@ class WorkflowService
                     $this->flowConversationService->save(['workflow_master_id' => $flowDetailsNext->workflowMaster->id,
                         'workflow_details_id' => $flowDetailsNext->id, 'feature_id' => $flowDetailsNext->workflowMaster->feature->id,
                         'message' => $message, 'status' => WorkflowConversationStatus::ACTIVE]);
+                    $flowDetailsNext->update();
                 }
 
                 $flowDetails->update();
                 break;
             }
         }
+    }
+
+    public function getWorkflowMaster($id)
+    {
+        return $this->workFlowMasterRepository->findOne($id);
     }
 }

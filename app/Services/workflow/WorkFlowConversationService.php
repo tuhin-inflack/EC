@@ -9,6 +9,7 @@
 namespace App\Services\workflow;
 
 
+use App\Constants\WorkflowConversationStatus;
 use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Traits\CrudTrait;
 
@@ -30,8 +31,8 @@ class WorkFlowConversationService
 
     public function closeConversation($flowMasterId, $flowDetailsId)
     {
-        $flowConversation = $this->getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId);
-        if ($flowConversation != null) {
+        $flowConversations = $this->getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId);
+        foreach ($flowConversations as $flowConversation) {
             $flowConversation->status = 'CLOSED';
             $flowConversation->update();
         }
@@ -39,7 +40,7 @@ class WorkFlowConversationService
 
     public function getActiveConversationByWorkFlowAndDetails($flowMasterId, $flowDetailsId)
     {
-        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId, 'workflow_details_id' => $flowDetailsId]);
+        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId, 'workflow_details_id' => $flowDetailsId, 'status' => WorkflowConversationStatus::ACTIVE]);
     }
 
     public function getActiveConversationByWorkFlow($flowMasterId)
