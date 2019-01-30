@@ -16,7 +16,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-bordered">
+            <table class="attribute-table table table-striped table-bordered">
                 <thead>
                 <th>@lang('labels.serial')</th>
                 <th>@lang('attribute.attribute')</th>

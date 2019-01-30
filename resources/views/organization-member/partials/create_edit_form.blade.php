@@ -1,5 +1,5 @@
 <div class="form-body">
-    <h4 class="form-section"><i class="ft-grid"></i> @lang('pms::member.member_adding_form') </h4>
+    <h4 class="form-section"><i class="ft-grid"></i> @lang('member.member_adding_form') </h4>
     <h3>{{ $mode }}   <strong>({{ $organization->name }})</strong></h3>
     <div class="row " style="">
         <div class="col-md-6 ">

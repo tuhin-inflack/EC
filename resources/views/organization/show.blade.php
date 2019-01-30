@@ -14,6 +14,11 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <div class="col-md-12">
+                @include('attribute-value.tabular-view')
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-6">
                 @include('organization-member.partials.table')
             </div>
@@ -23,3 +28,13 @@
         </div>
     </div>
 @endsection
+
+@push('page-js')
+    <script>
+        $(document).ready(function () {
+            $('.attribute-table, .member-table').DataTable({
+                pageLength: 5
+            });
+        });
+    </script>
+@endpush
