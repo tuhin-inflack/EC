@@ -141,18 +141,19 @@
                                                                 <td>{{ time() }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td  style="margin-right: 20px">@lang('hm::booking-request.check_in') @lang('labels.id')
+                                                                <td style="margin-right: 20px">@lang('hm::booking-request.check_in') @lang('labels.id')
 
                                                                 </td>
                                                                 <td> : {{ $checkin->shortcode }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td  style="margin-right: 20px">@lang('hm::bill.bill_for')</td>
+                                                                <td style="margin-right: 20px">@lang('hm::bill.bill_for')</td>
                                                                 <td> : {{ $checkin->requester->getName() }}</td>
                                                             </tr>
                                                             <tr>
-                                                                <td  style="margin-right: 20px">@lang('hm::checkin.checkin_type')</td>
-                                                                <td> : {{ trans('hm::booking-request.' . $checkin->booking_type) }}</td>
+                                                                <td style="margin-right: 20px">@lang('hm::checkin.checkin_type')</td>
+                                                                <td>
+                                                                    : {{ trans('hm::booking-request.' . $checkin->booking_type) }}</td>
                                                             </tr>
                                                         </table>
                                                     </div>
@@ -160,9 +161,10 @@
                                                         <table class="table table-bordered">
                                                             <tr>
                                                                 <td style="margin-right: 20px">@lang('labels.total')</td>
-                                                                <td id="total-amount" >
+                                                                <td id="total-amount">
                                                                     @php
-                                                                        $totalAmount = $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount');
+                                                                        $dueAmount = $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount');
+                                                                   $totalAmount = $dueAmount + $amount;
                                                                     @endphp
                                                                     : {{ $totalAmount }}
 
@@ -170,12 +172,15 @@
                                                             </tr>
 
                                                             <tr>
-                                                                <td style="margin-right: 20px">@lang('labels.amount')</td>
+                                                                <td style="margin-right: 20px">@lang('labels.paid_amount')</td>
                                                                 <td>
-                                                                     : {{ $amount }}
+                                                                    : {{ $amount }}
                                                                 </td>
                                                             </tr>
-
+                                                            <tr>
+                                                                <td style="margin-right: 20px">@lang('labels.due')</td>
+                                                                <td class="due-amount"> : {{ $dueAmount }}</td>
+                                                            </tr>
                                                             <tr>
                                                                 <td style="margin-right: 20px">@lang('labels.method')</td>
                                                                 <td>
@@ -183,10 +188,6 @@
                                                                 </td>
                                                             </tr>
 
-                                                            <tr>
-                                                                <td  style="margin-right: 20px">@lang('labels.due')</td>
-                                                                <td class="due-amount"> : {{ $totalAmount -  $amount}}</td>
-                                                            </tr>
 
                                                         </table>
                                                     </div>
