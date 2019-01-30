@@ -27,13 +27,7 @@
                         </span>
                         @endif
                     </div>
-                    @if($page == 'create')
-                    <div class="form-group mb-1 col-sm-12 col-md-12">
-                        <label class="">{{ trans('labels.message_to_receiver') }}</label>
-                        <br>
-                        {!! Form::text('message', null, ['class' => 'form-control',  'placeholder' => 'Message',]) !!}
-                    </div>
-                    @endif
+
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
                         {!! Form::file('attachments[]', ['class' => 'form-control required' . ($errors->has('attachments') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
@@ -50,13 +44,30 @@
         </div>
     </div>
 </div>
-<div class="form-actions text-center">
+<div class="form-actions">
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <fieldset>
+                <div class="form row">
+                    @if($page == 'create')
+                        <div class="form-group mb-1 col-sm-12 col-md-12">
+                            <label class="">{{ trans('labels.message_to_receiver') }}</label>
+                            <br>
+                            {!! Form::textarea('message', null, ['class' => 'form-control',  'placeholder' => 'Message','rows'=>3]) !!}
+                        </div>
+                    @endif
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <div class="pull-right">
+        {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
 
-    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
+        <a class="btn btn-warning mr-1" role="button" href="{{route('invited-research-proposal.index')}}">
+            <i class="ft-x"></i> {{trans('labels.cancel')}}
+        </a>
+    </div>
 
-    <a class="btn btn-warning mr-1" role="button" href="{{route('invited-research-proposal.index')}}">
-        <i class="ft-x"></i> {{trans('labels.cancel')}}
-    </a>
 </div>
 {!! Form::close() !!}
 
