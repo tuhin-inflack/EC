@@ -54,29 +54,29 @@ $(window).on("load", function(){
     };
 
     // Chart Data
-    var chartData = {
-        labels: ["January", "February", "March", "April", "May"],
-        datasets: [{
-            label: "My First dataset",
-            data: [65, 59, 80, 81, 56],
-            backgroundColor: "#5175E0",
-            hoverBackgroundColor: "rgba(81,117,224,.8)",
-            borderColor: "transparent"
-        }, {
-            label: "My Second dataset",
-            data: [28, 48, 40, 19, 86],
-            backgroundColor: "#28D094",
-            hoverBackgroundColor: "rgba(22,211,154,.8)",
-            borderColor: "transparent"
-        },
-        {
-            label: "My Third dataset",
-            data: [80, 25, 16, 36, 67],
-            backgroundColor: "#F98E76",
-            hoverBackgroundColor: "rgba(249,142,118,.8)",
-            borderColor: "transparent"
-        }]
-    };
+    // var chartData = {
+    //     labels: ["January", "February", "March", "April", "May"],
+    //     datasets: [{
+    //         label: "My First dataset",
+    //         data: [65, 59, 80, 81, 56],
+    //         backgroundColor: "#5175E0",
+    //         hoverBackgroundColor: "rgba(81,117,224,.8)",
+    //         borderColor: "transparent"
+    //     }, {
+    //         label: "My Second dataset",
+    //         data: [28, 48, 40, 19, 86],
+    //         backgroundColor: "#28D094",
+    //         hoverBackgroundColor: "rgba(22,211,154,.8)",
+    //         borderColor: "transparent"
+    //     },
+    //     {
+    //         label: "My Third dataset",
+    //         data: [80, 25, 16, 36, 67],
+    //         backgroundColor: "#F98E76",
+    //         hoverBackgroundColor: "rgba(249,142,118,.8)",
+    //         borderColor: "transparent"
+    //     }]
+    // };
 
     var config = {
         type: 'bar',

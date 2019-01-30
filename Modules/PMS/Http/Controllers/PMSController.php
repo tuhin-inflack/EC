@@ -6,14 +6,20 @@ use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Services\ProjectProposalService;
 
 class PMSController extends Controller
 {
     private $dashboardService;
+    /**
+     * @var ProjectProposalService
+     */
+    private $projectProposalService;
 
-    public function __construct(DashboardWorkflowService $dashboardService)
+    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService)
     {
         $this->dashboardService = $dashboardService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     /**
@@ -23,7 +29,8 @@ class PMSController extends Controller
     public function index()
     {
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems(config('constants.project_proposal_feature_name'));
-        return view('pms::index', compact('pendingTasks'));
+        $chartData = $this->projectProposalService->getProjectProposalByStatus();
+        return view('pms::index', compact('pendingTasks', 'chartData'));
     }
 
     /**

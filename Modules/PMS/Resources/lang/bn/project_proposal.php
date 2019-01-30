@@ -43,6 +43,8 @@ return [
     'project_creation' => 'প্রকল্প তৈরি',
     'project_create_form' => 'প্রকল্প তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
+    'in_progress' => 'চলমান',
+    'reviewed' => 'পুনর্বিচার',
     'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
     'receiver' => 'গ্রাহক',
     'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',

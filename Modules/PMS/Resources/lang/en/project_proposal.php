@@ -43,6 +43,8 @@ return [
     'project_creation' => 'Project Creation',
     'project_create_form' => 'Project Creation Form',
     'pending' => 'Pending',
+    'in_progress' => 'In Progress',
+    'reviewed' => 'Reviewed',
     'project_details' => 'Project Details',
     'receiver' => 'Receiver',
     'download_all_attachments' => 'Download all Attachments',

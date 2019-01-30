@@ -145,4 +145,14 @@ class ProjectProposalService
         }
         return $chartData;
     }
+
+    public function getProjectProposalByStatus()
+    {
+        $projectProposal = new ProjectProposal();
+        return [
+            $projectProposal->where('status', '=', 'pending')->count(),
+            $projectProposal->where('status', '=', 'in progress')->count(),
+            $projectProposal->where('status', '=', 'reviewed')->count()
+        ];
+    }
 }
