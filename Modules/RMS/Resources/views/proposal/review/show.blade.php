@@ -88,9 +88,9 @@
                                     {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
                                     {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     <a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">
-                                        <i class="ft-skip-back"></i> Back</a>
+                                        <i class="ft-x"></i> Cancel</a>
                                     {!! Form::button(' <i class="ft-check"></i> Approved', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                    {!! Form::button('  <i class="ft-x"></i> Reject', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
+                                    {!! Form::button('  <i class="ft-skip-back"></i> Send Back', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
 
                                     {!! Form::close() !!}
                                 </div>
