@@ -11,16 +11,19 @@ namespace App\Services\workflow;
 
 use App\Constants\WorkflowStatus;
 use App\Models\DashboardItemSummary;
+use App\Repositories\workflow\FeatureRepository;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class DashboardWorkflowService
 {
     private $workflowService;
+    private $featureRepository;
 
-    public function __construct(WorkflowService $workflowService)
+    public function __construct(WorkflowService $workflowService, FeatureRepository $featureRepository)
     {
         $this->workflowService = $workflowService;
+        $this->featureRepository = $featureRepository;
     }
 
 
@@ -28,6 +31,12 @@ class DashboardWorkflowService
     {
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
         return $itemGenerator->generateItems();
+    }
+
+    public function getDashboardRejectedWorkflowItems($feature): DashboardItemSummary
+    {
+        $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
+        return $itemGenerator->generateRejectedItems();
     }
 
     public function updateDashboardItem($data)

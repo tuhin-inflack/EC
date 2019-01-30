@@ -81,13 +81,14 @@
                                     {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data']) !!}
                                     <hr/>
                                     <div class="form-group">
-                                        {!! Form::label('message', 'Message', ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
-                                    </div>
-                                    <div class="form-group">
-                                        {!! Form::label('remarks', 'Remarks', ['class' => 'black']) !!}
+                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                     </div>
+                                    <div class="form-group">
+                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                    </div>
+
                                     {!! Form::hidden('feature', $featureName) !!}
                                     {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
                                     {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}

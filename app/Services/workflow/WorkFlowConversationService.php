@@ -54,7 +54,7 @@ class WorkFlowConversationService
 
     public function getActiveConversationByWorkFlow($flowMasterId)
     {
-        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId]);
+        return $this->flowConversationRepository->findBy(['workflow_master_id' => $flowMasterId, 'status' => WorkflowConversationStatus::CLOSED]);
     }
 
     public function getActiveConversation($workFlowConversationId)

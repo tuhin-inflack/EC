@@ -72,4 +72,9 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $proposal = $this->projectProposalService->findOne($itemId);
         $this->projectProposalService->update($proposal, ['status' => $status]);
     }
+
+    public function generateRejectedItems(): DashboardItemSummary
+    {
+        // TODO: Implement generateRejectedItems() method.
+    }
 }
