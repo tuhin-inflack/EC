@@ -27,12 +27,20 @@ Route::prefix('rms')->group(function () {
             Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
         });
     });
-    // organization members
-    Route::prefix('organizations/{organization}/members')->group(function () {
-       Route::get('create', 'OrganizationMemberController@create')->name('rms-organization-members.create');
-       Route::post('/', 'OrganizationMemberController@store')->name('rms-organization-members.store');
-       Route::get('{member}/edit', 'OrganizationMemberController@edit')->name('rms-organization-members.edit');
-       Route::put('{member}', 'OrganizationMemberController@update')->name('rms-organization-members.update');
+    Route::prefix('organizations/{organization}')->group(function () {
+        // organization members
+        Route::prefix('members')->group(function () {
+            Route::get('create', 'OrganizationMemberController@create')->name('rms-organization-members.create');
+            Route::post('/', 'OrganizationMemberController@store')->name('rms-organization-members.store');
+            Route::get('{member}/edit', 'OrganizationMemberController@edit')->name('rms-organization-members.edit');
+            Route::put('{member}', 'OrganizationMemberController@update')->name('rms-organization-members.update');
+        });
+        // organization attribute
+        Route::prefix('attributes')->group(function () {
+            $attributeController = '\App\Http\Controllers\AttributeController';
+           Route::get('create', $attributeController . '@create')->name('rms-attributes.create');
+           Route::get('{attribute}/edit', $attributeController . '@edit')->name('rms-attributes.edit');
+        });
     });
 
     Route::prefix('research-requests')->group(function () {
@@ -44,17 +52,17 @@ Route::prefix('rms')->group(function () {
         Route::get('{researchRequest}/show', 'ResearchRequestController@show')->name('research-request.show');
     });
 
-    Route::prefix('research-proposal-submission')->group(function(){
-        Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
-        Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
-        Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
-        Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
-        Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
-        Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
-        Route::get('attachment-download/{researchProposalSubmission}','ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
-        Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review');
-        Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
+    Route::prefix('research-proposal-submission')->group(function () {
+        Route::get('/', 'ProposalSubmitController@index')->name('research-proposal-submission.index');
+        Route::get('{researchRequest}/create', 'ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::post('/', 'ProposalSubmitController@store')->name('research-proposal-submission.store');
+        Route::get('show/{id}', 'ProposalSubmitController@show')->name('research-proposal-submission.show');
+        Route::get('{researchProposal}/edit', 'ProposalSubmitController@edit')->name('research-proposal-submission.edit');
+        Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
+        Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
+        Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}', 'ProposalSubmitController@review');
+        Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
     });
 
     Route::prefix('received-research-proposals')->group(function () {

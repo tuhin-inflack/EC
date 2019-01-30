@@ -8,7 +8,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Attribute;
-use Modules\PMS\Http\Requests\StoreAttributeRequest;
+use Modules\PMS\Http\Requests\StoreUpdateAttributeRequest;
 use Modules\PMS\Http\Requests\UpdateAttributeRequest;
 use Modules\PMS\Services\AttributeService;
 
@@ -47,12 +47,13 @@ class AttributeController extends Controller
         return view('pms::attribute.create', compact('organizations'));
     }
 
-    public function store(StoreAttributeRequest $request)
+    public function store(StoreUpdateAttributeRequest $request)
     {
         $this->attributeService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
 
-        return redirect()->route('attributes.index');
+        return redirect()->back();
+//        return redirect()->route('attributes.index');
     }
 
     public function edit(Attribute $attribute)
