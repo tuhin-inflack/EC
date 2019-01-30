@@ -99,6 +99,11 @@ class WorkflowService
         return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds);
     }
 
+    public function getWorkflowDetailsByUserAndFeature($userId, array $designationIds, $featureId)
+    {
+        return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds, $featureId);
+    }
+
     private function isFlowCompleted($getBackStatus, $flowDetailsList)
     {
         return ($getBackStatus == WorkflowGetBackStatus::NONE) || !$this->isPendingWorkFlow($flowDetailsList);
@@ -204,4 +209,11 @@ class WorkflowService
         $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
             'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
     }
+
+    public function getRejectedItems($userId, $featureId)
+    {
+        return $this->workFlowMasterRepository->findBy(['initiator_id' => $userId, 'status' => WorkflowStatus::CLOSED,
+            'feature_id' => $featureId]);
+    }
+
 }

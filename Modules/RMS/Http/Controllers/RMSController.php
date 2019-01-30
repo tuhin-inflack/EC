@@ -28,7 +28,8 @@ class RMSController extends Controller
     {
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
-        return view('rms::index', compact('pendingTasks'));
+        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
+        return view('rms::index', compact('pendingTasks', 'rejectedItems'));
     }
 
     /**
