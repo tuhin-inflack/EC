@@ -2,13 +2,16 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
+use App\Services\workflow\FeatureService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchProposalSubmission;
@@ -22,13 +25,17 @@ class ProposalSubmitController extends Controller
     private $userService;
     private $researchProposalSubmissionService;
     private $dashboardWorkflowService;
+    private $remarksService;
+    private $featureService;
 
     public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
-                                DashboardWorkflowService $dashboardWorkflowService)
+                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService)
     {
         $this->userService = $userService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
+        $this->remarksService = $remarkService;
+        $this->featureService  = $featureService;
     }
 
     /**
@@ -125,8 +132,13 @@ class ProposalSubmitController extends Controller
     {
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
+        $featureName = Config::get('constants.research_proposal_feature_name');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
+
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
-        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId'));
+        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks'));
 
     }
 
