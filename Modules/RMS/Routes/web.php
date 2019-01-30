@@ -25,13 +25,15 @@ Route::prefix('rms')->group(function () {
             Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
         });
     });
+    // organization
     Route::prefix('organizations/{organization}')->group(function () {
         // organization members
         Route::prefix('members')->group(function () {
-            Route::get('create', 'OrganizationMemberController@create')->name('rms-organization-members.create');
-            Route::post('/', 'OrganizationMemberController@store')->name('rms-organization-members.store');
-            Route::get('{member}/edit', 'OrganizationMemberController@edit')->name('rms-organization-members.edit');
-            Route::put('{member}', 'OrganizationMemberController@update')->name('rms-organization-members.update');
+            $OrganizationMemberController = '\App\Http\Controllers\OrganizationMemberController';
+            Route::get('create', $OrganizationMemberController . '@create')->name('rms-organization-members.create');
+            Route::post('/', $OrganizationMemberController . '@store')->name('rms-organization-members.store');
+            Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('rms-organization-members.edit');
+            Route::put('{member}', $OrganizationMemberController . '@update')->name('rms-organization-members.update');
         });
         // organization attribute
         Route::prefix('attributes')->group(function () {

@@ -21,6 +21,7 @@
                     <tr>
                         <th>@lang('labels.serial')</th>
                         <th>@lang('organization.organization')</th>
+                        <th>@lang('member.member')</th>
                         <th>@lang('organization.attribute')</th>
                     </tr>
                     </thead>
@@ -29,6 +30,7 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td><a href="{{ $organizationShowRoute($organizable->id, $organization->id) }}">{{ $organization->name }}</a></td>
+                            <td>{{ $organization->members->count() }}</td>
                             <td>{{ $organization->attributes->count() }}</td>
                         </tr>
                     @endforeach
