@@ -3,6 +3,7 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Services\workflow\DashboardWorkflowService;
+use App\Services\workflow\WorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -13,11 +14,15 @@ class PMSController extends Controller
 {
     private $dashboardService;
     private $projectProposalService;
+    private $workflowService;
 
-    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService)
+    public function __construct(DashboardWorkflowService $dashboardService,
+                                ProjectProposalService $projectProposalService,
+                                WorkflowService $workflowService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectProposalService = $projectProposalService;
+        $this->workflowService = $workflowService;
     }
 
     /**
@@ -113,5 +118,29 @@ class PMSController extends Controller
         Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));
+    }
+
+    public function resubmit($proposalId , $featureId)
+    {
+        $proposal = $this->projectProposalService->findOne($proposalId);
+
+        return view('pms::proposal-submission.resubmit', compact('proposal', 'featureId'));
+    }
+
+    public function storeResubmit($proposalId, Request $request)
+    {
+        $proposal = $this->projectProposalService->findOrFail($proposalId);
+        $updateData = [
+            'status' => 'PENDING',
+            'title' => $request->input('title')
+        ];
+        $update = $this->projectProposalService->update($proposal, $updateData);
+
+        // Reinitialising Workflow
+        $data = ['feature_id' => $request->input('feature_id')
+            , 'message' => $request->input('message'),
+            'ref_table_id' => $proposalId];
+        $this->workflowService->reinitializeWorkflow($data);
+
     }
 }
