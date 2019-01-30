@@ -46,7 +46,9 @@ class AttributeValueController extends Controller
     public function create(Attribute $attribute)
     {
         $pageType = 'create';
-        return view('pms::attribute-value.create', compact('attribute', 'pageType'));
+        $module = explode("/", Request()->route()->getPrefix())[0];
+
+        return view('attribute-value.create', compact('attribute', 'pageType', 'module'));
     }
 
     /**

@@ -11,8 +11,6 @@
 |
 */
 
-use Illuminate\Http\Request;
-
 Route::prefix('rms')->group(function () {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
@@ -21,11 +19,35 @@ Route::prefix('rms')->group(function () {
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
         Route::get('{research}/show', 'ResearchController@show')->name('research.show');
-
+        // research organizations
         Route::prefix('{research}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
             Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
         });
+    });
+    // organization
+    Route::prefix('organizations/{organization}')->group(function () {
+        // organization members
+        Route::prefix('members')->group(function () {
+            $OrganizationMemberController = '\App\Http\Controllers\OrganizationMemberController';
+            Route::get('create', $OrganizationMemberController . '@create')->name('rms-organization-members.create');
+            Route::post('/', $OrganizationMemberController . '@store')->name('rms-organization-members.store');
+            Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('rms-organization-members.edit');
+            Route::put('{member}', $OrganizationMemberController . '@update')->name('rms-organization-members.update');
+        });
+        // organization attribute
+        Route::prefix('attributes')->group(function () {
+            $AttributeController = '\App\Http\Controllers\AttributeController';
+            Route::get('create', $AttributeController . '@create')->name('rms-attributes.create');
+            Route::get('{attribute}/edit', $AttributeController . '@edit')->name('rms-attributes.edit');
+            Route::get('{attribute}', $AttributeController . '@show')->name('rms-attributes.show');
+        });
+    });
+    // attributes attribute values
+    Route::prefix('attributes/{attribute}/values')->group(function () {
+        $AttributeValueController = '\App\Http\Controllers\AttributeValueController';
+        Route::get('create', $AttributeValueController . '@create')->name('rms-attribute-values.create');
+        Route::get('{attributeValue}/edit', $AttributeValueController . '@edit')->name('rms-attribute-values.edit');
     });
 
     Route::prefix('research-requests')->group(function () {
@@ -56,17 +78,6 @@ Route::prefix('rms')->group(function () {
 
     Route::prefix('received-research-proposals')->group(function () {
         Route::get('/', 'ReceivedResearchProposalController@index')->name('received-research-proposal.index');
-    });
-
-    Route::prefix('organization')->group(function () {
-        Route::get('/add-organization/{id?}', 'ReceivedResearchProposalController@addOrganization')->name('organization.add-research-organization');
-        Route::post('/store-organization/{id?}', 'ReceivedResearchProposalController@storeOrganization')->name('organization.store-research-organization');
-    });
-    Route::prefix('member')->group(function () {
-        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-org-member');
-        Route::post('/store-organization-member/', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-org-member');
-        Route::get('/edit-organization-member/{memberId?}', 'OrganizationMemberController@editOrganizationMember')->name('member.edit-org-member');
-        Route::post('/update-organization-member/{memberId?}', 'OrganizationMemberController@UpdateOrganizationMember')->name('member.update-org-member');
     });
 
     Route::prefix('invited-research-proposals')->group(function () {

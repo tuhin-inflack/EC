@@ -25,6 +25,30 @@ Route::prefix('pms')->group(function () {
             Route::get('{organization}/show', 'OrganizationController@show')->name('pms-organizations.show');
         });
     });
+    // Organization
+    Route::prefix('organizations/{organization}')->group(function () {
+        // organization members
+        Route::prefix('members')->group(function () {
+            $OrganizationMemberController = '\App\Http\Controllers\OrganizationMemberController';
+            Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
+            Route::post('/', $OrganizationMemberController . '@store')->name('pms-organization-members.store');
+            Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('pms-organization-members.edit');
+            Route::put('{member}', $OrganizationMemberController . '@update')->name('pms-organization-members.update');
+        });
+        // organization attribute
+        Route::prefix('attributes')->group(function () {
+            $AttributeController = '\App\Http\Controllers\AttributeController';
+            Route::get('create', $AttributeController . '@create')->name('pms-attributes.create');
+            Route::get('{attribute}/edit', $AttributeController . '@edit')->name('pms-attributes.edit');
+            Route::get('{attribute}', $AttributeController . '@show')->name('pms-attributes.show');
+        });
+    });
+    // attributes attribute values
+    Route::prefix('attributes/{attribute}/values')->group(function () {
+        $AttributeValueController = '\App\Http\Controllers\AttributeValueController';
+        Route::get('create', $AttributeValueController . '@create')->name('pms-attribute-values.create');
+        Route::get('{attributeValue}/edit', $AttributeValueController . '@edit')->name('pms-attribute-values.edit');
+    });
 
     Route::prefix('project-requests')->group(function () {
         Route::get('/', 'ProjectRequestController@index')->name('project-request.index');
@@ -71,18 +95,6 @@ Route::prefix('pms')->group(function () {
     Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
     Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
 
-    Route::prefix('organization')->group(function () {
-        Route::get('/add-organization/{id?}', 'ReceivedProjectProposalController@addOrganization')->name('organization.add-organization');
-        Route::post('/store-organization/{id?}', 'ReceivedProjectProposalController@storeOrganization')->name('organization.store-organization');
-    });
-
-    Route::prefix('member')->group(function () {
-        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-member');
-        Route::post('/store-organization-member/', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-organization-member');
-        Route::get('/edit-organization-member/{memberId?}', 'OrganizationMemberController@editOrganizationMember')->name('member.edit-organization-member');
-        Route::post('/update-organization-member/{memberId?}', 'OrganizationMemberController@UpdateOrganizationMember')->name('member.update-organization-member');
-    });
-
     Route::prefix('task')->group(function () {
         Route::get('/{projectId}', 'TaskController@index')->name('task.index');
         Route::get('/show/{taskId}', 'TaskController@show')->name('task.show');
@@ -92,21 +104,5 @@ Route::prefix('pms')->group(function () {
         Route::post('/edit/{taskId}', 'TaskController@update')->name('task.update');
         Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('task.toggleStartEnd');
         Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('task.delete');
-    });
-
-    Route::prefix('attributes')->group(function () {
-        Route::get('/', 'AttributeController@index')->name('attributes.index');
-        Route::get('create', 'AttributeController@create')->name('attributes.create');
-        Route::post('/', 'AttributeController@store')->name('attributes.store');
-        Route::get('{attribute}/edit', 'AttributeController@edit')->name('attributes.edit');
-        Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
-        // attribute-values
-        Route::prefix('{attribute}')->group(function () {
-            Route::get('values', 'AttributeValueController@index')->name('attribute-values.index');
-            Route::get('values/create', 'AttributeValueController@create')->name('attribute-values.create');
-            Route::post('values', 'AttributeValueController@store')->name('attribute-values.store');
-            Route::get('values/{attributeValue}/edit', 'AttributeValueController@edit')->name('attribute-values.edit');
-            Route::put('values/{attributeValue}', 'AttributeValueController@update')->name('attribute-values.update');
-        });
     });
 });
