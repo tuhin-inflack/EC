@@ -40,8 +40,8 @@ class WorkFlowConversationService
 
     public function closeByFlowMaster($flowMasterId)
     {
-        $flowConversations = $this->getActiveConversationByWorkFlowAndDetails($flowMasterId);
-        foreach ($flowConversations as $flowConversation) {
+        $flowConversation = $this->getActiveConversationByWorkFlow($flowMasterId);
+        if ($flowConversation) {
             $flowConversation->status = 'CLOSED';
             $flowConversation->update();
         }
