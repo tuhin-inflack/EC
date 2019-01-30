@@ -19,7 +19,7 @@ class CreateResearchProposalSubmissionsTable extends Migration
             $table->integer('auth_user_id');
             $table->text('title');
             $table->string('attachments');
-            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
+            $table->enum('status', ['PENDING', 'REJECTED', 'APPROVED'])->default('PENDING');
             $table->timestamps();
         });
     }
