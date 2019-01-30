@@ -164,7 +164,7 @@ class WorkflowService
                 if ($responseStatus == WorkflowStatus::APPROVED && ($count + 1 < count($flowDetailsList))) {
                     $flowDetailsNext = $flowDetailsList[$count + 1];
                     $flowDetailsNext->status = WorkflowStatus::PENDING;
-                    $flowDetailsNext->creator_id= $responderId; //Responder of previous step is the creator of next step
+                    $flowDetailsNext->creator_id = $responderId; //Responder of previous step is the creator of next step
                 } else
                     if ($responseStatus == WorkflowStatus::REJECTED && $getBackStatus != WorkflowGetBackStatus::NONE) {
                         if ($getBackStatus == WorkflowGetBackStatus::INITIAL || ($count - 1 < 0)) {
@@ -196,8 +196,7 @@ class WorkflowService
     {
         $workflowMaster = $this->workFlowMasterRepository->findOneBy(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id']]);
         $workflowDetails = $workflowMaster->workflowDetails;
-        foreach ($workflowDetails as $workflowDetail)
-        {
+        foreach ($workflowDetails as $workflowDetail) {
             $workflowDetail->status = $workflowDetail->notification_order == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED;
             $workflowDetail->update();
         }
@@ -220,6 +219,13 @@ class WorkflowService
     {
         $workflowMaster = $this->workFlowMasterRepository->findOne($workflowMasterId);
         $this->workFlowMasterRepository->update($workflowMaster, ['status' => WorkflowStatus::CLOSED]);
+        $workflowDetails = $workflowMaster->workflowDetails;
+        foreach ($workflowDetails as $workflowDetail) {
+            if ($workflowDetail->status == WorkflowStatus::PENDING || $workflowDetail->status == WorkflowStatus::INITIATED) {
+                $workflowDetail->status = WorkflowStatus::CLOSED;
+                $workflowDetail->update();
+            }
+        }
     }
 
 }
