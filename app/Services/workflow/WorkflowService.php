@@ -212,7 +212,7 @@ class WorkflowService
 
     public function getRejectedItems($userId, $featureId)
     {
-        return $this->workFlowMasterRepository->findBy(['initiator_id' => $userId, 'status' => WorkflowStatus::CLOSED,
+        return $this->workFlowMasterRepository->findBy(['initiator_id' => $userId, 'status' => WorkflowStatus::REJECTED,
             'feature_id' => $featureId]);
     }
 

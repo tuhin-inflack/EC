@@ -49,7 +49,7 @@
                         <th>Check</th>
                         </thead>
                         <tbody>
-                        @foreach($pendingTasks->dashboardItems as $item)
+                        @foreach($rejectedItems->dashboardItems as $item)
                             <tr>
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
