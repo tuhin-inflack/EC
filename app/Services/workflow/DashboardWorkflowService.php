@@ -32,6 +32,7 @@ class DashboardWorkflowService
 
     public function updateDashboardItem($data)
     {
+        //dd($data);
         DB::transaction(function () use ($data) {
             $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($data['feature']);
             $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
