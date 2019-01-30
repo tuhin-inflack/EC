@@ -35,12 +35,14 @@
                                 <thead>
                                 <th>@lang('labels.serial')</th>
                                 <th>Member</th>
+                                <th>Action</th>
                                 </thead>
                                 <tbody>
                                 @foreach($organization->members as $member)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $member->name }}</td>
+                                        <td class="text-center"><a href="{{ route('rms-organization-members.edit', [$organization->id, $member->id]) }}" class="btn btn-sm btn-info"><i class="ft ft-edit"></i></a></td>
                                     </tr>
                                 </tbody>
                                 @endforeach

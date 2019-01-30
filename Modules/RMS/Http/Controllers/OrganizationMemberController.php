@@ -4,16 +4,12 @@ namespace Modules\RMS\Http\Controllers;
 
 
 use App\Entities\Organization\Organization;
+use App\Entities\Organization\OrganizationMember;
 use App\Services\OrganizationMemberService;
 use App\Services\OrganizationService;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\StoreUpdateOrgMemberRequest;
-//use Modules\PMS\Services\OrganizationMemberService;
-use Modules\PMS\Services\ProjectProposalService;
-
 
 class OrganizationMemberController extends Controller
 {
@@ -31,32 +27,30 @@ class OrganizationMemberController extends Controller
         return view('rms::project-members.create', compact('organization'));
     }
 
-    public function store(Request $request, Organization $organization)
+    public function store(StoreUpdateOrgMemberRequest $request, Organization $organization)
     {
-        return $request->all();
+        if ($this->organizationMemberService->save($request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
+
+        return redirect()->back();
     }
 
-    public function storeOrganizationMember(StoreUpdateOrgMemberRequest $request)
+    public function edit(Organization $organization, OrganizationMember $member)
     {
-        $response = $this->organizationMemberService->saveOrganizationMember($request->all(), $request->file('nid'));
-        Session::flash('success', $response->getContent());
-        return redirect()->route('member.add-org-member', $request->organization_id);
+        return view('rms::project-members.edit', compact('organization', 'member'));
     }
 
-    public function editOrganizationMember($memberId)
+    public function update(StoreUpdateOrgMemberRequest $request, Organization $organization, OrganizationMember $member)
     {
-        $member = $this->organizationMemberService->findMemberById($memberId);
-        $organization = $member->organization;
-        return view('rms::project-members.edit', compact('member', 'organization'));
+        if ($this->organizationMemberService->update($member, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
+        }
 
-    }
-
-    public function UpdateOrganizationMember(StoreUpdateOrgMemberRequest $request, $memberId)
-    {
-        $response = $this->organizationMemberService->updateOrganizationMember($request->all(), $memberId);
-        Session::flash('success', $response->getContent());
-        $organizationId = $this->organizationMemberService->findMemberById($memberId)->organization->id;
-        return redirect()->route('member.add-org-member', $organizationId);
-
+        return redirect()->back();
     }
 }

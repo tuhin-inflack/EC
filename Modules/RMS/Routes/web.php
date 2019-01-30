@@ -21,16 +21,18 @@ Route::prefix('rms')->group(function () {
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
         Route::get('{research}/show', 'ResearchController@show')->name('research.show');
-
+        // research organizations
         Route::prefix('{research}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
             Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
         });
     });
-
+    // organization members
     Route::prefix('organizations/{organization}/members')->group(function () {
        Route::get('create', 'OrganizationMemberController@create')->name('rms-organization-members.create');
        Route::post('/', 'OrganizationMemberController@store')->name('rms-organization-members.store');
+       Route::get('{member}/edit', 'OrganizationMemberController@edit')->name('rms-organization-members.edit');
+       Route::put('{member}', 'OrganizationMemberController@update')->name('rms-organization-members.update');
     });
 
     Route::prefix('research-requests')->group(function () {
@@ -53,18 +55,10 @@ Route::prefix('rms')->group(function () {
         Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
         Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review');
         Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
-
     });
 
     Route::prefix('received-research-proposals')->group(function () {
         Route::get('/', 'ReceivedResearchProposalController@index')->name('received-research-proposal.index');
-    });
-
-    Route::prefix('member')->group(function () {
-        Route::get('/add-member/{organizationId?}', 'OrganizationMemberController@addOrganizationMember')->name('member.add-org-member');
-        Route::post('/store-organization-member/', 'OrganizationMemberController@storeOrganizationMember')->name('member.store-org-member');
-        Route::get('/edit-organization-member/{memberId?}', 'OrganizationMemberController@editOrganizationMember')->name('member.edit-org-member');
-        Route::post('/update-organization-member/{memberId?}', 'OrganizationMemberController@UpdateOrganizationMember')->name('member.update-org-member');
     });
 
     Route::prefix('invited-research-proposals')->group(function () {
