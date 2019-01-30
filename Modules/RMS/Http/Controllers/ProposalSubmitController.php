@@ -136,7 +136,7 @@ class ProposalSubmitController extends Controller
 //            'remarks' => '', 'message' => ''];
         $this->dashboardWorkflowService->updateDashboardItem($data);
         //Send user to research dashboard
-        return redirect()->route('research-proposal-submission');
+        return redirect('/rms');
 
     }
 }
