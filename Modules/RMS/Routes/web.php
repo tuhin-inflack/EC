@@ -11,8 +11,6 @@
 |
 */
 
-use Illuminate\Http\Request;
-
 Route::prefix('rms')->group(function () {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
@@ -40,6 +38,7 @@ Route::prefix('rms')->group(function () {
             $AttributeController = '\App\Http\Controllers\AttributeController';
             Route::get('create', $AttributeController . '@create')->name('rms-attributes.create');
             Route::get('{attribute}/edit', $AttributeController . '@edit')->name('rms-attributes.edit');
+            Route::get('{attribute}', $AttributeController . '@show')->name('rms-attributes.show');
         });
     });
     // attributes attribute values

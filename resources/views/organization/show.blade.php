@@ -83,7 +83,7 @@
                                 @foreach($organization->attributes as $attribute)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td><a href="#">{{ $attribute->name }}</a></td>
+                                        <td><a href="{{ route('rms-attributes.show', [$organization->id, $attribute->id]) }}">{{ $attribute->name }}</a></td>
                                         <td>{{ $attribute->unit }}</td>
                                         <td class="text-center">
                                             <span class="dropdown">

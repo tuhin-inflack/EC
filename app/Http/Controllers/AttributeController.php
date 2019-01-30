@@ -69,4 +69,11 @@ class AttributeController extends Controller
 
         return redirect()->back();
     }
+
+    public function show(Organization $organization, Attribute $attribute)
+    {
+        $module = explode('/', Request()->route()->getPrefix())[0];
+
+        return view('attribute.show', compact('organization', 'attribute', 'module'));
+    }
 }
