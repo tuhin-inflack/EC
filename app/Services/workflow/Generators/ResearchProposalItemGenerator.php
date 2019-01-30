@@ -12,6 +12,7 @@ namespace App\Services\workflow\Generators;
 use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
+use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\WorkFlowConversationService;
 use App\Services\workflow\WorkflowService;
@@ -24,6 +25,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
     private $proposalSubmissionService;
     private $featureRepository;
     private $flowConversationService;
+    private $remarksService;
 
     /**
      * ResearchProposalItemGenerator constructor.
@@ -34,13 +36,14 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
      *
      */
     public function __construct(WorkflowService $workflowService, UserService $userService, ResearchProposalSubmissionService $proposalSubmissionService,
-                                FeatureRepository $featureRepository, WorkFlowConversationService $flowConversationService)
+                                FeatureRepository $featureRepository, WorkFlowConversationService $flowConversationService, RemarkService $remarkService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
         $this->proposalSubmissionService = $proposalSubmissionService;
         $this->featureRepository = $featureRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->remarksService = $remarkService;
     }
 
 
@@ -77,6 +80,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setMessage($workflowConversation->message);
             //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
             $dashboardItem->setDynamicValues($researchData);
+            //$dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id,'ref_table_id' => $proposal->id]));
             array_push($dashboardItems, $dashboardItem);
         }
 
@@ -118,6 +122,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setMessage($workflowConversation->message);
             //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
             $dashboardItem->setDynamicValues($researchData);
+            //$dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $workflowMaster->ref_table_id]));
             array_push($dashboardItems, $dashboardItem);
         }
 
