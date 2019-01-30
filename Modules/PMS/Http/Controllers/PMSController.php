@@ -141,6 +141,8 @@ class PMSController extends Controller
             , 'message' => $request->input('message'),
             'ref_table_id' => $proposalId];
         $this->workflowService->reinitializeWorkflow($data);
+        Session::flash('message', __('labels.save_success'));
 
+        return back(route('pms'));
     }
 }
