@@ -14,6 +14,7 @@ use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
 use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Services\UserService;
+use App\Services\workflow\WorkFlowConversationService;
 use App\Services\workflow\WorkflowService;
 use Modules\PMS\Services\ProjectProposalService;
 
@@ -30,13 +31,13 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
                                 UserService $userService,
                                 ProjectProposalService $projectProposalService,
                                 FeatureRepository $featureRepository,
-                                WorkflowConversationRepository $workflowConversationRepository)
+                                WorkFlowConversationService $flowConversationService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
         $this->projectProposalService = $projectProposalService;
-        $this->featureRepository = $projectProposalService;
-        $this->projectProposalService = $projectProposalService;
+        $this->featureRepository = $featureRepository;
+        $this->flowConversationService = $flowConversationService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -58,7 +59,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
                 'requested_by' => $proposal->proposalSubmittedBy->name,
             ];
 
-            $workflowConversation = $workflow->workflowConversations[0];
+            $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
