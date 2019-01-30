@@ -31,6 +31,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     @foreach($projects as $project)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
