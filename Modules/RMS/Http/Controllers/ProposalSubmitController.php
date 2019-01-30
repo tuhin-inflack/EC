@@ -76,7 +76,9 @@ class ProposalSubmitController extends Controller
         $organizations = $research->organizations;
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
 
-        return view('rms::proposal.submission.show', compact('research', 'tasks', 'organizations'));
+        $ganttChart = $this->researchProposalSubmissionService->getGanttChartData($tasks);
+
+        return view('rms::proposal.submission.show', compact('research', 'tasks', 'organizations', 'ganttChart'));
     }
 
     /**
@@ -136,7 +138,22 @@ class ProposalSubmitController extends Controller
 //            'remarks' => '', 'message' => ''];
         $this->dashboardWorkflowService->updateDashboardItem($data);
         //Send user to research dashboard
-        return redirect()->route('research-proposal-submission');
+        return redirect('/rms');
 
+    }
+
+    public function reInitiate($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    {
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $researchProposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        return view('rms::proposal.reinitiate.research-re-initiate', compact('researchProposal', 'name', 'auth_user_id', 'researchRequest'));
+    }
+
+    public function storeInitiate(Request $request, $researchProposalId)
+    {
+
+        $this->researchProposalSubmissionService->updateReInitiate($request->all(), $researchProposalId);
     }
 }

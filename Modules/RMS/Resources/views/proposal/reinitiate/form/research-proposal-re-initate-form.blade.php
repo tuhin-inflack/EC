@@ -1,9 +1,4 @@
-@if($page == 'create')
-    {!! Form::open(['route' =>  'research-proposal-submission.store', 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
-@else
-    {!! Form::open(['route' =>  ['research-proposal-submission.update', $researchProposal->id], 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
-    @method('PUT')
-@endif
+{!! Form::open(['route' =>  ['store-re-initiate', $researchProposal->id], 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
                 class="la la-briefcase"></i> {{trans('rms::research_proposal.research_proposal_creation_form')}}</h4>
@@ -13,9 +8,8 @@
             <fieldset>
                 <div class="form row">
                     {!! Form::hidden('auth_user_id', $auth_user_id) !!}
-                    @if($page == 'create')
-                        {!! Form::hidden('research_request_id', $researchRequest->id) !!}
-                    @endif
+                    {!! Form::hidden('research_request_id', $researchProposal->research_request_id) !!}
+                    {!! Form::hidden('id', $researchProposal->id) !!}
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{ trans('labels.title') }}</label>
                         <br>
@@ -49,13 +43,13 @@
         <div class="col-md-8 offset-2">
             <fieldset>
                 <div class="form row">
-                    @if($page == 'create')
+
                         <div class="form-group mb-1 col-sm-12 col-md-12">
                             <label class="">{{ trans('labels.message_to_receiver') }}</label>
                             <br>
                             {!! Form::textarea('message', null, ['class' => 'form-control',  'placeholder' => 'Message','rows'=>3]) !!}
                         </div>
-                    @endif
+
                 </div>
             </fieldset>
         </div>
