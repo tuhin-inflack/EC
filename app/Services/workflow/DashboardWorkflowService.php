@@ -12,6 +12,7 @@ namespace App\Services\workflow;
 use App\Constants\WorkflowStatus;
 use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
+use App\Services\Remark\RemarkService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -19,11 +20,13 @@ class DashboardWorkflowService
 {
     private $workflowService;
     private $featureRepository;
+    private $remarkService;
 
-    public function __construct(WorkflowService $workflowService, FeatureRepository $featureRepository)
+    public function __construct(WorkflowService $workflowService, FeatureRepository $featureRepository, RemarkService $remarkService)
     {
         $this->workflowService = $workflowService;
         $this->featureRepository = $featureRepository;
+        $this->remarkService = $remarkService;
     }
 
 
@@ -46,7 +49,12 @@ class DashboardWorkflowService
             $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
                 $data['status'], $data['remarks'], $data['message']);
             $workFlowMaster = $this->workflowService->getWorkflowMaster($data['workflow_master_id']);
-
+            //Save remarks
+            if (!empty($data['remarks'])) {
+                $feature = $this->featureRepository->findOneBy(['name' => $data['feature']]);
+                $this->remarkService->save(['feature_id' => $feature->id, 'ref_table_id' => $workFlowMaster->ref_table_id,
+                    'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);
+            }
             if ($workFlowMaster->status != WorkFlowStatus::INITIATED) {
                 $itemGenerator->updateItem($data['item_id'], $data['status']);
             }

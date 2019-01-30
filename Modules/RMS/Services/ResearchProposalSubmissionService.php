@@ -122,12 +122,13 @@ class ResearchProposalSubmissionService
         return $zipFilePath;
     }
 
+
     public function updateReInitiate(array $data, $researchProposalId)
     {
 
         return DB::transaction(function () use ($data, $researchProposalId) {
             $data['status'] = 'PENDING';
-           $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
+            $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
             $proposalSubmission = $researchProposal->update($data);
 
             foreach ($data['attachments'] as $file) {
@@ -155,5 +156,26 @@ class ResearchProposalSubmissionService
             $this->workflowService->reinitializeWorkflow($reInitializeData);
             return $proposalSubmission;
         });
+    }
+
+
+    public function getGanttChartData($tasks)
+    {
+        $chartData = [];
+
+        foreach ($tasks as $task){
+            array_push($chartData, array(
+                "pID" => $task->id,
+                "pName" => $task->taskName->name,
+                "pStart" => $task->start_time,
+                "pEnd" => $task->end_time,
+                "pPlanStart" => $task->expected_start_time,
+                "pPlanEnd" => $task->expected_end_time,
+                "pClass" => "gtaskblue",
+                "pNotes" => $task->description,
+            ));
+        }
+        return $chartData;
+
     }
 }

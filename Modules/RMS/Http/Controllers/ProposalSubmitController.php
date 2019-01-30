@@ -76,7 +76,9 @@ class ProposalSubmitController extends Controller
         $organizations = $research->organizations;
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
 
-        return view('rms::proposal.submission.show', compact('research', 'tasks', 'organizations'));
+        $ganttChart = $this->researchProposalSubmissionService->getGanttChartData($tasks);
+
+        return view('rms::proposal.submission.show', compact('research', 'tasks', 'organizations', 'ganttChart'));
     }
 
     /**
