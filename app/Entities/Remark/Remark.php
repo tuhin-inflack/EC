@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Remark extends Model
 {
-    protected $table = 'remark';
+    protected $table = 'remarks';
 
     protected $fillable = ['feature_id', 'ref_table_id', 'from_user_id', 'from_user_designation', 'remarks'];
 

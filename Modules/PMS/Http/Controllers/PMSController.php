@@ -2,7 +2,9 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\Remark\RemarkService;
 use App\Services\workflow\DashboardWorkflowService;
+use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,14 +17,19 @@ class PMSController extends Controller
     private $dashboardService;
     private $projectProposalService;
     private $workflowService;
+    private $remarksService;
+    private $featureService;
 
     public function __construct(DashboardWorkflowService $dashboardService,
                                 ProjectProposalService $projectProposalService,
-                                WorkflowService $workflowService)
+                                WorkflowService $workflowService,
+                                RemarkService $remarksService, FeatureService $featureService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectProposalService = $projectProposalService;
         $this->workflowService = $workflowService;
+        $this->remarksService =  $remarksService;
+        $this->featureService = $featureService;
     }
 
     /**
@@ -92,12 +99,14 @@ class PMSController extends Controller
     }
 
     // Methods implemented for integrating workflow
-    public function review($proposalId, $wfMasterId, $wfConvId)
+    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id)
     {
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
 
-        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData'));
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature_id,'ref_table_id' => $proposal->id]);
+
+        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -134,7 +143,7 @@ class PMSController extends Controller
             'status' => 'PENDING',
             'title' => $request->input('title')
         ];
-        $update = $this->projectProposalService->update($proposal, $updateData);
+        $this->projectProposalService->update($proposal, $updateData);
 
         // Reinitialising Workflow
         $data = ['feature_id' => $request->input('feature_id')

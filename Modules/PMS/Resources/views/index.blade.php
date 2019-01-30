@@ -50,7 +50,7 @@
                         <th>Feature</th>
                         <th>Message</th>
                         <th>Details</th>
-                        <th>Check</th>
+                        <th>Action</th>
                         </thead>
                         <tbody>
                         @foreach($rejectedTasks->dashboardItems as $item)
@@ -61,7 +61,10 @@
                                     <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}<br>
                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                 </td>
-                                <td><a href="{{url($item->checkUrl)}}">View</a></td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}">Resubmit</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}">Closed</a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
