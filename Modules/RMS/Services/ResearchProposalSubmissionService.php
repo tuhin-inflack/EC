@@ -121,4 +121,24 @@ class ResearchProposalSubmissionService
 
         return $zipFilePath;
     }
+
+
+    public function getGanttChartData($tasks)
+    {
+        $chartData = [];
+
+        foreach ($tasks as $task){
+            array_push($chartData, array(
+                "pID" => $task->id,
+                "pName" => $task->taskName->name,
+                "pStart" => $task->start_time,
+                "pEnd" => $task->end_time,
+                "pPlanStart" => $task->expected_start_time,
+                "pPlanEnd" => $task->expected_end_time,
+                "pClass" => "gtaskblue",
+                "pNotes" => $task->description,
+            ));
+        }
+        return $chartData;
+    }
 }
