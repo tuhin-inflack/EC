@@ -50,7 +50,9 @@ Route::prefix('pms')->group(function () {
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
-        Route::get('/review/{proposalId}', 'ReceivedProjectProposalController@review')->name('project-proposal-submitted-review');
+        //Routes for workflow
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}', 'PMSController@review')->name('project-proposal-submitted-review');
+        Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
 
         //Routes related to Project Monthly Update
         Route::prefix('monthly-update')->group(function (){
@@ -60,6 +62,7 @@ Route::prefix('pms')->group(function () {
             Route::get('/edit/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@edit')->name('project-proposal-submitted.edit-monthly-update');
             Route::post('/update/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@update')->name('project-proposal-submitted.update-monthly-update');
         });
+
     });
 
     Route::get('organizations/{organization}/attribute-values/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');

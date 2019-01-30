@@ -6,14 +6,17 @@ use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\PMS\Services\ProjectProposalService;
 
 class PMSController extends Controller
 {
     private $dashboardService;
+    private $projectProposalService;
 
-    public function __construct(DashboardWorkflowService $dashboardService)
+    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService)
     {
         $this->dashboardService = $dashboardService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     /**
@@ -77,5 +80,33 @@ class PMSController extends Controller
      */
     public function destroy()
     {
+    }
+
+    // Methods implemented for integrating workflow
+    public function review($proposalId, $wfMasterId, $wfConvId)
+    {
+        $proposal = $this->projectProposalService->findOrFail($proposalId);
+        $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
+
+        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData'));
+    }
+
+    public function reviewUpdate($proposalId, Request $request)
+    {
+        $feature_name = config('constants.project_proposal_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($feature_name);
+
+        $data = array(
+            'feature' => $feature_name,
+            'workflow_master_id' => $request->input('wf_master'),
+            'workflow_conversation_id' => $request->input('wf_conv'),
+            'status' => $request->input('status'),
+            'message' =>$request->input('message_to_receiver'),
+            'remarks' =>$request->input('approval_remark'),
+            'item_id' =>$proposalId,
+        );
+        $this->dashboardService->updateDashboardItem($data);
+
+        return redirect(route('pms'));
     }
 }

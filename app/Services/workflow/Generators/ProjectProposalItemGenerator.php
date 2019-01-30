@@ -54,7 +54,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url
-            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', $workflowMaster->ref_table_id));
+            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id ]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
