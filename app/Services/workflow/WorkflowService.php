@@ -127,9 +127,12 @@ class WorkflowService
     public function updateWorkFlow($workFlowId, $workFlowConversationId, $responderId, $status, $remarks, $message)
     {
 
-        $workFlowConversation = $this->flowConversationService($workFlowConversationId);
+//Todo: error in line 131
+        $workFlowConversation = $this->flowConversationService->getActiveConversation($workFlowConversationId);
+//        dd($workFlowConversation);
         $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
 
+//Todo: error in line 137
         $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
             $workFlowMaster->ruleMaster->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
         if ($this->isFlowCompleted($workFlowMaster->workflowRuleMaster->get_back_status, $workFlowMaster->workflowDetails)) {

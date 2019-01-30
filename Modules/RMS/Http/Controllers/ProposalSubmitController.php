@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Services\UserService;
+use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,11 +21,14 @@ class ProposalSubmitController extends Controller
 {
     private $userService;
     private $researchProposalSubmissionService;
+    private $dashboardWorkflowService;
 
-    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
+                                DashboardWorkflowService $dashboardWorkflowService)
     {
         $this->userService = $userService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->dashboardWorkflowService = $dashboardWorkflowService;
     }
 
     /**
@@ -115,18 +119,24 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
     {
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
-        return view('rms::proposal.review.show', compact('research', 'tasks', 'organizations'));
+        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId'));
 
     }
 
     public function reviewUpdate(Request $request)
     {
-        dd($request->all());
+        $data = $request->except('_token');
+        //TODO: set appropriate data
+//        $data = ['feature' => '', 'workflow_master_id' => '', 'workflow_conversation_id' => '', 'status' => '', 'item_id'=>'',
+//            'remarks' => '', 'message' => ''];
+        $this->dashboardWorkflowService->updateDashboardItem($data);
+        //Send user to research dashboard
+        return redirect()->route('research-proposal-submission');
 
     }
 }

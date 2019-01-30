@@ -6,7 +6,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="card-title">
-                    <h1>Project Management System</h1>
+                    <h1>{{trans('labels.PMS')}}</h1>
                 </div>
             </div>
             <div class="card-body">
@@ -23,9 +23,11 @@
                             <tr>
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
-                                {{--                                {{ dd($item->dynamicValues) }}--}}
-                                {{--                                <td>{{$item->dynamicValues}}</td>--}}
-                                <td><a href="{{url($item->checkUrl)}}">Details</a></td>
+                                <td>
+                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}<br>
+                                    <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                </td>
+                                <td><a href="{{url($item->checkUrl)}}">View</a></td>
                             </tr>
                         @endforeach
                         </tbody>

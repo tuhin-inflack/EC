@@ -49,10 +49,10 @@ class ReceivedProjectProposalController extends Controller
     {
 //        dd($id);
         $proposal = $this->projectProposalService->findOrFail($id);
+        $ganttChart = $this->projectProposalService->getGanttChartData($proposal);
 //        dd($proposal);
-        return view('pms::proposal-submitted.show', compact('proposal'));
+        return view('pms::proposal-submitted.show', compact('proposal', 'ganttChart'));
     }
-
 
     public function edit()
     {
@@ -77,6 +77,13 @@ class ReceivedProjectProposalController extends Controller
         Session::flash('message', $response->getContent());
 
         return redirect()->route('project-proposal-submitted.view', $projectId);
+    }
+
+    public function review($proposalId)
+    {
+        $proposal = $this->projectProposalService->findOrFail($proposalId);
+
+        return view('pms::proposal-submitted.review', compact('proposal'));
     }
 
 

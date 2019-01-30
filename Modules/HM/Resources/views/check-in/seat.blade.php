@@ -53,7 +53,7 @@
                                         <legend>@lang('hm::booking-request.checkin_details') :</legend>
                                         <label>@lang('labels.code') : {{$roomCheckinDetails->shortcode}}</label>&nbsp;&nbsp;
                                         <label>@lang('hm::booking-request.checkin_type')
-                                            : {{$roomCheckinDetails->booking_type}}</label>&nbsp;&nbsp;
+                                            :  {{ trans("hm::booking-request.$roomCheckinDetails->booking_type")}}</label>&nbsp;&nbsp;
                                         <label>@lang('hm::booking-request.start_date')
                                             : {{$roomCheckinDetails->start_date}}</label>&nbsp;&nbsp;
                                         <label>@lang('hm::booking-request.end_date')
@@ -183,7 +183,7 @@
                     $('#TableBody').empty();
                     guestInfo = JSON.parse(data);
                     numberOfAlreadyAssigned = guestInfo.length;
-                    if (roomCapacity <= numberOfAlreadyAssigned) {
+                    if (roomCapacity == numberOfAlreadyAssigned) {
                         $("#addGuest").attr("disabled","disabled");
                     }else{
                         $("#addGuest").attr("disabled", false);

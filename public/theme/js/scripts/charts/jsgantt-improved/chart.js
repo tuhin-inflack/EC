@@ -28,7 +28,7 @@ $(window).on("load", function(){
         vShowTaskInfoComp: 0,
         vShowComp: 0,
         //vCaptionType: 'None',  // Set to Show Caption : None,Caption,Resource,Duration,Complete,
-        // vQuarterColWidth: 36,
+        vQuarterColWidth: 50,
         vDateTaskDisplayFormat: 'day dd month yyyy', // Shown in tool tip box
         vDayMajorDateDisplayFormat: 'mon yyyy - Week ww',// Set format to dates in the "Major" header of the "Day" view
         vWeekMinorDateDisplayFormat: 'dd mon', // Set format to display dates in the "Minor" header of the "Week" view

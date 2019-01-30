@@ -13,16 +13,19 @@ use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Services\UserService;
 use App\Services\workflow\WorkflowService;
+use Modules\PMS\Services\ProjectProposalService;
 
 class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 {
     private $workflowService;
     private $userService;
+    private $projectProposalService;
 
-    public function __construct(WorkflowService $workflowService, UserService $userService)
+    public function __construct(WorkflowService $workflowService, UserService $userService, ProjectProposalService $projectProposalService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->projectProposalService = $projectProposalService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -36,12 +39,14 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
-//            dd($workflowMaster);
 
+            //dd($workflowMaster);
             $projectData = [
                 'feature_name' => $workflowMaster->feature->name,
                 'rule_master_name' => $workflowMaster->ruleMaster->name,
                 'rule_details' => $workflowMaster->ruleMaster->rule,
+                'project_title' => $workflowMaster->projectProposalSubmission->title,
+                'requested_by' => $workflowMaster->projectProposalSubmission->proposalSubmittedBy->name,
             ];
 
             $workflowConversation = $workflow->workflowConversations[0];
@@ -49,7 +54,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url
-            $dashboardItem->setCheckUrl('/edit/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', $workflowMaster->ref_table_id));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
@@ -60,5 +65,11 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
+    }
+
+    public function updateItem($itemId, $status)
+    {
+        $proposal = $this->projectProposalService->findOne($itemId);
+        $this->projectProposalService->update($proposal, ['status' => $status]);
     }
 }

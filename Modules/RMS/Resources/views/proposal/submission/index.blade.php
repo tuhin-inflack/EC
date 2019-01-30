@@ -24,10 +24,11 @@
                                     </thead>
                                     <tbody>
                                     @foreach($proposals as $proposal)
+                                        {{--{{ dd($proposal->submittedBy) }}--}}
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td><a href="{{ route('research-proposal-submission.show', $proposal->id) }}">{{ $proposal->title }}</a></td>
-                                        <td>{{ $proposal->submittedBy->name }}</td>
+                                        <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
                                         <td><a href="{{url('rms/research-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
                                         <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                     </tr>
