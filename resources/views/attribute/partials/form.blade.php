@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="organization_id" class="form-label required">@lang('pms::attribute.organization')</label>
+                <label for="organization_id" class="form-label required">@lang('attribute.organization')</label>
                 {!! Form::select('organization_id', $organizations, isset($attribute) ? $attribute->organization_id : null, ['class' => 'form-control select2' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => trans('labels.select'), 'required']) !!}
 
                 @if ($errors->has('organization_id'))
@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="unit" class="form-label required">@lang('pms::attribute.unit')</label>
+                <label for="unit" class="form-label required">@lang('attribute.unit')</label>
                 {!! Form::text('unit', isset($attribute) ? $attribute->unit : null, ['class' => 'form-control' . ($errors->has('unit') ? ' is-invalid' : ''), 'required']) !!}
 
                 @if ($errors->has('unit'))
@@ -46,7 +46,7 @@
         <button type="submit" class="btn btn-primary">
             <i class="la la-check-square-o"></i> {{trans('labels.save')}}
         </button>
-        <a class="btn btn-warning mr-1" role="button" href="{{ route('attributes.index') }}">
+        <a class="btn btn-warning mr-1" role="button" href="{{ URL::previous() }}">
             <i class="ft-x"></i> {{trans('labels.cancel')}}
         </a>
     </div>

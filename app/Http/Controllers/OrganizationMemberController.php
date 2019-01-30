@@ -1,13 +1,11 @@
 <?php
 
-namespace Modules\RMS\Http\Controllers;
-
+namespace App\Http\Controllers;
 
 use App\Entities\Organization\Organization;
 use App\Entities\Organization\OrganizationMember;
 use App\Services\OrganizationMemberService;
 use App\Services\OrganizationService;
-use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\StoreUpdateOrgMemberRequest;
 
@@ -24,7 +22,8 @@ class OrganizationMemberController extends Controller
 
     public function create(Organization $organization)
     {
-        return view('rms::project-members.create', compact('organization'));
+        $module = explode('/', Request()->route()->getPrefix())[0];
+        return view( 'organization-member.create', compact('organization', 'module'));
     }
 
     public function store(StoreUpdateOrgMemberRequest $request, Organization $organization)
@@ -40,7 +39,8 @@ class OrganizationMemberController extends Controller
 
     public function edit(Organization $organization, OrganizationMember $member)
     {
-        return view('rms::project-members.edit', compact('organization', 'member'));
+        $module = explode('/', Request()->route()->getPrefix())[0];
+        return view('organization-member.edit', compact('organization', 'member', 'module'));
     }
 
     public function update(StoreUpdateOrgMemberRequest $request, Organization $organization, OrganizationMember $member)

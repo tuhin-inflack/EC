@@ -27,4 +27,5 @@ return [
     'chart_types' => 'চার্ট ধরনের',
     'attribute_chart_filters' => 'বৈশিষ্ট্য চার্ট ফিল্টার',
     'project_monitoring_line_chart' => 'প্রকল্প পর্যবেক্ষণ লাইন চার্ট',
+    'attribute_tabular_view' => 'বৈশিষ্ট্য ট্যাবুলার ভিউ',
 ];

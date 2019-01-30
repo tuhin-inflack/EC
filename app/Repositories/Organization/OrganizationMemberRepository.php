@@ -11,10 +11,8 @@ namespace App\Repositories\Organization;
 
 use App\Entities\Organization\OrganizationMember;
 use App\Repositories\AbstractBaseRepository;
-//use Modules\PMS\Entities\OrganizationMember;
 
 class OrganizationMemberRepository extends AbstractBaseRepository
 {
-
     protected $modelName = OrganizationMember::class;
 }
