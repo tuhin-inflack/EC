@@ -182,7 +182,10 @@
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.booking_type')</td>
-                                                                    <td>: {{ $roomBooking->booking_type }}</td>
+                                                                    <td>:
+                                                                        :  {{ trans("hm::booking-request.$roomBooking->booking_type")}}&nbsp;&nbsp;
+                                                                    </td>
+
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.check_in')</td>
@@ -261,10 +264,10 @@
                                                     {{--<p><span class="text-bold-600"></span></p>--}}
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <table class="table table-striped table-bordered"
+                                                            <table border="1" cellpadding="10" cellspacing="5" class="table table-striped table-bordered"
                                                                    style="margin-left: 15px;margin-right: 15px;">
                                                                 <thead>
-                                                                <tr>
+                                                                <tr style="border-bottom: 1px solid grey">
                                                                     <th style="margin-right: 30px">@lang('labels.serial')</th>
                                                                     <th style="margin-right: 30px">@lang('labels.name')</th>
                                                                     <th style="margin-right: 30px">@lang('hm::booking-request.age')</th>
@@ -277,11 +280,11 @@
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                                                        <td style="text-align: center" >{{ $guestInfo->name }}</td>
+                                                                        <td style="text-align: center" >{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->age }}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->gender }}</td>
+                                                                        <td style="text-align: center">{{ trans("hm::booking-request.$guestInfo->gender")  }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->relation }}</td>
+                                                                        <td style="text-align: center">{{ trans("hm::booking-request.relation_$guestInfo->relation")  }}</td>
                                                                     </tr>
                                                                 @endforeach
                                                                 </tbody>
