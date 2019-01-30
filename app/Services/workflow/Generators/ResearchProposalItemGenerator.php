@@ -63,7 +63,6 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
                 'remarks' => $proposal->remarks,
             ];
 
-
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
@@ -97,7 +96,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
-        foreach ($workflows as $key => $workflowMaster) {
+        foreach($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
             $researchData = [
                 'proposal_title' => $workflowMaster->researchProposalSubmission->title,

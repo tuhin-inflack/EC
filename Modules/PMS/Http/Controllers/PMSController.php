@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Services\ProjectProposalService;
+use Illuminate\Support\Facades\Session;
 
 class PMSController extends Controller
 {
@@ -25,8 +26,11 @@ class PMSController extends Controller
      */
     public function index()
     {
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems(config('constants.project_proposal_feature_name'));
-        return view('pms::index', compact('pendingTasks'));
+        $featureName = config('constants.project_proposal_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+        $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+
+        return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'rejectedTasks'));
     }
 
     /**
@@ -94,7 +98,6 @@ class PMSController extends Controller
     public function reviewUpdate($proposalId, Request $request)
     {
         $feature_name = config('constants.project_proposal_feature_name');
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($feature_name);
 
         $data = array(
             'feature' => $feature_name,
@@ -106,6 +109,8 @@ class PMSController extends Controller
             'item_id' =>$proposalId,
         );
         $this->dashboardService->updateDashboardItem($data);
+
+        Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));
     }

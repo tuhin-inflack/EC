@@ -52,7 +52,6 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
-
             $projectData = [
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,
@@ -88,14 +87,15 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
         foreach ($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
-            $researchData = [
-                'proposal_title' => $workflowMaster->researchProposalSubmission->title,
-                'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
-                'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
+            $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
+            $projectData = [
+                'feature_name' => $feature->name,
+                'project_title' => $proposal->title,
+                'requested_by' => $proposal->proposalSubmittedBy->name,
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
@@ -103,14 +103,12 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url (done)
-            $dashboardItem->setCheckUrl(
-                '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
-                '/' . $feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
+            $dashboardItem->setCheckUrl(route('project-proposal-submitted-resubmit', []));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
             //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
-            $dashboardItem->setDynamicValues($researchData);
+            $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }
 

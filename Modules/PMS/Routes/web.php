@@ -52,6 +52,7 @@ Route::prefix('pms')->group(function () {
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
         Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}', 'PMSController@review')->name('project-proposal-submitted-review');
+        Route::get('/resubmit/{proposalId}/{wfMasterId}/{wfConvId}', 'PMSController@review')->name('project-proposal-submitted-resubmit');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
 
         //Routes related to Project Monthly Update
