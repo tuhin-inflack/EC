@@ -220,6 +220,11 @@ class WorkflowService
     {
         $workflowMaster = $this->workFlowMasterRepository->findOne($workflowMasterId);
         $this->workFlowMasterRepository->update($workflowMaster, ['status' => WorkflowStatus::CLOSED]);
+        $workflowDetails = $workflowMaster->workflowDetails;
+        foreach ($workflowDetails as $workflowDetail) {
+            $workflowDetail->status = WorkflowStatus::CLOSED;
+            $workflowDetail->update();
+        }
     }
 
 }
