@@ -86,7 +86,7 @@ class ResearchProposalSubmissionService
     public function updateRequest(array $data, ResearchProposalSubmission $researchProposalSubmission)
     {
         return DB::transaction(function () use ($data, $researchProposalSubmission) {
-            $data['status'] = 'pending';
+            $data['status'] = 'PENDING';
             $proposalSubmission = $this->update($researchProposalSubmission, $data);
 
             foreach ($data['attachments'] as $file) {
@@ -120,5 +120,40 @@ class ResearchProposalSubmissionService
         Zipper::make($zipFilePath)->add($filePaths)->close();
 
         return $zipFilePath;
+    }
+
+    public function updateReInitiate(array $data, $researchProposalId)
+    {
+
+        return DB::transaction(function () use ($data, $researchProposalId) {
+            $data['status'] = 'PENDING';
+           $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
+            $proposalSubmission = $researchProposal->update($data);
+
+            foreach ($data['attachments'] as $file) {
+
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'research-submissions');
+
+                $file = new ResearchProposalSubmissionAttachment([
+                    'attachments' => $path,
+                    'submissions_id' => $researchProposalId,
+                    'file_name' => $fileName
+                ]);
+
+                $researchProposal->researchProposalSubmissionAttachments()->save($file);
+            }
+            $featureName = Config::get('constants.research_proposal_feature_name');
+            $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
+            $reInitializeData = [
+                'feature_id' => $feature->id,
+                'ref_table_id' => $researchProposalId,
+                'message' => $data['message'],
+            ];
+
+            $this->workflowService->reinitializeWorkflow($reInitializeData);
+            return $proposalSubmission;
+        });
     }
 }
