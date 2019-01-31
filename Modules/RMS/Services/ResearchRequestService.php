@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Entities\ResearchRequestReceiver;
 use Modules\RMS\Repositories\ResearchRequestRepository;
@@ -80,5 +81,10 @@ class ResearchRequestService
         Zipper::make($zipFilePath)->add($filePaths)->close();
 
         return $zipFilePath;
+    }
+
+    public function getResearchInvitationByDeadline()
+    {
+        return ResearchRequest::orderBy('end_date', 'DESC')->limit(5)->get();
     }
 }

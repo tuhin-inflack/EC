@@ -131,4 +131,9 @@ class ResearchProposalSubmissionService
             $projectProposalSubmission->where('status', '=', 'reviewed')->count()
         ];
     }
+
+    public function getResearchProposalBySubmissionDate()
+    {
+        return ResearchProposalSubmission::orderBy('id', 'DESC')->limit(5)->get();
+    }
 }

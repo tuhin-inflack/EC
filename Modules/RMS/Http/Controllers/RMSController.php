@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
+use Modules\RMS\Services\ResearchRequestService;
 
 class RMSController extends Controller
 {
@@ -15,6 +16,10 @@ class RMSController extends Controller
      * @var ResearchProposalSubmissionService
      */
     private $researchProposalSubmissionService;
+    /**
+     * @var ResearchRequestService
+     */
+    private $researchRequestService;
 
 
     /**
@@ -22,10 +27,11 @@ class RMSController extends Controller
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService)
     {
         $this->dashboardService = $dashboardService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->researchRequestService = $researchRequestService;
     }
     /**
      * Display a listing of the resource.
@@ -36,7 +42,9 @@ class RMSController extends Controller
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
-        return view('rms::index', compact('pendingTasks', 'chartData'));
+        $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
+        $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
+        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals'));
     }
 
     /**
