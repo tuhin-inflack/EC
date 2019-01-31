@@ -18,7 +18,7 @@ class CreateProjectProposalsTable extends Migration
             $table->integer('project_request_id');
             $table->integer('auth_user_id');
             $table->string('title');
-            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
+            $table->enum('status', ['PENDING', 'APPROVED', 'REJECTED'])->default('PENDING');
             $table->timestamps();
         });
     }

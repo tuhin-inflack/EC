@@ -6,7 +6,7 @@
         <div class="col-md-7">
             @include('../../../organization.table', [
                 'organizable' => $project,
-                'url' => route('rms-organizations.create', $project->id),
+                'url' => route('pms-organizations.create', $project->id),
                 'organizationShowRoute' => function ($organizableId, $organizationId) { return route('pms-organizations.show', [$organizableId, $organizationId]); }
             ])
         </div>

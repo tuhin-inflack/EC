@@ -1,5 +1,5 @@
-@extends('pms::layouts.master')
-@section('title', trans('pms::attribute.attribute_value_input'))
+@extends($module . '::layouts.master')
+@section('title', trans('attribute.attribute_value_input'))
 
 @section('content')
     <div class="container">
@@ -7,7 +7,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('pms::attribute.attribute_value_input')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('attribute.attribute_value_input')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -20,7 +20,7 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             {!! Form::open(['route' =>  ['attribute-values.store', $attribute->id], 'class' => 'form']) !!}
-                            @include('pms::attribute-value.partials.form')
+                            @include('attribute-value.partials.form')
                             {!! Form::close() !!}
                         </div>
                     </div>

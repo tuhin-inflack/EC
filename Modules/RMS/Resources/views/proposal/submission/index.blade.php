@@ -20,18 +20,38 @@
                                         <th scope="col">@lang('rms::research_proposal.submitted_by')</th>
                                         <th scope="col">@lang('rms::research_proposal.attached_file')</th>
                                         <th scope="col">@lang('rms::research_proposal.submission_date')</th>
+                                        <th scope="col">@lang('labels.status')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @foreach($proposals as $proposal)
+                                        {{--                                        {{ dd($proposal) }}--}}
                                         {{--{{ dd($proposal->submittedBy) }}--}}
-                                    <tr>
-                                        <th scope="row">{{ $loop->iteration }}</th>
-                                        <td><a href="{{ route('research-proposal-submission.show', $proposal->id) }}">{{ $proposal->title }}</a></td>
-                                        <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
-                                        <td><a href="{{url('rms/research-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
-                                        <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                    </tr>
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>
+                                                <a href="{{ route('research-proposal-submission.show', $proposal->id) }}">{{ $proposal->title }}</a>
+                                            </td>
+                                            <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
+                                            <td>
+                                                <a href="{{url('rms/research-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
+                                            </td>
+                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>
+                                                @php
+                                                    if ($proposal->status=='APPROVED'){
+                                                    $class = 'btn-primary';
+                                                    }elseif ($proposal->status=='REJECTED'){
+                                                    $class = 'btn-danger';
+                                                    }else{
+                                                    $class = 'btn-warning';
+                                                    }
+                                                @endphp
+                                                <button type="button"
+                                                        class="btn {{ $class }} btn-sm">{{ $proposal->status }}</button>
+
+                                            </td>
+                                        </tr>
                                     @endforeach
                                     </tbody>
                                 </table>

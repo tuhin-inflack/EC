@@ -34,10 +34,6 @@
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.received_proposal')}}</span>
                     </a>
                 </li>
-                <li class="{{ is_active_route('attributes.index') }} nav-item">
-                    <a href="{{ route('attributes.index') }}"><i class="la la-list"></i><span class="menu-title"
-                                                                               data-i18n="nav.dash.main">@lang('pms::attribute.attribute_list')</span></a>
-                </li>
             </ul>
         @endauth
     </div>

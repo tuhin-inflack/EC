@@ -18,9 +18,32 @@ class WorkflowDetailRepository extends AbstractBaseRepository
 
     public function getWorkflowDetails($userId, $designationIds)
     {
-        return  WorkflowDetail::with(['workflowMaster', 'workflowConversations' => function($query){
+        return WorkflowDetail::with(['workflowMaster', 'workflowConversations' => function ($query) {
             $query->where('status', 'ACTIVE');
         }])
+            ->where('status', 'PENDING')
+            ->where('creator_id', '!=', $userId)
+            ->whereIn('designation_id', $designationIds)
+            ->where(function ($query) use ($userId) {
+                $query->where('is_group_notification', true)
+                    ->whereNull('responder_id')
+                    ->orWhere('responder_id', '!=', $userId);
+            })
+            ->orWhere(function ($query) use ($userId) {
+                $query->where('is_group_notification', false)
+                    ->Where('responder_id', $userId);
+            })->get();
+
+    }
+
+    public function getWorkflowDetailsByFeature($userId, $designationIds, $featureId)
+    {
+        return WorkflowDetail::with(['workflowMaster', 'workflowConversations' => function ($query) {
+            $query->where('status', 'ACTIVE');
+        }])
+            ->whereHas('workflowMaster', function ($query) use ($featureId) {
+                $query->where('feature_id', $featureId);
+            })
             ->where('status', 'PENDING')
             ->where('creator_id', '!=', $userId)
             ->whereIn('designation_id', $designationIds)
