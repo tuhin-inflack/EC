@@ -18,11 +18,11 @@ Route::prefix('rms')->group(function () {
         Route::get('/', 'ResearchController@index')->name('research.index');
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
-        Route::get('{research}/show', 'ResearchController@show')->name('research.show');
+        Route::get('{research}', 'ResearchController@show')->name('research.show');
         // research organizations
         Route::prefix('{research}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
-            Route::get('{organization}/show', 'OrganizationController@show')->name('rms-organizations.show');
+            Route::get('{organization}', 'OrganizationController@show')->name('rms-organizations.show');
         });
     });
     // organization

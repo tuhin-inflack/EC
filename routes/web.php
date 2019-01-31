@@ -25,7 +25,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
-
+    // organisation
+    Route::post('organizations', 'OrganizationController@store')->name('organizations.store');
+    // attributes
     Route::prefix('attributes')->group(function () {
         Route::post('/', 'AttributeController@store')->name('attributes.store');
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
@@ -53,5 +55,3 @@ Route::get('/file/get', 'AttachmentController@get')->name('file.getfile');
 Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.fileUrl');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-
-Route::post('organizations', 'OrganizationController@store')->name('organizations.store');

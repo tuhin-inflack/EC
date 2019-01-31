@@ -18,11 +18,11 @@ Route::prefix('pms')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project.index');
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
-        Route::get('show/{project}', 'ProjectController@show')->name('project.show');
+        Route::get('{project}', 'ProjectController@show')->name('project.show');
 
         Route::prefix('{project}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
-            Route::get('{organization}/show', 'OrganizationController@show')->name('pms-organizations.show');
+            Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
         });
     });
     // Organization
