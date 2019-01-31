@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             @include('../../../organization.table', [
                 'organizable' => $research,
                 'url' => route('rms-organizations.create', $research->id),
@@ -11,7 +11,8 @@
             ])
         </div>
 
-        <div class="col-md-6">
+        <!-- TODO: integration -->
+        {{--<div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">@lang('task.task_list')</h4>
@@ -43,7 +44,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
     </section>
 
     <section>
@@ -88,14 +89,15 @@
     </section>
 @endsection
 
-@push('page-css')
+{{-- TODO: shall be used later --}}
+{{--@push('page-css')
     <style>
         .card-body-min-height {
             min-height: 390px;
             height: auto;
         }
     </style>
-@endpush
+@endpush--}}
 
 @push('page-js')
     <script>

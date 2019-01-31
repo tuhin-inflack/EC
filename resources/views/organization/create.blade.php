@@ -125,7 +125,7 @@
                                     <div class="form-actions col-md-12 ">
                                         <div class="pull-right">
                                             {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['id' => 'submitOrganization', 'type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                            <a href="{{ route('project-proposal-submitted.index') }}">
+                                            <a href="{{ URL::previous() }}">
                                                 <button type="button" class="btn btn-warning mr-1">
                                                     <i class="la la-times"></i> @lang('labels.cancel')
                                                 </button>

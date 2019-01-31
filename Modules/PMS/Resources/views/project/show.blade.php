@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             @include('../../../organization.table', [
                 'organizable' => $project,
                 'url' => route('pms-organizations.create', $project->id),
@@ -11,7 +11,8 @@
             ])
         </div>
 
-        <div class="col-md-6">
+        <!-- TODO: integration -->
+        {{--<div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">@lang('task.task_list')</h4>
@@ -43,7 +44,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
     </section>
 
     <section class="row">
@@ -63,20 +64,24 @@
                 </div>
                 <div class="card-content">
                     <div class="card-body">
-                        <h5 class="card-title">@lang('labels.title')</h5>
-                        <pre>{{ $project->title }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('rms::research_proposal.submitted_by')</h5>
-                        <pre>{{ $project->projectSubmittedByUser->name }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('rms::research_proposal.submission_date')</h5>
-                        <pre>{{ date('d/m/Y,  h:iA', strtotime($project->created_at)) }}</pre>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">@lang('labels.status')</h5>
-                        <pre>@lang('rms::research_proposal.' . $project->status)</pre>
+                        <div class="card-text">
+                            <dl class="row">
+                                <dt class="col-sm-3">@lang('labels.title')</dt>
+                                <dd class="col-sm-9">{{ $project->title }}</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-3">@lang('rms::research_proposal.submitted_by')</dt>
+                                <dd class="col-sm-9">{{ $project->projectSubmittedByUser->name }}</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-3">@lang('rms::research_proposal.submission_date')</dt>
+                                <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($project->created_at)) }}</dd>
+                            </dl>
+                            <dl class="row">
+                                <dt class="col-sm-3">@lang('labels.status')</dt>
+                                <dd class="col-sm-9">@lang('rms::research_proposal.' . $project->status)</dd>
+                            </dl>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,14 +89,15 @@
     </section>
 @endsection
 
-@push('page-css')
+{{-- TODO: Shall be used later --}}
+{{--@push('page-css')
     <style>
         .card-body-min-height {
             min-height: 390px;
             height: auto;
         }
     </style>
-@endpush
+@endpush--}}
 
 @push('page-js')
     <script>
