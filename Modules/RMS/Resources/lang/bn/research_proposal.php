@@ -61,5 +61,6 @@ return [
     'research_proposal_by_submitted_date' => 'জমা তারিখ দ্বারা গবেষণা প্রস্তাব তালিকা',
     're_initiate_success' => 'সফলভাবে পুনরায় শুরু করেছেন',
     'rms' => 'গবেষণা ব্যবস্থাপনা সিস্টেম',
+    'receiver' => 'গ্রাহক',
 ];
 

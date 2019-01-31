@@ -9,6 +9,7 @@
 namespace App\Services\workflow\Generators;
 
 
+use App\Constants\WorkflowStatus;
 use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
@@ -90,7 +91,9 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
     public function updateItem($itemId, $status)
     {
         $proposal = $this->proposalSubmissionService->findOne($itemId);
-        $this->proposalSubmissionService->update($proposal, ['status' => $status]);
+        if ($status == WorkflowStatus::APPROVED) {
+            $this->proposalSubmissionService->update($proposal, ['status' => 'REVIEWED']);
+        }
     }
 
     public function generateRejectedItems(): DashboardItemSummary
