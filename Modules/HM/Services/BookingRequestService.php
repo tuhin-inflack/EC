@@ -80,6 +80,7 @@ class BookingRequestService
             $data['shortcode'] = time();
             $data['status'] = $this->getStatus($type);
             $data['type'] = $type;
+            $data['assigned_to'] = $this->getDefaultAssignedId($data['booking_type']);
 
             $roomBooking = $this->save($data);
 
@@ -251,6 +252,20 @@ class BookingRequestService
         }
     }
 
+    public function getDefaultAssignedId($bookingType)
+    {
+        switch ($bookingType) {
+            case 'general':
+                return 2;
+            case 'training':
+                return 3;
+            case 'venue':
+                return 3;
+            default:
+                return Auth::user()->id;
+        }
+    }
+
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
@@ -273,41 +288,13 @@ class BookingRequestService
 
     public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
     {
-        $data['room_booking_id'] = $roomBooking->id;
-        $data['forwarded_to'] = $data['forwardTo'];
-        $data['forwarded_by'] = Auth::user()->id;
-
-        return $this->bookingRequesteForwardRepository->save($data);
+        $data['assigned_to'] = $data['forwardTo'];
+        return $this->roomBookingRepository->update($roomBooking, $data);
     }
 
-    public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
+    public function getBookingRequestWithInIds()
     {
-        $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
-
-        return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
-    }
-
-    public function getBookingRequestIdsWithForwardedByBookingTypes(array $searchCriteria)
-    {
-        $bookingRequestIds = $this->actionRepository->getModel()->select('id')
-            ->where('type', 'booking')
-            ->whereIn('booking_type', $searchCriteria)->get()->toArray();
-
-        $bookingRequestIds = array_column($bookingRequestIds, 'id');
-
-        $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
-            ->where('forwarded_to', Auth::user()->id)->get()->toArray();
-
-        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'room_booking_id');
-
-        $mergedBookingRequests = array_merge($bookingRequestIds, $forwardedBookingRequestIds);
-
-        $forwardedBookingRequestIdsByUser = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
-            ->where('forwarded_by', Auth::user()->id)->get()->toArray();
-
-        $forwardedBookingRequestIdsByUsers = array_column($forwardedBookingRequestIdsByUser, 'room_booking_id');
-
-        return array_diff($mergedBookingRequests, $forwardedBookingRequestIdsByUsers);
+        return $this->actionRepository->getModel()->where('type', 'booking')->where('assigned_to', Auth::user()->id)->get();
     }
 
     /**
