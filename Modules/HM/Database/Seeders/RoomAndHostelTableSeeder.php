@@ -62,7 +62,7 @@ class RoomAndHostelTableSeeder extends Seeder
 
         foreach ($data as $item) {
 
-            Hostel::create($item);
+            $hostel = Hostel::create($item);
 
 //            $hostel = Hostel::create(array_except($item, 'rooms'));
 //
