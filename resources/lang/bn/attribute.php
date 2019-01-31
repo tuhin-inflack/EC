@@ -26,6 +26,6 @@ return [
     'area' => 'ক্ষেত্র',
     'chart_types' => 'চার্ট ধরনের',
     'attribute_chart_filters' => 'বৈশিষ্ট্য চার্ট ফিল্টার',
-    'project_monitoring_line_chart' => 'প্রকল্প পর্যবেক্ষণ লাইন চার্ট',
+    'graph' => 'লেখচিত্র',
     'attribute_tabular_view' => 'বৈশিষ্ট্য ট্যাবুলার ভিউ',
 ];

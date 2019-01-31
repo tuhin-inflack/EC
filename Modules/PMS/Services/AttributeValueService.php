@@ -59,4 +59,9 @@ class AttributeValueService
                 });
             });
     }
+
+    public function getAttributeValueSumsByMonthYear($attributeId)
+    {
+        return $this->attributeValueRepository->getAttributeValueSumsByMonthYear($attributeId);
+    }
 }
