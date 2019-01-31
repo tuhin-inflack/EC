@@ -39,13 +39,16 @@ class RMSController extends Controller
      */
     public function index()
     {
+
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
-        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems'));
+        $reviewedProposal = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED' ] );
+
+        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems', 'reviewedProposal'));
     }
 
     /**
