@@ -91,10 +91,8 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
     public function updateItem($itemId, $status)
     {
         $proposal = $this->proposalSubmissionService->findOne($itemId);
-        $this->proposalSubmissionService->update($proposal, ['status' => $status]);
         if ($status == WorkflowStatus::APPROVED) {
-            $data = array();
-            //$this->workflowService->createWorkflow($data);
+            $this->proposalSubmissionService->update($proposal, ['status' => 'REVIEWED']);
         }
     }
 
