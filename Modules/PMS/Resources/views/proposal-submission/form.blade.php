@@ -24,7 +24,7 @@
                     @if ($errors->has('attachments'))
                         <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('attachments') }}</strong>
-                                </span>
+                        </span>
                     @endif
                 </div>
             </div>

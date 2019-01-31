@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.menu_title'))
+@section('title', trans('rms::research_proposal.create_request'))
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{ trans('rms::research_proposal.research_proposal_request_creation')
+                                    <h4 class="card-title">{{ trans('rms::research_proposal.create_request')
                                }}</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>

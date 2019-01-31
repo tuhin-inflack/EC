@@ -106,6 +106,7 @@
             </div>
         </div>
     </section>
+    @endif
     <section>
         <div class="row">
             <div class="col-12">
@@ -204,7 +205,7 @@
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             {{--{{ $proposal->submittedBy->name }}--}}
                                             <td>{{ $proposal->submittedBy->name }}</td>
-{{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
+                                            {{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -216,7 +217,6 @@
             </div>
         </div>
     </section>
-    @endif
 @stop
 
 @push('page-js')

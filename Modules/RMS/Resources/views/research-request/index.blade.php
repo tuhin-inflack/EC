@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.research_request_list'))
+@section('title', trans('rms::research_proposal.invitation_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{ trans('rms::research_proposal.research_request_list') }}</h4>
+                        <h4 class="card-title">{{ trans('rms::research_proposal.invitation_list') }}</h4>
                         <div class="heading-elements">
                             <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> {{ trans('rms::research_proposal.new_proposal_request') }}</a>
@@ -43,15 +43,15 @@
                                             <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
                                             <td>
                                                 <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i>
-                                                </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('research-request.show', $research_request->id) }}"
-                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                        <i class="la la-cog"></i>
+                                                    </button>
+                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{route('research-proposal-submission.create',$research_request->id)}}"
+                                                           class="dropdown-item"><i class="ft-fast-forward"></i>@lang('rms::research_proposal.research_proposal_submission')</a>
+                                                    </span>
                                                 </span>
-                                            </span>
                                             </td>
                                         </tr>
                                     @endforeach

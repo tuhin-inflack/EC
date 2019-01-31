@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.project_proposal_request_creation'))
+@section('title', trans('pms::project_proposal.request_creation'))
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">@lang('pms::project_proposal.project_proposal_request_creation')</h4>
+                                    <h4 class="card-title">@lang('pms::project_proposal.request_creation')</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">

@@ -1,7 +1,7 @@
 {!! Form::open(['route' => 'project-request.store', 'class' => 'project-request-tab-steps form', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i> {{trans('rms::research_proposal.request_form')}}</h4>
+                class="la la-briefcase"></i> {{trans('pms::project_proposal.request_form')}}</h4>
 
     <div class="row">
         <div class="col-md-8 offset-2">
