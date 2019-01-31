@@ -54,5 +54,6 @@ return [
     'pending' => 'Pending',
     'research_details' => 'Research Details',
     'research_request_details' => 'Research Proposal Request Details',
-    're_initiate_success' => 'Successfully re-initialized'
+    're_initiate_success' => 'Successfully re-initialized',
+    'rms' => 'Research Management System'
 ];
