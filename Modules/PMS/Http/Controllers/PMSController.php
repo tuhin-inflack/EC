@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Services\ProjectProposalService;
+use Modules\PMS\Services\ProjectRequestService;
 
 class PMSController extends Controller
 {
@@ -15,11 +16,16 @@ class PMSController extends Controller
      * @var ProjectProposalService
      */
     private $projectProposalService;
+    /**
+     * @var ProjectRequestService
+     */
+    private $projectRequestService;
 
-    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService)
+    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService, ProjectRequestService $projectRequestService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectProposalService = $projectProposalService;
+        $this->projectRequestService = $projectRequestService;
     }
 
     /**
@@ -30,7 +36,8 @@ class PMSController extends Controller
     {
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems(config('constants.project_proposal_feature_name'));
         $chartData = $this->projectProposalService->getProjectProposalByStatus();
-        return view('pms::index', compact('pendingTasks', 'chartData'));
+        $invitations = $this->projectRequestService->getProjectInvitationByDeadline();
+        return view('pms::index', compact('pendingTasks', 'chartData', 'invitations'));
     }
 
     /**

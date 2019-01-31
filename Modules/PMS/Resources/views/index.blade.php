@@ -46,20 +46,62 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Column Chart</h4>
+                        <h4 class="card-title">Project Proposal By Status</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                <li><a data-action="close"><i class="ft-x"></i></a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body" >
                             <canvas id="myChart" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">List of project proposal request by Deadline</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body" >
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('pms::project_proposal.last_sub_date')</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($invitations as $invitation)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td><a href="">{{ $invitation->title }}</a></td>
+                                            <td>{{ $invitation->end_date }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
