@@ -128,5 +128,10 @@ class ProjectRequestService
         return $zipFilePath;
     }
 
+    public function getProjectInvitationByDeadline()
+    {
+        return ProjectRequest::orderBy('end_date', 'DESC')->limit(5)->get();
+    }
+
 
 }

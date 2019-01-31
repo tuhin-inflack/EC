@@ -6,19 +6,32 @@ use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
+use Modules\RMS\Services\ResearchRequestService;
 
 class RMSController extends Controller
 {
     private $dashboardService;
+    /**
+     * @var ResearchProposalSubmissionService
+     */
+    private $researchProposalSubmissionService;
+    /**
+     * @var ResearchRequestService
+     */
+    private $researchRequestService;
+
 
     /**
      * Create a new controller instance.
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService)
     {
         $this->dashboardService = $dashboardService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->researchRequestService = $researchRequestService;
     }
     /**
      * Display a listing of the resource.
@@ -29,7 +42,10 @@ class RMSController extends Controller
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
-        return view('rms::index', compact('pendingTasks', 'rejectedItems'));
+        $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
+        $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
+        $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
+        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems'));
     }
 
     /**

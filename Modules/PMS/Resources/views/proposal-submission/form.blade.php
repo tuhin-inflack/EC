@@ -31,6 +31,12 @@
         </div>
     </div>
     <div class="form-actions text-center">
+        <div class="col-md-8 offset-2">
+            <div class="form-group">
+                <label for="message">{{__('labels.message_to_receiver')}}</label>
+                <textarea class="form-control" name="message" id="message"></textarea>
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">
             <i class="la la-check-square-o"></i> {{trans('labels.save')}}
         </button>

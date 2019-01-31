@@ -68,7 +68,6 @@ class ReceivedProjectProposalController extends Controller
         $proposal = $this->projectProposalService->getProposalById($projectId);
 
         return view('pms::proposal-submitted.add_organization', compact('proposal', 'organizations', 'type'));
-
     }
 
     public function storeOrganization(StoreOrganizationRequest $request, $projectId)
@@ -78,13 +77,4 @@ class ReceivedProjectProposalController extends Controller
 
         return redirect()->route('project-proposal-submitted.view', $projectId);
     }
-
-    public function review($proposalId)
-    {
-        $proposal = $this->projectProposalService->findOrFail($proposalId);
-
-        return view('pms::proposal-submitted.review', compact('proposal'));
-    }
-
-
 }

@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="row">
-        <div class="col-md-7">
+        <div class="col-md-6">
             @include('../../../organization.table', [
                 'organizable' => $project,
                 'url' => route('pms-organizations.create', $project->id),
@@ -11,17 +11,25 @@
             ])
         </div>
 
-        <div class="col-md-5">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <h4>Task List</h4>
+                    <h4 class="card-title">@lang('task.task_list')</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body card-body-min-height">
                     <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table task-table table-bordered table-striped">
                             <thead>
-                            <th>SL</th>
-                            <th>Name</th>
+                            <th>@lang('labels.serial')</th>
+                            <th>@lang('labels.name')</th>
                             </thead>
                             <tbody>
                             @foreach(range(0, 4) as $task)
@@ -76,10 +84,19 @@
     </section>
 @endsection
 
+@push('page-css')
+    <style>
+        .card-body-min-height {
+            min-height: 390px;
+            height: auto;
+        }
+    </style>
+@endpush
+
 @push('page-js')
     <script>
         $(document).ready(function () {
-            $('.organization-table').DataTable({
+            $('.organization-table, .task-table').DataTable({
                 "pageLength": 5
             })
         });

@@ -55,7 +55,7 @@ class ProjectProposalService
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
-            $data['status'] = 'pending';
+            $data['status'] = 'PENDING';
 
             $proposalSubmission = $this->save($data);
 
@@ -79,7 +79,7 @@ class ProjectProposalService
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
-                'message' => "Project submitted on ".date('d-m-Y'),
+                'message' => $data['message'],
             ];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
@@ -144,5 +144,20 @@ class ProjectProposalService
             ));
         }
         return $chartData;
+    }
+
+    public function getProjectProposalByStatus()
+    {
+        $projectProposal = new ProjectProposal();
+        return [
+            $projectProposal->where('status', '=', 'pending')->count(),
+            $projectProposal->where('status', '=', 'in progress')->count(),
+            $projectProposal->where('status', '=', 'reviewed')->count()
+        ];
+    }
+
+    public function getProjectProposalBySubmissionDate()
+    {
+        return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
     }
 }

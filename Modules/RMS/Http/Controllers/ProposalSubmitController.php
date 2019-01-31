@@ -35,7 +35,7 @@ class ProposalSubmitController extends Controller
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->remarksService = $remarkService;
-        $this->featureService  = $featureService;
+        $this->featureService = $featureService;
     }
 
     /**
@@ -154,7 +154,7 @@ class ProposalSubmitController extends Controller
 
     }
 
-    public function reInitiate($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    public function reInitiate($researchProposalSubmissionId)
     {
         $username = Auth::user()->username;
         $name = Auth::user()->name;
@@ -169,5 +169,13 @@ class ProposalSubmitController extends Controller
         $response = $this->researchProposalSubmissionService->updateReInitiate($request->all(), $researchProposalId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
+    }
+
+    public function closeWorkflow($workflowMasterId)
+    {
+        $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
+
     }
 }

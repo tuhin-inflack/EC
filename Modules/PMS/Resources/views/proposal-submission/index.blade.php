@@ -26,6 +26,13 @@
                                     </thead>
                                     <tbody>
 
+                                    @php
+                                    $statusAr = array(
+                                    'APPROVED' => 'bg-success',
+                                    'REJECTED' => 'bg-danger',
+                                    'PENDING' => 'bg-warning',
+                                    );
+                                    @endphp
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
@@ -33,7 +40,7 @@
                                             <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                            <td>@lang('labels.status_' . $proposal->status)</td>
+                                            <td><span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span> </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

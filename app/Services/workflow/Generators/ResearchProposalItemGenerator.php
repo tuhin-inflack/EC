@@ -67,7 +67,6 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
                 'remarks' => $proposal->remarks,
             ];
 
-
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
@@ -106,7 +105,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
-        foreach ($workflows as $key => $workflowMaster) {
+        foreach($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
             $researchData = [
                 'proposal_title' => $workflowMaster->researchProposalSubmission->title,
@@ -119,9 +118,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url (done)
-            $dashboardItem->setCheckUrl(
-                '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
-                '/' . $feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
+            $dashboardItem->setCheckUrl('/rms/research-proposal-submission/re-initiate/' . $workflowMaster->ref_table_id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);

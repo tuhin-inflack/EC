@@ -165,7 +165,7 @@ class ResearchProposalSubmissionService
     {
         $chartData = [];
 
-        foreach ($tasks as $task){
+        foreach ($tasks as $task) {
             array_push($chartData, array(
                 "pID" => $task->id,
                 "pName" => $task->taskName->name,
@@ -179,5 +179,26 @@ class ResearchProposalSubmissionService
         }
         return $chartData;
 
+    }
+
+    public function closeWorkflow($workflowMasterId)
+    {
+        $response = $this->workflowService->closeWorkflow($workflowMasterId);
+        return Response(trans('labels.research_closed'));
+    }
+
+    public function getResearchProposalByStatus()
+    {
+        $projectProposalSubmission = new ResearchProposalSubmission();
+        return [
+            $projectProposalSubmission->where('status', '=', 'pending')->count(),
+            $projectProposalSubmission->where('status', '=', 'in progress')->count(),
+            $projectProposalSubmission->where('status', '=', 'reviewed')->count()
+        ];
+    }
+
+    public function getResearchProposalBySubmissionDate()
+    {
+        return ResearchProposalSubmission::orderBy('id', 'DESC')->limit(5)->get();
     }
 }

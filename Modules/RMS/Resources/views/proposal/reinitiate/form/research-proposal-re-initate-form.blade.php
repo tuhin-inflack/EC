@@ -53,14 +53,15 @@
                 </div>
             </fieldset>
         </div>
-    </div>
-    <div class="pull-right">
-        {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
+        <div class="pull-right">
+            {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
 
-        <a class="btn btn-warning mr-1" role="button" href="{{route('invited-research-proposal.index')}}">
-            <i class="ft-x"></i> {{trans('labels.cancel')}}
-        </a>
+            <a class="btn btn-warning mr-1" role="button" href="{{route('rms.index')}}">
+                <i class="ft-x"></i> {{trans('labels.cancel')}}
+            </a>
+        </div>
     </div>
+
 
 </div>
 {!! Form::close() !!}

@@ -27,20 +27,20 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label class="black">Proposal Title: </label>
+                                            <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
 
-                                            <label class="black">Submission Date: </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
-                                            <label class="black">Submitted by: </label>
+                                            <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                             <p> {{ $research->submittedBy->name }} </p>
                                         </div>
-
+                                        @if(count($remarks)>0)
                                         <div class="col-md-12">
-                                            <label class="black">Remarks: </label>
+                                            <label class="black">@lang('labels.remarks'): </label>
                                             <div class="media">
                                                 <div class="media-body">
-                                                    @if(count($remarks)>0)
+
                                                         @foreach($remarks as $remark)
                                                             {{--{{ dd($remark) }}--}}
                                                             <p class="text-bold-600 mb-0">
@@ -50,10 +50,11 @@
                                                             <p class="m-0 comment-text">{{ $remark->remarks }}</p>
                                                             <hr/>
                                                         @endforeach
-                                                    @endif
+
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -88,9 +89,9 @@
                                     {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
                                     {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     <a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">
-                                        <i class="ft-skip-back"></i> Back</a>
-                                    {!! Form::button(' <i class="ft-check"></i> Approved', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                    {!! Form::button('  <i class="ft-x"></i> Reject', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
+                                        <i class="ft-x"></i> @lang('labels.cancel')</a>
+                                    {!! Form::button(' <i class="ft-check"></i> '.trans('labels.status_approved'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                    {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
 
                                     {!! Form::close() !!}
                                 </div>
