@@ -62,9 +62,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-warning" name="back" value="REVERT"><i class="ft-rewind"></i>  {{__('labels.cancel')}}</button>
                                     <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> {{__('labels.approve')}}</button>
-                                    <button type="submit" class="btn btn-danger" name="status" value="REJECTED"><i class="ft-x"></i> {{__('labels.reject')}}</button>
+                                    <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i> {{__('labels.send_back')}}</button>
+                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{__('labels.reject')}}</button>
                                 </div>
                             </div>
                         </div>

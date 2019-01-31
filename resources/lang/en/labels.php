@@ -144,5 +144,6 @@ return [
     'rejected_items' => 'Rejected Items',
     'proposal_re_initiate' => 'Proposal reinitiate',
     'send_back' => 'Send Back',
-    'check' => 'Check'
+    'check' => 'Check',
+    'reviewed' => 'Reviewed'
 ];
