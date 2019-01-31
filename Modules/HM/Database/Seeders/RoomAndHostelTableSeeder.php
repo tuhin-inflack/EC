@@ -19,7 +19,7 @@ class RoomAndHostelTableSeeder extends Seeder
     {
         Model::unguard();
 
-        $roomService = new RoomService(new RoomRepository());
+//        $roomService = new RoomService(new RoomRepository());
 
         $data = [];
 
@@ -62,7 +62,7 @@ class RoomAndHostelTableSeeder extends Seeder
 
         foreach ($data as $item) {
 
-            Hostel::create(array_except($item));
+            Hostel::create($item);
 
 //            $hostel = Hostel::create(array_except($item, 'rooms'));
 //
