@@ -10,10 +10,10 @@ class TaskAttachments extends Model
     use SoftDeletes;
 
     protected $table = 'task_attachments';
-    protected $fillable = ['project_research_task_id', 'file_name', 'file_ext', 'file_path'];
+    protected $fillable = ['task_id', 'path'];
 
-    public function projectResearchTask()
+    public function task()
     {
-        return $this->belongsTo(ProjectResearchTask::class);
+        return $this->belongsTo(Task::class, 'task_id', 'id');
     }
 }

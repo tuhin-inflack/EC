@@ -10,10 +10,17 @@ class Task extends Model
     use SoftDeletes;
 
     protected $table = 'tasks';
-    protected $fillable = ['task_name'];
+    protected $fillable = [
+        'name',
+        'expected_start_time',
+        'expected_end_time',
+        'start_time',
+        'end_time',
+        'description'
+    ];
 
-    public function projectResearchTask()
+    public function attachments()
     {
-        return $this->belongsTo(ProjectResearchTask::class);
+        return $this->hasMany(TaskAttachments::class, 'task_id', 'id');
     }
 }

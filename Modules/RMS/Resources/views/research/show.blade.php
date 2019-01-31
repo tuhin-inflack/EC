@@ -3,7 +3,7 @@
 
 @section('content')
     <section class="row">
-        <div class="col-md-12">
+        <div class="col-md-6">
             @include('../../../organization.table', [
                 'organizable' => $research,
                 'url' => route('rms-organizations.create', $research->id),
@@ -11,14 +11,14 @@
             ])
         </div>
 
-        <!-- TODO: integration -->
-        {{--<div class="col-md-6">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">@lang('task.task_list')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
+                            <li><a href="{{ route('rms-tasks.create', $research->id) }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"> Add Task</i></a></li>
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-        </div>--}}
+        </div>
     </section>
 
     <section>
@@ -89,15 +89,14 @@
     </section>
 @endsection
 
-{{-- TODO: shall be used later --}}
-{{--@push('page-css')
+@push('page-css')
     <style>
         .card-body-min-height {
             min-height: 390px;
             height: auto;
         }
     </style>
-@endpush--}}
+@endpush
 
 @push('page-js')
     <script>

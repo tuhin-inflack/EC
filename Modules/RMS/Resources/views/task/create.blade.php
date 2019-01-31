@@ -29,12 +29,20 @@
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                                {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
                             </ul>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             @include('task.form', ['page'=>'create'])
                         </div>
                     </div>
@@ -53,7 +61,7 @@
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-        $('#expected_start_time').change(function(){
+        $('#expected_start_time').change(function () {
             $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
         });
 
@@ -66,7 +74,7 @@
         });
 
         $('.select2').select2({
-            tags:true,
+            tags: true,
             newTag: false,
             placeholder: "{{__('pms::task.task_name_create')}}",
         });

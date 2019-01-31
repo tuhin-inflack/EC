@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -9,13 +10,19 @@ use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
+use Modules\RMS\Entities\Research;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class TaskController extends Controller
 {
+    use FileTrait;
+
     private $projectResearchTaskService, $researchProposalSubmissionService;
 
-    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(
+        ProjectResearchTaskService $projectResearchTaskService,
+        ResearchProposalSubmissionService $researchProposalSubmissionService
+    )
     {
         $this->projectResearchTaskService = $projectResearchTaskService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
@@ -38,33 +45,18 @@ class TaskController extends Controller
         return redirect(route('research-proposal-submission.show', $update[1]));
     }
 
-    public function create($researchId)
+    public function create(Research $research)
     {
-        $item = $this->researchProposalSubmissionService->findOne($researchId);
-        $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('research.task.store', $item->id);
+        $action = route('rms-tasks.store', $research->id);
+        $tasks = Task::all();
 
-        return view('rms::task.create', compact('item', 'taskNames', 'action'));
+        return view('rms::task.create', compact('research', 'tasks', 'action'));
     }
 
-    public function store($researchId, TaskRequest $request)
+    public function store($researchId, Request $request)
     {
-        $data = $request->all();
-        if(!is_numeric($request->input('task_id'))) $data['task_id'] = $this->projectResearchTaskService->saveTaskName($request->input('task_id'));
-        $data['type'] = 'research';
-        $data['task_for_id'] = $researchId;
-        $saveData = $this->projectResearchTaskService->save($data);
-        $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId && $request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
-        }
+        $task = Task::create($request->all());
 
-        $msg = ($saveData->getAttribute('id'))? __('labels.save_success') : __('labels.save_fail');
-        Session::flash('message', $msg);
-
-        return back();
     }
 
     public function show($taskId)
