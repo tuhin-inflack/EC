@@ -154,7 +154,7 @@ class ProposalSubmitController extends Controller
 
     }
 
-    public function reInitiate($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    public function reInitiate($researchProposalSubmissionId)
     {
         $username = Auth::user()->username;
         $name = Auth::user()->name;

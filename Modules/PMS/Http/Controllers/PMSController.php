@@ -10,22 +10,32 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Services\ProjectProposalService;
+use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
 
 class PMSController extends Controller
 {
     private $dashboardService;
-    private $projectProposalService;
     private $workflowService;
     private $remarksService;
     private $featureService;
+    /**
+     * @var ProjectProposalService
+     */
+    private $projectProposalService;
+    /**
+     * @var ProjectRequestService
+     */
+    private $projectRequestService;
 
     public function __construct(DashboardWorkflowService $dashboardService,
                                 ProjectProposalService $projectProposalService,
                                 WorkflowService $workflowService,
-                                RemarkService $remarksService, FeatureService $featureService)
+                                RemarkService $remarksService, FeatureService $featureService, ProjectRequestService $projectRequestService)
     {
         $this->dashboardService = $dashboardService;
+        $this->projectProposalService = $projectProposalService;
+        $this->projectRequestService = $projectRequestService;
         $this->projectProposalService = $projectProposalService;
         $this->workflowService = $workflowService;
         $this->remarksService =  $remarksService;
@@ -38,11 +48,14 @@ class PMSController extends Controller
      */
     public function index()
     {
+        $chartData = $this->projectProposalService->getProjectProposalByStatus();
+        $invitations = $this->projectRequestService->getProjectInvitationByDeadline();
+        $proposals = $this->projectProposalService->getProjectProposalBySubmissionDate();
         $featureName = config('constants.project_proposal_feature_name');
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 
-        return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'rejectedTasks'));
+        return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'chartData', 'invitations', 'proposals'));
     }
 
     /**

@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.research_proposal_creation'))
+@section('title', trans('labels.proposal_re_initiate'))
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Proposal re initiate</h4>
+                                <h4 class="card-title">@lang('labels.proposal_re_initiate')</h4>
                                 <a class="heading-elements-toggle"><i
                                         class="la la-ellipsis-h font-medium-3"></i></a>
                                 <div class="heading-elements">
