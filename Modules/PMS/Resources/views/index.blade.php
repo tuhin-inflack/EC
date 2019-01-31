@@ -62,8 +62,8 @@
                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}">Resubmit</a>
-                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}">Closed</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}" >{{__('labels.resubmit')}}</a>
+                                    <a class="btn btn-danger btn-sm" href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}" title="Close the item forever">{{__('labels.closed')}}</a>
                                 </td>
                             </tr>
                         @endforeach

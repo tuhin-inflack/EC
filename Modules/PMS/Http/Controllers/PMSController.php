@@ -154,4 +154,11 @@ class PMSController extends Controller
 
         return back(route('pms'));
     }
+
+    public function close($wfMasterId)
+    {
+        $this->workflowService->closeWorkflow($wfMasterId);
+
+        return redirect(route('pms'));
+    }
 }

@@ -79,6 +79,7 @@ Route::prefix('pms')->group(function () {
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
+        Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
 
         //Routes related to Project Monthly Update
         Route::prefix('monthly-update')->group(function (){

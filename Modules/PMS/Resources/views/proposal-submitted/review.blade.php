@@ -28,11 +28,12 @@
                                 <h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>
                             </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="media">
                                 <div class="media-body">
                                     @if(count($remarks)>0)
                                         @foreach($remarks as $remark)
+                                            <hr>
                                             <p class="text-bold-600 mb-0">
                                                 {{ $remark->user->name }}
                                             </p>
@@ -61,9 +62,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-warning" name="back" value="REVERT"><i class="ft-rewind"></i>  BACK</button>
-                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> APPROVE</button>
-                                    <button type="submit" class="btn btn-danger" name="status" value="REJECTED"><i class="ft-x"></i> REJECT</button>
+                                    <button type="button" class="btn btn-warning" name="back" value="REVERT"><i class="ft-rewind"></i>  {{__('labels.cancel')}}</button>
+                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> {{__('labels.approve')}}</button>
+                                    <button type="submit" class="btn btn-danger" name="status" value="REJECTED"><i class="ft-x"></i> {{__('labels.reject')}}</button>
                                 </div>
                             </div>
                         </div>
