@@ -10,7 +10,7 @@ class TaskAttachments extends Model
     use SoftDeletes;
 
     protected $table = 'task_attachments';
-    protected $fillable = ['task_id', 'path'];
+    protected $fillable = ['task_id', 'path', 'name', 'ext'];
 
     public function task()
     {

@@ -17,6 +17,8 @@ class CreateTaskAttachmentsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('task_id');
             $table->string('path');
+            $table->string('name', 200);
+            $table->string('ext', 20);
             $table->timestamps();
             $table->softDeletes();
         });

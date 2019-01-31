@@ -1,4 +1,7 @@
 {!! Form::open(['url' => $action, 'class' => 'form', 'method' => 'post', 'files'=>'true']) !!}
+{{ Form::hidden('taskable_id', $research->id) }}
+{{ Form::hidden('taskable_type', 'research') }}
+{{ Form::hidden('redirect', URL::previous()) }}
 <div class="form-body">
     <h4 class="form-section"><i class="ft-user"></i> {{trans('pms::task.create_form_title')}}</h4>
     <div class="row">
@@ -47,12 +50,12 @@
                 <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
                        name="expected_start_time" placeholder="Pick Date" id="expected_start_time"
                        value="{{ old('expected_start_time') }}" required
-                       data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.start_date')])}}">
+                       data-validation-required-message="{{ trans('validation.required', ['attribute' => trans('pms::task.start_date')]) }}">
                 <div class="help-block"></div>
                 @if ($errors->has('expected_start_time'))
                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('expected_start_time') }}</strong>
-                                    </span>
+                        <strong>{{ $errors->first('expected_start_time') }}</strong>
+                    </span>
                 @endif
             </div>
         </div>
@@ -60,7 +63,7 @@
             <div class="form-group">
                 <label for="training_end_date required"
                        class="form-label required">{{trans('pms::task.expected_end_date')}}</label>
-                <input type='text' onchange="dateDifference()"
+                <input type='text'
                        class="form-control required {{ $errors->has('expected_end_time') ? ' is-invalid' : '' }}"
                        placeholder="Pick a Date" id="expected_end_time" name="expected_end_time" required
                        data-validation-required-message="{{trans('validation.required', ['attribute' => trans('pms::task.expected_end_date')])}}">

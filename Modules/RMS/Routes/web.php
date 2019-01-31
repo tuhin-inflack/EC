@@ -30,6 +30,7 @@ Route::prefix('rms')->group(function () {
             Route::prefix('tasks')->group(function () {
                 Route::get('create', 'TaskController@create')->name('rms-tasks.create');
                 Route::post('/', 'TaskController@store')->name('rms-tasks.store');
+                Route::get('{task}', 'TaskController@show')->name('rms-tasks.show');
             });
         });
     });

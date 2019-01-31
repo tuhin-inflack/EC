@@ -16,7 +16,9 @@ class Task extends Model
         'expected_end_time',
         'start_time',
         'end_time',
-        'description'
+        'description',
+        'taskable_id',
+        'taskable_type',
     ];
 
     public function attachments()

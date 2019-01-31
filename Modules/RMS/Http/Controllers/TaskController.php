@@ -3,9 +3,11 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Traits\FileTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\PMS\Services\ProjectResearchTaskService;
@@ -53,17 +55,38 @@ class TaskController extends Controller
         return view('rms::task.create', compact('research', 'tasks', 'action'));
     }
 
-    public function store($researchId, Request $request)
+    public function store(TaskRequest $request, Research $research)
     {
-        $task = Task::create($request->all());
+        $task = DB::transaction(function () use ($request, $research) {
+            $task = $research->tasks()->create($request->all());
 
+            if ($request->has('attachments')) {
+                foreach ($request->file('attachments') as $file) {
+                    $filePath = $this->upload($file, 'research/' . $research->title . '/tasks/' . $task->name);
+                    $task->attachments()->create([
+                        'path' => $filePath,
+                        'name' => $file->getClientOriginalName(),
+                        'ext' => $file->getClientOriginalExtension(),
+                    ]);
+                }
+            }
+
+            return $task;
+        });
+
+        if ($task) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
+
+        $redirectUrl = $request->input('redirect');
+        return redirect($redirectUrl);
     }
 
-    public function show($taskId)
+    public function show(Research $research, Task $task)
     {
-        $task = $this->projectResearchTaskService->findOne($taskId);
-
-        return view('rms::task.show', compact('task'));
+        return view('rms::task.show', compact('task', 'research'));
     }
 
     public function edit($taskId)

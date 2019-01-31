@@ -72,12 +72,5 @@
         $('#add').click(function () {
             $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');
         });
-
-        $('.select2').select2({
-            tags: true,
-            newTag: false,
-            placeholder: "{{__('pms::task.task_name_create')}}",
-        });
-
     </script>
 @endpush

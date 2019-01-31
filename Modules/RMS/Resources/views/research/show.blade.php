@@ -18,7 +18,9 @@
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
-                            <li><a href="{{ route('rms-tasks.create', $research->id) }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"> Add Task</i></a></li>
+                            <li><a href="{{ route('rms-tasks.create', $research->id) }}"
+                                   class="btn btn-sm btn-primary"><i
+                                            class="ft ft-plus"></i> Add Task</a></li>
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -33,10 +35,10 @@
                             <th>@lang('labels.name')</th>
                             </thead>
                             <tbody>
-                            @foreach(range(0, 4) as $task)
+                            @foreach($research->tasks as $task)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>Task {{ $loop->iteration }}</td>
+                                    <td><a href="{{ route('rms-tasks.show', [$research->id, $task->id]) }}">{{ $task->name }}</a></td>
                                 </tr>
                             @endforeach
                             </tbody>
