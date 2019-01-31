@@ -59,11 +59,6 @@ Route::prefix('pms')->group(function () {
         Route::get('file-download/{projectRequestAttachment}','ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
-    Route::prefix('invited-project-requests')->group(function () {
-        Route::get('/', 'InvitedProjectRequestController@index')->name('invited-project-request.index');
-        Route::get('{projectRequest}/show', 'InvitedProjectRequestController@show')->name('invited-project-request.show');
-    });
-
     Route::prefix('project-proposal-submission')->group(function () {
         Route::get('/', 'ProjectProposalController@index')->name('project-proposal-submission.index');
         Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');

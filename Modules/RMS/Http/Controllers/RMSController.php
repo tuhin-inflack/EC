@@ -6,6 +6,8 @@ use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 use Modules\RMS\Services\ResearchRequestService;
 
@@ -20,6 +22,7 @@ class RMSController extends Controller
      * @var ResearchRequestService
      */
     private $researchRequestService;
+    private $employeeService;
 
 
     /**
@@ -27,25 +30,36 @@ class RMSController extends Controller
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService, EmployeeServices $employeeService)
     {
         $this->dashboardService = $dashboardService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->researchRequestService = $researchRequestService;
+        $this->employeeService = $employeeService;
     }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
+
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
-        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems'));
+
+        $user = Auth::user();
+        $employee = $this->employeeService->findOne($user->reference_table_id);
+        if ($employee->designation->short_name == 'RD') {
+            $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
+        } else {
+            $reviewedProposals = [];
+        }
+        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems', 'reviewedProposals'));
     }
 
     /**

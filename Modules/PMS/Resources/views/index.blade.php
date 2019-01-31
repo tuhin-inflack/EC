@@ -120,7 +120,7 @@
             </div>
         </div>
     </section>
-    <section>
+    {{--<section>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -143,7 +143,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
     <section>
         <div class="row">
             <div class="col-6">
@@ -188,7 +188,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.project_proposal_by_submitted_date')</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.menu_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">

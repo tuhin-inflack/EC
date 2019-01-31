@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.project_request_list'))
+@section('title', trans('pms::project_proposal.invitation_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.project_request_list')</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.invitation_list')</h4>
 
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
@@ -41,15 +41,15 @@
                                                 <td>@lang('labels.status_' . $request->status)</td>
                                                 <td>
                                                 <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i>
-                                                </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('project-request.show', $request->id) }}"
-                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                        <i class="la la-cog"></i>
+                                                    </button>
+                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{route('project-proposal-submission.create', $request->id)}}"
+                                                           class="dropdown-item"><i class="ft-fast-forward"></i>@lang('pms::project_proposal.proposal_submission')</a>
+                                                    </span>
                                                 </span>
-                                            </span>
                                                 </td>
                                             </tr>
                                          @endforeach

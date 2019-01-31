@@ -7,31 +7,19 @@
                                                                                data-i18n="nav.dash.main">@lang('labels.dashboard')</span></a>
                 </li>
                 <li class="{{ is_active_route('project.index') }} nav-item">
-                    <a href="{{ route('project.index') }}"><i class="la la-home"></i><span class="menu-title"
+                    <a href="{{ route('project.index') }}"><i class="la la-briefcase"></i><span class="menu-title"
                                                                                data-i18n="nav.dash.main">@lang('pms::project_proposal.projects')</span></a>
                 </li>
                 <li class="{{is_active_route('project-request.index')}}">
                     <a href="{{route('project-request.index')}}">
                         <i class="la la-list"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_request')}}</span>
-                    </a>
-                </li>
-                <li class="{{is_active_route('invited-project-request.index')}}">
-                    <a href="{{route('invited-project-request.index')}}">
-                        <i class="la la-list"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.invited_project_request')}}</span>
+                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.invitation')}}</span>
                     </a>
                 </li>
                 <li class="{{is_active_route('project-proposal-submission.index')}}">
                     <a href="{{route('project-proposal-submission.index')}}">
                         <i class="la la-list"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.submitted_proposal')}}</span>
-                    </a>
-                </li>
-                <li class="{{is_active_route('project-proposal-submitted.index')}}">
-                    <a href="{{route('project-proposal-submitted.index')}}">
-                        <i class="la la-list"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">{{trans('pms::project_proposal.received_proposal')}}</span>
                     </a>
                 </li>
             </ul>
