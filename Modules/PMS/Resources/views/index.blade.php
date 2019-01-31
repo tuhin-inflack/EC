@@ -46,7 +46,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Project Proposal By Status</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.project_proposal_status_graph')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -70,7 +70,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">List of project proposal request by Deadline</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.project_request_by_last_submission_date')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -109,7 +109,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">List of project proposal by Submission Date</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.project_proposal_by_submitted_date')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
