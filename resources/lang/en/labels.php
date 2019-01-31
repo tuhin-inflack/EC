@@ -136,5 +136,6 @@ return [
     'open' => 'Open',
     'closed' => 'Closed',
     'message_to_receiver' => 'Message to receiver',
-    'resubmit' => 'Resubmit'
+    'resubmit' => 'Resubmit',
+    'research_closed' => 'Research proposal closed successfully'
 ];
