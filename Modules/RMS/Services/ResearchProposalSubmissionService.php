@@ -165,7 +165,7 @@ class ResearchProposalSubmissionService
     {
         $chartData = [];
 
-        foreach ($tasks as $task){
+        foreach ($tasks as $task) {
             array_push($chartData, array(
                 "pID" => $task->id,
                 "pName" => $task->taskName->name,
@@ -179,5 +179,11 @@ class ResearchProposalSubmissionService
         }
         return $chartData;
 
+    }
+
+    public function closeWorkflow($workflowMasterId)
+    {
+        $response = $this->workflowService->closeWorkflow($workflowMasterId);
+        return Response(trans('labels.research_closed'));
     }
 }

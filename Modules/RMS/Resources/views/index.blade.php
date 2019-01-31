@@ -50,6 +50,7 @@
                         </thead>
                         <tbody>
                         @foreach($rejectedItems->dashboardItems as $item)
+
                             <tr>
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
@@ -62,7 +63,7 @@
 
                                 <td>
                                     <a href="{{url($item->checkUrl. '/re-initiate')}}">Re-initiate</a> |
-                                    <a href="{{url($item->checkUrl)}}">Close</a>
+                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId]) }}">Close</a>
                                 </td>
                             </tr>
                         @endforeach

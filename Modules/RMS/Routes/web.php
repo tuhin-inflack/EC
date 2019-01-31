@@ -71,7 +71,8 @@ Route::prefix('rms')->group(function () {
         Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review');
         Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/re-initiate','ProposalSubmitController@reInitiate');
-        Route::post('store-re-initiate/{researchProposalId?}/','ProposalSubmitController@storeInitiate')->name('store-re-initiate');;
+        Route::post('store-re-initiate/{researchProposalId?}/','ProposalSubmitController@storeInitiate')->name('store-re-initiate');
+        Route::get('workflow-close/{workflowMasterId?}/','ProposalSubmitController@closeWorkflow')->name('workflow-close');
 
 
     });
