@@ -31,7 +31,7 @@
                                         <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
                                         <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                         <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                        <td>@lang('labels.status_' . $proposal->status)</td>
+                                        <td>@lang('labels.status_' . strtolower($proposal->status))</td>
                                         <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
@@ -43,7 +43,6 @@
                                                     <a href="" class="dropdown-item"><i class="ft-check"></i> {{trans('labels.approve')}}</a>
                                                     <a href="{{route('project-proposal-submitted.monthly-update', $proposal->id)}}" class="dropdown-item"><i class="ft-list"></i> {{trans('monthly-update.title')}}</a>
                                                     <a href="{{route('task.create', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i> {{trans('pms::task.create_card_title')}}</a>
-                                                    <a href="{{route('organization.add-organization', $proposal->id)}}" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                 </span>
                                             </span>
                                         </td>

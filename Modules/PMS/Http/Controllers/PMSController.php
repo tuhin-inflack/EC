@@ -167,4 +167,12 @@ class PMSController extends Controller
 
         return back(route('pms'));
     }
+
+    public function close($wfMasterId)
+    {
+        $this->workflowService->closeWorkflow($wfMasterId);
+        Session::flash('message', _('labels.research_closed'));
+
+        return redirect(route('pms'));
+    }
 }
