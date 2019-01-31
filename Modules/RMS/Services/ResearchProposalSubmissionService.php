@@ -201,4 +201,11 @@ class ResearchProposalSubmissionService
     {
         return ResearchProposalSubmission::orderBy('id', 'DESC')->limit(5)->get();
     }
+
+    public function apcApproved($status, $researchProposalSubmissionId)
+    {
+        $researchProposal = $this->findOne($researchProposalSubmissionId);
+        $researchProposal->update(['status' => $status]);
+
+    }
 }

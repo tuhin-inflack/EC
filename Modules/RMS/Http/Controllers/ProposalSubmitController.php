@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Entities\ResearchRequest;
@@ -27,15 +28,17 @@ class ProposalSubmitController extends Controller
     private $dashboardWorkflowService;
     private $remarksService;
     private $featureService;
+    private $employeeService;
 
     public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
-                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService)
+                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService, EmployeeServices $employeeService)
     {
         $this->userService = $userService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->remarksService = $remarkService;
         $this->featureService = $featureService;
+        $this->employeeService = $employeeService;
     }
 
     /**
@@ -176,6 +179,20 @@ class ProposalSubmitController extends Controller
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
+
+    }
+
+    public function apcReview($researchProposalSubmissionId)
+    {
+
+        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        return view('rms::proposal.apc-review.show', compact('research'));
+    }
+
+    public function approveApcReview(Request $request, $researchProposalSubmissionId)
+    {
+
+        $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
 
     }
 }

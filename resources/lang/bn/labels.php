@@ -142,6 +142,7 @@ return [
     'message' => 'বার্তা',
     'pending_items' => 'পেন্ডিং আইটেম',
     'rejected_items' => 'রিজেক্টেড আইটেম',
+    'ready_for_apc_approval' => 'এপিসি অনুমোদনের জন্য প্রস্তুত',
     'proposal_re_initiate' => 'প্রস্তাব পুনর্নির্মাণ',
     'send_back' => 'ফিরিয়ে দিন',
     'check' => 'যাচাই করুন',
