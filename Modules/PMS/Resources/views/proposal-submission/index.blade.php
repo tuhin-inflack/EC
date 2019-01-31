@@ -36,7 +36,7 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
-                                            <td>{{ $proposal->title }}</td>
+                                            <td><a href="{{route('project-proposal-submitted.view', $proposal->id)}}">{{ $proposal->title }}</a></td>
                                             <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>

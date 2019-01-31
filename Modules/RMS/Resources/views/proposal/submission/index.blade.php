@@ -21,6 +21,7 @@
                                         <th scope="col">@lang('rms::research_proposal.attached_file')</th>
                                         <th scope="col">@lang('rms::research_proposal.submission_date')</th>
                                         <th scope="col">@lang('labels.status')</th>
+                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -50,6 +51,17 @@
                                                 <button type="button"
                                                         class="btn {{ $class }} btn-sm">{{ $proposal->status }}</button>
 
+                                            </td>
+                                            <td>
+                                            <span class="dropdown">
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i>
+                                                </button>
+                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                                                </span>
+                                            </span>
                                             </td>
                                         </tr>
                                     @endforeach
