@@ -3,11 +3,11 @@
 
 @section('content')
     <h1>Research Management System</h1>
-
+    @if(!empty($pendingTasks->dashboardItems))
     <section id="pending-tasks">
         <div class="card">
             <div class="card-body">
-                @if(!empty($pendingTasks->dashboardItems))
+
                     <h2>Pending Items</h2>
                     <table class="table table-bordered">
                         <thead>
@@ -32,14 +32,16 @@
                         @endforeach
                         </tbody>
                     </table>
-                @endif
+
             </div>
         </div>
     </section>
+    @endif
+    @if(!empty($rejectedItems->dashboardItems))
     <section id="pending-tasks">
         <div class="card">
             <div class="card-body">
-                @if(!empty($rejectedItems->dashboardItems))
+
                     <h2>Rejected Items</h2>
                     <table class="table table-bordered">
                         <thead>
@@ -69,8 +71,9 @@
                         @endforeach
                         </tbody>
                     </table>
-                @endif
+
             </div>
         </div>
     </section>
+    @endif
 @stop
