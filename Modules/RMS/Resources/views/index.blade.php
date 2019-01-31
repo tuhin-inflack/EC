@@ -170,7 +170,9 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td><a href="">{{ $proposal->title }}</a></td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
+                                            {{--{{ $proposal->submittedBy->name }}--}}
+                                            <td>{{ $proposal->submittedBy->name }}</td>
+{{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>
