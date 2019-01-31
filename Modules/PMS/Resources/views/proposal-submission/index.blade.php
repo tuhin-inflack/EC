@@ -40,7 +40,7 @@
                                             <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                            <td><span class="badge {{$statusAr[$proposal->status]}}">@lang('labels.status_' . strtolower($proposal->status))</span> </td>
+                                            <td><span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span> </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

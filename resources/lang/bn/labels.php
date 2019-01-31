@@ -138,9 +138,12 @@ return [
     'message_to_receiver' => 'রিসিভারকে  বার্তা লিখুন',
     'resubmit' => 'পুনঃসংরক্ষন করুন',
     'research_closed' => 'গবেষণা প্রস্তাব টি সফল ভাবে বন্ধ করা হয়েছে',
-    'rejected_items' => 'বাতিলকৃত আইটেমসমূহ',
-    'pending_items' => 'বিচারাধীন আইটেমসমূহ',
+    'feature' => 'ফীচার',
+    'message' => 'বার্তা',
+    'pending_items' => 'পেন্ডিং আইটেম',
+    'rejected_items' => 'রিজেক্টেড ইটেমস',
+    'proposal_re_initiate' => 'প্রস্তাব পুনর্নির্মাণ',
+    'send_back' => 'ফিরিয়ে দিন',
+    'check' => 'যাচাই করুন',
     'feature_name' => 'বৈশিষ্ট্য এর নাম',
-    'message' => 'বারতা',
-    'check' => 'যাচাই করুন'
 ];

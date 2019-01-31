@@ -186,4 +186,19 @@ class ResearchProposalSubmissionService
         $response = $this->workflowService->closeWorkflow($workflowMasterId);
         return Response(trans('labels.research_closed'));
     }
+
+    public function getResearchProposalByStatus()
+    {
+        $projectProposalSubmission = new ResearchProposalSubmission();
+        return [
+            $projectProposalSubmission->where('status', '=', 'pending')->count(),
+            $projectProposalSubmission->where('status', '=', 'in progress')->count(),
+            $projectProposalSubmission->where('status', '=', 'reviewed')->count()
+        ];
+    }
+
+    public function getResearchProposalBySubmissionDate()
+    {
+        return ResearchProposalSubmission::orderBy('id', 'DESC')->limit(5)->get();
+    }
 }

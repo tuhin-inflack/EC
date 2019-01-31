@@ -43,8 +43,13 @@ return [
     'project_creation' => 'Project Creation',
     'project_create_form' => 'Project Creation Form',
     'pending' => 'Pending',
+    'in_progress' => 'In Progress',
+    'reviewed' => 'Reviewed',
     'project_details' => 'Project Details',
     'receiver' => 'Receiver',
     'download_all_attachments' => 'Download all Attachments',
+    'project_proposal_status_graph' => 'Project Proposal Status Graph',
+    'project_request_by_last_submission_date' => 'Project Proposal Request by Last Submission Date',
+    'project_proposal_by_submitted_date' => 'Project Proposal by Submitted Date',
 
 ];
