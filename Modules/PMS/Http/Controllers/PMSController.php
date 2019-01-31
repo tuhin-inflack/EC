@@ -165,7 +165,7 @@ class PMSController extends Controller
         $this->workflowService->reinitializeWorkflow($data);
         Session::flash('message', __('labels.save_success'));
 
-        return back(route('pms'));
+        return redirect(route('pms'));
     }
 
     public function close($wfMasterId)
