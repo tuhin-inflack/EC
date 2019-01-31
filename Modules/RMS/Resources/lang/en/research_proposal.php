@@ -56,8 +56,8 @@ return [
     'research_request_details' => 'Research Proposal Request Details',
     're_initiate_success' => 'Successfully re-initialized',
     'rms' => 'Research Management System',
-    're_initiate_success' => 'Successfully re-initialized',
     'research_proposal_status_graph' => 'Research Proposal Status Graph',
     'research_request_by_last_submission_date' => 'Research Proposal Request by Last Submission Date',
     'research_proposal_by_submitted_date' => 'Research Proposal by Submitted Date',
+    'receiver' => 'Receiver',
 ];

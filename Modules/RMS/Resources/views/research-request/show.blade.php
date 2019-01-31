@@ -2,7 +2,7 @@
 @section('title', trans('rms::research_proposal.research_request_details'))
 @push('page-css')
     <style>
-        pre{
+        .card-body{
             font-size: 15px;
         }
     </style>
@@ -27,33 +27,35 @@
                 <div class="card-content">
                     <div class="card-body">
                         <h5 class="card-title">@lang('labels.title')</h5>
-                        <pre>{{ $researchRequest->title }}</pre>
+                        <p>{{ $researchRequest->title }}</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@lang('rms::research_proposal.receiver') </h5>
+                        <ul>
+                            @foreach($researchRequest->researchRequestReceivers as $receiver)
+                                <li>{{ $receiver->employeeDetails->first_name }} {{ $receiver->employeeDetails->last_name }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ trans('rms::research_proposal.last_sub_date') }}</h5>
+                        <p>{{ date('d/m/Y', strtotime($researchRequest->end_date)) }}</p>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ trans('labels.attachments') }}</h5>
+                        <ul>
+                            @foreach($researchRequest->researchRequestAttachments as $file)
+                                <li><a href="{{url('rms/research-requests/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
+                            @endforeach
+                        </ul>
+                        <ul>
+                            <li><b><a href="{{url('rms/research-requests/attachment-download/'.$researchRequest->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b></li>
+                        </ul>
                     </div>
                     <div class="card-body">
                         <h5 class="card-title">{{ trans('labels.remarks') }}</h5>
-                        <p style="background-color: #f7f7f9;font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p>
+                        <p style="font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p>
                     </div>
-                    <div class="card-body">
-                       <h5 class="card-title">{{ trans('labels.attachments') }}</h5>
-                       <pre>
-                           <ul>
-                               @foreach($researchRequest->researchRequestAttachments as $file)
-                                   <li><a href="{{url('rms/research-requests/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
-                               @endforeach
-                           </ul>
-                           <ul>
-                               <li><b><a href="{{url('rms/research-requests/attachment-download/'.$researchRequest->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b></li>
-                           </ul>
-                       </pre>
-                        <div class="form-actions text-center">
-                            <a href="" class="btn btn-primary mr-1">
-                                <i class="ft-plus white"></i> @lang('labels.edit')
-                            </a>
-                            <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
-                                <i class="ft-x"></i> @lang('labels.cancel')
-                            </a>
-                        </div>
-                   </div>
                 </div>
             </div>
         </div>
