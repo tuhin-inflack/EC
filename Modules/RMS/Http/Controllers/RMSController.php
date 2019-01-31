@@ -6,19 +6,26 @@ use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class RMSController extends Controller
 {
     private $dashboardService;
+    /**
+     * @var ResearchProposalSubmissionService
+     */
+    private $researchProposalSubmissionService;
+
 
     /**
      * Create a new controller instance.
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
         $this->dashboardService = $dashboardService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +35,8 @@ class RMSController extends Controller
     {
         //TODO:get the feature name from config file
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
-        return view('rms::index', compact('pendingTasks'));
+        $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
+        return view('rms::index', compact('pendingTasks', 'chartData'));
     }
 
     /**

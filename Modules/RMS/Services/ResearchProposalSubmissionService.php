@@ -121,4 +121,14 @@ class ResearchProposalSubmissionService
 
         return $zipFilePath;
     }
+
+    public function getResearchProposalByStatus()
+    {
+        $projectProposalSubmission = new ResearchProposalSubmission();
+        return [
+            $projectProposalSubmission->where('status', '=', 'pending')->count(),
+            $projectProposalSubmission->where('status', '=', 'in progress')->count(),
+            $projectProposalSubmission->where('status', '=', 'reviewed')->count()
+        ];
+    }
 }

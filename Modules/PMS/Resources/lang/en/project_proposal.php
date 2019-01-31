@@ -49,6 +49,7 @@ return [
     'receiver' => 'Receiver',
     'download_all_attachments' => 'Download all Attachments',
     'project_proposal_status_graph' => 'Project Proposal Status Graph',
+    'project_request_by_last_submission_date' => 'Project Proposal Request by Last Submission Date',
     'project_proposal_by_submitted_date' => 'Project Proposal by Submitted Date',
 
 ];

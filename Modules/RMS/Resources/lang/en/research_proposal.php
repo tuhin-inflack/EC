@@ -54,4 +54,7 @@ return [
     'pending' => 'Pending',
     'research_details' => 'Research Details',
     'research_request_details' => 'Research Proposal Request Details',
+    'research_proposal_status_graph' => 'Research Proposal Status Graph',
+    'research_request_by_last_submission_date' => 'Research Proposal Request by Last Submission Date',
+    'research_proposal_by_submitted_date' => 'Research Proposal by Submitted Date',
 ];

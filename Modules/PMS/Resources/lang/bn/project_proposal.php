@@ -48,7 +48,7 @@ return [
     'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
     'receiver' => 'গ্রাহক',
     'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',
-    'project_proposal_status_graph' => 'প্রকল্প ব্যবস্থাপনা অবস্থা লেখচিত্র',
+    'project_proposal_status_graph' => 'প্রকল্প প্রস্তাব অবস্থা লেখচিত্র',
     'project_request_by_last_submission_date' => 'সর্বশেষ জমা তারিখ দ্বারা প্রকল্পের প্রস্তাব অনুরোধ তালিকা',
     'project_proposal_by_submitted_date' => 'জমা তারিখ দ্বারা প্রকল্প প্রস্তাব তালিকা',
 
