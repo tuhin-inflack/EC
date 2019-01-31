@@ -55,7 +55,7 @@ return [
     'research_create_form' => 'গবেষণা তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
     'research_details' => 'গবেষণা সম্পর্কিত বিস্তারিত',
-    'research_request_details' => 'গবেষণা প্রস্তাব অনুরোধ সম্পর্কিত বিস্তারিত',
+    'research_request_details' => 'আমন্ত্রণ সম্পর্কিত বিস্তারিত',
     'research_proposal_status_graph' => 'গবেষণা প্রস্তাব অবস্থা লেখচিত্র',
     'research_request_by_last_submission_date' => 'সর্বশেষ জমা তারিখ দ্বারা গবেষণা প্রস্তাব অনুরোধ তালিকা',
     'research_proposal_by_submitted_date' => 'জমা তারিখ দ্বারা গবেষণা প্রস্তাব তালিকা',
