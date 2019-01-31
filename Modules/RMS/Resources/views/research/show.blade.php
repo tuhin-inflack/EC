@@ -45,7 +45,7 @@
             </div>
         </div>
     </section>
-    
+
     <section>
         <div class="row match-height">
             <div class="col-sm-12 col-md-12">
@@ -91,7 +91,7 @@
 @push('page-css')
     <style>
         .card-body-min-height {
-            min-height: 373px;
+            min-height: 390px;
             height: auto;
         }
     </style>

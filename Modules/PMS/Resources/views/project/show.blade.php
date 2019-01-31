@@ -87,7 +87,7 @@
 @push('page-css')
     <style>
         .card-body-min-height {
-            min-height: 373px;
+            min-height: 390px;
             height: auto;
         }
     </style>
