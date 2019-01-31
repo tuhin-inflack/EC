@@ -35,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix('{attribute}')->group(function () {
             Route::post('values', 'AttributeValueController@store')->name('attribute-values.store');
             Route::put('values/{attributeValue}', 'AttributeValueController@update')->name('attribute-values.update');
+            Route::get('graphs', 'AttributeValueGraphController@update')->name('attribute-values.graph');
         });
     });
 });
