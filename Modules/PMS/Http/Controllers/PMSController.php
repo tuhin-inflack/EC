@@ -37,7 +37,8 @@ class PMSController extends Controller
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems(config('constants.project_proposal_feature_name'));
         $chartData = $this->projectProposalService->getProjectProposalByStatus();
         $invitations = $this->projectRequestService->getProjectInvitationByDeadline();
-        return view('pms::index', compact('pendingTasks', 'chartData', 'invitations'));
+        $proposals = $this->projectProposalService->getProjectProposalBySubmissionDate();
+        return view('pms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals'));
     }
 
     /**

@@ -106,6 +106,47 @@
                     </div>
                 </div>
             </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">List of project proposal by Submission Date</h4>
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body" >
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">@lang('labels.serial')</th>
+                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('pms::project_proposal.submission_date')</th>
+                                        <th scope="col">@lang('pms::project_proposal.submitted_by')</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($proposals as $proposal)
+                                        <tr>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td><a href="">{{ $proposal->title }}</a></td>
+                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 @stop

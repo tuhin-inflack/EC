@@ -155,4 +155,9 @@ class ProjectProposalService
             $projectProposal->where('status', '=', 'reviewed')->count()
         ];
     }
+
+    public function getProjectProposalBySubmissionDate()
+    {
+        return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
+    }
 }
