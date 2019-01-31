@@ -137,5 +137,11 @@ return [
     'closed' => 'Closed',
     'message_to_receiver' => 'Message to receiver',
     'resubmit' => 'Resubmit',
-    'research_closed' => 'Research proposal closed successfully'
+    'research_closed' => 'Research proposal closed successfully',
+    'rejected_items' => 'Rejected Items',
+    'pending_items' => 'Pending Items',
+    'feature_name' => 'Feature Name',
+    'message' => 'Message',
+    'check' => 'Check'
+
 ];

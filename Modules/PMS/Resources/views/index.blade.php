@@ -13,15 +13,15 @@
                 @if(!empty($pendingTasks->dashboardItems))
                     <div class="row">
                         <div class="col-md-8">
-                            <h3>Pending Items</h3>
+                            <h3>{{__('labels.pending_items')}}</h3>
                         </div>
                     </div>
                     <table class="table table-bordered">
                         <thead>
-                        <th>Feature</th>
-                        <th>Message</th>
-                        <th>Details</th>
-                        <th>Check</th>
+                        <th>{{__('labels.feature_name')}}</th>
+                        <th>{{__('labels.message')}}</th>
+                        <th>{{__('labels.details')}}</th>
+                        <th>{{__('labels.check')}}</th>
                         </thead>
                         <tbody>
                         @foreach($pendingTasks->dashboardItems as $item)
@@ -42,15 +42,15 @@
                 @if(!empty($rejectedTasks->dashboardItems))
                     <div class="row">
                         <div class="col-md-8">
-                            <h3>Rejected Items</h3>
+                            <h3>{{__('labels.rejected_items')}}</h3>
                         </div>
                     </div>
                     <table class="table table-bordered">
                         <thead>
-                        <th>Feature</th>
-                        <th>Message</th>
-                        <th>Details</th>
-                        <th>Action</th>
+                        <th>{{__('labels.feature_name')}}</th>
+                        <th>{{__('labels.message')}}</th>
+                        <th>{{__('labels.details')}}</th>
+                        <th>{{__('labels.action')}}</th>
                         </thead>
                         <tbody>
                         @foreach($rejectedTasks->dashboardItems as $item)

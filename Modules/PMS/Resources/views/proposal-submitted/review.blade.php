@@ -50,11 +50,11 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Remarks</label>
+                                    <label>{{__('labels.remarks')}}</label>
                                     <textarea class="form-control" name="approval_remark"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Message to Receiver</label>
+                                    <label>{{__('labels.message_to_receiver')}}</label>
                                     <textarea class="form-control" name="message_to_receiver"></textarea>
                                 </div>
                             </div>
