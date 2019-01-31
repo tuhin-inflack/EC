@@ -26,6 +26,6 @@ return [
     'area' => 'Area',
     'chart_types' => 'Chart Types',
     'attribute_chart_filters' => 'Attribute Chart Filters',
-    'project_monitoring_line_chart' => 'Project Monitoring Line Chart',
+    'graph' => 'Graph',
     'attribute_tabular_view' => 'Attribute Tabular View',
 ];
