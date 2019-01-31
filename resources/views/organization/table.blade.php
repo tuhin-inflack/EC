@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="card-content">
-        <div class="card-body">
+        <div class="card-body card-body-min-height">
             <div class="table-responsive">
                 <table class="table table-striped table-bordered organization-table">
                     <thead>

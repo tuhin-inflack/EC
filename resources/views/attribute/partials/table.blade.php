@@ -14,7 +14,7 @@
             </ul>
         </div>
     </div>
-    <div class="card-body">
+    <div class="card-body card-body-min-height">
         <div class="table-responsive">
             <table class="attribute-table table table-striped table-bordered">
                 <thead>

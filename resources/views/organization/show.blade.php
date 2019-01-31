@@ -14,11 +14,6 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                @include('attribute-value.tabular-view')
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-6">
                 @include('organization-member.partials.table')
             </div>
@@ -26,8 +21,22 @@
                 @include('attribute.partials.table')
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                @include('attribute-value.tabular-view')
+            </div>
+        </div>
     </div>
 @endsection
+
+@push('page-css')
+    <style>
+        .card-body-min-height {
+            min-height: 465px;
+            height: auto;
+        }
+    </style>
+@endpush
 
 @push('page-js')
     <script>
