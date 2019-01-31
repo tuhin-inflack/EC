@@ -144,5 +144,6 @@ return [
     'rejected_items' => 'রিজেক্টেড আইটেম',
     'proposal_re_initiate' => 'প্রস্তাব পুনর্নির্মাণ',
     'send_back' => 'ফিরিয়ে দিন',
-
+    'check' => 'যাচাই করুন',
+    'feature_name' => 'বৈশিষ্ট্য এর নাম',
 ];
