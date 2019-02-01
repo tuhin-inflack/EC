@@ -18,7 +18,7 @@
                         <div class="card-body card-dashboard">
 
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered alt-pagination">
+                                <table class="proposal-request-table table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
@@ -67,8 +67,51 @@
 @endsection
 @push('page-js')
     <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                let filterValue = $('#filter-select').val() || '{!! trans('rms::research_proposal.pending') !!}';
+                if (data[5] == filterValue) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            let table = $('.proposal-request-table').DataTable({
+                "columnDefs": [
+                    {"orderable": false, "targets": 7}
+                ],
+                "language": {
+                    "search": "{{ trans('labels.search') }}",
+                    "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
+                    "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
+                    "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
+                    "infoFiltered": "( {{ trans('labels.total')}} _MAX_ {{ trans('labels.infoFiltered') }} )",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "{{ trans('labels.next') }}",
+                        "previous": "{{ trans('labels.previous') }}"
+                    },
+                }
+            });
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    {{ trans('labels.filtered') }}
+                <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
+                    <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
+                        <option value="{{ trans('rms::research_proposal.in_progress') }}">{{ trans('rms::research_proposal.in_progress') }}</option>
+                        <option value="{{ trans('rms::research_proposal.reviewed') }}">{{ trans('rms::research_proposal.reviewed') }}</option>
+                        </select>
+                    {{ trans('labels.records') }}
+                </label>
+            `);
+
+            $('#filter-select').on('change', function () {
+                table.draw();
+            });
+        });
     </script>
 @endpush

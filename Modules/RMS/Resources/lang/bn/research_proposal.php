@@ -54,6 +54,8 @@ return [
     'research_creation' => 'গবেষণা তৈরি',
     'research_create_form' => 'গবেষণা তৈরি ফর্ম',
     'pending' => 'বিচারাধীন',
+    'in_progress' => 'চলমান',
+    'reviewed' => 'পুনর্বিচার',
     'research_details' => 'গবেষণা সম্পর্কিত বিস্তারিত',
     'research_request_details' => 'আমন্ত্রণ সম্পর্কিত বিস্তারিত',
     'research_proposal_status_graph' => 'গবেষণা প্রস্তাব অবস্থা লেখচিত্র',
