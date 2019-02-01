@@ -31,6 +31,7 @@
                                     'APPROVED' => 'bg-success',
                                     'REJECTED' => 'bg-danger',
                                     'PENDING' => 'bg-warning',
+                                    'REVIEWED' => 'bg-info',
                                     );
                                     @endphp
                                     @foreach($proposals as $proposal)

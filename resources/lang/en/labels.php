@@ -146,5 +146,6 @@ return [
     'reviewed_items' => 'Reviewed Items',
     'proposal_re_initiate' => 'Proposal reinitiate',
     'send_back' => 'Send Back',
-    'check' => 'Check'
+    'check' => 'Check',
+    'reviewed' => 'Reviewed'
 ];
