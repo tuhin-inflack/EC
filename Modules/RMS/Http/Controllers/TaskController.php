@@ -3,17 +3,11 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Services\TaskService;
-use App\Traits\FileTrait;
-use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Task;
-use Modules\PMS\Entities\TaskAttachments;
 use Modules\PMS\Http\Requests\TaskRequest;
-use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\RMS\Entities\Research;
-use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 class TaskController extends Controller
 {
@@ -21,7 +15,6 @@ class TaskController extends Controller
      * @var TaskService
      */
     private $taskService;
-
 
     /**
      * TaskController constructor.
@@ -35,8 +28,11 @@ class TaskController extends Controller
     public function create(Research $research)
     {
         $action = route('rms-tasks.store', $research->id);
+        $module = 'rms';
 
-        return view('rms::task.create', compact('research', 'action'));
+        return view('task.create', compact('action', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
     public function store(TaskRequest $request, Research $research)
@@ -52,14 +48,21 @@ class TaskController extends Controller
 
     public function show(Research $research, Task $task)
     {
-        return view('rms::task.show', compact('task', 'research'));
+        $module = 'rms';
+
+        return view('task.show', compact('task', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
     public function edit(Research $research, Task $task)
     {
         $action = route('rms-tasks.update', [$research->id, $task->id]);
+        $module = 'rms';
 
-        return view('rms::task.edit', compact('research', 'task', 'action'));
+        return view('task.edit', compact('task', 'action', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
     public function update(TaskRequest $request, Research $research, Task $task)

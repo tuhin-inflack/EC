@@ -1,14 +1,13 @@
 <?php
 
-namespace Modules\RMS\Http\Controllers;
+namespace Modules\PMS\Http\Controllers;
 
 use App\Services\TaskService;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\Project;
 use Modules\PMS\Entities\Task;
-use Modules\RMS\Entities\Research;
 
 class TaskTimeController extends Controller
 {
@@ -26,7 +25,7 @@ class TaskTimeController extends Controller
         $this->taskService = $taskService;
     }
 
-    public function update(Request $request, Research $research, Task $task)
+    public function  update(Request $request, Project $project, Task $task)
     {
         if ($this->taskService->calculateTaskTime($task)) {
             Session::flash('success', trans('labels.update_success'));
@@ -34,6 +33,6 @@ class TaskTimeController extends Controller
             Session::flash('error', trans('labels.update_fail'));
         }
 
-        return redirect()->route('research.show', $research->id);
+        return redirect()->route('project.show', $project->id);
     }
 }

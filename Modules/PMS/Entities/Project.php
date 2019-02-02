@@ -20,4 +20,9 @@ class Project extends Model
     {
         return $this->belongsTo(User::class, 'submitted_by', 'id');
     }
+
+    public function tasks()
+    {
+        return $this->morphMany(Task::class, 'taskable', 'taskable_type', 'taskable_id', 'id');
+    }
 }

@@ -13,6 +13,7 @@ use App\Constants\AbstractTask;
 use App\Repositories\TaskRepository;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\Task;
 use Modules\PMS\Entities\TaskAttachments;
@@ -73,6 +74,17 @@ class TaskService
 
             return $task->delete();
         });
+    }
+
+    public function calculateTaskTime(Task $task)
+    {
+        if ($task->actual_start_time) {
+            $task->actual_end_time = Carbon::now();
+        } else {
+            $task->actual_start_time = Carbon::now();
+        }
+
+        return $task->save();
     }
 
     private function storeTaskAttachments($taskable, $task, $data)

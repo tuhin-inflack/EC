@@ -19,10 +19,21 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
         Route::get('{project}', 'ProjectController@show')->name('project.show');
-
+        // project organisations
         Route::prefix('{project}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
             Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
+        });
+        // research tasks
+        Route::prefix('{project}/tasks')->group(function () {
+            Route::get('create', 'TaskController@create')->name('pms-tasks.create');
+            Route::post('/', 'TaskController@store')->name('pms-tasks.store');
+            Route::get('{task}', 'TaskController@show')->name('pms-tasks.show');
+            Route::get('{task}/edit', 'TaskController@edit')->name('pms-tasks.edit');
+            Route::put('{task}', 'TaskController@update')->name('pms-tasks.update');
+            Route::delete('{task}', 'TaskController@destroy')->name('pms-tasks.destroy');
+            // Task time
+            Route::put('{task}/time', 'TaskTimeController@update')->name('pms-tasks.time');
         });
     });
     // Organization
@@ -89,21 +100,5 @@ Route::prefix('pms')->group(function () {
             Route::get('/edit/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@edit')->name('project-proposal-submitted.edit-monthly-update');
             Route::post('/update/{monthlyUpdateId}', 'ProjectMonthlyUpdateController@update')->name('project-proposal-submitted.update-monthly-update');
         });
-
-    });
-
-    Route::get('organizations/{organization}/attribute-values/tables', 'MonitorProjectTabularViewController@index')->name('project-monitor-tables.index');
-    Route::get('projects/{projectProposal}/monitors/graphs', 'MonitorProjectGraphController@index')->name('project-monitor-graphs.index');
-    Route::get('projects/{projectProposal}/monitors/graphs/{attribute}', 'MonitorProjectGraphController@update')->name('project-monitor-graphs.update');
-
-    Route::prefix('task')->group(function () {
-        Route::get('/{projectId}', 'TaskController@index')->name('task.index');
-        Route::get('/show/{taskId}', 'TaskController@show')->name('task.show');
-        Route::get('/create/{projectId}', 'TaskController@create')->name('task.create');
-        Route::post('/create/{projectId}', 'TaskController@store')->name('task.store');
-        Route::get('/edit/{taskId}', 'TaskController@edit')->name('task.edit');
-        Route::post('/edit/{taskId}', 'TaskController@update')->name('task.update');
-        Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('task.toggleStartEnd');
-        Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('task.delete');
     });
 });
