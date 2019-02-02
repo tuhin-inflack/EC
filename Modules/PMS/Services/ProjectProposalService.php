@@ -88,10 +88,6 @@ class ProjectProposalService
         });
     }
 
-    public function update()
-    {
-
-    }
 
     public function delete()
     {

@@ -66,13 +66,13 @@
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label class="black">Proposal Title: </label>
+                                            <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
 
-                                            <label class="black">Submission Date: </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
 
-                                            <label class="black">Submitted by: </label>
+                                            <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                             <p> {{ $research->submittedBy->name }} </p>
                                         </div>
                                         <div class="col-md-12">

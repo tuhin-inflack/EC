@@ -10,71 +10,117 @@
                 </div>
             </div>
             <div class="card-body">
-                @if(!empty($pendingTasks->dashboardItems))
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3>{{__('labels.pending_items')}}</h3>
-                        </div>
-                    </div>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>{{__('labels.feature_name')}}</th>
-                        <th>{{__('labels.message')}}</th>
-                        <th>{{__('labels.details')}}</th>
-                        <th>{{__('labels.check')}}</th>
-                        </thead>
-                        <tbody>
-                        @foreach($pendingTasks->dashboardItems as $item)
-                            <tr>
-                                <td>{{$item->featureName}}</td>
-                                <td>{{$item->message}}</td>
-                                <td>
-                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}
-                                    <br>
-                                    <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
-                                </td>
-                                <td><a href="{{url($item->checkUrl)}}">View</a></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-                @endif
+                <div class="row">
+                    <div class="col-md-12">
 
-                @if(!empty($rejectedTasks->dashboardItems))
-                    <div class="row">
-                        <div class="col-md-8">
-                            <h3>{{__('labels.rejected_items')}}</h3>
+                        @if(!empty($pendingTasks->dashboardItems))
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3>{{__('labels.pending_items')}}</h3>
+                                </div>
+                            </div>
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                <th>{{__('labels.feature_name')}}</th>
+                                <th>{{__('labels.message')}}</th>
+                                <th>{{__('labels.details')}}</th>
+                                <th>{{__('labels.check')}}</th>
+                                </thead>
+                                <tbody>
+                                @foreach($pendingTasks->dashboardItems as $item)
+                                    <tr>
+                                        <td>{{$item->featureName}}</td>
+                                        <td>{{$item->message}}</td>
+                                        <td>
+                                            <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}
+                                            <br>
+                                            <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                        </td>
+                                        <td><a href="{{url($item->checkUrl)}}">View</a></td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table table-bordered">
-                            <thead>
-                            <th>{{__('labels.feature_name')}}</th>
-                            <th>{{__('labels.message')}}</th>
-                            <th>{{__('labels.details')}}</th>
-                            <th>{{__('labels.action')}}</th>
-                            </thead>
-                            <tbody>
-                            @foreach($rejectedTasks->dashboardItems as $item)
-                                <tr>
-                                    <td>{{$item->featureName}}</td>
-                                    <td>{{$item->message}}</td>
-                                    <td>
-                                        <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}<br>
-                                        <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}" >{{__('labels.resubmit')}}</a>
-                                        <a class="btn btn-danger btn-sm" href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}" title="Close the item forever">{{__('labels.closed')}}</a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+
+                        @endif
+
+                        @if(!empty($rejectedTasks->dashboardItems))
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3>{{__('labels.rejected_items')}}</h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th>{{__('labels.feature_name')}}</th>
+                                        <th>{{__('labels.message')}}</th>
+                                        <th>{{__('labels.details')}}</th>
+                                        <th>{{__('labels.action')}}</th>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($rejectedTasks->dashboardItems as $item)
+                                            <tr>
+                                                <td>{{$item->featureName}}</td>
+                                                <td>{{$item->message}}</td>
+                                                <td>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}<br>
+                                                    <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}" >{{__('labels.resubmit')}}</a>
+                                                    <a class="btn btn-danger btn-sm" href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}" title="Close the item forever">{{__('labels.closed')}}</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        @endif
+
+                        @if(count($reviewedTasks))
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h3>{{__('labels.rejected_items')}}</h3>
+                                </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th>{{__('labels.serial')}}</th>
+                                        <th>{{__('pms::project_proposal.project_title')}}</th>
+
+                                        <th>{{__('labels.status')}}</th>
+                                        <th>{{__('labels.action')}}</th>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($reviewedTasks as $item)
+
+                                            <tr>
+                                                <td>{{$loop->iteration}}</td>
+                                                <td>{{$item->title}}</td>
+                                                <td>{{__('labels.'.strtolower($item->status))}}</td>
+
+                                                <td>
+                                                    <a class="btn btn-primary btn-sm" href="{{route('project-proposal-submitted-approve', $item->id)}}" >View</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         @endif
                     </div>
+                </div>
+
             </div>
         </div>
     </section>
-    <section>
+    {{--<section>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -97,7 +143,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
     <section>
         <div class="row">
             <div class="col-6">
@@ -142,7 +188,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.project_proposal_by_submitted_date')</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.menu_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">

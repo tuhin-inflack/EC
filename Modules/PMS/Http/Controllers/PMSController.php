@@ -3,15 +3,18 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Services\Remark\RemarkService;
+use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
+
 
 class PMSController extends Controller
 {
@@ -19,6 +22,7 @@ class PMSController extends Controller
     private $workflowService;
     private $remarksService;
     private $featureService;
+    private $userService;
     /**
      * @var ProjectProposalService
      */
@@ -31,15 +35,18 @@ class PMSController extends Controller
     public function __construct(DashboardWorkflowService $dashboardService,
                                 ProjectProposalService $projectProposalService,
                                 WorkflowService $workflowService,
-                                RemarkService $remarksService, FeatureService $featureService, ProjectRequestService $projectRequestService)
+                                RemarkService $remarksService,
+                                FeatureService $featureService,
+                                ProjectRequestService $projectRequestService,
+                                UserService $userService)
     {
         $this->dashboardService = $dashboardService;
-        $this->projectProposalService = $projectProposalService;
         $this->projectRequestService = $projectRequestService;
         $this->projectProposalService = $projectProposalService;
         $this->workflowService = $workflowService;
         $this->remarksService =  $remarksService;
         $this->featureService = $featureService;
+        $this->userService = $userService;
     }
 
     /**
@@ -54,8 +61,14 @@ class PMSController extends Controller
         $featureName = config('constants.project_proposal_feature_name');
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+        $loggedUserDesignation = $this->userService->getDesignation(Auth::user()->username);
 
-        return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'chartData', 'invitations', 'proposals'));
+        if($loggedUserDesignation == "Project Director")
+            $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
+        else
+            $reviewedTasks = [];
+
+        return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'chartData', 'invitations', 'proposals', 'reviewedTasks'));
     }
 
     /**
@@ -124,22 +137,30 @@ class PMSController extends Controller
 
     public function reviewUpdate($proposalId, Request $request)
     {
-        $feature_name = config('constants.project_proposal_feature_name');
+        if($request->input('status') == 'CLOSED')
+        {
+            $proposal = $this->projectProposalService->findOrFail($proposalId);
+            $this->projectProposalService->update($proposal, ['status' => 'REJECTED']);
+            return redirect(route('project-proposal-submitted-close', $request->input('wf_master')));
+        }
+        else
+        {
+            $feature_name = config('constants.project_proposal_feature_name');
+            $data = array(
+                'feature' => $feature_name,
+                'workflow_master_id' => $request->input('wf_master'),
+                'workflow_conversation_id' => $request->input('wf_conv'),
+                'status' => $request->input('status'),
+                'message' =>$request->input('message_to_receiver'),
+                'remarks' =>$request->input('approval_remark'),
+                'item_id' =>$proposalId,
+            );
+            $this->dashboardService->updateDashboardItem($data);
 
-        $data = array(
-            'feature' => $feature_name,
-            'workflow_master_id' => $request->input('wf_master'),
-            'workflow_conversation_id' => $request->input('wf_conv'),
-            'status' => $request->input('status'),
-            'message' =>$request->input('message_to_receiver'),
-            'remarks' =>$request->input('approval_remark'),
-            'item_id' =>$proposalId,
-        );
-        $this->dashboardService->updateDashboardItem($data);
+            Session::flash('message', __('labels.update_success'));
 
-        Session::flash('message', __('labels.update_success'));
-
-        return redirect(route('pms'));
+            return redirect(route('pms'));
+        }
     }
 
     public function resubmit($proposalId , $featureId)
@@ -165,13 +186,34 @@ class PMSController extends Controller
         $this->workflowService->reinitializeWorkflow($data);
         Session::flash('message', __('labels.save_success'));
 
-        return back(route('pms'));
+        return redirect(route('pms'));
     }
 
     public function close($wfMasterId)
     {
         $this->workflowService->closeWorkflow($wfMasterId);
-        Session::flash('message', _('labels.research_closed'));
+        Session::flash('message', __('labels.update_success'));
+
+        return redirect(route('pms'));
+    }
+
+    public function approve($proposalId)
+    {
+        $proposal = $this->projectProposalService->findOne($proposalId);
+
+        return view('pms::proposal-submitted.approve', compact('proposal'));
+    }
+
+    public function storeApprove($proposalId, Request $request)
+    {
+        $proposal = $this->projectProposalService->findOrFail($proposalId);
+        $data = [
+            'status' => $request->input('status'),
+        ];
+
+        $this->projectProposalService->update($proposal, $data);
+
+        Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));
     }

@@ -2,13 +2,13 @@
 @section('title', trans('labels.RMS'))
 
 @section('content')
-    <h1>@lang('rms::research_proposal.rms')</h1>
+    {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
     @if(!empty($pendingTasks->dashboardItems))
     <section id="pending-tasks">
         <div class="card">
             <div class="card-body">
 
-                    <h2>@lang('labels.pending_items')</h2>
+                    <h4>@lang('labels.pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
                         <th>@lang('labels.feature')</th>
@@ -24,7 +24,6 @@
                                 <td>
                                     Proposal Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
-                                    Remarks: {{ $item->dynamicValues['remarks'] }}
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
                             </tr>
@@ -35,6 +34,39 @@
             </div>
         </div>
     </section>
+    @endif
+
+    @if(!empty(count($reviewedProposals)))
+
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+
+                    <h4>@lang('labels.ready_for_apc_approval')</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.serial')</th>
+                        <th>@lang('labels.title')</th>
+                        <th>Submitted By : </th>
+                        <th>Created Date : </th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($reviewedProposals as $item)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{$item->title}}</td>
+                                <td>{{ $item->submittedBy->name }}</td>
+                                <td>{{ date("j F, Y, g:i a",strtotime($item->created_at)) }}</td>
+                                <td><a href="{{route('apc-review', [$item->id])}}" class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
     @endif
     @if(!empty($rejectedItems->dashboardItems))
     <section id="pending-tasks">
@@ -74,7 +106,8 @@
             </div>
         </div>
     </section>
-    <section>
+    @endif
+    {{--<section>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -97,7 +130,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
     <section>
         <div class="row">
             <div class="col-6">
@@ -172,7 +205,7 @@
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             {{--{{ $proposal->submittedBy->name }}--}}
                                             <td>{{ $proposal->submittedBy->name }}</td>
-{{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
+                                            {{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -184,7 +217,6 @@
             </div>
         </div>
     </section>
-    @endif
 @stop
 
 @push('page-js')
