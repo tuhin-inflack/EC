@@ -142,7 +142,10 @@ return [
     'message' => 'Message',
     'pending_items' => 'Pending Items',
     'rejected_items' => 'Rejected Items',
+    'ready_for_apc_approval' => 'Ready for APC Approval',
+    'reviewed_items' => 'Reviewed Items',
     'proposal_re_initiate' => 'Proposal reinitiate',
     'send_back' => 'Send Back',
-    'check' => 'Check'
+    'check' => 'Check',
+    'reviewed' => 'Reviewed'
 ];

@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.research_request_list'))
+@section('title', trans('rms::research_proposal.invitation_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{ trans('rms::research_proposal.research_request_list') }}</h4>
+                        <h4 class="card-title">{{ trans('rms::research_proposal.invitation_list') }}</h4>
                         <div class="heading-elements">
                             <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm"><i
                                         class="ft-plus white"></i> {{ trans('rms::research_proposal.new_proposal_request') }}</a>
@@ -18,7 +18,7 @@
                         <div class="card-body card-dashboard">
 
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered alt-pagination">
+                                <table class="proposal-request-table table table-striped table-bordered">
                                     <thead>
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
@@ -43,15 +43,15 @@
                                             <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
                                             <td>
                                                 <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i>
-                                                </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('research-request.show', $research_request->id) }}"
-                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
+                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                            aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                        <i class="la la-cog"></i>
+                                                    </button>
+                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{route('research-proposal-submission.create',$research_request->id)}}"
+                                                           class="dropdown-item"><i class="ft-fast-forward"></i>@lang('rms::research_proposal.research_proposal_submission')</a>
+                                                    </span>
                                                 </span>
-                                            </span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -67,8 +67,51 @@
 @endsection
 @push('page-js')
     <script>
-        function attachmentDev() {
-            alert("Download process is in under development");
-        }
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                let filterValue = $('#filter-select').val() || '{!! trans('rms::research_proposal.pending') !!}';
+                if (data[5] == filterValue) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+        $(document).ready(function () {
+            let table = $('.proposal-request-table').DataTable({
+                "columnDefs": [
+                    {"orderable": false, "targets": 7}
+                ],
+                "language": {
+                    "search": "{{ trans('labels.search') }}",
+                    "zeroRecords": "{{ trans('labels.No_matching_records_found') }}",
+                    "lengthMenu": "{{ trans('labels.show') }} _MENU_ {{ trans('labels.records') }}",
+                    "info": "{{trans('labels.showing')}} _START_ {{trans('labels.to')}} _END_ {{trans('labels.of')}} _TOTAL_ {{ trans('labels.records') }}",
+                    "infoFiltered": "( {{ trans('labels.total')}} _MAX_ {{ trans('labels.infoFiltered') }} )",
+                    "paginate": {
+                        "first": "First",
+                        "last": "Last",
+                        "next": "{{ trans('labels.next') }}",
+                        "previous": "{{ trans('labels.previous') }}"
+                    },
+                }
+            });
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    {{ trans('labels.filtered') }}
+                <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
+                    <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
+                        <option value="{{ trans('rms::research_proposal.in_progress') }}">{{ trans('rms::research_proposal.in_progress') }}</option>
+                        <option value="{{ trans('rms::research_proposal.reviewed') }}">{{ trans('rms::research_proposal.reviewed') }}</option>
+                        </select>
+                    {{ trans('labels.records') }}
+                </label>
+            `);
+
+            $('#filter-select').on('change', function () {
+                table.draw();
+            });
+        });
     </script>
 @endpush

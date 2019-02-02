@@ -19,7 +19,6 @@ Route::prefix('rms')->group(function () {
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
         Route::get('{research}', 'ResearchController@show')->name('research.show');
-
         Route::prefix('{research}')->group(function () {
             // research organizations
             Route::prefix('organizations')->group(function () {
@@ -73,20 +72,22 @@ Route::prefix('rms')->group(function () {
         Route::get('{researchRequest}/show', 'ResearchRequestController@show')->name('research-request.show');
     });
 
-    Route::prefix('research-proposal-submission')->group(function () {
-        Route::get('/', 'ProposalSubmitController@index')->name('research-proposal-submission.index');
-        Route::get('{researchRequest}/create', 'ProposalSubmitController@create')->name('research-proposal-submission.create');
-        Route::post('/', 'ProposalSubmitController@store')->name('research-proposal-submission.store');
-        Route::get('show/{id}', 'ProposalSubmitController@show')->name('research-proposal-submission.show');
-        Route::get('{researchProposal}/edit', 'ProposalSubmitController@edit')->name('research-proposal-submission.edit');
-        Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
-        Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
-        Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}', 'ProposalSubmitController@review');
-        Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
-        Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
-        Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
-        Route::get('workflow-close/{workflowMasterId?}/', 'ProposalSubmitController@closeWorkflow')->name('workflow-close');
+    Route::prefix('research-proposal-submission')->group(function(){
+        Route::get('/','ProposalSubmitController@index')->name('research-proposal-submission.index');
+        Route::get('{researchRequest}/create','ProposalSubmitController@create')->name('research-proposal-submission.create');
+        Route::post('/','ProposalSubmitController@store')->name('research-proposal-submission.store');
+        Route::get('show/{id}','ProposalSubmitController@show')->name('research-proposal-submission.show');
+        Route::get('{researchProposal}/edit','ProposalSubmitController@edit')->name('research-proposal-submission.edit');
+        Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
+        Route::get('attachment-download/{researchProposalSubmission}','ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
+        Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review');
+        Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
+        Route::get('re-initiate/{researchProposalSubmissionId?}/','ProposalSubmitController@reInitiate');
+        Route::post('store-re-initiate/{researchProposalId?}/','ProposalSubmitController@storeInitiate')->name('store-re-initiate');
+        Route::get('workflow-close/{workflowMasterId?}/','ProposalSubmitController@closeWorkflow')->name('workflow-close');
+        Route::get('apc-review/{researchProposalSubmissionId?}','ProposalSubmitController@apcReview')->name('apc-review');
+        Route::post('apc-review/{researchProposalSubmissionId?}','ProposalSubmitController@approveApcReview')->name('approve-apc-review');
 
 
     });

@@ -1,18 +1,22 @@
-@extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.create_request'))
-
+@extends('pms::layouts.master')
+@section('title', trans('pms::project_budget.title'))
+@push('page-css')
+    <style>
+        .table > thead {
+            text-align: center;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
-                <!-- Form wizard with number tabs section start -->
                 <section id="number-tabs">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{ trans('rms::research_proposal.create_request')
-                               }}</h4>
+                                    <h4 class="card-title">@lang('labels.create') @lang('pms::project_budget.budgeting')</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -25,14 +29,47 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('rms::research-request.form')
+                                        <table class="table table-bordered table-responsive">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="3" width="8%">Economy Code</th>
+                                                    <th rowspan="3" width="8%">Economy Code Detail</th>
+                                                    <th colspan="5">Total financial and implementation plans</th>
+                                                    <th colspan="3">Years of finance -- 1</th>
+                                                </tr>
+                                                <tr>
+                                                    <th rowspan="2">একক</th>
+                                                    <th rowspan="2">একক দর</th>
+                                                    <th rowspan="2">পরিমাণ</th>
+                                                    <th rowspan="2">মোট ব্যয়</th>
+                                                    <th rowspan="2">ওজন (Weight)</th>
+                                                    <th rowspan="2">আর্থিক পরিমাণ (লক্ষ টাকা)</th>
+                                                    <th colspan="2">বাস্তব</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>অঙ্গের শতকার হার</th>
+                                                    <th>প্রকল্পের শতকরা হার</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- Form wizard with number tabs section end -->
             </div>
         </div>
     </div>
@@ -61,23 +98,19 @@
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
-
-
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/editors/ckeditor/ckeditor.js')  }}"></script>
     <script>
         $(document).ready(function () {
             // datepicker
-            $('#end_date').pickadate({
+            $('#end_date, #start_date').pickadate({
                 min: new Date()
             });
 
-            $('#end_date').pickadate();
-
+            $('#end_date, #start_date').pickadate();
 
 
             // validation
-            $('.research-request-tab-steps').validate({
+            $('.project-submission-tab-steps').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',
                 successClass: 'success',
@@ -92,6 +125,8 @@
                         error.insertBefore(element.parents().siblings('.radio-error'));
                     } else if (element[0].tagName == "SELECT") {
                         error.insertAfter(element.siblings('.select2-container'));
+                    } else if (element.attr('id') == 'ckeditor') {
+                        error.insertAfter(element.siblings('#cke_ckeditor'));
                     } else {
                         error.insertAfter(element);
                     }

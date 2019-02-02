@@ -60,4 +60,6 @@ return [
     'research_request_by_last_submission_date' => 'Research Proposal Request by Last Submission Date',
     'research_proposal_by_submitted_date' => 'Research Proposal by Submitted Date',
     'receiver' => 'Receiver',
+    'invitation' => 'Invitation',
+    'invitation_list' => 'Invitation List',
 ];

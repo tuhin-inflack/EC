@@ -19,6 +19,10 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
         Route::get('{project}', 'ProjectController@show')->name('project.show');
+
+        Route::prefix('{project}/budget')->group(function () {
+            Route::get('create', 'ProjectBudgetController@create')->name('project.budget');
+        });
         // project organisations
         Route::prefix('{project}/organizations')->group(function () {
             Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
@@ -70,11 +74,6 @@ Route::prefix('pms')->group(function () {
         Route::get('file-download/{projectRequestAttachment}','ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
-    Route::prefix('invited-project-requests')->group(function () {
-        Route::get('/', 'InvitedProjectRequestController@index')->name('invited-project-request.index');
-        Route::get('{projectRequest}/show', 'InvitedProjectRequestController@show')->name('invited-project-request.show');
-    });
-
     Route::prefix('project-proposal-submission')->group(function () {
         Route::get('/', 'ProjectProposalController@index')->name('project-proposal-submission.index');
         Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');
@@ -91,6 +90,8 @@ Route::prefix('pms')->group(function () {
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
+        Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
+        Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
 
         //Routes related to Project Monthly Update
         Route::prefix('monthly-update')->group(function (){
