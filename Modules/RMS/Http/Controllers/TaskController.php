@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\TaskAttachments;
 use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
@@ -60,7 +61,7 @@ class TaskController extends Controller
         $task = DB::transaction(function () use ($request, $research) {
             $task = $research->tasks()->create($request->all());
 
-            if ($request->has('attachments')) {
+            if ($request->hasFile('attachments')) {
                 foreach ($request->file('attachments') as $file) {
                     $filePath = $this->upload($file, 'research/' . $research->title . '/tasks/' . $task->name);
                     $task->attachments()->create([
@@ -89,39 +90,43 @@ class TaskController extends Controller
         return view('rms::task.show', compact('task', 'research'));
     }
 
-    public function edit($taskId)
+    public function edit(Research $research, Task $task)
     {
-        $task = $this->projectResearchTaskService->findOne($taskId);
-        $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('research.task.update', $taskId);
+        $tasks = Task::all();
+        $action = route('rms-tasks.update', [$research->id, $task->id]);
 
-        return view('rms::task.edit', compact('task', 'taskNames', 'action'));
+        return view('rms::task.edit', compact('research', 'tasks', 'task', 'action'));
     }
 
-    public function update(TaskRequest $request, $taskId)
+    public function update(Request $request, Research $research, Task $task)
     {
-        $data = array(
-            "task_id" => (!is_numeric($request->input('task_id'))) ? $this->projectResearchTaskService->saveTaskName($request->input('task_id')): $request->input('task_id'),
-            "description" => $request->input('description'),
-            "expected_start_time" => $request->input('expected_start_time'),
-            "expected_end_time" => $request->input('expected_end_time')
-        );
+        $task = DB::transaction(function () use ($request, $research, $task) {
+            if ($request->has('deleted_attachments')) {
+                TaskAttachments::destroy($request->input('deleted_attachments'));
+            }
 
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
-        $update = $this->projectResearchTaskService->update($task, $data);
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $file) {
+                    $filePath = $this->upload($file, 'research/' . $research->title . '/tasks/' . $task->name);
+                    $task->attachments()->create([
+                        'path' => $filePath,
+                        'name' => $file->getClientOriginalName(),
+                        'ext' => $file->getClientOriginalExtension(),
+                    ]);
+                }
+            }
 
-        // Adjusting attachments
-        $deletedAttachmentIds = $request->input('deleted_attachments', array());
-        if(count($deletedAttachmentIds)) $deleteAttachments = $this->projectResearchTaskService->deleteAttachments($deletedAttachmentIds);
+            return $task->update($request->all());
+        });
 
-        if($request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchTaskService->saveAttachments($taskId, $files);
+        if ($task) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
         }
-        Session::flash('message', __('labels.update_success'));
 
-        return back();
+        $redirectUrl = $request->input('redirect');
+        return redirect($redirectUrl);
     }
 
     public function destroy($taskId)

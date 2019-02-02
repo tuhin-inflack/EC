@@ -55,7 +55,7 @@
             </tbody>
         </table>
         <div class="form-actions">
-            <a href="#" class="btn btn-primary"><i class="ft-edit-2"></i> {{ trans('labels.edit') }}</a>
+            <a href="{{ route('rms-tasks.edit', [$research->id, $task->id]) }}" class="btn btn-primary"><i class="ft-edit-2"></i> {{ trans('labels.edit') }}</a>
             <a class="btn btn-warning mr-1" role="button" href="{{ URL::previous() }}">
                 <i class="ft-x"></i> {{trans('labels.back_page')}}
             </a>

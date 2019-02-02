@@ -3,7 +3,7 @@
 {{ Form::hidden('taskable_type', 'research') }}
 {{ Form::hidden('redirect', URL::previous()) }}
 <div class="form-body">
-    <h4 class="form-section"><i class="ft-user"></i> {{trans('pms::task.create_form_title')}}</h4>
+    <h4 class="form-section"><i class="ft-user"></i> {{ trans('pms::task.create_form_title') }}</h4>
     <div class="row">
         <div class="col-md-12">
             <div class="form-group">
