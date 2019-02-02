@@ -1,7 +1,4 @@
 {!! Form::open(['url' => $action, 'class' => 'form', 'method' => 'post', 'files'=>'true']) !!}
-{{ Form::hidden('taskable_id', $research->id) }}
-{{ Form::hidden('taskable_type', 'research') }}
-{{ Form::hidden('redirect', URL::previous()) }}
 <div class="form-body">
     <h4 class="form-section"><i class="ft-user"></i> {{ trans('pms::task.create_form_title') }}</h4>
     <div class="row">

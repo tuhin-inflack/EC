@@ -2,14 +2,23 @@
 
 namespace Modules\PMS\Entities;
 
+use App\Constants\AbstractTask;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\RMS\Entities\Research;
+
+Relation::morphMap([
+   AbstractTask::ProjectType => Project::class,
+   AbstractTask::ResearchType => Research::class
+]);
 
 class Task extends Model
 {
     use SoftDeletes;
 
     protected $table = 'tasks';
+
     protected $fillable = [
         'name',
         'expected_start_time',

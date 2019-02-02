@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Entities;
 
+use App\Constants\AbstractTask;
 use App\Entities\Organization\Organization;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
@@ -24,6 +25,6 @@ class Research extends Model
 
     public function tasks()
     {
-        return $this->morphMany(Task::class, 'taskable');
+        return $this->morphMany(Task::class, 'taskable', 'taskable_type', 'taskable_id', 'id');
     }
 }

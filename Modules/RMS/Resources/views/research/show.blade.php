@@ -57,9 +57,9 @@
                                         @if (isset($task->actual_end_time))
                                             {{ \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y h:i A') }}
                                         @elseif (isset($task->actual_start_time) && !isset($task->actual_end_time))
-                                            {{--{{ Form::open(['route' => ['rms-tasks.time', $research->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}--}}
-                                            {{--<button class="btn btn-sm btn-danger">Stop</button>--}}
-                                            {{--{{ Form::close() }}--}}
+                                            {{ Form::open(['route' => ['rms-tasks.time', $research->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}
+                                            <button class="btn btn-sm btn-danger">Stop</button>
+                                            {{ Form::close() }}
                                         @endif
                                     </td>
                                     <td class="text-center">
