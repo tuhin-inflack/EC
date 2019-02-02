@@ -34,7 +34,11 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('task.form', ['page'=>'create'])
+                            {!! Form::open(['url' => $action, 'class' => 'form', 'method' => 'post', 'files'=>'true']) !!}
+
+                            @include('task.create_edit_form', ['taskable' => $research])
+
+                            {!!Form::close()!!}
                         </div>
                     </div>
                 </div>

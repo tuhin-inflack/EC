@@ -33,7 +33,11 @@
 
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('task.update', ['page' => 'edit'])
+                            {!! Form::open(['url' =>  $action, 'class' => 'form', 'method' => 'PUT', 'files'=>'true']) !!}
+
+                            @include('task.create_edit_form', ['taskable' => $research])
+
+                            {!! Form::close() !!}
                         </div>
                     </div>
 
