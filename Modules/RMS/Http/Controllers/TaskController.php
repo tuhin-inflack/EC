@@ -3,16 +3,14 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Traits\FileTrait;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\Task;
 use Modules\PMS\Entities\TaskAttachments;
 use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\PMS\Services\ProjectResearchTaskService;
-use Modules\PMS\Entities\Task;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
@@ -37,15 +35,6 @@ class TaskController extends Controller
         $research = $this->researchProposalSubmissionService->findOrFail($researchId);
 
         return view('rms::task.index', compact('tasks', 'research'));
-    }
-
-    public function toggleStartEndTask($taskId)
-    {
-        $update = $this->projectResearchTaskService->toggleStarEndTask($taskId);
-        $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
-        Session::flash('message', $msg);
-
-        return redirect(route('research-proposal-submission.show', $update[1]));
     }
 
     public function create(Research $research)
@@ -129,11 +118,19 @@ class TaskController extends Controller
         return redirect($redirectUrl);
     }
 
-    public function destroy($taskId)
+    public function destroy(Research $research, Task $task)
     {
-        $del = $this->projectResearchTaskService->delete($taskId);
-        $msg = ($del)? __('labels.delete_success') : __('labels.delete_fail');
-        Session::flash('message', $msg);
+        $response = DB::transaction(function () use ($task) {
+            $task->attachments()->delete();
+
+            return $task->delete();
+        });
+
+        if ($response) {
+            Session::flash('success', trans('labels.delete_success'));
+        } else {
+            Session::flash('error', trans('labels.delete_fail'));
+        }
 
         return back();
     }

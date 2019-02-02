@@ -33,6 +33,9 @@ Route::prefix('rms')->group(function () {
                 Route::get('{task}', 'TaskController@show')->name('rms-tasks.show');
                 Route::get('{task}/edit', 'TaskController@edit')->name('rms-tasks.edit');
                 Route::put('{task}', 'TaskController@update')->name('rms-tasks.update');
+                Route::delete('{task}', 'TaskController@destroy')->name('rms-tasks.destroy');
+                // Task time
+                Route::put('{task}/time', 'TaskTimeController@update')->name('rms-tasks.time');
             });
         });
     });
@@ -98,16 +101,5 @@ Route::prefix('rms')->group(function () {
         Route::get('file-download/{researchRequestAttachment}', 'InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
         Route::get('{researchRequest}/request-date-extend', 'InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
         Route::post('/', 'InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
-    });
-
-    Route::prefix('task')->group(function () {
-        Route::get('/{projectId}', 'TaskController@index')->name('research.task.index');
-        Route::get('/show/{taskId}', 'TaskController@show')->name('research.task.show');
-        Route::get('/create/{researchId}', 'TaskController@create')->name('research.task.create');
-        Route::post('/create/{researchId}', 'TaskController@store')->name('research.task.store');
-        Route::get('/edit/{taskId}', 'TaskController@edit')->name('research.task.edit');
-        Route::post('/edit/{taskId}', 'TaskController@update')->name('research.task.update');
-        Route::get('/start-end/{taskId}', 'TaskController@toggleStartEndTask')->name('research.task.toggleStartEnd');
-        Route::delete('/delete/{taskId}', 'TaskController@destroy')->name('research.task.delete');
     });
 });

@@ -33,12 +33,40 @@
                             <thead>
                             <th>@lang('labels.serial')</th>
                             <th>@lang('labels.name')</th>
+                            <th>Start Time</th>
+                            <th>End Time</th>
+                            <th>{{ trans('labels.action') }}</th>
                             </thead>
                             <tbody>
                             @foreach($research->tasks as $task)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td><a href="{{ route('rms-tasks.show', [$research->id, $task->id]) }}">{{ $task->name }}</a></td>
+                                    <td>
+                                        <a href="{{ route('rms-tasks.show', [$research->id, $task->id]) }}">{{ $task->name }}</a>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (isset($task->actual_start_time))
+                                            {{ \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y h:i A') }}
+                                        @else
+                                            {{ Form::open(['route' => ['rms-tasks.time', $research->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}
+                                            <button class="btn btn-sm btn-success">Start</button>
+                                            {{ Form::close() }}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        @if (isset($task->actual_end_time))
+                                            {{ \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y h:i A') }}
+                                        @elseif (isset($task->actual_start_time) && !isset($task->actual_end_time))
+                                            {{--{{ Form::open(['route' => ['rms-tasks.time', $research->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}--}}
+                                            {{--<button class="btn btn-sm btn-danger">Stop</button>--}}
+                                            {{--{{ Form::close() }}--}}
+                                        @endif
+                                    </td>
+                                    <td class="text-center">
+                                        {{ Form::open(['route' => ['rms-tasks.destroy', $research->id, $task->id], 'method' => 'DELETE', 'style' => 'display: inline']) }}
+                                        <button class="btn btn-sm btn-danger"><i class="ft ft-trash"></i></button>
+                                        {{ Form::close() }}
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
