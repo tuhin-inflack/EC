@@ -33,8 +33,8 @@
                             <thead>
                             <th>@lang('labels.serial')</th>
                             <th>@lang('labels.name')</th>
-                            <th>Start Time</th>
-                            <th>End Time</th>
+                            <th>@lang('task.start_time')</th>
+                            <th>@lang('task.end_time')</th>
                             <th>{{ trans('labels.action') }}</th>
                             </thead>
                             <tbody>
