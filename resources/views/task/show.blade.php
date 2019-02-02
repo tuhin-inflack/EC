@@ -46,11 +46,11 @@
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.start_date') }}</th>
-                                <td>{{ $task->actual_start_date ? \Carbon\Carbon::parse($task->actual_start_date)->format('d/m/Y h:i A') : '-' }}</td>
+                                <td>{{ $task->actual_start_time ? \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y h:i A') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.end_date') }}</th>
-                                <td>{{ $task->actual_end_date ? \Carbon\Carbon::parse($task->actual_end_date)->format('d/m/Y h:i A') : '-' }}</td>
+                                <td>{{ $task->actual_end_time ? \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y h:i A') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('labels.description') }}</th>
