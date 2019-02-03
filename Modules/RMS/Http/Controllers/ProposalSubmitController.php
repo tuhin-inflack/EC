@@ -193,6 +193,7 @@ class ProposalSubmitController extends Controller
     {
 
         $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
-
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
     }
 }
