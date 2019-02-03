@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Attribute;
 use App\Entities\Organization\Organization;
 use App\Http\Requests\StoreUpdateAttributeRequest;
+use App\Services\AttributeService;
 use App\Services\OrganizationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Modules\PMS\Entities\Attribute;
-use Modules\PMS\Services\AttributeService;
 
 class AttributeController extends Controller
 {

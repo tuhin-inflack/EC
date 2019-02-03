@@ -6,13 +6,13 @@
  * Time: 8:15 PM
  */
 
-namespace Modules\PMS\Services;
+namespace App\Services;
 
 
+use App\Repositories\AttributeValueRepository;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Modules\PMS\Repositories\AttributeValueRepository;
 
 class AttributeValueService
 {

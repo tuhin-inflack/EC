@@ -3,10 +3,10 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Entities\Organization\Organization;
+use App\Services\AttributeValueService;
 use App\Services\OrganizationService;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
-use Modules\PMS\Services\AttributeValueService;
 use Modules\RMS\Entities\Research;
 
 class OrganizationController extends Controller

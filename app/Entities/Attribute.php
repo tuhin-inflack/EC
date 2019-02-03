@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PMS\Entities;
+namespace App\Entities;
 
 use App\Entities\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;

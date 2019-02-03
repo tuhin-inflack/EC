@@ -121,19 +121,7 @@ class ProjectProposalService
         $tasks = $projectProposal->task;
         $chartData = [];
 
-        foreach ($tasks as $task){
-            array_push($chartData, array(
-                "pID" => $task->id,
-                "pName" => $task->taskName->name,
-                "pStart" => $task->start_time,
-                "pEnd" => $task->end_time,
-                "pPlanStart" => $task->expected_start_time,
-                "pPlanEnd" => $task->expected_end_time,
-                "pClass" => "gtaskblue",
-                "pNotes" => "SDisas ascas cacasc",
-            ));
-        }
-        return $chartData;
+
     }
 
     public function getProjectProposalByStatus()

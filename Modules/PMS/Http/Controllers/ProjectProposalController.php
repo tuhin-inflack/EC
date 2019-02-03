@@ -8,7 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposal;
+use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
 use Modules\PMS\Services\ProjectProposalService;
@@ -28,6 +30,7 @@ class ProjectProposalController extends Controller
     {
         $this->projectProposalService = $projectProposalService;
     }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -35,7 +38,7 @@ class ProjectProposalController extends Controller
     public function index()
     {
         $proposals = $this->projectProposalService->getAll();
-        return view('pms::proposal-submission.index',compact('proposals'));
+        return view('pms::proposal-submission.index', compact('proposals'));
     }
 
     /**
@@ -99,5 +102,11 @@ class ProjectProposalController extends Controller
     public function proposalAttachmentDownload(ProjectProposal $projectProposal)
     {
         return response()->download($this->projectProposalService->getZipFilePath($projectProposal->id));
+    }
+
+    public function fileDownload(ProjectProposalFile $projectProposalFile)
+    {
+        $basePath = Storage::disk('internal')->path($projectProposalFile->attachments);
+        return response()->download($basePath);
     }
 }

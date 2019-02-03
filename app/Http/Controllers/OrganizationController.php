@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\OrganizationService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\StoreOrganizationRequest;
 

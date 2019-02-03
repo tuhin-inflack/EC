@@ -25,7 +25,7 @@ return [
     'recipient' => 'প্রাপক',
     'invited_research_proposal_list' => 'আমন্ত্রিত গবেষণা প্রস্তাব তালিকা',
     'invited_research_proposal_details' => 'আমন্ত্রিত গবেষণা প্রস্তাব বিস্তারিত',
-    'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',
+    'download_all_attachments' => 'সকল সংযুক্তি',
     'download_attachments' => 'সংযুক্তি ডাউনলোড',
     'extend_date_request' => 'বর্ধিত তারিখ অনুরোধ',
     'extend_date_request_form' => 'বর্ধিত তারিখ অনুরোধ ফর্ম',
