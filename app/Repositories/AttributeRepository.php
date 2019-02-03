@@ -6,11 +6,10 @@
  * Time: 1:14 PM
  */
 
-namespace Modules\PMS\Repositories;
+namespace App\Repositories;
 
 
-use App\Repositories\AbstractBaseRepository;
-use Modules\PMS\Entities\Attribute;
+use App\Entities\Attribute;
 
 class AttributeRepository extends AbstractBaseRepository
 {

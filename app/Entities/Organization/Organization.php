@@ -2,8 +2,8 @@
 
 namespace App\Entities\Organization;
 
+use App\Entities\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Modules\PMS\Entities\Attribute;
 use Modules\PMS\Entities\Project;
 use Modules\RMS\Entities\Research;
 

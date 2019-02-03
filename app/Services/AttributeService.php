@@ -6,11 +6,11 @@
  * Time: 1:15 PM
  */
 
-namespace Modules\PMS\Services;
+namespace App\Services;
 
 
+use App\Repositories\AttributeRepository;
 use App\Traits\CrudTrait;
-use Modules\PMS\Repositories\AttributeRepository;
 
 class AttributeService
 {
