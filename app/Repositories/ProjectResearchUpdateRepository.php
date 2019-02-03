@@ -10,11 +10,11 @@ namespace App\Repositories;
 
 
 use App\Entities\monthlyUpdate\MonthlyUpdateAttachment;
-use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
+use App\Entities\monthlyUpdate\MonthlyUpdate;
 
 class ProjectResearchUpdateRepository extends AbstractBaseRepository
 {
-    protected $modelName = ProjectResearchMonthlyUpdate::class;
+    protected $modelName = MonthlyUpdate::class;
 
     public function getMonthlyUpdate($updateForId, $type, $month, $year)
     {
