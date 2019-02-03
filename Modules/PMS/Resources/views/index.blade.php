@@ -37,7 +37,7 @@
                                             <br>
                                             <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                         </td>
-                                        <td><a href="{{url($item->checkUrl)}}">View</a></td>
+                                        <td><a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm">@lang('labels.details')</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
