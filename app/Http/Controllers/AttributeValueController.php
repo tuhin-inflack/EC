@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Attribute;
+use App\Entities\AttributeValue;
+use App\Services\AttributeValueService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Modules\PMS\Entities\Attribute;
-use Modules\PMS\Entities\AttributeValue;
-use Modules\PMS\Services\AttributeValueService;
+use Modules\PMS\Http\Requests\UpdateAttributeValueRequest;
 
 class AttributeValueController extends Controller
 {
@@ -53,5 +54,20 @@ class AttributeValueController extends Controller
         $pageType = 'edit';
 
         return view('attribute-value.edit', compact('attribute', 'attributeValue', 'pageType', 'module'));
+    }
+
+    public function update(UpdateAttributeValueRequest $request, Attribute $attribute, AttributeValue $attributeValue)
+    {
+        if (!$attribute->values->where('id', $attributeValue->id)->count()) {
+            abort(404);
+        }
+
+        if ($this->attributeValueService->update($attributeValue, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
+        }
+
+        return redirect()->back();
     }
 }

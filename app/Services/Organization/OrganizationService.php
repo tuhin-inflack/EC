@@ -13,9 +13,7 @@ use App\Repositories\Organization\OrganizationRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
-use Modules\PMS\Services\ProjectResearchOrgService;
 use Modules\PMS\Services\ProjectService;
-use Modules\RMS\Entities\Research;
 use Modules\RMS\Services\ResearchService;
 
 class OrganizationService

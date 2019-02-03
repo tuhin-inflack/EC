@@ -161,7 +161,7 @@
                                     @foreach($invitations as $invitation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $invitation->title }}</a></td>
+                                            <td><a href=""><a href="{{ route('research-request.show', $invitation->id) }}">{{ $invitation->title }}</a></a></td>
                                             <td>{{ $invitation->end_date }}</td>
                                         </tr>
                                     @endforeach
@@ -201,11 +201,9 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $proposal->title }}</a></td>
+                                            <td><a href="{{ route('research-proposal-submission.show', $proposal->id) }}">{{ $proposal->title }}</a></td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                            {{--{{ $proposal->submittedBy->name }}--}}
                                             <td>{{ $proposal->submittedBy->name }}</td>
-                                            {{--                                            <td>{{ $proposal->ProposalSubmittedBy->name }}</td>--}}
                                         </tr>
                                     @endforeach
                                     </tbody>

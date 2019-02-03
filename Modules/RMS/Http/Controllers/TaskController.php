@@ -2,10 +2,10 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Entities\Task;
 use App\Services\TaskService;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
-use Modules\PMS\Entities\Task;
 use Modules\PMS\Http\Requests\TaskRequest;
 use Modules\RMS\Entities\Research;
 
