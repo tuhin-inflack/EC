@@ -1,19 +1,18 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.menu_title'))
+@section('title', trans('pms::project_proposal.menu_title'). ' '. trans('labels.details'))
 
 @section('content')
     <div class="row match-height">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('labels.details')</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('pms::project_proposal.menu_title') @lang('labels.details')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
                         </ul>
                     </div>
                 </div>
@@ -23,9 +22,56 @@
                     <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
+                            {{--<div class="col-12">
                                 <h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>
                                 <h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>
+                            </div>--}}
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="black">@lang('labels.title'): </label>
+                                        <p class="card-text">{{ $proposal->title }}</p>
+
+                                        <label class="black">@lang('rms::research_proposal.submission_date'): </label>
+                                        <p> {{ date('d/m/y', strtotime($proposal->created_at)) }} </p>
+                                        <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
+                                        <p> {{ $proposal->proposalSubmittedBy->name }} </p>
+                                    </div>
+                                    @if(count($remarks)>0)
+                                        <div class="col-md-12">
+                                            <label class="black">@lang('labels.remarks'): </label>
+                                            <div class="media">
+                                                <div class="media-body">
+
+                                                    @foreach($remarks as $remark)
+                                                        {{--{{ dd($remark) }}--}}
+                                                        <p class="text-bold-600 mb-0">
+                                                            {{ $remark->user->name }}
+                                                        </p>
+                                                        <p class="small m-0 comment-time">{{ date("j F, Y, g:i a",strtotime($remark->created_at)) }}</p>
+                                                        <p class="m-0 comment-text">{{ $remark->remarks }}</p>
+                                                        <hr/>
+                                                    @endforeach
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <ul>
+                                    @foreach($proposal->projectProposalFiles as $file)
+                                        <li>
+                                            <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <div class="col-md-6">
