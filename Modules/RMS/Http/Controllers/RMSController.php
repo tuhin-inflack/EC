@@ -53,7 +53,9 @@ class RMSController extends Controller
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
 
         $user = Auth::user();
+
         $employee = $this->employeeService->findOne($user->reference_table_id);
+//        dd($employee);
         if ($employee->designation->short_name == 'RD') {
             $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
         } else {
