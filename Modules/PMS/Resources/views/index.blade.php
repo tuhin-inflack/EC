@@ -85,7 +85,7 @@
 
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3>{{__('labels.rejected_items')}}</h3>
+                                    <h3>{{__('labels.ready_for_apc_approval')}}</h3>
                                 </div>
                                 <div class="col-md-12">
                                     <table class="table table-bordered">

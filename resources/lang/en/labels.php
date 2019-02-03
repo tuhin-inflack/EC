@@ -147,5 +147,6 @@ return [
     'proposal_re_initiate' => 'Proposal reinitiate',
     'send_back' => 'Send Back',
     'check' => 'Check',
-    'reviewed' => 'Reviewed'
+    'reviewed' => 'Reviewed',
+    'apc_approved_message' => 'APC Approval Successfully'
 ];

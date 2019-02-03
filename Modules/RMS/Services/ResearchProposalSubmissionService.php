@@ -207,5 +207,7 @@ class ResearchProposalSubmissionService
         $researchProposal = $this->findOne($researchProposalSubmissionId);
         $researchProposal->update(['status' => $status]);
 
+        return Response(trans('labels.apc_approved_message'));
+
     }
 }
