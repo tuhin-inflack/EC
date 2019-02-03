@@ -17,6 +17,7 @@ use App\Services\UserService;
 use App\Services\workflow\WorkFlowConversationService;
 use App\Services\workflow\WorkflowService;
 use Modules\PMS\Services\ProjectProposalService;
+use App\Constants\WorkflowStatus;
 
 class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
 {
@@ -79,7 +80,9 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
     public function updateItem($itemId, $status)
     {
         $proposal = $this->projectProposalService->findOne($itemId);
-        $this->projectProposalService->update($proposal, ['status' => $status]);
+        if ($status == WorkflowStatus::APPROVED) {
+            $this->projectProposalService->update($proposal, ['status' => 'REVIEWED']);
+        }
     }
 
     public function generateRejectedItems(): DashboardItemSummary

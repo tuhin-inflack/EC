@@ -88,12 +88,6 @@ class ProjectProposalService
         });
     }
 
-
-    public function delete()
-    {
-
-    }
-
     public function getProposalById($id)
     {
         $proposal = $this->findOne($id);
