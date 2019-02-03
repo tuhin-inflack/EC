@@ -9,7 +9,8 @@
 namespace App\Repositories;
 
 
-use Modules\PMS\Entities\Task;
+
+use App\Entities\Task;
 
 class TaskRepository extends AbstractBaseRepository
 {

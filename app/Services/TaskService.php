@@ -10,13 +10,13 @@ namespace App\Services;
 
 
 use App\Constants\AbstractTask;
+use App\Entities\Task;
+use App\Entities\TaskAttachment;
 use App\Repositories\TaskRepository;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Modules\PMS\Entities\Task;
-use Modules\PMS\Entities\TaskAttachments;
 use Modules\RMS\Entities\Research;
 
 class TaskService
@@ -90,7 +90,7 @@ class TaskService
     private function storeTaskAttachments($taskable, $task, $data)
     {
         if (array_key_exists('deleted_attachments', $data)) {
-            TaskAttachments::destroy($data['deleted_attachments']);
+            TaskAttachment::destroy($data['deleted_attachments']);
         }
 
         if (array_key_exists('attachments', $data)) {
