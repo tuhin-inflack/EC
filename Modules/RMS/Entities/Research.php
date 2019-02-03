@@ -2,9 +2,11 @@
 
 namespace Modules\RMS\Entities;
 
+use App\Constants\AbstractTask;
 use App\Entities\Organization\Organization;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\Task;
 
 class Research extends Model
 {
@@ -19,5 +21,10 @@ class Research extends Model
     public function researchSubmittedByUser()
     {
         return $this->belongsTo(User::class, 'submitted_by', 'id');
+    }
+
+    public function tasks()
+    {
+        return $this->morphMany(Task::class, 'taskable', 'taskable_type', 'taskable_id', 'id');
     }
 }

@@ -2,119 +2,88 @@
 
 namespace Modules\RMS\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Services\TaskService;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
-use Modules\PMS\Http\Requests\TaskRequest;
-use Modules\PMS\Services\ProjectResearchTaskService;
 use Modules\PMS\Entities\Task;
-use Modules\RMS\Services\ResearchProposalSubmissionService;
+use Modules\PMS\Http\Requests\TaskRequest;
+use Modules\RMS\Entities\Research;
 
 class TaskController extends Controller
 {
-    private $projectResearchTaskService, $researchProposalSubmissionService;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
-    public function __construct(ProjectResearchTaskService $projectResearchTaskService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    /**
+     * TaskController constructor.
+     * @param TaskService $taskService
+     */
+    public function __construct(TaskService $taskService)
     {
-        $this->projectResearchTaskService = $projectResearchTaskService;
-        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
+        $this->taskService = $taskService;
     }
 
-    public function index($researchId)
+    public function create(Research $research)
     {
-        $tasks = $this->projectResearchTaskService->getProjectTasks($researchId);
-        $research = $this->researchProposalSubmissionService->findOrFail($researchId);
+        $action = route('rms-tasks.store', $research->id);
+        $module = 'rms';
 
-        return view('rms::task.index', compact('tasks', 'research'));
+        return view('task.create', compact('action', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
-    public function toggleStartEndTask($taskId)
+    public function store(TaskRequest $request, Research $research)
     {
-        $update = $this->projectResearchTaskService->toggleStarEndTask($taskId);
-        $msg = ($update)? __('labels.update_success') : __('labels.update_fail');
-        Session::flash('message', $msg);
-
-        return redirect(route('research-proposal-submission.show', $update[1]));
-    }
-
-    public function create($researchId)
-    {
-        $item = $this->researchProposalSubmissionService->findOne($researchId);
-        $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('research.task.store', $item->id);
-
-        return view('rms::task.create', compact('item', 'taskNames', 'action'));
-    }
-
-    public function store($researchId, TaskRequest $request)
-    {
-        $data = $request->all();
-        if(!is_numeric($request->input('task_id'))) $data['task_id'] = $this->projectResearchTaskService->saveTaskName($request->input('task_id'));
-        $data['type'] = 'research';
-        $data['task_for_id'] = $researchId;
-        $saveData = $this->projectResearchTaskService->save($data);
-        $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId && $request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchTaskService->saveAttachments($savedTaskId, $files);
+        if ($this->taskService->store($research, $request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
         }
 
-        $msg = ($saveData->getAttribute('id'))? __('labels.save_success') : __('labels.save_fail');
-        Session::flash('message', $msg);
-
-        return back();
+        return redirect()->route('research.show', $research->id);
     }
 
-    public function show($taskId)
+    public function show(Research $research, Task $task)
     {
-        $task = $this->projectResearchTaskService->findOne($taskId);
+        $module = 'rms';
 
-        return view('rms::task.show', compact('task'));
+        return view('task.show', compact('task', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
-    public function edit($taskId)
+    public function edit(Research $research, Task $task)
     {
-        $task = $this->projectResearchTaskService->findOne($taskId);
-        $taskNames = Task::where('id', '!=', 0)->get();
-        $action = route('research.task.update', $taskId);
+        $action = route('rms-tasks.update', [$research->id, $task->id]);
+        $module = 'rms';
 
-        return view('rms::task.edit', compact('task', 'taskNames', 'action'));
+        return view('task.edit', compact('task', 'action', 'module'))->with([
+            'taskable' => $research
+        ]);
     }
 
-    public function update(TaskRequest $request, $taskId)
+    public function update(TaskRequest $request, Research $research, Task $task)
     {
-        $data = array(
-            "task_id" => (!is_numeric($request->input('task_id'))) ? $this->projectResearchTaskService->saveTaskName($request->input('task_id')): $request->input('task_id'),
-            "description" => $request->input('description'),
-            "expected_start_time" => $request->input('expected_start_time'),
-            "expected_end_time" => $request->input('expected_end_time')
-        );
-
-        $task = $this->projectResearchTaskService->findOrFail($taskId);
-        $update = $this->projectResearchTaskService->update($task, $data);
-
-        // Adjusting attachments
-        $deletedAttachmentIds = $request->input('deleted_attachments', array());
-        if(count($deletedAttachmentIds)) $deleteAttachments = $this->projectResearchTaskService->deleteAttachments($deletedAttachmentIds);
-
-        if($request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchTaskService->saveAttachments($taskId, $files);
+        if ($this->taskService->updateTask($research, $task, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
         }
-        Session::flash('message', __('labels.update_success'));
 
-        return back();
+        return redirect()->route('research.show', $research->id);
     }
 
-    public function destroy($taskId)
+    public function destroy(Research $research, Task $task)
     {
-        $del = $this->projectResearchTaskService->delete($taskId);
-        $msg = ($del)? __('labels.delete_success') : __('labels.delete_fail');
-        Session::flash('message', $msg);
+        if ($this->taskService->deleteTask($task)) {
+            Session::flash('success', trans('labels.delete_success'));
+        } else {
+            Session::flash('error', trans('labels.delete_fail'));
+        }
 
-        return back();
+        return redirect()->route('research.show', $research->id);
     }
 }

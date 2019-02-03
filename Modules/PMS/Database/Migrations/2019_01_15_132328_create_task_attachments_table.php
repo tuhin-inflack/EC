@@ -15,10 +15,10 @@ class CreateTaskAttachmentsTable extends Migration
     {
         Schema::create('task_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('project_research_task_id');
-            $table->string('file_name');
-            $table->string('file_ext', 10);
-            $table->string('file_path')->nullable();
+            $table->unsignedInteger('task_id');
+            $table->string('path');
+            $table->string('name', 200);
+            $table->string('ext', 20);
             $table->timestamps();
             $table->softDeletes();
         });

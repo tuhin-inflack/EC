@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class WorkflowSeeder extends Seeder
 {
@@ -61,8 +62,9 @@ class WorkflowSeeder extends Seeder
 
 //        feature seeding
         $features = [
-            ['name' => \Illuminate\Support\Facades\Config::get('constants.research_proposal_feature_name')],
-            ['name' => \Illuminate\Support\Facades\Config::get('constants.project_proposal_feature_name')],
+            ['name' => 'Research Proposal'],
+            ['name' => 'Project Proposal'],
+//            ['name' => \Illuminate\Support\Facades\Config::get('constants.project_proposal_feature_name')],
         ];
         foreach ($features as $feature) {
             DB::table('features')->insert($feature);
@@ -89,6 +91,5 @@ class WorkflowSeeder extends Seeder
         foreach ($ruleDetails as $ruleDetail) {
             DB::table('workflow_rule_details')->insert($ruleDetail);
         }
-
     }
 }
