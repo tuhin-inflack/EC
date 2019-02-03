@@ -7,6 +7,7 @@
  */
 namespace Modules\RMS\Services;
 
+use App\Services\TaskService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Modules\RMS\Repositories\ResearchRepository;
@@ -19,7 +20,15 @@ class ResearchService{
      * @var ResearchRepository
      */
     private $researchRepository;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
+    /**
+     * ResearchService constructor.
+     * @param ResearchRepository $researchRepository
+     */
     public function __construct(ResearchRepository $researchRepository)
     {
         $this->researchRepository = $researchRepository;
@@ -38,5 +47,4 @@ class ResearchService{
     {
         return $this->researchRepository->findAll();
     }
-
 }

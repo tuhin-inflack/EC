@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\TaskService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,11 +24,16 @@ class ProjectController extends Controller
      * @var ProjectService
      */
     private $projectService;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
-    public function __construct(UserService $userService, ProjectService $projectService)
+    public function __construct(UserService $userService, ProjectService $projectService, TaskService $taskService)
     {
         $this->userService = $userService;
         $this->projectService = $projectService;
+        $this->taskService = $taskService;
     }
 
     /**
@@ -72,7 +78,8 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view('pms::project.show', compact('project'));
+        $ganttChart = $this->taskService->getTasksGanttChartData($project->tasks);
+        return view('pms::project.show', compact('project', 'ganttChart'));
     }
 
     /**
