@@ -2,11 +2,10 @@
 
 namespace Modules\RMS\Entities;
 
-use App\Constants\AbstractTask;
 use App\Entities\Organization\Organization;
+use App\Entities\Task;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
-use Modules\PMS\Entities\Task;
 
 class Research extends Model
 {

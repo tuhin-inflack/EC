@@ -3,11 +3,11 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\Organization\Organization;
+use App\Services\AttributeValueService;
 use App\Services\OrganizationService;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
 use Modules\PMS\Entities\Project;
-use Modules\PMS\Services\AttributeValueService;
 
 class OrganizationController extends Controller
 {

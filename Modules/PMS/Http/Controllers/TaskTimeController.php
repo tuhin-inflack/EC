@@ -2,12 +2,12 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\Task;
 use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Project;
-use Modules\PMS\Entities\Task;
 
 class TaskTimeController extends Controller
 {

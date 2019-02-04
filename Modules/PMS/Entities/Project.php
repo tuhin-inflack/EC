@@ -3,6 +3,7 @@
 namespace Modules\PMS\Entities;
 
 use App\Entities\Organization\Organization;
+use App\Entities\Task;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 

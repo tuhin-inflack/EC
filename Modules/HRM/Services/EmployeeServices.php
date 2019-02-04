@@ -41,6 +41,7 @@ class EmployeeServices
             'username' => $data['employee_id'],
             'email' => $data['email'],
             'mobile' => $data['mobile_one'],
+            'reference_table_id' => $generalInfo->id,
             'user_type' => config('user.types.EMPLOYEE'),
             'password' => config('user.defaultPassword')
         ]);

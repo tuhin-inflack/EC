@@ -37,7 +37,7 @@
                                             <br>
                                             <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                         </td>
-                                        <td><a href="{{url($item->checkUrl)}}">View</a></td>
+                                        <td><a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm">@lang('labels.details')</a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -77,7 +77,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-
                             </div>
                         @endif
 
@@ -85,7 +84,7 @@
 
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3>{{__('labels.rejected_items')}}</h3>
+                                    <h3>{{__('labels.ready_for_apc_approval')}}</h3>
                                 </div>
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
@@ -174,7 +173,7 @@
                                     @foreach($invitations as $invitation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $invitation->title }}</a></td>
+                                            <td><a href="{{route('project-request.show', $invitation->id)}}">{{ $invitation->title }}</a></td>
                                             <td>{{ $invitation->end_date }}</td>
                                         </tr>
                                     @endforeach
@@ -214,7 +213,7 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $proposal->title }}</a></td>
+                                            <td><a href="{{route('project-proposal-submitted.view', $proposal->id)}}">{{ $proposal->title }}</a></td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                         </tr>

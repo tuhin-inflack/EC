@@ -6,7 +6,7 @@
             <ul class="list-inline mb-0">
                 <li><a href="{{ route($module . '-tasks.create', $taskable->id) }}"
                        class="btn btn-sm btn-primary"><i
-                                class="ft ft-plus"></i> Add Task</a></li>
+                                class="ft ft-plus"></i> @lang('task.add_task')</a></li>
                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>

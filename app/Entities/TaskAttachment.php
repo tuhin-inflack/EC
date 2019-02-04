@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\PMS\Entities;
+namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TaskAttachments extends Model
+class TaskAttachment extends Model
 {
     use SoftDeletes;
 

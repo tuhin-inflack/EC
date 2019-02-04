@@ -101,7 +101,9 @@ class WorkflowService
 
     public function getWorkflowDetailsByUserAndFeature($userId, array $designationIds, $featureId)
     {
-        return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds, $featureId);
+//        return $this->workflowDetailRepository->getWorkflowDetails($userId, $designationIds, $featureId);
+        return $this->workflowDetailRepository->getWorkflowDetailsByFeature($userId, $designationIds, $featureId);
+
     }
 
     private function isFlowCompleted($getBackStatus, $flowDetailsList)
