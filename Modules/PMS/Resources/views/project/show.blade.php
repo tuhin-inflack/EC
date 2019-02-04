@@ -18,6 +18,15 @@
     </div>
     <br>
 
+    <section class="row">
+        <div class="col-md-12">
+            @include('../../../monthly-update.partials.table', [
+                'monthlyUpdatable' => $project,
+                'module' => 'pms'
+            ])
+        </div>
+    </section>
+
     <div class="row match-height">
         <div class="col-md-12">
             @include('../../../task.partials.ganttChart')

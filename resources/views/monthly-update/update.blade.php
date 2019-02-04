@@ -67,17 +67,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="attachments" class="form-label required">{{trans('labels.attachments')}}</label>
-                @if(count($monthlyUpdate->attachments))
-                    <ul class="list-inline">
-                        @foreach($monthlyUpdate->attachments as $attachment)
-                            <li class="list-group-item" id="{{$attachment->id}}">
-                                <a class="btn-close pull-right" title="Remove Attachment" onclick="deleteAttachment({{$attachment->id}}); style.display='none';"><i class="ft-x"></i></a> <br>
-                                <span class="badge bg-info">{{$attachment->file_name}}</span><br>
-                                <span class="label"><strong>{{$attachment->file_ext}}</strong> file</span>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+
                 <div id="repeat-attachments">
                     <input type="file" class="form-control {{ $errors->has('attachments') ? ' is-invalid' : '' }}"
                            name="attachments[]" id="attachments" value="{{old('attachments') }}">

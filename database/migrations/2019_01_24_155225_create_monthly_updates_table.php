@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectResearchUpdateTable extends Migration
+class CreateMonthlyUpdatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateProjectResearchUpdateTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_research_monthly_update', function (Blueprint $table) {
+        Schema::create('monthly_updates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('update_for_id');
-            $table->enum('type', ['project', 'research'])->default('project');
-            $table->tinyInteger('month');
-            $table->integer('year');
-            $table->text('achievements')->nullable();
-            $table->text('plannings');
+            $table->unsignedInteger('monthly_updatable_id');
+            $table->string('monthly_updatable_type');
+            $table->date('date');
+            $table->text('achievement')->nullable();
+            $table->text('planning');
             $table->string('tasks')->nullable();
-
             $table->softDeletes();
             $table->timestamps();
         });
@@ -35,6 +33,6 @@ class CreateProjectResearchUpdateTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_research_monthly_update');
+        Schema::dropIfExists('monthly_updates');
     }
 }

@@ -15,7 +15,7 @@ class CreateMonthlyUpdateAttachmentsTable extends Migration
     {
         Schema::create('monthly_update_attachments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('monthly_update_id');
+            $table->unsignedInteger('monthly_updatable_id');
             $table->string('file_name');
             $table->string('file_ext', 10);
             $table->string('file_path')->nullable();
