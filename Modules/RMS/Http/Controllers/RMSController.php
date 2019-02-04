@@ -56,7 +56,9 @@ class RMSController extends Controller
 
         $employee = $this->employeeService->findOne($user->reference_table_id);
 //        dd($employee);
-        if ($employee->designation->short_name == 'RD') {
+        if (is_null($employee)) {
+            $reviewedProposals = [];
+        } elseif ($employee->designation->short_name == 'RD') {
             $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
         } else {
             $reviewedProposals = [];

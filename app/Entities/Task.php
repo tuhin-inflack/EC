@@ -1,11 +1,12 @@
 <?php
 
-namespace Modules\PMS\Entities;
+namespace App\Entities;
 
 use App\Constants\AbstractTask;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\PMS\Entities\Project;
 use Modules\RMS\Entities\Research;
 
 Relation::morphMap([
@@ -32,6 +33,6 @@ class Task extends Model
 
     public function attachments()
     {
-        return $this->hasMany(TaskAttachments::class, 'task_id', 'id');
+        return $this->hasMany(TaskAttachment::class, 'task_id', 'id');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\TaskService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,12 +24,23 @@ class ResearchController extends Controller
      */
     private $userService;
     private $researchService;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
-    public function __construct(UserService $userService, ResearchService $researchService)
+    /**
+     * ResearchController constructor.
+     * @param UserService $userService
+     * @param ResearchService $researchService
+     * @param TaskService $taskService
+     */
+    public function __construct(UserService $userService, ResearchService $researchService, TaskService $taskService)
     {
 
         $this->userService = $userService;
         $this->researchService = $researchService;
+        $this->taskService = $taskService;
     }
 
     /**
@@ -74,7 +86,9 @@ class ResearchController extends Controller
      */
     public function show(Research $research)
     {
-        return view('rms::research.show', compact('research'));
+        $ganttChart = $this->taskService->getTasksGanttChartData($research->tasks);
+
+        return view('rms::research.show', compact('research', 'ganttChart'));
     }
 
     /**

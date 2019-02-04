@@ -11,26 +11,17 @@ namespace Modules\PMS\Services;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
-use App\Traits\FileTrait;
-use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposal;
-use Modules\PMS\Entities\ProjectProposalFile;
-use Modules\PMS\Repositories\ProjectProposalRepository;
 
 
-class ProjectProposalService
+class ProjectBudgetService
 {
     use CrudTrait;
-    use FileTrait;
-    private $projectProposalRepository;
-    private $featureService;
-    private $workflowService;
-
     /**
      * ProjectRequestService constructor.
-     * @param ProjectProposalRepository $projectProposalRepository
+     *
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      */
@@ -88,6 +79,12 @@ class ProjectProposalService
         });
     }
 
+
+    public function delete()
+    {
+
+    }
+
     public function getProposalById($id)
     {
         $proposal = $this->findOne($id);
@@ -121,7 +118,19 @@ class ProjectProposalService
         $tasks = $projectProposal->task;
         $chartData = [];
 
-
+        foreach ($tasks as $task){
+            array_push($chartData, array(
+                "pID" => $task->id,
+                "pName" => $task->taskName->name,
+                "pStart" => $task->start_time,
+                "pEnd" => $task->end_time,
+                "pPlanStart" => $task->expected_start_time,
+                "pPlanEnd" => $task->expected_end_time,
+                "pClass" => "gtaskblue",
+                "pNotes" => "SDisas ascas cacasc",
+            ));
+        }
+        return $chartData;
     }
 
     public function getProjectProposalByStatus()
@@ -134,8 +143,4 @@ class ProjectProposalService
         ];
     }
 
-    public function getProjectProposalBySubmissionDate()
-    {
-        return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
-    }
 }

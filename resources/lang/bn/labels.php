@@ -149,5 +149,10 @@ return [
     'feature_name' => 'বৈশিষ্ট্য এর নাম',
     'status_reviewed' => 'যাচাইকৃত',
     'reviewed' => 'যাচাইকৃত',
-    'apc_approved_message' => 'সফলভাবে এপিসি অনুমোদন দেওয়া হয়েছে'
+    'apc_approved_message' => 'সফলভাবে এপিসি অনুমোদন দেওয়া হয়েছে',
+    'weight' => 'ওজন',
+    'actual' => 'আসল',
+    'unit' => 'একক',
+    'unit_rate' => 'একক দর',
+    'quantity' => 'পরিমাণ',
 ];

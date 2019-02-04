@@ -45,7 +45,7 @@ class EconomyCodeService
         foreach ($economyCodes as $economyCode) {
             $economyCodeKey = $implementedKey ? $implementedKey($economyCode) : $economyCode->id;
 
-            $implementedValue = $implementedValue ? : function() use($economyCode) {
+            $implementedValue = $implementedValue ? : function($economyCode) {
                 return $economyCode->code . ' - ' . $economyCode->bangla_name;
             };
 

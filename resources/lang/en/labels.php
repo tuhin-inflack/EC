@@ -148,5 +148,11 @@ return [
     'send_back' => 'Send Back',
     'check' => 'Check',
     'reviewed' => 'Reviewed',
-    'apc_approved_message' => 'APC Approval Successfully'
+    'apc_approved_message' => 'APC Approval Successfully',
+    'reviewed' => 'Reviewed',
+    'weight' => 'Weight',
+    'actual' => 'Actual',
+    'unit' => 'Unit',
+    'unit_rate' => 'Unit Rate',
+    'quantity' => 'Quantity',
 ];

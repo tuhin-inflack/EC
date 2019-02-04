@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Attribute;
+use App\Services\AttributeValueService;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Modules\PMS\Entities\Attribute;
-use Modules\PMS\Services\AttributeValueService;
 
 class AttributeValueGraphController extends Controller
 {

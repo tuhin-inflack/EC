@@ -2,6 +2,12 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
+    <div class="row match-height">
+        <div class="col-md-12">
+            @include('../../../task.partials.ganttChart')
+        </div>
+    </div>
+
     <section class="row">
         <div class="col-md-6">
             @include('../../../organization.table', [
@@ -68,9 +74,17 @@
             height: auto;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
 @endpush
 
 @push('page-js')
+    <script>
+        let mountElement = document.getElementById('GanttChartDIV');
+        let presentedFormat = "week";
+        let jsonData = JSON.parse('{!! json_encode($ganttChart) !!}');
+    </script>
+    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('.organization-table, .task-table').DataTable({
