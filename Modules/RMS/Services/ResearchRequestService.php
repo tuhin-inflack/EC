@@ -66,6 +66,35 @@ class ResearchRequestService
         return $this->researchRequestRepository->findAll();
     }
 
+    public function updateResearchRequest(array $data, ResearchRequest $researchRequest)
+    {
+        return DB::transaction(function () use ($data, $researchRequest) {
+            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+            $data['status'] = 'PENDING';
+            $request = $this->update($researchRequest, $data);
+            foreach ($researchRequest->researchRequestAttachments as $attachment){
+                ResearchRequestAttachment::destroy($attachment->id);
+                Storage::disk('internal')->delete($attachment->attachments);
+            }
+
+            foreach ($data['attachment'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'research-requests');
+
+                $file = new ResearchRequestAttachment([
+                    'attachments' => $path,
+                    'research_request_id' => $researchRequest->id,
+                    'file_name' => $fileName
+                ]);
+
+                $researchRequest->researchRequestAttachments()->save($file);
+
+            }
+            return $request;
+        });
+
+    }
+
     public function getZipFilePath($researchId)
     {
         $researchRequest = $this->findOne($researchId);

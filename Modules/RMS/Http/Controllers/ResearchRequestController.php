@@ -12,6 +12,7 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Entities\ResearchRequestAttachment;
 use Modules\RMS\Http\Requests\CreateResearchRequestRequest;
+use Modules\RMS\Http\Requests\UpdateResearchRequestRequest;
 use Modules\RMS\Services\ResearchRequestService;
 
 class ResearchRequestController extends Controller
@@ -76,9 +77,9 @@ class ResearchRequestController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(ResearchRequest $researchRequest)
     {
-        return view('rms::edit');
+        return view('rms::research-request.edit', compact('researchRequest'));
     }
 
     /**
@@ -86,8 +87,11 @@ class ResearchRequestController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateResearchRequestRequest $request, ResearchRequest $researchRequest)
     {
+        $this->researchRequestService->updateResearchRequest($request->all(), $researchRequest);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-request.index');
     }
 
     /**

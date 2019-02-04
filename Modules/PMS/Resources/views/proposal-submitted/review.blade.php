@@ -22,10 +22,6 @@
                     <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                     <div class="card-body">
                         <div class="row">
-                            {{--<div class="col-12">
-                                <h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>
-                                <h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>
-                            </div>--}}
                             <div class="col-md-6">
                                 <div class="row">
                                     <div class="col-md-12">
