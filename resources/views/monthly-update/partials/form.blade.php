@@ -4,7 +4,7 @@
         <div class="col-md-12">
             <div class="form-group">
                 <label>{{ trans('monthly-update.update_for') }}: <span
-                            class="badge bg-blue-grey">{{ $research->title }}</span></label>
+                            class="badge bg-blue-grey">{{ $monthlyUpdatable->title }}</span></label>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="tasks[]" class="form-label required">{{ trans('monthly-update.related_tasks') }}</label>
-                {{ Form::select('tasks[]', $research->tasks->pluck('name', 'id'), isset($monthlyUpdate) ? explode(', ', $monthlyUpdate->tasks) : null, [
+                {{ Form::select('tasks[]', $monthlyUpdatable->tasks->pluck('name', 'id'), isset($monthlyUpdate) ? explode(', ', $monthlyUpdate->tasks) : null, [
                     'class' => 'form-control select2',
                     'multiple' => 'true'
                 ]) }}
@@ -126,9 +126,10 @@
         <i class="ft-check-square"></i> {{trans('labels.save')}}
     </button>
     @if($module == 'rms')
-        <a href="{{ route('research.show', $research->id) }}" class="btn btn-warning"><i
+        <a href="{{ route('research.show', $monthlyUpdatable->id) }}" class="btn btn-warning"><i
                     class="ft-x"></i> {{ trans('labels.cancel') }}</a>
     @else
-    <!-- TODO: add route to project show -->
+        <a href="{{ route('project.show', $monthlyUpdatable->id) }}" class="btn btn-warning"><i
+                    class="ft-x"></i> {{ trans('labels.cancel') }}</a>
     @endif
 </div>

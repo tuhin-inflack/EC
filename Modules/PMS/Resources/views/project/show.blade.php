@@ -2,6 +2,15 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
+    <section class="row">
+        <div class="col-md-12">
+            @include('../../../monthly-update.partials.table', [
+                'monthlyUpdatable' => $project,
+                'module' => 'pms'
+            ])
+        </div>
+    </section>
+
     <div class="row match-height">
         <div class="col-md-12">
             @include('../../../task.partials.ganttChart')

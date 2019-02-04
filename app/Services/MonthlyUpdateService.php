@@ -94,7 +94,11 @@ class MonthlyUpdateService
             $this->storeAttachments($monthlyUpdate, $monthlyUpdatable, $data);
 
             $data['date'] = Carbon::parse($data['date']);
-            $data['tasks'] = implode(', ', $data['tasks']);
+
+            if (array_key_exists('tasks', $data)) {
+                $data['tasks'] = implode(', ', $data['tasks']);
+            }
+
             return $monthlyUpdate->update($data);
         });
     }

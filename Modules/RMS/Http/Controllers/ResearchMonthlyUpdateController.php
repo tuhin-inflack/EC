@@ -39,7 +39,7 @@ class ResearchMonthlyUpdateController extends Controller
         $action = route($this->module . '-monthly-updates.store', $research->id);
 
         return view('monthly-update.create')->with([
-            'research' => $research,
+            'monthlyUpdatable' => $research,
             'module' => $this->module,
             'action' => $action,
         ]);
@@ -61,7 +61,7 @@ class ResearchMonthlyUpdateController extends Controller
         $tasks = $this->taskService->findIn('id', explode(', ', $monthlyUpdate->tasks));
         return view('monthly-update.show')->with([
             'module' => $this->module,
-            'research' => $research,
+            'monthlyUpdatable' => $research,
             'monthlyUpdate' => $monthlyUpdate,
             'tasks' => $tasks
         ]);
@@ -69,12 +69,12 @@ class ResearchMonthlyUpdateController extends Controller
 
     public function edit(Research $research, MonthlyUpdate $monthlyUpdate)
     {
-        $action = route('rms-monthly-updates.update', [$research->id, $monthlyUpdate->id]);
+        $action = route($this->module . '-monthly-updates.update', [$research->id, $monthlyUpdate->id]);
 
         return view('monthly-update.edit')->with([
             'module' => $this->module,
             'action' => $action,
-            'research' => $research,
+            'monthlyUpdatable' => $research,
             'monthlyUpdate' => $monthlyUpdate,
         ]);
     }

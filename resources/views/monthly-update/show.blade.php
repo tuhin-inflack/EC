@@ -63,16 +63,19 @@
                             </tbody>
                         </table>
                         <div class="form-actions">
-                            @if($module == 'rms')
-                                <a href="{{ route('rms-monthly-updates.edit', [$research->id, $monthlyUpdate->id]) }}"
-                                   class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
-                                <a class="btn btn-warning mr-1" role="button"
-                                   href="{{ route('research.show', $research->id) }}"> <i
-                                            class="ft-x"></i> {{trans('labels.back_page')}}
-                                </a>
-                            @else
-                                {{-- TODO: add route for pms --}}
-                            @endif
+                            <a href="{{ route($module . '-monthly-updates.edit', [$monthlyUpdatable->id, $monthlyUpdate->id]) }}"
+                               class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
+                            @php
+                                if ($module == 'rms') {
+                                    $monthlyUpdatableType = 'research';
+                                } else {
+                                    $monthlyUpdatableType = 'project';
+                                }
+                            @endphp
+                            <a class="btn btn-warning mr-1" role="button"
+                               href="{{ route($monthlyUpdatableType . '.show', $monthlyUpdatable->id) }}"> <i
+                                        class="ft-x"></i> {{trans('labels.back_page')}}
+                            </a>
                         </div>
                     </div>
                 </div>

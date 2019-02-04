@@ -2,127 +2,90 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Services\MonthlyUpdateService;
+use App\Services\TaskService;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\PMS\Entities\ProjectProposal;
-use Modules\PMS\Services\ProjectProposalService;
-use Modules\PMS\Http\Requests\MontlhyUpdateRequest;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\Project;
 
 class ProjectMonthlyUpdateController extends Controller
 {
-    private $projectResearchUpdateService;
-    private $projectProposalService;
-
-    public function __construct(MonthlyUpdateService $projectResearchUpdateService, ProjectProposalService $projectProposalService)
-    {
-        $this->projectResearchUpdateService = $projectResearchUpdateService;
-        $this->projectProposalService = $projectProposalService;
-    }
+    private $module;
+    /**
+     * @var MonthlyUpdateService
+     */
+    private $monthlyUpdateService;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * ProjectMonthlyUpdateController constructor.
+     * @param MonthlyUpdateService $monthlyUpdateService
      */
-    public function index($projectId, $monthYear = "")
+    public function __construct(MonthlyUpdateService $monthlyUpdateService, TaskService $taskService)
     {
-        $project = $this->projectProposalService->findOne($projectId);
-        if($monthYear == "") $monthlyUpdate = ""; else $monthlyUpdate = $this->projectResearchUpdateService->getMonthlyUpdate($projectId, 'project', $monthYear);
-
-        return view('pms::monthly-update.index', compact('project', 'monthlyUpdate', 'monthYear'));
+        $this->module = 'pms';
+        $this->monthlyUpdateService = $monthlyUpdateService;
+        $this->taskService = $taskService;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create($projectId)
+    public function create(Project $project)
     {
-        $item = $this->projectProposalService->findOne($projectId);
-        $action = route('project-proposal-submitted.store-monthly-update', $projectId);
-        return view('pms::monthly-update.create', compact( 'item', 'action'));
+        $action = route($this->module . '-monthly-updates.store', $project->id);
+
+        return view('monthly-update.create')->with([
+            'monthlyUpdatable' => $project,
+            'module' => $this->module,
+            'action' => $action,
+        ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store($projectId, MontlhyUpdateRequest $request)
+    public function store(Request $request, Project $project)
     {
-        $request->merge(['update_for_id'=> $projectId, 'type' => 'project', 'tasks' => implode(", ", $request->input('tasks'))]);
-        $saveData = $this->projectResearchUpdateService->save($request->all());
-        $savedTaskId = $saveData->getAttribute('id');
-        if($savedTaskId && $request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchUpdateService->saveAttachments($savedTaskId, $files);
+        if ($this->monthlyUpdateService->store($project, $request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
         }
-        $msg = ($savedTaskId)? __('labels.save_success') : __('labels.save_fail');
-        Session::flash('message', $msg);
 
-        return back();
+        return redirect()->route('project.show', $project->id);
     }
 
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
+    public function show(Project $project, MonthlyUpdate $monthlyUpdate)
     {
-        return view('pms::show');
+        $tasks = $this->taskService->findIn('id', explode(', ', $monthlyUpdate->tasks));
+        return view('monthly-update.show')->with([
+            'module' => $this->module,
+            'monthlyUpdatable' => $project,
+            'monthlyUpdate' => $monthlyUpdate,
+            'tasks' => $tasks
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit($monthlyUpdateId)
+    public function edit(Project $project, MonthlyUpdate $monthlyUpdate)
     {
-        $monthlyUpdate = $this->projectResearchUpdateService->findOne($monthlyUpdateId);
-        $item = $monthlyUpdate->project;
-        $action = route('project-proposal-submitted.update-monthly-update', $monthlyUpdateId);
+        $action = route($this->module . '-monthly-updates.update', [$project->id, $monthlyUpdate->id]);
 
-        return view('pms::monthly-update.edit', compact('monthlyUpdate', 'action', 'item'));
+        return view('monthly-update.edit')->with([
+            'module' => $this->module,
+            'action' => $action,
+            'monthlyUpdatable' => $project,
+            'monthlyUpdate' => $monthlyUpdate,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update($monthlyUpdateId,MontlhyUpdateRequest $request)
+    public function update(Request $request, Project $project, MonthlyUpdate $monthlyUpdate)
     {
-        $updateData = array(
-            'achievements' => $request->input('achievements'),
-            'plannings' => $request->input('plannings'),
-            'tasks' => implode(',',$request->input('tasks')),
-        );
-
-        $monthlyUpdate = $this->projectResearchUpdateService->findOrFail($monthlyUpdateId);
-        $update = $this->projectResearchUpdateService->update($monthlyUpdate, $updateData);
-
-        // Adjusting attachments
-        $deletedAttachmentIds = $request->input('deleted_attachments', array());
-        if(count($deletedAttachmentIds)) $deleteAttachments = $this->projectResearchUpdateService->deleteAttachments($deletedAttachmentIds);
-
-        if($request->hasFile('attachments'))
-        {
-            $files = $request->file('attachments');
-            $saveAttachments = $this->projectResearchUpdateService->saveAttachments($monthlyUpdateId, $files);
+        if ($this->monthlyUpdateService->updateEntry($monthlyUpdate, $project, $request->all())) {
+            Session::flash('success', trans('labels.update_success'));
+        } else {
+            Session::flash('error', trans('labels.update_fail'));
         }
-        Session::flash('message', __('labels.update_success'));
 
-        return back();
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return redirect()->route('project.show', $project->id);
     }
 }
