@@ -22,6 +22,8 @@ Route::prefix('pms')->group(function () {
 
         Route::prefix('{project}/budget')->group(function () {
             Route::get('create', 'ProjectBudgetController@create')->name('project.budget');
+            Route::post('create', 'ProjectBudgetController@create')->name('project.budget');
+            Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
         });
         // project organisations
         Route::prefix('{project}/organizations')->group(function () {
