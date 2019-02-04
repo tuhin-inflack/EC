@@ -4,6 +4,8 @@ return [
     'or' => 'OR',
     'and' => 'And',
     'total' => 'Total',
+    'grand_total' => 'Grand Total',
+    'sub_total' => 'Sub Total',
     'due' => 'Due',
     'method' => 'Method',
     'information' => 'Information',

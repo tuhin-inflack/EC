@@ -19,10 +19,11 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
         Route::get('{project}', 'ProjectController@show')->name('project.show');
-
+        // project budgeting
         Route::prefix('{project}/budget')->group(function () {
-            Route::get('create', 'ProjectBudgetController@create')->name('project.budget');
-            Route::post('create', 'ProjectBudgetController@create')->name('project.budget');
+            Route::get('/', 'ProjectBudgetController@index')->name('project-budget');
+            Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
+            Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
             Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
         });
         // project organisations

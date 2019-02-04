@@ -4,6 +4,8 @@ return [
     'or' => 'অথবা',
     'and' => 'এবং',
     'total' => 'মোট',
+    'grand_total' => 'সর্বমোট',
+    'sub_total' => 'উপ-মোট',
     'due' => 'বাকি',
     'method' => 'পদ্ধতি',
     'information' => 'তথ্য',

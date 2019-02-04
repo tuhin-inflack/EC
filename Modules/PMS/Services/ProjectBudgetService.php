@@ -19,6 +19,9 @@ use Modules\PMS\Entities\ProjectProposal;
 class ProjectBudgetService
 {
     use CrudTrait;
+
+    private $projectProposalRepository;
+
     /**
      * ProjectRequestService constructor.
      *
@@ -26,15 +29,13 @@ class ProjectBudgetService
      * @param WorkflowService $workflowService
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository,
-                                FeatureService $featureService,
+    public function __construct(FeatureService $featureService,
                                 WorkflowService $workflowService)
     {
-        $this->projectProposalRepository = $projectProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
 
-        $this->setActionRepository($projectProposalRepository);
+//        $this->setActionRepository();
 
     }
 

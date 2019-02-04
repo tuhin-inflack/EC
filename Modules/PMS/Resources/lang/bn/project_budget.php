@@ -10,5 +10,9 @@ return [
     'monetary_amount' => 'আর্থিক পরিমাণ',
     'lac_bdt' => 'লক্ষ টাকা',
     'finance_year' => 'অর্থ বছর',
+    'revenue' => 'রাজস্ব',
+    'capital' => 'মূলধন',
+    'physical_contingency' => 'ফিজিক্যাল কনটিনজেন্সি',
+    'price_contingency' => 'প্রাইস কনটিনজেন্সি',
 ];
 

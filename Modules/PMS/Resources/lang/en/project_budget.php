@@ -10,5 +10,9 @@ return [
     'monetary_amount' => 'Monetary amount',
     'lac_bdt' => 'Lac BDT',
     'finance_year' => 'Finance Year',
+    'revenue' => 'Revenue',
+    'capital' => 'Capital',
+    'physical_contingency' => 'Physical Contingency',
+    'price_contingency' => 'Price Contingency',
 ];
 
