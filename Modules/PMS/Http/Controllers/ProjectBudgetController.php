@@ -20,11 +20,13 @@ class ProjectBudgetController extends Controller
 
     /**
      * Display a listing of the resource.
+     * @param Project $project
      * @return Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        return view('pms::index');
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        return view('pms::project.budget.index', compact('project', 'economyCodeOptions'));
     }
 
     /**
@@ -35,8 +37,6 @@ class ProjectBudgetController extends Controller
     public function create(Project $project)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-//        dd($project, $economyCodeOptions);
-
         return view('pms::project.budget.create', compact('project', 'economyCodeOptions'));
     }
 
@@ -74,6 +74,18 @@ class ProjectBudgetController extends Controller
      */
     public function update(Request $request)
     {
+    }
+
+
+    /**
+     * Budget Spread Sheet
+     * @param Project $project
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function spreadsheet(Project $project)
+    {
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        return view('pms::project.budget.create', compact('project', 'economyCodeOptions'));
     }
 
 }

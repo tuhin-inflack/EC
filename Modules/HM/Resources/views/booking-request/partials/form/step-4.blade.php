@@ -46,7 +46,6 @@
                     <thead>
                     <tr>
                         <th>{{ trans('labels.name') }}</th>
-                        <th>{{ trans('hm::booking-request.age') }}</th>
                         <th>{{ trans('hm::booking-request.gender') }}</th>
                         <th>{{ trans('hm::booking-request.relation') }}</th>
                         <th>{{ trans('hm::booking-request.address') }}</th>

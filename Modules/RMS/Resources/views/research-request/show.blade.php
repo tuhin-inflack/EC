@@ -66,7 +66,7 @@
                             </dl>
                             <div class="form-actions text-center">
 
-                                <a href="" class="btn btn-primary mr-1">
+                                <a href="{{ route('research-request.edit', $researchRequest->id) }}" class="btn btn-primary mr-1">
                                     <i class="ft-plus white"></i> @lang('labels.edit')
                                 </a>
 
