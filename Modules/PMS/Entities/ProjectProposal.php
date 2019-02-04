@@ -3,7 +3,7 @@
 namespace Modules\PMS\Entities;
 
 use App\Entities\Organization\Organization;
-use App\Entities\monthlyUpdate\ProjectResearchMonthlyUpdate;
+use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -35,7 +35,7 @@ class ProjectProposal extends Model
 
     public function monthlyUpdates()
     {
-        return $this->hasMany(ProjectResearchMonthlyUpdate::class, 'update_for_id')->where('type', 'project');
+        return $this->hasMany(MonthlyUpdate::class, 'update_for_id')->where('type', 'project');
     }
 
     public function proposalSubmittedBy()

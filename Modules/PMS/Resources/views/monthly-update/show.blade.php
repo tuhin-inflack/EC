@@ -1,11 +1,3 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: bs110
- * Date: 1/20/19
- * Time: 4:45 PM
- */
-?>
 @extends('pms::layouts.master')
 @section('title', __('pms::task.show_form_title'))
 
@@ -21,7 +13,6 @@
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
                         </ul>
                     </div>
                 </div>

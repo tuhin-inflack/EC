@@ -2,6 +2,15 @@
 @section('title', trans('rms::research_proposal.research_details'))
 
 @section('content')
+    <section class="row">
+        <div class="col-md-12">
+            @include('../../../monthly-update.partials.table', [
+                'monthlyUpdatable' => $research,
+                'module' => 'rms'
+            ])
+        </div>
+    </section>
+
     <div class="row match-height">
         <div class="col-md-12">
             @include('../../../task.partials.ganttChart')
@@ -74,7 +83,8 @@
             height: auto;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
 @endpush
 
 @push('page-js')
@@ -83,8 +93,10 @@
         let presentedFormat = "week";
         let jsonData = JSON.parse('{!! json_encode($ganttChart) !!}');
     </script>
-    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}"
+            type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('.organization-table, .task-table').DataTable({

@@ -36,6 +36,14 @@ Route::prefix('rms')->group(function () {
                 // Task time
                 Route::put('{task}/time', 'TaskTimeController@update')->name('rms-tasks.time');
             });
+            // research monthly updates
+            Route::prefix('monthly-updates')->group(function () {
+               Route::get('create', 'ResearchMonthlyUpdateController@create')->name('rms-monthly-updates.create');
+               Route::post('/', 'ResearchMonthlyUpdateController@store')->name('rms-monthly-updates.store');
+               Route::get('{monthlyUpdate}', 'ResearchMonthlyUpdateController@show')->name('rms-monthly-updates.show');
+               Route::get('{monthlyUpdate}/edit', 'ResearchMonthlyUpdateController@edit')->name('rms-monthly-updates.edit');
+               Route::put('{monthlyUpdate}', 'ResearchMonthlyUpdateController@update')->name('rms-monthly-updates.update');
+            });
         });
     });
     // organization
@@ -70,6 +78,8 @@ Route::prefix('rms')->group(function () {
         Route::get('attachment-download/{researchRequest}', 'ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
         Route::get('file-download/{researchRequestAttachment}', 'ResearchRequestController@fileDownload')->name('research-request.file-download');
         Route::get('{researchRequest}/show', 'ResearchRequestController@show')->name('research-request.show');
+        Route::get('{researchRequest}/edit', 'ResearchRequestController@edit')->name('research-request.edit');
+        Route::put('{researchRequest}', 'ResearchRequestController@update')->name('research-request.update');
     });
 
     Route::prefix('research-proposal-submission')->group(function(){

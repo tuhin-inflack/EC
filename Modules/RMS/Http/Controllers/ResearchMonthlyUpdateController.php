@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\PMS\Http\Controllers;
+namespace Modules\RMS\Http\Controllers;
 
 use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Services\MonthlyUpdateService;
@@ -8,9 +8,9 @@ use App\Services\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
-use Modules\PMS\Entities\Project;
+use Modules\RMS\Entities\Research;
 
-class ProjectMonthlyUpdateController extends Controller
+class ResearchMonthlyUpdateController extends Controller
 {
     private $module;
     /**
@@ -23,69 +23,70 @@ class ProjectMonthlyUpdateController extends Controller
     private $taskService;
 
     /**
-     * ProjectMonthlyUpdateController constructor.
+     * ResearchMonthlyUpdateController constructor.
      * @param MonthlyUpdateService $monthlyUpdateService
+     * @param TaskService $taskService
      */
     public function __construct(MonthlyUpdateService $monthlyUpdateService, TaskService $taskService)
     {
-        $this->module = 'pms';
+        $this->module = 'rms';
         $this->monthlyUpdateService = $monthlyUpdateService;
         $this->taskService = $taskService;
     }
 
-    public function create(Project $project)
+    public function create(Research $research)
     {
-        $action = route($this->module . '-monthly-updates.store', $project->id);
+        $action = route($this->module . '-monthly-updates.store', $research->id);
 
         return view('monthly-update.create')->with([
-            'monthlyUpdatable' => $project,
+            'monthlyUpdatable' => $research,
             'module' => $this->module,
             'action' => $action,
         ]);
     }
 
-    public function store(Request $request, Project $project)
+    public function store(Request $request, Research $research)
     {
-        if ($this->monthlyUpdateService->store($project, $request->all())) {
+        if ($this->monthlyUpdateService->store($research, $request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
             Session::flash('error', trans('labels.save_fail'));
         }
 
-        return redirect()->route('project.show', $project->id);
+        return redirect()->route('research.show', $research->id);
     }
 
-    public function show(Project $project, MonthlyUpdate $monthlyUpdate)
+    public function show(Research $research, MonthlyUpdate $monthlyUpdate)
     {
         $tasks = $this->taskService->findIn('id', explode(', ', $monthlyUpdate->tasks));
         return view('monthly-update.show')->with([
             'module' => $this->module,
-            'monthlyUpdatable' => $project,
+            'monthlyUpdatable' => $research,
             'monthlyUpdate' => $monthlyUpdate,
             'tasks' => $tasks
         ]);
     }
 
-    public function edit(Project $project, MonthlyUpdate $monthlyUpdate)
+    public function edit(Research $research, MonthlyUpdate $monthlyUpdate)
     {
-        $action = route($this->module . '-monthly-updates.update', [$project->id, $monthlyUpdate->id]);
+        $action = route($this->module . '-monthly-updates.update', [$research->id, $monthlyUpdate->id]);
 
         return view('monthly-update.edit')->with([
             'module' => $this->module,
             'action' => $action,
-            'monthlyUpdatable' => $project,
+            'monthlyUpdatable' => $research,
             'monthlyUpdate' => $monthlyUpdate,
         ]);
     }
 
-    public function update(Request $request, Project $project, MonthlyUpdate $monthlyUpdate)
+    public function update(Request $request, Research $research, MonthlyUpdate $monthlyUpdate)
     {
-        if ($this->monthlyUpdateService->updateEntry($monthlyUpdate, $project, $request->all())) {
+        if ($this->monthlyUpdateService->updateEntry($monthlyUpdate, $research, $request->all())) {
             Session::flash('success', trans('labels.update_success'));
         } else {
             Session::flash('error', trans('labels.update_fail'));
         }
 
-        return redirect()->route('project.show', $project->id);
+        return redirect()->route('research.show', $research->id);
     }
 }

@@ -233,7 +233,7 @@ function traineesListFromTraining(trainees) {
         <input type="hidden" name="guests[${index}][first_name]" value="${trainee.trainee_first_name}"/>
         <input type="hidden" name="guests[${index}][last_name]" value="${trainee.trainee_last_name}"/>
         <input type="hidden" name="guests[${index}][gender]" value="${trainee.trainee_gender.toLowerCase()}"/>
-        <input type="hidden" name="guests[${index}][age]" value="1"/>
+ 
         <input type="hidden" name="guests[${index}][relation]" value="trainee"/>
         <input type="hidden" name="guests[${index}][address]" value="Bangladesh"/>
         <td>${trainee.trainee_first_name}</td>
@@ -264,7 +264,7 @@ function traineesInfoListFromTraining(trainees) {
     trainees.forEach((trainee) => {
         tbody += `<tr>
         <td>${trainee.trainee_first_name} ${trainee.trainee_last_name}</td>
-        <td></td>
+    
         <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
         <td>শিক্ষানবিস</td>
         <td>বাংলাদেশ</td>
