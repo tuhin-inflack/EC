@@ -91,7 +91,7 @@ class EmployeeServices
         foreach ($employees as $employee) {
             $employeeId = $implementedKey ? $implementedKey($employee) : $employee->id;
 
-            $implementedValue = $implementedValue ? : function() use($employee) {
+            $implementedValue = $implementedValue ? : function($employee) {
                 return $employee->employee_id . ' - ' . $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->mobile_one;
             };
 

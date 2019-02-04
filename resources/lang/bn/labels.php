@@ -149,4 +149,9 @@ return [
     'feature_name' => 'বৈশিষ্ট্য এর নাম',
     'status_reviewed' => 'যাচাইকৃত',
     'reviewed' => 'যাচাইকৃত',
+    'weight' => 'ওজন',
+    'actual' => 'আসল',
+    'unit' => 'একক',
+    'unit_rate' => 'একক দর',
+    'quantity' => 'পরিমাণ',
 ];

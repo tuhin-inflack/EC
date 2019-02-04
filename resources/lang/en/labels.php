@@ -147,5 +147,10 @@ return [
     'proposal_re_initiate' => 'Proposal reinitiate',
     'send_back' => 'Send Back',
     'check' => 'Check',
-    'reviewed' => 'Reviewed'
+    'reviewed' => 'Reviewed',
+    'weight' => 'Weight',
+    'actual' => 'Actual',
+    'unit' => 'Unit',
+    'unit_rate' => 'Unit Rate',
+    'quantity' => 'Quantity',
 ];
