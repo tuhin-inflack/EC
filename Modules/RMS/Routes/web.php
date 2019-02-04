@@ -36,6 +36,14 @@ Route::prefix('rms')->group(function () {
                 // Task time
                 Route::put('{task}/time', 'TaskTimeController@update')->name('rms-tasks.time');
             });
+            // research monthly updates
+            Route::prefix('monthly-updates')->group(function () {
+               Route::get('create', 'ResearchMonthlyUpdateController@create')->name('rms-monthly-updates.create');
+               Route::post('/', 'ResearchMonthlyUpdateController@store')->name('rms-monthly-updates.store');
+               Route::get('{monthlyUpdate}', 'ResearchMonthlyUpdateController@show')->name('rms-monthly-updates.show');
+               Route::get('{monthlyUpdate}/edit', 'ResearchMonthlyUpdateController@edit')->name('rms-monthly-updates.edit');
+               Route::put('{monthlyUpdate}', 'ResearchMonthlyUpdateController@update')->name('rms-monthly-updates.update');
+            });
         });
     });
     // organization

@@ -12,7 +12,7 @@ namespace App\Repositories;
 use App\Entities\monthlyUpdate\MonthlyUpdateAttachment;
 use App\Entities\monthlyUpdate\MonthlyUpdate;
 
-class ProjectResearchUpdateRepository extends AbstractBaseRepository
+class MonthlyUpdateRepository extends AbstractBaseRepository
 {
     protected $modelName = MonthlyUpdate::class;
 

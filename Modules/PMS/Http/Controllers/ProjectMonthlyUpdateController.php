@@ -2,7 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
-use App\Services\ProjectResearchUpdateService;
+use App\Services\MonthlyUpdateService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -16,7 +16,7 @@ class ProjectMonthlyUpdateController extends Controller
     private $projectResearchUpdateService;
     private $projectProposalService;
 
-    public function __construct(ProjectResearchUpdateService $projectResearchUpdateService, ProjectProposalService $projectProposalService)
+    public function __construct(MonthlyUpdateService $projectResearchUpdateService, ProjectProposalService $projectProposalService)
     {
         $this->projectResearchUpdateService = $projectResearchUpdateService;
         $this->projectProposalService = $projectProposalService;

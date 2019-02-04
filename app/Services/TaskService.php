@@ -122,4 +122,9 @@ class TaskService
             }
         }
     }
+
+    public function findIn($key, array $values, $relation = null, array $orderBy = null)
+    {
+        return $this->taskRepository->findIn($key, $values, $relation, $orderBy);
+    }
 }

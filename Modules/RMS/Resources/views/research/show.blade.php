@@ -2,6 +2,71 @@
 @section('title', trans('rms::research_proposal.research_details'))
 
 @section('content')
+    <section class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Monthy Updates</h4>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a href="{{ route('rms-monthly-updates.create', $research->id) }}"
+                                   class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> Add Monthly Update</a>
+                            </li>
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>@lang('labels.serial')</th>
+                                    <th>@lang('labels.date')</th>
+                                    <th>Planning</th>
+                                    <th>Achievement</th>
+                                    <th>Tasks</th>
+                                    <th>@lang('labels.action')</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($research->monthlyUpdates as $monthlyUpdate)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($monthlyUpdate->date)->format('F Y') }}</td>
+                                        <td>{{ $monthlyUpdate->planning }}</td>
+                                        <td>{{ $monthlyUpdate->achievement }}</td>
+                                        <td>{{ $monthlyUpdate->tasks }}</td>
+                                        <td class="text-center">
+                                            <span class="dropdown">
+                                            <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false" class="btn btn-info btn-sm dropdown-toggle"><i
+                                                        class="la la-cog"></i></button>
+                                              <span aria-labelledby="btnSearchDrop2"
+                                                    class="dropdown-menu mt-1 dropdown-menu-right">
+                                                  <a href="{{ route('rms-monthly-updates.show', [$research->id, $monthlyUpdate->id])  }}"
+                                                     class="dropdown-item"><i
+                                                              class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                  <a href="{{ route('rms-monthly-updates.edit', [$research->id, $monthlyUpdate->id])  }}"
+                                                     class="dropdown-item"><i
+                                                              class="ft-edit"></i> {{trans('labels.edit')}}</a>
+                                              </span>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <div class="row match-height">
         <div class="col-md-12">
             @include('../../../task.partials.ganttChart')
@@ -74,7 +139,8 @@
             height: auto;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
 @endpush
 
 @push('page-js')
@@ -83,8 +149,10 @@
         let presentedFormat = "week";
         let jsonData = JSON.parse('{!! json_encode($ganttChart) !!}');
     </script>
-    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}"
+            type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}"
+            type="text/javascript"></script>
     <script>
         $(document).ready(function () {
             $('.organization-table, .task-table').DataTable({

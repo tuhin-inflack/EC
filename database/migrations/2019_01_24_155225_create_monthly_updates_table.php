@@ -15,8 +15,8 @@ class CreateMonthlyUpdatesTable extends Migration
     {
         Schema::create('monthly_updates', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('monthly_updateable_id');
-            $table->string('monthly_updateable_type');
+            $table->unsignedInteger('monthly_updatable_id');
+            $table->string('monthly_updatable_type');
             $table->date('date');
             $table->text('achievement')->nullable();
             $table->text('planning');
