@@ -22,7 +22,6 @@ class CreateProjectBudgetTable extends Migration
             $table->double('unit_rate', 10, 2);
             $table->integer('quantity');
             $table->double('total_expense', 10, 2);
-            $table->double('weight', 8, 2);
             $table->timestamps();
         });
     }
