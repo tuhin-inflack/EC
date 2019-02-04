@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: tuhin
+ * User: tanvir
  * Date: 10/18/18
  * Time: 5:18 PM
  */
@@ -12,79 +12,70 @@ use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Modules\PMS\Entities\ProjectProposal;
+use Illuminate\Support\Facades\Lang;
+use Modules\PMS\Entities\ProjectBudgetFiscalValue;
+use Modules\PMS\Repositories\ProjectBudgetRepository;
 
 
 class ProjectBudgetService
 {
     use CrudTrait;
 
-    private $projectProposalRepository;
+    private $projectBudgetRepository;
+    private $featureService;
+    private $workflowService;
 
     /**
      * ProjectRequestService constructor.
      *
+     * @param ProjectBudgetRepository $projectBudgetRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      */
 
-    public function __construct(FeatureService $featureService,
+    public function __construct(ProjectBudgetRepository $projectBudgetRepository,FeatureService $featureService,
                                 WorkflowService $workflowService)
     {
+        $this->projectBudgetRepository = $projectBudgetRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
 
-//        $this->setActionRepository();
+        $this->setActionRepository($projectBudgetRepository);
 
     }
 
-    public function getAll()
-    {
-        return $this->projectProposalRepository->findAll();
+    public function getSectionTypesOfProjectBudget(){
+        return [
+            'revenue' => Lang::get('pms::project_budget.revenue'),
+            'capital' => Lang::get('pms::project_budget.capital'),
+            'physical_contingency' => Lang::get('pms::project_budget.physical_contingency'),
+            'price_contingency' => Lang::get('pms::project_budget.price_contingency'),
+        ];
     }
 
-    public function store(array $data)
+    public function store(array $data, $project)
     {
         return DB::transaction(function () use ($data) {
-            $data['status'] = 'PENDING';
 
-            $proposalSubmission = $this->save($data);
+            $projectBudget = $this->save($data);
 
-            foreach ($data['attachments'] as $file) {
-                $fileName = $file->getClientOriginalName();
-                $path = $this->upload($file, 'project-submissions');
+            foreach ($data['fiscal_year'] as $key => $budgetFiscalValue) {
 
-                $file = new ProjectProposalFile([
-                    'proposal_id' => $proposalSubmission->id,
-                    'attachments' => $path,
-                    'file_name' => $fileName
+                $fiscalValue = new ProjectBudgetFiscalValue([
+                    'project_budget_id' => $projectBudget->id,
+                    'fiscal_year' => $budgetFiscalValue,
+                    'monetary_amount' => $data['monetary_amount'][$key],
+                    'body_percentage' => $data['body_percentage'][$key],
+                    'project_percentage' => $data['project_percentage'][$key],
                 ]);
 
-                $proposalSubmission->projectProposalFiles()->save($file);
+                $projectBudget->budgetFiscalValue()->save($fiscalValue);
             }
 
-            // Initiating Workflow
-            $featureName = config('constants.project_proposal_feature_name');
-            $feature = $this->featureService->findBy(['name' => $featureName])->first();
-            $workflowData = [
-                'feature_id' => $feature->id,
-                'rule_master_id' => $feature->workflowRuleMaster->id,
-                'ref_table_id' => $proposalSubmission->id,
-                'message' => $data['message'],
-            ];
-            $this->workflowService->createWorkflow($workflowData);
-            // Workflow initiate done
-
-            return $proposalSubmission;
+            return $projectBudget;
         });
     }
 
-
-    public function delete()
-    {
-
-    }
 
     public function getProposalById($id)
     {
@@ -95,53 +86,6 @@ class ProjectBudgetService
             return $proposal;
         }
 
-    }
-
-    public function getZipFilePath($proposalId)
-    {
-        $researchProposal = $this->findOne($proposalId);
-
-        $filePaths = $researchProposal->projectProposalFiles->map(function ($attachment) {
-            return Storage::disk('internal')->path($attachment->attachments);
-        })->toArray();
-
-        $fileName = time() . '.zip';
-
-        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
-
-        Zipper::make($zipFilePath)->add($filePaths)->close();
-
-        return $zipFilePath;
-    }
-
-    public function getGanttChartData(ProjectProposal $projectProposal)
-    {
-        $tasks = $projectProposal->task;
-        $chartData = [];
-
-        foreach ($tasks as $task){
-            array_push($chartData, array(
-                "pID" => $task->id,
-                "pName" => $task->taskName->name,
-                "pStart" => $task->start_time,
-                "pEnd" => $task->end_time,
-                "pPlanStart" => $task->expected_start_time,
-                "pPlanEnd" => $task->expected_end_time,
-                "pClass" => "gtaskblue",
-                "pNotes" => "SDisas ascas cacasc",
-            ));
-        }
-        return $chartData;
-    }
-
-    public function getProjectProposalByStatus()
-    {
-        $projectProposal = new ProjectProposal();
-        return [
-            $projectProposal->where('status', '=', 'pending')->count(),
-            $projectProposal->where('status', '=', 'in progress')->count(),
-            $projectProposal->where('status', '=', 'reviewed')->count()
-        ];
     }
 
 }

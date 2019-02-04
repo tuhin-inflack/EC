@@ -26,4 +26,9 @@ class Project extends Model
     {
         return $this->morphMany(Task::class, 'taskable', 'taskable_type', 'taskable_id', 'id');
     }
+
+    public function budget()
+    {
+        return $this->hasMany(ProjectBudget::class, 'project_id');
+    }
 }

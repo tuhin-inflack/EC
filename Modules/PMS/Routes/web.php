@@ -21,7 +21,7 @@ Route::prefix('pms')->group(function () {
         Route::get('{project}', 'ProjectController@show')->name('project.show');
         // project budgeting
         Route::prefix('{project}/budget')->group(function () {
-            Route::get('/', 'ProjectBudgetController@index')->name('project-budget');
+            Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
             Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
             Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet

@@ -6,6 +6,7 @@ return [
     'total' => 'Total',
     'grand_total' => 'Grand Total',
     'sub_total' => 'Sub Total',
+    'expense' => 'Expense',
     'due' => 'Due',
     'method' => 'Method',
     'information' => 'Information',

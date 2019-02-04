@@ -6,6 +6,7 @@ return [
     'total' => 'মোট',
     'grand_total' => 'সর্বমোট',
     'sub_total' => 'উপ-মোট',
+    'expense' => 'ব্যয়',
     'due' => 'বাকি',
     'method' => 'পদ্ধতি',
     'information' => 'তথ্য',
