@@ -28,6 +28,7 @@ class BookingApprovalMail extends Mailable
     public function build()
     {
         $roomBooking = $this->roomBooking;
-        return $this->view('hm::emails.booking_approval', compact('roomBooking'));
+        return $this->from('hostelmanager@bard.gov.bd', 'Hostel Manager')
+            ->view('hm::emails.booking_approval', compact('roomBooking'));
     }
 }

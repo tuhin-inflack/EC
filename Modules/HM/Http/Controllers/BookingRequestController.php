@@ -206,6 +206,7 @@ class BookingRequestController extends Controller
      */
     public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
     {
+        dd($roomBooking->requester()->email);
         $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
         Session::flash('success', trans('labels.update_success'));
         return redirect()->route('booking-requests.index');
