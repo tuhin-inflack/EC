@@ -21,6 +21,7 @@ class CreateNotificationsTable extends Migration
             $table->integer('to_user_id')->nullable();
             $table->text('message');
             $table->boolean('is_read')->default(false);
+            $table->string('item_url')->default('#');
             $table->timestamps();
         });
     }
