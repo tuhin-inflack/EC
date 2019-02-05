@@ -7,7 +7,7 @@
             <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
                 <div class="btn-group" role="group">
                     <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
-                        <i class="ft-book"></i>@lang('pms::project_budget.title')
+                        <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
                     </a>
                 </div>
             </div>

@@ -9,7 +9,6 @@
 namespace App\Services;
 
 
-use App\Constants\AbstractTask;
 use App\Entities\Task;
 use App\Entities\TaskAttachment;
 use App\Repositories\TaskRepository;
@@ -41,19 +40,10 @@ class TaskService
 
     public function store($taskable, array $data)
     {
-        return DB::transaction(
-            function () use ($taskable, $data) {
-            if ($taskable instanceof Research) {
-                $data['taskable_id'] = $taskable->id;
-                $data['taskable_type'] = AbstractTask::ResearchType;
-            } else {
-                $data['taskable_id'] = $taskable->id;
-                $data['taskable_type'] = AbstractTask::ProjectType;
-            }
+        return DB::transaction(function () use ($taskable, $data) {
+            $task = $taskable->tasks()->create($data);
 
-            $task = $this->save($data);
-
-            $this->storeTaskAttachments($taskable, $task, $data);
+            $this->syncTaskAttachments($taskable, $task, $data);
 
             return $task;
         });
@@ -62,7 +52,7 @@ class TaskService
     public function updateTask($taskable, Task $task, array $data)
     {
         return DB::transaction(function () use ($data, $taskable, $task) {
-            $this->storeTaskAttachments($taskable, $task, $data);
+            $this->syncTaskAttachments($taskable, $task, $data);
             return $task->update($data);
         });
     }
@@ -90,7 +80,7 @@ class TaskService
     public function getTasksGanttChartData($tasks)
     {
         $chartData = [];
-        foreach ($tasks as $task){
+        foreach ($tasks as $task) {
             array_push($chartData, array(
                 "pID" => $task->id,
                 "pName" => $task->name,
@@ -105,7 +95,7 @@ class TaskService
         return $chartData;
     }
 
-    private function storeTaskAttachments($taskable, $task, $data)
+    private function syncTaskAttachments($taskable, $task, $data)
     {
         if (array_key_exists('deleted_attachments', $data)) {
             TaskAttachment::destroy($data['deleted_attachments']);

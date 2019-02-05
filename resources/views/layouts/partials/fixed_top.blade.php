@@ -1,10 +1,11 @@
-<nav role="navigation" class="header-navbar navbar-expand-sm navbar navbar-with-menu fixed-top navbar-light navbar-shadow navbar-border">
+<nav role="navigation"
+     class="header-navbar navbar-expand-sm navbar navbar-with-menu fixed-top navbar-light navbar-shadow navbar-border">
     <div class="navbar-wrapper">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mobile-menu d-md-none mr-auto"><a
-                            class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
-                                class="ft-menu font-large-1"></i></a></li>
+                        class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i
+                            class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/logo.png') }}">
@@ -13,7 +14,7 @@
                 </li>
                 <li class="nav-item d-md-none">
                     <a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i
-                                class="la la-ellipsis-v"></i></a>
+                            class="la la-ellipsis-v"></i></a>
                 </li>
             </ul>
         </div>
@@ -29,43 +30,47 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('labels.login') }}</a>
                         </li>
                     @else
+                        @include('layouts.partials.notification')
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{url('/change/password')}}">{{ trans('labels.change_password') }}</a>
+                                <a class="dropdown-item"
+                                   href="{{url('/change/password')}}">{{ trans('labels.change_password') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ trans('labels.logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     @csrf
                                 </form>
                             </div>
                         </li>
                     @endguest
-                        <?php
-                        $curr = App::getLocale();
-                        if(Session::has('locale')) {
-                            $curr = Session::get('locale');
-                        }
-                        $key = $curr=='bn' ? 'en':'bn';
-                        ?>
-                        <li class="nav-item"><a class="nav-link" href="{{url('/lang/'.$key)}}"
-                               title="Switch language"><strong>
-                                    <?php
-                                    if($key=='en') {
-                                        echo 'English';
-                                    } else {
-                                        echo 'বাংলা ';
-                                    }
-                                    ?>
+                    <?php
+                    $curr = App::getLocale();
+                    if (Session::has('locale')) {
+                        $curr = Session::get('locale');
+                    }
+                    $key = $curr == 'bn' ? 'en' : 'bn';
+                    ?>
+                    <li class="nav-item"><a class="nav-link" href="{{url('/lang/'.$key)}}"
+                                            title="Switch language"><strong>
+                                <?php
+                                if ($key == 'en') {
+                                    echo 'English';
+                                } else {
+                                    echo 'বাংলা ';
+                                }
+                                ?>
 
-                                </strong></a></li>
+                            </strong></a></li>
                 </ul>
             </div>
         </div>

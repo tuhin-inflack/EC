@@ -19,7 +19,14 @@ Route::prefix('rms')->group(function () {
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
         Route::get('{research}', 'ResearchController@show')->name('research.show');
+
         Route::prefix('{research}')->group(function () {
+            // research budgeting
+            Route::prefix('budget')->group(function () {
+                Route::get('/', 'ResearchBudgetController@index')->name('research-budget.index');
+                Route::get('create', 'ResearchBudgetController@create')->name('research-budget.create');
+                Route::post('store', 'ResearchBudgetController@store')->name('research-budget.store');
+            });
             // research organizations
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
