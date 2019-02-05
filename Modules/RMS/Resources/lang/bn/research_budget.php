@@ -1,0 +1,18 @@
+<?php
+return [
+    'title' => 'গবেষণা বাজেট',
+    'budgeting' => 'গবেষণা বাজেটিং',
+    'economy_code' => 'অর্থনীতি কোড',
+    'section_type' => 'বিভাগের ধরন',
+    'total_financial_and_implementation_plans' => 'মোট আর্থিক ও বাস্তবায়ন পরিকল্পনা',
+    'body_percentage' => 'অঙ্গের শতকরা হার',
+    'research_percentage' => 'গবেষণার শতকরা হার',
+    'monetary_amount' => 'আর্থিক পরিমাণ',
+    'lac_bdt' => 'লক্ষ টাকা',
+    'finance_year' => 'অর্থ বছর',
+    'revenue' => 'রাজস্ব',
+    'capital' => 'মূলধন',
+    'physical_contingency' => 'ফিজিক্যাল কনটিনজেন্সি',
+    'price_contingency' => 'প্রাইস কনটিনজেন্সি',
+];
+

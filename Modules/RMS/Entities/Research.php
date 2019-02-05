@@ -32,4 +32,9 @@ class Research extends Model
     {
         return $this->morphMany(MonthlyUpdate::class, 'monthly_updatable');
     }
+
+    public function budget()
+    {
+        return $this->hasMany(ResearchBudget::class, 'research_id');
+    }
 }

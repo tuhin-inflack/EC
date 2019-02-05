@@ -14,7 +14,7 @@
 Route::prefix('pms')->group(function () {
     Route::get('/', 'PMSController@index')->name('pms');
 
-    Route::prefix('project')->group(function () {
+    Route::prefix('projects')->group(function () {
         Route::get('/', 'ProjectController@index')->name('project.index');
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
@@ -84,6 +84,8 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
         Route::get('{projectRequest}/show', 'ProjectRequestController@show')->name('project-request.show');
+        Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project-request.edit');
+        Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project-request.update');
         Route::get('attachment-download/{projectRequest}', 'ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
         Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestController@fileDownload')->name('project-request.file-download');
     });

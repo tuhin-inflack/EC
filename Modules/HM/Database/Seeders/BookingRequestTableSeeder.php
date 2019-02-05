@@ -53,7 +53,12 @@ class BookingRequestTableSeeder extends Seeder
         $roomType = RoomType::find(rand(1,4))->toArray();
 
         $rateTypeName = ['ge','govt', 'bard-emp', 'special'];
-        $rateTypeIndex = ['ge' => 'general_rate' ,'govt' => 'govt_rate', 'bard-emp' => 'bard_emp_rate', 'special' => 'special_rate'];
+        $rateTypeIndex = [
+            'ge' => 'general_rate',
+            'govt' => 'govt_rate',
+            'bard-emp' => 'bard_emp_rate',
+            'special' => 'special_rate'
+        ];
 
         $rateType = $rateTypeName[rand(0,3)];
 
@@ -66,7 +71,6 @@ class BookingRequestTableSeeder extends Seeder
     }
 
     private function getGuest($data){
-
         return [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
