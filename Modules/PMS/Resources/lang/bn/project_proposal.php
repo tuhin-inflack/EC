@@ -51,6 +51,8 @@ return [
     'project_proposal_status_graph' => 'প্রকল্প প্রস্তাব অবস্থা লেখচিত্র',
     'project_request_by_last_submission_date' => 'চলমান আমন্ত্রণ',
     'project_proposal_by_submitted_date' => 'জমা তারিখ দ্বারা প্রকল্প প্রস্তাব তালিকা',
+    'edit_invitation' => 'আমন্ত্রণ সম্পাদনা',
+    'edit_request_form' => 'আমন্ত্রণ সম্পাদনা ফর্ম',
 
 ];
 
