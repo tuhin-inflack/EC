@@ -45,7 +45,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.last_sub_date')</dt>
-                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->created_at)) }}</dd>
+                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->end_date)) }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.attachments')</dt>
@@ -64,13 +64,13 @@
                                     <dt class="col-sm-3">@lang('labels.remarks')</dt>
                                     <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $projectRequest->remarks }}</p></dd>
                                 </dl>
+
                                 <div class="form-actions text-center">
-
-                                    <a href="" class="btn btn-primary mr-1">
-                                        <i class="ft-plus white"></i> @lang('labels.edit')
-                                    </a>
-
-
+                                    @if(\Carbon\Carbon::now()->lessThan($projectRequest->end_date))
+                                        <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
+                                            <i class="ft-plus white"></i> @lang('labels.edit')
+                                        </a>
+                                    @endif
                                     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>

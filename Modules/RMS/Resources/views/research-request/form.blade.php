@@ -6,7 +6,7 @@
 @endif
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i> {{trans('rms::research_proposal.edit_request_form')}}</h4>
+                class="la la-briefcase"></i> @if($page == 'create') @lang('rms::research_proposal.request_form') @else @lang('rms::research_proposal.edit_request_form') @endif</h4>
 
     <div class="row">
         <div class="col-md-8 offset-2">

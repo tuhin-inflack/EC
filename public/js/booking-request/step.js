@@ -3,7 +3,7 @@ function setRequesterAsGuest() {
     let middleName = $('input[name=middle_name]').val();
     let lastName = $('input[name=last_name]').val();
     let address = $('textarea[name=address]').val();
-    let gender = $('input[type=radio][name=gender]').val();
+    let gender = $('input[type=radio][name=gender]:checked').val();
     let nid = $('input[name=nid]').val();
 
     let $guestInfoRepeater = $('.repeater-guest-information').show();

@@ -3,8 +3,8 @@
 namespace Modules\HM\Database\Seeders;
 
 use Carbon\Carbon;
-use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Seeder;
 use Modules\HM\Entities\BookingGuestInfo;
 use Modules\HM\Entities\BookingRoomInfo;
 use Modules\HM\Entities\CheckinRoom;
@@ -12,7 +12,6 @@ use Modules\HM\Entities\RoomBookingRequester;
 use Modules\HM\Entities\RoomType;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomRepository;
-use Modules\HM\Services\RoomService;
 
 class CheckInTableSeeder extends Seeder
 {
@@ -25,16 +24,22 @@ class CheckInTableSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
         foreach ($this->generateCheckInData() as $item) {
-            $this->saveCheckIn($item);
+            $checkin = $this->saveCheckIn($item);
+            // Ghapla code
+            $checkin->checkinDetails()->create([
+                'booking_guest_info_id' => $checkin->guestInfos->first()->id,
+                'room_id' => $checkin->rooms->first()->room_id,
+                'checkin_date' => Carbon::now(),
+            ]);
         }
     }
 
     /**
      * @param $data
+     * @return Model|RoomBookingRepository
      */
-    private function saveCheckIn($data): void
+    private function saveCheckIn($data)
     {
         $roomBooking = new RoomBookingRepository();
 
@@ -51,6 +56,8 @@ class CheckInTableSeeder extends Seeder
         $roomBooking->guestInfos()->saveMany([
             new BookingGuestInfo($this->getGuest($data['room_booking_requesters']))
         ]);
+
+        return $roomBooking;
     }
 
     private function saveRoomNumbers($checkin, $rooms)
@@ -68,24 +75,26 @@ class CheckInTableSeeder extends Seeder
         }
     }
 
-    private function getRateAndTypeOfRoom(){
+    private function getRateAndTypeOfRoom()
+    {
 
-        $roomType = RoomType::find(rand(1,4))->toArray();
+        $roomType = RoomType::find(rand(1, 4))->toArray();
 
-        $rateTypeName = ['ge','govt', 'bard-emp', 'special'];
-        $rateTypeIndex = ['ge' => 'general_rate' ,'govt' => 'govt_rate', 'bard-emp' => 'bard_emp_rate', 'special' => 'special_rate'];
+        $rateTypeName = ['ge', 'govt', 'bard-emp', 'special'];
+        $rateTypeIndex = ['ge' => 'general_rate', 'govt' => 'govt_rate', 'bard-emp' => 'bard_emp_rate', 'special' => 'special_rate'];
 
-        $rateType = $rateTypeName[rand(0,3)];
+        $rateType = $rateTypeName[rand(0, 3)];
 
         return [
             'room_type_id' => $roomType['id'],
-            'quantity' => rand(1,2),
+            'quantity' => rand(1, 2),
             'rate_type' => $rateType,
             'rate' => $roomType[$rateTypeIndex[$rateType]]
         ];
     }
 
-    private function getGuest($data){
+    private function getGuest($data)
+    {
 
         return [
             'first_name' => $data['first_name'],
@@ -112,7 +121,7 @@ class CheckInTableSeeder extends Seeder
                     "booking_type" => "general",
                     "status" => "approved",
                     "employee_id" => 1,
-                    "type" =>"checkin",
+                    "type" => "checkin",
                     "comment" => "No Comment !!"
                 ],
                 'room_numbers' => "1",
@@ -132,7 +141,7 @@ class CheckInTableSeeder extends Seeder
                     "booking_type" => "general",
                     "status" => "approved",
                     "employee_id" => 2,
-                    "type" =>"checkin",
+                    "type" => "checkin",
                     "comment" => "No Comment !!"
                 ],
                 'room_numbers' => "2",

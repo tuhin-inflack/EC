@@ -2,17 +2,9 @@
 
 namespace App\Entities;
 
-use App\Constants\AbstractTask;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\PMS\Entities\Project;
-use Modules\RMS\Entities\Research;
 
-Relation::morphMap([
-   AbstractTask::ProjectType => Project::class,
-   AbstractTask::ResearchType => Research::class
-]);
 
 class Task extends Model
 {
