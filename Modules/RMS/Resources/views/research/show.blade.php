@@ -2,6 +2,19 @@
 @section('title', trans('rms::research_proposal.research_details'))
 
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12">
+            <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-outline-info round" href="{{  route('research-budget.index', $research->id) }}">
+                        <i class="ft-folder"></i> @lang('rms::research_budget.title') @lang('labels.details')
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-6 col-12"></div>
+    </div>
+    <br>
     <section class="row">
         <div class="col-md-12">
             @include('../../../monthly-update.partials.table', [

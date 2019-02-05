@@ -6,7 +6,7 @@
  * Time: 5:18 PM
  */
 
-namespace Modules\PMS\Services;
+namespace Modules\RMS\Services;
 
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
@@ -14,42 +14,42 @@ use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use Modules\PMS\Entities\ProjectBudgetFiscalValue;
-use Modules\PMS\Repositories\ProjectBudgetRepository;
+use Modules\RMS\Repositories\ResearchBudgetRepository;
 
 
-class ProjectBudgetService
+class ResearchBudgetService
 {
     use CrudTrait;
 
-    private $projectBudgetRepository;
+    private $researchBudgetRepository;
     private $featureService;
     private $workflowService;
 
     /**
      * ProjectRequestService constructor.
      *
-     * @param ProjectBudgetRepository $projectBudgetRepository
+     * @param ResearchBudgetRepository $researchBudgetRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      */
 
-    public function __construct(ProjectBudgetRepository $projectBudgetRepository,FeatureService $featureService,
+    public function __construct(ResearchBudgetRepository $researchBudgetRepository,FeatureService $featureService,
                                 WorkflowService $workflowService)
     {
-        $this->projectBudgetRepository = $projectBudgetRepository;
+        $this->researchBudgetRepository = $researchBudgetRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
 
-        $this->setActionRepository($projectBudgetRepository);
+        $this->setActionRepository($researchBudgetRepository);
 
     }
 
-    public function getSectionTypesOfProjectBudget(){
+    public function getSectionTypesOfResearchBudget(){
         return [
-            'revenue' => Lang::get('pms::project_budget.revenue'),
-            'capital' => Lang::get('pms::project_budget.capital'),
-            'physical_contingency' => Lang::get('pms::project_budget.physical_contingency'),
-            'price_contingency' => Lang::get('pms::project_budget.price_contingency'),
+            'revenue' => Lang::get('rms::research_budget.revenue'),
+            'capital' => Lang::get('rms::research_budget.capital'),
+            'physical_contingency' => Lang::get('rms::research_budget.physical_contingency'),
+            'price_contingency' => Lang::get('rms::research_budget.price_contingency'),
         ];
     }
 

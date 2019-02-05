@@ -49,7 +49,7 @@
                                                     <a href="{{ route('project.show', $project->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href="{{ route('project-budget.index', $project->id) }}"
-                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('pms::project_budget.title')</a>
+                                                       class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
                                                 </span>
                                             </span>
                                             </td>
