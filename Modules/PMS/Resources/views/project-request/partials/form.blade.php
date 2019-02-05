@@ -15,7 +15,7 @@
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{ trans('rms::research_proposal.send_to') }}</label>
                         <br>
-                        {!! Form::select('receiver[]', $employees, $projectRequest->projectRequestReceivers->pluck('receiver'), ['class' => 'select2 form-control required'.($errors->has('receiver') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                        {!! Form::select('receiver[]', $employees, $page == 'create' ? null : $projectRequest->projectRequestReceivers->pluck('receiver'), ['class' => 'select2 form-control required'.($errors->has('receiver') ? ' is-invalid' : ''), 'multiple', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
                         @if ($errors->has('receiver'))
                             <span class="invalid-feedback" role="alert">

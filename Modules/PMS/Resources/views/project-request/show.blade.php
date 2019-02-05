@@ -45,7 +45,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.last_sub_date')</dt>
-                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->created_at)) }}</dd>
+                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->end_date)) }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.attachments')</dt>
