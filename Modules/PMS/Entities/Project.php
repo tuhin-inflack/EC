@@ -32,4 +32,9 @@ class Project extends Model
     {
         return $this->morphMany(MonthlyUpdate::class, 'monthly_updatable');
     }
+
+    public function budget()
+    {
+        return $this->hasMany(ProjectBudget::class, 'project_id');
+    }
 }

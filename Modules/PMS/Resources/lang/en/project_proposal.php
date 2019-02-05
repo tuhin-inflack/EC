@@ -51,5 +51,7 @@ return [
     'project_proposal_status_graph' => 'Project Proposal Status Graph',
     'project_request_by_last_submission_date' => 'Project Proposal Request by Last Submission Date',
     'project_proposal_by_submitted_date' => 'Project Proposal by Submitted Date',
+    'edit_invitation' => 'Edit Request',
+    'edit_request_form' => 'Project Request Edit Form',
 
 ];

@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project-request.partials.form')
+                                        @include('pms::project-request.partials.form', ['page' => 'create'])
                                     </div>
                                 </div>
                             </div>

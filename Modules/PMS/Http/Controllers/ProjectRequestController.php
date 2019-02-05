@@ -89,8 +89,13 @@ class ProjectRequestController extends Controller
      */
     public function edit(ProjectRequest $projectRequest)
     {
+        $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee){
+            return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+        }, function ($employee){
+            return $employee->id;
+        });
 
-        return view('pms::project_requests.edit', compact('projectRequest'));
+        return view('pms::project-request.edit', compact('projectRequest', 'employees'));
     }
 
     /**
@@ -100,14 +105,9 @@ class ProjectRequestController extends Controller
      */
     public function update(UpdateProjectRequestRequest $request, ProjectRequest $projectRequest)
     {
-        $filename = $request->file('attachment');
-        $path = Storage::disk('internal')->put('PMS', $filename);
-
-        $data = array_merge($request->all(), ['attachment' => $path]);
-        $this->projectRequestService->update($projectRequest, $data);
-        Session::flash('success', 'Project Request updated successfully');
-
-        return redirect()->route('project_request.index');
+        $this->projectRequestService->updateProjectRequest($request->all(), $projectRequest);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-request.index');
     }
 
     /**

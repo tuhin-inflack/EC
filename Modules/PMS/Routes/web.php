@@ -21,7 +21,7 @@ Route::prefix('pms')->group(function () {
         Route::get('{project}', 'ProjectController@show')->name('project.show');
         // project budgeting
         Route::prefix('{project}/budget')->group(function () {
-            Route::get('/', 'ProjectBudgetController@index')->name('project-budget');
+            Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
             Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
             Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
@@ -84,6 +84,8 @@ Route::prefix('pms')->group(function () {
         Route::get('/create', 'ProjectRequestController@create')->name('project-request.create');
         Route::post('/', 'ProjectRequestController@store')->name('project-request.store');
         Route::get('{projectRequest}/show', 'ProjectRequestController@show')->name('project-request.show');
+        Route::get('{projectRequest}/edit', 'ProjectRequestController@edit')->name('project-request.edit');
+        Route::put('{projectRequest}', 'ProjectRequestController@update')->name('project-request.update');
         Route::get('attachment-download/{projectRequest}', 'ProjectRequestController@requestAttachmentDownload')->name('project-request.attachment-download');
         Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestController@fileDownload')->name('project-request.file-download');
     });

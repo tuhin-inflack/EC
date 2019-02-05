@@ -77,11 +77,45 @@ class ProjectRequestService
         });
     }
 
-    public function update(ProjectRequest $projectRequest, array $data)
-    {
-        $projectRequest = $this->projectRequestRepository->update($projectRequest, $data);
 
-        return $projectRequest;
+    public function updateProjectRequest(array $data, ProjectRequest $projectRequest)
+    {
+        return DB::transaction(function () use ($data, $projectRequest) {
+            $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
+            $data['status'] = 'PENDING';
+            $request = $this->update($projectRequest, $data);
+            foreach ($projectRequest->projectRequestAttachments as $attachment){
+                ProjectRequestAttachment::destroy($attachment->id);
+                Storage::disk('internal')->delete($attachment->attachments);
+            }
+
+            foreach ($data['attachment'] as $file) {
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'project-requests');
+
+                $file = new ProjectRequestAttachment([
+                    'attachments' => $path,
+                    'project_request_id' => $projectRequest->id,
+                    'file_name' => $fileName
+                ]);
+
+                $projectRequest->projectRequestAttachments()->save($file);
+
+            }
+
+            $projectRequest->projectRequestReceivers()->delete();
+
+            foreach ($data['receiver'] as $receiver) {
+                $receiver = new ProjectRequestReceiver([
+                    'receiver' => $receiver,
+                    'project_request_id' => $projectRequest->id
+                ]);
+
+                $projectRequest->projectRequestReceivers()->save($receiver);
+            }
+            return $request;
+        });
+
     }
 
     public function delete(ProjectRequest $projectRequest)
