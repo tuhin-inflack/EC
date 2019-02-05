@@ -65,20 +65,20 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
                 'proposal_title' => $proposal->title,
                 'research_title' => $proposal->requester->title,
                 'remarks' => $proposal->remarks,
+                'id' => $proposal->id,
             ];
 
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url (done)
+
             $dashboardItem->setCheckUrl(
                 '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
                 '/' . $workflowMaster->feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
             $dashboardItem->setDynamicValues($researchData);
 //            $dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id,'ref_table_id' => $proposal->id]));
             array_push($dashboardItems, $dashboardItem);
@@ -103,12 +103,14 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
-        foreach($workflows as $key => $workflowMaster) {
+        foreach ($workflows as $key => $workflowMaster) {
+
             $dashboardItem = new DashboardItem();
             $researchData = [
                 'proposal_title' => $workflowMaster->researchProposalSubmission->title,
                 'research_title' => $workflowMaster->researchProposalSubmission->requester->title,
                 'remarks' => $workflowMaster->researchProposalSubmission->requester->remarks,
+                'id' => $workflowMaster->ref_table_id,
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);

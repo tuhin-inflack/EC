@@ -174,12 +174,27 @@ class ProposalSubmitController extends Controller
         return redirect()->route('rms.index');
     }
 
-    public function closeWorkflow($workflowMasterId)
+    public function closeWorkflowByOwner($workflowMasterId, $researchProposalSubmissionId)
     {
+//        dd($workflowMasterId);
+        $proposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $proposal->update(['status' => 'CLOSED']);
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
+
+
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
 
+    }
+
+    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId){
+        $proposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $proposal->update(['status' => 'REJECTED']);
+        $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
+
+
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
     }
 
     public function apcReview($researchProposalSubmissionId)
