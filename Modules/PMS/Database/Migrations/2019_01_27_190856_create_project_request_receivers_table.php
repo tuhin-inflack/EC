@@ -16,7 +16,7 @@ class CreateProjectRequestReceiversTable extends Migration
         Schema::create('project_request_receivers', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('project_request_id');
-            $table->integer('receiver');
+            $table->unsignedInteger('receiver');
             $table->timestamps();
         });
     }

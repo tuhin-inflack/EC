@@ -2,6 +2,31 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
+    <div class="content-header row">
+        <div class="content-header-left col-md-6 col-12">
+            <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" role="group">
+                    <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
+                        <i class="ft-book"></i>@lang('pms::project_budget.title')
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content-header-right col-md-6 col-12">
+
+        </div>
+    </div>
+    <br>
+
+    <section class="row">
+        <div class="col-md-12">
+            @include('../../../monthly-update.partials.table', [
+                'monthlyUpdatable' => $project,
+                'module' => 'pms'
+            ])
+        </div>
+    </section>
+
     <div class="row match-height">
         <div class="col-md-12">
             @include('../../../task.partials.ganttChart')
