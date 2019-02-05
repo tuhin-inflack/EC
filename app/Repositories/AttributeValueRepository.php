@@ -18,7 +18,7 @@ class AttributeValueRepository extends AbstractBaseRepository
 
     public function getAttributeValueSumsByMonthYear($attributeId)
     {
-        return $this->modelName::where('attribute_id', $attributeId)
+        return $this->model->where('attribute_id', $attributeId)
             ->select(DB::raw('date, attribute_id, sum(planned_value) as total_planned_value, sum(achieved_value) as total_achieved_value'))
             ->groupBy('date')
             ->groupBy('attribute_id')

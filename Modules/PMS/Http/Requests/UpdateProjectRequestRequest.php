@@ -14,11 +14,11 @@ class UpdateProjectRequestRequest extends FormRequest
     public function rules()
     {
         return [
-            'send_to' => 'required|email',
-            'end_date' => 'required',
+            'end_date' => 'date_format:"j F, Y"|required',
             'title' => 'required|max:100',
-            'message' => 'required|max:200',
-            'attachment' => 'image|mimes:jpeg,png,jpg,gif,svg'
+            'remarks' => 'nullable|max:5000',
+            'receiver' => 'required',
+            'attachment.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
         ];
     }
 
