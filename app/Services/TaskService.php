@@ -9,7 +9,6 @@
 namespace App\Services;
 
 
-use App\Constants\AbstractTask;
 use App\Entities\Task;
 use App\Entities\TaskAttachment;
 use App\Repositories\TaskRepository;
@@ -41,17 +40,8 @@ class TaskService
 
     public function store($taskable, array $data)
     {
-        return DB::transaction(
-            function () use ($taskable, $data) {
-            if ($taskable instanceof Research) {
-                $data['taskable_id'] = $taskable->id;
-                $data['taskable_type'] = AbstractTask::ResearchType;
-            } else {
-                $data['taskable_id'] = $taskable->id;
-                $data['taskable_type'] = AbstractTask::ProjectType;
-            }
-
-            $task = $this->save($data);
+        return DB::transaction(function () use ($taskable, $data) {
+            $task = $taskable->tasks()->create($data);
 
             $this->syncTaskAttachments($taskable, $task, $data);
 
@@ -90,7 +80,7 @@ class TaskService
     public function getTasksGanttChartData($tasks)
     {
         $chartData = [];
-        foreach ($tasks as $task){
+        foreach ($tasks as $task) {
             array_push($chartData, array(
                 "pID" => $task->id,
                 "pName" => $task->name,
