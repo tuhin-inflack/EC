@@ -5,26 +5,31 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Services\ProjectBudgetService;
 
 class ProjectBudgetController extends Controller
 {
     private $economyCodeService;
+    private $projectBudgetService;
 
-
-    public function __construct(EconomyCodeService $economyCodeService)
+    public function __construct(ProjectBudgetService $projectBudgetService,EconomyCodeService $economyCodeService)
     {
+        $this->projectBudgetService = $projectBudgetService;
         $this->economyCodeService = $economyCodeService;
     }
 
     /**
      * Display a listing of the resource.
+     * @param Project $project
      * @return Response
      */
-    public function index()
+    public function index(Project $project)
     {
-        return view('pms::index');
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        return view('pms::project.budget.index', compact('project', 'economyCodeOptions'));
     }
 
     /**
@@ -35,18 +40,21 @@ class ProjectBudgetController extends Controller
     public function create(Project $project)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-//        dd($project, $economyCodeOptions);
-
-        return view('pms::project.budget.create', compact('project', 'economyCodeOptions'));
+        $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
+        return view('pms::project.budget.create', compact('project', 'economyCodeOptions', 'sectionTypes'));
     }
 
     /**
      * Store a newly created resource in storage.
+     * @param Project $project
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
+        $this->projectBudgetService->store($request->all(), $project);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-budget.index', $project->id);
     }
 
     /**

@@ -48,7 +48,7 @@
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href="{{ route('project.show', $project->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href="{{ route('project.budget', $project->id) }}"
+                                                    <a href="{{ route('project-budget.index', $project->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('pms::project_budget.title')</a>
                                                 </span>
                                             </span>
