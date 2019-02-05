@@ -53,7 +53,7 @@ class TaskService
 
             $task = $this->save($data);
 
-            $this->storeTaskAttachments($taskable, $task, $data);
+            $this->syncTaskAttachments($taskable, $task, $data);
 
             return $task;
         });
@@ -62,7 +62,7 @@ class TaskService
     public function updateTask($taskable, Task $task, array $data)
     {
         return DB::transaction(function () use ($data, $taskable, $task) {
-            $this->storeTaskAttachments($taskable, $task, $data);
+            $this->syncTaskAttachments($taskable, $task, $data);
             return $task->update($data);
         });
     }
@@ -105,7 +105,7 @@ class TaskService
         return $chartData;
     }
 
-    private function storeTaskAttachments($taskable, $task, $data)
+    private function syncTaskAttachments($taskable, $task, $data)
     {
         if (array_key_exists('deleted_attachments', $data)) {
             TaskAttachment::destroy($data['deleted_attachments']);
