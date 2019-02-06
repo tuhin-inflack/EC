@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Entities\ProjectBudget;
 use Modules\PMS\Services\ProjectBudgetService;
 
 class ProjectBudgetController extends Controller
@@ -58,21 +59,23 @@ class ProjectBudgetController extends Controller
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('pms::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
-     * @return Response
+     * @param Project $project
+     * @param ProjectBudget $projectBudget
+     * @return void
      */
-    public function edit()
+    public function edit(Project $project, ProjectBudget $projectBudget)
     {
-        return view('pms::edit');
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
+
+        return view('pms::project.budget.edit', compact('project', 'projectBudget', 'economyCodeOptions', 'sectionTypes'));
+
+//        foreach ($projectBudget->budgetFiscalValue as $budgetFiscalValue){
+//            dump($budgetFiscalValue->toArray());
+//        }
+//
+//        dump($projectBudget->budgetFiscalValue[0]->monetary_amount);
     }
 
     /**

@@ -85,6 +85,7 @@
                 </tr>
             </thead>
             <tbody id="fiscal-values">
+                @if($page === 'create')
                 @for($i = 1; $i <= 5; $i++)
                     <tr>
                         <td>{{$i}}</td>
@@ -95,6 +96,29 @@
                         {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
                     </tr>
                 @endfor
+                @elseif($page === 'edit')
+                    @for($i = 0; $i <= 4; $i++)
+                        <tr>
+                            <td>{{$i}}</td>
+                            <td>
+                                <input type="text" name="fiscal_year[]" class="form-control"
+                                       value="{{$projectBudget->budgetFiscalValue[$i]->fiscal_year }}">
+                            </td>
+                            <td>
+                                <input type="number" name="monetary_amount[]" min="1" class="form-control"
+                                       value="{{ $projectBudget->budgetFiscalValue[$i]->monetary_amount }}">
+                            </td>
+                            <td>
+                                <input type="number" name="body_percentage[]" min="1"class="form-control"
+                                       value="{{$projectBudget->budgetFiscalValue[$i]->body_percentage }}">
+                            </td>
+                            <td>
+                                <input type="number" name="project_percentage[]" min="1" class="form-control"
+                                       value="{{$projectBudget->budgetFiscalValue[$i]->project_percentage }}"></td>
+                            {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
+                        </tr>
+                    @endfor
+                @endif
             </tbody>
         </table>
     </div>

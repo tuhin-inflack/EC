@@ -78,7 +78,7 @@
                                             @foreach($project->budget as $budget)
                                                 @if($budget->section_type === 'revenue')
                                                 <tr>
-                                                    <td>{{ $budget->economyCode->code }}</td>
+                                                    <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
                                                     <td>{{ $budget->economyCode->bangla_name }}</td>
                                                     <td>{{ $budget->unit }}</td>
                                                     <td>{{ $budget->unit_rate }}</td>

@@ -24,6 +24,8 @@ Route::prefix('pms')->group(function () {
             Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
             Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
+            Route::get('{projectBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
+            Route::put('{projectBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
             Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
         });
 
