@@ -11,5 +11,5 @@ namespace App\Constants;
 
 abstract class NotificationType
 {
-    const RESEARCH_PROPOSAL_SUBMISSION = 1;
+    const RESEARCH_PROPOSAL_SUBMISSION = 'Research Proposal Submission';
 }

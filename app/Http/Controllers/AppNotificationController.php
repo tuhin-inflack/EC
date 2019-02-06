@@ -1,39 +1,41 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: jahangir
+ * Date: 2/5/19
+ * Time: 3:02 PM
+ */
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
-use App\Services\Notification\AppNotificationService;
-use Illuminate\Http\Request;
 
-class HomeController extends Controller
+use App\Services\Notification\AppNotificationService;
+
+class AppNotificationController extends Controller
 {
     private $appNotificationService;
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * AppNotificationController constructor.
+     * @param $appNotificationService
      */
     public function __construct(AppNotificationService $appNotificationService)
     {
-        $this->middleware('auth');
         $this->appNotificationService = $appNotificationService;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        return view('home');
+
     }
 
-    public function landing()
+    public function getUnreadNotification()
     {
         $notifications = $this->appNotificationService->getUnreadNotifications();
-        return view('welcome', compact('notifications'));
-    }
+        $response = new \stdClass();
+        $response->data = $notifications;
 
+        return response()->json($response);
+    }
 }

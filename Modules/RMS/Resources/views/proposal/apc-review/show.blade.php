@@ -70,7 +70,7 @@
                                     <a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">
                                         <i class="ft-x"></i> @lang('labels.cancel')</a>
                                     {!! Form::button(' <i class="ft-check"></i> '.trans('labels.status_approved'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                    {!! Form::button('  <i class="ft-skip-back"></i> Reject', ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
+                                    {!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
 
                                     {!! Form::close() !!}
                                 </div>
