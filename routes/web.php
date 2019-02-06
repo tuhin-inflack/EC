@@ -38,6 +38,11 @@ Route::middleware(['auth'])->group(function () {
             Route::get('graphs', 'AttributeValueGraphController@update')->name('attribute-values.graph');
         });
     });
+
+    //Notifications
+    Route::get('/notification/count', 'AppNotificationController@countUnread')->name('notification.count');
+    Route::get('/unread/notifications', 'AppNotificationController@getUnreadNotification')->name('notification.unread');
+    Route::get('/all/notifications', 'AppNotificationController@index')->name('notification.index');
 });
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');

@@ -1,74 +1,101 @@
-<li class="dropdown dropdown-notification nav-item">
-    <a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
-        <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
+<li class="dropdown dropdown-notification nav-item noti-container">
+    <a class="nav-link nav-link-label noti-bell" href="#" data-toggle="dropdown"><i class="ficon ft-bell"></i>
+        <span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow noti-count"></span>
     </a>
     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
         <li class="dropdown-menu-header">
             <h6 class="dropdown-header m-0">
                 <span class="grey darken-2">Notifications</span>
             </h6>
-            <span class="notification-tag badge badge-default badge-danger float-right m-0">5 New</span>
+            <span class="notification-tag badge badge-default badge-danger float-right m-0">0 New</span>
         </li>
         <li class="scrollable-container media-list w-100">
-            <a href="javascript:void(0)">
-                <div class="media">
-                    <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
-                    <div class="media-body">
-                        <h6 class="media-heading">Research Proposal Submission!</h6>
-                        <p class="notification-text font-small-3 text-muted">New Research Proposal Submission by Faculty Director</p>
-                        <small>
-                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">30 minutes ago</time>
-                        </small>
-                    </div>
-                </div>
-            </a>
-            <a href="javascript:void(0)">
-                <div class="media">
-                    <div class="media-left align-self-center"><i class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>
-                    <div class="media-body">
-                        <h6 class="media-heading red darken-1">99% Server load</h6>
-                        <p class="notification-text font-small-3 text-muted">Aliquam tincidunt mauris eu risus.</p>
-                        <small>
-                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Five hour ago</time>
-                        </small>
-                    </div>
-                </div>
-            </a>
-            <a href="javascript:void(0)">
-                <div class="media">
-                    <div class="media-left align-self-center"><i class="ft-alert-triangle icon-bg-circle bg-yellow bg-darken-3"></i></div>
-                    <div class="media-body">
-                        <h6 class="media-heading yellow darken-3">Warning notifixation</h6>
-                        <p class="notification-text font-small-3 text-muted">Vestibulum auctor dapibus neque.</p>
-                        <small>
-                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Today</time>
-                        </small>
-                    </div>
-                </div>
-            </a>
-            <a href="javascript:void(0)">
-                <div class="media">
-                    <div class="media-left align-self-center"><i class="ft-check-circle icon-bg-circle bg-cyan"></i></div>
-                    <div class="media-body">
-                        <h6 class="media-heading">Complete the task</h6>
-                        <small>
-                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Last week</time>
-                        </small>
-                    </div>
-                </div>
-            </a>
-            <a href="javascript:void(0)">
-                <div class="media">
-                    <div class="media-left align-self-center"><i class="ft-file icon-bg-circle bg-teal"></i></div>
-                    <div class="media-body">
-                        <h6 class="media-heading">Generate monthly report</h6>
-                        <small>
-                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Last month</time>
-                        </small>
-                    </div>
-                </div>
-            </a>
         </li>
-        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li>
+        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read
+                all notifications</a></li>
     </ul>
 </li>
+@push('page-js')
+    <script type="text/javascript">
+        var isLoggedIn = '{{Auth::check()}}';
+        if (isLoggedIn == true) {
+            var cbNotificationCount = function (response) {
+                $('.noti-count').text(response.data);
+                $('.notification-tag').text(response.data + ' unread');
+            };
+
+            var cbNotificationList = function (response) {
+                console.log(response);
+                renderNotificationList(response);
+            };
+
+            var getNotificationCountUrl ='{{route('notification.count')}}';
+            var getNotificationListUrl = '{{route('notification.unread')}}';
+
+            var notificationCount = function () {
+                $.get(getNotificationCountUrl, function (response) {
+                    cbNotificationCount(response);
+                });
+            };
+
+            var interval = 1000 * 60 * 3;
+
+            var fetchNotificationList = function () {
+                $.get(getNotificationListUrl, function (response) {
+                    cbNotificationList(response);
+                });
+            };
+
+            var renderNotificationList = function (response) {
+                console.log(response);
+                var notificationCollection = response.data;
+                var notificationContainer = $('.noti-container').find('.scrollable-container');
+                notificationContainer.empty();
+                for (var i in notificationCollection) {
+                    var currentNotification = notificationCollection[i];
+                    var a = $('<a href="' + currentNotification.item_url + '">');
+                    var messageWrapperDiv = $('<div class="media">');
+                    var iconWrapperDiv = $('<div class="media-left align-self-center">');
+                    var icon = $('<i class="ft-plus-square icon-bg-circle bg-cyan">');
+                    iconWrapperDiv.append(icon);
+                    messageWrapperDiv.append(iconWrapperDiv);
+
+                    var messageBodyDiv = $('<div class="media-body">');
+                    var messageHeader = $('<h6 class="media-heading">');
+                    messageHeader.append(currentNotification.message);
+                    messageBodyDiv.append(messageHeader);
+                    var message = $('<p class="notification-text font-small-3 text-muted">');
+                    message.append(currentNotification.message);
+                    messageBodyDiv.append(message);
+                    var messageFooter = $('<small>');
+                    var time = $('<time class="media-meta text-muted" datetime="'+currentNotification.created_at+'">');
+
+
+                    var durationToSubtract = 6;
+                    var updatedAt = moment(currentNotification.created_at);
+                    var now = moment();
+                    updatedAt = updatedAt.add(durationToSubtract, 'hours');
+                    var durationSinceLastUpdate = moment.duration(now.diff(updatedAt)).humanize();
+
+                    time.append(durationSinceLastUpdate);
+                    messageFooter.append(time);
+                    messageBodyDiv.append(messageFooter);
+                    messageWrapperDiv.append(messageBodyDiv);
+                    a.append(messageWrapperDiv);
+
+                    notificationContainer.append(a);
+                }
+            };
+
+            $(document).ready(function () {
+                notificationCount();
+                setInterval(notificationCount, interval);
+
+                $('.dropdown-notification').on('click', function (evt) {
+                    fetchNotificationList();
+                    $('.noti-bell').find('.noti-count').hide();
+                });
+            });
+        }
+    </script>
+@endpush

@@ -38,4 +38,13 @@ class AppNotificationController extends Controller
 
         return response()->json($response);
     }
+
+    public function countUnread()
+    {
+        $count = $this->appNotificationService->getUnreadNotifications()->count();
+        $response = new \stdClass();
+        $response->data = $count;
+
+        return response()->json($response);
+    }
 }
