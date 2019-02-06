@@ -20,6 +20,7 @@ class CreateNotificationTypesTable extends Migration
             $table->boolean('is_application_notification')->default(true);
             $table->boolean('is_email_notification')->default(false);
             $table->boolean('is_sms_notification')->default(false);
+            $table->string('icon_name')->default('ft-plus-square');
             $table->timestamps();
         });
     }

@@ -5,7 +5,6 @@ function setRequesterAsGuest() {
     let address = $('textarea[name=address]').val();
     let gender = $('input[type=radio][name=gender]:checked').val();
     let nid = $('input[name=nid]').val();
-
     let $guestInfoRepeater = $('.repeater-guest-information').show();
     let $addMoreGuestBtn = $guestInfoRepeater.find('button[data-repeater-create]').show();
 

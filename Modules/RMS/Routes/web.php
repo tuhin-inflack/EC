@@ -19,7 +19,14 @@ Route::prefix('rms')->group(function () {
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
         Route::get('{research}', 'ResearchController@show')->name('research.show');
+
         Route::prefix('{research}')->group(function () {
+            // research budgeting
+            Route::prefix('budget')->group(function () {
+                Route::get('/', 'ResearchBudgetController@index')->name('research-budget.index');
+                Route::get('create', 'ResearchBudgetController@create')->name('research-budget.create');
+                Route::post('store', 'ResearchBudgetController@store')->name('research-budget.store');
+            });
             // research organizations
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('rms-organizations.create');
@@ -95,7 +102,8 @@ Route::prefix('rms')->group(function () {
         Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/','ProposalSubmitController@reInitiate');
         Route::post('store-re-initiate/{researchProposalId?}/','ProposalSubmitController@storeInitiate')->name('store-re-initiate');
-        Route::get('workflow-close/{workflowMasterId?}/','ProposalSubmitController@closeWorkflow')->name('workflow-close');
+        Route::get('workflow-close/{workflowMasterId?}/{researchProposalId?}','ProposalSubmitController@closeWorkflowByOwner')->name('workflow-close');
+        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}','ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
         Route::get('apc-review/{researchProposalSubmissionId?}','ProposalSubmitController@apcReview')->name('apc-review');
         Route::post('apc-review/{researchProposalSubmissionId?}','ProposalSubmitController@approveApcReview')->name('approve-apc-review');
 
