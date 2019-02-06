@@ -311,13 +311,13 @@ class BookingRequestService
     }
 
     /**
-     * @param $oldRoomBookings
+     * @param $approvedBookingCheckinRecords
      * @return \Illuminate\Support\Collection
      */
-    private function getBookedRooms($oldRoomBookings): \Illuminate\Support\Collection
+    private function getBookedRooms($approvedBookingCheckinRecords): \Illuminate\Support\Collection
     {
         $collectionOfBookedRooms = collect();
-        $oldRoomBookings->each(function ($booking) use ($collectionOfBookedRooms) {
+        $approvedBookingCheckinRecords->each(function ($booking) use ($collectionOfBookedRooms) {
             if ($booking->type == 'checkin') {
                 $booking->rooms->each(function ($checkedinRoom) use ($collectionOfBookedRooms) {
                     $collectionOfBookedRooms->push(['room_type_id' => $checkedinRoom->room->room_type_id, 'quantity' => 1]);
@@ -351,9 +351,9 @@ class BookingRequestService
      */
     private function checkRoomsAvailability(RoomBooking $roomBooking): bool
     {
-        $approvedBookingRequests = $this->roomBookingRepository->getApprovedBookingRequest($roomBooking);
+        $approvedBookingCheckinRecords = $this->roomBookingRepository->getApprovedBookingCheckinRecords($roomBooking);
 
-        $collectionOfBookedRooms = $this->getBookedRooms($approvedBookingRequests);
+        $collectionOfBookedRooms = $this->getBookedRooms($approvedBookingCheckinRecords);
 
         $sumOfBookedRoomTypes = $collectionOfBookedRooms->groupBy('room_type_id')->map(function ($roomInfos) {
             return $roomInfos->sum('quantity');
