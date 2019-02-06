@@ -201,7 +201,14 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="{{ route('research-proposal-submission.show', $proposal->id) }}">{{ $proposal->title }}</a></td>
+                                            @php
+                                                $wfMasterId = $proposal->workflowMasters->first()->id;
+                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
+                                                $featureName = $proposal->workflowMasters[1]->feature->name;
+                                            @endphp
+                                            <td>
+                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
+                                            </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
                                         </tr>

@@ -16,4 +16,9 @@ class WorkflowConversation extends Model
     protected $table = 'workflow_conversations';
 
     protected $fillable = ['workflow_master_id', 'workflow_details_id', 'feature_id', 'message', 'status'];
+
+    public function workFlowMaster()
+    {
+        return $this->belongsTo(WorkflowMaster::class, 'workflow_master_id', 'id');
+    }
 }

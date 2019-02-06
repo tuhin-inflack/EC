@@ -98,7 +98,7 @@ Route::prefix('rms')->group(function () {
         Route::put('{researchProposalSubmission}','ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}','ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}','ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review');
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}','ProposalSubmitController@review')->name('research-proposal-submission-review');
         Route::post('/reviewUpdate','ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/','ProposalSubmitController@reInitiate');
         Route::post('store-re-initiate/{researchProposalId?}/','ProposalSubmitController@storeInitiate')->name('store-re-initiate');

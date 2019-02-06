@@ -14,6 +14,7 @@ use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
 use Modules\PMS\Services\ProjectProposalService;
+use App\Services\workflow\DashboardWorkflowService;
 
 /**
  * @property  ProjectProposalService
@@ -21,14 +22,16 @@ use Modules\PMS\Services\ProjectProposalService;
 class ProjectProposalController extends Controller
 {
     private $projectProposalService;
+    private $dashboardService;
 
     /**
      * ProjectProposalController constructor.
      * @param ProjectProposalService $projectProposalService
      */
-    public function __construct(ProjectProposalService $projectProposalService)
+    public function __construct(ProjectProposalService $projectProposalService, DashboardWorkflowService $dashboardService)
     {
         $this->projectProposalService = $projectProposalService;
+        $this->dashboardService = $dashboardService;
     }
 
     /**
@@ -38,7 +41,11 @@ class ProjectProposalController extends Controller
     public function index()
     {
         $proposals = $this->projectProposalService->getAll();
-        return view('pms::proposal-submission.index', compact('proposals'));
+
+        $featureName = config('constants.project_proposal_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+
+        return view('pms::proposal-submission.index', compact('proposals', 'pendingTasks'));
     }
 
     /**

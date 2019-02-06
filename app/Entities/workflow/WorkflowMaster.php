@@ -35,6 +35,11 @@ class WorkflowMaster extends Model
         $this->belongsTo(User::class, 'initiator_id');
     }
 
+    public function workFlowConversations()
+    {
+        return $this->hasMany(WorkflowConversation::class, 'workflow_master_id', 'id');
+    }
+    
     public function workflowDetails()
     {
         return $this->hasMany(WorkflowDetail::class, 'workflow_master_id')->orderBy('notification_order');
