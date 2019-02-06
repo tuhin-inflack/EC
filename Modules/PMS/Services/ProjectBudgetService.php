@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: tanvir
+ * User: Tanvir
  * Date: 10/18/18
  * Time: 5:18 PM
  */
@@ -53,18 +53,18 @@ class ProjectBudgetService
         ];
     }
 
-    public function store(array $data, $project)
+    public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
 
             $projectBudget = $this->save($data);
 
-            foreach ($data['fiscal_year'] as $key => $budgetFiscalValue) {
+            foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
 
-                if ($budgetFiscalValue){
+                if ($budgetFiscalYear){
                     $fiscalValue = new ProjectBudgetFiscalValue([
                         'project_budget_id' => $projectBudget->id,
-                        'fiscal_year' => $budgetFiscalValue,
+                        'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
                         'body_percentage' => $data['body_percentage'][$key],
                         'project_percentage' => $data['project_percentage'][$key],
@@ -78,16 +78,32 @@ class ProjectBudgetService
         });
     }
 
-
-    public function getProposalById($id)
+    public function updateBudget(array $data, $project, $projectBudget)
     {
-        $proposal = $this->findOne($id);
-        if (is_null($proposal)) {
-            abort(404);
-        } else {
-            return $proposal;
-        }
+        return DB::transaction(
+            function () use ($data, $project, $projectBudget) {
 
+            $this->update($projectBudget, $data);
+
+            $projectBudget->budgetFiscalValue()->delete();
+
+            foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
+
+                if ($budgetFiscalYear){
+                    $fiscalValue = new ProjectBudgetFiscalValue([
+                        'project_budget_id' => $projectBudget->id,
+                        'fiscal_year' => $budgetFiscalYear,
+                        'monetary_amount' => $data['monetary_amount'][$key],
+                        'body_percentage' => $data['body_percentage'][$key],
+                        'project_percentage' => $data['project_percentage'][$key],
+                    ]);
+                }
+
+                $projectBudget->budgetFiscalValue()->save($fiscalValue);
+            }
+
+            return $projectBudget;
+        });
     }
 
 }

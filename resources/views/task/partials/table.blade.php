@@ -32,19 +32,19 @@
                         </td>
                         <td class="text-center">
                             @if (isset($task->actual_start_time))
-                                {{ \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y h:i A') }}
+                                {{ \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y') }}
                             @else
                                 {{ Form::open(['route' => [$module . '-tasks.time', $taskable->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}
-                                <button class="btn btn-sm btn-success">Start</button>
+                                <button class="btn btn-sm btn-success">@lang('task.start')</button>
                                 {{ Form::close() }}
                             @endif
                         </td>
                         <td class="text-center">
                             @if (isset($task->actual_end_time))
-                                {{ \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y h:i A') }}
+                                {{ \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y') }}
                             @elseif (isset($task->actual_start_time) && !isset($task->actual_end_time))
                                 {{ Form::open(['route' => [$module . '-tasks.time', $taskable->id, $task->id], 'method' => 'PUT', 'style' => 'display: inline']) }}
-                                <button class="btn btn-sm btn-danger">Stop</button>
+                                <button class="btn btn-sm btn-danger">@lang('task.stop')</button>
                                 {{ Form::close() }}
                             @endif
                         </td>

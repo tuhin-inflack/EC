@@ -19,7 +19,7 @@ class CreateResearchBudgetFiscalValuesTable extends Migration
             $table->string('fiscal_year');
             $table->double('monetary_amount', 10, 2);
             $table->double('body_percentage', 8, 2);
-            $table->double('project_percentage', 8, 2);
+            $table->double('research_percentage', 8, 2);
             $table->timestamps();
         });
     }

@@ -112,7 +112,7 @@
             type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            $('.organization-table, .task-table').DataTable({
+            $('.organization-table, .task-table, .monthly-update-table').DataTable({
                 "pageLength": 5
             })
         });

@@ -63,6 +63,7 @@ return [
     'code' => 'Code',
     'info' => 'Info',
     'chart' => 'Chart',
+    'gantt_chart' => 'Gantt Chart',
     'gender' => 'Gender',
     'male' => 'Male',
     'female' => 'Female',

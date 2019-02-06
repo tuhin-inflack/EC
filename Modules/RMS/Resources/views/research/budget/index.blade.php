@@ -78,7 +78,7 @@
                                             @foreach($research->budget as $budget)
                                                 @if($budget->section_type === 'revenue')
                                                 <tr>
-                                                    <td>{{ $budget->economyCode->code }}</td>
+                                                    <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
                                                     <td>{{ $budget->economyCode->bangla_name }}</td>
                                                     <td>{{ $budget->unit }}</td>
                                                     <td>{{ $budget->unit_rate }}</td>
@@ -107,7 +107,7 @@
                                             @foreach($research->budget as $budget)
                                                 @if($budget->section_type === 'capital')
                                                     <tr>
-                                                        <td>{{ $budget->economyCode->code }}</td>
+                                                        <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
                                                         <td>{{ $budget->economyCode->bangla_name }}</td>
                                                         <td>{{ $budget->unit }}</td>
                                                         <td>{{ $budget->unit_rate }}</td>
@@ -136,7 +136,7 @@
                                             @foreach($research->budget as $budget)
                                                 @if($budget->section_type === 'physical_contingency')
                                                     <tr>
-                                                        <td>{{ $budget->economyCode->code }}</td>
+                                                        <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
                                                         <td>{{ $budget->economyCode->bangla_name }}</td>
                                                         <td>{{ $budget->unit }}</td>
                                                         <td>{{ $budget->unit_rate }}</td>
@@ -159,7 +159,7 @@
                                             @foreach($research->budget as $budget)
                                                 @if($budget->section_type === 'price_contingency')
                                                     <tr>
-                                                        <td>{{ $budget->economyCode->code }}</td>
+                                                        <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
                                                         <td>{{ $budget->economyCode->bangla_name }}</td>
                                                         <td>{{ $budget->unit }}</td>
                                                         <td>{{ $budget->unit_rate }}</td>
