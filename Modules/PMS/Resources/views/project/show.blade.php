@@ -112,7 +112,7 @@
     <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
-            $('.organization-table, .task-table').DataTable({
+            $('.organization-table, .task-table, .monthly-update-table').DataTable({
                 "pageLength": 5
             })
         });

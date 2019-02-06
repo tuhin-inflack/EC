@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h4 class="card-title">Monthy Updates</h4>
+        <h4 class="card-title">@lang('monthly-update.title')</h4>
         <div class="heading-elements">
             <ul class="list-inline mb-0">
                 <li><a href="{{ route($module . '-monthly-updates.create', $monthlyUpdatable->id) }}"
@@ -15,7 +15,7 @@
     <div class="card-content">
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-striped table-bordered">
+                <table class="monthly-update-table table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>@lang('labels.serial')</th>
@@ -26,7 +26,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($monthlyUpdatable->monthlyUpdates as $monthlyUpdate)
+                    @foreach($monthlyUpdatable->monthlyUpdates->sortByDesc('date') as $monthlyUpdate)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ \Carbon\Carbon::parse($monthlyUpdate->date)->format('F Y') }}</td>
