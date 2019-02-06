@@ -13,7 +13,7 @@ use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
-use Modules\PMS\Entities\ProjectBudgetFiscalValue;
+use Modules\RMS\Entities\ResearchBudgetFiscalValue;
 use Modules\RMS\Repositories\ResearchBudgetRepository;
 
 
@@ -53,41 +53,57 @@ class ResearchBudgetService
         ];
     }
 
-    public function store(array $data, $project)
+    public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
 
-            $projectBudget = $this->save($data);
+            $researchBudget = $this->save($data);
 
-            foreach ($data['fiscal_year'] as $key => $budgetFiscalValue) {
+            foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
 
-                if ($budgetFiscalValue){
-                    $fiscalValue = new ProjectBudgetFiscalValue([
-                        'project_budget_id' => $projectBudget->id,
-                        'fiscal_year' => $budgetFiscalValue,
+                if ($budgetFiscalYear){
+                    $fiscalValue = new ResearchBudgetFiscalValue([
+                        'research_budget_id' => $researchBudget->id,
+                        'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
                         'body_percentage' => $data['body_percentage'][$key],
-                        'project_percentage' => $data['project_percentage'][$key],
+                        'research_percentage' => $data['research_percentage'][$key],
                     ]);
                 }
 
-                $projectBudget->budgetFiscalValue()->save($fiscalValue);
+                $researchBudget->budgetFiscalValue()->save($fiscalValue);
             }
 
-            return $projectBudget;
+            return $researchBudget;
         });
     }
 
-
-    public function getProposalById($id)
+    public function updateBudget(array $data, $research, $researchBudget)
     {
-        $proposal = $this->findOne($id);
-        if (is_null($proposal)) {
-            abort(404);
-        } else {
-            return $proposal;
-        }
+        return DB::transaction(
+            function () use ($data, $research, $researchBudget) {
 
+                $this->update($researchBudget, $data);
+
+                $researchBudget->budgetFiscalValue()->delete();
+
+                foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
+
+                    if ($budgetFiscalYear){
+                        $fiscalValue = new ResearchBudgetFiscalValue([
+                            'research_budget_id' => $researchBudget->id,
+                            'fiscal_year' => $budgetFiscalYear,
+                            'monetary_amount' => $data['monetary_amount'][$key],
+                            'body_percentage' => $data['body_percentage'][$key],
+                            'research_percentage' => $data['research_percentage'][$key],
+                        ]);
+                    }
+
+                    $researchBudget->budgetFiscalValue()->save($fiscalValue);
+                }
+
+                return $researchBudget;
+            });
     }
 
 }
