@@ -83,7 +83,7 @@ return [
     'of' => 'of',
     'filtered' => 'filtered',
     'infoFiltered' => 'filtered from _MAX_ total entries',
-    'status_pending' => 'Pending',
+    'status_pending' => 'In Process',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
     'complete' => 'Finish',

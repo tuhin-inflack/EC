@@ -46,10 +46,14 @@
                                             <td>
                                                 <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId]) }}">{{ $proposal->title }}</a>
                                             </td>
-                                            <td><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a></td>
+                                            <td>
+                                                <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
+                                            </td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
-                                            <td><span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span> </td>
+                                            <td>
+                                                <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
+                                            </td>
                                         </tr>
                                     @endforeach
 
@@ -101,8 +105,8 @@
                     {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
                     <option value="{{ trans('pms::project_proposal.pending') }}">{{ trans('pms::project_proposal.pending') }}</option>
-                        <option value="{{ trans('pms::project_proposal.in_progress') }}">{{ trans('pms::project_proposal.in_progress') }}</option>
-                        <option value="{{ trans('pms::project_proposal.reviewed') }}">{{ trans('pms::project_proposal.reviewed') }}</option>
+                        <option value="{{ trans('pms::project_proposal.status_approved') }}">{{ trans('pms::project_proposal.status_approved') }}</option>
+                        <option value="{{ trans('pms::project_proposal.status_rejected') }}">{{ trans('pms::project_proposal.status_rejected') }}</option>
                         </select>
                     {{ trans('labels.records') }}
                 </label>

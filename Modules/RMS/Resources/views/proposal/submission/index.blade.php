@@ -25,6 +25,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                        $statusAr = array(
+                                            'APPROVED' => 'bg-success',
+                                            'REJECTED' => 'bg-danger',
+                                            'PENDING' => 'bg-warning',
+                                            'REVIEWED' => 'bg-info',
+                                        );
+                                    @endphp
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
@@ -42,19 +50,7 @@
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>
-                                                {{--@php
-                                                    if ($proposal->status=='APPROVED'){
-                                                    $class = 'btn-primary';
-                                                    }elseif ($proposal->status=='REJECTED'){
-                                                    $class = 'btn-danger';
-                                                    }else{
-                                                    $class = 'btn-warning';
-                                                    }
-                                                @endphp
-                                                <button type="button"
-                                                        class="btn {{ $class }} btn-sm">{{ $proposal->status }}</button>--}}
-                                                @lang('labels.status_' . $proposal->status)
-
+                                                <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
                                             </td>
                                             <td>
                                             <span class="dropdown">
@@ -117,8 +113,8 @@
                     {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
                     <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
-                        <option value="{{ trans('rms::research_proposal.in_progress') }}">{{ trans('rms::research_proposal.in_progress') }}</option>
-                        <option value="{{ trans('rms::research_proposal.reviewed') }}">{{ trans('rms::research_proposal.reviewed') }}</option>
+                        <option value="{{ trans('rms::research_proposal.status_approved') }}">{{ trans('rms::research_proposal.status_approved') }}</option>
+                        <option value="{{ trans('rms::research_proposal.status_rejected') }}">{{ trans('rms::research_proposal.status_rejected') }}</option>
                         </select>
                     {{ trans('labels.records') }}
                 </label>

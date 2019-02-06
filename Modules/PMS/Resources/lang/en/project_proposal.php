@@ -45,6 +45,8 @@ return [
     'pending' => 'In Process',
     'in_progress' => 'In Progress',
     'reviewed' => 'Reviewed',
+    'status_approved' => 'Approved',
+    'status_rejected' => 'Rejected',
     'project_details' => 'Project Details',
     'receiver' => 'Receiver',
     'download_all_attachments' => 'Download all Attachments',

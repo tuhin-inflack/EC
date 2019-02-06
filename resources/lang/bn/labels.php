@@ -84,7 +84,7 @@ return [
     'of' => 'এর',
     'filtered' => 'পরিস্রাবিত',
     'infoFiltered' => 'রেকর্ড থেকে পরিস্রাবিত',
-    'status_pending' => 'বিচারাধীন',
+    'status_pending' => 'প্রক্রিয়াধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
     'complete' => 'সমাপ্ত',
