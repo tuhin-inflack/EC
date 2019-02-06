@@ -53,7 +53,8 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        $this->projectBudgetService->store($request->all(), $project);
+        $this->projectBudgetService->store($request->all());
+
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('project-budget.index', $project->id);
     }
@@ -62,7 +63,7 @@ class ProjectBudgetController extends Controller
      * Show the form for editing the specified resource.
      * @param Project $project
      * @param ProjectBudget $projectBudget
-     * @return void
+     * @return Response
      */
     public function edit(Project $project, ProjectBudget $projectBudget)
     {
@@ -70,21 +71,21 @@ class ProjectBudgetController extends Controller
         $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
 
         return view('pms::project.budget.edit', compact('project', 'projectBudget', 'economyCodeOptions', 'sectionTypes'));
-
-//        foreach ($projectBudget->budgetFiscalValue as $budgetFiscalValue){
-//            dump($budgetFiscalValue->toArray());
-//        }
-//
-//        dump($projectBudget->budgetFiscalValue[0]->monetary_amount);
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @param Project $project
+     * @param ProjectBudget $projectBudget
+     * @return array
      */
-    public function update(Request $request)
+    public function update(Request $request, Project $project, ProjectBudget $projectBudget)
     {
+        $this->projectBudgetService->updateBudget($request->all(), $project, $projectBudget);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-budget.index', $project->id);
     }
 
 

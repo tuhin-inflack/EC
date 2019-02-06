@@ -5,8 +5,10 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\RMS\Entities\Research;
+use Modules\RMS\Entities\ResearchBudget;
 use Modules\RMS\Services\ResearchBudgetService;
 
 class ResearchBudgetController extends Controller
@@ -40,6 +42,7 @@ class ResearchBudgetController extends Controller
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
         $sectionTypes = $this->researchBudgetService->getSectionTypesOfResearchBudget();
+
         return view('rms::research.budget.create', compact('research', 'economyCodeOptions', 'sectionTypes'));
     }
 
@@ -51,36 +54,38 @@ class ResearchBudgetController extends Controller
      */
     public function store(Request $request, Research $research)
     {
-        $this->researchBudgetService->store($request->all(), $research);
+        $this->researchBudgetService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-budget.index', $research->id);
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('rms::show');
+        return redirect()->route('research-budget.index', $research->id);
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @param Research $research
+     * @param ResearchBudget $researchBudget
      * @return Response
      */
-    public function edit()
+    public function edit(Research $research, ResearchBudget $researchBudget)
     {
-        return view('rms::edit');
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        $sectionTypes = $this->researchBudgetService->getSectionTypesOfResearchBudget();
+
+        return view('rms::research.budget.edit', compact('research', 'researchBudget', 'economyCodeOptions', 'sectionTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @param Research $research
+     * @param ResearchBudget $researchBudget
+     * @return array
      */
-    public function update(Request $request)
+    public function update(Request $request, Research $research, ResearchBudget $researchBudget)
     {
+        $this->researchBudgetService->updateBudget($request->all(), $research, $researchBudget);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research-budget.index', $research->id);
     }
 
     /**
