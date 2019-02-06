@@ -22,8 +22,10 @@
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
-                                    Proposal Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
-                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    <!-- TODO: Fix research title and proposal title -->
+                                    <!-- TODO: Title interchanged -->
+                                    Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Research Title: {{ $item->dynamicValues['proposal_title'] }}<br/>
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
                             </tr>
@@ -35,7 +37,6 @@
         </div>
     </section>
     @endif
-
     @if(!empty(count($reviewedProposals)))
 
         <section id="pending-tasks">
