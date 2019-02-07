@@ -26,7 +26,6 @@
                                         <th scope="col">@lang('labels.remarks')</th>
                                         <th scope="col">@lang('pms::project_proposal.attached_file')</th>
                                         <th scope="col">@lang('pms::project_proposal.last_sub_date')</th>
-                                        <th scope="col">@lang('labels.status')</th>
                                         <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
@@ -38,7 +37,6 @@
                                                 <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
                                                 <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
                                                 <td>{{ $request->end_date }}</td>
-                                                <td>@lang('labels.status_' . $request->status)</td>
                                                 <td>
                                                 <span class="dropdown">
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -65,15 +63,7 @@
 @endsection
 @push('page-js')
     <script>
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                let filterValue = $('#filter-select').val() || '{!! trans('pms::project_proposal.pending') !!}';
-                if (data[5] == filterValue) {
-                    return true;
-                }
-                return false;
-            }
-        );
+
 
         $(document).ready(function () {
             let table = $('.proposal-request-table').DataTable({
@@ -95,21 +85,8 @@
                 }
             });
 
-            $("div.dataTables_length").append(`
-                <label style="margin-left: 20px">
-                    {{ trans('labels.filtered') }}
-                <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
-                    <option value="{{ trans('pms::project_proposal.pending') }}">{{ trans('pms::project_proposal.pending') }}</option>
-                        <option value="{{ trans('pms::project_proposal.in_progress') }}">{{ trans('pms::project_proposal.in_progress') }}</option>
-                        <option value="{{ trans('pms::project_proposal.reviewed') }}">{{ trans('pms::project_proposal.reviewed') }}</option>
-                        </select>
-                    {{ trans('labels.records') }}
-                </label>
-            `);
 
-            $('#filter-select').on('change', function () {
-                table.draw();
-            });
+
         });
     </script>
 @endpush

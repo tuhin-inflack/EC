@@ -26,7 +26,6 @@
                                         <th scope="col">@lang('labels.remarks')</th>
                                         <th scope="col">@lang('rms::research_proposal.attached_file')</th>
                                         <th scope="col">@lang('rms::research_proposal.last_sub_date') </th>
-                                        <th scope="col">@lang('labels.status')</th>
                                         <th scope="col">@lang('labels.created_at')</th>
                                         <th scope="col">@lang('labels.action')</th>
                                     </tr>
@@ -39,7 +38,6 @@
                                             <td>{{ substr($research_request->remarks, 0,100) }} {{ strlen($research_request->remarks)>100 ? "..." : "" }}</td>
                                             <td><a href="{{url('rms/research-requests/attachment-download/'.$research_request->id)}}">@lang('labels.attachments')</a></td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->end_date)) }}</td>
-                                            <td>@lang('labels.status_' . $research_request->status)</td>
                                             <td>{{ date('d/m/Y', strtotime($research_request->created_at)) }}</td>
                                             <td>
                                                 <span class="dropdown">
@@ -67,15 +65,7 @@
 @endsection
 @push('page-js')
     <script>
-        $.fn.dataTable.ext.search.push(
-            function (settings, data, dataIndex) {
-                let filterValue = $('#filter-select').val() || '{!! trans('rms::research_proposal.pending') !!}';
-                if (data[5] == filterValue) {
-                    return true;
-                }
-                return false;
-            }
-        );
+
 
         $(document).ready(function () {
             let table = $('.proposal-request-table').DataTable({
@@ -97,17 +87,7 @@
                 }
             });
 
-            $("div.dataTables_length").append(`
-                <label style="margin-left: 20px">
-                    {{ trans('labels.filtered') }}
-                <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
-                    <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
-                        <option value="{{ trans('rms::research_proposal.in_progress') }}">{{ trans('rms::research_proposal.in_progress') }}</option>
-                        <option value="{{ trans('rms::research_proposal.reviewed') }}">{{ trans('rms::research_proposal.reviewed') }}</option>
-                        </select>
-                    {{ trans('labels.records') }}
-                </label>
-            `);
+
 
             $('#filter-select').on('change', function () {
                 table.draw();

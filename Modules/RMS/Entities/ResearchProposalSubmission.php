@@ -4,6 +4,7 @@ namespace Modules\RMS\Entities;
 
 use App\Entities\Organization\Organization;
 use App\Entities\User;
+use App\Entities\workflow\WorkflowMaster;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PMS\Entities\ProjectResearchTask;
 
@@ -32,5 +33,10 @@ class ResearchProposalSubmission extends Model
     }
     public function requester(){
         return $this->belongsTo(ResearchRequest::class, 'research_request_id', 'id');
+    }
+
+    public function workFlowMasters()
+    {
+        return $this->hasMany(WorkflowMaster::class, 'ref_table_id', 'id');
     }
 }

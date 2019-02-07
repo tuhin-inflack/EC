@@ -44,7 +44,7 @@ class ResearchProposalSubmissionService
 
 
         return DB::transaction(function () use ($data) {
-            $data['status'] = 'pending';
+            $data['status'] = 'PENDING';
 
 
             $proposalSubmission = $this->save($data);

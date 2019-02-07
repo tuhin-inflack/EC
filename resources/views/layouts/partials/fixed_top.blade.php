@@ -30,7 +30,7 @@
                             <a class="nav-link" href="{{ route('login') }}">{{ __('labels.login') }}</a>
                         </li>
                     @else
-                        @include('layouts.partials.notification')
+                        {{--@include('layouts.partials.notification')--}}
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

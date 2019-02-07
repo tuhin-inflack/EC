@@ -55,8 +55,13 @@ class WorkflowService
         $ruleMaster = $this->workflowRuleMasterRepository->findOne($data['rule_master_id']);
 
         //Save Workflow master
-        $workflowMaster = $this->workFlowMasterRepository->save(['feature_id' => $data['feature_id'], 'rule_master_id' => $ruleMaster->id,
-            'ref_table_id' => $data['ref_table_id'], 'status' => WorkflowStatus::INITIATED, 'initiator_id' => Auth::user()->id]);
+        $workflowMaster = $this->workFlowMasterRepository->save([
+            'feature_id' => $data['feature_id'],
+            'rule_master_id' => $ruleMaster->id,
+            'ref_table_id' => $data['ref_table_id'],
+            'status' => WorkflowStatus::INITIATED,
+            'initiator_id' => Auth::user()->id
+        ]);
 
         //Save workflow details
         $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
@@ -64,8 +69,13 @@ class WorkflowService
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
 
         //Save conversation
-        $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
-            'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
+        $this->flowConversationRepository->save([
+            'workflow_master_id' => $workflowMaster->id,
+            'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
+            'feature_id' => $data['feature_id'],
+            'message' => $data['message'],
+            'status' => WorkflowConversationStatus::ACTIVE
+        ]);
     }
 
     private function getWorkflowDetails(WorkflowMaster $workflowMaster, WorkflowRuleMaster $workflowRuleMaster)
