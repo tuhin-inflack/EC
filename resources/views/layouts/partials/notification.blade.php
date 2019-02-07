@@ -20,8 +20,11 @@
         var isLoggedIn = '{{Auth::check()}}';
         if (isLoggedIn == true) {
             var cbNotificationCount = function (response) {
-                $('.noti-count').text(response.data);
-                $('.notification-tag').text(response.data + ' unread');
+                if (response.data > 0) {
+                    $('.noti-bell').find('.noti-count').show();
+                    $('.noti-count').text(response.data);
+                    $('.notification-tag').text(response.data + ' unread');
+                }
             };
 
             var cbNotificationList = function (response) {
@@ -30,7 +33,7 @@
             };
 
             var getNotificationCountUrl ='{{route('notification.count')}}';
-            var getNotificationListUrl = '{{route('notification.unread')}}';
+            var getNotificationListUrl = '{{route('notification.latest')}}';
 
             var notificationCount = function () {
                 $.get(getNotificationCountUrl, function (response) {
@@ -38,7 +41,7 @@
                 });
             };
 
-            var interval = 1000 * 60 * 3;
+            var interval = 180000; //3 Minutes
 
             var fetchNotificationList = function () {
                 $.get(getNotificationListUrl, function (response) {
@@ -77,7 +80,7 @@
                     updatedAt = updatedAt.add(durationToSubtract, 'hours');
                     var durationSinceLastUpdate = moment.duration(now.diff(updatedAt)).humanize();
 
-                    time.append(durationSinceLastUpdate);
+                    time.append(durationSinceLastUpdate + ' ago');
                     messageFooter.append(time);
                     messageBodyDiv.append(messageFooter);
                     messageWrapperDiv.append(messageBodyDiv);
