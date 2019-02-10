@@ -97,7 +97,7 @@ class ProjectBudgetController extends Controller
     public function spreadsheet(Project $project)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        return view('pms::project.budget.create', compact('project', 'economyCodeOptions'));
+        return view('pms::project.budget.create_spredsheet', compact('project', 'economyCodeOptions'));
     }
 
 }
