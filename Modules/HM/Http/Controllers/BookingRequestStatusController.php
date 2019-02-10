@@ -18,6 +18,7 @@ class BookingRequestStatusController extends Controller
      * @var BookingRequestService
      */
     private $bookingRequestService;
+
     /**
      * BookingRequestStatusController constructor.
      * @param BookingRequestService $bookingRequestService
@@ -26,6 +27,7 @@ class BookingRequestStatusController extends Controller
     {
         $this->bookingRequestService = $bookingRequestService;
     }
+
     /**
      * Update the specified resource in storage.
      * @param  Request $request
@@ -33,8 +35,7 @@ class BookingRequestStatusController extends Controller
      */
     public function update(UpdateBookingRequestStatusRequest $request, RoomBooking $roomBooking)
     {
-        if($this->bookingRequestService->updateStatus($roomBooking, $request->all())){
-            Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));
+        if ($this->bookingRequestService->updateStatus($roomBooking, $request->all())) {
             Session::flash('success', trans('labels.update_success'));
         } else {
             Session::flash('error', trans('labels.update_fail'));
@@ -45,9 +46,10 @@ class BookingRequestStatusController extends Controller
 
     public function approve(UpdateBookingRequestStatusRequest $request, RoomBooking $roomBooking)
     {
-        //dd($roomBooking->requester->email);
         if ($this->bookingRequestService->approveBookingRequest($roomBooking, $request->all())) {
-            Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));
+            if (isset($roomBooking->requester->email)) {
+                Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));
+            }
             Session::flash('success', trans('labels.update_success'));
         } else {
             Session::flash('error', trans('hm::booking-request.not_enough_available_rooms'));

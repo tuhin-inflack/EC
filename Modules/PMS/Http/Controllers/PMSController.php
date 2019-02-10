@@ -145,6 +145,8 @@ class PMSController extends Controller
         }
         else
         {
+            $proposal = $this->projectProposalService->findOrFail($proposalId);
+            $this->projectProposalService->update($proposal, ['status' => $request->input('status')]);
             $feature_name = config('constants.project_proposal_feature_name');
             $data = array(
                 'feature' => $feature_name,

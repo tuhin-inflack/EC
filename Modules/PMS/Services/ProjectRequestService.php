@@ -47,8 +47,6 @@ class ProjectRequestService
     {
         return DB::transaction(function () use ($data) {
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-            $data['status'] = 'pending';
-
             $projectRequest = $this->save($data);
 
             foreach ($data['attachment'] as $file) {
@@ -82,7 +80,6 @@ class ProjectRequestService
     {
         return DB::transaction(function () use ($data, $projectRequest) {
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-            $data['status'] = 'PENDING';
             $request = $this->update($projectRequest, $data);
             foreach ($projectRequest->projectRequestAttachments as $attachment){
                 ProjectRequestAttachment::destroy($attachment->id);

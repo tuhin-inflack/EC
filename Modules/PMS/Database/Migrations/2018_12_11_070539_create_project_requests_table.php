@@ -18,7 +18,6 @@ class CreateProjectRequestsTable extends Migration
             $table->string('title');
             $table->date('end_date');
             $table->text('remarks')->nullable();
-            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
             $table->timestamps();
         });
     }

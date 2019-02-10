@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Entities\ProjectBudget;
 use Modules\PMS\Services\ProjectBudgetService;
 
 class ProjectBudgetController extends Controller
@@ -52,36 +53,39 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        $this->projectBudgetService->store($request->all(), $project);
+        $this->projectBudgetService->store($request->all());
+
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('project-budget.index', $project->id);
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('pms::show');
-    }
-
-    /**
      * Show the form for editing the specified resource.
+     * @param Project $project
+     * @param ProjectBudget $projectBudget
      * @return Response
      */
-    public function edit()
+    public function edit(Project $project, ProjectBudget $projectBudget)
     {
-        return view('pms::edit');
+        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
+        $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
+
+        return view('pms::project.budget.edit', compact('project', 'projectBudget', 'economyCodeOptions', 'sectionTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
-     * @return Response
+     * @param Project $project
+     * @param ProjectBudget $projectBudget
+     * @return array
      */
-    public function update(Request $request)
+    public function update(Request $request, Project $project, ProjectBudget $projectBudget)
     {
+        $this->projectBudgetService->updateBudget($request->all(), $project, $projectBudget);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-budget.index', $project->id);
     }
 
 

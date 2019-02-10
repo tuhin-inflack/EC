@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProjectRequest extends Model
 {
-    protected $fillable = ['title','end_date','remarks', 'status'];
+    protected $fillable = ['title','end_date','remarks'];
     protected $table = 'project_requests';
 
     public function projectRequestAttachments()

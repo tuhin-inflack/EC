@@ -147,10 +147,11 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(Request $request)
     {
+        $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+        $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
+
         $data = $request->except('_token');
         //TODO: set appropriate data
-//        $data = ['feature' => '', 'workflow_master_id' => '', 'workflow_conversation_id' => '', 'status' => '', 'item_id'=>'',
-//            'remarks' => '', 'message' => ''];
         $this->dashboardWorkflowService->updateDashboardItem($data);
         //Send user to research dashboard
         return redirect('/rms');
