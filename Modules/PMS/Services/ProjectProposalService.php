@@ -8,6 +8,9 @@
 
 namespace Modules\PMS\Services;
 
+use App\Constants\NotificationType;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
@@ -83,6 +86,10 @@ class ProjectProposalService
             ];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
+
+            //Generating notification
+            //event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, [])));
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, [])));
 
             return $proposalSubmission;
         });

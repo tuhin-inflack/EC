@@ -18,7 +18,9 @@ abstract class NotificationGeneratorFactory
     {
         switch ($notificationType) {
             case NotificationType::RESEARCH_PROPOSAL_SUBMISSION:
-                return app()->make('App\Services\Notification\Generators\ResearchProposalNotificationGenerator');
+                return app()->make('App\Services\Notification\Generators\ProjectProposalNotificationGenerator');
+            case NotificationType::PROJECT_PROPOSAL_SUBMISSION:
+                return app()->make('App\Services\Notification\Generators\ProjectProposalNotificationGenerator');
         }
     }
 }

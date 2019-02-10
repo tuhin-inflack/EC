@@ -38,9 +38,9 @@ class OrganizationController extends Controller
         return redirect($redirectUrl);
     }
 
-    public function show(Organization $organization, Project $organizable)
+    public function show(Organization $organization, Project $project)
     {
         $module = 'pms';
-        return view('organization.show', compact('organizable', 'module'));
+        return view('organization.show', compact('organization', 'project', 'module' ));
     }
 }
