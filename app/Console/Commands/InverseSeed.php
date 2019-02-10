@@ -12,14 +12,14 @@ class InverseSeed extends Command
      *
      * @var string
      */
-    protected $signature = 'seed:inverse';
+    protected $signature = 'seed:inverse {--force} {--clean}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Create Seeder of existing data from database';
+    protected $description = 'Generate Seeder of existing data from database';
 
     /**
      * Create a new command instance.
@@ -38,20 +38,30 @@ class InverseSeed extends Command
      */
     public function handle()
     {
-        $this->call('iseed', ['tables' => $this->getTableNames()]);
+        $this->call('iseed', $this->getArguments());
     }
 
     private function getTableNames()
     {
-        $tableNameContainer = DB::select('show tables');
+        $tableNamesContainer = DB::select('show tables');
         $tableNamesArray = [];
 
-        foreach ($tableNameContainer as $index => $tableNames) {
-            foreach ($tableNames as $name) {
-                array_push($tableNamesArray, $name);
+        foreach ($tableNamesContainer as $index => $tableNames) {
+            foreach ($tableNames as $tableName) {
+                array_push($tableNamesArray, $tableName);
             }
         }
 
         return implode(',', $tableNamesArray);
+    }
+
+    protected function getArguments(): array
+    {
+        $arguments = ['tables' => $this->getTableNames()];
+
+        $this->option('force') ? $arguments['--force'] = true : null;
+        $this->option('clean') ? $arguments['--clean'] = true : null;
+
+        return $arguments;
     }
 }
