@@ -23,6 +23,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
+                            {{$notifications->links()}}
                         </div>
                     </div>
                 </div>
