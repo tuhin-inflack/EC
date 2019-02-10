@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -63,7 +64,6 @@ class ResearchProposalSubmissionService
             }
 
             //Save workflow
-            //TODO: Fill appropriate data instead of static data
 
             $featureName = Config::get('constants.research_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
@@ -77,8 +77,12 @@ class ResearchProposalSubmissionService
 
             $this->workflowService->createWorkflow($workflowData);
             //Send Notifications
-            //TODO: Do the implementation
-//            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, [])));
+
+            $notificationData = [
+                'ref_table_id' => $proposalSubmission->id,
+                'message' => $data['message'],
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
             return $proposalSubmission;
         });
     }

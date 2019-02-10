@@ -27,7 +27,11 @@ class AppNotificationController extends Controller
 
     public function index()
     {
+        $notifications = $this->appNotificationService->findAll(25, null, ['column' => 'id', 'direction' => 'desc']);
+        //
+        $this->appNotificationService->markAsRead();
 
+        return view('notification.index', compact('notifications'));
     }
 
     public function getLatestNotifications()
