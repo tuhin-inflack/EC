@@ -16,6 +16,7 @@ class AppNotificationRepository extends AbstractBaseRepository
 {
     protected $modelName = Notification::class;
 
+
     public function markAsRead($toUserId)
     {
         $this->model->where('to_user_id', $toUserId)->update(['is_read' => true]);
