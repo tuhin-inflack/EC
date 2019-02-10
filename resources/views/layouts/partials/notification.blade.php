@@ -11,7 +11,7 @@
         </li>
         <li class="scrollable-container media-list w-100">
         </li>
-        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read
+        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">Read
                 all notifications</a></li>
     </ul>
 </li>
@@ -28,7 +28,6 @@
             };
 
             var cbNotificationList = function (response) {
-                console.log(response);
                 renderNotificationList(response);
             };
 
@@ -50,7 +49,6 @@
             };
 
             var renderNotificationList = function (response) {
-                console.log(response);
                 var notificationCollection = response.data;
                 var notificationContainer = $('.noti-container').find('.scrollable-container');
                 notificationContainer.empty();
@@ -62,10 +60,9 @@
                     var icon = $('<i class="ft-plus-square icon-bg-circle bg-cyan">');
                     iconWrapperDiv.append(icon);
                     messageWrapperDiv.append(iconWrapperDiv);
-
                     var messageBodyDiv = $('<div class="media-body">');
                     var messageHeader = $('<h6 class="media-heading">');
-                    messageHeader.append(currentNotification.message);
+                    messageHeader.append(currentNotification.type.name);
                     messageBodyDiv.append(messageHeader);
                     var message = $('<p class="notification-text font-small-3 text-muted">');
                     message.append(currentNotification.message);
