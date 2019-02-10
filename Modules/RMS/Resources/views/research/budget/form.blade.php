@@ -1,16 +1,16 @@
 @if($page === 'create')
     {!! Form::open(['route' =>  ['research-budget.store', $research->id], 'class' => 'form research-budget-form']) !!}
 @else
-    {!! Form::open(['route' =>  ['research-budget.update', $research->id, $researchBudget->id], 'class' => 'form research-budget-form']) !!}
+    {!! Form::open(['route' =>  ['research-budget.update', $research->id, $draftProposalBudget->id], 'class' => 'form research-budget-form']) !!}
     @method('put')
 @endif
-{!! Form::hidden('research_id',$research->id) !!}
+
 <h4 class="form-section"><i class="la la-tag"></i>@lang('rms::research_budget.title')</h4>
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('economy_code_id', trans('accounts::economy-code.title'), ['class' => 'form-label']) !!} <span class="danger">*</span>
-            {!! Form::select('economy_code_id', $economyCodeOptions, $page === 'create' ? null : $researchBudget->economy_code_id, ['class'=>'form-control economy-code-select required']) !!}
+            {!! Form::select('economy_code_id', $economyCodeOptions, $page === 'create' ? null : $draftProposalBudget->economy_code_id, ['class'=>'form-control economy-code-select required']) !!}
 
             <div class="help-block"></div>
             @if ($errors->has('economy_code_id'))
@@ -20,8 +20,8 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('section_type', trans('rms::research_budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
-            {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $researchBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
+            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
+            {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $draftProposalBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
 
             <div class="help-block"></div>
             @if ($errors->has('english_name'))
@@ -34,7 +34,7 @@
     <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('unit', trans('labels.unit'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
-            {!! Form::text('unit', $page === 'create' ? old('unit') : $researchBudget->unit, ['class' => 'form-control'.($errors->has('unit') ? ' is-invalid' : ''), 'required',
+            {!! Form::text('unit', $page === 'create' ? old('unit') : $draftProposalBudget->unit, ['class' => 'form-control'.($errors->has('unit') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('unit'))
@@ -45,7 +45,7 @@
     <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('unit_rate', trans('labels.unit_rate'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
-            {!! Form::number('unit_rate', $page === 'create' ? old('unit_rate') : $researchBudget->unit_rate, ['class' => 'form-control'.($errors->has('unit_rate') ? ' is-invalid' : ''), 'required',
+            {!! Form::number('unit_rate', $page === 'create' ? old('unit_rate') : $draftProposalBudget->unit_rate, ['class' => 'form-control'.($errors->has('unit_rate') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit_rate')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('unit_rate'))
@@ -56,7 +56,7 @@
     <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('quantity', trans('labels.quantity'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
-            {!! Form::number('quantity', $page === 'create' ? old('quantity') : $researchBudget->quantity, ['class' => 'form-control'.($errors->has('quantity') ? ' is-invalid' : ''), 'required',
+            {!! Form::number('quantity', $page === 'create' ? old('quantity') : $draftProposalBudget->quantity, ['class' => 'form-control'.($errors->has('quantity') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.quantity')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('quantity'))
@@ -67,7 +67,7 @@
     <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
-            {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $researchBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''), 'required',
+            {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''), 'required',
             'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total_expense')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('total_expense'))
@@ -83,9 +83,9 @@
                 <tr>
                     <th width="4%"># SL</th>
                     <th>Fiscal Year</th>
-                    <th>@lang('rms::research_budget.monetary_amount') (@lang('rms::research_budget.lac_bdt'))</th>
-                    <th>@lang('rms::research_budget.body_percentage')</th>
-                    <th>@lang('rms::research_budget.research_percentage')</th>
+                    <th>@lang('draft-proposal-budget.monetary_amount') (@lang('draft-proposal-budget.lac_bdt'))</th>
+                    <th>@lang('draft-proposal-budget.body_percentage') (%)</th>
+                    <th>@lang('draft-proposal-budget.project_percentage') (%)</th>
                     {{--<th width="4%"><i class="la la-plus-circle text-primary add-fiscal-value-row"></i></th>--}}
                 </tr>
             </thead>
@@ -97,7 +97,7 @@
                         <td><input type="text" name="fiscal_year[]" class="form-control"></td>
                         <td><input type="number" name="monetary_amount[]" min="1" class="form-control"></td>
                         <td><input type="number" name="body_percentage[]" min="1"class="form-control"></td>
-                        <td><input type="number" name="research_percentage[]" min="1" class="form-control"></td>
+                        <td><input type="number" name="project_percentage[]" min="1" class="form-control"></td>
                         {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
                     </tr>
                 @endfor
@@ -107,21 +107,21 @@
                         <td>{{ $i + 1 }}</td>
                         <td>
                             <input type="text" name="fiscal_year[]" class="form-control"
-                                   value="{{ isset($researchBudget->budgetFiscalValue[$i]) ?
-                                   $researchBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
+                                   value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                                   $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_amount[]" min="1" class="form-control" value="{{ isset($researchBudget->budgetFiscalValue[$i]) ?
-                                   $researchBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
+                            <input type="number" name="monetary_amount[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                                   $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
                         </td>
                         <td>
-                            <input type="number" name="body_percentage[]" min="1" class="form-control" value="{{ isset($researchBudget->budgetFiscalValue[$i]) ?
-                                   $researchBudget->budgetFiscalValue[$i]->body_percentage : null }}">
+                            <input type="number" name="body_percentage[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                                   $draftProposalBudget->budgetFiscalValue[$i]->body_percentage : null }}">
                         </td>
                         <td>
-                            <input type="number" name="research_percentage[]" min="1" class="form-control"
-                                   value="{{ isset($researchBudget->budgetFiscalValue[$i]) ?
-                                   $researchBudget->budgetFiscalValue[$i]->research_percentage : null }}">
+                            <input type="number" name="project_percentage[]" min="1" class="form-control"
+                                   value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                                   $draftProposalBudget->budgetFiscalValue[$i]->project_percentage : null }}">
                         </td>
                         {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
                     </tr>

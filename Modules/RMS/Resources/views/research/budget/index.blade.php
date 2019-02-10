@@ -38,11 +38,11 @@
                                         <table class="table table-bordered table-responsive">
                                             <thead>
                                             <tr>
-                                                <th rowspan="3" width="15%">@lang('rms::research_budget.economy_code')</th>
-                                                <th rowspan="3" width="10%">@lang('rms::research_budget.economy_code') @lang('labels.details')</th>
-                                                <th colspan="4">@lang('rms::research_budget.total_financial_and_implementation_plans')</th>
+                                                <th rowspan="3" width="15%">@lang('draft-proposal-budget.economy_code')</th>
+                                                <th rowspan="3" width="10%">@lang('draft-proposal-budget.economy_code') @lang('labels.details')</th>
+                                                <th colspan="4">@lang('draft-proposal-budget.total_financial_and_implementation_plans')</th>
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th colspan="3">@lang('rms::research_budget.finance_year') -- {{$l}}</th>
+                                                    <th colspan="3">@lang('draft-proposal-budget.finance_year') -- {{$l}}</th>
                                                 @endfor
                                             </tr>
                                             <tr>
@@ -52,14 +52,14 @@
                                                 <th rowspan="2">@lang('labels.total') @lang('labels.expense')</th>
                                                 {{--<th rowspan="2">@lang('labels.weight')</th>--}}
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th rowspan="2" width="10%">@lang('rms::research_budget.monetary_amount') (@lang('rms::research_budget.lac_bdt'))</th>
+                                                    <th rowspan="2" width="10%">@lang('draft-proposal-budget.monetary_amount') (@lang('draft-proposal-budget.lac_bdt'))</th>
                                                     <th colspan="2">@lang('labels.actual')</th>
                                                 @endfor
                                             </tr>
                                             <tr>
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th>@lang('rms::research_budget.body_percentage')</th>
-                                                    <th>@lang('rms::research_budget.research_percentage')</th>
+                                                    <th>@lang('draft-proposal-budget.body_percentage')</th>
+                                                    <th>@lang('draft-proposal-budget.project_percentage')</th>
                                                 @endfor
                                             </tr>
                                             </thead>
@@ -70,12 +70,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="6">(ক) @lang('rms::research_budget.revenue') : </th>
+                                                <th colspan="6">(ক) @lang('draft-proposal-budget.revenue') : </th>
                                                 @for($l = 1; $l <= 15; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($research->budget as $budget)
+                                            @foreach($research->budgets as $budget)
                                                 @if($budget->section_type === 'revenue')
                                                 <tr>
                                                     <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -87,7 +87,7 @@
                                                     @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                         <td>{{ $budgetFiscalValue->monetary_amount }}</td>
                                                         <td>{{ $budgetFiscalValue->body_percentage }}</td>
-                                                        <td>{{ $budgetFiscalValue->research_percentage }}</td>
+                                                        <td>{{ $budgetFiscalValue->project_percentage }}</td>
                                                     @endforeach
                                                 </tr>
                                                 @endif
@@ -99,12 +99,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="6">(খ) @lang('rms::research_budget.capital') : </th>
+                                                <th colspan="6">(খ) @lang('draft-proposal-budget.capital') : </th>
                                                 @for($l = 1; $l <= 15; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($research->budget as $budget)
+                                            @foreach($research->budgets as $budget)
                                                 @if($budget->section_type === 'capital')
                                                     <tr>
                                                         <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -116,7 +116,7 @@
                                                         @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                             <td>{{ $budgetFiscalValue->monetary_amount }}</td>
                                                             <td>{{ $budgetFiscalValue->body_percentage }}</td>
-                                                            <td>{{ $budgetFiscalValue->research_percentage }}</td>
+                                                            <td>{{ $budgetFiscalValue->project_percentage }}</td>
                                                         @endforeach
                                                     </tr>
                                                 @endif
@@ -128,12 +128,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="2">(গ) @lang('rms::research_budget.physical_contingency'): </th>
+                                                <th colspan="2">(গ) @lang('draft-proposal-budget.physical_contingency'): </th>
                                                 @for($l = 1; $l <= 19; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($research->budget as $budget)
+                                            @foreach($research->budgets as $budget)
                                                 @if($budget->section_type === 'physical_contingency')
                                                     <tr>
                                                         <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -145,18 +145,18 @@
                                                         @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                             <td>{{ $budgetFiscalValue->monetary_amount }}</td>
                                                             <td>{{ $budgetFiscalValue->body_percentage }}</td>
-                                                            <td>{{ $budgetFiscalValue->research_percentage }}</td>
+                                                            <td>{{ $budgetFiscalValue->project_percentage }}</td>
                                                         @endforeach
                                                     </tr>
                                                 @endif
                                             @endforeach
                                             <tr>
-                                                <th colspan="2">(ঘ) @lang('rms::research_budget.price_contingency'): </th>
+                                                <th colspan="2">(ঘ) @lang('draft-proposal-budget.price_contingency'): </th>
                                                 @for($l = 1; $l <= 19; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($research->budget as $budget)
+                                            @foreach($research->budgets as $budget)
                                                 @if($budget->section_type === 'price_contingency')
                                                     <tr>
                                                         <td><a href="{{ route('research-budget.edit', [$research->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -168,7 +168,7 @@
                                                         @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                             <td>{{ $budgetFiscalValue->monetary_amount }}</td>
                                                             <td>{{ $budgetFiscalValue->body_percentage }}</td>
-                                                            <td>{{ $budgetFiscalValue->research_percentage }}</td>
+                                                            <td>{{ $budgetFiscalValue->project_percentage }}</td>
                                                         @endforeach
                                                     </tr>
                                                 @endif

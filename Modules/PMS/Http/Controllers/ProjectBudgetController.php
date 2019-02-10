@@ -2,23 +2,23 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\DraftProposalBudget\DraftProposalBudget;
+use App\Services\DraftProposalBudget\DraftProposalBudgetService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
-use Modules\PMS\Entities\ProjectBudget;
-use Modules\PMS\Services\ProjectBudgetService;
 
 class ProjectBudgetController extends Controller
 {
     private $economyCodeService;
-    private $projectBudgetService;
+    private $draftProposalBudgetService;
 
-    public function __construct(ProjectBudgetService $projectBudgetService,EconomyCodeService $economyCodeService)
+    public function __construct(DraftProposalBudgetService $draftProposalBudgetService, EconomyCodeService $economyCodeService)
     {
-        $this->projectBudgetService = $projectBudgetService;
+        $this->draftProposalBudgetService = $draftProposalBudgetService;
         $this->economyCodeService = $economyCodeService;
     }
 
@@ -41,7 +41,7 @@ class ProjectBudgetController extends Controller
     public function create(Project $project)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
+        $sectionTypes = $this->draftProposalBudgetService->getSectionTypesOfDraftProposalBudget();
         return view('pms::project.budget.create', compact('project', 'economyCodeOptions', 'sectionTypes'));
     }
 
@@ -53,7 +53,7 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        $this->projectBudgetService->store($request->all());
+        $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('project-budget.index', $project->id);
@@ -62,27 +62,27 @@ class ProjectBudgetController extends Controller
     /**
      * Show the form for editing the specified resource.
      * @param Project $project
-     * @param ProjectBudget $projectBudget
+     * @param DraftProposalBudget $draftProposalBudget
      * @return Response
      */
-    public function edit(Project $project, ProjectBudget $projectBudget)
+    public function edit(Project $project, DraftProposalBudget $draftProposalBudget)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        $sectionTypes = $this->projectBudgetService->getSectionTypesOfProjectBudget();
+        $sectionTypes = $this->draftProposalBudgetService->getSectionTypesOfDraftProposalBudget();
 
-        return view('pms::project.budget.edit', compact('project', 'projectBudget', 'economyCodeOptions', 'sectionTypes'));
+        return view('pms::project.budget.edit', compact('project', 'draftProposalBudget', 'economyCodeOptions', 'sectionTypes'));
     }
 
     /**
      * Update the specified resource in storage.
      * @param  Request $request
      * @param Project $project
-     * @param ProjectBudget $projectBudget
+     * @param DraftProposalBudget $draftProposalBudget
      * @return array
      */
-    public function update(Request $request, Project $project, ProjectBudget $projectBudget)
+    public function update(Request $request, Project $project, DraftProposalBudget $draftProposalBudget)
     {
-        $this->projectBudgetService->updateBudget($request->all(), $project, $projectBudget);
+        $this->draftProposalBudgetService->updateBudget($request->all(), $draftProposalBudget);
 
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('project-budget.index', $project->id);
