@@ -37,4 +37,15 @@ class AppNotificationService
         return $this->findBy(['to_user_id' => $toUserId, 'is_read' => false]);
     }
 
+    public function markAsRead()
+    {
+        $toUserId = Auth::user()->id;
+        $this->notificationRepository->markAsRead($toUserId);
+    }
+
+    public function getLatest()
+    {
+        return $this->notificationRepository->getLatest();
+    }
+
 }

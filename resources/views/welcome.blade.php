@@ -105,10 +105,12 @@
 <!-- BEGIN MODERN JS-->
 <script src="{{ asset('theme/js/core/app-menu.js') }}" type="text/javascript"></script>
 <script src="{{ asset('theme/js/core/app.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/moment-with-locales.min.js') }}" type="text/javascript"></script>
 {{--<script src="{{ asset('theme/js/scripts/customizer.js') }}" type="text/javascript"></script>--}}
 <!-- END MODERN JS-->
 <!-- BEGIN PAGE LEVEL JS-->
 {{--<script src="{{ asset('theme/js/scripts/pages/dashboard-crypto.js') }}" type="text/javascript"></script>--}}
 <!-- END PAGE LEVEL JS-->
+@stack('page-js')
 </body>
 </html>
