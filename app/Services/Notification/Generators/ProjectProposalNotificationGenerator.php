@@ -34,8 +34,8 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
 
     public function notify(NotificationInfo $notificationInfo, NotificationType $notificationTypeDetails)
     {
-        $this->saveAppNotification();
-        $this->sendEmailNotification();
+        $this->saveAppNotification($notificationInfo->getDynamicValues());
+        //$this->sendEmailNotification();
     }
 
     public function saveAppNotification($data)

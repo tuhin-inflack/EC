@@ -16,6 +16,7 @@ use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposal;
@@ -88,8 +89,17 @@ class ProjectProposalService
             // Workflow initiate done
 
             //Generating notification
-            //event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, [])));
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, [])));
+            $notificationData = [
+                'type_id' => 1,
+                'ref_table_id'=> $proposalSubmission->id,
+                'from_user_id'=> Auth::user()->id,
+                'to_user_id'=> Auth::user()->id,
+                'message'=> 'A project has been submitted and waiting for your approval',
+                'is_read'=> 0,
+            ];
+
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $notificationData)));
+            // Notification generation done
 
             return $proposalSubmission;
         });
