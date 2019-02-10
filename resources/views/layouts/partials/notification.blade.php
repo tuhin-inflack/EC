@@ -11,7 +11,7 @@
         </li>
         <li class="scrollable-container media-list w-100">
         </li>
-        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read
+        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">Read
                 all notifications</a></li>
     </ul>
 </li>
