@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectBudgetFiscalValuesTable extends Migration
+class CreateDraftProposalBudgetFiscalValuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateProjectBudgetFiscalValuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_budget_fiscal_values', function (Blueprint $table) {
+        Schema::create('draft_proposal_budget_fiscal_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('project_budget_id');
+            $table->unsignedInteger('budget_id');
             $table->string('fiscal_year');
             $table->double('monetary_amount', 10, 2);
             $table->double('body_percentage', 8, 2);
@@ -31,6 +31,6 @@ class CreateProjectBudgetFiscalValuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_budget_fiscal_values');
+        Schema::dropIfExists('draft_proposal_budget_fiscal_values');
     }
 }

@@ -16,7 +16,7 @@ use App\Services\Notification\EmailNotifiable;
 use App\Services\Notification\SystemNotifiable;
 use App\Traits\MailSender;
 
-class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable, EmailNotifiable
+class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable
 {
     use MailSender;
 
@@ -34,19 +34,23 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
 
     public function notify(NotificationInfo $notificationInfo, NotificationType $notificationTypeDetails)
     {
-        $this->saveAppNotification();
-        $this->sendEmailNotification();
+
+        $this->saveAppNotification($notificationInfo);
+
     }
 
     public function saveAppNotification($data)
     {
-        //TODO: Do the implementation
-        $this->appNotificationService->save($data);
+
+
+     $notificationData = (array)  $data->dynamicValues;
+
+        $this->appNotificationService->save($notificationData);
     }
 
-    public function sendEmailNotification($data)
-    {
-        //TODO: Do the implementation
-        $this->sendEmail('toaddress', null);
-    }
+//    public function sendEmailNotification($data)
+//    {
+//        //TODO: Do the implementation
+//        $this->sendEmail('toaddress', null);
+//    }
 }

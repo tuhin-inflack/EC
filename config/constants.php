@@ -31,4 +31,9 @@ return [
     'research_proposal_feature_name' => 'Research Proposal',
     'project_proposal_feature_name' => 'Project Proposal',
 
+    //Employee Designations short code
+    'faculty_member' => 'FM',
+    'faculty_director' => 'DM',
+    'research_director' => 'RD',
+
 ];

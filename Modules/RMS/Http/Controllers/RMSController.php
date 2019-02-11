@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 use Modules\RMS\Services\ResearchRequestService;
@@ -44,8 +45,9 @@ class RMSController extends Controller
      */
     public function index()
     {
-        //TODO:get the feature name from config file
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems('Research Proposal');
+
+        $featureName = Config::get('constants.research_proposal_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
