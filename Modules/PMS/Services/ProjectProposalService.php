@@ -48,7 +48,6 @@ class ProjectProposalService
         $this->workflowService = $workflowService;
 
         $this->setActionRepository($projectProposalRepository);
-
     }
 
     public function getAll()
@@ -58,6 +57,7 @@ class ProjectProposalService
 
     public function store(array $data)
     {
+
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
 
@@ -94,7 +94,7 @@ class ProjectProposalService
                 'ref_table_id'=> $proposalSubmission->id,
                 'from_user_id'=> Auth::user()->id,
                 'to_user_id'=> Auth::user()->id,
-                'message'=> 'A project has been submitted and waiting for your approval',
+                'message'=> 'A project has been submitted',
                 'is_read'=> 0,
             ];
 
@@ -113,7 +113,6 @@ class ProjectProposalService
         } else {
             return $proposal;
         }
-
     }
 
     public function getZipFilePath($proposalId)
@@ -137,8 +136,6 @@ class ProjectProposalService
     {
         $tasks = $projectProposal->task;
         $chartData = [];
-
-
     }
 
     public function getProjectProposalByStatus()
