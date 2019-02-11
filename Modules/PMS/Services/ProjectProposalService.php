@@ -8,11 +8,15 @@
 
 namespace Modules\PMS\Services;
 
+use App\Constants\NotificationType;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\PMS\Entities\ProjectProposal;
@@ -44,7 +48,6 @@ class ProjectProposalService
         $this->workflowService = $workflowService;
 
         $this->setActionRepository($projectProposalRepository);
-
     }
 
     public function getAll()
@@ -54,6 +57,7 @@ class ProjectProposalService
 
     public function store(array $data)
     {
+
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
 
@@ -84,6 +88,19 @@ class ProjectProposalService
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 
+            //Generating notification
+            $notificationData = [
+                'type_id' => 1,
+                'ref_table_id'=> $proposalSubmission->id,
+                'from_user_id'=> Auth::user()->id,
+                'to_user_id'=> Auth::user()->id,
+                'message'=> 'A project has been submitted',
+                'is_read'=> 0,
+            ];
+
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $notificationData)));
+            // Notification generation done
+
             return $proposalSubmission;
         });
     }
@@ -96,7 +113,6 @@ class ProjectProposalService
         } else {
             return $proposal;
         }
-
     }
 
     public function getZipFilePath($proposalId)
@@ -120,8 +136,6 @@ class ProjectProposalService
     {
         $tasks = $projectProposal->task;
         $chartData = [];
-
-
     }
 
     public function getProjectProposalByStatus()

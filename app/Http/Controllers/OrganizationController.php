@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Entities\Organization\Organization;
 use App\Services\OrganizationService;
 use Illuminate\Support\Facades\Session;
+use Modules\PMS\Entities\Project;
 use Modules\PMS\Http\Requests\StoreOrganizationRequest;
 
 class OrganizationController extends Controller
@@ -34,5 +36,11 @@ class OrganizationController extends Controller
         $redirectUrl = str_replace('organizations/create', '', $redirectUrl);
 
         return redirect($redirectUrl);
+    }
+
+    public function show(Organization $organization, Project $project)
+    {
+        $module = 'pms';
+        return view('organization.show', compact('organization', 'project', 'module' ));
     }
 }

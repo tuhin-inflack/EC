@@ -20,12 +20,38 @@
                 <div class="card-content collapse show">
                     {!! Form::open(['url'=> route('project-proposal-submitted-store-approve', $proposal->id), 'novalidate', 'class' => 'form']) !!}
                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <h5>@lang('pms::project_proposal.project_title'): {{$proposal->title}}</h5>
-                                {{--<h5>@lang('pms::project_proposal.remarks'): {{$proposal->remarks}}</h5>--}}
-                            </div>
-                        </div>
+                       <div class="card-body">
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="row">
+                                       <div class="col-md-12">
+                                           <label class="black">@lang('labels.title'): </label>
+                                           <p class="card-text">{{ $proposal->title }}</p>
+
+                                           <label class="black">@lang('rms::research_proposal.submission_date'): </label>
+                                           <p> {{ date('d/m/y', strtotime($proposal->created_at)) }} </p>
+                                           <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
+                                           <p> {{ $proposal->proposalSubmittedBy->name }} </p>
+                                       </div>
+
+                                   </div>
+                               </div>
+                               <div class="col-md-6">
+                                   <ul>
+                                       @foreach($proposal->projectProposalFiles as $file)
+                                           <li>
+                                               <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
+                                           </li>
+                                       @endforeach
+                                   </ul>
+                                   <ul>
+                                       <li>
+                                           <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
+                                       </li>
+                                   </ul>
+                               </div>
+                           </div>
+                       </div>
                         {{--<div class="col-md-6">--}}
                             {{--<div class="media">--}}
                                 {{--<div class="media-body">--}}
@@ -57,6 +83,7 @@
                                 {{--</div>--}}
                             {{--</div>--}}
                         {{--</div>--}}
+
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
