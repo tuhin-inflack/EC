@@ -149,9 +149,9 @@ class UserService
         $users = [];
         $designations = $this->designationService->getDesignationByShortCode($TypesOfUsers);
         foreach ($designations as $designation) {
-           $users = array_merge($users, $designation->user->toArray());
+            $users = array_merge($users, $designation->user->toArray());
         }
-        dd($users);
+        return $users;
     }
 
 }
