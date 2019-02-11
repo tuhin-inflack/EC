@@ -85,6 +85,7 @@ class ResearchProposalSubmissionService
 
             ];
             event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+
             return $proposalSubmission;
         });
     }
