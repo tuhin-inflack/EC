@@ -10,7 +10,7 @@
                 <div class="form row">
                     {!! Form::hidden('submitted_by', $auth_user_id) !!}
                     <div class="form-group mb-1 col-sm-12 col-md-12">
-                        <label class="required">{{ trans('labels.title') }}</label>
+                        <label class="required">@lang('rms::research_proposal.research_name')</label>
                         <br>
                         {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('title') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
