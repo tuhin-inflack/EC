@@ -10,8 +10,10 @@ namespace App\Services\Notification;
 
 
 use App\Repositories\Notification\AppNotificationRepository;
+use App\Repositories\Notification\NotificationTypeRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Auth;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class AppNotificationService
 {
@@ -20,6 +22,7 @@ class AppNotificationService
      * @var AppNotificationRepository $notificationRepository
      */
     private $notificationRepository;
+
 
     /**
      * AppNotificationService constructor.
@@ -47,5 +50,7 @@ class AppNotificationService
     {
         return $this->notificationRepository->getLatest();
     }
+
+
 
 }

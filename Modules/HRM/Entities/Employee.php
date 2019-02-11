@@ -14,7 +14,7 @@ class Employee extends Model {
 		'email',
 		'gender',
 		'department_id',
-		'designation_code',
+		'designation_id',
 		'status',
 		'tel_office',
 		'tel_home',

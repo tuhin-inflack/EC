@@ -10,25 +10,38 @@ namespace App\Services\Notification\Generators;
 
 
 use App\Entities\Notification\NotificationType;
+
 use App\Models\NotificationInfo;
+use App\Repositories\Notification\NotificationTypeRepository;
 use App\Services\Notification\AppNotificationService;
 use App\Services\Notification\EmailNotifiable;
 use App\Services\Notification\SystemNotifiable;
+use App\Services\UserService;
 use App\Traits\MailSender;
+use const http\Client\Curl\AUTH_ANY;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRM\Services\DesignationService;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable
 {
     use MailSender;
 
     private $appNotificationService;
+    private $notificationTypeRepository;
+    private $userService;
+
 
     /**
      * ResearchProposalNotificationGenerator constructor.
      * @param AppNotificationService $appNotificationService
      */
-    public function __construct(AppNotificationService $appNotificationService)
+    public function __construct(AppNotificationService $appNotificationService, NotificationTypeRepository $notificationTypeRepository, UserService $userService)
     {
         $this->appNotificationService = $appNotificationService;
+        $this->notificationTypeRepository = $notificationTypeRepository;
+        $this->userService = $userService;
+
     }
 
 
@@ -42,8 +55,13 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
     public function saveAppNotification($data)
     {
 
+        $notificationType = $this->notificationTypeRepository->findBy(['name' => $data->notificationType])->first();
+        $notificationData = (array)$data->dynamicValues;
+        $notificationData['type_id'] = $notificationType->id;
+        $notificationData['from_user_id'] = Auth::user()->id;
+       // dd($data->dynamicValues);
+        $users = $this->userService->getUserForNotificationSend($data->dynamicValues['to_users_designation']);
 
-     $notificationData = (array)  $data->dynamicValues;
 
         $this->appNotificationService->save($notificationData);
     }

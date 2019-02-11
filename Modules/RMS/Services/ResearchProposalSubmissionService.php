@@ -81,6 +81,8 @@ class ResearchProposalSubmissionService
             $notificationData = [
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'to_users_designation' => Config::get('constants.research_proposal_submission'),
+
             ];
             event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
             return $proposalSubmission;
