@@ -63,12 +63,10 @@
 @endsection
 @push('page-js')
     <script>
-
-
         $(document).ready(function () {
             let table = $('.proposal-request-table').DataTable({
                 "columnDefs": [
-                    {"orderable": false, "targets": 6}
+                    {"orderable": false, "targets": 5}
                 ],
                 "language": {
                     "search": "{{ trans('labels.search') }}",
@@ -84,8 +82,6 @@
                     },
                 }
             });
-
-
 
         });
     </script>

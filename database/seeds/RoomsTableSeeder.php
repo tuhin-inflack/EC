@@ -1,0 +1,1168 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class RoomsTableSeeder extends Seeder
+{
+
+    /**
+     * Auto generated seed file
+     *
+     * @return void
+     */
+    public function run()
+    {
+        
+
+        \DB::table('rooms')->delete();
+        
+        \DB::table('rooms')->insert(array (
+            0 => 
+            array (
+                'id' => 1,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '101',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'unavailable',
+            ),
+            1 => 
+            array (
+                'id' => 2,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '102',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'unavailable',
+            ),
+            2 => 
+            array (
+                'id' => 3,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '103',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '104',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            4 => 
+            array (
+                'id' => 5,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '105',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            5 => 
+            array (
+                'id' => 6,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '106',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            6 => 
+            array (
+                'id' => 7,
+                'hostel_id' => 1,
+                'room_type_id' => 2,
+                'room_number' => '107',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            7 => 
+            array (
+                'id' => 8,
+                'hostel_id' => 2,
+                'room_type_id' => 1,
+                'room_number' => '311',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            8 => 
+            array (
+                'id' => 9,
+                'hostel_id' => 2,
+                'room_type_id' => 1,
+                'room_number' => '312',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            9 => 
+            array (
+                'id' => 10,
+                'hostel_id' => 2,
+                'room_type_id' => 1,
+                'room_number' => '313',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            10 => 
+            array (
+                'id' => 11,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '211',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            11 => 
+            array (
+                'id' => 12,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '212',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            12 => 
+            array (
+                'id' => 13,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '213',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            13 => 
+            array (
+                'id' => 14,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '214',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            14 => 
+            array (
+                'id' => 15,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '215',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            15 => 
+            array (
+                'id' => 16,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '216',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            16 => 
+            array (
+                'id' => 17,
+                'hostel_id' => 2,
+                'room_type_id' => 2,
+                'room_number' => '217',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            17 => 
+            array (
+                'id' => 18,
+                'hostel_id' => 2,
+                'room_type_id' => 4,
+                'room_number' => '111',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            18 => 
+            array (
+                'id' => 19,
+                'hostel_id' => 2,
+                'room_type_id' => 4,
+                'room_number' => '112',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            19 => 
+            array (
+                'id' => 20,
+                'hostel_id' => 2,
+                'room_type_id' => 4,
+                'room_number' => '113',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            20 => 
+            array (
+                'id' => 21,
+                'hostel_id' => 2,
+                'room_type_id' => 4,
+                'room_number' => '114',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            21 => 
+            array (
+                'id' => 22,
+                'hostel_id' => 3,
+                'room_type_id' => 2,
+                'room_number' => '521',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            22 => 
+            array (
+                'id' => 23,
+                'hostel_id' => 3,
+                'room_type_id' => 2,
+                'room_number' => '522',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            23 => 
+            array (
+                'id' => 24,
+                'hostel_id' => 3,
+                'room_type_id' => 2,
+                'room_number' => '523',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            24 => 
+            array (
+                'id' => 25,
+                'hostel_id' => 3,
+                'room_type_id' => 2,
+                'room_number' => '524',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            25 => 
+            array (
+                'id' => 26,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '421',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            26 => 
+            array (
+                'id' => 27,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '422',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            27 => 
+            array (
+                'id' => 28,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '423',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            28 => 
+            array (
+                'id' => 29,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '424',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            29 => 
+            array (
+                'id' => 30,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '321',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            30 => 
+            array (
+                'id' => 31,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '322',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            31 => 
+            array (
+                'id' => 32,
+                'hostel_id' => 3,
+                'room_type_id' => 4,
+                'room_number' => '323',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            32 => 
+            array (
+                'id' => 33,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '221',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            33 => 
+            array (
+                'id' => 34,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '222',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            34 => 
+            array (
+                'id' => 35,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '223',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            35 => 
+            array (
+                'id' => 36,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '224',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            36 => 
+            array (
+                'id' => 37,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '225',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            37 => 
+            array (
+                'id' => 38,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '121',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            38 => 
+            array (
+                'id' => 39,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '122',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            39 => 
+            array (
+                'id' => 40,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '123',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            40 => 
+            array (
+                'id' => 41,
+                'hostel_id' => 3,
+                'room_type_id' => 1,
+                'room_number' => '124',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            41 => 
+            array (
+                'id' => 42,
+                'hostel_id' => 4,
+                'room_type_id' => 3,
+                'room_number' => '531',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            42 => 
+            array (
+                'id' => 43,
+                'hostel_id' => 4,
+                'room_type_id' => 3,
+                'room_number' => '532',
+                'floor' => 5,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            43 => 
+            array (
+                'id' => 44,
+                'hostel_id' => 4,
+                'room_type_id' => 3,
+                'room_number' => '431',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            44 => 
+            array (
+                'id' => 45,
+                'hostel_id' => 4,
+                'room_type_id' => 3,
+                'room_number' => '432',
+                'floor' => 4,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            45 => 
+            array (
+                'id' => 46,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '331',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            46 => 
+            array (
+                'id' => 47,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '332',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            47 => 
+            array (
+                'id' => 48,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '333',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            48 => 
+            array (
+                'id' => 49,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '334',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            49 => 
+            array (
+                'id' => 50,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '335',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            50 => 
+            array (
+                'id' => 51,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '336',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            51 => 
+            array (
+                'id' => 52,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '337',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            52 => 
+            array (
+                'id' => 53,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '338',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            53 => 
+            array (
+                'id' => 54,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '231',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            54 => 
+            array (
+                'id' => 55,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '232',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            55 => 
+            array (
+                'id' => 56,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '233',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            56 => 
+            array (
+                'id' => 57,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '234',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            57 => 
+            array (
+                'id' => 58,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '235',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            58 => 
+            array (
+                'id' => 59,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '236',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            59 => 
+            array (
+                'id' => 60,
+                'hostel_id' => 4,
+                'room_type_id' => 2,
+                'room_number' => '237',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            60 => 
+            array (
+                'id' => 61,
+                'hostel_id' => 4,
+                'room_type_id' => 1,
+                'room_number' => '131',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            61 => 
+            array (
+                'id' => 62,
+                'hostel_id' => 4,
+                'room_type_id' => 1,
+                'room_number' => '132',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            62 => 
+            array (
+                'id' => 63,
+                'hostel_id' => 4,
+                'room_type_id' => 1,
+                'room_number' => '133',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            63 => 
+            array (
+                'id' => 64,
+                'hostel_id' => 4,
+                'room_type_id' => 1,
+                'room_number' => '134',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            64 => 
+            array (
+                'id' => 65,
+                'hostel_id' => 4,
+                'room_type_id' => 1,
+                'room_number' => '135',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            65 => 
+            array (
+                'id' => 66,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '341',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            66 => 
+            array (
+                'id' => 67,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '342',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            67 => 
+            array (
+                'id' => 68,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '343',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            68 => 
+            array (
+                'id' => 69,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '344',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            69 => 
+            array (
+                'id' => 70,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '345',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            70 => 
+            array (
+                'id' => 71,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '346',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            71 => 
+            array (
+                'id' => 72,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '347',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            72 => 
+            array (
+                'id' => 73,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '348',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            73 => 
+            array (
+                'id' => 74,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '241',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            74 => 
+            array (
+                'id' => 75,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '242',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            75 => 
+            array (
+                'id' => 76,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '243',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            76 => 
+            array (
+                'id' => 77,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '244',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            77 => 
+            array (
+                'id' => 78,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '245',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            78 => 
+            array (
+                'id' => 79,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '246',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            79 => 
+            array (
+                'id' => 80,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '247',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            80 => 
+            array (
+                'id' => 81,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '248',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            81 => 
+            array (
+                'id' => 82,
+                'hostel_id' => 5,
+                'room_type_id' => 1,
+                'room_number' => '249',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            82 => 
+            array (
+                'id' => 83,
+                'hostel_id' => 5,
+                'room_type_id' => 2,
+                'room_number' => '141',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            83 => 
+            array (
+                'id' => 84,
+                'hostel_id' => 5,
+                'room_type_id' => 2,
+                'room_number' => '142',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            84 => 
+            array (
+                'id' => 85,
+                'hostel_id' => 5,
+                'room_type_id' => 2,
+                'room_number' => '143',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            85 => 
+            array (
+                'id' => 86,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '351',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            86 => 
+            array (
+                'id' => 87,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '352',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            87 => 
+            array (
+                'id' => 88,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '353',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            88 => 
+            array (
+                'id' => 89,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '354',
+                'floor' => 3,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            89 => 
+            array (
+                'id' => 90,
+                'hostel_id' => 6,
+                'room_type_id' => 3,
+                'room_number' => '251',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            90 => 
+            array (
+                'id' => 91,
+                'hostel_id' => 6,
+                'room_type_id' => 3,
+                'room_number' => '252',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            91 => 
+            array (
+                'id' => 92,
+                'hostel_id' => 6,
+                'room_type_id' => 3,
+                'room_number' => '253',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            92 => 
+            array (
+                'id' => 93,
+                'hostel_id' => 6,
+                'room_type_id' => 3,
+                'room_number' => '254',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            93 => 
+            array (
+                'id' => 94,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '151',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:05',
+                'updated_at' => '2019-02-07 21:30:05',
+                'status' => 'available',
+            ),
+            94 => 
+            array (
+                'id' => 95,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '152',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            95 => 
+            array (
+                'id' => 96,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '153',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            96 => 
+            array (
+                'id' => 97,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '154',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            97 => 
+            array (
+                'id' => 98,
+                'hostel_id' => 6,
+                'room_type_id' => 2,
+                'room_number' => '155',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            98 => 
+            array (
+                'id' => 99,
+                'hostel_id' => 7,
+                'room_type_id' => 3,
+                'room_number' => '261',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            99 => 
+            array (
+                'id' => 100,
+                'hostel_id' => 7,
+                'room_type_id' => 3,
+                'room_number' => '262',
+                'floor' => 2,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            100 => 
+            array (
+                'id' => 101,
+                'hostel_id' => 7,
+                'room_type_id' => 1,
+                'room_number' => '161',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            101 => 
+            array (
+                'id' => 102,
+                'hostel_id' => 7,
+                'room_type_id' => 1,
+                'room_number' => '162',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            102 => 
+            array (
+                'id' => 103,
+                'hostel_id' => 7,
+                'room_type_id' => 1,
+                'room_number' => '163',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+            103 => 
+            array (
+                'id' => 104,
+                'hostel_id' => 7,
+                'room_type_id' => 1,
+                'room_number' => '164',
+                'floor' => 1,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'status' => 'available',
+            ),
+        ));
+        
+        
+    }
+}
