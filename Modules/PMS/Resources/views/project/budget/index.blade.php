@@ -38,11 +38,11 @@
                                         <table class="table table-bordered table-responsive">
                                             <thead>
                                             <tr>
-                                                <th rowspan="3" width="15%">@lang('pms::project_budget.economy_code')</th>
-                                                <th rowspan="3" width="10%">@lang('pms::project_budget.economy_code') @lang('labels.details')</th>
-                                                <th colspan="4">@lang('pms::project_budget.total_financial_and_implementation_plans')</th>
+                                                <th rowspan="3" width="15%">@lang('draft-proposal-budget.economy_code')</th>
+                                                <th rowspan="3" width="10%">@lang('draft-proposal-budget.economy_code') @lang('labels.details')</th>
+                                                <th colspan="4">@lang('draft-proposal-budget.total_financial_and_implementation_plans')</th>
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th colspan="3">@lang('pms::project_budget.finance_year') -- {{$l}}</th>
+                                                    <th colspan="3">@lang('draft-proposal-budget.finance_year') -- {{$l}}</th>
                                                 @endfor
                                             </tr>
                                             <tr>
@@ -52,14 +52,14 @@
                                                 <th rowspan="2">@lang('labels.total') @lang('labels.expense')</th>
                                                 {{--<th rowspan="2">@lang('labels.weight')</th>--}}
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th rowspan="2" width="10%">@lang('pms::project_budget.monetary_amount') (@lang('pms::project_budget.lac_bdt'))</th>
+                                                    <th rowspan="2" width="10%">@lang('draft-proposal-budget.monetary_amount') (@lang('draft-proposal-budget.lac_bdt'))</th>
                                                     <th colspan="2">@lang('labels.actual')</th>
                                                 @endfor
                                             </tr>
                                             <tr>
                                                 @for($l = 1; $l <= 5; $l++)
-                                                    <th>@lang('pms::project_budget.body_percentage')</th>
-                                                    <th>@lang('pms::project_budget.project_percentage')</th>
+                                                    <th>@lang('draft-proposal-budget.body_percentage')</th>
+                                                    <th>@lang('draft-proposal-budget.project_percentage')</th>
                                                 @endfor
                                             </tr>
                                             </thead>
@@ -70,12 +70,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="6">(ক) @lang('pms::project_budget.revenue') : </th>
+                                                <th colspan="6">(ক) @lang('draft-proposal-budget.revenue') : </th>
                                                 @for($l = 1; $l <= 15; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($project->budget as $budget)
+                                            @foreach($project->budgets as $budget)
                                                 @if($budget->section_type === 'revenue')
                                                 <tr>
                                                     <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -99,12 +99,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="6">(খ) @lang('pms::project_budget.capital') : </th>
+                                                <th colspan="6">(খ) @lang('draft-proposal-budget.capital') : </th>
                                                 @for($l = 1; $l <= 15; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($project->budget as $budget)
+                                            @foreach($project->budgets as $budget)
                                                 @if($budget->section_type === 'capital')
                                                     <tr>
                                                         <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -128,12 +128,12 @@
                                                 {{--@endfor--}}
                                             {{--</tr>--}}
                                             <tr>
-                                                <th colspan="2">(গ) @lang('pms::project_budget.physical_contingency'): </th>
+                                                <th colspan="2">(গ) @lang('draft-proposal-budget.physical_contingency'): </th>
                                                 @for($l = 1; $l <= 19; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($project->budget as $budget)
+                                            @foreach($project->budgets as $budget)
                                                 @if($budget->section_type === 'physical_contingency')
                                                     <tr>
                                                         <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>
@@ -151,12 +151,12 @@
                                                 @endif
                                             @endforeach
                                             <tr>
-                                                <th colspan="2">(ঘ) @lang('pms::project_budget.price_contingency'): </th>
+                                                <th colspan="2">(ঘ) @lang('draft-proposal-budget.price_contingency'): </th>
                                                 @for($l = 1; $l <= 19; $l++)
                                                     <td></td>
                                                 @endfor
                                             </tr>
-                                            @foreach($project->budget as $budget)
+                                            @foreach($project->budgets as $budget)
                                                 @if($budget->section_type === 'price_contingency')
                                                     <tr>
                                                         <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}">{{ $budget->economyCode->code }}</a></td>

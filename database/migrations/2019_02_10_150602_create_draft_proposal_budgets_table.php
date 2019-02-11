@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectBudgetsTable extends Migration
+class CreateDraftProposalBudgetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateProjectBudgetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_budgets', function (Blueprint $table) {
+        Schema::create('draft_proposal_budgets', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('project_id');
+            $table->unsignedInteger('budgetable_id');
+            $table->string('budgetable_type');
             $table->unsignedInteger('economy_code_id');
             $table->enum('section_type', ['revenue', 'capital', 'physical_contingency', 'price_contingency'])->default('revenue');
             $table->string('unit', 20);
@@ -33,6 +34,6 @@ class CreateProjectBudgetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_budgets');
+        Schema::dropIfExists('draft_proposal_budgets');
     }
 }

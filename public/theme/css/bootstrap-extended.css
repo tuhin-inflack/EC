@@ -1906,7 +1906,7 @@ select.form-control {
 
 .badge {
     color: #FFFFFF;
-    font-weight: 400;
+    font-weight: 800;
 }
 
 .badge[class*='badge-'] [class*='icon-'] {
@@ -2047,7 +2047,7 @@ select.form-control {
 }
 
 .badge-danger.badge-glow {
-    box-shadow: 0px 0px 10px #FF4961;
+    box-shadow: 0px 0px 0px #FF4961;
 }
 
 .badge-danger[href]:hover, .badge-danger[href]:focus {
