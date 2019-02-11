@@ -55,5 +55,6 @@ return [
     'project_proposal_by_submitted_date' => 'Project Proposal by Submitted Date',
     'edit_invitation' => 'Edit Request',
     'edit_request_form' => 'Project Request Edit Form',
+    'project_name' => 'Project Name',
 
 ];
