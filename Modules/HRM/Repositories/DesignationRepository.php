@@ -13,6 +13,13 @@ use App\Repositories\AbstractBaseRepository;
 use Modules\HRM\Entities\Designation;
 
 
-class DesignationRepository  extends AbstractBaseRepository{
-	protected $modelName = Designation::class;
+class DesignationRepository extends AbstractBaseRepository
+{
+    protected $modelName = Designation::class;
+
+    public function getDesignationsByShortCode($shortName)
+    {
+        $designations = $this->modelName::whereIn('short_name', $shortName)->get();
+        return $designations;
+    }
 }

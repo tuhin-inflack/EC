@@ -66,4 +66,5 @@ return [
     'receiver' => 'Receiver',
     'invitation' => 'Invitation',
     'invitation_list' => 'Invitation List',
+    'research_name' => 'Research Name',
 ];

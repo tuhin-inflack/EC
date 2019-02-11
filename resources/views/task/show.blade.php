@@ -38,19 +38,19 @@
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.expected_start_date') }}</th>
-                                <td>{{ \Carbon\Carbon::parse($task->expected_start_date)->format('d/m/Y h:i A') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($task->expected_start_time)->format('d/m/Y') }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.expected_end_date') }}</th>
-                                <td>{{ \Carbon\Carbon::parse($task->expected_end_date)->format('d/m/Y h:i A') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($task->expected_end_time)->format('d/m/Y') }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.start_date') }}</th>
-                                <td>{{ $task->actual_start_time ? \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y h:i A') : '-' }}</td>
+                                <td>{{ $task->actual_start_time ? \Carbon\Carbon::parse($task->actual_start_time)->format('d/m/Y') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.end_date') }}</th>
-                                <td>{{ $task->actual_end_time ? \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y h:i A') : '-' }}</td>
+                                <td>{{ $task->actual_end_time ? \Carbon\Carbon::parse($task->actual_end_time)->format('d/m/Y') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('labels.description') }}</th>

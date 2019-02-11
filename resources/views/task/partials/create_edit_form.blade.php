@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="task_id" class="form-label required">{{trans('pms::task.task_name')}}</label>
+                <label for="task_id" class="form-label required">{{ trans('pms::task.task_name') }}</label>
                 {{ Form::text('name', isset($task) ? $task->name : null, ['class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : '')]) }}
 
                 <div class="help-block"></div>
@@ -99,8 +99,9 @@
                 @endif
 
                 <div id="repeat-attachments">
-                    <input type="file" class="form-control {{ $errors->has('attachments') ? ' is-invalid' : '' }}"
-                           name="attachments[]" id="attachments" value="{{ old('attachments') }}">
+                    <input type="file"
+                           class="form-control"
+                           name="attachments[]" id="attachments">
                 </div>
                 <div class="pull-right"><br>
                     <button type="button" class="btn btn-primary" id="add"><i class="ft-plus"></i></button>
