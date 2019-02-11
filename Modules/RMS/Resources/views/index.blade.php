@@ -4,9 +4,9 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
     @if(!empty($pendingTasks->dashboardItems))
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
+    <section id="pending-tasks">
+        <div class="card">
+            <div class="card-body">
 
                     <h4>@lang('labels.pending_items')</h4>
                     <table class="table table-bordered">
@@ -27,16 +27,15 @@
                                     Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
                                     Research Title: {{ $item->dynamicValues['proposal_title'] }}<br/>
                                 </td>
-                                <td><a href="{{url($item->checkUrl)}}"
-                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
+                                <td><a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
     @endif
     @if(!empty(count($reviewedProposals)))
 
@@ -49,8 +48,8 @@
                         <thead>
                         <th>@lang('labels.serial')</th>
                         <th>@lang('labels.title')</th>
-                        <th>Submitted By :</th>
-                        <th>Created Date :</th>
+                        <th>Submitted By : </th>
+                        <th>Created Date : </th>
                         <th>@lang('labels.action')</th>
                         </thead>
                         <tbody>
@@ -60,8 +59,7 @@
                                 <td>{{$item->title}}</td>
                                 <td>{{ $item->submittedBy->name }}</td>
                                 <td>{{ date("j F, Y, g:i a",strtotime($item->created_at)) }}</td>
-                                <td><a href="{{route('apc-review', [$item->id])}}"
-                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
+                                <td><a href="{{route('apc-review', [$item->id])}}" class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -72,9 +70,9 @@
         </section>
     @endif
     @if(!empty($rejectedItems->dashboardItems))
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
+    <section id="pending-tasks">
+        <div class="card">
+            <div class="card-body">
 
                     <h2>@lang('labels.rejected_items')</h2>
                     <table class="table table-bordered">
@@ -98,19 +96,17 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{url($item->checkUrl)}}"
-                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
-                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
-                                       class="btn btn-danger btn-sm">@lang('labels.closed')</a>
+                                    <a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
+                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}" class="btn btn-danger btn-sm">@lang('labels.closed')</a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
 
-                </div>
             </div>
-        </section>
+        </div>
+    </section>
     @endif
     {{--<section>
         <div class="row">
@@ -152,7 +148,7 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div class="card-body">
+                        <div class="card-body" >
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -166,9 +162,7 @@
                                     @foreach($invitations as $invitation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href=""><a
-                                                            href="{{ route('research-request.show', $invitation->id) }}">{{ $invitation->title }}</a></a>
-                                            </td>
+                                            <td><a href=""><a href="{{ route('research-request.show', $invitation->id) }}">{{ $invitation->title }}</a></a></td>
                                             <td>{{ $invitation->end_date }}</td>
                                         </tr>
                                     @endforeach
@@ -193,7 +187,7 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div class="card-body">
+                        <div class="card-body" >
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -207,17 +201,18 @@
                                     <tbody>
                                     @foreach($proposals as $proposal)
                                         <tr>
-                                            {{--<th scope="row">{{ $loop->iteration }}</th>--}}
-                                            {{--@php--}}
-                                            {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
-                                            {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
-                                            {{--$featureName = $proposal->workflowMasters[1]->feature->name;--}}
-                                            {{--@endphp--}}
-                                            {{--<td>--}}
-                                            {{--<a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>--}}
-                                            {{--</td>--}}
-                                            {{--<td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>--}}
-                                            {{--<td>{{ $proposal->submittedBy->name }}</td>--}}
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            @php
+                                                $wfMasterId = $proposal->workflowMasters->first()->id;
+                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
+                                                // $featureName = $proposal->workflowMasters[1]->feature->name;
+                                                $featureName = 'Research Proposal';
+                                            @endphp
+                                            <td>
+                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
+                                            </td>
+                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ $proposal->submittedBy->name }}</td>
                                         </tr>
                                     @endforeach
                                     </tbody>
