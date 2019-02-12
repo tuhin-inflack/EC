@@ -108,7 +108,7 @@ class UserService
     public function getDesignationId($username)
     {
         $employee = Employee::where('employee_id', $username)->first();
-        $designationId = isset($employee->designation_code) ? $employee->designation_code : null;
+        $designationId = isset($employee->designation_id) ? $employee->designation_id : null;
         return $designationId;
     }
 

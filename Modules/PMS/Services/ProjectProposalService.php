@@ -19,6 +19,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\Config;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
@@ -89,7 +90,7 @@ class ProjectProposalService
             // Workflow initiate done
 
             //Generating notification
-            $notificationData = [
+            $dynamicValues['notificationData'] = [
                 'type_id' => 1,
                 'ref_table_id'=> $proposalSubmission->id,
                 'from_user_id'=> Auth::user()->id,
@@ -97,8 +98,9 @@ class ProjectProposalService
                 'message'=> 'A project has been submitted',
                 'is_read'=> 0,
             ];
+            $dynamicValues['recipient'] = Config('constants.project_invite_submit');
 
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $notificationData)));
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
             // Notification generation done
 
             return $proposalSubmission;
