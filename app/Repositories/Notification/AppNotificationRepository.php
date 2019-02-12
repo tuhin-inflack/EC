@@ -26,4 +26,9 @@ class AppNotificationRepository extends AbstractBaseRepository
     {
         return $this->model->with('type')->latest()->limit($limit)->get();
     }
+
+    public function deleteByUser($userId)
+    {
+        $this->model->where('to_user_id', $userId)->delete();
+    }
 }

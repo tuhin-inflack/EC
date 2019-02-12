@@ -75,4 +75,10 @@ class AppNotificationController extends Controller
 
         return response()->json($response);
     }
+
+    public function clearAll()
+    {
+        $this->appNotificationService->clearAll();
+        return redirect()->route('notification.index');
+    }
 }

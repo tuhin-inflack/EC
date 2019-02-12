@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/latest/notifications', 'AppNotificationController@getLatestNotifications')->name('notification.latest');
     Route::get('/all/notifications', 'AppNotificationController@index')->name('notification.index');
     Route::get('/read/notifications', 'AppNotificationController@markAsRead')->name('notification.read');
+    Route::get('/clear/notifications', 'AppNotificationController@clearAll')->name('notification.clear');
 });
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
