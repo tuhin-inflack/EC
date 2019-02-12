@@ -51,6 +51,10 @@ class AppNotificationService
         return $this->notificationRepository->getLatest();
     }
 
-
+    public function clearAll()
+    {
+        $toUserId = Auth::user()->id;
+        $this->notificationRepository->deleteByUser($toUserId);
+    }
 
 }
