@@ -95,7 +95,6 @@ class WorkflowService
         }
 
         return $workflowDetailList;
-
     }
 
     public function getWorkFlowNotification($userId, array $designationIds)
