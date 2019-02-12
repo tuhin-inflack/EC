@@ -28,4 +28,5 @@ return [
     'attribute_chart_filters' => 'বৈশিষ্ট্য চার্ট ফিল্টার',
     'graph' => 'লেখচিত্র',
     'attribute_tabular_view' => 'বৈশিষ্ট্য ট্যাবুলার ভিউ',
+    'duplicate_value_entry' => 'এই মাসে ভ্যালু  দেয়া আছে, নতুন ইনপুট সম্বব নয়',
 ];

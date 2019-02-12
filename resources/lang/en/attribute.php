@@ -28,4 +28,5 @@ return [
     'attribute_chart_filters' => 'Attribute Chart Filters',
     'graph' => 'Graph',
     'attribute_tabular_view' => 'Attribute Tabular View',
+    'duplicate_value_entry' => 'Attribute Value Already Added for this Month',
 ];
