@@ -62,12 +62,14 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         $notificationData['from_user_id'] = Auth::user()->id;
 
         $users = $this->userService->getUserForNotificationSend($data->dynamicValues['to_users_designation']);
+        if (isset($data->dynamicValues['to_employee_id']) && count($data->dynamicValues['to_employee_id']) > 0) {
+            $employeesUsers = $this->userService->getUserByEmployeeIds($data->dynamicValues['to_employee_id'])->toArray();
+            $users = array_merge($users, $employeesUsers);
+        }
         foreach ($users as $user) {
             $notificationData['to_user_id'] = $user['id'];
             $this->appNotificationService->save($notificationData);
         }
-
-//        $taggedEmployeeIds = $data->dynamicValues['to_users_id'];
 
 
     }
