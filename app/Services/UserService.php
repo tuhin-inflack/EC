@@ -20,6 +20,7 @@ use Modules\HRM\Entities\Employee;
 use Modules\HRM\Repositories\EmployeeRepository;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 use PhpParser\Node\Scalar\String_;
 
 class UserService
@@ -32,15 +33,17 @@ class UserService
      */
     private $employeeServices;
     private $designationService;
+    private $researchProposalSubmissionService;
 
     /**
      * UserService constructor.
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository, DesignationService $designationService)
+    public function __construct(UserRepository $userRepository, DesignationService $designationService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
         $this->userRepository = $userRepository;
         $this->designationService = $designationService;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->setActionRepository($this->userRepository);
 
     }
@@ -108,7 +111,7 @@ class UserService
     public function getDesignationId($username)
     {
         $employee = Employee::where('employee_id', $username)->first();
-        $designationId = isset($employee->designation_code) ? $employee->designation_code : null;
+        $designationId = isset($employee->designation_id) ? $employee->designation_id : null;
         return $designationId;
     }
 
@@ -146,7 +149,7 @@ class UserService
 
     public function getUserForNotificationSend($TypesOfUsers)
     {
-        dd($TypesOfUsers);
+
         $users = [];
         $designations = $this->designationService->getDesignationByShortCode($TypesOfUsers);
         foreach ($designations as $designation) {
@@ -157,10 +160,15 @@ class UserService
 
     public function getUserByEmployeeIds(array $employeeIds)
     {
-
-
         $users = $this->userRepository->findIn('reference_table_id', $employeeIds);
         return $users;
+    }
+
+    public function getResearchProposalSubmittedUserId($researchProposalId)
+    {
+        $researchProposal = $this->researchProposalSubmissionService->findOne( $researchProposalId);
+
+        return $researchProposal->submittedBy->toArray();
     }
 
 }

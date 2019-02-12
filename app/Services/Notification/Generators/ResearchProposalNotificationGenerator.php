@@ -54,8 +54,6 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
 
     public function saveAppNotification($data)
     {
-
-
         $notificationType = $this->notificationTypeRepository->findBy(['name' => $data->notificationType])->first();
         $notificationData = (array)$data->dynamicValues;
         $notificationData['type_id'] = $notificationType->id;
@@ -66,6 +64,12 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         if (isset($data->dynamicValues['to_employee_id']) && count($data->dynamicValues['to_employee_id']) > 0) {
             $employeesUsers = $this->userService->getUserByEmployeeIds($data->dynamicValues['to_employee_id'])->toArray();
             $users = array_merge($users, $employeesUsers);
+        }
+
+
+        if (isset($data->dynamicValues['item_id'])) {
+            $proposalSubmittedUser = $this->userService->getResearchProposalSubmittedUserId($data->dynamicValues['item_id']);
+           array_push($users, $proposalSubmittedUser);
         }
 
         foreach ($users as $user) {
