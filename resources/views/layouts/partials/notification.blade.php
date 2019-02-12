@@ -5,14 +5,13 @@
     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
         <li class="dropdown-menu-header">
             <h6 class="dropdown-header m-0">
-                <span class="grey darken-2">Notifications</span>
+                <span class="grey darken-2">{{trans('labels.notification')}}</span>
             </h6>
-            <span class="notification-tag badge badge-default badge-danger float-right m-0">0 New</span>
+            <span class="notification-tag badge badge-default badge-danger float-right m-0">0 {{trans('labels.new')}}</span>
         </li>
         <li class="scrollable-container media-list w-100">
         </li>
-        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">Read
-                all notifications</a></li>
+        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">{{trans('labels.read_notification')}}</a></li>
     </ul>
 </li>
 @push('page-js')
