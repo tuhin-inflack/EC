@@ -68,10 +68,10 @@ class ResearchRequestService
                 'ref_table_id' => $researchRequest->id,
                 'message' => $data['remarks'],
                 'to_users_designation' => Config::get('constants.research_invite_submit'),
-                'to_users_id' => $data['to']
+                'to_employee_id' => $data['to']
 
             ];
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_REQUEST_SUBMISSION, $notificationData)));
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
 
 
             return $researchRequest;
