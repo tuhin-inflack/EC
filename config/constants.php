@@ -36,7 +36,7 @@ return [
     'faculty_director' => 'DM',
     'research_director' => 'RD',
     'initiator' => 'initiator',
-    'research_invite_submit' => ['RD', 'TaggedPerson'],
+    'research_invite_submit' => ['RD'],
     'research_proposal_submission' => ['FD'],
     'research_proposal_send_back' => ['FD', 'initiator'],
     'research_proposal_approved' => ['initiator', 'RD', 'FD'],

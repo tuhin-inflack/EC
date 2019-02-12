@@ -2,10 +2,14 @@
 
 namespace Modules\RMS\Services;
 
+use App\Constants\NotificationType;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchRequest;
@@ -29,6 +33,7 @@ class ResearchRequestService
 
     public function store(array $data)
     {
+
         return DB::transaction(function () use ($data) {
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'pending';
@@ -56,6 +61,18 @@ class ResearchRequestService
 
                 $researchRequest->researchRequestReceivers()->save($receiver);
             }
+
+            //Send Notifications
+
+            $notificationData = [
+                'ref_table_id' => $researchRequest->id,
+                'message' => $data['remarks'],
+                'to_users_designation' => Config::get('constants.research_invite_submit'),
+                'to_users_id' => $data['to']
+
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_REQUEST_SUBMISSION, $notificationData)));
+
 
             return $researchRequest;
         });
