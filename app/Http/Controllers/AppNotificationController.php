@@ -27,7 +27,7 @@ class AppNotificationController extends Controller
 
     public function index()
     {
-        $notifications = $this->appNotificationService->findAll(25, null, ['column' => 'id', 'direction' => 'desc']);
+        $notifications = $this->appNotificationService->getAll(25);
         //
         $this->appNotificationService->markAsRead();
 

@@ -34,6 +34,12 @@ class AppNotificationService
         $this->setActionRepository($this->notificationRepository);
     }
 
+    public function getAll($perPage)
+    {
+        $toUserId = Auth::user()->id;
+        return $this->notificationRepository->getAll($toUserId, $perPage);
+    }
+
     public function getUnreadNotifications()
     {
         $toUserId = Auth::user()->id;
@@ -48,7 +54,8 @@ class AppNotificationService
 
     public function getLatest()
     {
-        return $this->notificationRepository->getLatest();
+        $toUserId = Auth::user()->id;
+        return $this->notificationRepository->getLatest($toUserId);
     }
 
     public function clearAll()
