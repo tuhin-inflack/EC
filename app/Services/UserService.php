@@ -154,4 +154,12 @@ class UserService
         return $users;
     }
 
+    public function getUserByEmployeeIds(array $employeeIds)
+    {
+
+
+        $users = $this->userRepository->findIn('reference_table_id', $employeeIds);
+        return $users;
+    }
+
 }
