@@ -200,7 +200,7 @@ function getRefereeInformation(employeeId) {
     }
 
     let employee = employees.find(emp => emp.id == employeeId);
-    let designation = designations.find(designation => designation.id == employee.designation_code);
+    let designation = designations.find(designation => designation.id == employee.designation_id);
     let department = departments.find(dept => dept.id == employee.department_id);
 
     $('#referee-name').html(employee.first_name + ' ' + employee.last_name);

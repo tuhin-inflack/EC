@@ -159,4 +159,8 @@ return [
     'unit' => 'Unit',
     'unit_rate' => 'Unit Rate',
     'quantity' => 'Quantity',
+    'notification' => 'Notification',
+    'clear_all' => 'Clear All',
+    'no_notification' => 'No notificaitons available',
+    'read_notification' => 'Read all notifications',
 ];

@@ -47,8 +47,9 @@ class RMSController extends Controller
     {
 
         $featureName = Config::get('constants.research_proposal_feature_name');
+
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems('Research Proposal');
+        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();

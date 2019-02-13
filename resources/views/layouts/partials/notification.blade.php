@@ -5,14 +5,13 @@
     <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
         <li class="dropdown-menu-header">
             <h6 class="dropdown-header m-0">
-                <span class="grey darken-2">Notifications</span>
+                <span class="grey darken-2">{{trans('labels.notification')}}</span>
             </h6>
-            <span class="notification-tag badge badge-default badge-danger float-right m-0">0 New</span>
+            <span class="notification-tag badge badge-default badge-danger float-right m-0">0 {{trans('labels.new')}}</span>
         </li>
         <li class="scrollable-container media-list w-100">
         </li>
-        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">Read
-                all notifications</a></li>
+        <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="{{route('notification.index')}}">{{trans('labels.read_notification')}}</a></li>
     </ul>
 </li>
 @push('page-js')
@@ -52,6 +51,11 @@
                 var notificationCollection = response.data;
                 var notificationContainer = $('.noti-container').find('.scrollable-container');
                 notificationContainer.empty();
+                if(notificationCollection.length == 0) {
+                    notificationContainer.append('<p class="notification-text text-center">' +
+                        '<img class="brand-logo" alt="No notification height="50" width="50" available" src="{{ asset('images/Notifications-Off-512.png') }}"/>'+
+                        '</p>');
+                }
                 for (var i in notificationCollection) {
                     var currentNotification = notificationCollection[i];
                     var a = $('<a href="' + currentNotification.item_url + '">');
