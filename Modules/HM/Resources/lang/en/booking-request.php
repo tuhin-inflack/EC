@@ -35,6 +35,7 @@ return [
     'last_name' => 'Last Name',
     'contact' => 'Contact',
     'address' => 'Address',
+    'nationality' => 'Nationality',
     'gender' => 'Gender',
     'male' => 'Male',
     'female' => 'Female',

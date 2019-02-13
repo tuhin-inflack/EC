@@ -35,6 +35,7 @@ return [
     'last_name' => 'নামের শেষাংশ',
     'contact' => 'যোগাযোগ',
     'address' => 'ঠিকানা',
+    'nationality' => 'জাতীয়তা',
     'gender' => 'লিঙ্গ',
     'male' => 'পুরুষ',
     'female' => 'মহিলা',

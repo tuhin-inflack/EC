@@ -19,9 +19,9 @@
 @endif
 <!-- Logic for handling booking from multiple place -->
 <!-- Step 1 -->
-@include('hm::booking-request.partials.form.step-1')
+{{--@include('hm::booking-request.partials.form.step-1')--}}
 <!-- Step 2 -->
-@include('hm::booking-request.partials.form.step-2')
+{{--@include('hm::booking-request.partials.form.step-2')--}}
 <!-- Step 3 -->
 @include('hm::booking-request.partials.form.step-3')
 <!-- Step 4 -->
