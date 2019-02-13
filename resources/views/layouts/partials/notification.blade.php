@@ -51,6 +51,11 @@
                 var notificationCollection = response.data;
                 var notificationContainer = $('.noti-container').find('.scrollable-container');
                 notificationContainer.empty();
+                if(notificationCollection.length == 0) {
+                    notificationContainer.append('<p class="notification-text text-center">' +
+                        '<img class="brand-logo" alt="No notification height="50" width="50" available" src="{{ asset('images/Notifications-Off-512.png') }}"/>'+
+                        '</p>');
+                }
                 for (var i in notificationCollection) {
                     var currentNotification = notificationCollection[i];
                     var a = $('<a href="' + currentNotification.item_url + '">');
