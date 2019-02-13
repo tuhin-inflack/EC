@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'division' => 'বিভাগ',
     'barishal' => 'বরিশাল',
     'chittagong' => 'চট্টগ্রাম',
     'dhaka' => 'ঢাকা',

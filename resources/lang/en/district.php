@@ -1,6 +1,6 @@
 <?php
 return [
-
+    'district' => 'District',
     // Barisal
     'barisal' => 'Barisal',
     'barguna' => 'Barguna',

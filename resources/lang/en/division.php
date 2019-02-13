@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'division' => 'Division',
     'barishal' => 'Barishal',
     'chittagong' => 'Chittagong',
     'dhaka' => 'Dhaka',
