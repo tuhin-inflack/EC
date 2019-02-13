@@ -141,16 +141,8 @@ class PMSController extends Controller
     public function reviewUpdate($proposalId, Request $request)
     {
         //Generating notification
-        $dynamicValues['notificationData'] = [
-            'type_id' => 1,
-            'ref_table_id'=> $proposalId,
-            'from_user_id'=> Auth::user()->id,
-            'message'=> 'A project has been '.$request->input('status').' by Faculty Director',
-            'is_read'=> 0,
-        ];
-        $dynamicValues['event'] =  ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
-
-        event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
+        $event =  ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
+        $this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
 
         if($request->input('status') == 'CLOSED')
@@ -224,6 +216,10 @@ class PMSController extends Controller
 
     public function storeApprove($proposalId, Request $request)
     {
+        //Generating notification
+        $this->projectProposalService->generatePMSNotification(['ref_table_id' => $proposalId, 'status' => $request->input('status'), 'activity_by' => 'APC'], 'project_proposal_apc_approved');
+        // Notification generation done
+
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $data = [
             'status' => $request->input('status'),

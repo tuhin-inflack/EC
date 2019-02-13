@@ -46,5 +46,5 @@ return [
     'project_proposal_submission' => ['FD'],
     'project_proposal_review' => ['PD', 'initiator'],
     'project_proposal_send_back' => ['initiator'],
-    'project_proposal_approved' => ['initiator', 'PD', 'FD']
+    'project_proposal_apc_approved' => ['initiator', 'PD', 'FD']
 ];

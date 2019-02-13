@@ -42,7 +42,9 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     public function notify(NotificationInfo $notificationInfo, NotificationType $notificationTypeDetails)
     {
         $notificationData = $notificationInfo->getDynamicValues()['notificationData'];
+        $notificationData['type_id'] = $notificationTypeDetails->id;
         $recipients = $this->fetchRecipients($notificationData['ref_table_id'] , $notificationInfo->getDynamicValues()['event']);
+        //dd($notificationData, $recipients);
         foreach($recipients as $recipient)
         {
             $notificationData['to_user_id'] = $recipient['id'];
@@ -59,15 +61,15 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     public function fetchRecipients($proposalId, $event)
     {
         $recipients = config('constants.'.$event);
+        $usersByKeys =[];
         if($key = array_search('initiator', $recipients) !== false)
         {
             unset($recipients[$key]);
             $proposal = $this->projectProposalService->findOne($proposalId);
-            array_push($recipients, $proposal->auth_user_id);
+            $usersByKeys = $proposal->proposalSubmittedBy->getAttributes();
         }
-
         $users = $this->userService->getUserForNotificationSend($recipients);
-        dd($users);
+        count($usersByKeys)? array_push($users, $usersByKeys): '';
 
         return $users;
     }
