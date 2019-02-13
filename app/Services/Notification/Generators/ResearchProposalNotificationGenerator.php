@@ -69,7 +69,7 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
 
         if (isset($data->dynamicValues['item_id'])) {
             $proposalSubmittedUser = $this->userService->getResearchProposalSubmittedUserId($data->dynamicValues['item_id']);
-           array_push($users, $proposalSubmittedUser);
+            array_push($users, $proposalSubmittedUser);
         }
 
         foreach ($users as $user) {

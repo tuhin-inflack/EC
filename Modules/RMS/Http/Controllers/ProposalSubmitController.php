@@ -158,12 +158,22 @@ class ProposalSubmitController extends Controller
 
         $data = $request->except('_token');
         $this->dashboardWorkflowService->updateDashboardItem($data);
-        //Send Notifications
+//        Send Notifications
         if ($request->status == WorkflowStatus::REJECTED) {
             $notificationData = [
                 'ref_table_id' => $request->item_id,
-                'message' => config('rms-notification.research-proposal-review'),
+                'message' => config('rms-notification.research-proposal-review'). ' by '. Auth::user()->name,
                 'to_users_designation' => Config::get('constants.research_proposal_send_back'),
+                'item_id' => $request->item_id, //sending notification to initiator
+
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+        }
+        if ($request->status == WorkflowStatus::APPROVED) {
+            $notificationData = [
+                'ref_table_id' => $request->item_id,
+                'message' => config('rms-notification.research_proposal_approved') . ' by '. Auth::user()->name,
+                'to_users_designation' => Config::get('constants.research_proposal_approved'),
                 'item_id' => $request->item_id, //sending notification to initiator
 
             ];

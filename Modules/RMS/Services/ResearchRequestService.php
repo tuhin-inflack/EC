@@ -66,7 +66,7 @@ class ResearchRequestService
 
             $notificationData = [
                 'ref_table_id' => $researchRequest->id,
-                'message' => $data['remarks'],
+                'message' => Config::get('constants.research_invite_submitted'). ' by '. Auth::user()->name,
                 'to_users_designation' => Config::get('constants.research_invite_submit'),
                 'to_employee_id' => $data['to']
 

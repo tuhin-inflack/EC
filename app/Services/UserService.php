@@ -149,7 +149,6 @@ class UserService
 
     public function getUserForNotificationSend($TypesOfUsers)
     {
-
         $users = [];
         $designations = $this->designationService->getDesignationByShortCode($TypesOfUsers);
         foreach ($designations as $designation) {
