@@ -2,6 +2,10 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\NotificationType;
+use App\Constants\WorkflowStatus;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -147,12 +151,24 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(Request $request)
     {
+
         $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+
         $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 
         $data = $request->except('_token');
-        //TODO: set appropriate data
         $this->dashboardWorkflowService->updateDashboardItem($data);
+        //Send Notifications
+        if ($request->status == WorkflowStatus::REJECTED) {
+            $notificationData = [
+                'ref_table_id' => $request->item_id,
+                'message' => config('rms-notification.research-proposal-review'),
+                'to_users_designation' => Config::get('constants.research_proposal_send_back'),
+                'item_id' => $request->item_id, //sending notification to initiator
+
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+        }
         //Send user to research dashboard
         return redirect('/rms');
 
@@ -188,7 +204,8 @@ class ProposalSubmitController extends Controller
 
     }
 
-    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId){
+    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId)
+    {
         $proposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $proposal->update(['status' => 'REJECTED']);
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);

@@ -32,7 +32,9 @@ class DashboardWorkflowService
 
     public function getDashboardWorkflowItems($feature): DashboardItemSummary
     {
+
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
+
         return $itemGenerator->generateItems();
     }
 
@@ -44,7 +46,7 @@ class DashboardWorkflowService
 
     public function updateDashboardItem($data)
     {
-        //dd($data);
+
         DB::transaction(function () use ($data) {
             $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($data['feature']);
             $this->workflowService->updateWorkFlow($data['workflow_master_id'], $data['workflow_conversation_id'], Auth::user()->id,
@@ -59,6 +61,8 @@ class DashboardWorkflowService
             if ($workFlowMaster->status != WorkFlowStatus::INITIATED) {
                 $itemGenerator->updateItem($data['item_id'], $data['status']);
             }
+
+
         });
     }
 }

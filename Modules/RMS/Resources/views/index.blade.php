@@ -3,11 +3,11 @@
 
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
+
     @if(!empty($pendingTasks->dashboardItems))
     <section id="pending-tasks">
         <div class="card">
             <div class="card-body">
-
                     <h4>@lang('labels.pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
