@@ -94,11 +94,10 @@ class ProjectProposalService
                 'type_id' => 1,
                 'ref_table_id'=> $proposalSubmission->id,
                 'from_user_id'=> Auth::user()->id,
-                'to_user_id'=> Auth::user()->id,
                 'message'=> 'A project has been submitted',
                 'is_read'=> 0,
             ];
-            $dynamicValues['recipient'] = Config('constants.project_invite_submit');
+            $dynamicValues['event'] = 'project_proposal_submission';
 
             event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
             // Notification generation done
