@@ -14,8 +14,8 @@ class AddDivisionAndDistrictToOrganizationsTable extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->unsignedInteger('division_id')->default(1);
-            $table->unsignedInteger('district_id')->default(1);
+            $table->unsignedInteger('division_id')->default(2);
+            $table->unsignedInteger('district_id')->default(5);
         });
     }
 
