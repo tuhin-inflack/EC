@@ -21,6 +21,8 @@
                     <tr>
                         <th>@lang('labels.serial')</th>
                         <th>@lang('organization.organization')</th>
+                        <th>@lang('division.division')</th>
+                        <th>@lang('district.district')</th>
                         <th>@lang('member.member')</th>
                         <th>@lang('organization.attribute')</th>
                     </tr>
@@ -30,6 +32,8 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td><a href="{{ $organizationShowRoute($organizable->id, $organization->id) }}">{{ $organization->name }}</a></td>
+                            <td>{{ $organization->division_id }}</td>
+                            <td>{{ $organization->district_id }}</td>
                             <td>{{ $organization->members->count() }}</td>
                             <td>{{ $organization->attributes->count() }}</td>
                         </tr>

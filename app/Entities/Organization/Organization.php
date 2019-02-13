@@ -10,7 +10,7 @@ use Modules\RMS\Entities\Research;
 class Organization extends Model
 {
     protected $table = 'organizations';
-    protected $fillable = ['name', 'email', 'mobile', 'address'];
+    protected $fillable = ['name', 'email', 'mobile', 'address', 'division_id', 'district_id'];
 
     public function members()
     {
