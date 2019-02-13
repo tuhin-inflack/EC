@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\DesignationShortName;
 use App\Constants\NotificationType;
 use App\Constants\WorkflowStatus;
 use App\Events\NotificationGeneration;
@@ -25,19 +26,19 @@ use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
+
 class ProposalSubmitController extends Controller
 {
-    private $userService;
     private $researchProposalSubmissionService;
     private $dashboardWorkflowService;
     private $remarksService;
     private $featureService;
     private $employeeService;
 
-    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
+    public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
                                 DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService, EmployeeServices $employeeService)
     {
-        $this->userService = $userService;
+
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->remarksService = $remarkService;
@@ -151,34 +152,14 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-
         $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
-
         $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 
         $data = $request->except('_token');
         $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
-        if ($request->status == WorkflowStatus::REJECTED) {
-            $notificationData = [
-                'ref_table_id' => $request->item_id,
-                'message' => config('rms-notification.research-proposal-review'). ' by '. Auth::user()->name,
-                'to_users_designation' => Config::get('constants.research_proposal_send_back'),
-                'item_id' => $request->item_id, //sending notification to initiator
 
-            ];
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
-        }
-        if ($request->status == WorkflowStatus::APPROVED) {
-            $notificationData = [
-                'ref_table_id' => $request->item_id,
-                'message' => config('rms-notification.research_proposal_approved') . ' by '. Auth::user()->name,
-                'to_users_designation' => Config::get('constants.research_proposal_approved'),
-                'item_id' => $request->item_id, //sending notification to initiator
-
-            ];
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
-        }
+        $this->researchProposalSubmissionService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
 

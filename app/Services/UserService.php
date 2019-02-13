@@ -33,17 +33,15 @@ class UserService
      */
     private $employeeServices;
     private $designationService;
-    private $researchProposalSubmissionService;
 
     /**
      * UserService constructor.
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository, DesignationService $designationService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(UserRepository $userRepository, DesignationService $designationService)
     {
         $this->userRepository = $userRepository;
         $this->designationService = $designationService;
-        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->setActionRepository($this->userRepository);
 
     }
@@ -115,6 +113,7 @@ class UserService
         return $designationId;
     }
 
+
     public function getAdminExceptLoggedInUserRole()
     {
         $loggedInUserRoleId = $this->getLoggedInUser()->roles[0]->id;
@@ -163,11 +162,11 @@ class UserService
         return $users;
     }
 
-    public function getResearchProposalSubmittedUserId($researchProposalId)
-    {
-        $researchProposal = $this->researchProposalSubmissionService->findOne( $researchProposalId);
-
-        return $researchProposal->submittedBy->toArray();
-    }
+//    public function getResearchProposalSubmittedUserId($researchProposalId)
+//    {
+//        $researchProposal = $this->researchProposalSubmissionService->findOne( $researchProposalId);
+//
+//        return $researchProposal->submittedBy->toArray();
+//    }
 
 }

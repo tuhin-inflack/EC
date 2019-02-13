@@ -21,6 +21,7 @@ use App\Traits\MailSender;
 use const http\Client\Curl\AUTH_ANY;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRM\Services\DesignationService;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable
@@ -30,16 +31,19 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
     private $appNotificationService;
     private $notificationTypeRepository;
     private $userService;
+    private $researchProposalSubmissionService;
 
 
     /**
      * ResearchProposalNotificationGenerator constructor.
      * @param AppNotificationService $appNotificationService
      */
-    public function __construct(AppNotificationService $appNotificationService, NotificationTypeRepository $notificationTypeRepository, UserService $userService)
+    public function __construct(AppNotificationService $appNotificationService, NotificationTypeRepository $notificationTypeRepository,
+                                UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
     {
         $this->appNotificationService = $appNotificationService;
         $this->notificationTypeRepository = $notificationTypeRepository;
+        $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->userService = $userService;
 
     }
@@ -67,10 +71,11 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         }
 
 
-        if (isset($data->dynamicValues['item_id'])) {
-            $proposalSubmittedUser = $this->userService->getResearchProposalSubmittedUserId($data->dynamicValues['item_id']);
-            array_push($users, $proposalSubmittedUser);
+        if (isset($data->dynamicValues['proposal_id'])) {
+            $proposal = $this->researchProposalSubmissionService->findOne($data->dynamicValues['proposal_id']);
+            array_push($users, $proposal->submittedBy->toArray());
         }
+
 
         foreach ($users as $user) {
             $notificationData['to_user_id'] = $user['id'];
