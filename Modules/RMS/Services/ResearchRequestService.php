@@ -9,6 +9,7 @@ use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -66,7 +67,7 @@ class ResearchRequestService
 
             $notificationData = [
                 'ref_table_id' => $researchRequest->id,
-                'message' => $data['remarks'],
+                'message' => Config::get('rms-notification.research_invite_submitted'). ' by '. Auth::user()->name,
                 'to_users_designation' => Config::get('constants.research_invite_submit'),
                 'to_employee_id' => $data['to']
 

@@ -85,4 +85,10 @@ class User extends Authenticatable
         return Employee::where('employee_id', $this->username)->first();
     }*/
 
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'username', 'employee_id');
+    }
+
+
 }
