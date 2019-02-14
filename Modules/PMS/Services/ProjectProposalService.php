@@ -11,6 +11,7 @@ namespace Modules\PMS\Services;
 use App\Constants\NotificationType;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
+use App\Services\UserService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
@@ -32,6 +33,7 @@ class ProjectProposalService
     private $projectProposalRepository;
     private $featureService;
     private $workflowService;
+    private $userService;
 
     /**
      * ProjectRequestService constructor.
@@ -42,11 +44,13 @@ class ProjectProposalService
 
     public function __construct(ProjectProposalRepository $projectProposalRepository,
                                 FeatureService $featureService,
-                                WorkflowService $workflowService)
+                                WorkflowService $workflowService,
+                                UserService $userService)
     {
         $this->projectProposalRepository = $projectProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
+        $this->userService = $userService;
 
         $this->setActionRepository($projectProposalRepository);
     }
@@ -89,18 +93,8 @@ class ProjectProposalService
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 
-            //Generating notification
-            $dynamicValues['notificationData'] = [
-                'type_id' => 1,
-                'ref_table_id'=> $proposalSubmission->id,
-                'from_user_id'=> Auth::user()->id,
-                'to_user_id'=> Auth::user()->id,
-                'message'=> 'A project has been submitted',
-                'is_read'=> 0,
-            ];
-            $dynamicValues['recipient'] = Config('constants.project_invite_submit');
-
-            event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
+            //Generating Notification
+            $this->generatePMSNotification(['ref_table_id' =>  $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
             // Notification generation done
 
             return $proposalSubmission;
@@ -153,5 +147,19 @@ class ProjectProposalService
     public function getProjectProposalBySubmissionDate()
     {
         return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
+    }
+
+    //Methods for triggering the notifications
+    public function generatePMSNotification($notificationData, $event) : void
+    {
+        $activityBy = (array_key_exists('activity_by', $notificationData))? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
+        $dynamicValues['notificationData'] = [
+            'ref_table_id'=> $notificationData['ref_table_id'],
+            'from_user_id'=> Auth::user()->id,
+            'message'=> 'A project has been '.$notificationData['status'].' by '.$activityBy,
+            'is_read'=> 0,
+        ];
+        $dynamicValues['event'] = $event;
+        event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
     }
 }
