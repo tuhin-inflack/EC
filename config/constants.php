@@ -41,6 +41,7 @@ return [
     'research_proposal_send_back' => ['FD', 'initiator'],
     'research_proposal_approved' => ['initiator', 'RD', 'FD'],
     'research_short_listed' => ['initiator', 'RD', 'FD'],
+    'research_approved_apc' => ['initiator', 'RD', 'FD'],
 
     // PMS: Keys with recipient list for notification
     'project_invite_submit' => ['PD', 'TaggedPerson'],
