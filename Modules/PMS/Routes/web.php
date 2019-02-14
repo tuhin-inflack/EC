@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('pms')->group(function () {
+Route::prefix('pms')->middleware(['auth'])->group(function () {
     Route::get('/', 'PMSController@index')->name('pms');
 
     Route::prefix('projects')->group(function () {

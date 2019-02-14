@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('rms')->group(function () {
+Route::prefix('rms')->middleware(['auth'])->group(function () {
     Route::get('/', 'RMSController@index')->name('rms.index');
 
     Route::prefix('researches')->group(function () {
