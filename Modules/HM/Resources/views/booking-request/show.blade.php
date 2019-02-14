@@ -102,14 +102,7 @@
                                             <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
                                         </tr>
                                         @if($type == 'checkin')
-                                            <tr>
-                                                <td>@lang('hm::checkin.hostel_name')</td>
-                                                <td>
-                                                    @foreach($roomBooking->rooms as $room)
-                                                        {{ $room->room->hostel->name }}<br>
-                                                    @endforeach
-                                                </td>
-                                            </tr>
+
                                             <tr>
                                                 <td>@lang('hm::checkin.room_numbers')</td>
                                                 <td>
