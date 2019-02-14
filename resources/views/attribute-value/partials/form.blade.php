@@ -23,7 +23,11 @@
             <div class="form-group">
                 <label for="date"
                        class="form-label required">@lang('labels.date')</label>
-                {!! Form::text('date', $pageType == 'create' ? null : \Carbon\Carbon::parse($attributeValue->date)->format('F Y'), ['class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''), 'required', $pageType == 'edit' ? 'disabled' : '']) !!}
+                {!! Form::text('date', $pageType == 'create' ? null : \Carbon\Carbon::parse($attributeValue->date)->format('F Y'), [
+                    'class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''),
+                    'required', $pageType == 'edit' ? 'disabled' : '',
+                    'autocomplete' => 'off'
+                ]) !!}
 
                 @if ($errors->has('date'))
                     <span class="invalid-feedback">

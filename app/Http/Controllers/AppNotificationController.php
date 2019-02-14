@@ -27,7 +27,23 @@ class AppNotificationController extends Controller
 
     public function index()
     {
+        $notifications = $this->appNotificationService->getAll(25);
+        //
+        $this->appNotificationService->markAsRead();
 
+        return view('notification.index', compact('notifications'));
+    }
+
+    public function getLatestNotifications()
+    {
+        $notifications = $this->appNotificationService->getLatest();
+        $response = new \stdClass();
+        $response->data = $notifications;
+
+        //
+        $this->appNotificationService->markAsRead();
+
+        return response()->json($response);
     }
 
     public function getUnreadNotification()
@@ -36,6 +52,33 @@ class AppNotificationController extends Controller
         $response = new \stdClass();
         $response->data = $notifications;
 
+        //
+        $this->appNotificationService->markAsRead();
+
         return response()->json($response);
+    }
+
+    public function countUnread()
+    {
+        $count = $this->appNotificationService->getUnreadNotifications()->count();
+        $response = new \stdClass();
+        $response->data = $count;
+
+        return response()->json($response);
+    }
+
+    public function markAsRead()
+    {
+        $this->appNotificationService->markAsRead();
+        $response = new \stdClass();
+        $response->data = 'Success';
+
+        return response()->json($response);
+    }
+
+    public function clearAll()
+    {
+        $this->appNotificationService->clearAll();
+        return redirect()->route('notification.index');
     }
 }

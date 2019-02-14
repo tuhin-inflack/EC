@@ -39,10 +39,10 @@ class WorkflowSeeder extends Seeder
         }
 //employee & user seeding
         $employees = [
-            1 => ['employee_id' => 'FM10', 'first_name' => 'Faculty', 'last_name' => 'Member', 'email' => 'f@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_code' => 1, 'mobile_one' => '01711111111'],
-            2 => ['employee_id' => 'FD11', 'first_name' => 'Faculty', 'last_name' => 'Director', 'email' => 'fd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_code' => 2, 'mobile_one' => '01711111112'],
-            3 => ['employee_id' => 'RD12', 'first_name' => 'Research', 'last_name' => 'Director', 'email' => 'rd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_code' => 3, 'mobile_one' => '01711111113'],
-            4 => ['employee_id' => 'PD1', 'first_name' => 'Project', 'last_name' => 'Director', 'email' => 'pd1@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_code' => 4, 'mobile_one' => '01711111113'],
+            1 => ['employee_id' => 'FM10', 'first_name' => 'Faculty', 'last_name' => 'Member', 'email' => 'f@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 1, 'mobile_one' => '01711111111'],
+            2 => ['employee_id' => 'FD11', 'first_name' => 'Faculty', 'last_name' => 'Director', 'email' => 'fd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 2, 'mobile_one' => '01711111112'],
+            3 => ['employee_id' => 'RD12', 'first_name' => 'Research', 'last_name' => 'Director', 'email' => 'rd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 3, 'mobile_one' => '01711111113'],
+            4 => ['employee_id' => 'PD1', 'first_name' => 'Project', 'last_name' => 'Director', 'email' => 'pd1@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 4, 'mobile_one' => '01711111113'],
         ];
 
         foreach ($employees as $key => $employee) {

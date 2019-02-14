@@ -23,11 +23,11 @@
                             <tbody>
                             <tr>
                                 <th>{{ trans('monthly-update.monthly_achievement') }}</th>
-                                <td>{{ $monthlyUpdate->achievements }}</td>
+                                <td>{{ $monthlyUpdate->achievement }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('monthly-update.monthly_plan') }}</th>
-                                <td>{{ $monthlyUpdate->plannings }}</td>
+                                <td>{{ $monthlyUpdate->planning }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('monthly-update.related_tasks') }}</th>

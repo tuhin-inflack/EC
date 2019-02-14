@@ -34,12 +34,12 @@
             @endif
         </div>
 
-        <div class="form-group {{ $errors->has('designation_code') ? ' error' : '' }}">
-            {{ Form::label('designation_code', trans('hrm::designation.designation'), ['class' => 'required']) }}
-            {{ Form::select('designation_code', $employeeDesignations,  null, ['placeholder' => trans('labels.select'), 'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
+        <div class="form-group {{ $errors->has('designation_id') ? ' error' : '' }}">
+            {{ Form::label('designation_id', trans('hrm::designation.designation'), ['class' => 'required']) }}
+            {{ Form::select('designation_id', $employeeDesignations,  null, ['placeholder' => trans('labels.select'), 'class' => 'form-control', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
             <div class="help-block"></div>
-            @if ($errors->has('designation_code'))
-                <div class="help-block">  {{ $errors->first('designation_code') }}</div>
+            @if ($errors->has('designation_id'))
+                <div class="help-block">  {{ $errors->first('designation_id') }}</div>
             @endif
         </div>
 

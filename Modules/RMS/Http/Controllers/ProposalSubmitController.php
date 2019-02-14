@@ -2,6 +2,11 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\DesignationShortName;
+use App\Constants\NotificationType;
+use App\Constants\WorkflowStatus;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -21,19 +26,19 @@ use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
+
 class ProposalSubmitController extends Controller
 {
-    private $userService;
     private $researchProposalSubmissionService;
     private $dashboardWorkflowService;
     private $remarksService;
     private $featureService;
     private $employeeService;
 
-    public function __construct(UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService,
+    public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
                                 DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService, EmployeeServices $employeeService)
     {
-        $this->userService = $userService;
+
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->remarksService = $remarkService;
@@ -151,8 +156,10 @@ class ProposalSubmitController extends Controller
         $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 
         $data = $request->except('_token');
-        //TODO: set appropriate data
         $this->dashboardWorkflowService->updateDashboardItem($data);
+//        Send Notifications
+
+        $this->researchProposalSubmissionService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
 
@@ -188,7 +195,8 @@ class ProposalSubmitController extends Controller
 
     }
 
-    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId){
+    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId)
+    {
         $proposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $proposal->update(['status' => 'REJECTED']);
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);

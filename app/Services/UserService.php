@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Modules\HRM\Entities\Employee;
 use Modules\HRM\Repositories\EmployeeRepository;
+use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\RMS\Services\ResearchProposalSubmissionService;
 use PhpParser\Node\Scalar\String_;
 
 class UserService
@@ -30,31 +32,36 @@ class UserService
      * @var EmployeeServices
      */
     private $employeeServices;
+    private $designationService;
 
     /**
      * UserService constructor.
      * @param UserRepository $userRepository
      */
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, DesignationService $designationService)
     {
         $this->userRepository = $userRepository;
+        $this->designationService = $designationService;
         $this->setActionRepository($this->userRepository);
+
     }
 
-    public function getLoggedInUser() {
+    public function getLoggedInUser()
+    {
         return Auth::user();
     }
 
-    public function getLoggedInUserRole() {
+    public function getLoggedInUserRole()
+    {
         return Auth::user()->roles;
     }
 
     public function store(array $data)
     {
         $data['password'] = Hash::make($data['password']);
-        DB::transaction(function () use ($data){
+        DB::transaction(function () use ($data) {
             $user = $this->save($data);
-            if(isset($data['roles'])) {
+            if (isset($data['roles'])) {
                 $user->roles()->attach($data['roles']);
             }
         });
@@ -67,7 +74,7 @@ class UserService
         $user = $this->findOrFail($id);
         DB::transaction(function () use ($user, $data) {
             $this->update($user, $data);
-            if(isset($data['roles'])) {
+            if (isset($data['roles'])) {
                 $user->roles()->sync($data['roles']);
             }
         });
@@ -98,11 +105,14 @@ class UserService
         $designation = isset($employee->designation) ? $employee->designation->name : null;
         return $designation;
     }
-    public function getDesignationId($username){
+
+    public function getDesignationId($username)
+    {
         $employee = Employee::where('employee_id', $username)->first();
-        $designationId = isset($employee->designation_code) ? $employee->designation_code : null;
+        $designationId = isset($employee->designation_id) ? $employee->designation_id : null;
         return $designationId;
     }
+
 
     public function getAdminExceptLoggedInUserRole()
     {
@@ -117,23 +127,46 @@ class UserService
     public function doseLoggedInUserHasRole($roleName)
     {
         $roles = $this->getLoggedInUserRole();
-        $roles = array_column( $roles->toArray(), 'name');
+        $roles = array_column($roles->toArray(), 'name');
         return in_array($roleName, $roles);
     }
 
     public function isDirectorGeneral()
     {
-        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_GENERAL");
+        return (bool)$this->doseLoggedInUserHasRole("ROLE_DIRECTOR_GENERAL");
     }
 
     public function isDirectorAdmin()
     {
-        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_ADMIN");
+        return (bool)$this->doseLoggedInUserHasRole("ROLE_DIRECTOR_ADMIN");
     }
 
     public function isDirectorTraining()
     {
-        return (bool) $this->doseLoggedInUserHasRole("ROLE_DIRECTOR_TRAINING");
+        return (bool)$this->doseLoggedInUserHasRole("ROLE_DIRECTOR_TRAINING");
     }
+
+    public function getUserForNotificationSend($TypesOfUsers)
+    {
+        $users = [];
+        $designations = $this->designationService->getDesignationByShortCode($TypesOfUsers);
+        foreach ($designations as $designation) {
+            $users = array_merge($users, $designation->user->toArray());
+        }
+        return $users;
+    }
+
+    public function getUserByEmployeeIds(array $employeeIds)
+    {
+        $users = $this->userRepository->findIn('reference_table_id', $employeeIds);
+        return $users;
+    }
+
+//    public function getResearchProposalSubmittedUserId($researchProposalId)
+//    {
+//        $researchProposal = $this->researchProposalSubmissionService->findOne( $researchProposalId);
+//
+//        return $researchProposal->submittedBy->toArray();
+//    }
 
 }

@@ -14,7 +14,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">@lang('labels.edit') @lang('pms::research_budget.budgeting')</h4>
+                                    <h4 class="card-title">@lang('labels.edit') @lang('rms::research_budget.budgeting')</h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">

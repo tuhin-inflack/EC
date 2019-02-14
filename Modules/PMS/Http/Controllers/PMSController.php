@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Auth;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
+use App\Constants\NotificationType;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 
 
 class PMSController extends Controller
@@ -137,6 +140,11 @@ class PMSController extends Controller
 
     public function reviewUpdate($proposalId, Request $request)
     {
+        //Generating notification
+        $event =  ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
+        $this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
+        // Notification generation done
+
         if($request->input('status') == 'CLOSED')
         {
             $proposal = $this->projectProposalService->findOrFail($proposalId);
@@ -208,13 +216,16 @@ class PMSController extends Controller
 
     public function storeApprove($proposalId, Request $request)
     {
+        //Generating notification
+        $this->projectProposalService->generatePMSNotification(['ref_table_id' => $proposalId, 'status' => $request->input('status'), 'activity_by' => 'APC'], 'project_proposal_apc_approved');
+        // Notification generation done
+
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $data = [
             'status' => $request->input('status'),
         ];
 
         $this->projectProposalService->update($proposal, $data);
-
         Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));

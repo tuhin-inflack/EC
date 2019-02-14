@@ -166,6 +166,7 @@ return [
          * Package Services Providers...
          */
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
 
     ],
 

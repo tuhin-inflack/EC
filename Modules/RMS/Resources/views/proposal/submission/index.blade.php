@@ -37,9 +37,10 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             @php
-                                                 $wfMasterId = $proposal->workflowMasters->first()->id;
-                                                 $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                 $featureName = $proposal->workflowMasters[1]->feature->name;
+                                                $wfMasterId = $proposal->workflowMasters->first()->id;
+                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
+                                                // $featureName = $proposal->workflowMasters[1]->feature->name;
+                                               $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
                                                 <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
@@ -55,11 +56,14 @@
                                             <td>
                                             <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        class="btn btn-info dropdown-toggle">
                                                     <i class="la la-cog"></i>
                                                 </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="" class="dropdown-item"><i class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
+                                                <span aria-labelledby="btnSearchDrop2"
+                                                      class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    <a href="" class="dropdown-item"><i
+                                                                class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
                                                 </span>
                                             </span>
                                             </td>

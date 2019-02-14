@@ -159,4 +159,8 @@ return [
     'unit' => 'একক',
     'unit_rate' => 'একক দর',
     'quantity' => 'পরিমাণ',
+    'notification' => 'নোটিফিকেশান',
+    'clear_all' => 'মুছে ফেলুন',
+    'no_notification' => 'কোন নোটিফিকেশান নেই',
+    'read_notification' => 'সব নোটিফিকেশান পড়ুন',
 ];

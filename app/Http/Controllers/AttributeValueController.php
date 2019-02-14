@@ -35,6 +35,15 @@ class AttributeValueController extends Controller
 
     public function store(Request $request, Attribute $attribute)
     {
+        // Checking if a value is already exist for the requested month
+        foreach($attribute->values as $value)
+        {
+            if(date('n', strtotime($value->date)) == date('n', strtotime($request->input('date')))){
+                Session::flash('error', trans('attribute.duplicate_value_entry'));
+                return redirect()->back();
+            }
+        }
+
         if ($this->attributeValueService->store($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {

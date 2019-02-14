@@ -2,9 +2,12 @@
 
 namespace Modules\RMS\Services;
 
+use App\Constants\DesignationShortName;
 use App\Constants\NotificationType;
+use App\Constants\WorkflowStatus;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
+use App\Services\UserService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
@@ -13,6 +16,7 @@ use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -29,13 +33,15 @@ class ResearchProposalSubmissionService
     private $researchProposalSubmissionRepository;
     private $workflowService;
     private $featureService;
+    private $userService;
 
-    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService, FeatureService $featureService)
+    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService,
+                                FeatureService $featureService, UserService $userService)
     {
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
-
+        $this->userService = $userService;
         $this->setActionRepository($researchProposalSubmissionRepository);
     }
 
@@ -63,7 +69,6 @@ class ResearchProposalSubmissionService
             }
 
             //Save workflow
-            //TODO: Fill appropriate data instead of static data
 
             $featureName = Config::get('constants.research_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
@@ -77,8 +82,15 @@ class ResearchProposalSubmissionService
 
             $this->workflowService->createWorkflow($workflowData);
             //Send Notifications
-            //TODO: Do the implementation
-//            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, [])));
+
+            $notificationData = [
+                'ref_table_id' => $proposalSubmission->id,
+                'message' => Config::get('rms-notification.research_proposal_submitted'),
+                'to_users_designation' => Config::get('constants.research_proposal_submission'),
+
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+
             return $proposalSubmission;
         });
     }
@@ -212,6 +224,37 @@ class ResearchProposalSubmissionService
         $researchProposal->update(['status' => $status]);
 
         return Response(trans('labels.apc_approved_message'));
+
+    }
+
+    //send notification while review, approve & short list for apc. called from @ProposalSubmissionController
+    public function sendNotification($request)
+    {
+        //dd($request->item_id);
+
+        $loggedInUserDesignationShortName = $this->userService->getLoggedInUser()->employee->designation->short_name;
+        $messageBy = ' by ' . $this->userService->getLoggedInUser()->name;
+        $notificationData = [
+            'ref_table_id' => $request->item_id,
+            'proposal_id' => $request->item_id, //sending notification to initiator
+
+        ];
+        if ($request->status == WorkflowStatus::REJECTED) {
+            $notificationData['message'] = config('rms-notification.research-proposal-review');
+            $notificationData['to_users_designation'] = config('constants.research_proposal_send_back');
+        }
+        if ($request->status == WorkflowStatus::APPROVED) {
+            if (DesignationShortName::RD == $loggedInUserDesignationShortName) {
+                $notificationData['message'] = config('rms-notification.research_proposal_shortlisted_for_apc') . $messageBy;
+                $notificationData['to_users_designation'] = Config::get('constants.research_short_listed');
+
+            } else {
+                $notificationData['message'] = config('rms-notification.research_proposal_approved') . $messageBy;
+                $notificationData['to_users_designation'] = Config::get('constants.research_proposal_approved');
+
+            }
+        }
+        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
 
     }
 }

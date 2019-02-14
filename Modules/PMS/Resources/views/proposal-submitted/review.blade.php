@@ -33,22 +33,20 @@
                                         <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                         <p> {{ $proposal->proposalSubmittedBy->name }} </p>
                                     </div>
-                                    @if(count($remarks)>0)
+                                    @if(count($remarks))
                                         <div class="col-md-12">
                                             <label class="black">@lang('labels.remarks'): </label>
                                             <div class="media">
                                                 <div class="media-body">
-
                                                     @foreach($remarks as $remark)
                                                         {{--{{ dd($remark) }}--}}
                                                         <p class="text-bold-600 mb-0">
                                                             {{ $remark->user->name }}
                                                         </p>
-                                                        <p class="small m-0 comment-time">{{ date("j F, Y, g:i a",strtotime($remark->created_at)) }}</p>
-                                                        <p class="m-0 comment-text">{{ $remark->remarks }}</p>
+                                                        <p class="small m-0 comment-time">{{date("j F, Y, g:i a",strtotime($remark->created_at))}}</p>
+                                                        <p class="m-0 comment-text">{{$remark->remarks}}</p>
                                                         <hr/>
                                                     @endforeach
-
                                                 </div>
                                             </div>
                                         </div>
@@ -68,22 +66,6 @@
                                         <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
                                     </li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="media">
-                                <div class="media-body">
-                                    @if(count($remarks)>0)
-                                        @foreach($remarks as $remark)
-                                            <hr>
-                                            <p class="text-bold-600 mb-0">
-                                                {{ $remark->user->name }}
-                                            </p>
-                                            <p class="small m-0 comment-time">{{date('h:iA d-m-Y', strtotime($remark->created_at))}}</p>
-                                            <p class="m-0 comment-text">{{$remark->remarks}}</p>
-                                        @endforeach
-                                    @endif
-                                </div>
                             </div>
                         </div>
                     </div>

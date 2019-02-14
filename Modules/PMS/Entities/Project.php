@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Entities;
 
+use App\Entities\DraftProposalBudget\DraftProposalBudget;
 use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Entities\Organization\Organization;
 use App\Entities\Task;
@@ -33,8 +34,8 @@ class Project extends Model
         return $this->morphMany(MonthlyUpdate::class, 'monthly_updatable');
     }
 
-    public function budget()
+    public function budgets()
     {
-        return $this->hasMany(ProjectBudget::class, 'project_id');
+        return $this->morphMany(DraftProposalBudget::class, 'budgetable', 'budgetable_type', 'budgetable_id', 'id');
     }
 }

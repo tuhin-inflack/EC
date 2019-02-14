@@ -12,40 +12,38 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-
                         @if(!empty($pendingTasks->dashboardItems))
                             <div class="row">
                                 <div class="col-md-8">
                                     <h3>{{__('labels.pending_items')}}</h3>
                                 </div>
+                                <div class="col-md-12">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <th>{{__('labels.feature_name')}}</th>
+                                        <th>{{__('labels.message')}}</th>
+                                        <th>{{__('labels.details')}}</th>
+                                        <th>{{__('labels.check')}}</th>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($pendingTasks->dashboardItems as $item)
+                                            <tr>
+                                                <td>{{$item->featureName}}</td>
+                                                <td>{{$item->message}}</td>
+                                                <td>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}
+                                                    <br>
+                                                    <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url($item->checkUrl )}}" class="btn btn-primary btn-sm">@lang('labels.details')</a>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        <div class="col-md-12">
-                            <table class="table table-bordered">
-                                <thead>
-                                <th>{{__('labels.feature_name')}}</th>
-                                <th>{{__('labels.message')}}</th>
-                                <th>{{__('labels.details')}}</th>
-                                <th>{{__('labels.check')}}</th>
-                                </thead>
-                                <tbody>
-                                @foreach($pendingTasks->dashboardItems as $item)
-                                    <tr>
-                                        <td>{{$item->featureName}}</td>
-                                        <td>{{$item->message}}</td>
-                                        <td>
-                                            <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}
-                                            <br>
-                                            <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
-                                        </td>
-                                        <td>
-                                            <a href="{{ url($item->checkUrl )}}" class="btn btn-primary btn-sm">@lang('labels.details')</a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-
                         @endif
 
                         @if(!empty($rejectedTasks->dashboardItems))

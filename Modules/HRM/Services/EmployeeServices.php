@@ -35,6 +35,7 @@ class EmployeeServices
             $file->storeAs('public/uploads', $photoName);
             $data['photo'] = $photoName;
         }
+
         $generalInfo = $this->employeeRepository->save($data);
         $this->userService->store([
             'name' => $data['first_name'] . ' ' . $data['last_name'],
