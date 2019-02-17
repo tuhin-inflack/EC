@@ -9,7 +9,7 @@ return [
     'add_form_card_title' => 'ছাত্রাবাস বাজেট তৈরি',
     'add_form_title' => 'ছাত্রাবাস বাজেট ফর্ম',
     'budget_for' => ' বাজেট  বছর',
-    'section' => 'দফা',
+    'section' => 'সেকশন',
     'amount' => 'অর্থ',
     'approve_amount' => 'অনুমদিত অর্থ',
 
@@ -17,9 +17,9 @@ return [
     'approve_form_title' => 'বাজেট অনুমোদন ফর্ম',
     'approve' => 'অনুমোদন',
 
-    'section_list' => 'দফা তালিকা',
-    'section_form' => 'দফা ফর্ম',
-    'section_edit_form_title' => ' দফা হালনাগাদ করুন',
+    'section_list' => 'সেকশন তালিকা',
+    'section_form' => 'সেকশন ফর্ম',
+    'section_edit_form_title' => ' সেকশন হালনাগাদ করুন',
 
 
 ];
