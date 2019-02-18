@@ -77,7 +77,29 @@ class TaskService
         return $task->save();
     }
 
+    /*
+     *  Get Data for DTHMLXGantt Chart of Tasks
+     */
     public function getTasksGanttChartData($tasks)
+    {
+        $chartData = [];
+        foreach ($tasks as $task) {
+            array_push($chartData, array(
+                "id" => $task->id,
+                "text" => $task->name,
+                "start_date" => $task->actual_start_time,
+                "duration" => Carbon::parse($task->expected_end_time)->diffInDays($task->expected_start_time),
+                "progress" => 0,
+                "parent" => 0,
+                "deadline" => $task->expected_end_time,
+                "planned_start" => $task->expected_start_time,
+                "planned_end" => $task->expected_end_time,
+            ));
+        }
+        return $chartData;
+    }
+
+    public function getTasksGanttChartDataForJSGanttChart($tasks)
     {
         $chartData = [];
         foreach ($tasks as $task) {
