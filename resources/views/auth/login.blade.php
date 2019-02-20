@@ -3,7 +3,14 @@
 @section('content')
     <section class="flexbox-container">
         <div class="col-12 d-flex align-items-center justify-content-center">
-            <a href="{{ route('public-booking-requests.create') }}" class="btn btn-primary" style="font-size: large">@lang('hm::booking-request.create_booking_request')</a>
+            <div class="row">
+                <div class="col-6">
+                    <a href="{{ route('public-booking-requests.create') }}" class="btn btn-primary" style="font-size: large">@lang('hm::booking-request.create_booking_request')</a>
+                </div>
+                <div class="col-6">
+                    <a href="{{ route('training-registration.index') }}" class="btn btn-primary" style="font-size: large">@lang('tms::training.registration_for_training')</a>
+                </div>
+            </div>
         </div>
         <br>
         <div class="col-12 d-flex align-items-center justify-content-center">
