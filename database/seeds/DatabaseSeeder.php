@@ -91,5 +91,6 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkflowMastersTableSeeder::class);
         $this->call(WorkflowRuleDetailsTableSeeder::class);
         $this->call(WorkflowRuleMastersTableSeeder::class);
+        $this->call(DivisionsTableSeeder::class);
     }
 }

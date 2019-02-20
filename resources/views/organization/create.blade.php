@@ -140,6 +140,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('thana_id', trans('thana.thana')) }}
+                                                <br/>
+                                                {{ Form::select('thana_id',  [], null, ['class' => ' form-control select2', 'placeholder' =>
+                                                trans('labels.select')]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('union_id', trans('union.union')) }}
+                                                <br/>
+                                                {{ Form::select('union_id',  [], null, ['class' => ' form-control select2', 'placeholder' => trans('labels.select')]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDivisionAndDistrictToOrganizationsTable extends Migration
+class AddAddressesColumnsToOrganiationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,10 @@ class AddDivisionAndDistrictToOrganizationsTable extends Migration
     public function up()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->unsignedInteger('division_id')->default(2);
-            $table->unsignedInteger('district_id')->default(5);
+            $table->unsignedInteger('division_id');
+            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('thana_id');
+            $table->unsignedInteger('union_id');
         });
     }
 
@@ -27,7 +29,7 @@ class AddDivisionAndDistrictToOrganizationsTable extends Migration
     public function down()
     {
         Schema::table('organizations', function (Blueprint $table) {
-            $table->dropColumn('division_id', 'district_id');
+            $table->dropColumn('division_id', 'district_id', 'thana_id', 'union_id');
         });
     }
 }
