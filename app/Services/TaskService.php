@@ -66,7 +66,7 @@ class TaskService
         });
     }
 
-    public function calculateTaskTime(Task $task)
+    public function updateTaskTime(Task $task)
     {
         if ($task->actual_start_time) {
             $task->actual_end_time = Carbon::now();
@@ -88,7 +88,7 @@ class TaskService
                 "id" => $task->id,
                 "text" => $task->name,
                 "start_date" => $task->actual_start_time,
-                "duration" => Carbon::parse($task->expected_end_time)->diffInDays($task->expected_start_time),
+                "duration" => $this->calculateTaskCurrentDuration($task),
                 "progress" => 0,
                 "parent" => 0,
                 "deadline" => $task->expected_end_time,
@@ -99,6 +99,21 @@ class TaskService
         return $chartData;
     }
 
+    private function calculateTaskCurrentDuration($task)
+    {
+        $duration = 0;
+
+        if ($task->expected_end_time){
+            return Carbon::parse($task->expected_end_time)->diffInDays($task->expected_start_time);
+        } else if (Carbon::parse($task->expected_start_time)->isCurrentDay() || Carbon::now()->diffInDays($task->expected_start_time) > -1){
+            return Carbon::now()->diffInDays($task->expected_start_time);
+        }
+
+        return $duration;
+    }
+
+    // Dead Code Now, We be removed soon
+    // Dead Code Start
     public function getTasksGanttChartDataForJSGanttChart($tasks)
     {
         $chartData = [];
@@ -116,6 +131,7 @@ class TaskService
         }
         return $chartData;
     }
+    // Dead Code End
 
     private function syncTaskAttachments($taskable, $task, $data)
     {

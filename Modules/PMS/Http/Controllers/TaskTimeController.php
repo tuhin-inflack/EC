@@ -27,7 +27,7 @@ class TaskTimeController extends Controller
 
     public function  update(Request $request, Project $project, Task $task)
     {
-        if ($this->taskService->calculateTaskTime($task)) {
+        if ($this->taskService->updateTaskTime($task)) {
             Session::flash('success', trans('labels.update_success'));
         } else {
             Session::flash('error', trans('labels.update_fail'));
