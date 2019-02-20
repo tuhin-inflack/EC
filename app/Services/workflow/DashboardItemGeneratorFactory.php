@@ -22,6 +22,8 @@ abstract class DashboardItemGeneratorFactory
                 return app()->make('App\Services\workflow\Generators\ResearchProposalItemGenerator');
             case 'Project Proposal':
                 return app()->make('App\Services\workflow\Generators\ProjectProposalItemGenerator');
+            case 'Research Workflow':
+                return app()->make('App\Services\workflow\Generators\ResearchItemGenerator');
         }
     }
 }
