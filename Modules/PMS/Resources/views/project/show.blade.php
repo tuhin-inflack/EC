@@ -111,8 +111,6 @@
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
-
-        console.log(chartData.data);
     </script>
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}" type="text/javascript"></script>
