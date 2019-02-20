@@ -79,10 +79,9 @@ class ResearchProposalSubmissionService
                 'message' => $data['message'],
             ];
 
-
             $this->workflowService->createWorkflow($workflowData);
-            //Send Notifications
 
+            //Send Notifications
             $notificationData = [
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => Config::get('rms-notification.research_proposal_submitted'),
@@ -222,6 +221,22 @@ class ResearchProposalSubmissionService
     {
         $researchProposal = $this->findOne($researchProposalSubmissionId);
         $researchProposal->update(['status' => $status]);
+
+        //Send Notifications
+        $notificationData = [
+            'ref_table_id' => $researchProposalSubmissionId,
+            'proposal_id' => $researchProposalSubmissionId,
+            'to_users_designation' => Config::get('constants.research_approved_apc'),
+
+        ];
+        if ($status == WorkflowStatus::REJECTED) {
+            $notificationData['message'] = Config::get('rms-notification.research_proposal_rejected_from_apc');
+        } else {
+            $notificationData['message'] = Config::get('rms-notification.research_proposal_approved_from_apc');
+        }
+
+        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+
 
         return Response(trans('labels.apc_approved_message'));
 
