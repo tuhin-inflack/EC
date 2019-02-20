@@ -51,6 +51,11 @@ Route::middleware(['auth'])->group(function () {
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
 Route::post('booking-requests', 'PublicBookingRequestController@store')->name('public-booking-requests.store');
 
+//Training Registration
+
+Route::get('training','PublicTrainingRegistrationController@index')->name('training-registration.index');
+Route::get('training/registration','PublicTrainingRegistrationController@create')->name('training-registration.create');
+
 Route::get('/lang/{key}', function ($key) {
     Session::put('locale', $key);
     Session::save();

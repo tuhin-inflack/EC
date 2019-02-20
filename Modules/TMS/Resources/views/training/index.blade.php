@@ -1,5 +1,5 @@
 @extends('tms::layouts.master')
-@section('title', 'Training list')
+@section('title', trans('tms::training.training_list'))
 
 @section('content')
     <section id="user-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('tms::training.card_title')}}</h4>
+                        <h4 class="card-title">{{trans('tms::training.training_list')}}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/tms/training/create')}}" class="btn btn-primary btn-sm"><i

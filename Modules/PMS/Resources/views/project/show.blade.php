@@ -99,17 +99,25 @@
             height: auto;
         }
     </style>
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/dhtmlx-gantt/chart-pro.css') }}">
+
 @endpush
 
 @push('page-js')
     <script>
-        let mountElement = document.getElementById('GanttChartDIV');
-        let presentedFormat = "week";
-        let jsonData = JSON.parse('{!! json_encode($ganttChart) !!}');
+        let nodeName = "GanttChartDIV";
+        let chartData = {
+            "data": JSON.parse('{!! json_encode($ganttChart) !!}')
+        };
     </script>
-    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/gantt-chart.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
+
+    <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
+
     <script>
         $(document).ready(function () {
             $('.organization-table, .task-table, .monthly-update-table').DataTable({

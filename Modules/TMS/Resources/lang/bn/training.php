@@ -2,7 +2,7 @@
 return [
     'title' => 'প্রশিক্ষণ',
     'menu_title' => 'প্রশিক্ষণ',
-    'card_title' => 'প্রশিক্ষণ তালিকা',
+    'training_list' => 'প্রশিক্ষণ তালিকা',
     'trainee_card_title' => 'প্রশিক্ষণার্থীর তালিকা',
     'create_button' => 'নতুন প্রশিক্ষণ',
     'update_button' => 'প্রশিক্ষণ সম্পাদনা',
@@ -35,4 +35,6 @@ return [
     'file_import' => 'ফাইল ইমপোর্ট',
     'save_imported' => 'ইমপোর্টকৃত ডাটা সংরক্ষণ করুন',
     'select_training' => 'প্রশিক্ষণার্থী দেখতে প্রশিক্ষণ নির্বাচন করুন',
+    'registration' => 'নিবন্ধীকরণ',
+    'registration_for_training' => 'প্রশিক্ষণের জন্য নিবন্ধীকরণ',
 ];

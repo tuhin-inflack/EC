@@ -39,4 +39,5 @@ Route::prefix('tms')->group(function() {
         Route::get('/show/{training_id}', 'TraineeController@show')->name('trainee.show');
         Route::delete('/delete/{trainee_id}', 'TraineeController@destroy')->name('trainee.delete');
     });
+
 });

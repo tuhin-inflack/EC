@@ -2,7 +2,7 @@
 return [
     'title' => 'Training',
     'menu_title' => 'Training',
-    'card_title' => 'Training List',
+    'training_list' => 'Training List',
     'trainee_card_title' => 'Trainee List',
     'create_button' => 'New Training',
     'update_button' => 'Update Training',
@@ -34,5 +34,7 @@ return [
     'file_sample' => 'Sample File',
     'file_import' => 'Import File',
     'save_imported' => 'Save Imported Data',
-    'select_training' => 'Select Training to Show Trainee'
+    'select_training' => 'Select Training to Show Trainee',
+    'registration' => 'Registration',
+    'registration_for_training' => 'Training Resigtration',
 ];

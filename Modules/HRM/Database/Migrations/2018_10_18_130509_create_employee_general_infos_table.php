@@ -19,7 +19,7 @@ class CreateEmployeeGeneralInfosTable extends Migration {
 			$table->string( 'email' )->unique();
 			$table->string( 'gender' );
 			$table->unsignedInteger( 'department_id' );
-			$table->string( 'designation_id' );
+			$table->string( 'designation_code' );
 			$table->string( 'status' )->default( 'present' );
 			$table->string( 'tel_office' )->nullable();
 			$table->string( 'tel_home' )->nullable();

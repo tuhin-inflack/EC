@@ -53,8 +53,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PasswordResetsTableSeeder::class);
         $this->call(PermissionRoleTableSeeder::class);
         $this->call(PermissionsTableSeeder::class);
-        $this->call(ProjectBudgetFiscalValuesTableSeeder::class);
-        $this->call(ProjectBudgetsTableSeeder::class);
         $this->call(ProjectProposalFilesTableSeeder::class);
         $this->call(ProjectProposalsTableSeeder::class);
         $this->call(ProjectRequestAttachmentsTableSeeder::class);
@@ -65,8 +63,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProjectsTableSeeder::class);
         $this->call(RemarksTableSeeder::class);
         $this->call(ResearchTableSeeder::class);
-        $this->call(ResearchBudgetFiscalValuesTableSeeder::class);
-        $this->call(ResearchBudgetsTableSeeder::class);
         $this->call(ResearchProposalDateExtendRequestsTableSeeder::class);
         $this->call(ResearchProposalSubmissionAttachmentsTableSeeder::class);
         $this->call(ResearchProposalSubmissionsTableSeeder::class);
