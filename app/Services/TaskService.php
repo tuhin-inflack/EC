@@ -87,7 +87,7 @@ class TaskService
             array_push($chartData, array(
                 "id" => $task->id,
                 "text" => $task->name,
-                "start_date" => $task->actual_start_time,
+                "start_date" => $task->actual_start_time ? : date('Y-m-d'),
                 "duration" => $this->calculateTaskCurrentDuration($task),
                 "progress" => 0,
                 "parent" => 0,
@@ -99,17 +99,22 @@ class TaskService
         return $chartData;
     }
 
-    private function calculateTaskCurrentDuration($task)
+    private function calculateTaskCurrentDuration($task) : int
     {
         $duration = 0;
 
-        if ($task->expected_end_time){
-            return Carbon::parse($task->expected_end_time)->diffInDays($task->expected_start_time);
-        } else if (Carbon::parse($task->expected_start_time)->isCurrentDay() || Carbon::now()->diffInDays($task->expected_start_time) > -1){
-            return Carbon::now()->diffInDays($task->expected_start_time);
-        }
+        if (!$task->actual_start_time){
+            return $duration;
 
-        return $duration;
+        } else if ($task->actual_end_time){
+            return Carbon::parse($task->actual_end_time)->diffInDays($task->actual_start_time);
+
+        } else if (Carbon::parse($task->actual_end_time)->isCurrentDay() || Carbon::now()->diffInDays($task->actual_start_time, false) < 0){
+            return $duration;
+
+        } else {
+            return Carbon::parse($task->actual_start_time)->diffInDays($task->actual_end_time);
+        }
     }
 
     // Dead Code Now, We be removed soon
