@@ -34,7 +34,6 @@ class DashboardWorkflowService
     {
 
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
-
         return $itemGenerator->generateItems();
     }
 

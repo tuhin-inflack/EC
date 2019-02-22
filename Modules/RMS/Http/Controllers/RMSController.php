@@ -46,16 +46,14 @@ class RMSController extends Controller
     public function index()
     {
 
-        $featureName = Config::get('constants.research_proposal_feature_name');
-
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
-        $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
-        $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
-        $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
+//        $featureName = Config::get('constants.research_proposal_feature_name');
+//        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+//        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+//        $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
+//        $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
+//        $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
 
         $user = Auth::user();
-
         $employee = $this->employeeService->findOne($user->reference_table_id);
 //        dd($employee);
         if (is_null($employee)) {
@@ -65,6 +63,13 @@ class RMSController extends Controller
         } else {
             $reviewedProposals = [];
         }
+
+        $researchFeatureName =Config::get('rms.research_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
+        dd($pendingTasks->dashboardItems);
+
+
+
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems', 'reviewedProposals'));
     }
 
