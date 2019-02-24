@@ -34,15 +34,17 @@
     </div>
 
     <section class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             @include('../../../organization.table', [
                 'organizable' => $project,
                 'url' => route('pms-organizations.create', $project->id),
                 'organizationShowRoute' => function ($organizableId, $organizationId) { return route('pms-organizations.show', [$organizableId, $organizationId]); }
             ])
         </div>
+    </section>
 
-        <div class="col-md-6">
+    <section class="row">
+        <div class="col-md-12">
             @include('../../../task.partials.table', [
                 'taskable' => $project,
                 'module' => 'pms'
@@ -119,10 +121,117 @@
     <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
 
     <script>
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                let divisionValue = $('#division-select').val();
+                let districtValue = $('#district-select').val();
+
+                if ((data[2] == divisionValue) && (data[3] == districtValue)) {
+                    return true;
+                }
+                return false;
+            }
+        );
+
+
         $(document).ready(function () {
-            $('.organization-table, .task-table, .monthly-update-table').DataTable({
+            let divisions = [
+                {
+                    id: 1,
+                    text: '{!! trans('division.barishal') !!}',
+                    districts: [
+                        {id: 1, text: '{{ trans('district.barisal') }}'},
+                        {id: 2, text: '{{ trans('district.barguna') }}'},
+                        {id: 3, text: '{{ trans('district.bhola') }}'}
+                    ]
+                },
+                {
+                    id: 2,
+                    text: '{!! trans('division.chittagong') !!}',
+                    districts: [
+                        {id: 4, text: '{{ trans('district.brahmanbaria') }}'},
+                        {id: 5, text: '{{ trans('district.comilla') }}'},
+                        {id: 6, text: '{{ trans('district.chandpur') }}'}
+                    ]
+                },
+                {
+                    id: 3,
+                    text: '{!! trans('division.dhaka') !!}',
+                    districts: [
+                        {id: 7, text: '{{ trans('district.dhaka') }}'},
+                        {id: 8, text: '{{ trans('district.gazipur') }}'},
+                        {id: 9, text: '{{ trans('district.kishoreganj') }}'}
+                    ]
+                },
+            ];
+
+            let organizationTable = $('.organization-table').DataTable({
+                pageLength: 5,
+                'drawCallback': function () {
+                    $('.organization-table tbody tr').each(function () {
+                        let divisionId = parseInt($('td:eq(3)').text());
+                        let districtId = parseInt($('td:eq(4)').text());
+
+                        if (Number.isInteger(divisionId) && Number.isInteger(districtId)) {
+                            let division = divisions.find(division => division.id == divisionId);
+                            let district = division.districts.find(district => district.id == districtId);
+
+                            $('td:eq(3)').text(division.text);
+                            $('td:eq(4)').text(district.text);
+                        }
+                    });
+                }
+            });
+
+            $('#DataTables_Table_0_length').parent().removeClass('col-md-6');
+            $('#DataTables_Table_0_filter').parent().removeClass('col-md-6');
+
+
+            $("div.dataTables_length").append(`
+                <label style="margin-left: 20px">
+                    {{ trans('labels.filtered') }}
+                <select id="division-select" class="form-control form-control-sm" style="width: 100px">
+                    <option value="1">{{ trans('division.barishal') }}</option>
+                        <option value="2">{{ trans('division.chittagong') }}</option>
+                        <option value="3">{{ trans('division.dhaka') }}</option>
+                    </select>
+                    {{ trans('labels.records') }}
+                </label>
+                <label style="margin-left: 20px">
+                    {{ trans('labels.filtered') }}
+                <select id="district-select" class="form-control form-control-sm" style="width: 100px">
+                    <option value="1">{{ trans('district.barisal') }}</option>
+                    <option value="2">{{ trans('district.barguna') }}</option>
+                    <option value="3">{{ trans('district.bhola') }}</option>
+                </select>
+{{ trans('labels.records') }}
+                </label>
+            `);
+
+            $('#division-select').on('change', function () {
+
+                let divisionId = $(this).val();
+
+                if (divisionId) {
+                    $('#district-select').empty();
+
+                    let division = divisions.find(division => division.id == divisionId);
+
+                    division.districts.forEach(district => {
+                        $('#district-select').append(`<option value="${district.id}">${district.text}</option>`);
+                    });
+                }
+
+                organizationTable.draw();
+            });
+
+            $('#district-select').on('change', function () {
+                organizationTable.draw();
+            });
+
+            $('.task-table, .monthly-update-table').DataTable({
                 "pageLength": 5
-            })
+            });
         });
     </script>
 @endpush

@@ -53,8 +53,20 @@
                                     @if ($errors->has('guests.' . $loop->index . '.age'))
                                         <span class="invalid-feedback"
                                               role="alert">
-                <strong>{{ $errors->first('guests.' . $loop->index . '.age') }}</strong>
-            </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.age') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
+                                    <br>
+                                    {!! Form::text('nationality', $oldInput['nationality'], ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.nationality') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+
+                                    @if ($errors->has('guests.' . $loop->index . '.nationality'))
+                                        <span class="invalid-feedback"
+                                              role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.nationality') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -65,8 +77,8 @@
                                     @if ($errors->has('guests.' . $loop->index . '.gender'))
                                         <span class="invalid-feedback"
                                               role="alert">
-            <strong>{{ $errors->first('guests.' . $loop->index . '.gender') }}</strong>
-        </span>
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.gender') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -159,6 +171,11 @@
                                     {!! Form::number('age', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
+                                    <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
+                                    <br>
+                                    {!! Form::text('nationality', null, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                </div>
+                                <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                     <br>
                                     {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
@@ -226,6 +243,13 @@
                                             <label class="required">@lang('hm::booking-request.age')</label>
                                             <br>
                                             {!! Form::number('age', $guestInfo->age, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                        </div>
+                                        <div class="form-group mb-1 col-sm-12 col-md-3">
+                                            <label>@lang('hm::booking-request.nationality') <span
+                                                        class="danger">*</span></label>
+                                            <br>
+
+                                            {!! Form::text('nationality',  $guestInfo->nationality, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.gender') <span
@@ -300,6 +324,11 @@
                                         <label class="required">{{ trans('hm::booking-request.age') }}</label>
                                         <br>
                                         {!! Form::number('age', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                    </div>
+                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                        <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
+                                        <br>
+                                        {!! Form::text('nationality', null, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.gender') }}</label>

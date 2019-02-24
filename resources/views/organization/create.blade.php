@@ -119,6 +119,27 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('division_id', trans('division.division')) }}
+                                                <br/>
+                                                {{ Form::select('division_id',  [], null, ['class' => ' form-control select2', 'placeholder' =>
+                                                trans('labels.select')]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('district_id', trans('district.district')) }}
+                                                <br/>
+                                                {{ Form::select('district_id',  [], null, ['class' => ' form-control select2', 'placeholder' => trans('labels.select')]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -161,6 +182,60 @@
                     $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").hide();
                 }
+            });
+
+            let divisions = [
+                {
+                    id: 1,
+                    text: '{!! trans('division.barishal') !!}',
+                    districts: [
+                        {id: 1, text: '{{ trans('district.barisal') }}'},
+                        {id: 2, text: '{{ trans('district.barguna') }}'},
+                        {id: 3, text: '{{ trans('district.bhola') }}'}
+                    ]
+                },
+                {
+                    id: 2,
+                    text: '{!! trans('division.chittagong') !!}',
+                    districts: [
+                        {id: 4, text: '{{ trans('district.brahmanbaria') }}'},
+                        {id: 5, text: '{{ trans('district.comilla') }}'},
+                        {id: 6, text: '{{ trans('district.chandpur') }}'}
+                    ]
+                },
+                {
+                    id: 3,
+                    text: '{!! trans('division.dhaka') !!}',
+                    districts: [
+                        {id: 7, text: '{{ trans('district.dhaka') }}'},
+                        {id: 8, text: '{{ trans('district.gazipur') }}'},
+                        {id: 9, text: '{{ trans('district.kishoreganj') }}'}
+                    ]
+                },
+            ];
+
+            let divisionSelect = 'select[name=division_id]';
+
+            $(divisionSelect).select2({
+                data: divisions
+            });
+
+            $(divisionSelect).on('change', function (e) {
+                let districtSelect = 'select[name=district_id]';
+
+                $(districtSelect).empty();
+
+                let divisionId = $(this).val();
+
+                if (divisionId) {
+                    let division = divisions.find(division => division.id == divisionId);
+
+
+                    $(districtSelect).select2({
+                        data: division.districts
+                    });
+                }
+
             });
         });
     </script>
