@@ -15,7 +15,7 @@
                         @if(!empty($pendingTasks->dashboardItems))
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3>{{__('labels.pending_items')}}</h3>
+                                    <h5>{{__('labels.pending_items')}}</h5>
                                 </div>
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
@@ -31,8 +31,8 @@
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
-                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}
-                                                    <br>
+                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}<br>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}<br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
                                                 <td>
@@ -49,7 +49,7 @@
                         @if(!empty($rejectedTasks->dashboardItems))
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3>{{__('labels.rejected_items')}}</h3>
+                                    <h5>{{__('labels.rejected_items')}}</h5>
                                 </div>
                                 <div class="col-md-12">
                                     <table class="table table-bordered">
@@ -65,7 +65,8 @@
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
-                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_title']}}<br>
+                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}<br>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}<br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
                                                 <td>
@@ -84,7 +85,7 @@
 
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3>{{__('labels.ready_for_apc_approval')}}</h3>
+                                    <h5>{{__('labels.ready_for_apc_approval')}}</h5>
                                 </div>
                                 <div class="col-md-12">
                                     <table class="table table-bordered">

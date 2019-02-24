@@ -1,12 +1,12 @@
 @extends($module . '::layouts.master')
-@section('title', __('pms::task.show_form_title'))
+@section('title', __('monthly-update.show_form_title'))
 
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">{{__('pms::task.show_form_title')}}</h4>
+                    <h4 class="card-title" id="basic-layout-form">{{__('monthly-update.show_form_title')}}</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -21,6 +21,10 @@
                     <div class="card-body">
                         <table class="table">
                             <tbody>
+                            <tr>
+                                <th>{{ trans('monthly-update.monthly_update_for') }}</th>
+                                <td>{{ date('F, Y', strtotime($monthlyUpdate->date)) }}</td>
+                            </tr>
                             <tr>
                                 <th>{{ trans('monthly-update.monthly_achievement') }}</th>
                                 <td>{{ $monthlyUpdate->achievement }}</td>

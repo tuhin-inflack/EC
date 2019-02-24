@@ -58,6 +58,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,
                 'requested_by' => $proposal->proposalSubmittedBy->name,
+                'project_request_title' => $proposal->request->title
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
@@ -100,6 +101,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,
                 'requested_by' => $proposal->proposalSubmittedBy->name,
+                'project_request_title' => $proposal->request->title
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
