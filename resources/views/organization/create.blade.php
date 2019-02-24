@@ -124,8 +124,10 @@
                                             <div class="form-group ">
                                                 {{ Form::label('division_id', trans('division.division')) }}
                                                 <br/>
-                                                {{ Form::select('division_id',  [], null, ['class' => ' form-control select2', 'placeholder' =>
-                                                trans('labels.select')]) }}
+                                                {{ Form::select('division_id',  $divisions->pluck('name', 'id'), null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -135,7 +137,10 @@
                                             <div class="form-group ">
                                                 {{ Form::label('district_id', trans('district.district')) }}
                                                 <br/>
-                                                {{ Form::select('district_id',  [], null, ['class' => ' form-control select2', 'placeholder' => trans('labels.select')]) }}
+                                                {{ Form::select('district_id',  [], null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -145,8 +150,10 @@
                                             <div class="form-group ">
                                                 {{ Form::label('thana_id', trans('thana.thana')) }}
                                                 <br/>
-                                                {{ Form::select('thana_id',  [], null, ['class' => ' form-control select2', 'placeholder' =>
-                                                trans('labels.select')]) }}
+                                                {{ Form::select('thana_id',  [], null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -156,7 +163,10 @@
                                             <div class="form-group ">
                                                 {{ Form::label('union_id', trans('union.union')) }}
                                                 <br/>
-                                                {{ Form::select('union_id',  [], null, ['class' => ' form-control select2', 'placeholder' => trans('labels.select')]) }}
+                                                {{ Form::select('union_id',  [], null, [
+                                                    'class' => ' form-control select2', 
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -187,6 +197,30 @@
 
 @push('page-js')
     <script>
+        function getAjaxData(url) {
+            return {
+                delay: 250,
+                url: url,
+                processResults: function (data) {
+                    return {
+                        results: data.map(data => {
+                            return {
+                                id: data.id,
+                                text: data.name
+                            }
+                        })
+                    };
+                },
+            };
+        }
+
+        function prepareSelect2(selector, url) {
+            $(selector).val('').trigger('change');
+            $(selector).select2({
+                ajax: getAjaxData(url)
+            });
+        }
+
         $(document).ready(function () {
             $('select[name=organization_id]').on('change', function (e) {
                 let organizationSelectValue = $(this).val();
@@ -205,58 +239,28 @@
                 }
             });
 
-            let divisions = [
-                {
-                    id: 1,
-                    text: '{!! trans('division.barishal') !!}',
-                    districts: [
-                        {id: 1, text: '{{ trans('district.barisal') }}'},
-                        {id: 2, text: '{{ trans('district.barguna') }}'},
-                        {id: 3, text: '{{ trans('district.bhola') }}'}
-                    ]
-                },
-                {
-                    id: 2,
-                    text: '{!! trans('division.chittagong') !!}',
-                    districts: [
-                        {id: 4, text: '{{ trans('district.brahmanbaria') }}'},
-                        {id: 5, text: '{{ trans('district.comilla') }}'},
-                        {id: 6, text: '{{ trans('district.chandpur') }}'}
-                    ]
-                },
-                {
-                    id: 3,
-                    text: '{!! trans('division.dhaka') !!}',
-                    districts: [
-                        {id: 7, text: '{{ trans('district.dhaka') }}'},
-                        {id: 8, text: '{{ trans('district.gazipur') }}'},
-                        {id: 9, text: '{{ trans('district.kishoreganj') }}'}
-                    ]
-                },
-            ];
+            $('select[name=division_id]').on('change', function (e) {
+                let url = `/divisions/${e.target.value}/districts`;
+                let districtSelector = 'select[name=district_id]';
 
-            let divisionSelect = 'select[name=division_id]';
-
-            $(divisionSelect).select2({
-                data: divisions
+                $('select[name=thana_id]').val('').trigger('change');
+                $('select[name=union_id]').val('').trigger('change');
+                prepareSelect2(districtSelector, url);
             });
 
-            $(divisionSelect).on('change', function (e) {
-                let districtSelect = 'select[name=district_id]';
+            $('select[name=district_id]').on('change', function (e) {
+                let url = `/districts/${e.target.value}/thanas`;
+                let thanaSelector = 'select[name=thana_id]';
 
-                $(districtSelect).empty();
+                $('select[name=union_id]').val('').trigger('change');
+                prepareSelect2(thanaSelector, url);
+            });
 
-                let divisionId = $(this).val();
+            $('select[name=thana_id]').on('change', function (e) {
+                let url = `/thanas/${e.target.value}/unions`;
+                let unionSelector = 'select[name=union_id]';
 
-                if (divisionId) {
-                    let division = divisions.find(division => division.id == divisionId);
-
-
-                    $(districtSelect).select2({
-                        data: division.districts
-                    });
-                }
-
+                prepareSelect2(unionSelector, url);
             });
         });
     </script>

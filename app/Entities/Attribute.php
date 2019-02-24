@@ -4,14 +4,15 @@ namespace App\Entities;
 
 use App\Entities\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\Project;
 
 class Attribute extends Model
 {
-    protected $fillable = ['name', 'unit', 'organization_id'];
+    protected $fillable = ['name', 'unit', 'project_id'];
 
-    public function organization()
+    public function project()
     {
-        return $this->belongsTo(Organization::class, 'organization_id', 'id');
+        return $this->belongsTo(Project::class);
     }
 
     public function values()

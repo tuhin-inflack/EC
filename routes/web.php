@@ -46,6 +46,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/all/notifications', 'AppNotificationController@index')->name('notification.index');
     Route::get('/read/notifications', 'AppNotificationController@markAsRead')->name('notification.read');
     Route::get('/clear/notifications', 'AppNotificationController@clearAll')->name('notification.clear');
+
+    // districts
+    Route::get('divisions/{division}/districts', function (\App\Division $division) {
+       return $division->districts;
+    });
+    // thanas
+    Route::get('districts/{district}/thanas', function (\App\District $district) {
+        return $district->thanas;
+    });
+    // unions
+    Route::get('thanas/{thana}/unions', function (\App\Thana $thana) {
+       return $thana->unions;
+    });
 });
 
 Route::get('booking-requests', 'PublicBookingRequestController@create')->name('public-booking-requests.create');
