@@ -6,6 +6,7 @@ use App\Entities\workflow\WorkflowConversation;
 use App\Models\DashboardItem;
 use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
+use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\WorkflowService;
 use Modules\RMS\Services\ResearchService;
@@ -17,15 +18,18 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
     private $featureRepository;
     private $researchService;
     private $workflowConversations;
+    private $remarksService;
 
     public function __construct(ResearchService $researchService, WorkflowService $workflowService,
-                                UserService $userService, FeatureRepository $featureRepository, WorkflowConversation $workflowConversation)
+                                UserService $userService, FeatureRepository $featureRepository,
+                                WorkflowConversation $workflowConversation, RemarkService $remarkService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
         $this->featureRepository = $featureRepository;
         $this->researchService = $researchService;
         $this->workflowConversations = $workflowConversation;
+        $this->remarksService = $remarkService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -45,7 +49,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $proposal = $this->researchService->findOne($workflowMaster->ref_table_id);
 
             $researchData = [
-                'proposal_title' => $proposal->title,
+                'research_title' => $proposal->title,
                 'remarks' => $proposal->remarks,
                 'id' => $proposal->id,
             ];
@@ -57,13 +61,13 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
 
             $dashboardItem->setCheckUrl(
-                '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
+                '/rms/research/review/' . $workflowMaster->ref_table_id .
                 '/' . $workflowMaster->feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
             $dashboardItem->setDynamicValues($researchData);
-//            $dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id,'ref_table_id' => $proposal->id]));
+            $dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id,'ref_table_id' => $proposal->id]));
             array_push($dashboardItems, $dashboardItem);
         }
 
