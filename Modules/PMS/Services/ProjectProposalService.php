@@ -149,7 +149,7 @@ class ProjectProposalService
         return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
     }
 
-    //Methods for triggering the notifications
+    //Methods for triggering notifications
     public function generatePMSNotification($notificationData, $event) : void
     {
         $activityBy = (array_key_exists('activity_by', $notificationData))? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);

@@ -48,4 +48,9 @@ class ProjectProposal extends Model
     {
         return $this->hasMany(WorkflowMaster::class, 'ref_table_id', 'id');
     }
+
+    public function request()
+    {
+        return $this->belongsTo(ProjectRequest::class, 'project_request_id', 'id');
+    }
 }
