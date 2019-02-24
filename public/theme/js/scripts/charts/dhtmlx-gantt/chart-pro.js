@@ -1,44 +1,23 @@
 /* Gantt chart
 ---------------------------
     - Following Src : https://docs.dhtmlx.com/gantt/samples/04_customization/15_baselines.html
+    - Following Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
 
     - Variables
         - let nodeName
         - let chardData
 
 */
-$(window).on("load", function () {
 
+var GanttChartCustomCSSUrl = window.location.protocol + window.location.host + '/theme/css/plugins/dhtmlx-gantt/chart-pro.css';
+
+$(window).on("load", function () {
     gantt.config.readonly = true;
 
+    gantt.config.scale_unit = "day"; //week
     gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
     gantt.config.task_height = 12;
     gantt.config.row_height = 35;
-    gantt.locale.labels.baseline_enable_button = 'Set';
-    gantt.locale.labels.baseline_disable_button = 'Remove';
-
-    gantt.config.lightbox.sections = [
-        {
-            name: "description",
-            height: 50,
-            map_to: "text",
-            type: "textarea",
-            focus: true
-        },
-        {
-            name: "time",
-            map_to: "auto",
-            type: "duration"
-        },
-        {
-            name: "baseline",
-            map_to: {start_date: "planned_start", end_date: "planned_end"},
-            button: true,
-            type: "duration_optional"
-        }
-    ];
-    gantt.locale.labels.section_baseline = "Planned";
-
 
     // adding baseline display
     gantt.addTaskLayer(function draw_planned(task) {
@@ -49,6 +28,8 @@ $(window).on("load", function () {
             el.style.left = sizes.left + 'px';
             el.style.width = sizes.width + 'px';
             el.style.top = sizes.top + gantt.config.task_height + 13 + 'px';
+            el.setAttribute('title', gantt.templates.task_date(task.planned_end));
+
             return el;
         }
         return false;
@@ -102,16 +83,62 @@ $(window).on("load", function () {
     gantt.init(nodeName);
     gantt.parse(chartData);
 
-
 });
 
 function exportGantt(mode) {
     if (mode == "png")
         gantt.exportToPNG({
-            header: '<link rel="stylesheet" href="//dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">'
+            header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
+            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
+            raw:true
         });
     else if (mode == "pdf")
         gantt.exportToPDF({
-            header: '<link rel="stylesheet" href="//dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">'
+            header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
+            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
+            raw:true
         });
 }
+
+function zoomTasks(node){
+    switch(node.value){
+        case "week":
+            gantt.config.scale_unit = "day";
+            gantt.config.date_scale = "%d %M";
+
+            gantt.config.scale_height = 60;
+            gantt.config.min_column_width = 30;
+            gantt.config.subscales = [
+                {unit:"hour", step:1, date:"%H"}
+            ];
+            break;
+        case "trplweek":
+            gantt.config.min_column_width = 70;
+            gantt.config.scale_unit = "day";
+            gantt.config.date_scale = "%d %M";
+            gantt.config.subscales = [ ];
+            gantt.config.scale_height = 35;
+            break;
+        case "month":
+            gantt.config.min_column_width = 70;
+            gantt.config.scale_unit = "week";
+            gantt.config.date_scale = "Week #%W";
+            gantt.config.subscales = [
+                {unit:"day", step:1, date:"%D"}
+            ];
+            gantt.config.scale_height = 60;
+            break;
+        case "year":
+            gantt.config.min_column_width = 70;
+            gantt.config.scale_unit = "month";
+            gantt.config.date_scale = "%M";
+            gantt.config.scale_height = 60;
+            gantt.config.subscales = [
+                {unit:"week", step:1, date:"#%W"}
+            ];
+            break;
+    }
+
+    gantt.render();
+}
+
