@@ -78,4 +78,13 @@ class ResearchService
     {
         return $this->researchRepository->findAll();
     }
+
+    public  function  savePublication($data, $researchId)
+    {
+        $save = $this->researchRepository->save($data);
+
+        // TODO: Integrate workflow here
+
+        return true;
+    }
 }

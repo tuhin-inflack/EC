@@ -116,17 +116,14 @@ class ResearchController extends Controller
 
     public function review($researchId, $featureId, $workflowMasterId, $workflowConversationId)
     {
-
         $research = $this->researchService->findOne($researchId);
         $remarks = $this->remarksService->findBy(['feature_id' => $featureId, 'ref_table_id' => $researchId]);
         $feature = $this->featureService->findOne($featureId);
         return view('rms::research.review.show', compact('researchId', 'research', 'feature', 'featureId', 'workflowMasterId', 'workflowConversationId', 'remarks'));
-
     }
 
     public function reviewUpdate(Request $request)
     {
-
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
@@ -150,8 +147,9 @@ class ResearchController extends Controller
     public function storePublication(Request $request, $researchId)
     {
         // TODO: Writing code for store information
-        dd($request->all());
+        $save = $this->researchService->savePublication($request->all());
+        Session::flash('success', trans('labels.save_success'));
 
-
+        return redirect(route('research.show', $researchId));
     }
 }
