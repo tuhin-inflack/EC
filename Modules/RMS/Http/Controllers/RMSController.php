@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\DesignationShortName;
 use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -46,28 +47,36 @@ class RMSController extends Controller
     public function index()
     {
 
-        $featureName = Config::get('constants.research_proposal_feature_name');
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+
         $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
+        //Research proposal items
+        $featureName = Config::get('constants.research_proposal_feature_name');
+        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+//       Research Items
+//        $researchFeatureName = Config::get('rms.research_feature_name');
+//        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+
 
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
 //        dd($employee);
         if (is_null($employee)) {
             $reviewedProposals = [];
-        } elseif ($employee->designation->short_name == 'RD') {
+//            $researchPendingTasks = [];
+        } elseif ($employee->designation->short_name == DesignationShortName::RD) {
             $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
+//            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
         } else {
             $reviewedProposals = [];
+//            $researchPendingTasks = [];
         }
 
-        $researchFeatureName =Config::get('rms.research_feature_name');
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
 
-        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals', 'rejectedItems', 'reviewedProposals'));
+        return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
+            'rejectedItems', 'reviewedProposals' ));
     }
 
     /**

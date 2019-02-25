@@ -3,6 +3,8 @@
 return [
     'title' => 'Research',
     'research_monitoring_tabular_view' => 'Research Monitoring Tabular View',
+    'research_pending_items' => 'Research pending items',
+    'research_proposal_pending_items' => 'Research proposal pending items',
     'research_publication' => 'Research Publication',
     'research_publication_create' => 'Create Research Publication',
     'research_publication_form' => 'Research Publication Form',

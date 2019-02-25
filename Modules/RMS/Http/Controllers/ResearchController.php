@@ -2,8 +2,11 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Services\Remark\RemarkService;
 use App\Services\TaskService;
 use App\Services\UserService;
+use App\Services\workflow\DashboardWorkflowService;
+use App\Services\workflow\FeatureService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -12,6 +15,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
 use Modules\RMS\Services\ResearchService;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 /**
  * @property  userService
@@ -28,19 +32,29 @@ class ResearchController extends Controller
      * @var TaskService
      */
     private $taskService;
+    private $remarksService;
+    private $dashboardWorkflowService;
+    private $featureService;
 
     /**
      * ResearchController constructor.
      * @param UserService $userService
      * @param ResearchService $researchService
      * @param TaskService $taskService
+     * @param RemarkService $remarksService
+     * @param DashboardWorkflowService $dashboardWorkflowService ;
+     * @param FeatureService $featureService ;
      */
-    public function __construct(UserService $userService, ResearchService $researchService, TaskService $taskService)
+    public function __construct(UserService $userService, ResearchService $researchService, TaskService $taskService,
+                                RemarkService $remarkService, DashboardWorkflowService $dashboardWorkflowService, FeatureService $featureService)
     {
 
         $this->userService = $userService;
         $this->researchService = $researchService;
         $this->taskService = $taskService;
+        $this->remarksService = $remarkService;
+        $this->dashboardWorkflowService = $dashboardWorkflowService;
+        $this->featureService = $featureService;
     }
 
     /**
@@ -88,7 +102,6 @@ class ResearchController extends Controller
     {
 
         $ganttChart = $this->taskService->getTasksGanttChartData($research->tasks);
-
         return view('rms::research.show', compact('research', 'ganttChart'));
     }
 
@@ -101,21 +114,30 @@ class ResearchController extends Controller
         return view('rms::edit');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
+    public function review($researchId, $featureId, $workflowMasterId, $workflowConversationId)
     {
+
+        $research = $this->researchService->findOne($researchId);
+        $remarks = $this->remarksService->findBy(['feature_id' => $featureId, 'ref_table_id' => $researchId]);
+        $feature = $this->featureService->findOne($featureId);
+        return view('rms::research.review.show', compact('researchId', 'research', 'feature', 'featureId', 'workflowMasterId', 'workflowConversationId', 'remarks'));
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
+    public function reviewUpdate(Request $request)
     {
+
+        $research = $this->researchService->findOrFail($request->input('item_id'));
+        $this->researchService->update($research, ['status' => $request->input('status')]);
+
+        $data = $request->except('_token');
+        $this->dashboardWorkflowService->updateDashboardItem($data);
+//        Send Notifications
+
+//        $this->researchService->sendNotification($request);
+        //Send user to research dashboard
+        return redirect('/rms');
+
     }
 
     public function createPublication($researchId)
