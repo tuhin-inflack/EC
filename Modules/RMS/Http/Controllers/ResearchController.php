@@ -124,4 +124,12 @@ class ResearchController extends Controller
 
         return view('rms::research.create-publication', compact('research'));
     }
+
+    public function storePublication(Request $request, $researchId)
+    {
+        // TODO: Writing code for store information
+        dd($request->all());
+
+
+    }
 }

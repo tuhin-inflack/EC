@@ -24,11 +24,11 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {!! Form::open(['route' =>  'research.store', 'class' => 'research-submission-tab-steps wizard-circle']) !!}
+                                        {!! Form::open(['url' =>  route('research-publication.store', $research->id) , 'class' => 'research-submission-tab-steps wizard-circle']) !!}
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i
-                                                    class="la la-briefcase"></i> {{trans('rms::research.research_publication_from')}}</h4>
+                                                    class="la la-briefcase"></i> {{trans('rms::research.research_publication_form')}}</h4>
 
                                             <div class="row">
                                                 <div class="col-md-8 offset-2">
@@ -37,8 +37,7 @@
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
                                                                 <label class="required">@lang('rms::research.research_paper_title')</label>
                                                                 <br>
-                                                                {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('title') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
-
+                                                               <input type="text" name="paper_title" class="form-control" value="{{$research->title}}" readonly>
                                                                 @if ($errors->has('title'))
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $errors->first('title') }}</strong>
@@ -67,28 +66,11 @@
                                                 </div>
 
                                                 <div class="col-md-8 offset-2">
-                                                    <fieldset>
-                                                        <div class="form row">
-                                                            <div class="form-group mb-1 col-sm-12 col-md-12">
-                                                                <label class="required">@lang('rms::research.research_publication_attachment')</label>
-                                                                <br>
-                                                                <input class="form-control" type="file" name="research_attachment">
-                                                                @if ($errors->has('title'))
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('title') }}</strong>
-                                                                    </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </fieldset>
-                                                </div>
-
-                                                <div class="col-md-8 offset-2">
                                                     <hr>
                                                     <fieldset>
                                                         <div class="form row">
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
-                                                                <label class="required">@lang('rms::research.research_publication_additional_file')</label>
+                                                                <label class="required">@lang('rms::research.research_publication_attachment')</label>
                                                                 <br>
                                                                 <div id="repeat-attachments">
                                                                     <input type="file"
