@@ -30,7 +30,7 @@
                         <div class="card-body">
                             {!! Form::open(['url' =>  $action, 'class' => 'form', 'method' => 'PUT', 'files'=>'true']) !!}
 
-                            @include('task.partials.create_edit_form')
+                            @include('task.partials.form')
 
                             {!! Form::close() !!}
                         </div>
