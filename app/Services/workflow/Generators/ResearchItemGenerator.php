@@ -8,7 +8,9 @@ use App\Models\DashboardItemSummary;
 use App\Repositories\workflow\FeatureRepository;
 use App\Services\Remark\RemarkService;
 use App\Services\UserService;
+use App\Services\workflow\WorkFlowConversationService;
 use App\Services\workflow\WorkflowService;
+use Illuminate\Support\Str;
 use Modules\RMS\Services\ResearchService;
 
 class ResearchItemGenerator extends BaseDashboardItemGenerator
@@ -19,10 +21,11 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
     private $researchService;
     private $workflowConversations;
     private $remarksService;
+    private $flowConversationService;
 
     public function __construct(ResearchService $researchService, WorkflowService $workflowService,
                                 UserService $userService, FeatureRepository $featureRepository,
-                                WorkflowConversation $workflowConversation, RemarkService $remarkService)
+                                WorkflowConversation $workflowConversation, RemarkService $remarkService, WorkFlowConversationService $workFlowConversationService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
@@ -30,6 +33,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
         $this->researchService = $researchService;
         $this->workflowConversations = $workflowConversation;
         $this->remarksService = $remarkService;
+        $this->flowConversationService = $workFlowConversationService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -61,8 +65,8 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
 
             $dashboardItem->setCheckUrl(
-                '/rms/research/review/' . $workflowMaster->ref_table_id .
-                '/' . $workflowMaster->feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
+                '/rms/researches/review/' . $workflowMaster->ref_table_id .
+                '/' . $workflowMaster->feature->id . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
@@ -83,7 +87,39 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
 
     public function generateRejectedItems(): DashboardItemSummary
     {
+        $dashboardItemSummary = new DashboardItemSummary();
+        $dashboardItems = array();
+        $user = $this->userService->getLoggedInUser();
 
+        $feature = $this->featureRepository->findOneBy(['name' => config('rms.research_feature_name')]);
+
+        $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
+
+        foreach ($workflows as $key => $workflowMaster) {
+
+            $dashboardItem = new DashboardItem();
+            $researchData = [
+                'research_title' => $workflowMaster->research->title,
+                'id' => $workflowMaster->ref_table_id,
+            ];
+
+            $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
+            $dashboardItem->setFeatureItemId($feature->id);
+            $dashboardItem->setFeatureName($feature->name);
+            $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
+
+            $dashboardItem->setCheckUrl('/rms/research/re-initiate/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
+            $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
+            $dashboardItem->setMessage($workflowConversation->message);
+
+            $dashboardItem->setDynamicValues($researchData);
+            //$dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $workflowMaster->ref_table_id]));
+            array_push($dashboardItems, $dashboardItem);
+        }
+
+        $dashboardItemSummary->setDashboardItems($dashboardItems);
+        return $dashboardItemSummary;
     }
 
 }
