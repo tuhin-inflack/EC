@@ -60,7 +60,6 @@ class RMSController extends Controller
 //        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
 
 
-
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
 //        dd($employee);

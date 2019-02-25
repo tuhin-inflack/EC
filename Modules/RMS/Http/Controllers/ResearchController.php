@@ -140,4 +140,18 @@ class ResearchController extends Controller
 
     }
 
+    public function createPublication($researchId)
+    {
+        $research = $this->researchService->findOne($researchId);
+
+        return view('rms::research.create-publication', compact('research'));
+    }
+
+    public function storePublication(Request $request, $researchId)
+    {
+        // TODO: Writing code for store information
+        dd($request->all());
+
+
+    }
 }

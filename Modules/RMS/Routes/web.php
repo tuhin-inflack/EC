@@ -18,6 +18,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ResearchController@index')->name('research.index');
         Route::get('/create', 'ResearchController@create')->name('research.create');
         Route::post('/', 'ResearchController@store')->name('research.store');
+        Route::get('create-publication/{researchId}', 'ResearchController@createPublication')->name('research-publication.create');
+        Route::post('store-publication/{researchId}', 'ResearchController@storePublication')->name('research-publication.store');
         Route::get('{research}', 'ResearchController@show')->name('research.show');
 
         //            research workflow

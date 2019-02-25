@@ -21,12 +21,12 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                     <tr>
-                                        <th scope="col">{{ trans('labels.serial') }}</th>
+                                        <th scope="col">{{ trans('labels.serial')}}</th>
                                         <th scope="col">{{ trans('labels.title') }}</th>
                                         <th scope="col">{{ trans('rms::research_proposal.submitted_by') }}</th>
                                         <th scope="col">{{trans('rms::research_proposal.submission_date')}}</th>
-                                        <th scope="col">{{ trans('labels.status') }}</th>
-                                        <th scope="col">{{ trans('labels.action') }}</th>
+                                        <th scope="col">{{trans('labels.status') }}</th>
+                                        <th scope="col">{{trans('labels.action') }}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -44,10 +44,12 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('research.show', $research->id) }}"
+                                                    <a href="{{route('research.show', $research->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href="{{ route('research-budget.index', $research->id) }}"
+                                                    <a href="{{route('research-budget.index', $research->id) }}"
                                                        class="dropdown-item"><i class="ft-folder"></i>@lang('rms::research.title') @lang('labels.details')</a>
+                                                    <a href="{{route('research-publication.create', $research->id) }}"
+                                                       class="dropdown-item"><i class="ft-plus"></i>@lang('rms::research.research_publication_create')</a>
                                                 </span>
                                             </span>
                                             </td>
