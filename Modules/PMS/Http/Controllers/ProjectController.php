@@ -101,30 +101,4 @@ class ProjectController extends Controller
         $divisions = $this->divisionService->findAll();
         return view('pms::project.show', compact('project', 'ganttChart', 'divisions'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('pms::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
-    }
 }

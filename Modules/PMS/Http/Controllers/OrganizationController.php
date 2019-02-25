@@ -63,13 +63,13 @@ class OrganizationController extends Controller
 
         $organizableType = Config::get('constants.project');
 
-        $attributeIds = $organization->attributes->map(function ($attribute) {
-            return $attribute->id;
-        })->toArray();
-
-        $attributeValues = $this->attributeValueService->findIn('attribute_id', $attributeIds);
-
-        $attributeValueSumsByMonth = $this->attributeValueService->getAttributeValuesSumByMonth($attributeValues);
+//        $attributeIds = $organization->attributes->map(function ($attribute) {
+//            return $attribute->id;
+//        })->toArray();
+//
+//        $attributeValues = $this->attributeValueService->findIn('attribute_id', $attributeIds);
+//
+//        $attributeValueSumsByMonth = $this->attributeValueService->getAttributeValuesSumByMonth($attributeValues);
 
         return view('organization.show', compact('organization', 'organizableType', 'attributeValueSumsByMonth'));
     }
