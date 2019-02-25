@@ -102,7 +102,6 @@ class ResearchController extends Controller
     {
 
         $ganttChart = $this->taskService->getTasksGanttChartData($research->tasks);
-
         return view('rms::research.show', compact('research', 'ganttChart'));
     }
 
