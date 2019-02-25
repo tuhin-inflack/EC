@@ -117,27 +117,6 @@ class TaskService
         }
     }
 
-    // Dead Code Now, We be removed soon
-    // Dead Code Start
-    public function getTasksGanttChartDataForJSGanttChart($tasks)
-    {
-        $chartData = [];
-        foreach ($tasks as $task) {
-            array_push($chartData, array(
-                "pID" => $task->id,
-                "pName" => $task->name,
-                "pStart" => $task->actual_start_time,
-                "pEnd" => $task->actual_end_time,
-                "pPlanStart" => $task->expected_start_time,
-                "pPlanEnd" => $task->expected_end_time,
-                "pClass" => "gtaskblue",
-                "pNotes" => "SDisas ascas cacasc",
-            ));
-        }
-        return $chartData;
-    }
-    // Dead Code End
-
     private function syncTaskAttachments($taskable, $task, $data)
     {
         if (array_key_exists('deleted_attachments', $data)) {

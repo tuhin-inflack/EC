@@ -29,7 +29,7 @@
                         <div class="card-body">
                             {!! Form::open(['url' => $action, 'class' => 'form', 'method' => 'post', 'files' => 'true']) !!}
 
-                            @include('task.partials.create_edit_form')
+                            @include('task.partials.form')
 
                             {!!Form::close()!!}
                         </div>
@@ -58,12 +58,12 @@
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-        $('#expected_start_time').change(function () {
-            $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
-        });
-
         $('#expected_start_time, #expected_end_time').pickadate({
             format: 'yyyy-mm-dd',
+        });
+
+        $('#expected_start_time').change(function () {
+            $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
         });
 
         $('#add').click(function () {

@@ -4,8 +4,11 @@
     - Following Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
 
     - Variables
-        - let nodeName
-        - let chardData
+        - let nodeName = "GanttChartDIV";
+        - let chartData = {
+            "data": [],
+            "links": []
+        };
 
 */
 

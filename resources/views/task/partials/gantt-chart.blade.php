@@ -18,7 +18,7 @@
                     <input value="Export to PDF" class="btn btn-outline-warning btn-sm" type="button" onclick='exportGantt("pdf")'>
                 </div>
                 <div class="col-12">
-                    <div id="GanttChartDIV" style='height:500px;'></div>
+                    <div id="GanttChartDIV" style='height:300px;'></div>
                 </div>
             </div>
         </div>

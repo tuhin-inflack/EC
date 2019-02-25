@@ -13,9 +13,9 @@
 ---------------------------
 
 ** Variables
-    let mountElement
-    let presentedFormat
-    let jsonData
+    let mountElement = document.getElementById('GanttChartDIV');
+    let presentedFormat = "week";
+    let jsonData = [{ data }];
 
 */
 $(window).on("load", function(){
@@ -74,8 +74,6 @@ $(window).on("load", function(){
 //         category: "My Category",
 //         sector: "Finance"
 //     });
-
-    console.log(g);
 
     // Load Json Array
     for (var d in jsonData){

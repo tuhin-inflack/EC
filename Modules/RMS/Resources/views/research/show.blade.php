@@ -26,7 +26,7 @@
 
     <div class="row match-height">
         <div class="col-md-12">
-            @include('../../../task.partials.ganttChart')
+            @include('../../../task.partials.gantt-chart')
         </div>
     </div>
 
