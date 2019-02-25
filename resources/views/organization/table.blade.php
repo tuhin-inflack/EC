@@ -23,8 +23,9 @@
                         <th>@lang('organization.organization')</th>
                         <th>@lang('division.division')</th>
                         <th>@lang('district.district')</th>
+                        <th>@lang('thana.thana')</th>
+                        <th>@lang('union.union')</th>
                         <th>@lang('member.member')</th>
-                        <th>@lang('organization.attribute')</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,10 +33,11 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td><a href="{{ $organizationShowRoute($organizable->id, $organization->id) }}">{{ $organization->name }}</a></td>
-                            <td>{{ $organization->division_id }}</td>
-                            <td>{{ $organization->district_id }}</td>
+                            <td>{{ $organization->division->name }}</td>
+                            <td>{{ $organization->district->name }}</td>
+                            <td>{{ $organization->thana->name }}</td>
+                            <td>{{ $organization->union->name }}</td>
                             <td>{{ $organization->members->count() }}</td>
-                            <td>{{ $organization->attributes->count() }}</td>
                         </tr>
                     @endforeach
                     </tbody>

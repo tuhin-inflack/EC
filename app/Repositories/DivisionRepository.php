@@ -9,7 +9,7 @@
 namespace App\Repositories;
 
 
-use App\Division;
+use App\Entities\Division;
 
 class DivisionRepository extends AbstractBaseRepository
 {

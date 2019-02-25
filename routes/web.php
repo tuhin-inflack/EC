@@ -48,15 +48,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/clear/notifications', 'AppNotificationController@clearAll')->name('notification.clear');
 
     // districts
-    Route::get('divisions/{division}/districts', function (\App\Division $division) {
+    Route::get('divisions/{division}/districts', function (\App\Entities\Division $division) {
        return $division->districts;
     });
     // thanas
-    Route::get('districts/{district}/thanas', function (\App\District $district) {
+    Route::get('districts/{district}/thanas', function (\App\Entities\District $district) {
         return $district->thanas;
     });
     // unions
-    Route::get('thanas/{thana}/unions', function (\App\Thana $thana) {
+    Route::get('thanas/{thana}/unions', function (\App\Entities\Thana $thana) {
        return $thana->unions;
     });
 });
