@@ -117,4 +117,11 @@ class ResearchController extends Controller
     public function destroy()
     {
     }
+
+    public function createPublication($researchId)
+    {
+        $research = $this->researchService->findOne($researchId);
+
+        return view('rms::research.create-publication', compact('research'));
+    }
 }

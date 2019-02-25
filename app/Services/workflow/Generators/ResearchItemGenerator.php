@@ -50,7 +50,6 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
                 'id' => $proposal->id,
             ];
 
-
             $workflowConversation = $workflow->workflowConversations[0];
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);

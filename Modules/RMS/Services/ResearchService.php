@@ -59,16 +59,17 @@ class ResearchService
 
             //Save workflow
 
-            $featureName = Config::get('rms.research_feature_name');;
-            $feature = $this->featureService->findBy(['name' => $featureName])->first();
-            $workflowData = [
-                'feature_id' => $feature->id,
-                'rule_master_id' => $feature->workflowRuleMaster->id,
-                'ref_table_id' => $research->id,
-                'message' => Config::get('rms-notification.research_submitted'),
-            ];
+//            $featureName = Config::get('rms.research_feature_name');;
+//            $feature = $this->featureService->findBy(['name' => $featureName])->first();
+//            $workflowData = [
+//                'feature_id' => $feature->id,
+//                'rule_master_id' => $feature->workflowRuleMaster->id,
+//                'ref_table_id' => $research->id,
+//                'message' => Config::get('rms-notification.research_submitted'),
+//            ];
+//
+//            $this->workflowService->createWorkflow($workflowData);
 
-            $this->workflowService->createWorkflow($workflowData);
             return $research;
         });
     }
