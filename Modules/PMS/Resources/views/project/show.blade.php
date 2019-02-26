@@ -98,7 +98,7 @@
                                                     class="dropdown-menu mt-1 dropdown-menu-right">
                                                   <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
-                                                              class="la la-list"></i>Plannings</a>
+                                                              class="la la-list"></i>@lang('pms::attribute_planning.planning')</a>
                                                   <a href="#"
                                                      class="dropdown-item"><i
                                                               class="la la-eye"></i>@lang('labels.details')</a>
