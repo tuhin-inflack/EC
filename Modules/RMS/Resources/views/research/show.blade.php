@@ -78,7 +78,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
-                                    <dd class="col-sm-9">@lang('rms::research_proposal.' . $research->status)</dd>
+                                    <dd class="col-sm-9"> <span class="badge badge-primary">@lang('rms::research_proposal.' .strtolower($research->status))</span></dd>
                                 </dl>
                             </div>
                         </div>

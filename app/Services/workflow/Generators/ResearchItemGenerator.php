@@ -107,7 +107,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
 
-            $dashboardItem->setCheckUrl('/rms/research/re-initiate/' . $workflowMaster->ref_table_id);
+            $dashboardItem->setCheckUrl('/rms/researches/re-initiate/' . $workflowMaster->ref_table_id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
