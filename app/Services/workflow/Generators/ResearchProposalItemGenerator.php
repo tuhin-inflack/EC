@@ -119,12 +119,12 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureItemId($feature->id);
             $dashboardItem->setFeatureName($feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url (done)
+
             $dashboardItem->setCheckUrl('/rms/research-proposal-submission/re-initiate/' . $workflowMaster->ref_table_id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
+
             $dashboardItem->setDynamicValues($researchData);
             //$dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $workflowMaster->ref_table_id]));
             array_push($dashboardItems, $dashboardItem);

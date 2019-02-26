@@ -29,7 +29,7 @@
 
     <div class="row match-height">
         <div class="col-md-12">
-            @include('../../../task.partials.ganttChart')
+            @include('../../../task.partials.gantt-chart')
         </div>
     </div>
 
@@ -211,7 +211,6 @@
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
-
     <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
