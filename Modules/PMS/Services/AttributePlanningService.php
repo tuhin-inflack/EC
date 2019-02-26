@@ -32,8 +32,8 @@ class AttributePlanningService
         $this->setActionRepository($attributePlanningRepository);
     }
 
-    public function getMonthlyAttributePlanningsFor($attributeIds)
+    public function getMonthlyPlanningFor($attributeId)
     {
-        return $this->attributePlanningRepository->getMonthlyAttributePlanningsFor($attributeIds);
+        return $this->attributePlanningRepository->getMonthlyPlanningFor($attributeId);
     }
 }

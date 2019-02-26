@@ -55,7 +55,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::put('{monthlyUpdate}', 'ProjectMonthlyUpdateController@update')->name('pms-monthly-updates.update');
             });
             // attribute plannings
-            Route::get('attribute-plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+            Route::get('attributes/{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
         });
     });
     // Organization

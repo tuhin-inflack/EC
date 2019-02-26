@@ -96,7 +96,7 @@
                                                         class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2"
                                                     class="dropdown-menu mt-1 dropdown-menu-right">
-                                                  <a href="#"
+                                                  <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-list"></i>Plannings</a>
                                                   <a href="#"

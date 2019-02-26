@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -26,14 +27,17 @@ class AttributePlanningController extends Controller
 
     /**
      * @param Project $project
+     * @param Attribute $attribute
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function index(Project $project)
+    public function index(Project $project, Attribute $attribute)
     {
-        $attributeIds = $project->attributes->pluck('id')->toArray();
+        $monthlyAttributePlannings = $this->attributePlanningService->getMonthlyPlanningFor($attribute->id);
 
-        $monthlyAttributePlannings = $this->attributePlanningService->getMonthlyAttributePlanningsFor($attributeIds);
-
-        return view('pms::attribute-planning.index', compact('monthlyAttributePlannings'));
+        return view('pms::attribute-planning.index', compact(
+            'project',
+            'attribute',
+            'monthlyAttributePlannings'
+        ));
     }
 }
