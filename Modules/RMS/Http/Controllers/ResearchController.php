@@ -172,7 +172,7 @@ class ResearchController extends Controller
     public function closeWorkflowByReviewer($workflowMasterId, $researchId)
     {
         $proposal = $this->researchService->findOne($researchId);
-        $proposal->update(['status' => 'REJECTED']);
+        $proposal->update(['status' => 'CLOSED']);
         $response = $this->researchService->closeWorkflow($workflowMasterId);
 
 
