@@ -1,4 +1,5 @@
 @extends('pms::layouts.master')
+@section('title', trans('pms::attribute_planning.planning_list'))
 
 @section('content')
     <section>
@@ -8,11 +9,11 @@
                     <div class="card-header">
                         <h4 class="card-title"><a
                                     href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a>
-                            - {{ $attribute->name }} - Planning list</h4>
+                            - {{ $attribute->name }} - @lang('pms::attribute_planning.planning_list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
-                                <li><a href="#" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> Enter Planning</a>
+                                <li><a href="#" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
                                 </li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
@@ -27,8 +28,8 @@
                                     <thead>
                                     <tr>
                                         <th>@lang('labels.serial')</th>
-                                        <th>Month Year</th>
-                                        <th>Total Planned Value</th>
+                                        <th>@lang('pms::attribute_planning.month_year')</th>
+                                        <th>@lang('pms::attribute_planning.total_planned_value')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
