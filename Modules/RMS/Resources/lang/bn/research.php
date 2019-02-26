@@ -13,5 +13,6 @@ return [
     'research_publication_attachment' => 'প্রকাশনা সংযুক্তি',
     'research_publication_additional_file' => 'অন্ননান্ন সংযুক্তি',
     'research_publication_info' => 'প্রকাশনা সম্পর্কিত তথ্য',
+    'research_publication_attachment_validation' => 'কমপক্ষে একটি ফাইল প্রবেশ করান',
 ];
 

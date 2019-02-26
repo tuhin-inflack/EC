@@ -48,8 +48,6 @@
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href="{{route('research-budget.index', $research->id) }}"
                                                        class="dropdown-item"><i class="ft-folder"></i>@lang('rms::research.title') @lang('labels.details')</a>
-                                                    <a href="{{route('research-publication.create', $research->id) }}"
-                                                       class="dropdown-item"><i class="ft-plus"></i>@lang('rms::research.research_publication_create')</a>
                                                 </span>
                                             </span>
                                             </td>
