@@ -12,6 +12,9 @@ use App\Services\TaskService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
+
+use Illuminate\Http\Response;
+
 use App\Traits\FileTrait;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -47,7 +50,9 @@ class ResearchService
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
      */
-    public function __construct(ResearchRepository $researchRepository, FeatureService $featureService,  WorkflowService $workflowService, ResearchPublicationRepository $researchPublicationRepository)
+
+    public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService, ResearchPublicationRepository $researchPublicationRepository)
+
     {
         $this->researchRepository = $researchRepository;
         $this->researchPublicationRepository = $researchPublicationRepository;
@@ -63,18 +68,6 @@ class ResearchService
 
             $research = $this->researchRepository->save($data);
 
-            //Save workflow
-
-//            $featureName = Config::get('rms.research_feature_name');;
-//            $feature = $this->featureService->findBy(['name' => $featureName])->first();
-//            $workflowData = [
-//                'feature_id' => $feature->id,
-//                'rule_master_id' => $feature->workflowRuleMaster->id,
-//                'ref_table_id' => $research->id,
-//                'message' => Config::get('rms-notification.research_submitted'),
-//            ];
-//
-//            $this->workflowService->createWorkflow($workflowData);
 
             return $research;
         });
@@ -87,13 +80,50 @@ class ResearchService
 
     public function savePublication($data, $researchId)
     {
-        $publicationData = ['research_id'=> $researchId, 'description' => $data['description']];
-        $save = $this->researchPublicationRepository->save($publicationData);
-        if(array_key_exists('attachments', $data)) $this->savePublicationAttachments($save->getAttribute('id'), $data);
 
-        // TODO: Integrate workflow here
+
+        $publicationData = ['research_id' => $researchId, 'description' => $data['description']];
+        $save = $this->researchPublicationRepository->save($publicationData);
+        if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($save->getAttribute('id'), $data);
+
+
+        //Save workflow
+        $featureName = Config::get('rms.research_feature_name');;
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $workflowData = [
+            'feature_id' => $feature->id,
+            'rule_master_id' => $feature->workflowRuleMaster->id,
+            'ref_table_id' => $researchId,
+            'message' => Config::get('rms-notification.research_paper_submitted'),
+        ];
+
+        $this->workflowService->createWorkflow($workflowData);
 
         return true;
+    }
+
+
+    public function updateReInitiate(array $data, $researchId)
+    {
+        $featureName = Config::get('rms.research_feature_name');
+
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
+        $reInitializeData = [
+            'feature_id' => $feature->id,
+            'ref_table_id' => $researchId,
+            'message' => $data['message'],
+        ];
+
+        $this->workflowService->reinitializeWorkflow($reInitializeData);
+        return new Response(trans('rms::research_proposal.re_initiate_success'));
+
+    }
+
+    public function closeWorkflow($workflowMasterId)
+    {
+        $response = $this->workflowService->closeWorkflow($workflowMasterId);
+        return Response(trans('labels.research_closed'));
     }
 
     private function savePublicationAttachments($publicationId, $data)

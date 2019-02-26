@@ -56,8 +56,8 @@ class RMSController extends Controller
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //       Research Items
-//        $researchFeatureName = Config::get('rms.research_feature_name');
-//        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+        $researchFeatureName = Config::get('rms.research_feature_name');
+        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
 
 
         $user = Auth::user();
@@ -65,18 +65,17 @@ class RMSController extends Controller
 //        dd($employee);
         if (is_null($employee)) {
             $reviewedProposals = [];
-//            $researchPendingTasks = [];
+            $researchPendingTasks = [];
         } elseif ($employee->designation->short_name == DesignationShortName::RD) {
             $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
-//            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
+            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
         } else {
             $reviewedProposals = [];
-//            $researchPendingTasks = [];
+            $researchPendingTasks = [];
         }
 
-
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'reviewedProposals' ));
+            'rejectedItems', 'reviewedProposals', 'researchPendingTasks', 'researchRejectedItems'));
     }
 
     /**

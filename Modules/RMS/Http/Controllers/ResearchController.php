@@ -130,7 +130,6 @@ class ResearchController extends Controller
         $data = $request->except('_token');
         $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
-
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
@@ -146,9 +145,38 @@ class ResearchController extends Controller
 
     public function storePublication(Request $request, $researchId)
     {
+
         $save = $this->researchService->savePublication($request->all(), $researchId);
         Session::flash('success', trans('labels.save_success'));
 
         return redirect(route('research.show', $researchId));
+    }
+
+    public function reInitiate($researchId)
+    {
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $research = $this->researchService->findOne($researchId);
+
+        return view('rms::research.re-initiate.re_initiate_research', compact('research', 'name', 'auth_user_id'));
+    }
+
+    public function storeReInitiate(Request $request, $researchId)
+    {
+        $response = $this->researchService->updateReInitiate($request->all(), $researchId);
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
+    }
+
+    public function closeWorkflowByReviewer($workflowMasterId, $researchId)
+    {
+        $proposal = $this->researchService->findOne($researchId);
+        $proposal->update(['status' => 'CLOSED']);
+        $response = $this->researchService->closeWorkflow($workflowMasterId);
+
+
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
     }
 }
