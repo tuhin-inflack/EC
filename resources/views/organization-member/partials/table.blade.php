@@ -19,6 +19,10 @@
                 <thead>
                 <th>@lang('labels.serial')</th>
                 <th>@lang('labels.name')</th>
+                <th>@lang('labels.gender')</th>
+                <th>@lang('labels.mobile')</th>
+                <th>@lang('labels.address')</th>
+                <th>@lang('labels.nid_number')</th>
                 <th>@lang('labels.action')</th>
                 </thead>
                 <tbody>
@@ -26,6 +30,10 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $member->name }}</td>
+                        <td>{{ $member->gender }}</td>
+                        <td>{{ $member->mobile }}</td>
+                        <td>{{ $member->address }}</td>
+                        <td>{{ $member->nid }}</td>
                         <td class="text-center">
                             <span class="dropdown">
                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
