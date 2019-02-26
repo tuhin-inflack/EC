@@ -569,30 +569,6 @@ class MigrationsTableSeeder extends Seeder
                 'migration' => '2019_01_31_200559_add_column_in_project_proposals_table',
                 'batch' => 1,
             ),
-            92 => 
-            array (
-                'id' => 93,
-                'migration' => '2019_02_04_205932_create_project_budgets_table',
-                'batch' => 1,
-            ),
-            93 => 
-            array (
-                'id' => 94,
-                'migration' => '2019_02_04_205935_create_project_budget_fiscal_values_table',
-                'batch' => 1,
-            ),
-            94 => 
-            array (
-                'id' => 95,
-                'migration' => '2019_02_05_150356_create_research_budgets_table',
-                'batch' => 1,
-            ),
-            95 => 
-            array (
-                'id' => 96,
-                'migration' => '2019_02_05_150501_create_research_budget_fiscal_values_table',
-                'batch' => 1,
-            ),
         ));
         
         

@@ -56,6 +56,8 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             });
             // attribute plannings
             Route::get('attributes/{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+            Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
+            Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');
         });
     });
     // Organization

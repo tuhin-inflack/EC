@@ -68,6 +68,9 @@
                                             <h4 class="card-title">@lang('attribute.attribute_list')</h4>
                                         </div>
                                         <div class="pull-right">
+                                            <a href="{{ route('attribute-plannings.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
                                             <a href="#"
                                                class="btn btn-sm btn-primary"><i
                                                         class="ft-plus"></i> @lang('attribute.create_attribute')</a>

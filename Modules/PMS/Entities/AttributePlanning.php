@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributePlanning extends Model
 {
-    protected $fillable = [];
+    protected $fillable = ['date', 'attribute_id', 'planned_value'];
 }

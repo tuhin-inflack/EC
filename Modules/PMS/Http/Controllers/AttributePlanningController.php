@@ -6,6 +6,7 @@ use App\Entities\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Project;
 use Modules\PMS\Services\AttributePlanningService;
 
@@ -39,5 +40,21 @@ class AttributePlanningController extends Controller
             'attribute',
             'monthlyAttributePlannings'
         ));
+    }
+
+    public function create(Project $project)
+    {
+        return view('pms::attribute-planning.create', compact('project'));
+    }
+
+    public function store(Request $request, Project $project)
+    {
+        if ($this->attributePlanningService->store($request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
+
+        return redirect()->route('project.show', $project->id);
     }
 }
