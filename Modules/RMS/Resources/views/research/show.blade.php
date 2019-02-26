@@ -5,48 +5,21 @@
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12">
             <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group">
+                <div class="btn" role="group">
                     <a class="btn btn-outline-info round" href="{{  route('research-budget.index', $research->id) }}">
                         <i class="ft-folder"></i> @lang('rms::research_budget.title') @lang('labels.details')
                     </a>
+                    @if(is_null($research->publication))
+                        <a class="btn btn-outline-success round" href="{{  route('research-publication.create', $research->id) }}">
+                            <i class="ft-plus"></i> @lang('rms::research.research_publication_create')
+                        </a>
+                    @endif
                 </div>
             </div>
         </div>
         <div class="content-header-right col-md-6 col-12"></div>
     </div>
     <br>
-    <section class="row">
-        <div class="col-md-12">
-            @include('../../../monthly-update.partials.table', [
-                'monthlyUpdatable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
-    </section>
-
-    <div class="row match-height">
-        <div class="col-md-12">
-            @include('../../../task.partials.gantt-chart')
-        </div>
-    </div>
-
-    <section class="row">
-        <div class="col-md-6">
-            @include('../../../organization.table', [
-                'organizable' => $research,
-                'url' => route('rms-organizations.create', $research->id),
-                'organizationShowRoute' => function ($organizableId, $organizationId) { return route('rms-organizations.show', [$organizableId, $organizationId]); }
-            ])
-        </div>
-
-        <div class="col-md-6">
-            @include('../../../task.partials.table', [
-                'taskable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
-    </section>
-
     <section>
         <div class="row match-height">
             <div class="col-sm-12 col-md-12">
@@ -80,11 +53,78 @@
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
                                     <dd class="col-sm-9">@lang('rms::research_proposal.' . $research->status)</dd>
                                 </dl>
+                                <hr>
+
+                                <h4 class="card-title">{{trans('rms::research.research_publication_info')}}</h4>
+                                @if(is_null($research->publication))
+                                    <dl class="row">
+                                        <dt class="col-sm-3"></dt>
+                                        <dd class="col-sm-9">{{ trans('labels.empty_table') }}</dd>
+                                    </dl>
+                                @else
+                                    <dl class="row">
+                                        <dt class="col-sm-3">@lang('rms::research.research_publication_short_desc')</dt>
+                                        <dd class="col-sm-9">{{ $research->title }}</dd>
+                                    </dl>
+                                    <dl class="row">
+                                        <dt class="col-sm-3">@lang('rms::research.research_publication_attachment')</dt>
+                                        <dd class="col-sm-9">
+                                            @if(is_null($research->publication->attachments))
+                                                {{trans('labels.no_doc_available')}}
+                                            @else
+                                                <ul class="list-inline">
+                                                    @foreach($research->publication->attachments as $attachment)
+                                                        <li class="list-group-item">
+                                                            <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}"
+                                                               class="badge bg-info white" style="overflow: hidden; max-width: 80px;"
+                                                               title="{{ $attachment->name }}">
+                                                                {{ $attachment->name  }}</a><br><label
+                                                                class="label"><strong>{{$attachment->ext}}</strong>
+                                                                file</label></li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </dd>
+                                    </dl>
+                                @endif
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
+    <section class="row">
+        <div class="col-md-12">
+            @include('../../../monthly-update.partials.table', [
+                'monthlyUpdatable' => $research,
+                'module' => 'rms'
+            ])
+        </div>
+    </section>
+
+    <div class="row match-height">
+        <div class="col-md-12">
+            @include('../../../task.partials.gantt-chart')
+        </div>
+    </div>
+
+    <section class="row">
+        <div class="col-md-6">
+            @include('../../../organization.table', [
+                'organizable' => $research,
+                'url' => route('rms-organizations.create', $research->id),
+                'organizationShowRoute' => function ($organizableId, $organizationId) { return route('rms-organizations.show', [$organizableId, $organizationId]); }
+            ])
+        </div>
+
+        <div class="col-md-6">
+            @include('../../../task.partials.table', [
+                'taskable' => $research,
+                'module' => 'rms'
+            ])
         </div>
     </section>
 @endsection

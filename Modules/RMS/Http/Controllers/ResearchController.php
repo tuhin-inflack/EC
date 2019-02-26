@@ -146,8 +146,7 @@ class ResearchController extends Controller
 
     public function storePublication(Request $request, $researchId)
     {
-        // TODO: Writing code for store information
-        $save = $this->researchService->savePublication($request->all());
+        $save = $this->researchService->savePublication($request->all(), $researchId);
         Session::flash('success', trans('labels.save_success'));
 
         return redirect(route('research.show', $researchId));

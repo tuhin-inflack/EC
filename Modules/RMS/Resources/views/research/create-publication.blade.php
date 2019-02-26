@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {!! Form::open(['url' =>  route('research-publication.store', $research->id) , 'class' => 'research-submission-tab-steps wizard-circle']) !!}
+                                        {!! Form::open(['url' =>  route('research-publication.store', $research->id) , 'class' => 'research-submission-tab-steps wizard-circle form','method' => 'post', 'files' => 'true']) !!}
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i
@@ -37,7 +37,7 @@
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
                                                                 <label class="required">@lang('rms::research.research_paper_title')</label>
                                                                 <br>
-                                                               <input type="text" name="paper_title" class="form-control" value="{{$research->title}}" readonly>
+                                                                <input type="text" name="paper_title" class="form-control" value="{{$research->title}}" readonly>
                                                                 @if ($errors->has('title'))
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $errors->first('title') }}</strong>
@@ -54,7 +54,7 @@
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
                                                                 <label class="required">@lang('rms::research.research_publication_short_desc')</label>
                                                                 <br>
-                                                                <textarea class="form-control"></textarea>
+                                                                <textarea class="form-control" name="description"></textarea>
                                                                 @if ($errors->has('title'))
                                                                     <span class="invalid-feedback" role="alert">
                                                                         <strong>{{ $errors->first('title') }}</strong>
@@ -113,77 +113,10 @@
     </div>
 @endsection
 
-@push('page-css')
-    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/wizard.css') }}">
-    <link rel="stylesheet" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
-    <!-- BEGIN Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
-    <!-- END Custom CSS-->
-@endpush
-
 @push('page-js')
-    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-
-    <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
-    <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
-    <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/editors/ckeditor/ckeditor.js')  }}"></script>
     <script>
-        $(document).ready(function () {
-            // datepicker
-            $('#end_date, #start_date').pickadate({
-                min: new Date()
-            });
-
-            $('#end_date, #start_date').pickadate();
-
-
-            // validation
-            $('.research-submission-tab-steps').validate({
-                ignore: 'input[type=hidden]', // ignore hidden fields
-                errorClass: 'danger',
-                successClass: 'success',
-                highlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass);
-                },
-                unhighlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass);
-                },
-                errorPlacement: function (error, element) {
-                    if (element.attr('type') == 'radio') {
-                        error.insertBefore(element.parents().siblings('.radio-error'));
-                    } else if (element[0].tagName == "SELECT") {
-                        error.insertAfter(element.siblings('.select2-container'));
-                    } else if (element.attr('id') == 'ckeditor') {
-                        error.insertAfter(element.siblings('#cke_ckeditor'));
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
-                rules: {
-                    title: {
-                        maxlength: 100
-                    },
-                    remarks: {
-                        maxlength: 5000
-                    }
-                },
-            });
-
-        });
-
         $('#add').click(function () {
             $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');
         });
-
     </script>
 @endpush
