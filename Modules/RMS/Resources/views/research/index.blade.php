@@ -36,7 +36,7 @@
                                             <td><a href="{{ route('research.show', $research->id) }}">{{ $research->title }}</a></td>
                                             <td>{{ $research->researchSubmittedByUser->name }}</td>
                                             <td>{{ date('d/m/Y,  h:iA', strtotime($research->created_at)) }}</td>
-                                            <td>@lang('rms::research_proposal.' . $research->status)</td>
+                                            <td>@lang('rms::research_proposal.' . strtolower($research->status))</td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
