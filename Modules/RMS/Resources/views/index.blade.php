@@ -29,7 +29,7 @@
                                 <td>
                                     <a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
-                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                    <a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
                                        class="btn btn-danger btn-sm">@lang('labels.closed')</a>
                                 </td>
                             </tr>

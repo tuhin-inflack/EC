@@ -55,9 +55,9 @@
                                                                 <label class="required">@lang('rms::research.research_publication_short_desc')</label>
                                                                 <br>
                                                                 <textarea class="form-control" name="description"></textarea>
-                                                                @if ($errors->has('title'))
+                                                                @if ($errors->has('description'))
                                                                     <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('title') }}</strong>
+                                                                        <strong>{{ $errors->first('description') }}</strong>
                                                                     </span>
                                                                 @endif
                                                             </div>

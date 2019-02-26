@@ -83,8 +83,8 @@ class ResearchService
 
 
         $publicationData = ['research_id' => $researchId, 'description' => $data['description']];
-        $save = $this->researchPublicationRepository->save($publicationData);
-        if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($save->getAttribute('id'), $data);
+        $publication = $this->researchPublicationRepository->save($publicationData);
+        if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($publication->id, $data);
 
 
         //Save workflow
@@ -98,6 +98,17 @@ class ResearchService
         ];
 
         $this->workflowService->createWorkflow($workflowData);
+
+        return true;
+    }
+
+    public function updatePublication($data, $publicationId)
+    {
+
+        $publicationData = ['research_id' => $data['research_id'], 'description' => $data['description']];
+        $publication = $this->researchPublicationRepository->findOne($publicationId);
+        $status = $publication->update($publicationData);
+        if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($publication->id, $data);
 
         return true;
     }

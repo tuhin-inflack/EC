@@ -1,4 +1,4 @@
-{!! Form::open(['route' =>  ['research-re-initiated', $research->id], 'class' => '', 'enctype' => 'multipart/form-data']) !!}
+{!! Form::model($publication, ['route' =>  ['research-re-initiated', $publication->id], 'class' => '', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i class="la la-briefcase"></i> {{trans('rms::research_proposal.research_proposal_creation_form')}}
     </h4>
@@ -9,7 +9,7 @@
                 <div class="form row">
                     {!! Form::hidden('auth_user_id', $auth_user_id) !!}
                     {{--{!! Form::hidden('research_request_id', $researchProposal->research_request_id) !!}--}}
-                    {!! Form::hidden('id', $research->id) !!}
+                    {!! Form::hidden('research_id', $research->id) !!}
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{ trans('labels.title') }}</label>
                         <br>
@@ -19,6 +19,17 @@
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('title') }}</strong>
                         </span>
+                        @endif
+                    </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">@lang('rms::research.research_publication_short_desc')</label>
+                        <br>
+                        {!! Form::textarea('description', null, ['class' => 'form-control']) !!}
+                        {{--<textarea class="form-control" name="description"></textarea>--}}
+                        @if ($errors->has('description'))
+                            <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $errors->first('description') }}</strong>
+                                                                    </span>
                         @endif
                     </div>
 
