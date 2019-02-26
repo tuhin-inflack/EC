@@ -16,7 +16,8 @@ class OrganizationMember extends Model
         'nid'
     ];
 
-    public function organization(){
+    public function organization()
+    {
         return $this->belongsTo(Organization::class, 'organization_id', 'id');
     }
 }
