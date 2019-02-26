@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {!! Form::open(['url' =>  route('research-publication.store', $research->id) , 'class' => 'research-submission-tab-steps wizard-circle form','method' => 'post', 'files' => 'true']) !!}
+                                        {!! Form::open(['url' =>  route('research-publication.store', $research->id) , 'class' => 'research-submission-tab-steps wizard-circle form','method' => 'post', 'files' => 'true', 'novalidate']) !!}
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i
@@ -38,11 +38,6 @@
                                                                 <label class="required">@lang('rms::research.research_paper_title')</label>
                                                                 <br>
                                                                 <input type="text" name="paper_title" class="form-control" value="{{$research->title}}" readonly>
-                                                                @if ($errors->has('title'))
-                                                                    <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('title') }}</strong>
-                                                                    </span>
-                                                                @endif
                                                             </div>
                                                         </div>
                                                     </fieldset>
@@ -75,8 +70,9 @@
                                                                 <div id="repeat-attachments">
                                                                     <input type="file"
                                                                            class="form-control"
-                                                                           name="attachments[]" id="attachments">
+                                                                           name="attachments[]" id="attachments" data-validation-required-message="{{trans('rms::research.research_publication_attachment_validation')}}" required>
                                                                 </div>
+                                                                <div class="help-block"></div>
                                                                 <div class="pull-right"><br>
                                                                     <button type="button" class="btn btn-primary" id="add"><i class="ft-plus"></i></button>
                                                                 </div>
