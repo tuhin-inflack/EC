@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\DivisionService;
 use App\Services\TaskService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -28,12 +29,29 @@ class ProjectController extends Controller
      * @var TaskService
      */
     private $taskService;
+    /**
+     * @var DivisionService
+     */
+    private $divisionService;
 
-    public function __construct(UserService $userService, ProjectService $projectService, TaskService $taskService)
+    /**
+     * ProjectController constructor.
+     * @param UserService $userService
+     * @param ProjectService $projectService
+     * @param TaskService $taskService
+     * @param DivisionService $divisionService
+     */
+    public function __construct(
+        UserService $userService,
+        ProjectService $projectService,
+        TaskService $taskService,
+        DivisionService $divisionService
+    )
     {
         $this->userService = $userService;
         $this->projectService = $projectService;
         $this->taskService = $taskService;
+        $this->divisionService = $divisionService;
     }
 
     /**
@@ -74,37 +92,13 @@ class ProjectController extends Controller
 
     /**
      * Show the specified resource.
+     * @param Project $project
      * @return Response
      */
     public function show(Project $project)
     {
         $ganttChart = $this->taskService->getTasksGanttChartData($project->tasks);
-        return view('pms::project.show', compact('project', 'ganttChart'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('pms::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        $divisions = $this->divisionService->findAll();
+        return view('pms::project.show', compact('project', 'ganttChart', 'divisions'));
     }
 }

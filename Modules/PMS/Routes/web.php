@@ -53,6 +53,10 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::get('{monthlyUpdate}/edit', 'ProjectMonthlyUpdateController@edit')->name('pms-monthly-updates.edit');
                 Route::put('{monthlyUpdate}', 'ProjectMonthlyUpdateController@update')->name('pms-monthly-updates.update');
             });
+            // attribute plannings
+            Route::get('attributes/{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+            Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
+            Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');
         });
     });
     // Organization

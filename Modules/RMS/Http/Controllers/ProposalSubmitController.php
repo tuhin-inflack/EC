@@ -201,21 +201,18 @@ class ProposalSubmitController extends Controller
         $proposal->update(['status' => 'REJECTED']);
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
 
-
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
     }
 
     public function apcReview($researchProposalSubmissionId)
     {
-
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         return view('rms::proposal.apc-review.show', compact('research'));
     }
 
     public function approveApcReview(Request $request, $researchProposalSubmissionId)
     {
-
         $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');

@@ -25,6 +25,10 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         //            research workflow
         Route::get('review/{researchId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}', 'ResearchController@review');
         Route::post('/reviewUpdate', 'ResearchController@reviewUpdate')->name('research.reviewUpdate');
+        Route::get('/re-initiate/{researchId?}/', 'ResearchController@reInitiate');
+        Route::post('/research-re-initiated/{researchId?}/', 'ResearchController@storeReInitiate')->name('research-re-initiated');
+        Route::get('research-workflow-close-reviewer/{workflowMasterId?}/{researchId?}', 'ResearchController@closeWorkflowByReviewer')->name('research-workflow-close-reviewer');
+
 
 
         Route::prefix('{research}')->group(function () {

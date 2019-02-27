@@ -56,6 +56,8 @@ return [
     'pending' => 'In Process',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
+    'approved' => 'Approved',
+    'rejected' => 'Rejected',
     'research_details' => 'Research Details',
     'research_request_details' => 'Research Proposal Request Details',
     're_initiate_success' => 'Successfully re-initialized',

@@ -119,6 +119,58 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('division_id', trans('division.division')) }}
+                                                <br/>
+                                                {{ Form::select('division_id',  $divisions->pluck('name', 'id'), null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('district_id', trans('district.district')) }}
+                                                <br/>
+                                                {{ Form::select('district_id',  [], null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('thana_id', trans('thana.thana')) }}
+                                                <br/>
+                                                {{ Form::select('thana_id',  [], null, [
+                                                    'class' => ' form-control select2',
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                {{ Form::label('union_id', trans('union.union')) }}
+                                                <br/>
+                                                {{ Form::select('union_id',  [], null, [
+                                                    'class' => ' form-control select2', 
+                                                    'placeholder' => trans('labels.select')
+                                                ]) }}
+                                                <div class="help-block"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="row">
@@ -144,6 +196,7 @@
 @endsection
 
 @push('page-js')
+    <script src="{{ asset('js/address/cascade-dropdown.js') }}"></script>
     <script>
         $(document).ready(function () {
             $('select[name=organization_id]').on('change', function (e) {

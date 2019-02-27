@@ -41,7 +41,7 @@
             </div>
         </section>
     @endif
-    @if(!empty($researchPendingTasks))
+    @if(!empty($researchPendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
@@ -49,6 +49,7 @@
                     <table class="table table-bordered">
                         <thead>
                         <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
                         </thead>
@@ -56,6 +57,7 @@
                         @foreach($researchPendingTasks->dashboardItems as $item)
                             <tr>
                                 <td>{{$item->featureName}}</td>
+                                <td></td>
 
                                 <td>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
