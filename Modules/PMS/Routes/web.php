@@ -26,7 +26,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
             Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
-            Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
         });
 
         Route::prefix('{project}')->group(function () {
