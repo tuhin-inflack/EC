@@ -55,9 +55,10 @@
                         </thead>
                         <tbody>
                         @foreach($researchPendingTasks->dashboardItems as $item)
+
                             <tr>
                                 <td>{{$item->featureName}}</td>
-                                <td></td>
+                                <td>{{ $item->message }}</td>
 
                                 <td>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>

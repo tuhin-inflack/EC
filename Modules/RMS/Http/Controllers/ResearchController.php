@@ -125,6 +125,7 @@ class ResearchController extends Controller
 
     public function reviewUpdate(Request $request)
     {
+
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
@@ -167,10 +168,14 @@ class ResearchController extends Controller
     public function storeReInitiate(Request $request, $publicationId)
     {
 
-        $this->researchService->updatePublication($request->all(), $publicationId);
+//      publication update
+        $this->researchService->updatePublicationForReInitialize($request->all(), $publicationId);
 
+//      Reinitialize research
         $proposal = $this->researchService->findOne($request->research_id);
         $proposal->update(['status' => WorkflowStatus::REINITIATED]);
+
+//      Reinitialize Workflow
         $response = $this->researchService->updateReInitiate($request->all(), $request->research_id);
 
         Session::flash('success', $response->getContent());

@@ -45,13 +45,16 @@ class ResearchService
      */
     private $workflowService;
 
+    private $researchPublicationAttachmentRepository;
+
 
     /**
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
      */
 
-    public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService, ResearchPublicationRepository $researchPublicationRepository)
+    public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService,
+                                ResearchPublicationRepository $researchPublicationRepository)
 
     {
         $this->researchRepository = $researchRepository;
@@ -81,7 +84,6 @@ class ResearchService
     public function savePublication($data, $researchId)
     {
 
-
         $publicationData = ['research_id' => $researchId, 'description' => $data['description']];
         $publication = $this->researchPublicationRepository->save($publicationData);
         if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($publication->id, $data);
@@ -94,7 +96,7 @@ class ResearchService
             'feature_id' => $feature->id,
             'rule_master_id' => $feature->workflowRuleMaster->id,
             'ref_table_id' => $researchId,
-            'message' => Config::get('rms-notification.research_paper_submitted'),
+            'message' => $data['message'],
         ];
 
         $this->workflowService->createWorkflow($workflowData);
@@ -102,24 +104,60 @@ class ResearchService
         return true;
     }
 
-    public function updatePublication($data, $publicationId)
+    public function updatePublicationForReInitialize($data, $publicationId)
     {
 
         $publicationData = ['research_id' => $data['research_id'], 'description' => $data['description']];
         $publication = $this->researchPublicationRepository->findOne($publicationId);
         $status = $publication->update($publicationData);
-        if (array_key_exists('attachments', $data)) $this->savePublicationAttachments($publication->id, $data);
 
+        if (isset($data['fileRepeater'])) {
+
+            $this->deleteOldAttachment($data, $publication);
+            $this->storeNewAttachment($data, $publication);
+        } else {
+            $publication->attachments()->whereResearchPublicationId($publicationId)->delete();
+        }
         return true;
     }
 
+    public function deleteOldAttachment($data, $publication)
+    {
+
+        $oldFiles = array_column($data['fileRepeater'], 'oldFiles');
+        if (count($oldFiles) > 0) {
+            foreach ($publication->attachments as $attachment) {
+                if (in_array($attachment->id, $oldFiles)) {
+                    continue;
+                } else {
+                    $attachment->delete();
+                }
+            }
+            return true;
+        }else{
+            $publication->attachments()->whereResearchPublicationId($publication->id)->delete();
+        }
+
+    }
+
+    public function storeNewAttachment($data, $publication)
+    {
+        $files = array_column($data['fileRepeater'], 'file');
+        foreach ($files as $file) {
+            $ext = $file->getClientOriginalExtension();
+            $filePath = $this->upload($file, 'research_publications');
+            $publication->attachments()->create([
+                'path' => $filePath,
+                'name' => $file->getClientOriginalName(),
+                'ext' => $ext,
+            ]);
+        }
+    }
 
     public function updateReInitiate(array $data, $researchId)
     {
         $featureName = Config::get('rms.research_feature_name');
-
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
-
         $reInitializeData = [
             'feature_id' => $feature->id,
             'ref_table_id' => $researchId,
@@ -139,6 +177,7 @@ class ResearchService
 
     private function savePublicationAttachments($publicationId, $data)
     {
+
         $publication = $this->researchPublicationRepository->findOne($publicationId);
         foreach ($data['attachments'] as $file) {
             $ext = $file->getClientOriginalExtension();
@@ -150,4 +189,12 @@ class ResearchService
             ]);
         }
     }
+
+
+
+//    private function updatePublicationAttachments($publicationId, $attachments)
+//    {
+//        $publication = $this->researchPublicationRepository->findOne($publicationId);
+//
+//    }
 }
