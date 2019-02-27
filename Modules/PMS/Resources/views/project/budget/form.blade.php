@@ -9,6 +9,17 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
+            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
+            {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $draftProposalBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('english_name'))
+                <span class="invalid-feedback">{{ $errors->first('english_name') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
             {!! Form::label('economy_code_id', trans('accounts::economy-code.title'), ['class' => 'form-label']) !!}
             <span class="danger">*</span>
             {!! Form::select('economy_code_id',$economyCodeOptions, $page === 'create' ? null : $draftProposalBudget->economy_code_id, ['class'=>'form-control economy-code-select required']) !!}
@@ -19,20 +30,9 @@
             @endif
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
-            {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $draftProposalBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('english_name'))
-                <span class="invalid-feedback">{{ $errors->first('english_name') }}</span>
-            @endif
-        </div>
-    </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('unit', trans('labels.unit'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
             {!! Form::text('unit', $page === 'create' ? old('unit') : $draftProposalBudget->unit, ['class' => 'form-control'.($errors->has('unit') ? ' is-invalid' : ''), 'required',
@@ -69,16 +69,28 @@
             @endif
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!}
             <span class="danger">*</span>
-            {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''), 'required',
-            'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total_expense')])]) !!}
+            {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''),
+            'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total').' '.trans('labels.expense')])]) !!}
 
             <div class="help-block"></div>
             @if ($errors->has('total_expense'))
                 <span class="invalid-feedback">{{ $errors->first('total_expense') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            {!! Form::label('total_expense_percentage', trans('labels.total').' '.trans('labels.expense').' '.trans('draft-proposal-budget.percentage'), ['class' => 'form-label required']) !!}
+            {!! Form::number('total_expense_percentage', $page === 'create' ? old('total_expense_percentage') : $draftProposalBudget->total_expense_percentage, ['class' => 'form-control'.($errors->has('total_expense_percentage') ? ' is-invalid' : ''),
+            'disabled']) !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('total_expense_percentage'))
+                <span class="invalid-feedback">{{ $errors->first('total_expense_percentage') }}</span>
             @endif
         </div>
     </div>
@@ -88,12 +100,14 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th width="4%"># SL</th>
-                <th>Fiscal Year</th>
-                <th>@lang('draft-proposal-budget.monetary_amount') (@lang('draft-proposal-budget.lac_bdt'))</th>
-                <th>@lang('draft-proposal-budget.body_percentage') (%)</th>
-                <th>@lang('draft-proposal-budget.project_percentage') (%)</th>
-                {{--<th width="4%"><i class="la la-plus-circle text-primary add-fiscal-value-row"></i></th>--}}
+                <th rowspan="2" width="4%"># SL</th>
+                <th rowspan="2">Fiscal Year</th>
+                <th colspan="2">@lang('draft-proposal-budget.monetary_amount')</th>
+
+            </tr>
+            <tr>
+                <th>(@lang('draft-proposal-budget.lac_bdt'))</th>
+                <th>(@lang('draft-proposal-budget.percentage')) %</th>
             </tr>
             </thead>
             <tbody id="fiscal-values">
@@ -103,9 +117,7 @@
                         <td>{{$i}}</td>
                         <td><input type="text" name="fiscal_year[]" class="form-control"></td>
                         <td><input type="number" name="monetary_amount[]" min="1" class="form-control"></td>
-                        <td><input type="number" name="body_percentage[]" min="1" class="form-control"></td>
-                        <td><input type="number" name="project_percentage[]" min="1" class="form-control"></td>
-                        {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
+                        <td><input type="number" name="monetary_percentage[]" min="1" class="form-control"></td>
                     </tr>
                 @endfor
             @elseif($page === 'edit')
@@ -122,15 +134,9 @@
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
                         </td>
                         <td>
-                            <input type="number" name="body_percentage[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->body_percentage : null }}">
+                            <input type="number" name="monetary_percentage[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                                   $draftProposalBudget->budgetFiscalValue[$i]->monetary_percentage : null }}">
                         </td>
-                        <td>
-                            <input type="number" name="project_percentage[]" min="1" class="form-control"
-                                   value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->project_percentage : null }}">
-                        </td>
-                        {{--<td><i class="la la-trash-o text-danger remove-item"></i></td>--}}
                     </tr>
                 @endfor
             @endif

@@ -53,6 +53,11 @@ class DraftProposalBudgetService
         ];
     }
 
+    /**
+     * @param $budgetable
+     * @param array $data
+     * @return mixed
+     */
     public function store($budgetable, array $data)
     {
         return DB::transaction(function () use ($budgetable, $data) {
@@ -67,8 +72,7 @@ class DraftProposalBudgetService
                         'project_budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
-                        'body_percentage' => $data['body_percentage'][$key],
-                        'project_percentage' => $data['project_percentage'][$key],
+                        'monetary_percentage' => $data['monetary_percentage'][$key],
                     ]);
 
                     $draftProposalBudget->budgetFiscalValue()->save($fiscalValue);
@@ -95,8 +99,6 @@ class DraftProposalBudgetService
                         'project_budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
-                        'body_percentage' => $data['body_percentage'][$key],
-                        'project_percentage' => $data['project_percentage'][$key],
                     ]);
                 }
 

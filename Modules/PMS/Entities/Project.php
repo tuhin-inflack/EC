@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Entities;
 
+use App\Entities\Attribute;
 use App\Entities\DraftProposalBudget\DraftProposalBudget;
 use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Entities\Organization\Organization;
@@ -37,5 +38,10 @@ class Project extends Model
     public function budgets()
     {
         return $this->morphMany(DraftProposalBudget::class, 'budgetable', 'budgetable_type', 'budgetable_id', 'id');
+    }
+
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class, 'project_id');
     }
 }

@@ -17,12 +17,13 @@ class CreateDraftProposalBudgetsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('budgetable_id');
             $table->string('budgetable_type');
-            $table->unsignedInteger('economy_code_id');
+            $table->unsignedInteger('economy_code_id')->nullable();
             $table->enum('section_type', ['revenue', 'capital', 'physical_contingency', 'price_contingency'])->default('revenue');
-            $table->string('unit', 20);
-            $table->double('unit_rate', 10, 2);
-            $table->integer('quantity');
-            $table->double('total_expense', 10, 2);
+            $table->string('unit', 20)->nullable();
+            $table->double('unit_rate', 10, 2)->nullable();
+            $table->integer('quantity')->nullable();
+            $table->double('total_expense', 10, 2)->nullable();
+            $table->double('total_expense_percentage', 3, 2)->nullable();
             $table->timestamps();
         });
     }

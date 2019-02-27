@@ -35,6 +35,7 @@ return [
     'last_name' => 'নামের শেষাংশ',
     'contact' => 'যোগাযোগ',
     'address' => 'ঠিকানা',
+    'nationality' => 'জাতীয়তা',
     'gender' => 'লিঙ্গ',
     'male' => 'পুরুষ',
     'female' => 'মহিলা',
@@ -96,5 +97,6 @@ return [
     'not_enough_available_rooms' => 'পর্যাপ্ত কক্ষ নেই',
     'approval_done_mail' => 'আপানার বুকিং অনুরোধটি অনুমোদিত হয়েছে। বুকিং সম্পর্কিত তথ্য নিচে দেখুন',
     'approval_reject_mail' => 'আপানার বুকিং অনুরোধটি বাতিল করা হয়েছে। বুকিং সম্পর্কিত তথ্য নিচে দেখুন',
-    'recipient_addressing' => 'প্রিয়'
+    'recipient_addressing' => 'প্রিয়',
+    'bengali' => 'বাঙালি'
 ];

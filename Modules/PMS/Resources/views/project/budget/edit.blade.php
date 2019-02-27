@@ -1,10 +1,6 @@
 @extends('pms::layouts.master')
 @section('title', trans('pms::project_budget.title'))
 
-@push('page-css')
-
-@endpush
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -38,7 +34,6 @@
     </div>
 @endsection
 
-
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
@@ -54,26 +49,6 @@
             $('input[name=unit_rate], input[name=quantity]').keyup((e) => {
                 calcutateTotalExpense();
             });
-
-            // $('.add-fiscal-value-row').css('cursor', 'pointer').click(() => {
-            //     var tbody = $('#fiscal-values');
-            //
-            //     var row = `<tr>
-            //                 <td><input type="number" name="fiscal_year[]" class="form-control"></td>
-            //                 <td><input type="number" name="monetary_amount[]" class="form-control"></td>
-            //                 <td><input type="number" name="body_percentage[]" class="form-control"></td>
-            //                 <td><input type="number" name="project_percentage[]" class="form-control"></td>
-            //                 <td><i class="la la-trash-o text-danger remove-item"></i></td>
-            //             </tr>`;
-            //
-            //     tbody.append(row);
-            //
-            //     $('.remove-item').off();
-            //     $('.remove-item').css('cursor', 'pointer').click(function(){
-            //         $(this).parents('tr').remove();
-            //     });
-            //
-            // });
 
             // validation
             $('.project-budget-form').validate({
@@ -112,4 +87,35 @@
 
 
     </script>
+@endpush
+
+@push('page-css')
+    <style type="text/css">
+
+        .table thead {
+            text-align: center;
+        }
+        .table thead th{
+            vertical-align: inherit;
+        }
+        .table th, .table td {
+            padding: 0.15rem 0.15rem;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input.form-control {
+            height: 30px;
+        }
+
+        .form-control {
+            padding: .1rem 0.25rem;
+        }
+    </style>
 @endpush
