@@ -68,7 +68,7 @@
         <div class="form-group">
             {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
             {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''), 'required',
-            'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total_expense')])]) !!}
+            'readonly', 'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('labels.total').' '.trans('labels.expense')])]) !!}
             <div class="help-block"></div>
             @if ($errors->has('total_expense'))
                 <span class="invalid-feedback">{{ $errors->first('total_expense') }}</span>

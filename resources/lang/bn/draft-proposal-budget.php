@@ -2,6 +2,7 @@
 return [
     'economy_code' => 'অর্থনীতি কোড',
     'section_type' => 'বিভাগের ধরন',
+    'percentage' => 'শতাংশে',
     'total_financial_and_implementation_plans' => 'মোট আর্থিক ও বাস্তবায়ন পরিকল্পনা',
     'body_percentage' => 'অঙ্গের শতকরা হার',
     'project_percentage' => 'প্রকল্পের শতকরা হার',
