@@ -34,6 +34,10 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
+                // organisation members
+                Route::prefix('{organization}/members')->group(function () {
+                   Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
+                });
             });
             // research tasks
             Route::prefix('tasks')->group(function () {
