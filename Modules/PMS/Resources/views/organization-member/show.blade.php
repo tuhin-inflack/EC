@@ -79,7 +79,12 @@
                                             <td>{{ $attributeValue->unit }}</td>
                                             <td>{{ number_format($attributeValue->total_achieved_value, 2) }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('pms-attributes.show', [$organization->id, $attributeValue->attribute_id]) }}"
+                                                <a href="{{ route('attributes.show', [
+                                                    $project->id,
+                                                    $organization->id,
+                                                    $member->id,
+                                                    $attributeValue->attribute_id
+                                                ]) }}"
                                                    class="btn btn-sm btn-info"><i class="ft ft-eye"></i></a>
                                             </td>
                                         </tr>

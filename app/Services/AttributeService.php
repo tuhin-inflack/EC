@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Entities\Attribute;
 use App\Repositories\AttributeRepository;
 use App\Traits\CrudTrait;
 
@@ -28,5 +29,24 @@ class AttributeService
     {
         $this->attributeRepository = $attributeRepository;
         $this->setActionRepository($attributeRepository);
+    }
+
+    public function getAttributeType(Attribute $attribute)
+    {
+        return strtolower($attribute->name);
+    }
+
+    public function getAttributeValue(Attribute $attribute)
+    {
+        $attributeValue = $attribute->values->first();
+
+        $initialValue = $attributeValue ? $attributeValue->achieved_value : 0;
+
+        $currentBalance = $attribute->values->sum('achieved_value');
+
+        return (object) [
+            'initial_value' => $initialValue,
+            'current_balance' => $currentBalance
+        ];
     }
 }

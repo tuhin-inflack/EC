@@ -36,6 +36,10 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 // organisation members
                 Route::prefix('{organization}/members')->group(function () {
                    Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
+                   // member attribute
+                    Route::prefix('{member}')->group(function () {
+                       Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('attributes.show');
+                    });
                 });
             });
             // research tasks
@@ -78,7 +82,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             $AttributeController = '\App\Http\Controllers\AttributeController';
             Route::get('create', $AttributeController . '@create')->name('pms-attributes.create');
             Route::get('{attribute}/edit', $AttributeController . '@edit')->name('pms-attributes.edit');
-            Route::get('{attribute}', $AttributeController . '@show')->name('pms-attributes.show');
         });
     });
     // attributes attribute values
