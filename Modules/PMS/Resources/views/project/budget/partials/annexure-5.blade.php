@@ -24,19 +24,14 @@
                                     <th>@lang('labels.unit')</th>
                                     <th>@lang('labels.unit_rate')</th>
                                     <th>@lang('labels.quantity')</th>
-                                    <th>জিওবি (বৈদেশিক মুদ্রা)</th>
-                                    <th>নিজস্ব অর্থায়ন (বৈদেশিক মুদ্রা)</th>
-                                    <th>অন্যান্য</th>
+                                    <th>@lang('draft-proposal-budget.gov') (@lang('draft-proposal-budget.foreign_currency'))</th>
+                                    <th>@lang('draft-proposal-budget.own_financing') (@lang('draft-proposal-budget.foreign_currency'))</th>
+                                    <th>@lang('draft-proposal-budget.other')</th>
                                     <th>@lang('labels.total')</th>
-                                    <th>মোট প্রাক্কলিত ব্যয়ের % </th>
+                                    <th>@lang('draft-proposal-budget.total_estimated_expenditure_percentage')</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    @for($l = 1; $l <= 10; $l++)
-                                        <td>{{$l}}</td>
-                                    @endfor
-                                </tr>
                                 <tr>
                                     <th colspan="3">(ক) @lang('draft-proposal-budget.revenue') : </th>
                                     @for($l = 1; $l <= 7; $l++)
@@ -52,9 +47,9 @@
                                             <td>{{ $budget->unit }}</td>
                                             <td>{{ $budget->unit_rate }}</td>
                                             <td>{{ $budget->quantity }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{ $budget->gov_source }}</td>
+                                            <td>{{ $budget->own_financing_source }}</td>
+                                            <td>{{ $budget->other_source }}</td>
                                             <td>{{ $budget->total_expense }}</td>
                                             <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                                         </tr>
@@ -66,6 +61,23 @@
                                         <td></td>
                                     @endfor
                                 </tr>
+                                @foreach($project->budgets as $budget)
+                                    @if($budget->section_type === 'capital')
+                                        @php $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        <tr>
+                                            <td>{{ $budget->economyCode->code }}</td>
+                                            <td>{{ $budget->economyCode->bangla_name }}</td>
+                                            <td>{{ $budget->unit }}</td>
+                                            <td>{{ $budget->unit_rate }}</td>
+                                            <td>{{ $budget->quantity }}</td>
+                                            <td>{{ $budget->gov_source }}</td>
+                                            <td>{{ $budget->own_financing_source }}</td>
+                                            <td>{{ $budget->other_source }}</td>
+                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 <tr>
                                     <th colspan="3">(গ) @lang('draft-proposal-budget.physical_contingency') : </th>
                                     @for($l = 1; $l <= 7; $l++)

@@ -18,5 +18,10 @@ return [
     'annexure-3' => 'সংযোজনী ৩',
     'annexure-4' => 'সংযোজনী ৪',
     'annexure-5' => 'সংযোজনী ৫',
+    'gov' => 'জিওবি',
+    'own_financing' => 'নিজস্ব অর্থায়ন',
+    'other' => 'অন্যান্য',
+    'foreign_currency' => 'বৈদেশিক মুদ্রা',
+    'total_estimated_expenditure_percentage' => 'মোট প্রাক্কলিত ব্যয়ের % ',
 ];
 

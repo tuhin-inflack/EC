@@ -24,6 +24,9 @@ class CreateDraftProposalBudgetsTable extends Migration
             $table->integer('quantity')->nullable();
             $table->double('total_expense', 10, 2)->nullable();
             $table->double('total_expense_percentage', 3, 2)->nullable();
+            $table->double('gov_source', 10, 2)->nullable();
+            $table->double('own_financing_source', 10, 2)->nullable();
+            $table->double('other_source', 10, 2)->nullable();
             $table->timestamps();
         });
     }

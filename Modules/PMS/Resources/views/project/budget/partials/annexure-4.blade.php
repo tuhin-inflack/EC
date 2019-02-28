@@ -138,8 +138,8 @@
                                             <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                                             @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                 <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ number_format( (float) $budgetFiscalValue->monetary_amount / $data->physicalContingencyExpense, 3, '.', '') }}</td>
+                                                <td>{{ number_format( ($budgetFiscalValue->monetary_amount / $data->physicalContingencyExpense ) * $weight, 3, '.', '')}}</td>
                                             @endforeach
                                         </tr>
                                     @endif
@@ -163,8 +163,8 @@
                                             <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                                             @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
                                                 <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{ number_format( (float) $budgetFiscalValue->monetary_amount / $data->physicalContingencyExpense, 3, '.', '') }}</td>
+                                                <td>{{ number_format( ($budgetFiscalValue->monetary_amount / $data->physicalContingencyExpense ) * $weight, 3, '.', '')}}</td>
                                             @endforeach
                                         </tr>
                                     @endif

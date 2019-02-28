@@ -18,5 +18,10 @@ return [
     'annexure-3' => 'Annexure 3',
     'annexure-4' => 'Annexure 4',
     'annexure-5' => 'Annexure 5',
+    'gov' => 'Gov.',
+    'own_financing' => 'Own financing',
+    'other' => 'Other',
+    'foreign_currency' => 'Foreign currency',
+    'total_estimated_expenditure_percentage' => 'Total estimated expenditure %',
 ];
 
