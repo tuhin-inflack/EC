@@ -13,7 +13,7 @@
             </ul>
         </div>
     </div>
-    <div class="card-body card-body-min-height">
+    <div class="card-body">
         <div class="table-responsive">
             <table class="table task-table table-bordered table-striped">
                 <thead>
