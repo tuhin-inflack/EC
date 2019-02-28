@@ -57,6 +57,40 @@
                                         @endif
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <h4 class="card-title">{{trans('rms::research.research_publication_info')}}</h4>
+                                    @if(is_null($research->publication))
+                                        <dl class="row">
+                                            <dt class="col-sm-3"></dt>
+                                            <dd class="col-sm-9">{{ trans('labels.empty_table') }}</dd>
+                                        </dl>
+                                    @else
+                                        <dl class="row">
+                                            <dt class="col-sm-3">@lang('rms::research.research_publication_short_desc')</dt>
+                                            <dd class="col-sm-9">{{ $research->publication->description }}</dd>
+                                        </dl>
+                                        <dl class="row">
+                                            <dt class="col-sm-3">@lang('rms::research.research_publication_attachment')</dt>
+                                            <dd class="col-sm-9">
+                                                @if(is_null($research->publication->attachments))
+                                                    {{trans('labels.no_doc_available')}}
+                                                @else
+                                                    <ul class="list-inline">
+                                                        @foreach($research->publication->attachments as $attachment)
+                                                            <li class="list-group-item">
+                                                                <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}"
+                                                                   class="badge bg-info white" style="overflow: hidden; max-width: 80px;"
+                                                                   title="{{ $attachment->name }}">
+                                                                    {{ $attachment->name  }}</a><br><label
+                                                                        class="label"><strong>{{$attachment->ext}}</strong>
+                                                                    file</label></li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                            </dd>
+                                        </dl>
+                                    @endif
+                                </div>
                                 <div class="col-md-12">
                                     {!! Form::open(['route' =>  'research.reviewUpdate',  'enctype' => 'multipart/form-data']) !!}
                                     <hr/>

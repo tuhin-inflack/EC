@@ -38,12 +38,4 @@
 @endsection
 
 
-@push('page-js')
 
-    <script>
-        $('#add').click(function () {
-            $('#repeat-attachments').append('<br><input type="file" class="form-control" name="attachments[]">');
-        });
-
-    </script>
-@endpush
