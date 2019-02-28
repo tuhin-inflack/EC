@@ -27,7 +27,7 @@ class AttributePlanningRepository extends AbstractBaseRepository
             )
             ->where('attribute_id', $attributeId)
             ->groupBy('monthYear')
-            ->orderBy('monthYear', 'desc')
+            ->orderBy('monthYear', 'asc')
             ->get();
     }
 }

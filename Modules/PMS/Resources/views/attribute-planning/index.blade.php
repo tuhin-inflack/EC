@@ -13,8 +13,6 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
-                                <li><a href="#" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
-                                </li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>

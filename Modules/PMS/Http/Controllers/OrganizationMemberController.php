@@ -3,58 +3,41 @@
 namespace Modules\PMS\Http\Controllers;
 
 
-use App\Services\OrganizationMemberService;
-use App\Services\OrganizationService;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use App\Entities\Organization\Organization;
+use App\Entities\Organization\OrganizationMember;
+use App\Services\AttributeValueService;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Session;
-use Modules\PMS\Http\Requests\StoreUpdateOrgMemberRequest;
-//use Modules\PMS\Services\OrganizationMemberService;
-use Modules\PMS\Services\ProjectProposalService;
+use Modules\PMS\Entities\Project;
 
 
 class OrganizationMemberController extends Controller
 {
+    /**
+     * @var AttributeValueService
+     */
+    private $attributeValueService;
 
-    private $organizationService;
-    private $organizationMemberService;
-
-    public function __construct(OrganizationService $organizationService, OrganizationMemberService $organizationMemberService)
+    /**
+     * OrganizationMemberController constructor.
+     * @param AttributeValueService $attributeValueService
+     */
+    public function __construct(AttributeValueService $attributeValueService)
     {
-        $this->organizationService = $organizationService;
-        $this->organizationMemberService = $organizationMemberService;
+        $this->attributeValueService = $attributeValueService;
     }
 
-    public function addOrganizationMember($organizationId)
+    public function show(Project $project, Organization $organization, OrganizationMember $member)
     {
-        $organization = $this->organizationService->findOrganizationById($organizationId);
-        return view('pms::project-members.create', compact('organization'));
+        $attributeIds = $project->attributes->pluck('id')->toArray();
 
-    }
+        $attributeValues = $this->attributeValueService->getMemberAttributeValues($member->id, $attributeIds);
 
-    public function storeOrganizationMember(StoreUpdateOrgMemberRequest $request)
-    {
-
-        $response = $this->organizationMemberService->saveOrganizationMember($request->all(), $request->file('nid'));
-        Session::flash('success', $response->getContent());
-        return redirect()->route('member.add-member', $request->organization_id);
-    }
-
-    public function editOrganizationMember($memberId)
-    {
-        $member = $this->organizationMemberService->findMemberById($memberId);
-        $organization = $member->organization;
-        return view('pms::project-members.edit', compact('member', 'organization'));
-
-    }
-
-    public function UpdateOrganizationMember(StoreUpdateOrgMemberRequest $request, $memberId)
-    {
-        $response = $this->organizationMemberService->updateOrganizationMember($request->all(), $memberId);
-        Session::flash('success', $response->getContent());
-        $organizationId = $this->organizationMemberService->findMemberById($memberId)->organization->id;
-        return redirect()->route('member.add-member', $organizationId);
-
+        return view('pms::organization-member.show', compact(
+                'project',
+                'organization',
+                'member',
+                'attributeValues'
+            )
+        );
     }
 }

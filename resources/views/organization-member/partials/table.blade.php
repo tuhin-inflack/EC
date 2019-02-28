@@ -42,7 +42,7 @@
                                         class="la la-cog"></i></button>
                               <span aria-labelledby="btnSearchDrop2"
                                     class="dropdown-menu mt-1 dropdown-menu-right">
-                                <a href="#"
+                                <a href="{{ route('organization-members.show', [$project->id, $organization->id, $member->id]) }}"
                                    class="dropdown-item"><i
                                             class="ft-eye"></i> {{trans('labels.details')}}</a>
                                 <a href="{{ route('pms-organization-members.edit', [$organization->id, $member->id]) }}"

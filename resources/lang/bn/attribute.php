@@ -29,4 +29,9 @@ return [
     'graph' => 'লেখচিত্র',
     'attribute_tabular_view' => 'বৈশিষ্ট্য ট্যাবুলার ভিউ',
     'duplicate_value_entry' => 'এই মাসে ভ্যালু  দেয়া আছে, নতুন ইনপুট সম্বব নয়',
+    'initial_balance' => 'প্রাথমিক ভারসাম্য',
+    'current_balance' => 'বর্তমান হিসাব',
+    'make_transaction' => 'লেনদেন করুন',
+    'purchase_share' => 'শেয়ার ক্রয়',
+    'transfer_share' => 'শেয়ার বিনিময়',
 ];
