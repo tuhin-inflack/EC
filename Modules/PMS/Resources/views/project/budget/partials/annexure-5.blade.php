@@ -24,24 +24,57 @@
                                     <th>@lang('labels.unit')</th>
                                     <th>@lang('labels.unit_rate')</th>
                                     <th>@lang('labels.quantity')</th>
-                                    <th>নিজস্ব অর্থায়ন
-                                        (বৈদেশিক মুদ্রা)</th>
                                     <th>জিওবি (বৈদেশিক মুদ্রা)</th>
-                                    <th>নিজস্ব অর্থায়ন
-                                        (বৈদেশিক মুদ্রা)</th>
+                                    <th>নিজস্ব অর্থায়ন (বৈদেশিক মুদ্রা)</th>
+                                    <th>অন্যান্য</th>
                                     <th>@lang('labels.total')</th>
-                                    <th>@lang('labels.total') @lang('labels.expense')</th>
+                                    <th>মোট প্রাক্কলিত ব্যয়ের % </th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     @for($l = 1; $l <= 10; $l++)
+                                        <td>{{$l}}</td>
+                                    @endfor
+                                </tr>
+                                <tr>
+                                    <th colspan="3">(ক) @lang('draft-proposal-budget.revenue') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
+                                        <td></td>
+                                    @endfor
+                                </tr>
+                                @foreach($project->budgets as $budget)
+                                    @if($budget->section_type === 'revenue')
+                                        @php $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        <tr>
+                                            <td>{{ $budget->economyCode->code }}</td>
+                                            <td>{{ $budget->economyCode->bangla_name }}</td>
+                                            <td>{{ $budget->unit }}</td>
+                                            <td>{{ $budget->unit_rate }}</td>
+                                            <td>{{ $budget->quantity }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                                <tr>
+                                    <th colspan="3">(খ) @lang('draft-proposal-budget.capital') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
                                 <tr>
-                                    <th colspan="7">(ক) @lang('draft-proposal-budget.revenue') : </th>
-                                    @for($l = 1; $l <= 9; $l++)
+                                    <th colspan="3">(গ) @lang('draft-proposal-budget.physical_contingency') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
+                                        <td></td>
+                                    @endfor
+                                </tr>
+                                <tr>
+                                    <th colspan="3">(ঘ) @lang('draft-proposal-budget.price_contingency') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>

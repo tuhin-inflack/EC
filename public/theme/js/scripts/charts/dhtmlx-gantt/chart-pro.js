@@ -17,7 +17,7 @@ var GanttChartCustomCSSUrl = window.location.protocol + window.location.host + '
 $(window).on("load", function () {
     gantt.config.readonly = true;
 
-    gantt.config.scale_unit = "day"; //week
+    gantt.config.scale_unit = "week";
     gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
     gantt.config.task_height = 12;
     gantt.config.row_height = 35;
@@ -86,6 +86,8 @@ $(window).on("load", function () {
     gantt.init(nodeName);
     gantt.parse(chartData);
 
+    zoomTasks("week");
+
 });
 
 function exportGantt(mode) {
@@ -103,9 +105,10 @@ function exportGantt(mode) {
         });
 }
 
-function zoomTasks(node){
-    switch(node.value){
-        case "week":
+function zoomTasks(scale){
+    console.log(scale);
+    switch(scale){
+        case "hours":
             gantt.config.scale_unit = "day";
             gantt.config.date_scale = "%d %M";
 
@@ -115,14 +118,14 @@ function zoomTasks(node){
                 {unit:"hour", step:1, date:"%H"}
             ];
             break;
-        case "trplweek":
+        case "day":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "day";
             gantt.config.date_scale = "%d %M";
             gantt.config.subscales = [ ];
             gantt.config.scale_height = 35;
             break;
-        case "month":
+        case "week":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "week";
             gantt.config.date_scale = "Week #%W";
@@ -131,13 +134,22 @@ function zoomTasks(node){
             ];
             gantt.config.scale_height = 60;
             break;
-        case "year":
+        case "month":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "month";
             gantt.config.date_scale = "%M";
             gantt.config.scale_height = 60;
             gantt.config.subscales = [
                 {unit:"week", step:1, date:"#%W"}
+            ];
+            break;
+        case "year":
+            gantt.config.min_column_width = 70;
+            gantt.config.scale_unit = "year";
+            gantt.config.date_scale = "%F, %Y";
+            gantt.config.scale_height = 60;
+            gantt.config.subscales = [
+                {unit:"month", step:1, date:"#%M"}
             ];
             break;
     }
