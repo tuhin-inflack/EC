@@ -30,7 +30,6 @@ class ProjectBudgetController extends Controller
     public function index(Project $project)
     {
         $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
-//        dump($data);
         return view('pms::project.budget.index', compact('project', 'data'));
     }
 

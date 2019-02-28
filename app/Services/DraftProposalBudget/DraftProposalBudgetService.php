@@ -60,39 +60,43 @@ class DraftProposalBudgetService
     public function prepareBudgetView($budgetable)
     {
         $totalExpense = 0;
+        $revenueExpense = 0;
+        $capitalExpense = 0;
         $physicalContingencyExpense = 0;
         $priceContingencyExpense = 0;
 
         foreach ($budgetable->budgets as $budget)
         {
-            if(!in_array(['physical_contingency', 'price_contingency'], [$budget->section_type])){
-                $totalExpense += $budget->total_expense;
+            switch ($budget->section_type){
+                case 'revenue':
+                    $revenueExpense += $budget->total_expense;
+                    break;
+                case 'capital':
+                    $capitalExpense += $budget->total_expense;
+                    break;
             }
         }
+
+        $totalExpense = $revenueExpense + $capitalExpense;
 
         foreach ($budgetable->budgets as $budget)
         {
-            if ($budget->section_type === 'physical_contingency'){
-                $physicalContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
-            }
-
-            if($budget->section_type === 'price_contingency'){
-                $priceContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+            switch ($budget->section_type){
+                case 'physical_contingency':
+                    $physicalContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    break;
+                case 'price_contingency':
+                    $priceContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    break;
             }
         }
 
-//        dd($project->budgets);
-//        echo "<pre>";
-//
-//        echo $totalExpense; echo "<br>";
-//        echo $physicalContingencyExpense; echo "<br>";
-//        echo $priceContingencyExpense; echo "<br>";
         $grandTotalExpense = $totalExpense + $physicalContingencyExpense + $priceContingencyExpense;
-//
-//        echo "</pre>";
 
         return [
             'totalExpense' => $totalExpense,
+            'revenueExpense' => $revenueExpense,
+            'capitalExpense' => $capitalExpense,
             'physicalContingencyExpense' => $physicalContingencyExpense,
             'priceContingencyExpense' => $priceContingencyExpense,
             'grandTotalExpense' => $grandTotalExpense,
