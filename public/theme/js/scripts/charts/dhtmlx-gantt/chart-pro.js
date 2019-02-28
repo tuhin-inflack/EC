@@ -1,7 +1,8 @@
 /* Gantt chart
 ---------------------------
-    - Following Src : https://docs.dhtmlx.com/gantt/samples/04_customization/15_baselines.html
-    - Following Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
+    - Following - Baseline Src : https://docs.dhtmlx.com/gantt/samples/04_customization/15_baselines.html
+    - Following - TaskLayer Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
+    - Following - Custom Style Src : https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css
 
     - Variables
         - let nodeName = "GanttChartDIV";
@@ -65,6 +66,16 @@ $(window).on("load", function () {
             width: "*"
         },
         {
+            name: "planned_start",
+            label: "Planned Start",
+            align: "center"
+        },
+        {
+            name: "planned_end",
+            label: "Planned End",
+            align: "center"
+        },
+        {
             name: "start_date",
             label: "Start time",
             align: "center"
@@ -94,13 +105,11 @@ function exportGantt(mode) {
     if (mode == "png")
         gantt.exportToPNG({
             header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
-            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
             raw:true
         });
     else if (mode == "pdf")
         gantt.exportToPDF({
             header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
-            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
             raw:true
         });
 }

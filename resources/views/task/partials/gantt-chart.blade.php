@@ -17,11 +17,11 @@
                     <input value="Export to PNG" class="btn btn-outline-primary btn-sm" type="button" onclick='exportGantt("png")'>
                     <input value="Export to PDF" class="btn btn-outline-warning btn-sm" type="button" onclick='exportGantt("pdf")'>
 
-                    <input value="Hours" class="btn btn-outline-warning btn-sm float-right" type="button" onclick='zoomTasks("hours")'>
-                    <input value="Day" class="btn btn-outline-warning btn-sm float-right" type="button" onclick='zoomTasks("day")'>
-                    <input value="Week" class="btn btn-outline-warning btn-sm float-right" type="button" onclick='zoomTasks("week")'>
-                    <input value="Month" class="btn btn-outline-warning btn-sm float-right" type="button" onclick='zoomTasks("month")'>
-                    <input value="Year" class="btn btn-outline-warning btn-sm float-right" type="button" onclick='zoomTasks("year")'>
+                    <input value="Hours" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("hours")'>
+                    <input value="Day" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("day")'>
+                    <input value="Week" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("week")'>
+                    <input value="Month" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("month")'>
+                    <input value="Year" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("year")'>
                 </div>
                 <div class="col-12">
                     <div id="GanttChartDIV" style='height:300px;'></div>
