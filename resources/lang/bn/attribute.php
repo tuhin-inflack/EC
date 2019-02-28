@@ -32,4 +32,6 @@ return [
     'initial_balance' => 'প্রাথমিক ভারসাম্য',
     'current_balance' => 'বর্তমান হিসাব',
     'make_transaction' => 'লেনদেন করুন',
+    'purchase_share' => 'শেয়ার ক্রয়',
+    'transfer_share' => 'শেয়ার বিনিময়',
 ];

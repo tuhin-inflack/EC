@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', 'Organisation Member Details')
+@section('title', trans('organization.organization') . ' ' . trans('member.member'))
 
 @section('content')
     <section>

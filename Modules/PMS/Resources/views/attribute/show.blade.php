@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('attribute.attribute') @lang('labels.details')</h4>
+                        <h4 class="card-title">@lang('attribute.attribute') @lang('labels.details') - {{ $attribute->name }}</h4>
                     </div>
                     <div class="card-content">
                         <div class="card-body">
@@ -45,7 +45,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <a href="#" class="btn btn-primary"><i class="la la-money"></i> @lang('attribute.make_transaction')</a>
+                            @if($attributeType == 'share')
+                                @include('pms::attribute.partials.share_actions')
+                            @else
+                                <a href="#" class="btn btn-outline-primary"><i
+                                            class="la la-money"></i> @lang('attribute.make_transaction')</a>
+                            @endif
                         </div>
                     </div>
                 </div>
