@@ -88,7 +88,20 @@
 
                                             </div>
                                         </div>
-                                        <div class="form-actions text-center">
+                                        <div class="form-actions ">
+                                            <div class="col-md-8 offset-2">
+                                                <fieldset>
+                                                    <div class="form row">
+
+                                                        <div class="form-group mb-1 col-sm-12 col-md-12">
+                                                            <label class="">{{ trans('labels.message_to_receiver') }}</label>
+                                                            <br>
+                                                            {!! Form::textarea('message', null, ['class' => 'form-control',  'placeholder' => 'Message','rows'=>3]) !!}
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+                                            </div>
                                             {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
 
                                             <a class="btn btn-warning mr-1" role="button" href="{{route('research.index')}}">

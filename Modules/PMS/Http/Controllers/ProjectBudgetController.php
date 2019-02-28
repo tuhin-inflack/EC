@@ -29,8 +29,8 @@ class ProjectBudgetController extends Controller
      */
     public function index(Project $project)
     {
-        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        return view('pms::project.budget.index', compact('project', 'economyCodeOptions'));
+        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
+        return view('pms::project.budget.index', compact('project', 'data'));
     }
 
     /**
@@ -53,7 +53,6 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        dd($request->all());
         $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));

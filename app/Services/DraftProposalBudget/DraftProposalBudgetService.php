@@ -55,6 +55,57 @@ class DraftProposalBudgetService
 
     /**
      * @param $budgetable
+     * @return array
+     */
+    public function prepareBudgetView($budgetable)
+    {
+        $totalExpense = 0;
+        $revenueExpense = 0;
+        $capitalExpense = 0;
+        $physicalContingencyExpense = 0;
+        $priceContingencyExpense = 0;
+
+        foreach ($budgetable->budgets as $budget)
+        {
+            switch ($budget->section_type){
+                case 'revenue':
+                    $revenueExpense += $budget->total_expense;
+                    break;
+                case 'capital':
+                    $capitalExpense += $budget->total_expense;
+                    break;
+            }
+        }
+
+        $totalExpense = $revenueExpense + $capitalExpense;
+
+        foreach ($budgetable->budgets as $budget)
+        {
+            switch ($budget->section_type){
+                case 'physical_contingency':
+                    $physicalContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    break;
+                case 'price_contingency':
+                    $priceContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    break;
+            }
+        }
+
+        $grandTotalExpense = $totalExpense + $physicalContingencyExpense + $priceContingencyExpense;
+
+        return [
+            'totalExpense' => $totalExpense,
+            'revenueExpense' => $revenueExpense,
+            'capitalExpense' => $capitalExpense,
+            'physicalContingencyExpense' => $physicalContingencyExpense,
+            'priceContingencyExpense' => $priceContingencyExpense,
+            'grandTotalExpense' => $grandTotalExpense,
+        ];
+
+    }
+
+    /**
+     * @param $budgetable
      * @param array $data
      * @return mixed
      */
@@ -69,7 +120,7 @@ class DraftProposalBudgetService
                 if ($budgetFiscalYear){
 
                     $fiscalValue = new DraftProposalBudgetFiscalValue([
-                        'project_budget_id' => $draftProposalBudget->id,
+                        'budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
                         'monetary_percentage' => $data['monetary_percentage'][$key],
@@ -96,7 +147,7 @@ class DraftProposalBudgetService
 
                 if ($budgetFiscalYear){
                     $fiscalValue = new DraftProposalBudgetFiscalValue([
-                        'project_budget_id' => $draftProposalBudget->id,
+                        'budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
                     ]);
