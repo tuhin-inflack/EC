@@ -216,12 +216,14 @@
 @endpush
 
 @push('page-js')
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
     </script>
+    @endif
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
             type="text/javascript"></script>

@@ -15,6 +15,55 @@
         <div class="content-header-right col-md-6 col-12"></div>
     </div>
     <br>
+
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH'))
+    <!-- Basic tabs start -->
+    <section>
+        <div class="row match-height">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1"
+                                       href="#tab1"
+                                       aria-expanded="true">@lang('task.task_gantt_chart')</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
+                                       href="#tab2"
+                                       aria-expanded="false">@lang('task.task_list')</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content px-1 pt-1">
+                                <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
+                                     aria-labelledby="base-tab1">
+                                    <div class="row match-height">
+                                        <div class="col-md-12">
+                                            @include('../../../task.partials.gantt-chart')
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
+                                    <div class="col-md-12">
+                                        @include('../../../task.partials.table', [
+                                            'taskable' => $research,
+                                            'module' => 'rms'
+                                        ])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Basic badge Input end -->
+    @endif
+
+
     <section class="row">
         <div class="col-md-12">
             @include('../../../monthly-update.partials.table', [
@@ -24,11 +73,7 @@
         </div>
     </section>
 
-    <div class="row match-height">
-        <div class="col-md-12">
-            @include('../../../task.partials.gantt-chart')
-        </div>
-    </div>
+
 
     <section class="row">
         <div class="col-md-6">
@@ -39,13 +84,9 @@
             ])
         </div>
 
-        <div class="col-md-6">
-            @include('../../../task.partials.table', [
-                'taskable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
     </section>
+
+
 
     <section>
         <div class="row match-height">
@@ -103,12 +144,14 @@
 @endpush
 
 @push('page-js')
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
     </script>
+    @endif
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
