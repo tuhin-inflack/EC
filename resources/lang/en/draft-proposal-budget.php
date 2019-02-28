@@ -13,5 +13,10 @@ return [
     'capital' => 'Capital',
     'physical_contingency' => 'Physical Contingency',
     'price_contingency' => 'Price Contingency',
+    'annexure-1' => 'Annexure 1',
+    'annexure-2' => 'Annexure 2',
+    'annexure-3' => 'Annexure 3',
+    'annexure-4' => 'Annexure 4',
+    'annexure-5' => 'Annexure 5',
 ];
 

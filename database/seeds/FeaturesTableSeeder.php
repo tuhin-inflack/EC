@@ -33,6 +33,14 @@ class FeaturesTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'deleted_at' => NULL,
             ),
+            2 => 
+            array (
+                'id' => 3,
+                'name' => 'Research Workflow',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'deleted_at' => NULL,
+            ),
         ));
         
         

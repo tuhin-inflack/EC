@@ -13,5 +13,10 @@ return [
     'capital' => 'মূলধন',
     'physical_contingency' => 'ফিজিক্যাল কনটিনজেন্সি',
     'price_contingency' => 'প্রাইস কনটিনজেন্সি',
+    'annexure-1' => 'সংযোজনী ১',
+    'annexure-2' => 'সংযোজনী ২',
+    'annexure-3' => 'সংযোজনী ৩',
+    'annexure-4' => 'সংযোজনী ৪',
+    'annexure-5' => 'সংযোজনী ৫',
 ];
 
