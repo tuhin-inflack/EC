@@ -56,9 +56,15 @@
                 toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
             });
 
+            // $(`input[name=gov_source], input[name=own_financing_source], input[name=other_source]`).keydown(function (e) {
+            //     console.log($('input[name=gov_source]').val());
+            //     console.log($('input[name=own_financing_source]').val());
+            //     console.log($('input[name=other_source]').val());
+            // });
+
         });
 
-        var validator = $('.project-budget-form').validate({
+        let validator = $('.project-budget-form').validate({
             ignore: 'input[type=hidden]', // ignore hidden fields
             errorClass: 'danger',
             successClass: 'success',
@@ -86,7 +92,6 @@
         function toggleComponents(bool) {
 
             let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
-
             components.prop( "disabled", bool);
 
             if (bool)
