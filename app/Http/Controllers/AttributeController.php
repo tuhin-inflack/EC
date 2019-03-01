@@ -75,4 +75,9 @@ class AttributeController extends Controller
 
         return view('attribute.show', compact('organization', 'attribute', 'module'));
     }
+
+    public function deposit(Organization $organization, Attribute $attribute)
+    {
+        return $attribute;
+    }
 }

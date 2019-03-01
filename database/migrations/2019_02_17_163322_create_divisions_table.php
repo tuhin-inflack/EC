@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResearchPublicationAttachementsTable extends Migration
+class CreateDivisionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateResearchPublicationAttachementsTable extends Migration
      */
     public function up()
     {
-        Schema::create('research_publication_attachements', function (Blueprint $table) {
+        Schema::create('divisions', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateResearchPublicationAttachementsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('research_publication_attachements');
+        Schema::dropIfExists('divisions');
     }
 }

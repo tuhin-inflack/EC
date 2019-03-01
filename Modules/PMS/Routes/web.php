@@ -26,7 +26,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
             Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
-            Route::get('spreadsheet', 'ProjectBudgetController@spreadsheet')->name('project.spreadsheet'); // Demo of spreadsheet
         });
 
         Route::prefix('{project}')->group(function () {
@@ -34,6 +33,14 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
+                // organisation members
+                Route::prefix('{organization}/members')->group(function () {
+                   Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
+                   // member attribute
+                    Route::prefix('{member}')->group(function () {
+                       Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('attributes.show');
+                    });
+                });
             });
             // research tasks
             Route::prefix('tasks')->group(function () {
@@ -54,6 +61,10 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::get('{monthlyUpdate}/edit', 'ProjectMonthlyUpdateController@edit')->name('pms-monthly-updates.edit');
                 Route::put('{monthlyUpdate}', 'ProjectMonthlyUpdateController@update')->name('pms-monthly-updates.update');
             });
+            // attribute plannings
+            Route::get('attributes/{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+            Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
+            Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');
         });
     });
     // Organization
@@ -71,7 +82,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             $AttributeController = '\App\Http\Controllers\AttributeController';
             Route::get('create', $AttributeController . '@create')->name('pms-attributes.create');
             Route::get('{attribute}/edit', $AttributeController . '@edit')->name('pms-attributes.edit');
-            Route::get('{attribute}', $AttributeController . '@show')->name('pms-attributes.show');
         });
     });
     // attributes attribute values

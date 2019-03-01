@@ -38,4 +38,9 @@ class Research extends Model
     {
         return $this->morphMany(DraftProposalBudget::class, 'budgetable', 'budgetable_type', 'budgetable_id', 'id');
     }
+
+    public function publication()
+    {
+        return $this->hasOne(Publication::class);
+    }
 }

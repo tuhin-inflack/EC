@@ -29,4 +29,9 @@ return [
     'graph' => 'Graph',
     'attribute_tabular_view' => 'Attribute Tabular View',
     'duplicate_value_entry' => 'Attribute Value Already Added for this Month',
+    'initial_balance' => 'Initial Balance',
+    'current_balance' => 'Current Balance',
+    'make_transaction' => 'Make Transaction',
+    'purchase_share' => 'Purchase Share',
+    'transfer_share' => 'Transfer Share',
 ];

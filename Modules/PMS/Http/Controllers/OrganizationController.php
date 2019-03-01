@@ -4,6 +4,7 @@ namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\Organization\Organization;
 use App\Services\AttributeValueService;
+use App\Services\DivisionService;
 use App\Services\OrganizationService;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Config;
@@ -19,16 +20,25 @@ class OrganizationController extends Controller
      * @var AttributeValueService
      */
     private $attributeValueService;
+    /**
+     * @var DivisionService
+     */
+    private $divisionService;
 
     /**
      * OrganizationController constructor.
      * @param OrganizationService $organizationService
      * @param AttributeValueService $attributeValueService
      */
-    public function __construct(OrganizationService $organizationService, AttributeValueService $attributeValueService)
+    public function __construct(
+        OrganizationService $organizationService,
+        DivisionService $divisionService,
+        AttributeValueService $attributeValueService
+    )
     {
         $this->organizationService = $organizationService;
         $this->attributeValueService = $attributeValueService;
+        $this->divisionService = $divisionService;
     }
 
     public function create(Project $project)
@@ -40,7 +50,8 @@ class OrganizationController extends Controller
         return view('organization.create')->with([
             'organizable' => $project,
             'organizableType' => $organizableType,
-            'organizations' => $organizations
+            'organizations' => $organizations,
+            'divisions' => $this->divisionService->findAll()
         ]);
     }
 
@@ -50,16 +61,10 @@ class OrganizationController extends Controller
             abort(404);
         }
 
-        $organizableType = Config::get('constants.project');
-
-        $attributeIds = $organization->attributes->map(function ($attribute) {
-            return $attribute->id;
-        })->toArray();
-
-        $attributeValues = $this->attributeValueService->findIn('attribute_id', $attributeIds);
-
-        $attributeValueSumsByMonth = $this->attributeValueService->getAttributeValuesSumByMonth($attributeValues);
-
-        return view('organization.show', compact('organization', 'organizableType', 'attributeValueSumsByMonth'));
+        return view('organization.show', compact(
+                'organization',
+                'project'
+            )
+        );
     }
 }

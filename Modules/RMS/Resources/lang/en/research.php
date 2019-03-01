@@ -12,4 +12,6 @@ return [
     'research_publication_short_desc' => 'Publication Short Description',
     'research_publication_attachment' => 'Publication Attachment',
     'research_publication_additional_file' => 'Publication Additional Attachment',
+    'research_publication_info' => 'Publication Information',
+    'research_publication_attachment_validation' => 'Attach at least one file',
 ];

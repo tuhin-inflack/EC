@@ -35,6 +35,7 @@ return [
     'last_name' => 'Last Name',
     'contact' => 'Contact',
     'address' => 'Address',
+    'nationality' => 'Nationality',
     'gender' => 'Gender',
     'male' => 'Male',
     'female' => 'Female',
@@ -96,5 +97,6 @@ return [
     'not_enough_available_rooms' => 'Not Enough Available Rooms',
     'approval_done_mail' => 'Your booking request has been Approved. Please check out the booking information below',
     'approval_reject_mail' => 'Your booking request has been Rejected. Please check out the booking information below',
-    'recipient_addressing' => 'Dear'
+    'recipient_addressing' => 'Dear',
+    'bengali' => 'Bengali',
 ];

@@ -2,6 +2,7 @@
 return [
     'economy_code' => 'Economy Code',
     'section_type' => 'Section Type',
+    'percentage' => 'In Percentage',
     'total_financial_and_implementation_plans' => 'Total financial and implementation plans',
     'body_percentage' => 'Body Percentage',
     'project_percentage' => 'Percentage of the project',
@@ -12,5 +13,15 @@ return [
     'capital' => 'Capital',
     'physical_contingency' => 'Physical Contingency',
     'price_contingency' => 'Price Contingency',
+    'annexure-1' => 'Annexure 1',
+    'annexure-2' => 'Annexure 2',
+    'annexure-3' => 'Annexure 3',
+    'annexure-4' => 'Annexure 4',
+    'annexure-5' => 'Annexure 5',
+    'gov' => 'Gov.',
+    'own_financing' => 'Own financing',
+    'other' => 'Other',
+    'foreign_currency' => 'Foreign currency',
+    'total_estimated_expenditure_percentage' => 'Total estimated expenditure %',
 ];
 

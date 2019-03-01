@@ -29,7 +29,7 @@
                                 <td>
                                     <a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
-                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                    <a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
                                        class="btn btn-danger btn-sm">@lang('labels.closed')</a>
                                 </td>
                             </tr>
@@ -41,7 +41,7 @@
             </div>
         </section>
     @endif
-    @if(!empty($researchPendingTasks))
+    @if(!empty($researchPendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
@@ -49,13 +49,16 @@
                     <table class="table table-bordered">
                         <thead>
                         <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
                         </thead>
                         <tbody>
                         @foreach($researchPendingTasks->dashboardItems as $item)
+
                             <tr>
                                 <td>{{$item->featureName}}</td>
+                                <td>{{ $item->message }}</td>
 
                                 <td>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>

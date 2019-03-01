@@ -43,6 +43,11 @@ class AttributeValueService
         return $this->attributeValueRepository->findIn($key, $values);
     }
 
+    public function getMemberAttributeValues($memberId, $attributeIds)
+    {
+        return $this->attributeValueRepository->getMemberAttributeValues($memberId, $attributeIds);
+    }
+
     public function getAttributeValuesSumByMonth(Collection $attributeValues)
     {
         return $attributeValues->sortBy('date')

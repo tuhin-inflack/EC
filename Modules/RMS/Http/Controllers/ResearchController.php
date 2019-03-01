@@ -2,6 +2,7 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\WorkflowStatus;
 use App\Services\Remark\RemarkService;
 use App\Services\TaskService;
 use App\Services\UserService;
@@ -124,13 +125,13 @@ class ResearchController extends Controller
 
     public function reviewUpdate(Request $request)
     {
+
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
         $data = $request->except('_token');
         $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
-
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
@@ -146,10 +147,50 @@ class ResearchController extends Controller
 
     public function storePublication(Request $request, $researchId)
     {
-        // TODO: Writing code for store information
-        $save = $this->researchService->savePublication($request->all());
+
+        $save = $this->researchService->savePublication($request->all(), $researchId);
         Session::flash('success', trans('labels.save_success'));
 
         return redirect(route('research.show', $researchId));
+    }
+
+    public function reInitiate($researchId)
+    {
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $research = $this->researchService->findOne($researchId);
+        $publication = $research->publication;
+
+        return view('rms::research.re-initiate.re_initiate_research', compact('research', 'name', 'auth_user_id', 'publication'));
+    }
+
+    public function storeReInitiate(Request $request, $publicationId)
+    {
+
+//      publication update
+        $this->researchService->updatePublicationForReInitialize($request->all(), $publicationId);
+
+//      Reinitialize research
+        $proposal = $this->researchService->findOne($request->research_id);
+        $proposal->update(['status' => WorkflowStatus::REINITIATED]);
+
+//      Reinitialize Workflow
+        $response = $this->researchService->updateReInitiate($request->all(), $request->research_id);
+
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
+    }
+
+    public function closeWorkflowByReviewer($workflowMasterId, $researchId)
+    {
+
+        $proposal = $this->researchService->findOne($researchId);
+        $proposal->update(['status' => WorkflowStatus::CLOSED]);
+        $response = $this->researchService->closeWorkflow($workflowMasterId);
+
+
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
     }
 }

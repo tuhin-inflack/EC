@@ -8,6 +8,7 @@
 
 namespace Modules\PMS\Services;
 
+use App\Entities\Attribute;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Repositories\ProjectRepository;
@@ -31,6 +32,22 @@ class ProjectService
     {
         return DB::transaction(function () use ($data) {
             $project = $this->save($data);
+
+            $project->attributes()->saveMany([
+                new Attribute([
+                    'name' => 'Deposit',
+                    'unit' => 'tk',
+                ]),
+                new Attribute([
+                    'name' => 'Loan',
+                    'unit' => 'tk',
+                ]),
+                new Attribute([
+                    'name' => 'Share',
+                    'unit' => 'share',
+                ]),
+            ]);
+
             return $project;
         });
     }
