@@ -4,9 +4,11 @@
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
         <div class="heading-elements">
             <ul class="list-inline mb-0">
+                @if(Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
                 <li><a href="{{ route($module . '-tasks.create', $taskable->id) }}"
                        class="btn btn-sm btn-primary"><i
                                 class="ft ft-plus"></i> @lang('task.add_task')</a></li>
+                @endif
                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -21,7 +23,9 @@
                 <th>@lang('labels.name')</th>
                 <th>@lang('task.start_time')</th>
                 <th>@lang('task.end_time')</th>
+                @if(Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
                 <th>{{ trans('labels.action') }}</th>
+                @endif
                 </thead>
                 <tbody>
                 @foreach($taskable->tasks as $task)
@@ -48,11 +52,13 @@
                                 {{ Form::close() }}
                             @endif
                         </td>
+                        @if(Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
                         <td class="text-center">
                             {{ Form::open(['route' => [$module . '-tasks.destroy', $taskable->id, $task->id], 'method' => 'DELETE', 'style' => 'display: inline']) }}
                             <button class="btn btn-sm btn-danger"><i class="ft ft-trash"></i></button>
                             {{ Form::close() }}
                         </td>
+                        @endif
                     </tr>
                 @endforeach
                 </tbody>

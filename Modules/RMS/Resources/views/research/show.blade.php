@@ -16,7 +16,7 @@
     </div>
     <br>
 
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
     <!-- Basic tabs start -->
     <section>
         <div class="row match-height">
@@ -35,6 +35,13 @@
                                        href="#tab2"
                                        aria-expanded="false">@lang('task.task_list')</a>
                                 </li>
+                                @if(Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+                                <li class="nav-item">
+                                    <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
+                                       href="#tab3"
+                                       aria-expanded="false">@lang('monthly-update.title')</a>
+                                </li>
+                                @endif
                             </ul>
                             <div class="tab-content px-1 pt-1">
                                 <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
@@ -53,6 +60,16 @@
                                         ])
                                     </div>
                                 </div>
+                                <div class="tab-pane" id="tab3" aria-labelledby="base-tab3">
+                                    <section class="row">
+                                        <div class="col-md-12">
+                                            @include('../../../monthly-update.partials.table', [
+                                                'monthlyUpdatable' => $research,
+                                                'module' => 'rms'
+                                            ])
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -64,18 +81,11 @@
     @endif
 
 
-    <section class="row">
-        <div class="col-md-12">
-            @include('../../../monthly-update.partials.table', [
-                'monthlyUpdatable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
-    </section>
 
 
 
-    <section class="row">
+
+    {{--<section class="row">
         <div class="col-md-6">
             @include('../../../organization.table', [
                 'organizable' => $research,
@@ -84,7 +94,7 @@
             ])
         </div>
 
-    </section>
+    </section>--}}
 
 
 
@@ -144,7 +154,7 @@
 @endpush
 
 @push('page-js')
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
