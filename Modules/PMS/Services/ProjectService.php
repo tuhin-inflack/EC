@@ -35,16 +35,16 @@ class ProjectService
 
             $project->attributes()->saveMany([
                 new Attribute([
-                    'name' => 'Share',
-                    'unit' => 'share',
+                    'name' => 'Deposit',
+                    'unit' => 'tk',
                 ]),
                 new Attribute([
                     'name' => 'Loan',
                     'unit' => 'tk',
                 ]),
                 new Attribute([
-                    'name' => 'Deposit',
-                    'unit' => 'tk',
+                    'name' => 'Share',
+                    'unit' => 'share',
                 ]),
             ]);
 

@@ -77,8 +77,11 @@ class TaskService
         return $task->save();
     }
 
-    /*
-     *  Get Data for DTHMLXGantt Chart of Tasks
+    /**
+     * Get Data for DTHMLXGantt Chart of Tasks
+     *
+     * @param $tasks
+     * @return array
      */
     public function getTasksGanttChartData($tasks)
     {

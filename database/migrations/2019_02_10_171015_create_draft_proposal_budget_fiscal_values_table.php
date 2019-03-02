@@ -17,9 +17,8 @@ class CreateDraftProposalBudgetFiscalValuesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('budget_id');
             $table->string('fiscal_year');
-            $table->double('monetary_amount', 10, 2);
-            $table->double('body_percentage', 8, 2);
-            $table->double('project_percentage', 8, 2);
+            $table->double('monetary_amount', 10, 2)->nullable();
+            $table->double('monetary_percentage', 3, 2)->nullable();
             $table->timestamps();
         });
     }

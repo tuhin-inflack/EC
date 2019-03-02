@@ -61,6 +61,17 @@ class WorkflowRuleDetailsTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            4 => 
+            array (
+                'id' => 5,
+                'rule_master_id' => 3,
+                'designation_id' => 3,
+                'notification_order' => 1,
+                'number_of_responder' => 1,
+                'is_group_notification' => 1,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

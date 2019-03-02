@@ -29,8 +29,8 @@ class ProjectBudgetController extends Controller
      */
     public function index(Project $project)
     {
-        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        return view('pms::project.budget.index', compact('project', 'economyCodeOptions'));
+        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
+        return view('pms::project.budget.index', compact('project', 'data'));
     }
 
     /**
@@ -53,6 +53,7 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
+        //dd($request->all());
         $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));
@@ -87,17 +88,4 @@ class ProjectBudgetController extends Controller
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('project-budget.index', $project->id);
     }
-
-
-    /**
-     * Budget Spread Sheet
-     * @param Project $project
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function spreadsheet(Project $project)
-    {
-        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        return view('pms::project.budget.create_spredsheet', compact('project', 'economyCodeOptions'));
-    }
-
 }

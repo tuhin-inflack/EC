@@ -88,6 +88,45 @@
                                                         <td>{{ $attribute->name }}</td>
                                                         <td>{{ $attribute->unit }}</td>
                                                         <td class="text-center">
+                                <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
+                                     aria-labelledby="base-tab1">
+                                    @include('../../../organization.table', [
+                                        'organizable' => $project,
+                                        'url' => route('pms-organizations.create', $project->id),
+                                        'organizationShowRoute' => function ($organizableId, $organizationId) {
+                                            return route('pms-organizations.show', [$organizableId, $organizationId]);
+                                        }
+                                    ])
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <div class="pull-left">
+                                            <h4 class="card-title">@lang('attribute.attribute_list')</h4>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="{{ route('attribute-plannings.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
+                                            <a href="#"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('attribute.create_attribute')</a>
+                                        </div>
+                                        <br><br>
+                                        <table class="table table-bordered table-striped alt-pagination">
+                                            <thead>
+                                            <tr>
+                                                <th>@lang('labels.serial')</th>
+                                                <th>@lang('attribute.attribute')</th>
+                                                <th>@lang('attribute.unit')</th>
+                                                <th>@lang('labels.action')</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($project->attributes as $attribute)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $attribute->name }}</td>
+                                                    <td>{{ $attribute->unit }}</td>
+                                                    <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                     aria-haspopup="true"
@@ -95,9 +134,9 @@
                                                         class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2"
                                                     class="dropdown-menu mt-1 dropdown-menu-right">
-                                                  <a href="#"
+                                                  <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
-                                                              class="la la-list"></i>Plannings</a>
+                                                              class="la la-list"></i>@lang('pms::attribute_planning.planning')</a>
                                                   <a href="#"
                                                      class="dropdown-item"><i
                                                               class="la la-eye"></i>@lang('labels.details')</a>

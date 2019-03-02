@@ -10,6 +10,7 @@ namespace Modules\PMS\Repositories;
 
 
 use App\Repositories\AbstractBaseRepository;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\AttributePlanning;
 
@@ -17,12 +18,16 @@ class AttributePlanningRepository extends AbstractBaseRepository
 {
     protected $modelName = AttributePlanning::class;
 
-    public function getMonthlyAttributePlanningsFor($attributeIds)
+    public function getMonthlyPlanningFor($attributeId)
     {
         return DB::table('attribute_plannings')
-            ->whereIn('attribute_id', $attributeIds)
-            ->select('date', 'attribute_id', DB::raw('sum(planned_value) as total_planned_value'))
-            ->groupBy('date', 'attribute_id')
+            ->select(
+                DB::raw('date_format(date, "%Y %M") as monthYear'),
+                DB::raw('sum(planned_value) as total_planned_value')
+            )
+            ->where('attribute_id', $attributeId)
+            ->groupBy('monthYear')
+            ->orderBy('monthYear', 'asc')
             ->get();
     }
 }
