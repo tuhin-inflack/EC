@@ -139,4 +139,20 @@ class TaskService
     {
         return $this->taskRepository->findIn($key, $values, $relation, $orderBy);
     }
+
+    public function getTasksBarChartData()
+    {
+        $tasks = $this->findBy([
+            'taskable_type' => 'research'
+        ]);
+
+        $plannedTasks = $tasks->filter(function ($task) {
+            return !$task->actual_end_time && Carbon::parse($task->expected_end_time)->format('m y') == Carbon::now()->format('m y');
+        })->count();
+
+        $achievedTasks = $tasks->filter(function ($task) {
+            return $task->actual_end_time && Carbon::parse($task->actual_end_time)->format('m y') == Carbon::now()->format('m y');
+        })->count();
+        return [$plannedTasks, $achievedTasks];
+    }
 }

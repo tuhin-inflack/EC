@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Constants\DesignationShortName;
+use App\Services\TaskService;
 use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -25,6 +26,10 @@ class RMSController extends Controller
      */
     private $researchRequestService;
     private $employeeService;
+    /**
+     * @var TaskService
+     */
+    private $taskService;
 
 
     /**
@@ -32,12 +37,13 @@ class RMSController extends Controller
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService, EmployeeServices $employeeService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService, EmployeeServices $employeeService, TaskService $taskService)
     {
         $this->dashboardService = $dashboardService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->researchRequestService = $researchRequestService;
         $this->employeeService = $employeeService;
+        $this->taskService = $taskService;
     }
 
     /**
@@ -47,8 +53,7 @@ class RMSController extends Controller
     public function index()
     {
 
-
-        $chartData = $this->researchProposalSubmissionService->getResearchProposalByStatus();
+        $chartData = $this->taskService->getTasksBarChartData();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
         //Research proposal items

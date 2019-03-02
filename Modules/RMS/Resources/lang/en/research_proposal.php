@@ -67,4 +67,6 @@ return [
     'invitation' => 'Invitation',
     'invitation_list' => 'Invitation List',
     'research_name' => 'Research Name',
+    'planned' => 'Planned',
+    'achieved' => 'Achieved',
 ];

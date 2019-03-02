@@ -179,7 +179,9 @@
             </div>
         </section>
     @endif
-    {{--<section>
+
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH'))
+    <section>
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -202,7 +204,9 @@
                 </div>
             </div>
         </div>
-    </section>--}}
+    </section>
+    @endif
+    
     <section>
         <div class="row">
             <div class="col-6">
@@ -306,19 +310,16 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ["{{ __('pms::project_proposal.pending') }}", "{{ __('pms::project_proposal.in_progress') }}", "{{ __('pms::project_proposal.reviewed') }}"],
+                labels: ["{{ __('rms::research_proposal.planned') }}", "{{ __('rms::research_proposal.achieved') }}"],
                 datasets: [{
-                    label: 'Pending',
                     data: {!! json_encode($chartData) !!},
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255,99,132,1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)'
                     ],
                     borderWidth: 1
                 }]

@@ -70,5 +70,7 @@ return [
     'receiver' => 'গ্রাহক',
     'invitation' => 'আমন্ত্রণ',
     'research_name' => 'গবেষণা নাম',
+    'planned' => 'পরিকল্পিত',
+    'achieved' => 'অর্জিত',
 ];
 
