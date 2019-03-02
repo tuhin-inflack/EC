@@ -179,37 +179,7 @@
             </div>
         </div>
     </section>
-    <section class="row">
-        <div class="col-md-12">
-            @include('../../../monthly-update.partials.table', [
-                'monthlyUpdatable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
-    </section>
-
-    <div class="row match-height">
-        <div class="col-md-12">
-            @include('../../../task.partials.gantt-chart')
-        </div>
-    </div>
-
-    <section class="row">
-        <div class="col-md-6">
-            @include('../../../organization.table', [
-                'organizable' => $research,
-                'url' => route('rms-organizations.create', $research->id),
-                'organizationShowRoute' => function ($organizableId, $organizationId) { return route('rms-organizations.show', [$organizableId, $organizationId]); }
-            ])
-        </div>
-
-        <div class="col-md-6">
-            @include('../../../task.partials.table', [
-                'taskable' => $research,
-                'module' => 'rms'
-            ])
-        </div>
-    </section>
+    
 @endsection
 
 @push('page-css')
