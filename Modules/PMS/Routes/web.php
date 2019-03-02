@@ -63,6 +63,8 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             });
             // attribute & plannings
             Route::prefix('attributes')->group(function () {
+                Route::get('create', 'AttributeController@create')->name('attributes.create');
+                Route::post('create', 'AttributeController@store')->name('attributes.store');
                 Route::get('{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
                 Route::get('{attribute}', 'AttributeController@show')->name('attributes.show');
             });
