@@ -54,6 +54,7 @@ class RMSController extends Controller
     {
 
         $chartData = $this->taskService->getTasksBarChartData();
+        $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
         //Research proposal items
@@ -81,7 +82,7 @@ class RMSController extends Controller
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'reviewedProposals' ));
+            'rejectedItems', 'reviewedProposals', 'tasks' ));
     }
 
     /**

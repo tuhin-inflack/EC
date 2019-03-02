@@ -155,4 +155,10 @@ class TaskService
         })->count();
         return [$plannedTasks, $achievedTasks];
     }
+
+    public function getAllResearchTasks()
+    {
+        $tasks = new Task();
+        return $tasks->where('taskable_type', '=', 'research')->whereNull('actual_end_time')->whereNotNull('actual_start_time')->get();
+    }
 }
