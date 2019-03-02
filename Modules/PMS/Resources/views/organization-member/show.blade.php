@@ -67,7 +67,7 @@
                                         <th>@lang('labels.serial')</th>
                                         <th>@lang('labels.name')</th>
                                         <th>@lang('attribute.unit')</th>
-                                        <th>@lang('attribute.achieved_value')</th>
+                                        <th>@lang('attribute.current_balance')</th>
                                         <th>@lang('labels.action')</th>
                                     </tr>
                                     </thead>

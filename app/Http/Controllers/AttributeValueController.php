@@ -17,7 +17,7 @@ class AttributeValueController extends Controller
     private $attributeValueService;
 
     /**
-     * AttributeValueController constructor.
+     * MemberAttributeValueController constructor.
      * @param AttributeValueService $attributeValueService
      */
     public function __construct(AttributeValueService $attributeValueService)

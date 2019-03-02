@@ -41,22 +41,6 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="value"
-                       class="form-label required">@lang('attribute.planned_value')
-                    <i>( {{ $attribute->unit }} )</i></label>
-                {!! Form::number('planned_value', $pageType == 'create' ? null : $attributeValue->planned_value, ['class' => 'form-control' . ($errors->has('planned_value') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
-
-                @if ($errors->has('planned_value'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('planned_value') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="value"
                        class="form-label required">@lang('attribute.achieved_value')
                     <i>( {{ $attribute->unit }} )</i></label>
                 {!! Form::number('achieved_value', $pageType == 'create' ? null : $attributeValue->achieved_value, ['class' => 'form-control' . ($errors->has('achieved_value') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}

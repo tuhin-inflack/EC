@@ -1,4 +1,4 @@
-@extends($module . '::layouts.master')
+@extends('pms::layouts.master')
 @section('title', trans('attribute.attribute_value_input'))
 
 @section('content')

@@ -48,7 +48,12 @@
                             @if($attributeType == 'share')
                                 @include('pms::member-attribute.partials.share_actions')
                             @else
-                                <a href="#" class="btn btn-outline-primary"><i
+                                <a href="{{ route('member-attribute-values.create', [
+                                    $project->id,
+                                    $organization->id,
+                                    $member->id,
+                                    $attribute->id
+                                ]) }}" class="btn btn-outline-primary"><i
                                             class="la la-money"></i> @lang('attribute.make_transaction')</a>
                             @endif
                         </div>
