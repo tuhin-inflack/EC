@@ -1,12 +1,12 @@
 @extends('accounts::layouts.master')
-@section('title', trans('accounts::economy-code.title'))
+@section('title', trans('accounts::economy-head.title'))
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="basic-layout-form">@lang('accounts::economy-code.title') @lang('labels.create')</h4>
+                        <h4 class="card-title" id="basic-layout-form">@lang('accounts::economy-head.title') @lang('labels.create')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -18,7 +18,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('accounts::economy-code.form', ['page' => 'create'])
+                            @include('accounts::economy-head.form', ['page' => 'create'])
                         </div>
                     </div>
                 </div>
@@ -26,6 +26,7 @@
         </div>
     </div>
 @endsection
+
 
 @push('page-js')
     <script>

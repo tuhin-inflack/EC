@@ -4,6 +4,7 @@ namespace App\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\RMS\Entities\Research;
 
 
 class Task extends Model
@@ -26,5 +27,10 @@ class Task extends Model
     public function attachments()
     {
         return $this->hasMany(TaskAttachment::class, 'task_id', 'id');
+    }
+
+    public function researches()
+    {
+        return $this->belongsTo(Research::class, 'taskable_id','id');
     }
 }

@@ -1,7 +1,8 @@
 /* Gantt chart
 ---------------------------
-    - Following Src : https://docs.dhtmlx.com/gantt/samples/04_customization/15_baselines.html
-    - Following Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
+    - Following - Baseline Src : https://docs.dhtmlx.com/gantt/samples/04_customization/15_baselines.html
+    - Following - TaskLayer Src : https://dhtmlx.com/docs/products/dhtmlxGantt/02_features.html
+    - Following - Custom Style Src : https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css
 
     - Variables
         - let nodeName = "GanttChartDIV";
@@ -17,7 +18,7 @@ var GanttChartCustomCSSUrl = window.location.protocol + window.location.host + '
 $(window).on("load", function () {
     gantt.config.readonly = true;
 
-    gantt.config.scale_unit = "day"; //week
+    gantt.config.scale_unit = "week";
     gantt.config.xml_date = "%Y-%m-%d %H:%i:%s";
     gantt.config.task_height = 12;
     gantt.config.row_height = 35;
@@ -65,6 +66,16 @@ $(window).on("load", function () {
             width: "*"
         },
         {
+            name: "planned_start",
+            label: "Planned Start",
+            align: "center"
+        },
+        {
+            name: "planned_end",
+            label: "Planned End",
+            align: "center"
+        },
+        {
             name: "start_date",
             label: "Start time",
             align: "center"
@@ -86,26 +97,27 @@ $(window).on("load", function () {
     gantt.init(nodeName);
     gantt.parse(chartData);
 
+    zoomTasks("year");
+
 });
 
 function exportGantt(mode) {
     if (mode == "png")
         gantt.exportToPNG({
             header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
-            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
             raw:true
         });
     else if (mode == "pdf")
         gantt.exportToPDF({
             header: `<link rel="stylesheet" href="${GanttChartCustomCSSUrl}" type="text/css">`,
-            // header: '<link rel="stylesheet" href="https://dhtmlx.com/docs/products/dhtmlxGantt/common/customstyles.css" type="text/css">',
             raw:true
         });
 }
 
-function zoomTasks(node){
-    switch(node.value){
-        case "week":
+function zoomTasks(scale){
+    console.log(scale);
+    switch(scale){
+        case "hours":
             gantt.config.scale_unit = "day";
             gantt.config.date_scale = "%d %M";
 
@@ -115,29 +127,38 @@ function zoomTasks(node){
                 {unit:"hour", step:1, date:"%H"}
             ];
             break;
-        case "trplweek":
+        case "day":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "day";
             gantt.config.date_scale = "%d %M";
             gantt.config.subscales = [ ];
             gantt.config.scale_height = 35;
             break;
-        case "month":
+        case "week":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "week";
-            gantt.config.date_scale = "Week #%W";
+            gantt.config.date_scale = "Week %W";
             gantt.config.subscales = [
                 {unit:"day", step:1, date:"%D"}
             ];
             gantt.config.scale_height = 60;
             break;
-        case "year":
+        case "month":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "month";
             gantt.config.date_scale = "%M";
             gantt.config.scale_height = 60;
             gantt.config.subscales = [
-                {unit:"week", step:1, date:"#%W"}
+                {unit:"week", step:1, date:"%W"}
+            ];
+            break;
+        case "year":
+            gantt.config.min_column_width = 70;
+            gantt.config.scale_unit = "year";
+            gantt.config.date_scale = "%Y";
+            gantt.config.scale_height = 60;
+            gantt.config.subscales = [
+                {unit:"month", step:1, date:"%M"}
             ];
             break;
     }

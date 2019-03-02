@@ -10,6 +10,7 @@ namespace Modules\Accounts\Services;
 
 
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\Lang;
 use Modules\Accounts\Repositories\EconomyCodeRepository;
 
 class EconomyCodeService
@@ -34,13 +35,16 @@ class EconomyCodeService
      *
      * @param Null | Callable $implementedValue Anonymous Implementation of Value
      * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @param bool $emptyOption
      * @return array
      */
-    public function getEconomyCodesForDropdown($implementedValue = null, $implementedKey = null)
+    public function getEconomyCodesForDropdown($implementedValue = null, $implementedKey = null, $emptyOption = false)
     {
         $economyCodes = $this->actionRepository->findAll();
 
         $economyCodeOptions = [];
+
+        if ($emptyOption) $economyCodeOptions[0] = Lang::trans('labels.select');
 
         foreach ($economyCodes as $economyCode) {
             $economyCodeKey = $implementedKey ? $implementedKey($economyCode) : $economyCode->id;

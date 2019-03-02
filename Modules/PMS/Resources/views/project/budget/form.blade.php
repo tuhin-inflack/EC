@@ -96,7 +96,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -142,6 +142,41 @@
             @endif
             </tbody>
         </table>
+    </div>
+    <div class="col-md-4">
+        <div class="form-group">
+            {!! Form::label('gov_source', trans('draft-proposal-budget.gov').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
+            <span class="danger">*</span>
+            {!! Form::number('gov_source', $page === 'create' ? old('gov_source') : $draftProposalBudget->gov_source, ['class' => 'form-control'.($errors->has('gov_source') ? ' is-invalid' : ''), 'required',
+            'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.gov')])]) !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('gov_source'))
+                <span class="invalid-feedback">{{ $errors->first('gov_source') }}</span>
+            @endif
+        </div>
+        <div class="form-group">
+            {!! Form::label('own_financing_source', trans('draft-proposal-budget.own_financing').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
+            <span class="danger">*</span>
+            {!! Form::number('own_financing_source', $page === 'create' ? old('own_financing_source') : $draftProposalBudget->own_financing_source, ['class' => 'form-control'.($errors->has('own_financing_source') ? ' is-invalid' : ''), 'required',
+            'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.own_financing')])]) !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('own_financing_source'))
+                <span class="invalid-feedback">{{ $errors->first('own_financing_source') }}</span>
+            @endif
+        </div>
+        <div class="form-group">
+            {!! Form::label('other_source', trans('draft-proposal-budget.other'), ['class' => 'form-label required']) !!}
+            <span class="danger">*</span>
+            {!! Form::number('other_source', $page === 'create' ? old('other_source') : $draftProposalBudget->other_source, ['class' => 'form-control'.($errors->has('other_source') ? ' is-invalid' : ''), 'required',
+            'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('draft-proposal-budget.other')])]) !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('other_source'))
+                <span class="invalid-feedback">{{ $errors->first('other_source') }}</span>
+            @endif
+        </div>
     </div>
 </div>
 <div class="form-actions text-center">

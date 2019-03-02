@@ -61,6 +61,7 @@ return [
     'forward' => 'Forward',
     'select' => 'Select',
     'code' => 'Code',
+    'head' => 'Head',
     'info' => 'Info',
     'chart' => 'Chart',
     'gantt_chart' => 'Gantt Chart',
@@ -163,4 +164,5 @@ return [
     'clear_all' => 'Clear All',
     'no_notification' => 'No notificaitons available',
     'read_notification' => 'Read all notifications',
+    'wise' => 'Wise',
 ];

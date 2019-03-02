@@ -25,6 +25,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-xl-4 col-12">
+                <div class="card crypto-card-3 pull-up">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    <h1><i class="la la-tag warning font-large-2"></i></h1>
+                                </div>
+                                <div class="col-10 pl-2">
+                                    <h4>@lang('accounts::economy-head.title')</h4>
+                                    <h6 class="text-muted"><a href="{{ route('economy-head.index') }}">@lang('accounts::economy-head.title')</a></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{--<div class="col-xl-4 col-12">--}}
                 {{--<div class="card crypto-card-3 pull-up">--}}
                     {{--<div class="card-content">--}}

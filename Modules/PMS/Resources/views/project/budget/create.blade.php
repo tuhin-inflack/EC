@@ -48,17 +48,23 @@
                 placeholder: selectPlaceholder
             });
 
-            $('input[name=unit_rate], input[name=quantity]').keydown(() => {
-                calcutateTotalExpense();
+            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
+                calculateTotalExpense();
             });
 
             $('.section-type-select').change(function (e) {
                 toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
             });
 
+            // $(`input[name=gov_source], input[name=own_financing_source], input[name=other_source]`).keydown(function (e) {
+            //     console.log($('input[name=gov_source]').val());
+            //     console.log($('input[name=own_financing_source]').val());
+            //     console.log($('input[name=other_source]').val());
+            // });
+
         });
 
-        var validator = $('.project-budget-form').validate({
+        let validator = $('.project-budget-form').validate({
             ignore: 'input[type=hidden]', // ignore hidden fields
             errorClass: 'danger',
             successClass: 'success',
@@ -86,7 +92,6 @@
         function toggleComponents(bool) {
 
             let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
-
             components.prop( "disabled", bool);
 
             if (bool)
@@ -100,11 +105,13 @@
             validator.resetForm();
         }
 
-        function calcutateTotalExpense() {
+        function calculateTotalExpense() {
             var unitRate = $('input[name=unit_rate]').val();
             var quantity = $('input[name=quantity]').val();
-
+            console.log(unitRate);
+            console.log(quantity);
             var totalExpense = Number(unitRate) * Number(quantity);
+            console.log(totalExpense);
 
             $('input[name=total_expense]').val(totalExpense);
         }

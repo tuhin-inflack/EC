@@ -7,7 +7,7 @@ use Modules\Accounts\Entities\EconomyCode;
 
 class DraftProposalBudget extends Model
 {
-    protected $fillable = ['budgetable_id', 'budgetable_type', 'economy_code_id', 'section_type', 'unit', 'unit_rate', 'quantity', 'total_expense', 'total_expense_percentage'];
+    protected $fillable = ['budgetable_id', 'budgetable_type', 'economy_code_id', 'section_type', 'unit', 'unit_rate', 'quantity', 'total_expense', 'total_expense_percentage', 'gov_source', 'own_financing_source', 'other_source'];
 
     public function budgetable(){
         return $this->morphTo();

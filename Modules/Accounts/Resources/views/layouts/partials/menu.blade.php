@@ -17,6 +17,11 @@
                         <i class="la la-tags"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">@lang('accounts::economy-code.title')</span></a>
                 </li>
+                <li class="{{ is_active_route('economy-head.index') }}">
+                    <a href="{{ route('economy-head.index') }}">
+                        <i class="la la-tag"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('accounts::economy-head.title')</span></a>
+                </li>
             </ul>
         @endauth
     </div>
