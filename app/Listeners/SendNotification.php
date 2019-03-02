@@ -32,6 +32,8 @@ class SendNotification
     {
         $notificationInfo = $event->notificationInfo;
         $notificationType = $this->notificationTypeRepository->findOneBy(['name' => $notificationInfo->notificationType]);
+        if (!$notificationType)
+            throw new \Exception('Please add notification type to database');
         $notifier = NotificationGeneratorFactory::getNotificationGenerator($notificationType->name);
         $notifier->notify($notificationInfo, $notificationType);
     }
