@@ -18,64 +18,60 @@
     </div>
     <br>
 
-    <section class="row">
-        <div class="col-md-12">
-            @include('../../../monthly-update.partials.table', [
-                'monthlyUpdatable' => $project,
-                'module' => 'pms'
-            ])
-        </div>
-    </section>
 
-    <div class="row match-height">
-        <div class="col-md-12">
-            @include('../../../task.partials.gantt-chart')
-        </div>
-    </div>
 
-    <!-- Basic tabs start -->
-    <section>
-        <div class="row match-height">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="card-body">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1"
-                                       href="#tab1" aria-expanded="true">Organisation</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
-                                       href="#tab2"
-                                       aria-expanded="false">Tab 2</a>
-                                </li>
-                            </ul>
-                            <div class="tab-content px-1 pt-1">
 
-                                <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
-                                     aria-labelledby="base-tab1">
-                                    @include('../../../organization.table', [
-                                        'organizable' => $project,
-                                        'url' => route('pms-organizations.create', $project->id),
-                                        'organizationShowRoute' => function ($organizableId, $organizationId) {
-                                            return route('pms-organizations.show', [$organizableId, $organizationId]);
-                                        }
-                                    ])
-                                    <hr>
-                                    <div class="table-responsive">
-                                        <div class="pull-left">
-                                            <h4 class="card-title">@lang('attribute.attribute_list')</h4>
-                                        </div>
-                                        <div class="pull-right">
-                                            <a href="{{ route('attribute-plannings.create', $project->id) }}"
-                                               class="btn btn-sm btn-primary"><i
-                                                        class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
-                                            <a href="#"
-                                               class="btn btn-sm btn-primary"><i
-                                                        class="ft-plus"></i> @lang('attribute.create_attribute')</a>
-                                        </div>
-                                        <br><br>
+
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+        <!-- Basic tabs start -->
+        <section>
+            <div class="row match-height">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1"
+                                           href="#tab1"
+                                           aria-expanded="true">@lang('pms::project_proposal.organization_report')</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
+                                           href="#tab2"
+                                           aria-expanded="false">@lang('pms::project_proposal.organization')</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
+                                           href="#tab3"
+                                           aria-expanded="false">@lang('pms::project_proposal.planning')</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content px-1 pt-1">
+
+                                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
+                                         aria-labelledby="base-tab1">
+                                        <p>tab1</p>
+                                    </div>
+                                    <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
+                                        @include('../../../organization.table', [
+                                            'organizable' => $project,
+                                            'url' => route('pms-organizations.create', $project->id),
+                                            'organizationShowRoute' => function ($organizableId, $organizationId) {
+                                                return route('pms-organizations.show', [$organizableId, $organizationId]);
+                                            }
+                                        ])
+                                        <hr>
+                                        <div class="table-responsive">
+                                            <div class="pull-left">
+                                                <h4 class="card-title">@lang('attribute.attribute_list')</h4>
+                                            </div>
+                                            <div class="pull-right">
+                                                <a href="#"
+                                                   class="btn btn-sm btn-primary"><i
+                                                            class="ft-plus"></i> @lang('attribute.create_attribute')</a>
+                                            </div>
+                                            <br><br>
                                         <table class="table table-bordered table-striped alt-pagination">
                                             <thead>
                                             <tr>
@@ -113,24 +109,47 @@
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                               </span>
                                             </span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
-                                    <p>Tab 2 content</p>
+                                    <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
+                                        <section class="row">
+                                            <div class="col-md-12">
+                                                @include('../../../task.partials.table', [
+                                                    'taskable' => $project,
+                                                    'module' => 'pms'
+                                                ])
+                                            </div>
+                                        </section>
+
+                                        <div class="row match-height">
+                                            <div class="col-md-12">
+                                                @include('../../../task.partials.gantt-chart')
+                                            </div>
+                                        </div>
+
+                                        <section class="row">
+                                            <div class="col-md-12">
+                                                @include('../../../monthly-update.partials.table', [
+                                                    'monthlyUpdatable' => $project,
+                                                    'module' => 'pms'
+                                                ])
+                                            </div>
+                                        </section>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Basic badge Input end -->
+        </section>
+        <!-- Basic badge Input end -->
+    @endif
 
     <section class="row">
         <div class="col-md-12">
@@ -138,14 +157,7 @@
         </div>
     </section>
 
-    <section class="row">
-        <div class="col-md-12">
-            @include('../../../task.partials.table', [
-                'taskable' => $project,
-                'module' => 'pms'
-            ])
-        </div>
-    </section>
+
 
     <section>
         <div class="row match-height">
@@ -204,12 +216,14 @@
 @endpush
 
 @push('page-js')
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
     </script>
+    @endif
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
             type="text/javascript"></script>

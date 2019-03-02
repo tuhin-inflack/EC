@@ -68,7 +68,7 @@ class RoleUserTableSeeder extends Seeder
             6 => 
             array (
                 'id' => 7,
-                'role_id' => 2,
+                'role_id' => 5,
                 'user_id' => 7,
                 'created_at' => '2019-02-07 21:33:16',
                 'updated_at' => '2019-02-07 21:33:16',
@@ -78,6 +78,14 @@ class RoleUserTableSeeder extends Seeder
                 'id' => 8,
                 'role_id' => 2,
                 'user_id' => 8,
+                'created_at' => '2019-02-07 21:41:18',
+                'updated_at' => '2019-02-07 21:41:18',
+            ),
+            8 =>
+            array (
+                'id' => 9,
+                'role_id' => 6,
+                'user_id' => 12,
                 'created_at' => '2019-02-07 21:41:18',
                 'updated_at' => '2019-02-07 21:41:18',
             ),
