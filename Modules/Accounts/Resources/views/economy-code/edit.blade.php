@@ -26,3 +26,19 @@
         </div>
     </div>
 @endsection
+
+@push('page-js')
+    <script>
+        // select2 placeholder localization
+        let selectPlaceholder = '{!! trans('labels.select') !!}';
+
+        $(document).ready(function () {
+
+            $('.economy-head-select').select2({
+                placeholder: selectPlaceholder
+            });
+
+        });
+
+    </script>
+@endpush

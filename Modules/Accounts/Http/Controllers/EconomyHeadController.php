@@ -6,22 +6,19 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
-use Modules\Accounts\Entities\EconomyCode;
-use Modules\Accounts\Http\Requests\CreateEconomyCodeRequest;
-use Modules\Accounts\Http\Requests\UpdateEconomyCodeRequest;
-use Modules\Accounts\Services\EconomyCodeService;
+use Modules\Accounts\Entities\EconomyHead;
+use Modules\Accounts\Http\Requests\CreateEconomyHeadRequest;
+use Modules\Accounts\Http\Requests\UpdateEconomyHeadRequest;
 use Modules\Accounts\Services\EconomyHeadService;
 
-class EconomyCodeController extends Controller
+class EconomyHeadController extends Controller
 {
 
-    private $economyCodeService;
     private $economyHeadService;
 
-    public function __construct(EconomyHeadService $economyHeadService, EconomyCodeService $economyCodeService)
+    public function __construct(EconomyHeadService $economyHeadService)
     {
         $this->economyHeadService = $economyHeadService;
-        $this->economyCodeService = $economyCodeService;
     }
 
     /**
@@ -30,8 +27,8 @@ class EconomyCodeController extends Controller
      */
     public function index()
     {
-        $economyCodes = $this->economyCodeService->findAll();
-        return view('accounts::economy-code.index', compact('economyCodes'));
+        $economyHeads = $this->economyHeadService->findAll();
+        return view('accounts::economy-head.index', compact('economyHeads'));
     }
 
     /**
@@ -41,7 +38,7 @@ class EconomyCodeController extends Controller
     public function create()
     {
         $economyHeadOptions = $this->economyHeadService->getEconomyHeadsForDropdown(null, null, true);
-        return view('accounts::economy-code.create', compact('economyHeadOptions'));
+        return view('accounts::economy-head.create', compact('economyHeadOptions'));
     }
 
     /**
@@ -49,58 +46,58 @@ class EconomyCodeController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(CreateEconomyCodeRequest $request)
+    public function store(CreateEconomyHeadRequest $request)
     {
-        $this->economyCodeService->save($request->all());
+        $this->economyHeadService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
 
-        return redirect()->route('economy-code.index');
+        return redirect()->route('economy-head.index');
     }
 
     /**
      * Show the specified resource.
-     * @param EconomyCode $economyCode
+     * @param EconomyHead $economyHead
      * @return Response
      */
-    public function show(EconomyCode $economyCode)
+    public function show(EconomyHead $economyHead)
     {
-        return view('accounts::economy-code.show', compact('economyCode'));
+        return view('accounts::economy-head.show', compact('economyHead'));
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @param EconomyCode $economyCode
+     * @param EconomyHead $economyHead
      * @return Response
      */
-    public function edit(EconomyCode $economyCode)
+    public function edit(EconomyHead $economyHead)
     {
         $economyHeadOptions = $this->economyHeadService->getEconomyHeadsForDropdown(null, null, true);
-        return view('accounts::economy-code.edit', compact('economyCode', 'economyHeadOptions'));
+        return view('accounts::economy-head.edit', compact('economyHead', 'economyHeadOptions'));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param EconomyCode $economyCode
+     * @param EconomyHead $economyHead
      * @param  Request $request
      * @return Response
      */
-    public function update(EconomyCode $economyCode, UpdateEconomyCodeRequest $request)
+    public function update(EconomyHead $economyHead, UpdateEconomyHeadRequest $request)
     {
-        $this->economyCodeService->update($economyCode, $request->all());
+        $this->economyHeadService->update($economyHead, $request->all());
         Session::flash('success', trans('labels.update_success'));
 
-        return redirect()->route('economy-code.index');
+        return redirect()->route('economy-head.index');
     }
 
     /**
      * Remove the specified resource from storage.
-     * @param EconomyCode $economyCode
+     * @param EconomyHead $economyHead
      * @return Response
      * @throws \Exception
      */
-    public function destroy(EconomyCode $economyCode)
+    public function destroy(EconomyHead $economyHead)
     {
-        $this->economyCodeService->delete($economyCode->id);
+        $this->economyHeadService->delete($economyHead->id);
         Session::flash('warning', trans('labels.delete_success'));
         return redirect()->back();
     }
