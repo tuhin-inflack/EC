@@ -1,6 +1,7 @@
 <?php
 return [
     'economy_code' => 'অর্থনীতি কোড',
+    'economy_sub_code' => 'অর্থনীতি সাব-কোড',
     'section_type' => 'বিভাগের ধরন',
     'percentage' => 'শতাংশে',
     'total_financial_and_implementation_plans' => 'মোট আর্থিক ও বাস্তবায়ন পরিকল্পনা',

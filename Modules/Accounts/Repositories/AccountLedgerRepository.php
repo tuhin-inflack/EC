@@ -24,7 +24,7 @@ class AccountLedgerRepository extends AbstractBaseRepository
 
     /**
      * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     * @return mixed
      */
     public function updateLedger($id, array $data)
     {
@@ -33,7 +33,7 @@ class AccountLedgerRepository extends AbstractBaseRepository
 
     /**
      * @param null $selected
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     * @return mixed
      */
     public function deleteLedger($id)
     {

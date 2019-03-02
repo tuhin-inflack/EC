@@ -97,7 +97,7 @@ $(window).on("load", function () {
     gantt.init(nodeName);
     gantt.parse(chartData);
 
-    zoomTasks("week");
+    zoomTasks("year");
 
 });
 
@@ -137,7 +137,7 @@ function zoomTasks(scale){
         case "week":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "week";
-            gantt.config.date_scale = "Week #%W";
+            gantt.config.date_scale = "Week %W";
             gantt.config.subscales = [
                 {unit:"day", step:1, date:"%D"}
             ];
@@ -149,16 +149,16 @@ function zoomTasks(scale){
             gantt.config.date_scale = "%M";
             gantt.config.scale_height = 60;
             gantt.config.subscales = [
-                {unit:"week", step:1, date:"#%W"}
+                {unit:"week", step:1, date:"%W"}
             ];
             break;
         case "year":
             gantt.config.min_column_width = 70;
             gantt.config.scale_unit = "year";
-            gantt.config.date_scale = "%F, %Y";
+            gantt.config.date_scale = "%Y";
             gantt.config.scale_height = 60;
             gantt.config.subscales = [
-                {unit:"month", step:1, date:"#%M"}
+                {unit:"month", step:1, date:"%M"}
             ];
             break;
     }

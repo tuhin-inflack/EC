@@ -40,4 +40,13 @@ Route::prefix('accounts')->group(function() {
         Route::put('update/{economyCode}', 'EconomyCodeController@update')->name('economy-code.update');
         Route::delete('delete/{economyCode}', 'EconomyCodeController@destroy')->name('economy-code.destroy');
     });
+
+    Route::prefix('economy-head')->group(function () {
+        Route::get('/', 'EconomyHeadController@index')->name('economy-head.index');
+        Route::get('create', 'EconomyHeadController@create')->name('economy-head.create');
+        Route::post('store', 'EconomyHeadController@store')->name('economy-head.store');
+        Route::get('edit/{economyHead}', 'EconomyHeadController@edit')->name('economy-head.edit');
+        Route::put('update/{economyHead}', 'EconomyHeadController@update')->name('economy-head.update');
+        Route::delete('delete/{economyHead}', 'EconomyHeadController@destroy')->name('economy-head.destroy');
+    });
 });

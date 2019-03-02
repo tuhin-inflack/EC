@@ -20,6 +20,7 @@
                                 <thead>
                                 <tr>
                                     <th>@lang('draft-proposal-budget.economy_code')</th>
+                                    <th>@lang('draft-proposal-budget.economy_sub_code')</th>
                                     <th>@lang('draft-proposal-budget.economy_code') @lang('labels.details')</th>
                                     <th>@lang('labels.unit')</th>
                                     <th>@lang('labels.unit_rate')</th>
@@ -32,16 +33,18 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                @php $grandTotalWeight = 0; @endphp
                                 <tr>
-                                    <th colspan="3">(ক) @lang('draft-proposal-budget.revenue') : </th>
+                                    <th colspan="4">(ক) @lang('draft-proposal-budget.revenue') : </th>
                                     @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'revenue')
-                                        @php $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
                                         <tr>
+                                            <td>{{ $budget->economyCode->economyHead->code }}</td>
                                             <td>{{ $budget->economyCode->code }}</td>
                                             <td>{{ $budget->economyCode->bangla_name }}</td>
                                             <td>{{ $budget->unit }}</td>
@@ -56,16 +59,34 @@
                                     @endif
                                 @endforeach
                                 <tr>
-                                    <th colspan="3">(খ) @lang('draft-proposal-budget.capital') : </th>
+                                    <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
+                                        <td></td>
+                                    @endfor
+                                </tr>
+                                <tr>
+                                    <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $data->revenueExpense }}</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">(খ) @lang('draft-proposal-budget.capital') : </th>
                                     @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'capital')
-                                        @php $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
                                         <tr>
                                             <td>{{ $budget->economyCode->code }}</td>
+                                            <td>{{ $budget->economyCode->economyHead->code }}</td>
                                             <td>{{ $budget->economyCode->bangla_name }}</td>
                                             <td>{{ $budget->unit }}</td>
                                             <td>{{ $budget->unit_rate }}</td>
@@ -79,15 +100,33 @@
                                     @endif
                                 @endforeach
                                 <tr>
-                                    <th colspan="3">(গ) @lang('draft-proposal-budget.physical_contingency') : </th>
+                                    <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+                                    @for($l = 1; $l <= 7; $l++)
+                                        <td></td>
+                                    @endfor
+                                </tr>
+                                <tr>
+                                    <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $data->capitalExpense }}</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="4">(গ) @lang('draft-proposal-budget.physical_contingency') : </th>
                                     @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'physical_contingency')
-                                        @php $weight = $data->physicalContingencyExpense / $data->grandTotalExpense; @endphp
+                                        @php $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense; @endphp
                                         <tr>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -102,15 +141,16 @@
                                     @endif
                                 @endforeach
                                 <tr>
-                                    <th colspan="3">(ঘ) @lang('draft-proposal-budget.price_contingency') : </th>
+                                    <th colspan="4">(ঘ) @lang('draft-proposal-budget.price_contingency') : </th>
                                     @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'price_contingency')
-                                        @php $weight = $data->priceContingencyExpense / $data->grandTotalExpense; @endphp
+                                        @php $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense; @endphp
                                         <tr>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -124,6 +164,17 @@
                                         </tr>
                                     @endif
                                 @endforeach
+                                <tr>
+                                    <th colspan="3">@lang('labels.grand_total') (ক+খ+গ+ঘ) : </th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>{{ $data->grandTotalExpense }}</td>
+                                    <td>{{ $grandTotalWeight }}</td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
