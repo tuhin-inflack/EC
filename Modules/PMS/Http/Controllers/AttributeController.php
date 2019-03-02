@@ -3,6 +3,7 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\Attribute;
+use App\Services\AttributeService;
 use App\Services\AttributeValueService;
 use Illuminate\Routing\Controller;
 use Modules\PMS\Entities\Project;
@@ -10,23 +11,28 @@ use Modules\PMS\Entities\Project;
 class AttributeController extends Controller
 {
     /**
-     * @var AttributeValueService
+     * @var AttributeService
      */
-    private $attributeValueService;
+    private $attributeService;
 
     /**
      * AttributeController constructor.
-     * @param AttributeValueService $attributeValueService
+     * @param AttributeService $attributeService
      */
-    public function __construct(AttributeValueService $attributeValueService)
+    public function __construct(AttributeService $attributeService)
     {
-        $this->attributeValueService = $attributeValueService;
+        $this->attributeService = $attributeService;
+    }
+
+    public function create(Project $project)
+    {
+        return $project;
     }
 
     public function show(Project $project, Attribute $attribute)
     {
-        return $attributeValuesByMonthYear = $this->attributeValueService->getAttributePlannedAchievedByMonthYear($attribute);
+        $achievedPlannedValuesByMonthYear = $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute);
 
-        return view('pms::attribute.show', compact('project', 'attribute'));
+        return view('pms::attribute.show', compact('project', 'attribute', 'achievedPlannedValuesByMonthYear'));
     }
 }

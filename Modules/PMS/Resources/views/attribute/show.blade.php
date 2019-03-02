@@ -33,4 +33,40 @@
             </div>
         </div>
     </section>
+
+    <section>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"><h4 class="card-title">Attribute Details</h4></div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <div class="table-resposive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>SL</th>
+                                        <th>Month Year</th>
+                                        <th>Planned Value</th>
+                                        <th>Achieved Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($achievedPlannedValuesByMonthYear as $item)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $item->monthYear }}</td>
+                                            <td>{{ $item->total_planned_value }}</td>
+                                            <td>{{ $item->total_achieved_value }}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 @endsection

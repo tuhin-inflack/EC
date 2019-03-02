@@ -26,7 +26,7 @@ class AttributeValueRepository extends AbstractBaseRepository
             ->get();
 
         return $attributes->map(function ($attribute) use ($attributeValues) {
-            return (object) [
+            return (object)[
                 'attribute_id' => $attribute->id,
                 'name' => $attribute->name,
                 'unit' => $attribute->unit,
@@ -42,14 +42,6 @@ class AttributeValueRepository extends AbstractBaseRepository
             ->groupBy('date')
             ->groupBy('attribute_id')
             ->orderBy('date')
-            ->get();
-    }
-
-    public function getAttributePlannedAchievedByMonthYear($attributeId)
-    {
-        return $this->model
-            ->join('attribute_plannings', 'attribute_plannings.attribute_id', 'attribute_values.attribute_id')
-            ->where('attribute_values.attribute_id', $attributeId)
             ->get();
     }
 }

@@ -70,9 +70,4 @@ class AttributeValueService
     {
         return $this->attributeValueRepository->getAttributeValueSumsByMonthYear($attributeId);
     }
-
-    public function getAttributePlannedAchievedByMonthYear(Attribute $attribute)
-    {
-        return $this->attributeValueRepository->getAttributePlannedAchievedByMonthYear($attribute->id);
-    }
 }

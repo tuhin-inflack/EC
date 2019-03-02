@@ -71,7 +71,7 @@
                                             <a href="{{ route('attribute-plannings.create', $project->id) }}"
                                                class="btn btn-sm btn-primary"><i
                                                         class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
-                                            <a href="#"
+                                            <a href="{{ route('pms-attributes.create', $project->id) }}"
                                                class="btn btn-sm btn-primary"><i
                                                         class="ft-plus"></i> @lang('attribute.create_attribute')</a>
                                         </div>
