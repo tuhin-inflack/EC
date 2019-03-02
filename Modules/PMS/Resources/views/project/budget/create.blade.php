@@ -48,8 +48,8 @@
                 placeholder: selectPlaceholder
             });
 
-            $('input[name=unit_rate], input[name=quantity]').keydown(() => {
-                calcutateTotalExpense();
+            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
+                calculateTotalExpense();
             });
 
             $('.section-type-select').change(function (e) {
@@ -105,11 +105,13 @@
             validator.resetForm();
         }
 
-        function calcutateTotalExpense() {
+        function calculateTotalExpense() {
             var unitRate = $('input[name=unit_rate]').val();
             var quantity = $('input[name=quantity]').val();
-
+            console.log(unitRate);
+            console.log(quantity);
             var totalExpense = Number(unitRate) * Number(quantity);
+            console.log(totalExpense);
 
             $('input[name=total_expense]').val(totalExpense);
         }

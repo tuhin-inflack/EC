@@ -84,12 +84,46 @@
                                         <td></td>
                                     @endfor
                                 </tr>
+                                @foreach($project->budgets as $budget)
+                                    @if($budget->section_type === 'physical_contingency')
+                                        @php $weight = $data->physicalContingencyExpense / $data->grandTotalExpense; @endphp
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $budget->gov_source }}</td>
+                                            <td>{{ $budget->own_financing_source }}</td>
+                                            <td>{{ $budget->other_source }}</td>
+                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 <tr>
                                     <th colspan="3">(ঘ) @lang('draft-proposal-budget.price_contingency') : </th>
                                     @for($l = 1; $l <= 7; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
+                                @foreach($project->budgets as $budget)
+                                    @if($budget->section_type === 'price_contingency')
+                                        @php $weight = $data->priceContingencyExpense / $data->grandTotalExpense; @endphp
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ $budget->gov_source }}</td>
+                                            <td>{{ $budget->own_financing_source }}</td>
+                                            <td>{{ $budget->other_source }}</td>
+                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
