@@ -18,11 +18,7 @@
     </div>
     <br>
 
-
-
-
-
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+    {{--@if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))--}}
         <!-- Basic tabs start -->
         <section>
             <div class="row match-height">
@@ -49,29 +45,29 @@
                                 </ul>
                                 <div class="tab-content px-1 pt-1">
 
-                                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
-                                         aria-labelledby="base-tab1">
-                                        <p>tab1</p>
-                                    </div>
-                                    <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
-                                        @include('../../../organization.table', [
-                                            'organizable' => $project,
-                                            'url' => route('pms-organizations.create', $project->id),
-                                            'organizationShowRoute' => function ($organizableId, $organizationId) {
-                                                return route('pms-organizations.show', [$organizableId, $organizationId]);
-                                            }
-                                        ])
-                                        <hr>
-                                        <div class="table-responsive">
-                                            <div class="pull-left">
-                                                <h4 class="card-title">@lang('attribute.attribute_list')</h4>
-                                            </div>
-                                            <div class="pull-right">
-                                                <a href="#"
-                                                   class="btn btn-sm btn-primary"><i
-                                                            class="ft-plus"></i> @lang('attribute.create_attribute')</a>
-                                            </div>
-                                            <br><br>
+                                <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
+                                     aria-labelledby="base-tab1">
+                                    @include('../../../organization.table', [
+                                        'organizable' => $project,
+                                        'url' => route('pms-organizations.create', $project->id),
+                                        'organizationShowRoute' => function ($organizableId, $organizationId) {
+                                            return route('pms-organizations.show', [$organizableId, $organizationId]);
+                                        }
+                                    ])
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <div class="pull-left">
+                                            <h4 class="card-title">@lang('attribute.attribute_list')</h4>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="{{ route('attribute-plannings.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
+                                            <a href="{{ route('attributes.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('attribute.create_attribute')</a>
+                                        </div>
+                                        <br><br>
                                         <table class="table table-bordered table-striped alt-pagination">
                                             <thead>
                                             <tr>
@@ -98,12 +94,9 @@
                                                   <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-list"></i>@lang('pms::attribute_planning.planning')</a>
-                                                  <a href="#"
+                                                  <a href="{{ route('attributes.show', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-eye"></i>@lang('labels.details')</a>
-                                                  <a href="#"
-                                                     class="dropdown-item"><i
-                                                              class="la la-keyboard-o"></i>@lang('attribute.enter_value')</a>
                                                 <a href="#"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
@@ -149,15 +142,7 @@
             </div>
         </section>
         <!-- Basic badge Input end -->
-    @endif
-
-    <section class="row">
-        <div class="col-md-12">
-
-        </div>
-    </section>
-
-
+    {{--@endif--}}
 
     <section>
         <div class="row match-height">

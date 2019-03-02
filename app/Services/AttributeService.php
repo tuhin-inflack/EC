@@ -12,6 +12,9 @@ namespace App\Services;
 use App\Entities\Attribute;
 use App\Repositories\AttributeRepository;
 use App\Traits\CrudTrait;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Modules\PMS\Entities\AttributePlanning;
 
 class AttributeService
 {
@@ -44,9 +47,14 @@ class AttributeService
 
         $currentBalance = $attribute->values->sum('achieved_value');
 
-        return (object) [
+        return (object)[
             'initial_value' => $initialValue,
             'current_balance' => $currentBalance
         ];
+    }
+
+    public function getAchievedPlannedValuesByMonthYear(Attribute $attribute)
+    {
+        return $this->attributeRepository->getAchievedPlannedValuesByMonthYear($attribute->id);
     }
 }

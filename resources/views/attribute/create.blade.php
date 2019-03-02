@@ -1,4 +1,4 @@
-@extends($module . '::layouts.master')
+@extends('pms::layouts.master')
 @section('title', trans('attribute.create_attribute'))
 
 @section('content')
@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['route' =>  'attributes.store', 'class' => 'form']) !!}
+                            {!! Form::open(['route' =>  ['attributes.store', $project->id], 'class' => 'form']) !!}
                             @include('attribute.partials.form', ['formTitle' => trans('attribute.attribute_create_form')])
                             {!! Form::close() !!}
                         </div>

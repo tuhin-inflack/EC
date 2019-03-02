@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Entities\Attribute;
 use App\Repositories\AttributeValueRepository;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;

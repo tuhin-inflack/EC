@@ -35,10 +35,10 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
                 // organisation members
                 Route::prefix('{organization}/members')->group(function () {
-                   Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
-                   // member attribute
+                    Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
+                    // member attribute
                     Route::prefix('{member}')->group(function () {
-                       Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('attributes.show');
+                        Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('member-attributes.show');
                     });
                 });
             });
@@ -61,8 +61,13 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::get('{monthlyUpdate}/edit', 'ProjectMonthlyUpdateController@edit')->name('pms-monthly-updates.edit');
                 Route::put('{monthlyUpdate}', 'ProjectMonthlyUpdateController@update')->name('pms-monthly-updates.update');
             });
-            // attribute plannings
-            Route::get('attributes/{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+            // attribute & plannings
+            Route::prefix('attributes')->group(function () {
+                Route::get('create', 'AttributeController@create')->name('attributes.create');
+                Route::post('create', 'AttributeController@store')->name('attributes.store');
+                Route::get('{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
+                Route::get('{attribute}', 'AttributeController@show')->name('attributes.show');
+            });
             Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
             Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');
         });

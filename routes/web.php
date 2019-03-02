@@ -29,7 +29,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('organizations', 'OrganizationController@store')->name('organizations.store');
     // attributes
     Route::prefix('attributes')->group(function () {
-        Route::post('/', 'AttributeController@store')->name('attributes.store');
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
         // attribute-values
         Route::prefix('{attribute}')->group(function () {
