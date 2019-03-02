@@ -1,6 +1,7 @@
 <?php
 return [
     'economy_code' => 'Economy Code',
+    'economy_sub_code' => 'Economy Sub-Code',
     'section_type' => 'Section Type',
     'percentage' => 'In Percentage',
     'total_financial_and_implementation_plans' => 'Total financial and implementation plans',
