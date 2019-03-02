@@ -30,7 +30,7 @@ class MemberAttributeController extends Controller
         $attributeType = $this->attributeService->getAttributeType($attribute);
         $attributeValue = $this->attributeService->getAttributeValue($attribute);
 
-        return view('pms::attribute.show', compact(
+        return view('pms::member-attribute.show', compact(
                 'project',
                 'organization',
                 'member',

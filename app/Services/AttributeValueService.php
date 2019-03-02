@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Entities\Attribute;
 use App\Repositories\AttributeValueRepository;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
@@ -68,5 +69,10 @@ class AttributeValueService
     public function getAttributeValueSumsByMonthYear($attributeId)
     {
         return $this->attributeValueRepository->getAttributeValueSumsByMonthYear($attributeId);
+    }
+
+    public function getAttributePlannedAchievedByMonthYear(Attribute $attribute)
+    {
+        return $this->attributeValueRepository->getAttributePlannedAchievedByMonthYear($attribute->id);
     }
 }

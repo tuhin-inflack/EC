@@ -44,4 +44,12 @@ class AttributeValueRepository extends AbstractBaseRepository
             ->orderBy('date')
             ->get();
     }
+
+    public function getAttributePlannedAchievedByMonthYear($attributeId)
+    {
+        return $this->model
+            ->join('attribute_plannings', 'attribute_plannings.attribute_id', 'attribute_values.attribute_id')
+            ->where('attribute_values.attribute_id', $attributeId)
+            ->get();
+    }
 }

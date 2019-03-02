@@ -102,12 +102,9 @@
                                                   <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-list"></i>@lang('pms::attribute_planning.planning')</a>
-                                                  <a href="#"
+                                                  <a href="{{ route('attributes.show', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-eye"></i>@lang('labels.details')</a>
-                                                  <a href="#"
-                                                     class="dropdown-item"><i
-                                                              class="la la-keyboard-o"></i>@lang('attribute.enter_value')</a>
                                                 <a href="#"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
