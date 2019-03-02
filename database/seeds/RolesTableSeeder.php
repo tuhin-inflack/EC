@@ -49,6 +49,22 @@ class RolesTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+            4 =>
+            array (
+                'id' => 5,
+                'name' => 'ROLE_RESEARCH_DIRECTOR',
+                'description' => 'Has research access',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            5 =>
+            array (
+                'id' => 6,
+                'name' => 'ROLE_RESEARCHER',
+                'description' => 'Has research access',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
         ));
         
         

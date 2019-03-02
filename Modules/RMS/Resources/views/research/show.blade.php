@@ -21,7 +21,7 @@
     </div>
     <br>
 
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
     <!-- Basic tabs start -->
     <section>
         <div class="row match-height">
@@ -226,7 +226,7 @@
 @endpush
 
 @push('page-js')
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_RESEARCH') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
