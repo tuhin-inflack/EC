@@ -37,53 +37,7 @@
     <section>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"><h4 class="card-title">@lang('attribute.graph')</h4></div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <h4 class="form-section"><i
-                                        class="ft-bar-chart-2"></i> @lang('attribute.attribute_chart_filters')</h4>
-                            <div class="form-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="chart_type">@lang('attribute.chart_types')</label>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <div class="skin skin-flat">
-                                                        {!! Form::radio('chart_type', 'line', 'line') !!}
-                                                        <label>@lang('attribute.line')</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="skin skin-flat">
-                                                        {!! Form::radio('chart_type', 'horizontalBar') !!}
-                                                        <label>@lang('attribute.bar')</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="skin skin-flat">
-                                                        {!! Form::radio('chart_type', 'bar') !!}
-                                                        <label>@lang('attribute.column')</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col">
-                                                    <div class="skin skin-flat">
-                                                        {!! Form::radio('chart_type', 'polarArea') !!}
-                                                        <label>@lang('attribute.area')</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body chartjs">
-                            <canvas id="chart" height="500"></canvas>
-                        </div>
-                    </div>
-                </div>
+                @include('../../../attribute.partials.graph')
             </div>
         </div>
     </section>
@@ -91,35 +45,7 @@
     <section>
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"><h4 class="card-title">@lang('attribute.attribute_tabular_view')</h4></div>
-                    <div class="card-content">
-                        <div class="card-body">
-                            <div class="table-resposive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>@lang('labels.serial')</th>
-                                        <th>@lang('labels.date')</th>
-                                        <th>@lang('attribute.planned_value')</th>
-                                        <th>@lang('attribute.achieved_value')</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    @foreach($achievedPlannedValuesByMonthYear as $item)
-                                        <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>@lang('month.' . explode(' ', $item->monthYear)[0]) {{ explode(' ', $item->monthYear)[1]  }}</td>
-                                            <td>{{ $item->total_planned_value }}</td>
-                                            <td>{{ $item->total_achieved_value }}</td>
-                                        </tr>
-                                    @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('../../../attribute.partials.tabular')
             </div>
         </div>
     </section>

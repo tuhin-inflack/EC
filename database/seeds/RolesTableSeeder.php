@@ -65,11 +65,19 @@ class RolesTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
-
             6 =>
             array (
                 'id' => 7,
                 'name' => 'ROLE_PROJECT_DIRECTOR',
+                'description' => 'Has project access',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+
+            7 =>
+            array (
+                'id' => 8,
+                'name' => 'ROLE_DIRECTOR_PROJECT',
                 'description' => 'Has project access',
                 'created_at' => NULL,
                 'updated_at' => NULL,
