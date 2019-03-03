@@ -233,13 +233,94 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($tasks as $task)
+                                    {{--@foreach($tasks as $task)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $task->name }}</td>
                                             <td>{{ $task->researches->title }}</td>
                                         </tr>
-                                    @endforeach
+                                    @endforeach--}}
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>{{ __('rms::research.review_of_literature') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>{{ __('rms::research.proposal_writing') }}</td>
+                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>{{ __('rms::research.questionnaire_preparation') }}</td>
+                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">4</th>
+                                        <td>{{ __('rms::research.questionnaire_pretesting') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">5</th>
+                                        <td>{{ __('rms::research.data_collection') }}</td>
+                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">6</th>
+                                        <td>{{ __('rms::research.data_tabulation') }}</td>
+                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">7</th>
+                                        <td>{{ __('rms::research.report_writing') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">8</th>
+                                        <td>{{ __('rms::research.draft_report_submission') }}</td>
+                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">9</th>
+                                        <td>{{ __('rms::research.incorporating_research_division_comments') }}</td>
+                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">10</th>
+                                        <td>{{ __('rms::research.first_final_report_submission') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">11</th>
+                                        <td>{{ __('rms::research.received_final_report') }}</td>
+                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">12</th>
+                                        <td>{{ __('rms::research.sending_external_reviewer') }}</td>
+                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">13</th>
+                                        <td>{{ __('rms::research.comments_from_external_reviewer') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">14</th>
+                                        <td>{{ __('rms::research.send_to_respective_researcher') }}</td>
+                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">15</th>
+                                        <td>{{ __('rms::research.accepted_final_report') }}</td>
+                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">16</th>
+                                        <td>{{ __('rms::research.send_for_publication') }}</td>
+                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
@@ -354,16 +435,43 @@
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                labels: [
+                    "{{ __('rms::research.review_of_literature') }}",
+                    "{{ __('rms::research.proposal_writing') }}",
+                    "{{ __('rms::research.questionnaire_preparation') }}",
+                    "{{ __('rms::research.questionnaire_pretesting') }}",
+                    "{{ __('rms::research.data_collection') }}",
+                    "{{ __('rms::research.data_tabulation') }}",
+                    "{{ __('rms::research.report_writing') }}",
+                    "{{ __('rms::research.draft_report_submission') }}",
+                    "{{ __('rms::research.incorporating_research_division_comments') }}",
+                    "{{ __('rms::research.first_final_report_submission') }}",
+                    "{{ __('rms::research.received_final_report') }}",
+                    "{{ __('rms::research.sending_external_reviewer') }}",
+                    "{{ __('rms::research.comments_from_external_reviewer') }}",
+                    "{{ __('rms::research.send_to_respective_researcher') }}",
+                    "{{ __('rms::research.accepted_final_report') }}",
+                    "{{ __('rms::research.send_for_publication') }}"
+                ],
                 datasets: [{
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [12, 14, 7, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 9, 3, 5],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
                         'rgba(255, 206, 86, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
                         'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255,99,132,1)',
@@ -371,7 +479,17 @@
                         'rgba(255, 206, 86, 1)',
                         'rgba(75, 192, 192, 1)',
                         'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -387,6 +505,12 @@
                         ticks: {
                             beginAtZero: true,
                             stepSize: 1,
+                        }
+                    }],
+                    xAxes: [{
+                        beginAtZero: true,
+                        ticks: {
+                            autoSkip: false
                         }
                     }]
                 }
