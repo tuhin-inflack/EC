@@ -16,12 +16,15 @@
             <div class="content-header-right col-md-6 col-12">
                 <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
                     <div class="btn-group" role="group">
-                        <a href="{{route('research-budget.create', $research->id)}}" class="btn btn-primary btn-sm">
-                            <i class="ft-plus white"></i> @lang('labels.create') @lang('rms::research_budget.budgeting')
-                        </a>
-                        <a href="{{route('research-budget.edit', $research->id)}}" class="btn btn-success btn-sm">
-                            <i class="ft-edit-2 white"></i> @lang('labels.edit') @lang('rms::research_budget.budgeting')
-                        </a>
+                        @if($research->budgets->isEmpty())
+                            <a href="{{route('research-budget.create', $research->id)}}" class="btn btn-primary btn-sm">
+                                <i class="ft-plus white"></i> @lang('labels.create') @lang('rms::research_budget.budgeting')
+                            </a>
+                        @else
+                            <a href="{{route('research-budget.edit', $research->id)}}" class="btn btn-success btn-sm">
+                                <i class="ft-edit-2 white"></i> @lang('labels.edit') @lang('rms::research_budget.budgeting')
+                            </a>
+                        @endif
                     </div>
                 </div>
             </div>
