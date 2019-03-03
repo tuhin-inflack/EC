@@ -9,13 +9,13 @@
 namespace App\Services\DraftProposalBudget;
 
 use App\Entities\DraftProposalBudget\DraftProposalBudgetFiscalValue;
-use App\Models\DPBudget;
 use App\Repositories\DraftProposalBudget\DraftProposalBudgetRepository;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
+use stdClass;
 
 
 class DraftProposalBudgetService
@@ -117,7 +117,13 @@ class DraftProposalBudgetService
             if($budget->section_type === $sectionType) {
 
                 if(!isset($totalBasedOnEconomyCode[$budget->economyCode->economyHead->code])){
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code] = new DPBudget();
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code] = new stdClass;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->unitRate = 0;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->quantity = 0;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->govSource = 0;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->ownFinancingSource = 0;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->otherSource = 0;
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->totalExpense = 0;
                 }
 
                 $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->unitRate += $budget->unit_rate;
