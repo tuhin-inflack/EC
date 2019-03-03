@@ -40,6 +40,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                     Route::prefix('{member}')->group(function () {
                         Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('member-attributes.show');
                         Route::get('attributes/{attribute}/values/create', 'MemberAttributeValueController@create')->name('member-attribute-values.create');
+                        Route::post('attributes/{attribute}/values', 'MemberAttributeValueController@store')->name('member-attribute-values.store');
                     });
                 });
             });
