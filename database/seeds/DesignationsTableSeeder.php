@@ -137,6 +137,87 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
+            12 =>
+                array (
+                    'id' => 13,
+                    'name' => 'Asst. Director Project',
+                    'short_name' => 'ADP',
+                    'department_id' => 2,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            13 =>
+                array (
+                    'id' => 14,
+                    'name' => 'Joint Director Project',
+                    'short_name' => 'JDP',
+                    'department_id' => 2,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            14 =>
+                array (
+                    'id' => 15,
+                    'name' => 'Deputy Director Project',
+                    'short_name' => 'DDP',
+                    'department_id' => 2,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            15 =>
+                array (
+                    'id' => 16,
+                    'name' => 'Additional Director General',
+                    'short_name' => 'ADG',
+                    'department_id' => 2,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            16 =>
+                array (
+                    'id' => 17,
+                    'name' => 'Director General',
+                    'short_name' => 'DG',
+                    'department_id' => 2,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            17 =>
+                array (
+                    'id' => 18,
+                    'name' => 'Asst. Director Research',
+                    'short_name' => 'ADR',
+                    'department_id' => 1,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+
+            18 =>
+                array (
+                    'id' => 19,
+                    'name' => 'Joint Director Research',
+                    'short_name' => 'JDR',
+                    'department_id' => 1,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
+            19 =>
+                array (
+                    'id' => 20,
+                    'name' => 'Deputy Director Research',
+                    'short_name' => 'DDR',
+                    'department_id' => 1,
+                    'created_at' => '2019-02-07 21:30:06',
+                    'updated_at' => '2019-02-07 21:30:06',
+                    'deleted_at' => NULL,
+                ),
         ));
         
         
