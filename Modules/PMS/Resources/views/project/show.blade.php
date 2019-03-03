@@ -162,6 +162,12 @@
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
+                                        <div class="row match-height">
+                                            <div class="col-md-12">
+                                                @include('../../../task.partials.gantt-chart')
+                                            </div>
+                                        </div>
+                                        
                                         <section class="row">
                                             <div class="col-md-12">
                                                 @include('../../../task.partials.table', [
@@ -170,12 +176,6 @@
                                                 ])
                                             </div>
                                         </section>
-
-                                        <div class="row match-height">
-                                            <div class="col-md-12">
-                                                @include('../../../task.partials.gantt-chart')
-                                            </div>
-                                        </div>
 
                                         <section class="row">
                                             <div class="col-md-12">
