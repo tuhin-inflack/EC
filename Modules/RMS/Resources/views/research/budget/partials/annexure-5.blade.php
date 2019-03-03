@@ -42,7 +42,7 @@
                                         <td></td>
                                     @endfor
                                 </tr>
-                                @foreach($project->budgets as $budget)
+                                @foreach($research->budgets as $budget)
                                     @if($budget->section_type === 'revenue')
                                         @php
                                             $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
@@ -101,7 +101,7 @@
                                         <td></td>
                                     @endfor
                                 </tr>
-                                @foreach($project->budgets as $budget)
+                                @foreach($research->budgets as $budget)
                                     @if($budget->section_type === 'capital')
                                         @php
                                             $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
@@ -160,7 +160,7 @@
                                         <td></td>
                                     @endfor
                                 </tr>
-                                @foreach($project->budgets as $budget)
+                                @foreach($research->budgets as $budget)
                                     @if($budget->section_type === 'physical_contingency')
                                         @php
                                             $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense;
@@ -189,7 +189,7 @@
                                         <td></td>
                                     @endfor
                                 </tr>
-                                @foreach($project->budgets as $budget)
+                                @foreach($research->budgets as $budget)
                                     @if($budget->section_type === 'price_contingency')
                                         @php
                                             $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense;

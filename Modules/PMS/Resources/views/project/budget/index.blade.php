@@ -48,25 +48,5 @@
             padding: 0.15rem 0.15rem;
         }
 
-        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-        }
-
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
-        select {
-            text-transform: none;
-            width: 140px;
-        }
-
-        select.form-control:not([size]):not([multiple]), input.form-control {
-            height: 28px;
-        }
-
-        .form-control {
-            padding: .1rem 0.25rem;
-        }
     </style>
 @endpush
