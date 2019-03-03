@@ -33,16 +33,16 @@
                                            aria-expanded="true">@lang('pms::project_proposal.organization_report')</a>
                                     </li>
                                     @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
-                                           href="#tab2"
-                                           aria-expanded="false">@lang('pms::project_proposal.organization')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
-                                           href="#tab3"
-                                           aria-expanded="false">@lang('pms::project_proposal.planning')</a>
-                                    </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
+                                               href="#tab2"
+                                               aria-expanded="false">@lang('pms::project_proposal.organization')</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
+                                               href="#tab3"
+                                               aria-expanded="false">@lang('pms::project_proposal.planning')</a>
+                                        </li>
                                     @endif
                                 </ul>
                                 <div class="tab-content px-1 pt-1">
@@ -52,6 +52,8 @@
                                         <section>
                                             <div class="row">
                                                 <div class="col-md-12">
+                                                    <label for="">@lang('attribute.attribute')</label>
+                                                    {{ Form::select('attribute_id', $project->attributes->pluck('name', 'id'), null, ['class' => 'form-control']) }}
                                                     @include('../../../attribute.partials.graph')
                                                 </div>
                                             </div>
@@ -60,7 +62,37 @@
                                         <section>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    @include('../../../attribute.partials.tabular')
+                                                    <div class="card">
+                                                        <div class="card-header"><h4
+                                                                    class="card-title">@lang('attribute.attribute_tabular_view')</h4>
+                                                        </div>
+                                                        <div class="card-content">
+                                                            <div class="card-body">
+                                                                <div class="table-resposive">
+                                                                    <table class="table table-bordered table-striped">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>@lang('labels.serial')</th>
+                                                                            <th>@lang('attribute.attribute')</th>
+                                                                            <th>@lang('attribute.planned_value')</th>
+                                                                            <th>@lang('attribute.achieved_value')</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        @foreach($project->attributes as $attribute)
+                                                                            <tr>
+                                                                                <td>{{ $loop->iteration }}</td>
+                                                                                <td>{{ $attribute->name }}</td>
+                                                                                <td>{{ $attribute->plannings->sum('planned_value') }}</td>
+                                                                                <td>{{ $attribute->values->sum('achieved_value') }}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </section>
@@ -81,7 +113,8 @@
                                             <div class="pull-right">
                                                 <a href="{{ route('attribute-plannings.create', $project->id) }}"
                                                    class="btn btn-sm btn-primary"><i
-                                                            class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')</a>
+                                                            class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')
+                                                </a>
                                                 <a href="{{ route('attributes.create', $project->id) }}"
                                                    class="btn btn-sm btn-primary"><i
                                                             class="ft-plus"></i> @lang('attribute.create_attribute')</a>
@@ -92,7 +125,7 @@
                                                 <tr>
                                                     <th>@lang('labels.serial')</th>
                                                     <th>@lang('attribute.attribute')</th>
-                                                    <th>@lang('attribute.unit')</th>
+                                                    <th>@lang('attribute.current_balance')</th>
                                                     <th>@lang('labels.action')</th>
                                                 </tr>
                                                 </thead>
@@ -101,7 +134,7 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $attribute->name }}</td>
-                                                        <td>{{ $attribute->unit }}</td>
+                                                        <td>{{ $attribute->values->sum('achieved_value') }}</td>
                                                         <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -129,6 +162,12 @@
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
+                                        <div class="row match-height">
+                                            <div class="col-md-12">
+                                                @include('../../../task.partials.gantt-chart')
+                                            </div>
+                                        </div>
+                                        
                                         <section class="row">
                                             <div class="col-md-12">
                                                 @include('../../../task.partials.table', [
@@ -137,12 +176,6 @@
                                                 ])
                                             </div>
                                         </section>
-
-                                        <div class="row match-height">
-                                            <div class="col-md-12">
-                                                @include('../../../task.partials.gantt-chart')
-                                            </div>
-                                        </div>
 
                                         <section class="row">
                                             <div class="col-md-12">
@@ -217,33 +250,33 @@
           href="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/dhtmlx-gantt/chart-pro.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
 @endpush
 
 @push('page-js')
     @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
-    <script>
-        let nodeName = "GanttChartDIV";
-        let chartData = {
-            "data": JSON.parse('{!! json_encode($ganttChart) !!}')
-        };
-    </script>
+        <script>
+            let nodeName = "GanttChartDIV";
+            let chartData = {
+                "data": JSON.parse('{!! json_encode($ganttChart) !!}')
+            };
+        </script>
     @endif
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
-    <script>
-        $(document).ready(function () {
-            $('.task-table, .monthly-update-table, .organization-table').DataTable({
-                "pageLength": 5
-            });
-        });
-    </script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script>
+        async function getAttributeValueDetailsByMonthYear(projectId, attributeId) {
+            let attributeGraphUrl = `${projectId}/attributes/${attributeId}/graphs`;
+            return await $.get(attributeGraphUrl);
+        }
+
         function generateChart(monthYears, attributeValue, chartType) {
             function doesChartExist() {
                 return chartObject !== undefined;
@@ -352,15 +385,49 @@
         }
 
         $(document).ready(function () {
-            let chartType = $('input[type=radio][name=chart_type]:checked').val();
-            let attributeValuesByMonthYear = JSON.parse('{!! json_encode($achievedPlannedValuesByMonthYear) !!}');
-            let {uniqueMonthYears, attributeValues} = initializeGraphVariables(attributeValuesByMonthYear);
+            $('.task-table, .monthly-update-table, .organization-table').DataTable({
+                "pageLength": 5
+            });
 
-            generateChart(uniqueMonthYears, attributeValues, chartType);
+            let projectId = JSON.parse('{!! json_encode($project->id) !!}');
+            let attributeId = $('select[name=attribute_id]').val();
+            let self = this;
+            let uniqueMonthYear = [];
+            let attributeValues = {};
+
+            getAttributeValueDetailsByMonthYear(projectId, attributeId)
+                .then((data) => {
+                    let {uniqueMonthYears, attributeValues} = initializeGraphVariables(data);
+                    self.uniqueMonthYears = uniqueMonthYears;
+                    self.attributeValues = attributeValues;
+                    let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                    generateChart(uniqueMonthYears, attributeValues, chartType);
+                })
+                .catch(error => {
+                    // TODO: show lang error message
+                    console.log(error)
+                });
+
+            $('select[name=attribute_id]').on('change', function () {
+                let attriubteId = $(this).val();
+                getAttributeValueDetailsByMonthYear(projectId, attributeId)
+                    .then((data) => {
+                        let {uniqueMonthYears, attributeValues} = initializeGraphVariables(data);
+                        self.uniqueMonthYears = uniqueMonthYears;
+                        self.attributeValues = attributeValues;
+                        let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                        generateChart(uniqueMonthYears, attributeValues, chartType);
+                    })
+                    .catch(error => {
+                        // TODO: show lang error message
+                        console.log(error)
+                    });
+            });
+
 
             $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
                 let chartType = $(this).val();
-                generateChart(uniqueMonthYears, attributeValues, chartType);
+                generateChart(self.uniqueMonthYear, self.attributeValues, chartType);
             });
         });
     </script>
