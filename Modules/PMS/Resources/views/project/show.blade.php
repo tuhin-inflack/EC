@@ -92,7 +92,7 @@
                                                 <tr>
                                                     <th>@lang('labels.serial')</th>
                                                     <th>@lang('attribute.attribute')</th>
-                                                    <th>@lang('attribute.unit')</th>
+                                                    <th>@lang('attribute.current_balance')</th>
                                                     <th>@lang('labels.action')</th>
                                                 </tr>
                                                 </thead>
@@ -101,7 +101,7 @@
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $attribute->name }}</td>
-                                                        <td>{{ $attribute->unit }}</td>
+                                                        <td>{{ $attribute->values->sum('achieved_value') }}</td>
                                                         <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
