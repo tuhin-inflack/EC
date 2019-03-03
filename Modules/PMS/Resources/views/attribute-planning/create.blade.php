@@ -28,7 +28,8 @@
                                                    class="form-label required">@lang('labels.date')</label>
                                             {!! Form::text('date', null, [
                                                 'class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''),
-                                                'autocomplete' => 'off'
+                                                'autocomplete' => 'off',
+                                                'required'
                                             ]) !!}
 
                                             @if ($errors->has('date'))
@@ -48,7 +49,8 @@
                                             {{ Form::hidden('planning[' . $loop->iteration . '][attribute_id]', $attribute->id) }}
                                             {{ Form::number('planning[' . $loop->iteration . '][planned_value]', null, [
                                                 'class' => 'form-control',
-                                                'min' => 0
+                                                'min' => 0,
+                                                'required'
                                             ]) }}
 
                                             <div class="help-block"></div>

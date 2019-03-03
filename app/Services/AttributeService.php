@@ -10,8 +10,12 @@ namespace App\Services;
 
 
 use App\Entities\Attribute;
+use App\Entities\Organization\OrganizationMember;
 use App\Repositories\AttributeRepository;
 use App\Traits\CrudTrait;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Modules\PMS\Entities\AttributePlanning;
 
 class AttributeService
 {
@@ -36,17 +40,22 @@ class AttributeService
         return strtolower($attribute->name);
     }
 
-    public function getAttributeValue(Attribute $attribute)
+    public function getMemberAttributeValues(Attribute $attribute, OrganizationMember $member)
     {
-        $attributeValue = $attribute->values->first();
+        $firstAttributeValue = $member->attributeValues->where('attribute_id', $attribute->id)->first();
 
-        $initialValue = $attributeValue ? $attributeValue->achieved_value : 0;
+        $initialValue = $firstAttributeValue ? $firstAttributeValue->achieved_value : 0;
 
-        $currentBalance = $attribute->values->sum('achieved_value');
+        $currentBalance = $member->attributeValues->where('attribute_id', $attribute->id)->sum('achieved_value');
 
-        return (object) [
+        return (object)[
             'initial_value' => $initialValue,
             'current_balance' => $currentBalance
         ];
+    }
+
+    public function getAchievedPlannedValuesByMonthYear(Attribute $attribute)
+    {
+        return $this->attributeRepository->getAchievedPlannedValuesByMonthYear($attribute->id);
     }
 }

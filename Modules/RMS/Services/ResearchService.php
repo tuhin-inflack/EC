@@ -68,9 +68,7 @@ class ResearchService
     {
         return DB::transaction(function () use ($data) {
 
-
             $research = $this->researchRepository->save($data);
-
 
             return $research;
         });

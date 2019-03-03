@@ -18,11 +18,7 @@
     </div>
     <br>
 
-
-
-
-
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_PROJECT'))
         <!-- Basic tabs start -->
         <section>
             <div class="row match-height">
@@ -36,58 +32,110 @@
                                            href="#tab1"
                                            aria-expanded="true">@lang('pms::project_proposal.organization_report')</a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
-                                           href="#tab2"
-                                           aria-expanded="false">@lang('pms::project_proposal.organization')</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
-                                           href="#tab3"
-                                           aria-expanded="false">@lang('pms::project_proposal.planning')</a>
-                                    </li>
+                                    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
+                                               href="#tab2"
+                                               aria-expanded="false">@lang('pms::project_proposal.organization')</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
+                                               href="#tab3"
+                                               aria-expanded="false">@lang('pms::project_proposal.planning')</a>
+                                        </li>
+                                    @endif
                                 </ul>
                                 <div class="tab-content px-1 pt-1">
 
                                     <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
                                          aria-labelledby="base-tab1">
-                                        <p>tab1</p>
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="">@lang('attribute.attribute')</label>
+                                                    {{ Form::select('attribute_id', $project->attributes->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+                                                    @include('../../../attribute.partials.graph')
+                                                </div>
+                                            </div>
+                                        </section>
+
+                                        <section>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="card">
+                                                        <div class="card-header"><h4
+                                                                    class="card-title">@lang('attribute.attribute_tabular_view')</h4>
+                                                        </div>
+                                                        <div class="card-content">
+                                                            <div class="card-body">
+                                                                <div class="table-resposive">
+                                                                    <table class="table table-bordered table-striped">
+                                                                        <thead>
+                                                                        <tr>
+                                                                            <th>@lang('labels.serial')</th>
+                                                                            <th>@lang('attribute.attribute')</th>
+                                                                            <th>@lang('attribute.planned_value')</th>
+                                                                            <th>@lang('attribute.achieved_value')</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        @foreach($project->attributes as $attribute)
+                                                                            <tr>
+                                                                                <td>{{ $loop->iteration }}</td>
+                                                                                <td>{{ $attribute->name }}</td>
+                                                                                <td>{{ $attribute->plannings->sum('planned_value') }}</td>
+                                                                                <td>{{ $attribute->values->sum('achieved_value') }}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
                                     </div>
-                                    <div class="tab-pane" id="tab2" aria-labelledby="base-tab2">
+                                    <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true">
                                         @include('../../../organization.table', [
-                                            'organizable' => $project,
-                                            'url' => route('pms-organizations.create', $project->id),
-                                            'organizationShowRoute' => function ($organizableId, $organizationId) {
-                                                return route('pms-organizations.show', [$organizableId, $organizationId]);
-                                            }
-                                        ])
+                                        'organizable' => $project,
+                                        'url' => route('pms-organizations.create', $project->id),
+                                        'organizationShowRoute' => function ($organizableId, $organizationId) {
+                                            return route('pms-organizations.show', [$organizableId, $organizationId]);
+                                        }
+                                    ])
                                         <hr>
                                         <div class="table-responsive">
                                             <div class="pull-left">
                                                 <h4 class="card-title">@lang('attribute.attribute_list')</h4>
                                             </div>
                                             <div class="pull-right">
-                                                <a href="#"
+                                                <a href="{{ route('attribute-plannings.create', $project->id) }}"
+                                                   class="btn btn-sm btn-primary"><i
+                                                            class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')
+                                                </a>
+                                                <a href="{{ route('attributes.create', $project->id) }}"
                                                    class="btn btn-sm btn-primary"><i
                                                             class="ft-plus"></i> @lang('attribute.create_attribute')</a>
                                             </div>
                                             <br><br>
-                                        <table class="table table-bordered table-striped alt-pagination">
-                                            <thead>
-                                            <tr>
-                                                <th>@lang('labels.serial')</th>
-                                                <th>@lang('attribute.attribute')</th>
-                                                <th>@lang('attribute.unit')</th>
-                                                <th>@lang('labels.action')</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($project->attributes as $attribute)
+                                            <table class="table table-bordered table-striped alt-pagination">
+                                                <thead>
                                                 <tr>
-                                                    <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $attribute->name }}</td>
-                                                    <td>{{ $attribute->unit }}</td>
-                                                    <td class="text-center">
+                                                    <th>@lang('labels.serial')</th>
+                                                    <th>@lang('attribute.attribute')</th>
+                                                    <th>@lang('attribute.current_balance')</th>
+                                                    <th>@lang('labels.action')</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @foreach($project->attributes as $attribute)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $attribute->name }}</td>
+                                                        <td>{{ $attribute->values->sum('achieved_value') }}</td>
+                                                        <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                     aria-haspopup="true"
@@ -98,12 +146,9 @@
                                                   <a href="{{ route('attribute-plannings.index', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-list"></i>@lang('pms::attribute_planning.planning')</a>
-                                                  <a href="#"
+                                                  <a href="{{ route('attributes.show', [$project->id, $attribute->id]) }}"
                                                      class="dropdown-item"><i
                                                               class="la la-eye"></i>@lang('labels.details')</a>
-                                                  <a href="#"
-                                                     class="dropdown-item"><i
-                                                              class="la la-keyboard-o"></i>@lang('attribute.enter_value')</a>
                                                 <a href="#"
                                                    class="dropdown-item"><i
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
@@ -117,6 +162,12 @@
                                         </div>
                                     </div>
                                     <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
+                                        <div class="row match-height">
+                                            <div class="col-md-12">
+                                                @include('../../../task.partials.gantt-chart')
+                                            </div>
+                                        </div>
+
                                         <section class="row">
                                             <div class="col-md-12">
                                                 @include('../../../task.partials.table', [
@@ -125,12 +176,6 @@
                                                 ])
                                             </div>
                                         </section>
-
-                                        <div class="row match-height">
-                                            <div class="col-md-12">
-                                                @include('../../../task.partials.gantt-chart')
-                                            </div>
-                                        </div>
 
                                         <section class="row">
                                             <div class="col-md-12">
@@ -150,14 +195,6 @@
         </section>
         <!-- Basic badge Input end -->
     @endif
-
-    <section class="row">
-        <div class="col-md-12">
-
-        </div>
-    </section>
-
-
 
     <section>
         <div class="row match-height">
@@ -213,26 +250,176 @@
           href="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/dhtmlx-gantt/chart-pro.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
 @endpush
 
 @push('page-js')
     @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
-    <script>
-        let nodeName = "GanttChartDIV";
-        let chartData = {
-            "data": JSON.parse('{!! json_encode($ganttChart) !!}')
-        };
-    </script>
+        <script>
+            let nodeName = "GanttChartDIV";
+            let chartData = {
+                "data": JSON.parse('{!! json_encode($ganttChart) !!}')
+            };
+        </script>
     @endif
 
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script>
+        async function getAttributeValueDetailsByMonthYear(projectId, attributeId) {
+            let attributeGraphUrl = `${projectId}/attributes/${attributeId}/graphs`;
+            return await $.get(attributeGraphUrl);
+        }
+
+        function generateChart(monthYears, attributeValue, chartType) {
+            function doesChartExist() {
+                return chartObject !== undefined;
+            }
+
+            function destroyChart() {
+                if (doesChartExist()) {
+                    chartObject.destroy();
+                }
+            }
+
+            let chartContext = $('#chart');
+            let chartPersistentKey = "chart";
+            let chartObject = chartContext.data(chartPersistentKey);
+            let chartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    position: 'bottom',
+                },
+                hover: {
+                    mode: 'label'
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{!! trans('month.month') !!}'
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            color: "#f3f3f3",
+                            drawTicks: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: '{!! trans('attribute.value') !!}'
+                        },
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                },
+                title: {
+                    display: true,
+                    text: '{!! trans('attribute.attribute_values_line_chart') !!}'
+                }
+            };
+            let chartData = {
+                labels: monthYears,
+                datasets: [{
+                    label: `${attributeValue.name} - {!! trans('attribute.planned') !!}`,
+                    data: attributeValue.monthly_planned_values,
+                    fill: false,
+                    borderDash: [5, 5],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
+                    borderWidth: 1
+                }, {
+                    label: `${attributeValue.name} - {!! trans('attribute.achieved') !!}`,
+                    data: attributeValue.monthly_achieved_values,
+                    lineTension: 0,
+                    fill: false,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+            let chartConfig = {
+                type: chartType,
+                options: chartOptions,
+                data: chartData
+            };
+
+            if (chartType == 'polarArea') {
+                delete chartOptions['scales'];
+            }
+
+            destroyChart();
+            chartContext.data(chartPersistentKey, new Chart(chartContext, chartConfig));
+        }
+
+        function initializeGraphVariables(attributeName, attributeValuesByMonthYear) {
+            let uniqueMonthYears = attributeValuesByMonthYear.map(attributeValue => {
+                return attributeValue.monthYear;
+            });
+            let attributeValues = {};
+            attributeValues.name = attributeName;
+            attributeValues.monthly_achieved_values = attributeValuesByMonthYear.map(attributeValue => {
+                return attributeValue.total_achieved_value;
+            });
+            attributeValues.monthly_planned_values = attributeValuesByMonthYear.map(attributeValue => {
+                return attributeValue.total_planned_value;
+            });
+            return {uniqueMonthYears, attributeValues};
+        }
+
+        function renderGraph(projectId, attributeId, self) {
+            getAttributeValueDetailsByMonthYear(projectId, attributeId)
+                .then((attribute) => {
+                    let {uniqueMonthYears, attributeValues} = initializeGraphVariables(attribute.name, attribute.attributeValues);
+                    self.uniqueMonthYear = uniqueMonthYears;
+                    self.attributeValues = attributeValues;
+                    let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                    generateChart(uniqueMonthYears, attributeValues, chartType);
+                })
+                .catch(error => {
+                    // TODO: show lang error message
+                    console.log(error)
+                });
+        }
+
         $(document).ready(function () {
             $('.task-table, .monthly-update-table, .organization-table').DataTable({
                 "pageLength": 5
+            });
+
+            let projectId = JSON.parse('{!! json_encode($project->id) !!}');
+            let attributeId = $('select[name=attribute_id]').val();
+            let self = this;
+            let uniqueMonthYear = [];
+            let attributeValues = {};
+
+            renderGraph(projectId, attributeId, self);
+
+            $('select[name=attribute_id]').on('change', function () {
+                let attributeId = $(this).val();
+                renderGraph(projectId, attributeId, self);
+            });
+
+            $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
+                let chartType = $(this).val();
+                generateChart(self.uniqueMonthYear, self.attributeValues, chartType);
             });
         });
     </script>

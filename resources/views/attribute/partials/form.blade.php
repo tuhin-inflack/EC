@@ -3,12 +3,13 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="organization_id" class="form-label required">@lang('attribute.organization')</label>
-                {!! Form::select('organization_id', $organizations, isset($attribute) ? $attribute->organization_id : null, ['class' => 'form-control select2' . ($errors->has('organization_id') ? ' is-invalid' : ''), 'placeholder' => trans('labels.select'), 'required']) !!}
+                <label for="name" class="form-label required">@lang('pms::project.title')</label>
+                {{ Form::hidden('project_id', $project->id) }}
+                {!! Form::text(null, $project->title, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'required', 'disabled']) !!}
 
-                @if ($errors->has('organization_id'))
+                @if ($errors->has('name'))
                     <span class="invalid-feedback">
-                        <strong>{{ $errors->first('organization_id') }}</strong>
+                        <strong>{{ $errors->first('name') }}</strong>
                     </span>
                 @endif
             </div>
@@ -46,7 +47,7 @@
         <button type="submit" class="btn btn-primary">
             <i class="la la-check-square-o"></i> {{trans('labels.save')}}
         </button>
-        <a class="btn btn-warning mr-1" role="button" href="{{ URL::previous() }}">
+        <a class="btn btn-warning mr-1" role="button" href="{{ route('project.show', $project->id) }}">
             <i class="ft-x"></i> {{trans('labels.cancel')}}
         </a>
     </div>
