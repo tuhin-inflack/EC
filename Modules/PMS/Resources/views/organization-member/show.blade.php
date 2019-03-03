@@ -34,7 +34,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.gender')</dt>
-                                    <dd class="col-sm-9">{{ $member->gender }}</dd>
+                                    <dd class="col-sm-9">@lang('labels.' . $member->gender)</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.mobile')</dt>
@@ -66,7 +66,7 @@
                                     <tr>
                                         <th>@lang('labels.serial')</th>
                                         <th>@lang('labels.name')</th>
-                                        <th>@lang('attribute.unit')</th>
+                                        <th>@lang('attribute.initial_balance')</th>
                                         <th>@lang('attribute.current_balance')</th>
                                         <th>@lang('labels.action')</th>
                                     </tr>
@@ -76,7 +76,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $attributeValue->name }}</td>
-                                            <td>{{ $attributeValue->unit }}</td>
+                                            <td>{{ $attributeValue->initial_value }}</td>
                                             <td>{{ number_format($attributeValue->total_achieved_value, 2) }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('member-attributes.show', [

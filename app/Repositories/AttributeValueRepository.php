@@ -26,10 +26,12 @@ class AttributeValueRepository extends AbstractBaseRepository
             ->get();
 
         return $attributes->map(function ($attribute) use ($attributeValues) {
+            $attributeValue = $attributeValues->where('attribute_id', $attribute->id)->first();
+            $initialValue = $attributeValue ? $attributeValue->achieved_value : 0;
             return (object)[
                 'attribute_id' => $attribute->id,
                 'name' => $attribute->name,
-                'unit' => $attribute->unit,
+                'initial_value' =>  $initialValue,
                 'total_achieved_value' => $attributeValues->where('attribute_id', $attribute->id)->sum('achieved_value')
             ];
         });
