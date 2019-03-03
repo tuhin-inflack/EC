@@ -167,7 +167,7 @@
                                                 @include('../../../task.partials.gantt-chart')
                                             </div>
                                         </div>
-                                        
+
                                         <section class="row">
                                             <div class="col-md-12">
                                                 @include('../../../task.partials.table', [
@@ -369,12 +369,12 @@
             chartContext.data(chartPersistentKey, new Chart(chartContext, chartConfig));
         }
 
-        function initializeGraphVariables(attributeValuesByMonthYear) {
+        function initializeGraphVariables(attributeName, attributeValuesByMonthYear) {
             let uniqueMonthYears = attributeValuesByMonthYear.map(attributeValue => {
                 return attributeValue.monthYear;
             });
             let attributeValues = {};
-            attributeValues.name = JSON.parse('{!! json_encode($attribute->name) !!}');
+            attributeValues.name = attributeName;
             attributeValues.monthly_achieved_values = attributeValuesByMonthYear.map(attributeValue => {
                 return attributeValue.total_achieved_value;
             });
@@ -382,6 +382,21 @@
                 return attributeValue.total_planned_value;
             });
             return {uniqueMonthYears, attributeValues};
+        }
+
+        function renderGraph(projectId, attributeId, self) {
+            getAttributeValueDetailsByMonthYear(projectId, attributeId)
+                .then((attribute) => {
+                    let {uniqueMonthYears, attributeValues} = initializeGraphVariables(attribute.name, attribute.attributeValues);
+                    self.uniqueMonthYear = uniqueMonthYears;
+                    self.attributeValues = attributeValues;
+                    let chartType = $('input[type=radio][name=chart_type]:checked').val();
+                    generateChart(uniqueMonthYears, attributeValues, chartType);
+                })
+                .catch(error => {
+                    // TODO: show lang error message
+                    console.log(error)
+                });
         }
 
         $(document).ready(function () {
@@ -395,35 +410,12 @@
             let uniqueMonthYear = [];
             let attributeValues = {};
 
-            getAttributeValueDetailsByMonthYear(projectId, attributeId)
-                .then((data) => {
-                    let {uniqueMonthYears, attributeValues} = initializeGraphVariables(data);
-                    self.uniqueMonthYears = uniqueMonthYears;
-                    self.attributeValues = attributeValues;
-                    let chartType = $('input[type=radio][name=chart_type]:checked').val();
-                    generateChart(uniqueMonthYears, attributeValues, chartType);
-                })
-                .catch(error => {
-                    // TODO: show lang error message
-                    console.log(error)
-                });
+            renderGraph(projectId, attributeId, self);
 
             $('select[name=attribute_id]').on('change', function () {
-                let attriubteId = $(this).val();
-                getAttributeValueDetailsByMonthYear(projectId, attributeId)
-                    .then((data) => {
-                        let {uniqueMonthYears, attributeValues} = initializeGraphVariables(data);
-                        self.uniqueMonthYears = uniqueMonthYears;
-                        self.attributeValues = attributeValues;
-                        let chartType = $('input[type=radio][name=chart_type]:checked').val();
-                        generateChart(uniqueMonthYears, attributeValues, chartType);
-                    })
-                    .catch(error => {
-                        // TODO: show lang error message
-                        console.log(error)
-                    });
+                let attributeId = $(this).val();
+                renderGraph(projectId, attributeId, self);
             });
-
 
             $('input[type=radio][name=chart_type]').on('ifChecked', function (event) {
                 let chartType = $(this).val();
