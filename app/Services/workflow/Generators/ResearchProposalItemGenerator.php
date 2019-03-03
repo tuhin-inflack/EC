@@ -56,7 +56,6 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
 
         $designationId = $this->userService->getDesignationId($user->username);
-//        dd($designationId);
         $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
         foreach ($workflows as $key => $workflow) {

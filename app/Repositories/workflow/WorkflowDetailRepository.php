@@ -38,7 +38,7 @@ class WorkflowDetailRepository extends AbstractBaseRepository
 
     public function getWorkflowDetailsByFeature($userId, $designationIds, $featureId)
     {
-        return WorkflowDetail::with(['workflowMaster', 'workflowConversations' => function ($query) {
+        return WorkflowDetail::with(['workflowMaster', 'ruleDetails', 'workflowConversations' => function ($query) {
             $query->where('status', 'ACTIVE');
         }])
             ->whereHas('workflowMaster', function ($query) use ($featureId) {
