@@ -51,6 +51,9 @@ class AttributeController extends Controller
 
     public function graphValues(Project $project, Attribute $attribute)
     {
-        return $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute);
+        return response()->json([
+            'name' => $attribute->name,
+            'attributeValues' => $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute)
+        ], 200);
     }
 }

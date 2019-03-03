@@ -80,6 +80,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TasksTableSeeder::class);
         $this->call(TraineesTableSeeder::class);
         $this->call(TrainingsTableSeeder::class);
+        $this->call(WorkflowSeeder::class);
         $this->call(WorkflowConversationsTableSeeder::class);
         $this->call(WorkflowDetailsTableSeeder::class);
         $this->call(WorkflowMastersTableSeeder::class);
