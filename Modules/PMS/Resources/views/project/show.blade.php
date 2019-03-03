@@ -18,7 +18,7 @@
     </div>
     <br>
 
-    {{--@if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))--}}
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
         <!-- Basic tabs start -->
         <section>
             <div class="row match-height">
@@ -142,7 +142,7 @@
             </div>
         </section>
         <!-- Basic badge Input end -->
-    {{--@endif--}}
+    @endif
 
     <section>
         <div class="row match-height">
