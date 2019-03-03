@@ -233,6 +233,25 @@ class UsersTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'last_password_change' => '2019-02-07 21:41:01',
             ),
+
+            12 =>
+            array (
+                'id' => 13,
+                'name' => 'Director Project',
+                'email' => 'dp@gmail.com',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$2mySmeP6R6VyHATNwrmtm.ES.o2m7hSQsYhBhbOlANAxYLmoObQ02',
+                'remember_token' => NULL,
+                'created_at' => '2019-02-07 21:28:52',
+                'updated_at' => '2019-02-07 21:41:01',
+                'username' => 'directorproject',
+                'user_type' => 'Employee',
+                'mobile' => '01711111113',
+                'reference_table_id' => 6,
+                'status' => 'Active',
+                'deleted_at' => NULL,
+                'last_password_change' => '2019-02-07 21:41:01',
+            ),
         ));
         
         

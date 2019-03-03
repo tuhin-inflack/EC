@@ -33,5 +33,8 @@ return [
     'current_balance' => 'বর্তমান হিসাব',
     'make_transaction' => 'লেনদেন করুন',
     'purchase_share' => 'শেয়ার ক্রয়',
-    'transfer_share' => 'শেয়ার বিনিময়',
+    'share_exchange' => 'শেয়ার বিনিময়',
+    'withdraw' => 'উঠাইয়া লওয়া',
+    'deposit' => 'জমা',
+    'transaction_type' => 'লেনদেন প্রকার',
 ];

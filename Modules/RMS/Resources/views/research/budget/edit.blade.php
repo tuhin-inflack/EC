@@ -1,9 +1,5 @@
-@extends('pms::layouts.master')
+@extends('rms::layouts.master')
 @section('title', trans('rms::research_budget.title'))
-
-@push('page-css')
-
-@endpush
 
 @section('content')
     <div class="container">
@@ -38,7 +34,6 @@
     </div>
 @endsection
 
-
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
@@ -47,59 +42,65 @@
 
         $(document).ready(function () {
 
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+
             $('.economy-code-select, .section-type-select').select2({
                 placeholder: selectPlaceholder
             });
 
-            $('input[name=unit_rate], input[name=quantity]').keyup((e) => {
+            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
                 calcutateTotalExpense();
             });
 
-            // $('.add-fiscal-value-row').css('cursor', 'pointer').click(() => {
-            //     var tbody = $('#fiscal-values');
-            //
-            //     var row = `<tr>
-            //                 <td><input type="number" name="fiscal_year[]" class="form-control"></td>
-            //                 <td><input type="number" name="monetary_amount[]" class="form-control"></td>
-            //                 <td><input type="number" name="body_percentage[]" class="form-control"></td>
-            //                 <td><input type="number" name="project_percentage[]" class="form-control"></td>
-            //                 <td><i class="la la-trash-o text-danger remove-item"></i></td>
-            //             </tr>`;
-            //
-            //     tbody.append(row);
-            //
-            //     $('.remove-item').off();
-            //     $('.remove-item').css('cursor', 'pointer').click(function(){
-            //         $(this).parents('tr').remove();
-            //     });
-            //
-            // });
-
-            // validation
-            $('.project-budget-form').validate({
-                ignore: 'input[type=hidden]', // ignore hidden fields
-                errorClass: 'danger',
-                successClass: 'success',
-                highlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass);
-                },
-                unhighlight: function (element, errorClass) {
-                    $(element).removeClass(errorClass);
-                },
-                errorPlacement: function (error, element) {
-                    if (element.attr('type') == 'radio') {
-                        error.insertBefore(element.parents().siblings('.radio-error'));
-                    } else if (element[0].tagName == "SELECT") {
-                        error.insertAfter(element.siblings('.select2-container'));
-                    } else if (element.attr('id') == 'ckeditor') {
-                        error.insertAfter(element.siblings('#cke_ckeditor'));
-                    } else {
-                        error.insertAfter(element);
-                    }
-                },
+            $('.section-type-select').change(function (e) {
+                toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
             });
 
+            toggleComponents(($('.section-type-select').val() === "price_contingency" || $('.section-type-select').val() === "physical_contingency"));
+
         });
+
+        var validator = $('.research-budget-form').validate({
+            ignore: 'input[type=hidden]', // ignore hidden fields
+            errorClass: 'danger',
+            successClass: 'success',
+            highlight: function (element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            unhighlight: function (element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            errorPlacement: function (error, element) {
+                if (element.attr('type') == 'radio') {
+                    error.insertBefore(element.parents().siblings('.radio-error'));
+                }
+                else if (element[0].tagName == "SELECT") {
+                    error.insertAfter(element.siblings('.select2-container'));
+                }
+                else if (element.attr('id') == 'ckeditor') {
+                    error.insertAfter(element.siblings('#cke_ckeditor'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+        });
+
+        function toggleComponents(bool) {
+
+            let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
+
+            components.prop( "disabled", bool);
+
+            if (bool)
+                components.removeAttr('required');
+            else
+                components.attr('required','required');
+
+            $('input[name=total_expense]').prop( "readonly", !bool);
+            $('input[name=total_expense_percentage]').prop( "disabled", !bool);
+
+            validator.resetForm();
+        }
 
         function calcutateTotalExpense() {
             var unitRate = $('input[name=unit_rate]').val();
@@ -112,4 +113,35 @@
 
 
     </script>
+@endpush
+
+@push('page-css')
+    <style type="text/css">
+
+        .table thead {
+            text-align: center;
+        }
+        .table thead th{
+            vertical-align: inherit;
+        }
+        .table th, .table td {
+            padding: 0.15rem 0.15rem;
+        }
+
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input.form-control {
+            height: 30px;
+        }
+
+        .form-control {
+            padding: .1rem 0.25rem;
+        }
+    </style>
 @endpush

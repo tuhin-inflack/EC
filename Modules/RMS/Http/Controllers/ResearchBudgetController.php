@@ -16,7 +16,7 @@ class ResearchBudgetController extends Controller
     private $economyCodeService;
     private $draftProposalBudgetService;
 
-    public function __construct(DraftProposalBudgetService $draftProposalBudgetService,EconomyCodeService $economyCodeService)
+    public function __construct(DraftProposalBudgetService $draftProposalBudgetService, EconomyCodeService $economyCodeService)
     {
         $this->draftProposalBudgetService = $draftProposalBudgetService;
         $this->economyCodeService = $economyCodeService;
@@ -29,8 +29,8 @@ class ResearchBudgetController extends Controller
      */
     public function index(Research $research)
     {
-        $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
-        return view('rms::research.budget.index', compact('research', 'economyCodeOptions'));
+        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($research);
+        return view('rms::research.budget.index', compact('research', 'data'));
     }
 
     /**
@@ -42,7 +42,6 @@ class ResearchBudgetController extends Controller
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
         $sectionTypes = $this->draftProposalBudgetService->getSectionTypesOfDraftProposalBudget();
-
         return view('rms::research.budget.create', compact('research', 'economyCodeOptions', 'sectionTypes'));
     }
 

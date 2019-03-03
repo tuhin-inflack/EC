@@ -28,9 +28,9 @@ class MemberAttributeController extends Controller
     public function show(Project $project, Organization $organization, OrganizationMember $member, Attribute $attribute)
     {
         $attributeType = $this->attributeService->getAttributeType($attribute);
-        $attributeValue = $this->attributeService->getAttributeValue($attribute);
+        $attributeValue = $this->attributeService->getMemberAttributeValues($attribute, $member);
 
-        return view('pms::attribute.show', compact(
+        return view('pms::member-attribute.show', compact(
                 'project',
                 'organization',
                 'member',

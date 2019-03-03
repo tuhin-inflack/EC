@@ -29,18 +29,6 @@ class ProjectBudgetController extends Controller
      */
     public function index(Project $project)
     {
-//        $data = $this->draftProposalBudgetService->prepareBudgetView($project);
-
-//        foreach ($data as $k => $dd){
-//            if ($k == 'revenue'){
-//                foreach ($dd as $d){
-//                    echo $d['total_expense'] . ' ' . $d['gov_source'] . ' ' . $d['own_financing_source'] . ' ' . $d['other_source'] . '<br>';
-//                }
-//            }
-//        }
-
-//        die();
-//        return $data;
         $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
         return view('pms::project.budget.index', compact('project', 'data'));
     }
@@ -65,7 +53,6 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        //dd($request->all());
         $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));

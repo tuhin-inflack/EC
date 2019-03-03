@@ -16,7 +16,7 @@ class StoreAttributeValueRequest extends FormRequest
         return [
             'attribute_id' => 'required|exists:attributes,id',
             'date' => 'required|date',
-            'planned_value' => 'required|numeric|min:0',
+            'transaction_type' => 'required|in:withdraw,deposit',
             'achieved_value' => 'required|numeric|min:0'
         ];
     }
