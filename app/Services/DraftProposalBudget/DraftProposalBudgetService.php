@@ -9,6 +9,7 @@
 namespace App\Services\DraftProposalBudget;
 
 use App\Entities\DraftProposalBudget\DraftProposalBudgetFiscalValue;
+use App\Models\DPBudget;
 use App\Repositories\DraftProposalBudget\DraftProposalBudgetRepository;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
@@ -59,14 +60,11 @@ class DraftProposalBudgetService
      */
     public function prepareBudgetView($budgetable)
     {
-
         $totalExpense = 0;
         $revenueExpense = 0;
         $capitalExpense = 0;
         $physicalContingencyExpense = 0;
         $priceContingencyExpense = 0;
-
-        $economyCodeWiseData = [];
 
         foreach ($budgetable->budgets as $budget)
         {
@@ -96,10 +94,8 @@ class DraftProposalBudgetService
 
         $grandTotalExpense = $totalExpense + $physicalContingencyExpense + $priceContingencyExpense;
 
-//        $economyCodeWiseRevenueData = $this->getEconomyCodeWiseSubTotal($budgetable, 'revenue');
-//        $economyCodeWiseCapitalData = $this->getEconomyCodeWiseSubTotal($budgetable, 'capital');
-
-        //return compact('economyCodeWiseRevenueData','economyCodeWiseCapitalData');
+        $economyHeadWiseRevenueData = $this->getEconomyCodeWiseSubTotal($budgetable, 'revenue');
+        $economyHeadWiseCapitalData = $this->getEconomyCodeWiseSubTotal($budgetable, 'capital');
 
         return compact('totalExpense',
             'revenueExpense',
@@ -107,20 +103,33 @@ class DraftProposalBudgetService
             'physicalContingencyExpense',
             'priceContingencyExpense',
             'grandTotalExpense',
-            'economyCodeWiseData'
+            'economyHeadWiseRevenueData',
+            'economyHeadWiseCapitalData'
         );
 
     }
 
     private function getEconomyCodeWiseSubTotal($budgetable, $sectionType){
-        return $budgetable->budgets->where('section_type', $sectionType)->groupBy('economy_code_id')->map(function ($rows) {
-            return [
-                'total_expense' => $rows->sum('total_expense'),
-                'gov_source' => $rows->sum('gov_source'),
-                'own_financing_source' => $rows->sum('own_financing_source'),
-                'other_source' => $rows->sum('other_source'),
-            ];
-        });;
+
+        $totalBasedOnEconomyCode = array();
+
+        foreach ($budgetable->budgets as $budget){
+            if($budget->section_type === $sectionType) {
+
+                if(!isset($totalBasedOnEconomyCode[$budget->economyCode->economyHead->code])){
+                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code] = new DPBudget();
+                }
+
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->unitRate += $budget->unit_rate;
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->quantity += $budget->quantity;
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->govSource += $budget->gov_source;
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->ownFinancingSource += $budget->own_financing_source;
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->otherSource += $budget->other_source;
+                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->totalExpense += $budget->total_expense;
+            }
+        }
+
+        return $totalBasedOnEconomyCode;
     }
 
     /**
