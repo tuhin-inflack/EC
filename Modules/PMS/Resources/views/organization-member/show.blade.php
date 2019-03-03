@@ -79,7 +79,7 @@
                                             <td>{{ $attributeValue->unit }}</td>
                                             <td>{{ number_format($attributeValue->total_achieved_value, 2) }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('attributes.show', [
+                                                <a href="{{ route('member-attributes.show', [
                                                     $project->id,
                                                     $organization->id,
                                                     $member->id,

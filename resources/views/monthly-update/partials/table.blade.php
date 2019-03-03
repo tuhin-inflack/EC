@@ -20,8 +20,8 @@
                     <tr>
                         <th>@lang('labels.serial')</th>
                         <th>@lang('labels.date')</th>
-                        <th>@lang('monthly-update.achievement')</th>
                         <th>@lang('monthly-update.plannings')</th>
+                        <th>@lang('monthly-update.achievement')</th>
                         <th>@lang('labels.action')</th>
                     </tr>
                     </thead>

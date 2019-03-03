@@ -26,7 +26,7 @@ class AttributeValueRepository extends AbstractBaseRepository
             ->get();
 
         return $attributes->map(function ($attribute) use ($attributeValues) {
-            return (object) [
+            return (object)[
                 'attribute_id' => $attribute->id,
                 'name' => $attribute->name,
                 'unit' => $attribute->unit,

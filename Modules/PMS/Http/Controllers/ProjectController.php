@@ -2,6 +2,8 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\Attribute;
+use App\Services\AttributeService;
 use App\Services\DivisionService;
 use App\Services\TaskService;
 use App\Services\UserService;
@@ -33,6 +35,10 @@ class ProjectController extends Controller
      * @var DivisionService
      */
     private $divisionService;
+    /**
+     * @var AttributeService
+     */
+    private $attributeService;
 
     /**
      * ProjectController constructor.
@@ -45,13 +51,15 @@ class ProjectController extends Controller
         UserService $userService,
         ProjectService $projectService,
         TaskService $taskService,
-        DivisionService $divisionService
+        DivisionService $divisionService,
+        AttributeService $attributeService
     )
     {
         $this->userService = $userService;
         $this->projectService = $projectService;
         $this->taskService = $taskService;
         $this->divisionService = $divisionService;
+        $this->attributeService = $attributeService;
     }
 
     /**
@@ -95,10 +103,11 @@ class ProjectController extends Controller
      * @param Project $project
      * @return Response
      */
-    public function show(Project $project)
+    public function show(Project $project, Attribute $attribute)
     {
         $ganttChart = $this->taskService->getTasksGanttChartData($project->tasks);
         $divisions = $this->divisionService->findAll();
-        return view('pms::project.show', compact('project', 'ganttChart', 'divisions'));
+        $achievedPlannedValuesByMonthYear = $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute);
+        return view('pms::project.show', compact('project', 'ganttChart', 'divisions', 'achievedPlannedValuesByMonthYear', 'attribute'));
     }
 }
