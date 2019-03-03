@@ -69,6 +69,8 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                 Route::post('/', 'AttributeController@store')->name('attributes.store');
                 Route::get('{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
                 Route::get('{attribute}', 'AttributeController@show')->name('attributes.show');
+                // graph
+                Route::get('{attribute}/graphs', 'AttributeController@graphValues');
             });
             Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
             Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');

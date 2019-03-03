@@ -107,7 +107,6 @@ class ProjectController extends Controller
     {
         $ganttChart = $this->taskService->getTasksGanttChartData($project->tasks);
         $divisions = $this->divisionService->findAll();
-        $achievedPlannedValuesByMonthYear = $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute);
-        return view('pms::project.show', compact('project', 'ganttChart', 'divisions', 'achievedPlannedValuesByMonthYear', 'attribute'));
+        return view('pms::project.show', compact('project', 'ganttChart', 'divisions', 'attribute'));
     }
 }
