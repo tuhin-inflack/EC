@@ -28,6 +28,7 @@ class WorkflowSeeder extends Seeder
             DB::table('departments')->insert($department);
         }
 //designation seeding
+        /*
         $designations = [
             ['name' => 'Faculty Member', 'short_name' => 'FM', 'department_id' => 1],
             ['name' => 'Faculty Director', 'short_name' => 'FD', 'department_id' => 1],
@@ -36,13 +37,20 @@ class WorkflowSeeder extends Seeder
         ];
         foreach ($designations as $designation) {
             DB::table('designations')->insert($designation);
-        }
+        } */
 //employee & user seeding
         $employees = [
             1 => ['employee_id' => 'FM10', 'first_name' => 'Faculty', 'last_name' => 'Member', 'email' => 'f@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 1, 'mobile_one' => '01711111111'],
             2 => ['employee_id' => 'FD11', 'first_name' => 'Faculty', 'last_name' => 'Director', 'email' => 'fd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 2, 'mobile_one' => '01711111112'],
             3 => ['employee_id' => 'RD12', 'first_name' => 'Research', 'last_name' => 'Director', 'email' => 'rd@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 3, 'mobile_one' => '01711111113'],
             4 => ['employee_id' => 'PD1', 'first_name' => 'Project', 'last_name' => 'Director', 'email' => 'pd1@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 4, 'mobile_one' => '01711111113'],
+            5 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, 'mobile_one' => '01711111113'],
+            6 => ['employee_id' => 'DG', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 17, 'mobile_one' => '01711111113'],
+            7 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, 'mobile_one' => '01711111113'],
+            8 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, 'mobile_one' => '01711111113'],
+            9 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
+            10 => ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, 'mobile_one' => '01711111113'],
+            11 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
         ];
 
         foreach ($employees as $key => $employee) {
@@ -82,10 +90,15 @@ class WorkflowSeeder extends Seeder
 
 //        workflow rule details
         $ruleDetails = [
-            ['rule_master_id' => 1, 'designation_id' => 2, 'notification_order' => 1, 'number_of_responder' => 1, 'is_group_notification' => 1],
-            ['rule_master_id' => 1, 'designation_id' => 3, 'notification_order' => 2, 'number_of_responder' => 1, 'is_group_notification' => 1],
-            ['rule_master_id' => 2, 'designation_id' => 2, 'notification_order' => 1, 'number_of_responder' => 1, 'is_group_notification' => 1],
-            ['rule_master_id' => 2, 'designation_id' => 4, 'notification_order' => 2, 'number_of_responder' => 1, 'is_group_notification' => 1],
+            ['rule_master_id' => 1, 'designation_id' => 3, 'notification_order' => 1, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'initiator', 'flow_type' => 'forward'],
+            ['rule_master_id' => 1, 'designation_id' => 19, 'notification_order' => 2, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'none', 'flow_type' => 'review'],
+            ['rule_master_id' => 1, 'designation_id' => 3, 'notification_order' => 3, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'initiator', 'flow_type' => 'approval'],
+            ['rule_master_id' => 1, 'designation_id' => 17, 'notification_order' => 4, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'previous', 'flow_type' => 'approval'],
+
+            ['rule_master_id' => 2, 'designation_id' => 4, 'notification_order' => 1, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'initiator', 'flow_type' => 'forward'],
+            ['rule_master_id' => 2, 'designation_id' => 14, 'notification_order' => 2, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'none', 'flow_type' => 'review'],
+            ['rule_master_id' => 2, 'designation_id' => 4, 'notification_order' => 3, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'initiator', 'flow_type' => 'approval'],
+            ['rule_master_id' => 2, 'designation_id' => 17, 'notification_order' => 4, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'previous', 'flow_type' => 'approval'],
         ];
 
         foreach ($ruleDetails as $ruleDetail) {
