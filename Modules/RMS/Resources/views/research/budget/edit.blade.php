@@ -37,30 +37,14 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
-        // select2 placeholder localization
-        let selectPlaceholder = '{!! trans('labels.select') !!}';
 
         $(document).ready(function () {
 
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 
-            $('.economy-code-select, .section-type-select').select2({
-                placeholder: selectPlaceholder
-            });
-
-            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
-                calcutateTotalExpense();
-            });
-
-            $('.section-type-select').change(function (e) {
-                toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
-            });
-
-            toggleComponents(($('.section-type-select').val() === "price_contingency" || $('.section-type-select').val() === "physical_contingency"));
-
         });
 
-        var validator = $('.research-budget-form').validate({
+        let validator = $('.research-budget-form').validate({
             ignore: 'input[type=hidden]', // ignore hidden fields
             errorClass: 'danger',
             successClass: 'success',
@@ -84,33 +68,6 @@
                 }
             },
         });
-
-        function toggleComponents(bool) {
-
-            let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
-
-            components.prop( "disabled", bool);
-
-            if (bool)
-                components.removeAttr('required');
-            else
-                components.attr('required','required');
-
-            $('input[name=total_expense]').prop( "readonly", !bool);
-            $('input[name=total_expense_percentage]').prop( "disabled", !bool);
-
-            validator.resetForm();
-        }
-
-        function calcutateTotalExpense() {
-            var unitRate = $('input[name=unit_rate]').val();
-            var quantity = $('input[name=quantity]').val();
-
-            var totalExpense = Number(unitRate) * Number(quantity);
-
-            $('input[name=total_expense]').val(totalExpense);
-        }
-
 
     </script>
 @endpush

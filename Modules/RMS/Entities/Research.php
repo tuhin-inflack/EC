@@ -36,7 +36,7 @@ class Research extends Model
 
     public function budgets()
     {
-        return $this->morphMany(DraftProposalBudget::class, 'budgetable', 'budgetable_type', 'budgetable_id', 'id');
+        return $this->hasMany(ResearchBudget::class, 'research_id');
     }
 
     public function publication()

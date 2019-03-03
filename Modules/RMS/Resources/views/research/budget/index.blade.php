@@ -19,6 +19,9 @@
                         <a href="{{route('research-budget.create', $research->id)}}" class="btn btn-primary btn-sm">
                             <i class="ft-plus white"></i> @lang('labels.create') @lang('rms::research_budget.budgeting')
                         </a>
+                        <a href="{{route('research-budget.edit', $research->id)}}" class="btn btn-success btn-sm">
+                            <i class="ft-edit-2 white"></i> @lang('labels.edit') @lang('rms::research_budget.budgeting')
+                        </a>
                     </div>
                 </div>
             </div>
@@ -26,27 +29,56 @@
         <br>
 
         <div class="row justify-content-center">
-            @include('rms::research.budget.partials.annexure-4')
-            @include('rms::research.budget.partials.annexure-5')
+            <div class="col-md-12">
+                <section id="number-tabs">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">@lang('rms::research_budget.title')</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Sl. No.</th>
+                                                    <th>Activities</th>
+                                                    <th>Estimated Cost (Tk.)</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            @php $total = 0 @endphp
+                                                @foreach($research->budgets as $budget)
+                                                    @php $total += $budget->estimated_cost; @endphp
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $budget->activity }}</td>
+                                                    <td>{{ $budget->estimated_cost }}</td>
+                                                </tr>
+                                                @endforeach
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Total</th>
+                                                    <th>{{ $total }}</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 @endsection
-
-@push('page-js')
-@endpush
-
-@push('page-css')
-    <style type="text/css">
-
-        .table thead {
-            text-align: center;
-        }
-        .table thead th{
-            vertical-align: inherit;
-        }
-        .table th, .table td {
-            padding: 0.15rem 0.15rem;
-        }
-
-    </style>
-@endpush

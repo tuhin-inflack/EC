@@ -2,22 +2,16 @@
 
 return [
 
-//    Review of literature
-//    Proposal writing
-//    Questionnaire preparation
-//    Questionnaire pretesting
-//    Data collection
-//    Data tabulation
-//    Report writing
-//    Draft report submission
-//    Incorporating research division comments
-//    First final report submission
-//    Received final report
-//    Sending external reviewer
-//    Comments from external reviewer
-//    Send to respective researcher
-//    Accepted final report
-//    Send for publication
+    'budget' => [
+        'Stationeries ( paper, pen, pencil, file board, sharpener, eraser, computer tuner etc.)',
+        'Fuel cost of transport',
+        'TA/DA for Researchers',
+        'TA/DA for Research Investigators',
+        'Data tabulation, processing/analysis',
+        'Honorarium for Researchers',
+        'Miscellaneous',
+        'Other Specific Cost'
+    ],
 
     'tasks' => [
         [

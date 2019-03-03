@@ -92,7 +92,7 @@ class ResearchController extends Controller
     {
         $research = $this->researchService->store($request->all());
 
-        foreach (Config::get('default-tasks.tasks') as $task){
+        foreach (Config::get('default-values.tasks') as $task){
             $this->taskService->store($research, $task);
         }
 

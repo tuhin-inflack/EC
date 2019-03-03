@@ -37,84 +37,36 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
-        // select2 placeholder localization
-        let selectPlaceholder = '{!! trans('labels.select') !!}';
 
         $(document).ready(function () {
 
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 
-            $('.economy-code-select, .section-type-select').select2({
-                placeholder: selectPlaceholder
+            $('.research-budget-form').validate({
+                ignore: 'input[type=hidden]', // ignore hidden fields
+                errorClass: 'danger',
+                successClass: 'success',
+                highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.attr('type') == 'radio') {
+                        error.insertBefore(element.parents().siblings('.radio-error'));
+                    }
+                    else if (element[0].tagName == "SELECT") {
+                        error.insertAfter(element.siblings('.select2-container'));
+                    }
+                    else if (element.attr('id') == 'ckeditor') {
+                        error.insertAfter(element.siblings('#cke_ckeditor'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                },
             });
-
-            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
-                calculateTotalExpense();
-            });
-
-            $('.section-type-select').change(function (e) {
-                toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
-            });
-
-            // $(`input[name=gov_source], input[name=own_financing_source], input[name=other_source]`).keydown(function (e) {
-            //     console.log($('input[name=gov_source]').val());
-            //     console.log($('input[name=own_financing_source]').val());
-            //     console.log($('input[name=other_source]').val());
-            // });
-
         });
-
-        let validator = $('.research-budget-form').validate({
-            ignore: 'input[type=hidden]', // ignore hidden fields
-            errorClass: 'danger',
-            successClass: 'success',
-            highlight: function (element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-            unhighlight: function (element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-            errorPlacement: function (error, element) {
-                if (element.attr('type') == 'radio') {
-                    error.insertBefore(element.parents().siblings('.radio-error'));
-                }
-                else if (element[0].tagName == "SELECT") {
-                    error.insertAfter(element.siblings('.select2-container'));
-                }
-                else if (element.attr('id') == 'ckeditor') {
-                    error.insertAfter(element.siblings('#cke_ckeditor'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-        });
-
-        function toggleComponents(bool) {
-
-            let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
-            components.prop( "disabled", bool);
-
-            if (bool)
-                components.removeAttr('required');
-            else
-                components.attr('required','required');
-
-            $('input[name=total_expense]').prop( "readonly", !bool);
-            $('input[name=total_expense_percentage]').prop( "disabled", !bool);
-
-            validator.resetForm();
-        }
-
-        function calculateTotalExpense() {
-            var unitRate = $('input[name=unit_rate]').val();
-            var quantity = $('input[name=quantity]').val();
-            console.log(unitRate);
-            console.log(quantity);
-            var totalExpense = Number(unitRate) * Number(quantity);
-            console.log(totalExpense);
-
-            $('input[name=total_expense]').val(totalExpense);
-        }
 
     </script>
 @endpush
