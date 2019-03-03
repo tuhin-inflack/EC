@@ -33,7 +33,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @php $grandTotalWeight = 0; @endphp
+                                @php
+                                    $grandTotalWeight = $totalGovSource = $totalOwnFinancingSource = $totalOtherSource = 0;
+                                @endphp
                                 <tr>
                                     <th colspan="4">(ক) @lang('draft-proposal-budget.revenue') : </th>
                                     @for($l = 1; $l <= 7; $l++)
@@ -42,7 +44,12 @@
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'revenue')
-                                        @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        @php
+                                            $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
+                                            $totalGovSource += $budget->gov_source;
+                                            $totalOwnFinancingSource += $budget->own_financing;
+                                            $totalOtherSource += $budget->other_source;
+                                        @endphp
                                         <tr>
                                             <td>{{ $budget->economyCode->economyHead->code }}</td>
                                             <td>{{ $budget->economyCode->code }}</td>
@@ -64,6 +71,19 @@
                                         <td></td>
                                     @endfor
                                 </tr>
+                                @foreach($data->economyHeadWiseRevenueData as $economyHeadCode => $revenueHead)
+                                    <tr>
+                                        <td colspan="3">{{ $economyHeadCode }}</td>
+                                        <td></td>
+                                        <td>{{ $revenueHead->unitRate }}</td>
+                                        <td>{{ $revenueHead->quantity }}</td>
+                                        <td>{{ $revenueHead->govSource }}</td>
+                                        <td>{{ $revenueHead->ownFinancingSource }}</td>
+                                        <td>{{ $revenueHead->otherSource }}</td>
+                                        <td>{{ $revenueHead->totalExpense }}</td>
+                                        <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
+                                    </tr>
+                                @endforeach
                                 <tr>
                                     <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
                                     <td></td>
@@ -83,7 +103,12 @@
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'capital')
-                                        @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
+                                        @php
+                                            $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
+                                            $totalGovSource += $budget->gov_source;
+                                            $totalOwnFinancingSource += $budget->own_financing;
+                                            $totalOtherSource += $budget->other_source;
+                                        @endphp
                                         <tr>
                                             <td>{{ $budget->economyCode->code }}</td>
                                             <td>{{ $budget->economyCode->economyHead->code }}</td>
@@ -105,6 +130,19 @@
                                         <td></td>
                                     @endfor
                                 </tr>
+                                @foreach($data->economyHeadWiseCapitalData as $economyHeadCode => $revenueHead)
+                                    <tr>
+                                        <td colspan="3">{{ $economyHeadCode }}</td>
+                                        <td></td>
+                                        <td>{{ $revenueHead->unitRate }}</td>
+                                        <td>{{ $revenueHead->quantity }}</td>
+                                        <td>{{ $revenueHead->govSource }}</td>
+                                        <td>{{ $revenueHead->ownFinancingSource }}</td>
+                                        <td>{{ $revenueHead->otherSource }}</td>
+                                        <td>{{ $revenueHead->totalExpense }}</td>
+                                        <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
+                                    </tr>
+                                @endforeach
                                 <tr>
                                     <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
                                     <td></td>
@@ -124,7 +162,12 @@
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'physical_contingency')
-                                        @php $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense; @endphp
+                                        @php
+                                            $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense;
+                                            $totalGovSource += $budget->gov_source;
+                                            $totalOwnFinancingSource += $budget->own_financing;
+                                            $totalOtherSource += $budget->other_source;
+                                        @endphp
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -135,7 +178,7 @@
                                             <td>{{ $budget->gov_source }}</td>
                                             <td>{{ $budget->own_financing_source }}</td>
                                             <td>{{ $budget->other_source }}</td>
-                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ $data->physicalContingencyExpense }}</td>
                                             <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                                         </tr>
                                     @endif
@@ -148,7 +191,12 @@
                                 </tr>
                                 @foreach($project->budgets as $budget)
                                     @if($budget->section_type === 'price_contingency')
-                                        @php $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense; @endphp
+                                        @php
+                                            $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense;
+                                            $totalGovSource += $budget->gov_source;
+                                            $totalOwnFinancingSource += $budget->own_financing;
+                                            $totalOtherSource += $budget->other_source;
+                                        @endphp
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -159,7 +207,7 @@
                                             <td>{{ $budget->gov_source }}</td>
                                             <td>{{ $budget->own_financing_source }}</td>
                                             <td>{{ $budget->other_source }}</td>
-                                            <td>{{ $budget->total_expense }}</td>
+                                            <td>{{ $data->priceContingencyExpense }}</td>
                                             <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                                         </tr>
                                     @endif
@@ -169,9 +217,9 @@
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{ $totalGovSource }}</td>
+                                    <td>{{ $totalOwnFinancingSource }}</td>
+                                    <td>{{ $totalOtherSource }}</td>
                                     <td>{{ $data->grandTotalExpense }}</td>
                                     <td>{{ $grandTotalWeight }}</td>
                                 </tr>
