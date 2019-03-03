@@ -10,6 +10,7 @@ namespace App\Repositories;
 
 
 use App\Entities\Attribute;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AttributeRepository extends AbstractBaseRepository
@@ -42,6 +43,8 @@ class AttributeRepository extends AbstractBaseRepository
                 'total_planned_value' => $rows->sum('total_planned_value'),
                 'monthYear' => $rows->first()->monthYear
             ];
-        })->sortByDesc('monthYear')->values()->all();
+        })->sortBy(function ($row) {
+            return Carbon::parse($row->monthYear);
+        })->values()->all();
     }
 }
