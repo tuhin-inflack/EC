@@ -27,6 +27,11 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
         });
+        // training under a project
+        Route::prefix('{project}/training')->group(function () {
+            Route::get('/','ProjectTrainingController@index')->name('project-training.index');
+            Route::get('create','ProjectTrainingController@create')->name('project-training.create');
+        });
 
         Route::prefix('{project}')->group(function () {
             // project organisations
