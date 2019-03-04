@@ -28,9 +28,10 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($trainings as $training)
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td><a href="">Project Training 1</a></td>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td><a href="">{{ $training->title }}</a></td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -46,24 +47,7 @@
                                             </span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td><a href="">Project Training 2</a></td>
-                                            <td>
-                                                <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i>
-                                                </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href=""
-                                                       class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
-                                                </span>
-                                            </span>
-                                            </td>
-                                        </tr>
+                                     @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -28,7 +28,8 @@ class ProjectTrainingController extends Controller
      */
     public function index(Project $project)
     {
-        return view('pms::project.training.index', compact('project'));
+        $trainings =  $project->projectTrainings;
+        return view('pms::project.training.index', compact('project', 'trainings'));
     }
 
     /**
