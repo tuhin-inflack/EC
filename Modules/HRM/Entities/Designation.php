@@ -14,4 +14,6 @@ class Designation extends Model
     {
         return $this->hasManyThrough(User::class, Employee::class, 'designation_id', 'username', 'id', 'employee_id');
     }
+
+
 }

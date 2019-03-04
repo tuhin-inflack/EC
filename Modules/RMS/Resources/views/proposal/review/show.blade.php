@@ -84,16 +84,36 @@
                                         {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                     </div>
                                     @if(!is_null($ruleDesignations))
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>{{__('labels.share')}}</label>
+                                                <select name="designation_id" class="form-control">
+                                                    <option value="null"> .. select ..  </option>
+                                                @foreach($ruleDesignations as $designation)
+                                                        <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                                    @endforeach
+                                                </select>
 
+
+                                            </div>
+
+
+                                            <div class="form-group">
+
+                                            </div>
+                                        </div>
                                     @endif
 
                                     {!! Form::hidden('feature', $featureName) !!}
+                                    {!! Form::hidden('feature_id', $feature->id) !!}
                                     {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
+                                    {!! Form::hidden('department_id', $workflowRuleMaster->department_id) !!}
                                     {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
                                     {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
                                     {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
                                     {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Send for review</button>
                                     {!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
                                     {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}

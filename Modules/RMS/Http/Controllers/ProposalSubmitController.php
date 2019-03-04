@@ -8,6 +8,7 @@ use App\Constants\WorkflowStatus;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\Sharing\ShareRulesService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -38,11 +39,12 @@ class ProposalSubmitController extends Controller
     private $employeeService;
     private $workflowService;
     private $shareRuleService;
+    private $shareConversationService;
 
     public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
                                 DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService,
                                 FeatureService $featureService, EmployeeServices $employeeService,
-                                WorkflowService $workflowService, ShareRulesService $shareRulesService)
+                                WorkflowService $workflowService, ShareRulesService $shareRulesService, ShareConversationService $shareConversationService)
     {
 
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
@@ -52,6 +54,7 @@ class ProposalSubmitController extends Controller
         $this->employeeService = $employeeService;
         $this->workflowService = $workflowService;
         $this->shareRuleService = $shareRulesService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     /**
@@ -155,6 +158,8 @@ class ProposalSubmitController extends Controller
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
 
         $workflowRuleDetails = $this->workflowService->getRuleDetailsByRuleId($workflowRuleDetailsId);
+        $workflowRuleMaster = $workflowRuleDetails->ruleMaster;
+
 
         if ($workflowRuleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
@@ -162,26 +167,31 @@ class ProposalSubmitController extends Controller
         } else {
             $ruleDesignations = null;
         }
-        dd($ruleDesignations);
 
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
-            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks',
-            'workflowRuleDetails', 'ruleDesignations'));
+            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
+            'workflowRuleDetails', 'ruleDesignations', 'feature'));
 
     }
 
     public function reviewUpdate(Request $request)
     {
-        $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
-        $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 
-        $data = $request->except('_token');
-        $this->dashboardWorkflowService->updateDashboardItem($data);
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $response = $this->shareConversationService->saveShareConversation($request->all());
+            Session::flash('message', $response->getContent());
+        } else {
+            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+            $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
+
+            $data = $request->except('_token');
+            $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
 
-        $this->researchProposalSubmissionService->sendNotification($request);
-        //Send user to research dashboard
+            $this->researchProposalSubmissionService->sendNotification($request);
+        }
+
         return redirect('/rms');
 
     }
