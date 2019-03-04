@@ -220,7 +220,7 @@
                                                 $featureId = $proposal->workflowMasters->first()->feature->id;
                                             @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('project-proposal-submitted.view', [$proposal->id]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>

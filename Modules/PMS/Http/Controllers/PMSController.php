@@ -136,14 +136,10 @@ class PMSController extends Controller
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
 
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id,'ref_table_id' => $proposal->id]);
-        $user = $this->userService->getLoggedInUser();
-        $loggedUserDesignation = $this->userService->getDesignationId($user->username);
-        //$wf = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$loggedUserDesignation],$feature_id );
         $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
+        if($ruleDetails->is_shareable)
 
-        dd($ruleDetails);
-
-        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks'));
+        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
