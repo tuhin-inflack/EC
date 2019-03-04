@@ -30,16 +30,17 @@
                                             <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
 
-                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date')
+                                                : </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
                                             <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                             <p> {{ $research->submittedBy->name }} </p>
                                         </div>
                                         @if(count($remarks)>0)
-                                        <div class="col-md-12">
-                                            <label class="black">@lang('labels.remarks'): </label>
-                                            <div class="media">
-                                                <div class="media-body">
+                                            <div class="col-md-12">
+                                                <label class="black">@lang('labels.remarks'): </label>
+                                                <div class="media">
+                                                    <div class="media-body">
 
                                                         @foreach($remarks as $remark)
                                                             {{--{{ dd($remark) }}--}}
@@ -51,9 +52,9 @@
                                                             <hr/>
                                                         @endforeach
 
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
                                 </div>
@@ -82,6 +83,9 @@
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
                                         {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                     </div>
+                                    @if(!is_null($ruleDesignations))
+
+                                    @endif
 
                                     {!! Form::hidden('feature', $featureName) !!}
                                     {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
@@ -89,11 +93,12 @@
                                     {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
                                     {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
-                                        {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
+                                    {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
                                     {!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
                                     {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                    <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId]) }}" class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId]) }}"
+                                       class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
 
                                     {!! Form::close() !!}
                                 </div>

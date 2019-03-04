@@ -158,14 +158,16 @@ class ProposalSubmitController extends Controller
 
         if ($workflowRuleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
-            dd($shareRule->rulesDesignation);
+            $ruleDesignations = $shareRule->rulesDesignation;
         } else {
-
+            $ruleDesignations = null;
         }
+        dd($ruleDesignations);
 
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
-            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleDetails'));
+            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks',
+            'workflowRuleDetails', 'ruleDesignations'));
 
     }
 
