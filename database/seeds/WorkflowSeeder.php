@@ -65,7 +65,6 @@ class WorkflowSeeder extends Seeder
         $features = [
             ['name' => 'Research Proposal'],
             ['name' => 'Project Proposal'],
-            ['name' => 'Research Workflow']
 //            ['name' => \Illuminate\Support\Facades\Config::get('constants.project_proposal_feature_name')],
         ];
         foreach ($features as $feature) {
