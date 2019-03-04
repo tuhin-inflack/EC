@@ -4,6 +4,7 @@ namespace Modules\PMS\Http\Controllers;
 
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareRulesService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
@@ -27,6 +28,7 @@ class PMSController extends Controller
     private $remarksService;
     private $featureService;
     private $userService;
+    private $shareRuleService;
     /**
      * @var ProjectProposalService
      */
@@ -42,7 +44,7 @@ class PMSController extends Controller
                                 RemarkService $remarksService,
                                 FeatureService $featureService,
                                 ProjectRequestService $projectRequestService,
-                                UserService $userService)
+                                UserService $userService, ShareRulesService $shareRuleService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectRequestService = $projectRequestService;
@@ -51,6 +53,7 @@ class PMSController extends Controller
         $this->remarksService =  $remarksService;
         $this->featureService = $featureService;
         $this->userService = $userService;
+        $this->shareRuleService = $shareRuleService;
     }
 
     /**
@@ -134,12 +137,11 @@ class PMSController extends Controller
     {
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
-
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id,'ref_table_id' => $proposal->id]);
         $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
-        if($ruleDetails->is_shareable)
+        $shareRule = ($ruleDetails->is_shareable) ? $this->shareRuleService->findOne($ruleDetails->share_rule_id) : [];
 
-        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails'));
+        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule'));
     }
 
     public function reviewUpdate($proposalId, Request $request)

@@ -83,12 +83,18 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <select class="form-control" name="share_with">
-                                    @foreach()
-                                </select>
                                 <div class="form-group">
-                                    <label>{{__('labels.message_to_receiver')}}</label>
-                                    <textarea class="form-control" name="message_to_receiver"></textarea>
+                                    <label>{{__('labels.share')}}</label>
+                                    <select name="share_with" class="form-control">
+                                        @foreach($shareRule->rulesDesignation as $designation)
+                                            <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                   <button type="submit" value="SHARE" class="btn btn-info">Share</button>
                                 </div>
                             </div>
                         </div>
