@@ -27,7 +27,8 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{url($item->checkUrl)}}" class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
+                                    <a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
                                     <a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
                                        class="btn btn-danger btn-sm">@lang('labels.closed')</a>
                                 </td>
@@ -410,7 +411,7 @@
                                                 $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
-                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('research-proposal-submission.show', [$proposal->id]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
