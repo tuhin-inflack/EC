@@ -53,6 +53,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
+            $workflowRuleDetails = $workflow->ruleDetails;
             $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
             $projectData = [
                 'feature_name' => $feature->name,
