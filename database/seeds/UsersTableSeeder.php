@@ -71,6 +71,24 @@ class UsersTableSeeder extends Seeder
                 'deleted_at' => NULL,
                 'last_password_change' => '2019-02-07 21:28:52',
             ),
+            3 =>
+            array (
+                'id' => 4,
+                'name' => 'Hostel Manager',
+                'email' => 'hm@bard.com',
+                'email_verified_at' => NULL,
+                'password' => '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS',
+                'remember_token' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'username' => 'hostelmanager',
+                'user_type' => 'Admin',
+                'mobile' => '01710000000',
+                'reference_table_id' => NULL,
+                'status' => 'Active',
+                'deleted_at' => NULL,
+                'last_password_change' => '2019-02-07 21:28:52',
+            ),
         ));
     }
 }

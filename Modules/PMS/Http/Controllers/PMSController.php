@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -129,12 +130,18 @@ class PMSController extends Controller
     }
 
     // Methods implemented for integrating workflow
-    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id)
+    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id, $ruleDetailsId)
     {
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
 
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id,'ref_table_id' => $proposal->id]);
+        $user = $this->userService->getLoggedInUser();
+        $loggedUserDesignation = $this->userService->getDesignationId($user->username);
+        //$wf = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$loggedUserDesignation],$feature_id );
+        $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
+
+        dd($ruleDetails);
 
         return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks'));
     }
