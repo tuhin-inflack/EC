@@ -91,7 +91,6 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
 
         $feature = $this->featureRepository->findOneBy(['name' => config('rms.research_feature_name')]);
-
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
 
         foreach ($workflows as $key => $workflowMaster) {

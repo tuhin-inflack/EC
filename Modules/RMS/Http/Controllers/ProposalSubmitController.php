@@ -8,9 +8,11 @@ use App\Constants\WorkflowStatus;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareRulesService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -34,9 +36,13 @@ class ProposalSubmitController extends Controller
     private $remarksService;
     private $featureService;
     private $employeeService;
+    private $workflowService;
+    private $shareRuleService;
 
     public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
-                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService, EmployeeServices $employeeService)
+                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService,
+                                FeatureService $featureService, EmployeeServices $employeeService,
+                                WorkflowService $workflowService, ShareRulesService $shareRulesService)
     {
 
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
@@ -44,6 +50,8 @@ class ProposalSubmitController extends Controller
         $this->remarksService = $remarkService;
         $this->featureService = $featureService;
         $this->employeeService = $employeeService;
+        $this->workflowService = $workflowService;
+        $this->shareRuleService = $shareRulesService;
     }
 
     /**
@@ -136,7 +144,8 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+
     {
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
@@ -145,8 +154,18 @@ class ProposalSubmitController extends Controller
 
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
 
+        $workflowRuleDetails = $this->workflowService->getRuleDetailsByRuleId($workflowRuleDetailsId);
+
+        if ($workflowRuleDetails->is_shareable) {
+            $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
+            dd($shareRule->rulesDesignation);
+        } else {
+
+        }
+
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
-        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks'));
+        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
+            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleDetails'));
 
     }
 
