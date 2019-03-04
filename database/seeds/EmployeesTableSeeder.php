@@ -16,7 +16,7 @@ class EmployeesTableSeeder extends Seeder
 
         \DB::table('employees')->delete();
 
-        \DB::table('employees')->insert(array (
+        $employees = array (
             0 =>
                 array (
                     'id' => 1,
@@ -157,18 +157,9 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => '2019-02-07 21:30:06',
                     'deleted_at' => NULL,
                 ),
-        ));
-
-          $employees = array( 0 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, 'mobile_one' => '01711111113'],
-            1 => ['employee_id' => 'DG', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 17, 'mobile_one' => '01711111113'],
-            2 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, 'mobile_one' => '01711111113'],
-            3 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, 'mobile_one' => '01711111113'],
-            4 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
-            5 => ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, 'mobile_one' => '01711111113'],
-            6 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
         );
-
-        foreach ($employees as $key => $employee) {
+        $count = 1;
+        foreach ($employees as $employee) {
             DB::table('employees')->insert($employee);
             $user = [];
             $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
@@ -178,7 +169,33 @@ class EmployeesTableSeeder extends Seeder
             $user['username'] = $employee['employee_id'];
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
-            $user['reference_table_id'] = $key;
+            $user['reference_table_id'] = $count++;
+            \App\Entities\User::create($user);
+
+        }
+
+
+
+          $employees = array( 0 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, 'mobile_one' => '01711111113'],
+            7 => ['employee_id' => 'DG', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 17, 'mobile_one' => '01711111113'],
+            8 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, 'mobile_one' => '01711111113'],
+            9 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, 'mobile_one' => '01711111113'],
+            10 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
+            11=> ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, 'mobile_one' => '01711111113'],
+            12 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
+        );
+
+        foreach ($employees as $employee) {
+            DB::table('employees')->insert($employee);
+            $user = [];
+            $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
+            $user['email'] = $employee['email'];
+//            123123
+            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';
+            $user['username'] = $employee['employee_id'];
+            $user['user_type'] = 'Employee';
+            $user['mobile'] = $employee['mobile_one'];
+            $user['reference_table_id'] = $count++;
             \App\Entities\User::create($user);
 
         }
