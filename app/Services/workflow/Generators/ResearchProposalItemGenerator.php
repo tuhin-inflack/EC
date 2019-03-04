@@ -60,14 +60,17 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
 
         foreach ($workflows as $key => $workflow) {
+
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $proposal = $this->proposalSubmissionService->findOne($workflowMaster->ref_table_id);
+            $workflowRuleDetails = $workflow->ruleDetails;
             $researchData = [
                 'proposal_title' => $proposal->title,
                 'research_title' => $proposal->requester->title,
                 'remarks' => $proposal->remarks,
                 'id' => $proposal->id,
+                'workflow_rule_details_id' => $workflowRuleDetails->id
             ];
 
             $workflowConversation = $workflow->workflowConversations[0];
@@ -77,7 +80,7 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
 
             $dashboardItem->setCheckUrl(
                 '/rms/research-proposal-submission/review/' . $workflowMaster->ref_table_id .
-                '/' . $workflowMaster->feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
+                '/' . $workflowMaster->feature->name . '/' . $workflowMaster->id . '/' . $workflowConversation->id . '/' . $workflowRuleDetails->id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);

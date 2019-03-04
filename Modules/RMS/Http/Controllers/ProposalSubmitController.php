@@ -136,7 +136,8 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+
     {
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
