@@ -66,6 +66,7 @@ class PMSController extends Controller
         $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
         $loggedUserDesignation = $this->userService->getDesignation(Auth::user()->username);
 
+        //dd($pendingTasks, $featureName);
         if($loggedUserDesignation == "Project Director")
             $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
         else
