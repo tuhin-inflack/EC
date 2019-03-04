@@ -82,21 +82,6 @@
                                     <textarea class="form-control" name="message_to_receiver"></textarea>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{__('labels.share')}}</label>
-                                    <select name="share_with" class="form-control">
-                                        @foreach($shareRule->rulesDesignation as $designation)
-                                            <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-                                <div class="form-group">
-                                   <button type="submit" value="SHARE" class="btn btn-info">Share</button>
-                                </div>
-                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -109,6 +94,35 @@
                         </div>
                     </div>
                     {!! Form::close() !!}
+                    @if($ruleDetails->is_shareable)
+                        {!! Form::open(['url'=> route('project-proposal.share'), 'novalidate', 'class' => 'form', 'method' => 'post']) !!}
+                        <div class="col-md-6">
+                            <input name="feature_id" type="hidden" value="{{$feature_id}}">
+                            <input name="ref_table_id" type="hidden" value="{{$proposal->id}}">
+                            <input name="request_ref_id" type="hidden" value="{{$wfDetailsId}}">
+                            <input name="department_id" type="hidden" value="2">
+                            <input name="status" type="hidden" value="ACTIVE">
+                            <input name="from_user_id" type="hidden" value="{{Auth::user()->id}}">
+                            <div class="form-group">
+                                <label>{{__('labels.share')}}</label>
+                                <select name="designation_id" class="form-control">
+                                    @foreach($shareRule->rulesDesignation as $designation)
+                                        <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                    @endforeach
+                                </select>
+
+                            </div>
+                            <div class="form-group">
+                                {{__('labels.message_to_receiver')}}
+                                <textarea name="message" class="form-control"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" name="submit" value="SHARE" class="btn btn-info">Send for Review</button>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
+                    @endif
                 </div>
             </div>
         </div>

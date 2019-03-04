@@ -243,10 +243,15 @@ class WorkflowService
         }
     }
 
-    // Fetching Rule Details
+    // Fetching Rule Details and others
     public function getRuleDetailsByRuleId($id)
     {
         return $this->workflowRuleDetailRepository->findOne($id);
+    }
+
+    public function getWorkflowConversationById($id)
+    {
+        return $this->flowConversationRepository->findOne($id);
     }
 
 }
