@@ -82,13 +82,28 @@
                                     <textarea class="form-control" name="message_to_receiver"></textarea>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>{{__('labels.share')}}</label>
+                                    <select name="share_with" class="form-control">
+                                        @foreach($shareRule->rulesDesignation as $designation)
+                                            <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+
+                                <div class="form-group">
+                                   <button type="submit" value="SHARE" class="btn btn-info">Share</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> {{__('labels.approve')}}</button>
-                                    <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i> {{__('labels.send_back')}}</button>
-                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{__('labels.reject')}}</button>
+                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
+                                    @if($ruleDetails->get_back_status != 'none')<button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i> {{$ruleDetails->back_btn_label}}</button>@endif
+                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
                                 </div>
                             </div>
                         </div>
