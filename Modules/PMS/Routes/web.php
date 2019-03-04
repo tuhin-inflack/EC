@@ -31,6 +31,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::prefix('{project}/training')->group(function () {
             Route::get('/','ProjectTrainingController@index')->name('project-training.index');
             Route::get('create','ProjectTrainingController@create')->name('project-training.create');
+            Route::post('store','ProjectTrainingController@store')->name('project-training.store');
         });
 
         Route::prefix('{project}')->group(function () {

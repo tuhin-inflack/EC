@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        {!! Form::open(['route' =>  'project.store', 'class' => 'project-submission-tab-steps wizard-circle']) !!}
+                                        {!! Form::open(['route' =>  ['project-training.store', $project->id], 'class' => 'project-submission-tab-steps wizard-circle']) !!}
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i
@@ -48,6 +48,7 @@
                                                         </div>
                                                     </fieldset>
                                                 </div>
+                                                {!! Form::hidden('project_id', $project->id) !!}
                                             </div>
                                         </div>
                                         <div class="form-actions text-center">

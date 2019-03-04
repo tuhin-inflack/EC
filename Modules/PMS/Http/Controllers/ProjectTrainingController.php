@@ -5,10 +5,23 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Services\ProjectTrainingService;
 
 class ProjectTrainingController extends Controller
 {
+
+    /**
+     * @var ProjectTrainingService
+     */
+    private $projectTrainingService;
+
+    public function __construct(ProjectTrainingService $projectTrainingService)
+    {
+        $this->projectTrainingService = $projectTrainingService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -32,8 +45,11 @@ class ProjectTrainingController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Project $project)
     {
+        $this->projectTrainingService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('project-training.index', $project->id);
     }
 
     /**
