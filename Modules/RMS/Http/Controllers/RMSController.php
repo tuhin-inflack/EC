@@ -68,7 +68,6 @@ class RMSController extends Controller
 
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
-//        dd($employee);
         if (is_null($employee)) {
             $reviewedProposals = [];
             $researchPendingTasks = [];
