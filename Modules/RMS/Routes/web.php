@@ -38,8 +38,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
                 Route::get('/', 'ResearchBudgetController@index')->name('research-budget.index');
                 Route::get('create', 'ResearchBudgetController@create')->name('research-budget.create');
                 Route::post('store', 'ResearchBudgetController@store')->name('research-budget.store');
-                Route::get('{draftProposalBudget}/edit', 'ResearchBudgetController@edit')->name('research-budget.edit');
-                Route::put('{draftProposalBudget}/update', 'ResearchBudgetController@update')->name('research-budget.update');
+                Route::get('edit', 'ResearchBudgetController@edit')->name('research-budget.edit');
+                Route::put('update', 'ResearchBudgetController@update')->name('research-budget.update');
             });
             // research organizations
             Route::prefix('organizations')->group(function () {

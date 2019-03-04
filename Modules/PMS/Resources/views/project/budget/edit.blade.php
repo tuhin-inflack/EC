@@ -48,7 +48,7 @@
                 placeholder: selectPlaceholder
             });
 
-            $('input[name=unit_rate], input[name=quantity]').keydown(() => {
+            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
                 calcutateTotalExpense();
             });
 

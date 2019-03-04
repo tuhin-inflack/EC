@@ -19,7 +19,9 @@ class AddGetBackStatusBtnLabelBackToRuleWorkflowRuleDetailsTable extends Migrati
             $table->string('proceed_to_status')->default('NEXT'); //NEXT, SELECTION
             $table->string('proceed_to_rule')->nullable();
             $table->string('flow_type')->default('APPROVAL'); //APPROVAL and REVIEW
-            $table->string('is_optional')->default(false);
+            $table->boolean('is_optional')->default(false);
+            $table->boolean('is_shareable')->default(false);
+            $table->smallInteger('share_rule_id')->nullable();
             $table->string('back_btn_label')->default('Send Back');
             $table->string('proceed_btn_label')->default('Approve');
             $table->string('reject_btn_label')->default('Reject');

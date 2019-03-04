@@ -1,182 +1,48 @@
 @if($page === 'create')
 {!! Form::open(['route' =>  ['research-budget.store', $research->id], 'class' => 'form research-budget-form']) !!}
 @else
-{!! Form::open(['route' =>  ['research-budget.update', $research->id, $draftProposalBudget->id], 'class' => 'form research-budget-form']) !!}
+{!! Form::open(['route' =>  ['research-budget.update', $research->id], 'class' => 'form research-budget-form']) !!}
 @method('put')
 @endif
 
 <h4 class="form-section"><i class="la la-tag"></i>@lang('rms::research_budget.title')</h4>
 <div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
-            {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $draftProposalBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('english_name'))
-                <span class="invalid-feedback">{{ $errors->first('english_name') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            {!! Form::label('economy_code_id', trans('accounts::economy-code.title'), ['class' => 'form-label']) !!}
-            <span class="danger">*</span>
-            {!! Form::select('economy_code_id',$economyCodeOptions, $page === 'create' ? null : $draftProposalBudget->economy_code_id, ['class'=>'form-control economy-code-select required']) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('economy_code_id'))
-                <span class="invalid-feedback">{{ $errors->first('economy_code_id') }}</span>
-            @endif
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-2">
-        <div class="form-group">
-            {!! Form::label('unit', trans('labels.unit'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
-            {!! Form::text('unit', $page === 'create' ? old('unit') : $draftProposalBudget->unit, ['class' => 'form-control'.($errors->has('unit') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('unit'))
-                <span class="invalid-feedback">{{ $errors->first('unit') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            {!! Form::label('unit_rate', trans('labels.unit_rate'), ['class' => 'form-label required']) !!} <span
-                    class="danger">*</span>
-            {!! Form::number('unit_rate', $page === 'create' ? old('unit_rate') : $draftProposalBudget->unit_rate, ['class' => 'form-control'.($errors->has('unit_rate') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit_rate')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('unit_rate'))
-                <span class="invalid-feedback">{{ $errors->first('unit_rate') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            {!! Form::label('quantity', trans('labels.quantity'), ['class' => 'form-label required']) !!} <span
-                    class="danger">*</span>
-            {!! Form::number('quantity', $page === 'create' ? old('quantity') : $draftProposalBudget->quantity, ['class' => 'form-control'.($errors->has('quantity') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.quantity')])]) !!}
-            <div class="help-block"></div>
-            @if ($errors->has('quantity'))
-                <span class="invalid-feedback">{{ $errors->first('quantity') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
-            {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''),
-            'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total').' '.trans('labels.expense')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('total_expense'))
-                <span class="invalid-feedback">{{ $errors->first('total_expense') }}</span>
-            @endif
-        </div>
-    </div>
-    <div class="col-md-2">
-        <div class="form-group">
-            {!! Form::label('total_expense_percentage', trans('labels.total').' '.trans('labels.expense').' '.trans('draft-proposal-budget.percentage'), ['class' => 'form-label required']) !!}
-            {!! Form::number('total_expense_percentage', $page === 'create' ? old('total_expense_percentage') : $draftProposalBudget->total_expense_percentage, ['class' => 'form-control'.($errors->has('total_expense_percentage') ? ' is-invalid' : ''),
-            'disabled']) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('total_expense_percentage'))
-                <span class="invalid-feedback">{{ $errors->first('total_expense_percentage') }}</span>
-            @endif
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <table class="table table-bordered">
             <thead>
-            <tr>
-                <th rowspan="2" width="4%"># SL</th>
-                <th rowspan="2">Fiscal Year</th>
-                <th colspan="2">@lang('draft-proposal-budget.monetary_amount')</th>
+                <tr>
+                    <th width="4%"># SL</th>
+                    <th>Activities</th>
+                    <th width="20%">Estimated Cost (Tk.)</th>
 
-            </tr>
-            <tr>
-                <th>(@lang('draft-proposal-budget.lac_bdt'))</th>
-                <th>(@lang('draft-proposal-budget.percentage')) %</th>
-            </tr>
+                </tr>
             </thead>
-            <tbody id="fiscal-values">
+            <tbody>
             @if($page === 'create')
-                @for($i = 1; $i <= 5; $i++)
+                @foreach(config('default-values.budget') as $budget)
                     <tr>
-                        <td>{{$i}}</td>
-                        <td><input type="text" name="fiscal_year[]" class="form-control"></td>
-                        <td><input type="number" name="monetary_amount[]" min="1" class="form-control"></td>
-                        <td><input type="number" name="monetary_percentage[]" min="1" class="form-control"></td>
+                        <td>{{$loop->iteration}}</td>
+                        <th>
+                            {{ $budget }}
+                            <input type="hidden" name="activity[]" value="{{$budget}}">
+                        </th>
+                        <td><input type="number" name="estimated_cost[]" min="0" class="form-control" value="0" required></td>
                     </tr>
-                @endfor
+                @endforeach
             @elseif($page === 'edit')
-                @for($i = 0; $i <= 4; $i++)
+                @foreach($research->budgets as $budget)
                     <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>
-                            <input type="text" name="fiscal_year[]" class="form-control"
-                                   value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
-                        </td>
-                        <td>
-                            <input type="number" name="monetary_amount[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
-                        </td>
-                        <td>
-                            <input type="number" name="monetary_percentage[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->monetary_percentage : null }}">
-                        </td>
+                        <td>{{ $loop->iteration }}</td>
+                        <th>
+                            {{ $budget->activity }}
+                            <input type="hidden" name="activity[]" value="{{ $budget->activity }}">
+                        </th>
+                        <td><input type="number" name="estimated_cost[]" min="0" class="form-control" value="{{ $budget->estimated_cost }}" required></td>
                     </tr>
-                @endfor
+                @endforeach
             @endif
             </tbody>
         </table>
-    </div>
-    <div class="col-md-4">
-        <div class="form-group">
-            {!! Form::label('gov_source', trans('draft-proposal-budget.gov').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
-            {!! Form::number('gov_source', $page === 'create' ? old('gov_source') : $draftProposalBudget->gov_source, ['class' => 'form-control'.($errors->has('gov_source') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.gov')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('gov_source'))
-                <span class="invalid-feedback">{{ $errors->first('gov_source') }}</span>
-            @endif
-        </div>
-        <div class="form-group">
-            {!! Form::label('own_financing_source', trans('draft-proposal-budget.own_financing').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
-            {!! Form::number('own_financing_source', $page === 'create' ? old('own_financing_source') : $draftProposalBudget->own_financing_source, ['class' => 'form-control'.($errors->has('own_financing_source') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.own_financing')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('own_financing_source'))
-                <span class="invalid-feedback">{{ $errors->first('own_financing_source') }}</span>
-            @endif
-        </div>
-        <div class="form-group">
-            {!! Form::label('other_source', trans('draft-proposal-budget.other'), ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
-            {!! Form::number('other_source', $page === 'create' ? old('other_source') : $draftProposalBudget->other_source, ['class' => 'form-control'.($errors->has('other_source') ? ' is-invalid' : ''), 'required',
-            'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('draft-proposal-budget.other')])]) !!}
-
-            <div class="help-block"></div>
-            @if ($errors->has('other_source'))
-                <span class="invalid-feedback">{{ $errors->first('other_source') }}</span>
-            @endif
-        </div>
     </div>
 </div>
 <div class="form-actions text-center">
