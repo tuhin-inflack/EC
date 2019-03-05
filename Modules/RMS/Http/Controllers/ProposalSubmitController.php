@@ -89,7 +89,8 @@ class ProposalSubmitController extends Controller
 
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('research-proposal-submission.index');
+        return redirect()->route('rms.index');
+
     }
 
     /**
@@ -175,13 +176,38 @@ class ProposalSubmitController extends Controller
 
     }
 
+    public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
+    {
+        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $featureName = Config::get('constants.research_proposal_feature_name');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
+        return view('rms::proposal.review.review_for_joint_director', compact('research', 'feature',
+            'remarks', 'researchProposalSubmissionId', 'shareConversationId'));
+    }
+
+    public function feedbackForJointDirect(Request $request, $shareConversationId)
+    {
+
+        $data = $request->all();
+        $data['from_user_id'] = Auth::user()->id;
+        $this->remarksService->save($data);
+        $this->shareConversationService->updateConversation($data, $shareConversationId);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
+    }
+
     public function reviewUpdate(Request $request)
     {
 
+
         if ($request->status == WorkflowStatus::REVIEW) {
+
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
         } else {
+
             $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
             $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 

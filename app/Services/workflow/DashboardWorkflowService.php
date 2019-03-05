@@ -53,14 +53,17 @@ class DashboardWorkflowService
                 $data['status'], $data['remarks'], $data['message']);
             $workFlowMaster = $this->workflowService->getWorkflowMaster($data['workflow_master_id']);
             //Save remarks
+
             if (!empty($data['remarks'])) {
                 $feature = $this->featureRepository->findOneBy(['name' => $data['feature']]);
                 $this->remarkService->save(['feature_id' => $feature->id, 'ref_table_id' => $workFlowMaster->ref_table_id,
                     'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);
             }
+
             if ($workFlowMaster->status != WorkFlowStatus::INITIATED) {
                 $itemGenerator->updateItem($data['item_id'], $data['status']);
             }
+
 
 
         });

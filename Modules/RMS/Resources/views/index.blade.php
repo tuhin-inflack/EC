@@ -4,6 +4,43 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
+    @if(!is_null($shareConversations))
+        <section id="shareConversation">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Share Conversation</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($shareConversations as $shareConversation)
+                            <tr>
+                                <td>{{ $shareConversation->feature->name }}</td>
+                                <td>{{$shareConversation->message}}</td>
+                                <td>
+                                    Research proposal: {{ $shareConversation->researchProposal->title }}<br/>
+                                </td>
+
+                                <td>
+                                    <a href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+
+                                    {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                       {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
     @if(!empty($researchRejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
