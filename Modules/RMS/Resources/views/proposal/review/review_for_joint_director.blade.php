@@ -85,13 +85,7 @@
                                     {!! Form::hidden('feature_id', $feature->id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
-
                                     <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide feedback</button>
-                                    {{--{!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}--}}
-                                    {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                    {{--<a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId]) }}"--}}
-                                       {{--class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>--}}
-
                                     {!! Form::close() !!}
                                 </div>
 

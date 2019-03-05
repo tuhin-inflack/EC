@@ -131,6 +131,9 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
         Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
         Route::post('/share', 'PMSController@share')->name('project-proposal.share');
+        Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'PMSController@getReviewForJointDirect')->name('sending-project-for-review');
+        Route::post('posting-review/{shareConversationId?}', 'PMSController@feedbackForJointDirect')->name('project-proposal-submission.feedback');
+
 
 
     });

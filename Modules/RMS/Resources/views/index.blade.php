@@ -27,7 +27,7 @@
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
 
                                     {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}

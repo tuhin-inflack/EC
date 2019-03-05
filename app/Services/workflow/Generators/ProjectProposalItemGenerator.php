@@ -85,7 +85,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
     {
         $proposal = $this->projectProposalService->findOne($itemId);
         if ($status == WorkflowStatus::APPROVED) {
-            $this->projectProposalService->update($proposal, ['status' => 'REVIEWED']);
+            $this->projectProposalService->update($proposal, ['status' => WorkflowStatus::APPROVED]);
         }
     }
 
