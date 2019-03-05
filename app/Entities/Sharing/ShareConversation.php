@@ -10,6 +10,7 @@ use Modules\RMS\Entities\ResearchProposalSubmission;
 class ShareConversation extends Model
 {
     protected $table = 'share_conversations';
+
     protected $fillable = ['feature_id', 'ref_table_id', 'is_group_notification', 'request_ref_id', 'department_id', 'designation_id', 'to_user_id', 'from_user_id', 'message', 'status'];
 
     public function feature()
@@ -26,4 +27,5 @@ class ShareConversation extends Model
     {
         return $this->belongsTo(WorkflowDetail::class, 'request_ref_id', 'id');
     }
+
 }

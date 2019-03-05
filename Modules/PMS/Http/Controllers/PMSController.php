@@ -4,6 +4,7 @@ namespace Modules\PMS\Http\Controllers;
 
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\Sharing\ShareRulesService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use function Matrix\trace;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
@@ -29,6 +31,7 @@ class PMSController extends Controller
     private $featureService;
     private $userService;
     private $shareRuleService;
+    private $shareConversationService;
     /**
      * @var ProjectProposalService
      */
@@ -44,7 +47,7 @@ class PMSController extends Controller
                                 RemarkService $remarksService,
                                 FeatureService $featureService,
                                 ProjectRequestService $projectRequestService,
-                                UserService $userService, ShareRulesService $shareRuleService)
+                                UserService $userService, ShareRulesService $shareRuleService, ShareConversationService $shareConversationService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectRequestService = $projectRequestService;
@@ -54,6 +57,7 @@ class PMSController extends Controller
         $this->featureService = $featureService;
         $this->userService = $userService;
         $this->shareRuleService = $shareRuleService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     /**
@@ -139,9 +143,17 @@ class PMSController extends Controller
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' =>$wfConvId];
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id,'ref_table_id' => $proposal->id]);
         $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
-        $shareRule = ($ruleDetails->is_shareable) ? $this->shareRuleService->findOne($ruleDetails->share_rule_id) : [];
+         if($ruleDetails->is_shareable){
+             $shareRule= $this->shareRuleService->findOne($ruleDetails->share_rule_id);
+             $wfConversation = $this->workflowService->getWorkflowConversationById($wfConvId);
+             $wfDetailsId = $wfConversation->workflow_details_id;
+         }
+         else{
+             $shareRule = [];
+             $wfDetailsId = 0;
+         };
 
-        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule'));
+        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -235,5 +247,19 @@ class PMSController extends Controller
         Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));
+    }
+
+    // New methods for sharing project from workflow
+    public function share(Request $request)
+    {
+        //Generating notification
+        //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
+        //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
+        // Notification generation done
+        $save = $this->shareConversationService->save($request->all());
+        Session::flash('message', trans('labels.save_success'));
+
+        return redirect()->back();
+
     }
 }
