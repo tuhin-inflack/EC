@@ -32,8 +32,8 @@ Route::middleware(['auth'])->group(function () {
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
         // attribute-values
         Route::prefix('{attribute}')->group(function () {
-            Route::post('values', 'AttributeValueController@store')->name('attribute-values.store');
-            Route::put('values/{attributeValue}', 'AttributeValueController@update')->name('attribute-values.update');
+            Route::post('values', 'MemberAttributeValueController@store')->name('attribute-values.store');
+            Route::put('values/{attributeValue}', 'MemberAttributeValueController@update')->name('attribute-values.update');
             Route::get('graphs', 'AttributeValueGraphController@update')->name('attribute-values.graph');
         });
     });

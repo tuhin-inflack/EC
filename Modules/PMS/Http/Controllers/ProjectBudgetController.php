@@ -53,7 +53,6 @@ class ProjectBudgetController extends Controller
      */
     public function store(Request $request, Project $project)
     {
-        //dd($request->all());
         $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));

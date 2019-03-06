@@ -1,4 +1,4 @@
-@extends($module . '::layouts.master')
+@extends('pms::layouts.master')
 @section('title', trans('attribute.attribute_value_input'))
 
 @section('content')
@@ -19,7 +19,12 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['route' =>  ['attribute-values.store', $attribute->id], 'class' => 'form']) !!}
+                            {!! Form::open(['route' =>  ['member-attribute-values.store',
+                                $project->id,
+                                $organization->id,
+                                $member->id,
+                                $attribute->id
+                            ], 'class' => 'form']) !!}
                             @include('attribute-value.partials.form')
                             {!! Form::close() !!}
                         </div>
@@ -42,26 +47,12 @@
 @push('page-js')
     <script src="{{ asset('theme/js/core/libraries/jquery_ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/ui/jquery-ui/date-pickers.js') }}"></script>
+    <script src="{{ asset('js/month-year/custom-jquery-datepicker.js') }}"></script>
     <script>
         $(document).ready(function () {
-            $('input[name=date]').datepicker({
-                changeMonth: true,
-                changeYear: true,
-                dateFormat: 'MM yy',
-                onClose: function () {
-                    var iMonth = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
-                    var iYear = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
-                    $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
-                },
-                beforeShow: function () {
-                    if ((selDate = $(this).val()).length > 0) {
-                        iYear = selDate.substring(selDate.length - 4, selDate.length);
-                        iMonth = jQuery.inArray(selDate.substring(0, selDate.length - 5), $(this).datepicker('option', 'monthNames'));
-                        $(this).datepicker('option', 'defaultDate', new Date(iYear, iMonth, 1));
-                        $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
-                    }
-                }
-            });
+            monthYearDatePicker('input[name=date]');
+
+
         });
     </script>
 @endpush

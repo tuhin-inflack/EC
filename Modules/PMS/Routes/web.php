@@ -53,6 +53,8 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
                     // member attribute
                     Route::prefix('{member}')->group(function () {
                         Route::get('attributes/{attribute}', 'MemberAttributeController@show')->name('member-attributes.show');
+                        Route::get('attributes/{attribute}/values/create', 'MemberAttributeValueController@create')->name('member-attribute-values.create');
+                        Route::post('attributes/{attribute}/values', 'MemberAttributeValueController@store')->name('member-attribute-values.store');
                     });
                 });
             });
@@ -78,9 +80,11 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             // attribute & plannings
             Route::prefix('attributes')->group(function () {
                 Route::get('create', 'AttributeController@create')->name('attributes.create');
-                Route::post('create', 'AttributeController@store')->name('attributes.store');
+                Route::post('/', 'AttributeController@store')->name('attributes.store');
                 Route::get('{attribute}/plannings', 'AttributePlanningController@index')->name('attribute-plannings.index');
                 Route::get('{attribute}', 'AttributeController@show')->name('attributes.show');
+                // graph
+                Route::get('{attribute}/graphs', 'AttributeController@graphValues');
             });
             Route::get('attributes-plannings/create', 'AttributePlanningController@create')->name('attribute-plannings.create');
             Route::post('attributes-plannings', 'AttributePlanningController@store')->name('attribute-plannings.store');
@@ -133,12 +137,18 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
-        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}', 'PMSController@review')->name('project-proposal-submitted-review');
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
         Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
         Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
+        Route::post('/share', 'PMSController@share')->name('project-proposal.share');
+        Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'PMSController@getReviewForJointDirect')->name('sending-project-for-review');
+        Route::post('posting-review/{shareConversationId?}', 'PMSController@feedbackForJointDirect')->name('project-proposal-submission.feedback');
+
+
+
     });
 });

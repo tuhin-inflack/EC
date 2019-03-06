@@ -1,10 +1,6 @@
 @extends('rms::layouts.master')
 @section('title', trans('rms::research_budget.title'))
 
-@push('page-css')
-
-@endpush
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
@@ -38,44 +34,14 @@
     </div>
 @endsection
 
-
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
-        // select2 placeholder localization
-        let selectPlaceholder = '{!! trans('labels.select') !!}';
 
         $(document).ready(function () {
 
-            $('.economy-code-select, .section-type-select').select2({
-                placeholder: selectPlaceholder
-            });
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 
-            $('input[name=unit_rate], input[name=quantity]').keyup((e) => {
-                calcutateTotalExpense();
-            });
-
-            // $('.add-fiscal-value-row').css('cursor', 'pointer').click(() => {
-            //     var tbody = $('#fiscal-values');
-            //
-            //     var row = `<tr>
-            //                 <td><input type="number" name="fiscal_year[]" class="form-control"></td>
-            //                 <td><input type="number" name="monetary_amount[]" class="form-control"></td>
-            //                 <td><input type="number" name="body_percentage[]" class="form-control"></td>
-            //                 <td><input type="number" name="research_percentage[]" class="form-control"></td>
-            //                 <td><i class="la la-trash-o text-danger remove-item"></i></td>
-            //             </tr>`;
-            //
-            //     tbody.append(row);
-            //
-            //     $('.remove-item').off();
-            //     $('.remove-item').css('cursor', 'pointer').click(function(){
-            //         $(this).parents('tr').remove();
-            //     });
-            //
-            // });
-
-            // validation
             $('.research-budget-form').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',
@@ -89,27 +55,49 @@
                 errorPlacement: function (error, element) {
                     if (element.attr('type') == 'radio') {
                         error.insertBefore(element.parents().siblings('.radio-error'));
-                    } else if (element[0].tagName == "SELECT") {
+                    }
+                    else if (element[0].tagName == "SELECT") {
                         error.insertAfter(element.siblings('.select2-container'));
-                    } else if (element.attr('id') == 'ckeditor') {
+                    }
+                    else if (element.attr('id') == 'ckeditor') {
                         error.insertAfter(element.siblings('#cke_ckeditor'));
                     } else {
                         error.insertAfter(element);
                     }
                 },
             });
-
         });
 
-        function calcutateTotalExpense() {
-            var unitRate = $('input[name=unit_rate]').val();
-            var quantity = $('input[name=quantity]').val();
+    </script>
+@endpush
 
-            var totalExpense = Number(unitRate) * Number(quantity);
+@push('page-css')
+    <style type="text/css">
 
-            $('input[name=total_expense]').val(totalExpense);
+        .table thead {
+            text-align: center;
+        }
+        .table thead th{
+            vertical-align: inherit;
+        }
+        .table th, .table td {
+            padding: 0.15rem 0.15rem;
         }
 
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
 
-    </script>
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+        input.form-control {
+            height: 30px;
+        }
+
+        .form-control {
+            padding: .1rem 0.25rem;
+        }
+    </style>
 @endpush

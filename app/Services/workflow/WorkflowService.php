@@ -17,6 +17,7 @@ use App\Entities\workflow\WorkflowRuleMaster;
 use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Repositories\workflow\WorkflowDetailRepository;
 use App\Repositories\workflow\WorkflowMasterRepository;
+use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Repositories\workflow\WorkflowRuleMasterRepository;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,7 @@ class WorkflowService
     private $flowConversationRepository;
     private $flowConversationService;
     private $workflowDetailRepository;
+    private $workflowRuleDetailRepository;
 
     /**
      * WorkflowService constructor.
@@ -40,13 +42,15 @@ class WorkflowService
      * @param WorkFlowConversationService $flowConversationService
      */
     public function __construct(WorkFlowMasterRepository $workFlowMasterRepository, WorkflowRuleMasterRepository $workflowRuleMasterRepository,
-                                WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository, WorkFlowConversationService $flowConversationService)
+                                WorkflowConversationRepository $flowConversationRepository, WorkflowDetailRepository $workflowDetailRepository,
+                                WorkFlowConversationService $flowConversationService, WorkflowRuleDetailRepository $workflowRuleDetailRepository)
     {
         $this->workFlowMasterRepository = $workFlowMasterRepository;
         $this->workflowRuleMasterRepository = $workflowRuleMasterRepository;
         $this->flowConversationRepository = $flowConversationRepository;
         $this->workflowDetailRepository = $workflowDetailRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->workflowRuleDetailRepository = $workflowRuleDetailRepository;
         $this->setActionRepository($workflowRuleMasterRepository);
     }
 
@@ -237,6 +241,17 @@ class WorkflowService
                 $workflowDetail->update();
             }
         }
+    }
+
+    // Fetching Rule Details and others
+    public function getRuleDetailsByRuleId($id)
+    {
+        return $this->workflowRuleDetailRepository->findOne($id);
+    }
+
+    public function getWorkflowConversationById($id)
+    {
+        return $this->flowConversationRepository->findOne($id);
     }
 
 }

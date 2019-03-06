@@ -12,6 +12,48 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
+                        @if(!is_null($shareConversations))
+                            <section id="shareConversation">
+                                <div class="card">
+                                    <div class="card-body">
+
+                                        <h2>Share Conversation</h2>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <th>@lang('labels.feature')</th>
+                                            <th>@lang('labels.message')</th>
+                                            <th>@lang('labels.details')</th>
+                                            <th>@lang('labels.action')</th>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($shareConversations as $shareConversation)
+                                                <tr>
+                                                    <td>{{ $shareConversation->feature->name }}</td>
+                                                    <td>{{$shareConversation->message}}</td>
+                                                    <td>
+                                                        Research
+                                                        proposal: {{ $shareConversation->researchProposal->title }}<br/>
+                                                    </td>
+
+                                                    <td>
+                                                        <a class="btn btn-primary btn-sm"
+                                                           href="{{ route('sending-project-for-review',
+                                                           [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">
+                                                            Details
+                                                        </a>
+
+                                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </section>
+                        @endif
                         @if(!empty($pendingTasks->dashboardItems))
                             <div class="row">
                                 <div class="col-md-8">
@@ -31,12 +73,15 @@
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
-                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}<br>
-                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}<br>
+                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}
+                                                    <br>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}
+                                                    <br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
                                                 <td>
-                                                    <a href="{{ url($item->checkUrl )}}" class="btn btn-primary btn-sm">@lang('labels.details')</a>
+                                                    <a href="{{ url($item->checkUrl )}}"
+                                                       class="btn btn-primary btn-sm">@lang('labels.details')</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -65,13 +110,18 @@
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
-                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}<br>
-                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}<br>
+                                                    <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}
+                                                    <br>
+                                                    <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}
+                                                    <br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm" href="{{url($item->checkUrl)}}" >{{__('labels.resubmit')}}</a>
-                                                    <a class="btn btn-danger btn-sm" href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}" title="Close the item forever">{{__('labels.closed')}}</a>
+                                                    <a class="btn btn-primary btn-sm"
+                                                       href="{{url($item->checkUrl)}}">{{__('labels.resubmit')}}</a>
+                                                    <a class="btn btn-danger btn-sm"
+                                                       href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}"
+                                                       title="Close the item forever">{{__('labels.closed')}}</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -105,7 +155,8 @@
                                                 <td>{{__('labels.'.strtolower($item->status))}}</td>
 
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm" href="{{route('project-proposal-submitted-approve', $item->id)}}" >View</a>
+                                                    <a class="btn btn-primary btn-sm"
+                                                       href="{{route('project-proposal-submitted-approve', $item->id)}}">View</a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -160,7 +211,7 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div class="card-body" >
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -174,7 +225,9 @@
                                     @foreach($invitations as $invitation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="{{route('project-request.show', $invitation->id)}}">{{ $invitation->title }}</a></td>
+                                            <td>
+                                                <a href="{{route('project-request.show', $invitation->id)}}">{{ $invitation->title }}</a>
+                                            </td>
                                             <td>{{ $invitation->end_date }}</td>
                                         </tr>
                                     @endforeach
@@ -199,7 +252,7 @@
                         </div>
                     </div>
                     <div class="card-content collapse show">
-                        <div class="card-body" >
+                        <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered">
                                     <thead>
@@ -220,7 +273,7 @@
                                                 $featureId = $proposal->workflowMasters->first()->feature->id;
                                             @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('project-proposal-submitted.view', [$proposal->id]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>

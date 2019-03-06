@@ -165,4 +165,5 @@ return [
     'no_notification' => 'কোন নোটিফিকেশান নেই',
     'read_notification' => 'সব নোটিফিকেশান পড়ুন',
     'wise' => 'ভিত্তিক',
+    'share' => 'শেয়ার করুন',
 ];

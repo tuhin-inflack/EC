@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <table class="table table-bordered">
+                            <table class="table table-bordered table-responsive">
                                 <thead>
                                 <tr>
                                     <th>@lang('draft-proposal-budget.economy_code')</th>
@@ -67,7 +67,7 @@
                                 @endforeach
                                 <tr>
                                     <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
-                                    @for($l = 1; $l <= 7; $l++)
+                                    @for($l = 1; $l <= 8; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>
@@ -126,7 +126,7 @@
                                 @endforeach
                                 <tr>
                                     <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
-                                    @for($l = 1; $l <= 7; $l++)
+                                    @for($l = 1; $l <= 8; $l++)
                                         <td></td>
                                     @endfor
                                 </tr>

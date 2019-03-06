@@ -36,6 +36,11 @@ class AttributeValueService
     public function store(array $data)
     {
         $data['date'] = Carbon::createFromFormat('F Y', $data['date']);
+        if ($data['transaction_type'] == 'withdraw') {
+            $data['achieved_value'] = -1 * abs($data['achieved_value']);
+        } else {
+            $data['achieved_value'] = abs($data['achieved_value']);
+        }
         return $this->save($data);
     }
 

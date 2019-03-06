@@ -2,6 +2,7 @@
 
 namespace App\Entities\Organization;
 
+use App\Entities\AttributeValue;
 use Illuminate\Database\Eloquent\Model;
 
 class OrganizationMember extends Model
@@ -19,5 +20,10 @@ class OrganizationMember extends Model
     public function organization()
     {
         return $this->belongsTo(Organization::class, 'organization_id', 'id');
+    }
+
+    public function attributeValues()
+    {
+        return $this->hasMany(AttributeValue::class, 'organization_member_id', 'id');
     }
 }

@@ -38,8 +38,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
                 Route::get('/', 'ResearchBudgetController@index')->name('research-budget.index');
                 Route::get('create', 'ResearchBudgetController@create')->name('research-budget.create');
                 Route::post('store', 'ResearchBudgetController@store')->name('research-budget.store');
-                Route::get('{draftProposalBudget}/edit', 'ResearchBudgetController@edit')->name('research-budget.edit');
-                Route::put('{draftProposalBudget}/update', 'ResearchBudgetController@update')->name('research-budget.update');
+                Route::get('edit', 'ResearchBudgetController@edit')->name('research-budget.edit');
+                Route::put('update', 'ResearchBudgetController@update')->name('research-budget.update');
             });
             // research organizations
             Route::prefix('organizations')->group(function () {
@@ -112,7 +112,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
         Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
         Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
@@ -120,6 +120,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}', 'ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
         Route::get('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@apcReview')->name('apc-review');
         Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
+        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getReviewForJointDirect')->name('research-proposal-submission.review');
+        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@feedbackForJointDirect')->name('research-proposal-submission.feedback');
 
 
     });

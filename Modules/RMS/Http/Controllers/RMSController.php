@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Constants\DesignationShortName;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\TaskService;
 use App\Services\workflow\DashboardWorkflowService;
 use Illuminate\Http\Request;
@@ -31,19 +32,26 @@ class RMSController extends Controller
      */
     private $taskService;
 
+    /*
+     * @var $shareConversationService;
+     */
+    private $shareConversationService;
+
 
     /**
      * Create a new controller instance.
      *
      * @param DashboardWorkflowService $dashboardService
      */
-    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService, EmployeeServices $employeeService, TaskService $taskService)
+    public function __construct(DashboardWorkflowService $dashboardService, ResearchProposalSubmissionService $researchProposalSubmissionService, ResearchRequestService $researchRequestService, EmployeeServices $employeeService,
+                                TaskService $taskService, ShareConversationService $shareConversationService)
     {
         $this->dashboardService = $dashboardService;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->researchRequestService = $researchRequestService;
         $this->employeeService = $employeeService;
         $this->taskService = $taskService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     /**
@@ -68,7 +76,8 @@ class RMSController extends Controller
 
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
-//        dd($employee);
+        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+//        dd($shareConversations[0]->researchProposal);
         if (is_null($employee)) {
             $reviewedProposals = [];
             $researchPendingTasks = [];
@@ -80,8 +89,9 @@ class RMSController extends Controller
             $researchPendingTasks = [];
         }
 
+
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'reviewedProposals', 'tasks', 'researchPendingTasks', 'researchRejectedItems' ));
+            'rejectedItems', 'reviewedProposals', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations'));
     }
 
     /**

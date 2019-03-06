@@ -48,4 +48,12 @@ class AttributeController extends Controller
 
         return view('pms::attribute.show', compact('project', 'attribute', 'achievedPlannedValuesByMonthYear'));
     }
+
+    public function graphValues(Project $project, Attribute $attribute)
+    {
+        return response()->json([
+            'name' => $attribute->name,
+            'attributeValues' => $this->attributeService->getAchievedPlannedValuesByMonthYear($attribute)
+        ], 200);
+    }
 }

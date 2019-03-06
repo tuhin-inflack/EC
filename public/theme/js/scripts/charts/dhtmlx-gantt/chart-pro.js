@@ -66,16 +66,6 @@ $(window).on("load", function () {
             width: "*"
         },
         {
-            name: "planned_start",
-            label: "Planned Start",
-            align: "center"
-        },
-        {
-            name: "planned_end",
-            label: "Planned End",
-            align: "center"
-        },
-        {
             name: "start_date",
             label: "Start time",
             align: "center"

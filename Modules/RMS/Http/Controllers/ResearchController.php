@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
@@ -42,7 +43,7 @@ class ResearchController extends Controller
      * @param UserService $userService
      * @param ResearchService $researchService
      * @param TaskService $taskService
-     * @param RemarkService $remarksService
+     * @param RemarkService $remarkService
      * @param DashboardWorkflowService $dashboardWorkflowService ;
      * @param FeatureService $featureService ;
      */
@@ -89,7 +90,12 @@ class ResearchController extends Controller
      */
     public function store(CreateResearchRequest $request)
     {
-        $this->researchService->store($request->all());
+        $research = $this->researchService->store($request->all());
+
+        foreach (Config::get('default-values.tasks') as $task){
+            $this->taskService->store($research, $task);
+        }
+
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research.index');
     }

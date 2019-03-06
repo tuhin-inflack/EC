@@ -33,5 +33,8 @@ return [
     'current_balance' => 'Current Balance',
     'make_transaction' => 'Make Transaction',
     'purchase_share' => 'Purchase Share',
-    'transfer_share' => 'Transfer Share',
+    'share_exchange' => 'Share Exchange',
+    'withdraw' => 'Withdraw',
+    'deposit' => 'Deposit',
+    'transaction_type' => 'Transaction Type',
 ];
