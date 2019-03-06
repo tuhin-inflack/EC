@@ -206,26 +206,18 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-
-
         if ($request->status == WorkflowStatus::REVIEW) {
-
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
         } else {
-
             $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
             $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
-
             $data = $request->except('_token');
             $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
-
             $this->researchProposalSubmissionService->sendNotification($request);
         }
-
         return redirect('/rms');
-
     }
 
     public function reInitiate($researchProposalSubmissionId)
