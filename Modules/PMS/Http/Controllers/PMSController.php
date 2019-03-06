@@ -148,6 +148,13 @@ class PMSController extends Controller
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' => $wfConvId];
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id, 'ref_table_id' => $proposal->id]);
         $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
+
+        if ($ruleDetails->flow_type == 'review') {
+            $reviewButton = false;
+        } else {
+            $reviewButton = true;
+        }
+
         if ($ruleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($ruleDetails->share_rule_id);
             $wfConversation = $this->workflowService->getWorkflowConversationById($wfConvId);
@@ -157,7 +164,7 @@ class PMSController extends Controller
             $wfDetailsId = 0;
         };
 
-        return view('pms::proposal-submitted.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
+        return view('pms::proposal-submitted.review', compact('proposal','reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
