@@ -35,8 +35,4 @@ class ProjectTrainingService
         });
     }
 
-    /*public function getAll()
-    {
-        return $this->projectRepository->findAll();
-    }*/
 }

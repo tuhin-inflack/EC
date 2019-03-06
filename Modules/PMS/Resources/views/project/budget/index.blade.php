@@ -32,9 +32,6 @@
     </div>
 @endsection
 
-@push('page-js')
-@endpush
-
 @push('page-css')
     <style type="text/css">
 

@@ -31,7 +31,7 @@
                                     @foreach($trainings as $training)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $training->title }}</a></td>
+                                            <td><a href="{{route('project-training.show', [$project->id, $training->id])}}">{{ $training->title }}</a></td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

@@ -9,4 +9,5 @@ return [
     'project_training_creation' => 'প্রকল্প প্রশিক্ষণ তৈরি',
     'project_training_creation_form' => 'প্রকল্প প্রশিক্ষণ তৈরি ফর্ম',
     'training_name' => 'প্রশিক্ষণ নাম',
+    'add' => 'যোগ করুন',
 ];

@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Entities\ProjectTraining;
 use Modules\PMS\Services\ProjectTrainingService;
 
 class ProjectTrainingController extends Controller
@@ -57,9 +58,10 @@ class ProjectTrainingController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Project $project, ProjectTraining $training)
     {
-        return view('pms::show');
+        $members = $training->members;
+        return view('pms::project.training.show', compact('project','training', 'members'));
     }
 
     /**
