@@ -190,6 +190,7 @@ class ProposalSubmitController extends Controller
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
         } else {
+
             $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
             $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
             $data = $request->except('_token');
