@@ -44,4 +44,9 @@ class Project extends Model
     {
         return $this->hasMany(Attribute::class, 'project_id');
     }
+
+    public function projectTrainings()
+    {
+        return $this->hasMany(ProjectTraining::class);
+    }
 }

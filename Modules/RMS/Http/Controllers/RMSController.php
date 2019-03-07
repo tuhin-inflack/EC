@@ -60,7 +60,6 @@ class RMSController extends Controller
      */
     public function index()
     {
-
         $chartData = $this->taskService->getTasksBarChartData();
         $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
@@ -79,19 +78,16 @@ class RMSController extends Controller
         $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 //        dd($shareConversations[0]->researchProposal);
         if (is_null($employee)) {
-            $reviewedProposals = [];
             $researchPendingTasks = [];
         } elseif ($employee->designation->short_name == DesignationShortName::RD) {
-            $reviewedProposals = $this->researchProposalSubmissionService->findBy(['status' => 'REVIEWED']);
             $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
         } else {
-            $reviewedProposals = [];
             $researchPendingTasks = [];
         }
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'reviewedProposals', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations'));
+            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations'));
     }
 
     /**

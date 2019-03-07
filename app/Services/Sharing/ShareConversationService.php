@@ -12,7 +12,9 @@ namespace App\Services\Sharing;
 use App\Constants\NotificationType;
 use App\Constants\WorkflowStatus;
 use App\Repositories\Sharing\ShareConversationRepository;
+use App\Repositories\workflow\FeatureRepository;
 use App\Repositories\workflow\WorkflowMasterRepository;
+use App\Services\Remark\RemarkService;
 use App\Services\UserService;
 use App\Services\workflow\WorkFlowConversationService;
 use App\Traits\CrudTrait;
@@ -31,15 +33,20 @@ class ShareConversationService
     private $workflowMasterRepository;
     private $designationRepository;
     private $userService;
+    private $featureRepository;
+    private $remarkService;
 
     public function __construct(ShareConversationRepository $conversationRepository, WorkFlowConversationService $workFlowConversationService,
-                                WorkflowMasterRepository $workflowMasterRepository, DesignationRepository $designationRepository, UserService $userService)
+                                WorkflowMasterRepository $workflowMasterRepository, DesignationRepository $designationRepository,
+                                UserService $userService, FeatureRepository $featureRepository, RemarkService $remarkService)
     {
         $this->shareConversationRepository = $conversationRepository;
         $this->workflowConversationService = $workFlowConversationService;
         $this->workflowMasterRepository = $workflowMasterRepository;
         $this->designationRepository = $designationRepository;
         $this->userService = $userService;
+        $this->featureRepository = $featureRepository;
+        $this->remarkService = $remarkService;
         $this->setActionRepository($this->shareConversationRepository);
     }
 
@@ -56,6 +63,11 @@ class ShareConversationService
         $data['from_user_id'] = Auth::user()->id;
         $data['status'] = 'ACTIVE';
         $this->shareConversationRepository->save($data);
+
+        if (!empty($data['remarks'])) {
+            $this->remarkService->save(['feature_id' => $data['feature_id'], 'ref_table_id' => $workflowMaster->ref_table_id,
+                'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);
+        }
         return Response(trans('labels.save_success'));
 
     }
