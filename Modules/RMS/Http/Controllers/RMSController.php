@@ -60,7 +60,6 @@ class RMSController extends Controller
      */
     public function index()
     {
-
         $chartData = $this->taskService->getTasksBarChartData();
         $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
