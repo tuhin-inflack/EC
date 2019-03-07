@@ -202,6 +202,7 @@
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
+        console.log(chartData.data);
     </script>
     @endif
 

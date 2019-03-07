@@ -65,8 +65,13 @@ Route::post('booking-requests', 'PublicBookingRequestController@store')->name('p
 
 //Training Registration
 
-Route::get('training','PublicTrainingRegistrationController@index')->name('training-registration.index');
-Route::get('training/registration','PublicTrainingRegistrationController@create')->name('training-registration.create');
+Route::prefix('training')->group(function (){
+    Route::get('/','PublicTrainingRegistrationController@index')->name('training-registration.index');
+    Route::prefix('{training}/registration')->group(function (){
+        Route::get('create','PublicTrainingRegistrationController@create')->name('training-registration.create');
+    });
+});
+
 
 Route::get('/lang/{key}', function ($key) {
     Session::put('locale', $key);

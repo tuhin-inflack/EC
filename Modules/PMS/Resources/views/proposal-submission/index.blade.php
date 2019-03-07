@@ -44,7 +44,8 @@
                                                 $featureId = $proposal->workflowMasters->first()->feature->id;
                                             @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId]) }}">{{ $proposal->title }}</a>
+{{--                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId]) }}">{{ $proposal->title }}</a>--}}
+                                                <a href="#">{{ $proposal->title }}</a>
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>

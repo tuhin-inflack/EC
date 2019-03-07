@@ -1,7 +1,6 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: artisan33
- * Date: 2/14/19
- * Time: 7:29 PM
- */
+@extends('layouts.public')
+@section('title', trans('tms::training.training_list'))
+
+@section('content')
+
+@endsection
