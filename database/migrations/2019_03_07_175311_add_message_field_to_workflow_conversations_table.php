@@ -14,7 +14,7 @@ class AddMessageFieldToWorkflowConversationsTable extends Migration
     public function up()
     {
         Schema::table('workflow_conversations', function (Blueprint $table) {
-            $table->text('message')->after('feature_id');
+            $table->text('message')->after('feature_id')->nullable();
         });
     }
 

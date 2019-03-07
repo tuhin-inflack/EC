@@ -20,7 +20,7 @@ class CreateReviewRequest extends FormRequest
         if ($request->status == 'REVIEW') {
             $validation['designation_id'] = 'required';
         }
-        $validation['message'] = 'required|alpha_dash|max:255';
+        $validation['message'] = 'required|max:255';
         return $validation;
 
     }
