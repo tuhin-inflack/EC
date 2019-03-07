@@ -73,7 +73,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-12">
-                                    {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate']) !!}
                                     <hr/>
                                     <div class="form-group">
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
@@ -81,19 +81,20 @@
                                     </div>
                                     <div class="form-group">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        <div class="help-block"></div>
                                     </div>
                                     @if(!is_null($ruleDesignations))
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>{{__('labels.share')}}</label>
-                                                <select name="designation_id" class="form-control">
-                                                    <option value="null"> .. select ..</option>
+                                                <select name="designation_id"  class="form-control" required="required" data-validation-required-message="{{ trans('labels.This field is required') }}">
+                                                    <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
                                                     @foreach($ruleDesignations as $designation)
                                                         <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
                                                     @endforeach
                                                 </select>
-
+                                                <div class="help-block"></div>
 
                                             </div>
                                         </div>

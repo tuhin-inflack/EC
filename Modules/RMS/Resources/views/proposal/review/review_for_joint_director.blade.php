@@ -73,11 +73,14 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-12">
-                                    {!! Form::open(['route' => [ 'research-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['route' => [ 'research-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
                                     <hr/>
                                     <div class="form-group">
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                    <div class="help-block">
+
+                                    </div>
                                     </div>
 
 
