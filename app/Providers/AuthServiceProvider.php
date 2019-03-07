@@ -62,7 +62,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('rms-access', function ($user) {
-            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_GENERAL', 'ROLE_RESEARCH_DIRECTOR', 'ROLE_RESEARCHER']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_GENERAL', 'ROLE_RESEARCH_DIRECTOR', 'ROLE_FACULTY']);
         });
 
         Gate::define('tms-access', function ($user) {
