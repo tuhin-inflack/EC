@@ -43,7 +43,8 @@
                                                $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
-                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
+{{--                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>--}}
+                                                <a href="#">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
                                             <td>
