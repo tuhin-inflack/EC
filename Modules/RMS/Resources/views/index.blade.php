@@ -145,39 +145,7 @@
             </div>
         </section>
     @endif
-    @if(!empty(count($reviewedProposals)))
 
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
-
-                    <h4>@lang('labels.ready_for_apc_approval')</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.serial')</th>
-                        <th>@lang('labels.title')</th>
-                        <th>Submitted By :</th>
-                        <th>Created Date :</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($reviewedProposals as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{$item->title}}</td>
-                                <td>{{ $item->submittedBy->name }}</td>
-                                <td>{{ date("j F, Y, g:i a",strtotime($item->created_at)) }}</td>
-                                <td><a href="{{route('apc-review', [$item->id])}}"
-                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </section>
-    @endif
     @if(!empty($rejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
