@@ -15,15 +15,13 @@ class CreateReviewRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        if ($request->status == 'REVIEW') {
-            return [
-                'designation_id' => 'required'
-            ];
-        } else {
-            return [
+        $validation = [];
 
-            ];
+        if ($request->status == 'REVIEW') {
+            $validation['designation_id'] = 'required';
         }
+        $validation['message'] = 'required|max:255';
+        return $validation;
 
     }
 
