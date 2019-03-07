@@ -79,10 +79,13 @@
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
                                         {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
                                         <div class="help-block"></div>
+                                        @if ($errors->has('message'))
+                                            <div class="help-block">{{ $errors->first('message') }}</div>
+                                        @endif
                                     </div>
                                     @if(!is_null($ruleDesignations))
                                         <div class="col-md-6">
