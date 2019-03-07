@@ -14,6 +14,7 @@ return [
     'research_publication_additional_file' => 'Publication Additional Attachment',
     'research_publication_info' => 'Publication Information',
     'research_publication_attachment_validation' => 'Attach at least one file',
+    'review_of_literature' => 'Review of literature',
     'proposal_writing' => 'Proposal writing',
     'questionnaire_preparation' => 'Questionnaire preparation',
     'questionnaire_pretesting' => 'Questionnaire pretesting',
