@@ -27,6 +27,20 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
         });
+        // training under a project
+        Route::prefix('{project}')->group(function () {
+            Route::prefix('training')->group( function() {
+                Route::get('/','ProjectTrainingController@index')->name('project-training.index');
+                Route::get('create','ProjectTrainingController@create')->name('project-training.create');
+                Route::post('store','ProjectTrainingController@store')->name('project-training.store');
+                Route::get('{training}','ProjectTrainingController@show')->name('project-training.show');
+                // training members
+                Route::prefix('{training}/members')->group(function () {
+                    Route::get('/', 'ProjectTrainingMemberController@index')->name('projectTraining-members.index');
+                    Route::post('store','ProjectTrainingMemberController@store')->name('projectTraining-members.store');
+                });
+            });
+        });
 
         Route::prefix('{project}')->group(function () {
             // project organisations

@@ -2,12 +2,16 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
+    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
     <div class="content-header row">
         <div class="content-header-left col-md-6 col-12">
             <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
                 <div class="btn-group" role="group">
                     <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
                         <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
+                    </a>
+                    <a class="btn btn-outline-info round" href="{{ route('project-training.index', $project->id) }}">
+                        <i class="ft-plus"></i> @lang('pms::project.add_training')
                     </a>
                 </div>
             </div>
@@ -16,6 +20,7 @@
 
         </div>
     </div>
+    @endif
     <br>
 
     @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_PROJECT'))
