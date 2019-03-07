@@ -148,8 +148,9 @@ class WorkflowService
     {
         $workFlowConversation = $this->flowConversationService->findOne($workFlowConversationId);
         $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
+        $workflowDetails = $this->workflowDetailRepository->findOne($workFlowConversation->workflow_details_id);
         $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
-            $workFlowMaster->ruleMaster->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
+            $workflowDetails->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
         if ($this->isFlowCompleted($workFlowMaster->ruleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
             if ($this->isFlowAccepted($workFlowMaster->workflowDetails)) {
                 $workFlowMaster->status = WorkflowStatus::APPROVED;
