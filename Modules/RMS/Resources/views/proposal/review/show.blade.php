@@ -73,7 +73,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-12">
-                                    {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate']) !!}
+                                    {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}
                                     <hr/>
                                     <div class="form-group">
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
@@ -86,15 +86,18 @@
                                     </div>
                                     @if(!is_null($ruleDesignations))
                                         <div class="col-md-6">
-                                            <div class="form-group">
+                                            <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                                 <label>{{__('labels.share')}}</label>
-                                                <select name="designation_id"  class="form-control" required="required" data-validation-required-message="{{ trans('labels.This field is required') }}">
-                                                    <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
+                                                <select name="designation_id" class="form-control">
+                                                    <option value=""
+                                                            placeholder=""> {!!  trans('labels.select') !!}</option>
                                                     @foreach($ruleDesignations as $designation)
                                                         <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
                                                     @endforeach
                                                 </select>
-                                                <div class="help-block"></div>
+                                                @if ($errors->has('designation_id'))
+                                                    <div class="help-block">{{ trans('labels.This field is required') }}</div>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -110,7 +113,8 @@
                                     {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
                                     {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
                                     @if(!is_null($ruleDesignations))
-                                        <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Send
+                                        <button type="submit" name="status" value="REVIEW" class="btn btn-primary"
+                                                id="sendForReview">Send
                                             for review
                                         </button>
                                     @endif
@@ -147,5 +151,6 @@
             $('.comment-input').val('');
             $('.comment-action-btns').hide();
         });
+
     </script>
 @endpush

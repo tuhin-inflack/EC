@@ -27,6 +27,7 @@ use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
+use Modules\RMS\Http\Requests\CreateReviewRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 
@@ -182,8 +183,9 @@ class ProposalSubmitController extends Controller
             'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton'));
 
     }
-    public function reviewUpdate(Request $request)
+    public function reviewUpdate(CreateReviewRequest $request)
     {
+
         if ($request->status == WorkflowStatus::REVIEW) {
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
