@@ -151,6 +151,7 @@ class ProposalSubmitController extends Controller
     public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
 
     {
+
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
         $featureName = Config::get('constants.research_proposal_feature_name');
@@ -181,9 +182,25 @@ class ProposalSubmitController extends Controller
             'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton'));
 
     }
+    public function reviewUpdate(Request $request)
+    {
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $response = $this->shareConversationService->saveShareConversation($request->all());
+            Session::flash('message', $response->getContent());
+        } else {
+            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+            $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
+            $data = $request->except('_token');
+            $this->dashboardWorkflowService->updateDashboardItem($data);
+//        Send Notifications
+            $this->researchProposalSubmissionService->sendNotification($request);
+        }
+        return redirect('/rms');
+    }
 
     public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
+
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $featureName = Config::get('constants.research_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
@@ -204,21 +221,7 @@ class ProposalSubmitController extends Controller
         return redirect('/rms');
     }
 
-    public function reviewUpdate(Request $request)
-    {
-        if ($request->status == WorkflowStatus::REVIEW) {
-            $response = $this->shareConversationService->saveShareConversation($request->all());
-            Session::flash('message', $response->getContent());
-        } else {
-            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
-            $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
-            $data = $request->except('_token');
-            $this->dashboardWorkflowService->updateDashboardItem($data);
-//        Send Notifications
-            $this->researchProposalSubmissionService->sendNotification($request);
-        }
-        return redirect('/rms');
-    }
+
 
     public function reInitiate($researchProposalSubmissionId)
     {
