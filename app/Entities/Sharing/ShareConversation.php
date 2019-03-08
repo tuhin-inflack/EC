@@ -5,6 +5,7 @@ namespace App\Entities\Sharing;
 use App\Entities\workflow\Feature;
 use App\Entities\workflow\WorkflowDetail;
 use Illuminate\Database\Eloquent\Model;
+use Modules\PMS\Entities\ProjectProposal;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 
 class ShareConversation extends Model
@@ -21,6 +22,11 @@ class ShareConversation extends Model
     public function researchProposal()
     {
         return $this->belongsTo(ResearchProposalSubmission::class, 'ref_table_id', 'id');
+    }
+
+    public function projectProposal()
+    {
+        return $this->belongsTo(ProjectProposal::class, 'ref_table_id', 'id');
     }
 
     public function workflowDetails()

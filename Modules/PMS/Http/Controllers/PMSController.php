@@ -267,7 +267,7 @@ class PMSController extends Controller
         $save = $this->shareConversationService->save($request->all());
         Session::flash('message', trans('labels.save_success'));
 
-        return redirect()->back();
+        return redirect(route('pms'));
 
     }
 

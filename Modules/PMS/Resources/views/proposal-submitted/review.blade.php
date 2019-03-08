@@ -6,7 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('pms::project_proposal.menu_title') @lang('labels.details')</h4>
+                    <h4 class="card-title"
+                        id="basic-layout-form">@lang('pms::project_proposal.menu_title') @lang('labels.details')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -86,9 +87,17 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
-                                    @if($ruleDetails->get_back_status != 'none')<button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i> {{$ruleDetails->back_btn_label}}</button>@endif
-                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i
+                                                class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
+                                    @if($reviewButton)
+
+                                            <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i
+                                                        class="ft-skip-back"></i> {{$ruleDetails->back_btn_label}}
+                                            </button>
+
+                                    @endif
+                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i
+                                                class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
                                 </div>
                             </div>
                         </div>
@@ -112,13 +121,22 @@
                                 </select>
 
                             </div>
-                            <div class="form-group">
-                                {{__('labels.message_to_receiver')}}
-                                <textarea name="message" class="form-control"></textarea>
+                            {{--<div class="form-group">--}}
+                            {{--{{__('labels.message_to_receiver')}}--}}
+                            {{--<textarea name="message" class="form-control"></textarea>--}}
+                            {{--</div>--}}
+                            <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
+                                {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                <div class="help-block"></div>
+                                @if ($errors->has('message'))
+                                    <div class="help-block">{{ $errors->first('message') }}</div>
+                                @endif
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" name="submit" value="SHARE" class="btn btn-info">Send for Review</button>
+                                <button type="submit" name="submit" value="SHARE" class="btn btn-info">Send for Review
+                                </button>
                             </div>
                         </div>
                         {!! Form::close() !!}
@@ -132,12 +150,14 @@
 
 
 @push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.css') }}">
 @endpush
 
 @push('page-js')
 
-    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/charts/jsgantt-improved/docs/jsgantt.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/charts/jsgantt-improved/chart.js') }}" type="text/javascript"></script>
 
 @endpush
