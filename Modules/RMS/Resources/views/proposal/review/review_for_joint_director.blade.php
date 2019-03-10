@@ -78,9 +78,7 @@
                                     <div class="form-group">
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                                    <div class="help-block">
-
-                                    </div>
+                                        <div class="help-block"></div>
                                     </div>
 
 
@@ -88,7 +86,9 @@
                                     {!! Form::hidden('feature_id', $feature->id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
-                                    <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide feedback</button>
+                                    <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide
+                                        feedback
+                                    </button>
                                     {!! Form::close() !!}
                                 </div>
 

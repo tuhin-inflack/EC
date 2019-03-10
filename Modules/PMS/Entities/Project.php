@@ -10,6 +10,11 @@ use App\Entities\Task;
 use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed title
+ * @property mixed submitted_by
+ * @property mixed status
+ */
 class Project extends Model
 {
     protected  $table = 'projects';

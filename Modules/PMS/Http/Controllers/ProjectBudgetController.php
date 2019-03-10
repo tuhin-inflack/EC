@@ -34,6 +34,24 @@ class ProjectBudgetController extends Controller
     }
 
     /**
+     * @param Project $project
+     * @param $tableType
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportExcel(Project $project, $tableType){
+        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
+        $viewName = '';
+
+        if ($tableType == 'annexure-4'){
+            $viewName = 'pms::project.budget.partials.annexure-4';
+        } else if ($tableType == 'annexure-5'){
+            $viewName = 'pms::project.budget.partials.annexure-5';
+        }
+
+        return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
+    }
+
+    /**
      * Show the form for creating a new resource.
      * @param Project $project
      * @return Response

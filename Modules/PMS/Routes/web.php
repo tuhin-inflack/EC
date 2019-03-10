@@ -21,6 +21,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('{project}', 'ProjectController@show')->name('project.show');
         // project budgeting
         Route::prefix('{project}/budget')->group(function () {
+            Route::get('export/{tableType}', 'ProjectBudgetController@exportExcel')->name('project-budget.export-excel');
             Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
             Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
             Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');

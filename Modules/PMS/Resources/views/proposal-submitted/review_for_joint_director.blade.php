@@ -72,10 +72,17 @@
                     <div class="card-footer">
                         <div class="row">
                             <div class="col-md-6">
+                                {{--<div class="form-group">--}}
+                                    {{--<label>{{__('labels.remarks')}}</label>--}}
+                                    {{--<textarea class="form-control" name="approval_remark"></textarea>--}}
+                                {{--</div>--}}
+
                                 <div class="form-group">
-                                    <label>{{__('labels.remarks')}}</label>
-                                    <textarea class="form-control" name="approval_remark"></textarea>
+                                    {!! Form::label('approval_remark', trans('labels.remarks'), ['class' => 'black']) !!}
+                                    {!! Form::textarea('approval_remark', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                    <div class="help-block"></div>
                                 </div>
+
                             </div>
                         </div>
 

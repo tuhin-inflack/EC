@@ -32,7 +32,7 @@
                                                     <td>{{$shareConversation->message}}</td>
                                                     <td>
                                                         Research
-                                                        proposal: {{ $shareConversation->researchProposal->title }}<br/>
+                                                        proposal: {{ $shareConversation->projectProposal->title }}<br/>
                                                     </td>
 
                                                     <td>
