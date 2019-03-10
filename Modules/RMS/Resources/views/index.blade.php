@@ -12,7 +12,6 @@
                     <h2>Share Conversation</h2>
                     <table class="table table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
