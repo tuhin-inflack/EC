@@ -17,6 +17,7 @@ use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Modules\RMS\Entities\Research;
+use PhpParser\Node\Expr\Array_;
 
 class TaskService
 {
@@ -145,18 +146,154 @@ class TaskService
 
     public function getTasksBarChartData()
     {
-        $tasks = $this->findBy([
-            'taskable_type' => 'research'
-        ]);
+        $tasks = new Task();
+        $Rols =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Review of literature')->get();
+        $Pws =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Proposal writing')->get();
+        $Qps =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Questionnaire preparation')->get();
+        $Q_pretests =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Questionnaire pretesting')->get();
+        $Dcs =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Data collection')->get();
+        $Dts =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Data tabulation')->get();
+        $Rws =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Report writing')->get();
+        $Drss =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Draft report submission')->get();
+        $Irdcs =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Incorporating research division comments')->get();
+        $Ffrss =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'First final report submission')->get();
+        $Rfrs =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Received final report')->get();
+        $Sers =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Sending external reviewer')->get();
+        $Cfers =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Comments from external reviewer')->get();
+        $Strrs =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Send to respective researcher')->get();
+        $Afrs =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Accepted final report')->get();
+        $Sfps =  $tasks->where('taskable_type', '=', 'research')->where('name', '=', 'Send for publication')->get();
 
-        $plannedTasks = $tasks->filter(function ($task) {
-            return !$task->actual_end_time && Carbon::parse($task->expected_end_time)->format('m y') == Carbon::now()->format('m y');
+        $planned[] = $Rols->filter(function ($Rol) {
+            return !$Rol->actual_end_time && Carbon::parse($Rol->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
         })->count();
 
-        $achievedTasks = $tasks->filter(function ($task) {
-            return $task->actual_end_time && Carbon::parse($task->actual_end_time)->format('m y') == Carbon::now()->format('m y');
+        $planned[] = $Pws->filter(function ($Pw) {
+            return !$Pw->actual_end_time && Carbon::parse($Pw->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
         })->count();
-        return [$plannedTasks, $achievedTasks];
+
+        $planned[] = $Qps->filter(function ($Qp) {
+            return !$Qp->actual_end_time && Carbon::parse($Qp->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Q_pretests->filter(function ($Q_pretests) {
+            return !$Q_pretests->actual_end_time && Carbon::parse($Q_pretests->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Dcs->filter(function ($Dcs) {
+            return !$Dcs->actual_end_time && Carbon::parse($Dcs->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Dts->filter(function ($Dts) {
+            return !$Dts->actual_end_time && Carbon::parse($Dts->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Rws->filter(function ($Rws) {
+            return !$Rws->actual_end_time && Carbon::parse($Rws->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Drss->filter(function ($Drss) {
+            return !$Drss->actual_end_time && Carbon::parse($Drss->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Irdcs->filter(function ($Irdcs) {
+            return !$Irdcs->actual_end_time && Carbon::parse($Irdcs->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Ffrss->filter(function ($Ffrss) {
+            return !$Ffrss->actual_end_time && Carbon::parse($Ffrss->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Rfrs->filter(function ($Rfrs) {
+            return !$Rfrs->actual_end_time && Carbon::parse($Rfrs->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Sers->filter(function ($Sers) {
+            return !$Sers->actual_end_time && Carbon::parse($Sers->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Cfers->filter(function ($Cfers) {
+            return !$Cfers->actual_end_time && Carbon::parse($Cfers->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Strrs->filter(function ($Strrs) {
+            return !$Strrs->actual_end_time && Carbon::parse($Strrs->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Afrs->filter(function ($Afrs) {
+            return !$Afrs->actual_end_time && Carbon::parse($Afrs->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $planned[] = $Sfps->filter(function ($Sfps) {
+            return !$Sfps->actual_end_time && Carbon::parse($Sfps->expected_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+
+        $achieved[] = $Rols->filter(function ($Rol) {
+            return $Rol->actual_end_time && Carbon::parse($Rol->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Pws->filter(function ($Pws) {
+            return $Pws->actual_end_time && Carbon::parse($Pws->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Qps->filter(function ($Qps) {
+            return $Qps->actual_end_time && Carbon::parse($Qps->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Q_pretests->filter(function ($Q_pretests) {
+            return $Q_pretests->actual_end_time && Carbon::parse($Q_pretests->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Dcs->filter(function ($Dcs) {
+            return $Dcs->actual_end_time && Carbon::parse($Dcs->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Dts->filter(function ($Dts) {
+            return $Dts->actual_end_time && Carbon::parse($Dts->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Rws->filter(function ($Rws) {
+            return $Rws->actual_end_time && Carbon::parse($Rws->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Drss->filter(function ($Drss) {
+            return $Drss->actual_end_time && Carbon::parse($Drss->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Irdcs->filter(function ($Irdcs) {
+            return $Irdcs->actual_end_time && Carbon::parse($Irdcs->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Ffrss->filter(function ($Ffrss) {
+            return $Ffrss->actual_end_time && Carbon::parse($Ffrss->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Rfrs->filter(function ($Rfrs) {
+            return $Rfrs->actual_end_time && Carbon::parse($Rfrs->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Sers->filter(function ($Sers) {
+            return $Sers->actual_end_time && Carbon::parse($Sers->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Cfers->filter(function ($Cfers) {
+            return $Cfers->actual_end_time && Carbon::parse($Cfers->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Strrs->filter(function ($Strrs) {
+            return $Strrs->actual_end_time && Carbon::parse($Strrs->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Afrs->filter(function ($Afrs) {
+            return $Afrs->actual_end_time && Carbon::parse($Afrs->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        $achieved[] = $Sfps->filter(function ($Sfps) {
+            return $Sfps->actual_end_time && Carbon::parse($Sfps->actual_end_time)->format('m y') == Carbon::now()->subMonth()->format('m y');
+        })->count();
+
+        return [$planned, $achieved];
     }
 
     public function getAllResearchTasks()

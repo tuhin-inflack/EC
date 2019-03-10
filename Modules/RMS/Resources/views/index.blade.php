@@ -457,14 +457,14 @@
                     "{{ __('rms::research.accepted_final_report') }}",
                     "{{ __('rms::research.send_for_publication') }}"
                 ],
-                
+
                 datasets: [{
-                    data: [10, 14, 7, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 9, 3, 5],
+                    data: JSON.parse('{!! json_encode($chartData[0] ) !!}'),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },{
-                    data: [6, 9, 11, 8, 14, 7, 2, 9, 13, 15, 12, 13, 2, 19, 13, 15],
+                    data: JSON.parse('{!! json_encode($chartData[1] ) !!}'),
                     backgroundColor:'rgba(54, 162, 235, 0.2)',
                     borderColor:'rgba(255,99,132,1)',
                     borderWidth: 1
