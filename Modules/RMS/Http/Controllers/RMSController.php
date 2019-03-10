@@ -85,7 +85,7 @@ class RMSController extends Controller
             $researchPendingTasks = [];
         }
 
-        $shareConversations = (is_null($employee)) ? [] :  $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+        $shareConversations = (is_null($employee)) ? null :  $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
