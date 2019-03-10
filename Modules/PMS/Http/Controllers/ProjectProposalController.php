@@ -68,7 +68,7 @@ class ProjectProposalController extends Controller
     {
         $this->projectProposalService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-proposal-submission.index');
+        return redirect()->route('pms');
     }
 
     /**

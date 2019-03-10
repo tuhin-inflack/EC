@@ -59,7 +59,8 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,
                 'requested_by' => $proposal->proposalSubmittedBy->name,
-                'project_request_title' => $proposal->request->title
+                'project_request_title' => $proposal->request->title,
+                'wf_rule_details_id' => $workflowRuleDetails->id,
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
@@ -67,7 +68,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url
-            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id ]));
+            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetails->id ]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
@@ -84,7 +85,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
     {
         $proposal = $this->projectProposalService->findOne($itemId);
         if ($status == WorkflowStatus::APPROVED) {
-            $this->projectProposalService->update($proposal, ['status' => 'REVIEWED']);
+            $this->projectProposalService->update($proposal, ['status' => WorkflowStatus::APPROVED]);
         }
     }
 
@@ -97,6 +98,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
         foreach ($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
+            $workflowRuleDetails = $workflowMaster->ruleDetails;
             $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
             $projectData = [
                 'feature_name' => $feature->name,
@@ -108,6 +110,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
             $dashboardItem->setFeatureItemId($feature->id);
             $dashboardItem->setFeatureName($feature->name);
+
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
             //TODO: set appropriate url (done)
             $dashboardItem->setCheckUrl(route('project-proposal-submitted-resubmit', ['proposalId' =>  $workflowMaster->ref_table_id, 'feature_id' => $feature->id]));

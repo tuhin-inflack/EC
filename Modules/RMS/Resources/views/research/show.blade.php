@@ -21,7 +21,7 @@
     </div>
     <br>
 
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_FACULTY'))
     <!-- Basic tabs start -->
     <section>
         <div class="row match-height">
@@ -40,7 +40,7 @@
                                        href="#tab2"
                                        aria-expanded="false">@lang('task.task_list')</a>
                                 </li>
-                                @if(Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+                                @if(Auth::user()->hasAnyRole('ROLE_FACULTY'))
                                 <li class="nav-item">
                                     <a class="nav-link" id="base-tab3" data-toggle="tab" aria-controls="tab3"
                                        href="#tab3"
@@ -196,12 +196,13 @@
 @endpush
 
 @push('page-js')
-    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_RESEARCHER'))
+    @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_FACULTY'))
     <script>
         let nodeName = "GanttChartDIV";
         let chartData = {
             "data": JSON.parse('{!! json_encode($ganttChart) !!}')
         };
+        console.log(chartData.data);
     </script>
     @endif
 

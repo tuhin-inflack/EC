@@ -15,4 +15,6 @@ use App\Repositories\AbstractBaseRepository;
 class WorkflowRuleDetailRepository extends AbstractBaseRepository
 {
     protected $modelName = WorkflowRuleDetail::class;
+
+
 }

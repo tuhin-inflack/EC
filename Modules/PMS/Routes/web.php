@@ -28,6 +28,20 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
         });
+        // training under a project
+        Route::prefix('{project}')->group(function () {
+            Route::prefix('training')->group( function() {
+                Route::get('/','ProjectTrainingController@index')->name('project-training.index');
+                Route::get('create','ProjectTrainingController@create')->name('project-training.create');
+                Route::post('store','ProjectTrainingController@store')->name('project-training.store');
+                Route::get('{training}','ProjectTrainingController@show')->name('project-training.show');
+                // training members
+                Route::prefix('{training}/members')->group(function () {
+                    Route::get('/', 'ProjectTrainingMemberController@index')->name('projectTraining-members.index');
+                    Route::post('store','ProjectTrainingMemberController@store')->name('projectTraining-members.store');
+                });
+            });
+        });
 
         Route::prefix('{project}')->group(function () {
             // project organisations
@@ -124,12 +138,18 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
-        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}', 'PMSController@review')->name('project-proposal-submitted-review');
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
         Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
         Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
+        Route::post('/share', 'PMSController@share')->name('project-proposal.share');
+        Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'PMSController@getReviewForJointDirect')->name('sending-project-for-review');
+        Route::post('posting-review/{shareConversationId?}', 'PMSController@feedbackForJointDirect')->name('project-proposal-submission.feedback');
+
+
+
     });
 });

@@ -40,7 +40,7 @@
                                                     aria-expanded="false" class="btn btn-info dropdown-toggle"><i class="la la-cog"></i></button>
                                               <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                 <a href="{{route('training.show', ['training_id' => $training->id])}}" class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
-                                                <a href="{{ route('training-registration.create') }}" class="dropdown-item"><i class="ft-plus"></i> {{trans('tms::training.registration')}}</a>
+                                                <a href="{{ route('training-registration.create', ['training_id' => $training->id]) }}" class="dropdown-item"><i class="ft-plus"></i> {{trans('tms::training.registration')}}</a>
                                               </span>
                                             </span>
                                         </td>

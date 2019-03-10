@@ -60,8 +60,8 @@ class RolesTableSeeder extends Seeder
             5 =>
             array (
                 'id' => 6,
-                'name' => 'ROLE_RESEARCHER',
-                'description' => 'Has research access',
+                'name' => 'ROLE_FACULTY',
+                'description' => 'Has faculty access',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

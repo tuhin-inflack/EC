@@ -4,6 +4,43 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
+    @if(!is_null($shareConversations))
+        <section id="shareConversation">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>Share Conversation</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($shareConversations as $shareConversation)
+                            <tr>
+                                <td>{{ $shareConversation->feature->name }}</td>
+                                <td>{{$shareConversation->message}}</td>
+                                <td>
+                                    Research proposal: {{ $shareConversation->researchProposal->title }}<br/>
+                                </td>
+
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+
+                                    {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                       {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
     @if(!empty($researchRejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
@@ -108,39 +145,7 @@
             </div>
         </section>
     @endif
-    @if(!empty(count($reviewedProposals)))
 
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
-
-                    <h4>@lang('labels.ready_for_apc_approval')</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.serial')</th>
-                        <th>@lang('labels.title')</th>
-                        <th>Submitted By :</th>
-                        <th>Created Date :</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($reviewedProposals as $item)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{$item->title}}</td>
-                                <td>{{ $item->submittedBy->name }}</td>
-                                <td>{{ date("j F, Y, g:i a",strtotime($item->created_at)) }}</td>
-                                <td><a href="{{route('apc-review', [$item->id])}}"
-                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </section>
-    @endif
     @if(!empty($rejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
@@ -411,7 +416,7 @@
                                                 $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
-                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('research-proposal-submission.show', [$proposal->id]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
@@ -453,44 +458,16 @@
                     "{{ __('rms::research.accepted_final_report') }}",
                     "{{ __('rms::research.send_for_publication') }}"
                 ],
+                
                 datasets: [{
-                    data: [12, 14, 7, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 9, 3, 5],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)',
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-                    ],
+                    data: [10, 14, 7, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 9, 3, 5],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },{
+                    data: [6, 9, 11, 8, 14, 7, 2, 9, 13, 15, 12, 13, 2, 19, 13, 15],
+                    backgroundColor:'rgba(54, 162, 235, 0.2)',
+                    borderColor:'rgba(255,99,132,1)',
                     borderWidth: 1
                 }]
             },

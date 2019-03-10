@@ -8,9 +8,12 @@ use App\Constants\WorkflowStatus;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
+use App\Services\Sharing\ShareRulesService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -24,6 +27,7 @@ use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
+use Modules\RMS\Http\Requests\CreateReviewRequest;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 
@@ -34,9 +38,14 @@ class ProposalSubmitController extends Controller
     private $remarksService;
     private $featureService;
     private $employeeService;
+    private $workflowService;
+    private $shareRuleService;
+    private $shareConversationService;
 
     public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
-                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService, FeatureService $featureService, EmployeeServices $employeeService)
+                                DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService,
+                                FeatureService $featureService, EmployeeServices $employeeService,
+                                WorkflowService $workflowService, ShareRulesService $shareRulesService, ShareConversationService $shareConversationService)
     {
 
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
@@ -44,6 +53,9 @@ class ProposalSubmitController extends Controller
         $this->remarksService = $remarkService;
         $this->featureService = $featureService;
         $this->employeeService = $employeeService;
+        $this->workflowService = $workflowService;
+        $this->shareRuleService = $shareRulesService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     /**
@@ -78,7 +90,8 @@ class ProposalSubmitController extends Controller
 
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('research-proposal-submission.index');
+        return redirect()->route('rms.index');
+
     }
 
     /**
@@ -136,8 +149,10 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+
     {
+
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $organizations = $research->organizations;
         $featureName = Config::get('constants.research_proposal_feature_name');
@@ -145,25 +160,71 @@ class ProposalSubmitController extends Controller
 
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
 
+        $workflowRuleDetails = $this->workflowService->getRuleDetailsByRuleId($workflowRuleDetailsId);
+        $workflowRuleMaster = $workflowRuleDetails->ruleMaster;
+
+        if ($workflowRuleDetails->flow_type == 'review') {
+            $reviewButton = false;
+        } else {
+            $reviewButton = true;
+        }
+
+
+        if ($workflowRuleDetails->is_shareable) {
+            $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
+            $ruleDesignations = $shareRule->rulesDesignation;
+        } else {
+            $ruleDesignations = null;
+        }
+
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
-        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research', 'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks'));
+        return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
+            'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
+            'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton'));
 
     }
-
-    public function reviewUpdate(Request $request)
+    public function reviewUpdate(CreateReviewRequest $request)
     {
-        $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
-        $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
 
-        $data = $request->except('_token');
-        $this->dashboardWorkflowService->updateDashboardItem($data);
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $response = $this->shareConversationService->saveShareConversation($request->all());
+            Session::flash('message', $response->getContent());
+        } else {
+
+            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+            $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
+            $data = $request->except('_token');
+            $this->dashboardWorkflowService->updateDashboardItem($data);
 //        Send Notifications
-
-        $this->researchProposalSubmissionService->sendNotification($request);
-        //Send user to research dashboard
+            $this->researchProposalSubmissionService->sendNotification($request);
+        }
         return redirect('/rms');
-
     }
+
+    public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
+    {
+
+        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $featureName = Config::get('constants.research_proposal_feature_name');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
+        return view('rms::proposal.review.review_for_joint_director', compact('research', 'feature',
+            'remarks', 'researchProposalSubmissionId', 'shareConversationId'));
+    }
+
+    public function feedbackForJointDirect(Request $request, $shareConversationId)
+    {
+
+        $data = $request->all();
+        $data['from_user_id'] = Auth::user()->id;
+        $this->remarksService->save($data);
+        $this->shareConversationService->updateConversation($data, $shareConversationId);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
+    }
+
+
 
     public function reInitiate($researchProposalSubmissionId)
     {

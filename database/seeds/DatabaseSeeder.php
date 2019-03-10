@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CheckinPaymentsTableSeeder::class);
         $this->call(CheckinRoomTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
-        $this->call(DesignationsTableSeeder::class);
         $this->call(EconomyCodesTableSeeder::class);
         $this->call(EconomyHeadsTableSeeder::class);
         $this->call(EmployeeEducationsTableSeeder::class);
@@ -88,6 +87,8 @@ class DatabaseSeeder extends Seeder
         $this->call(WorkflowRuleDetailsTableSeeder::class);
         $this->call(WorkflowRuleMastersTableSeeder::class);
         $this->call(ShareRulesSeeder::class);
+        $this->call(DesignationsTableSeeder::class);
         $this->call(ShareRulesDesignationSeeder::class);
+
     }
 }

@@ -17,4 +17,5 @@ abstract class WorkflowStatus
     const REJECTED = 'REJECTED';
     const CLOSED = 'CLOSED';
     const REINITIATED = 'REINITIATED';
+    const REVIEW = 'REVIEW';
 }

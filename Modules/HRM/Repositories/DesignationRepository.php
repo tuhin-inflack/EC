@@ -22,4 +22,5 @@ class DesignationRepository extends AbstractBaseRepository
         $designations = $this->modelName::whereIn('short_name', $shortName)->get();
         return $designations;
     }
+
 }

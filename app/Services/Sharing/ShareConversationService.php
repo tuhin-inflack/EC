@@ -9,17 +9,94 @@
 namespace App\Services\Sharing;
 
 
+use App\Constants\NotificationType;
+use App\Constants\WorkflowStatus;
 use App\Repositories\Sharing\ShareConversationRepository;
+use App\Repositories\workflow\FeatureRepository;
+use App\Repositories\workflow\WorkflowMasterRepository;
+use App\Services\Remark\RemarkService;
+use App\Services\UserService;
+use App\Services\workflow\WorkFlowConversationService;
 use App\Traits\CrudTrait;
+use http\Client\Response;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRM\Repositories\DesignationRepository;
+use Modules\RMS\Entities\Research;
+use App\Events\NotificationGeneration;
+use App\Models\NotificationInfo;
 
 class ShareConversationService
 {
     use CrudTrait;
     private $shareConversationRepository;
+    private $workflowConversationService;
+    private $workflowMasterRepository;
+    private $designationRepository;
+    private $userService;
+    private $featureRepository;
+    private $remarkService;
 
-    public function __construct(ShareConversationRepository $conversationRepository)
+    public function __construct(ShareConversationRepository $conversationRepository, WorkFlowConversationService $workFlowConversationService,
+                                WorkflowMasterRepository $workflowMasterRepository, DesignationRepository $designationRepository,
+                                UserService $userService, FeatureRepository $featureRepository, RemarkService $remarkService)
     {
         $this->shareConversationRepository = $conversationRepository;
+        $this->workflowConversationService = $workFlowConversationService;
+        $this->workflowMasterRepository = $workflowMasterRepository;
+        $this->designationRepository = $designationRepository;
+        $this->userService = $userService;
+        $this->featureRepository = $featureRepository;
+        $this->remarkService = $remarkService;
         $this->setActionRepository($this->shareConversationRepository);
+    }
+
+    public function saveShareConversation($data)
+    {
+
+        $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
+        $workflowMaster = $this->workflowMasterRepository->findOne($data['workflow_master_id']);
+
+
+        $data['request_ref_id'] = $workflowConversation->workflow_details_id;
+        $data['ref_table_id'] = $data['item_id'];
+        $data['request_ref_id'] = $workflowConversation->workflow_details_id;
+        $data['from_user_id'] = Auth::user()->id;
+        $data['status'] = 'ACTIVE';
+        $this->shareConversationRepository->save($data);
+
+        if (!empty($data['remarks'])) {
+            $this->remarkService->save(['feature_id' => $data['feature_id'], 'ref_table_id' => $workflowMaster->ref_table_id,
+                'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);
+        }
+        return Response(trans('labels.save_success'));
+
+    }
+
+    public function getShareConversationByDesignation($designationId)
+    {
+        $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
+        if (count($shareConversations) > 0) {
+            return $shareConversations;
+        } else {
+            return null;
+        }
+    }
+
+    public function updateConversation($data, $shareConversationId)
+    {
+
+        $shareConversation = $this->findOne($shareConversationId);
+        $shareConversation->update(['status' => 'CLOSE']);
+        $user = $this->userService->findOne($shareConversation->from_user_id);
+
+        $notificationData = [
+            'ref_table_id' => $data['ref_table_id'],
+            'message' => 'Research proposal feedback given',
+            'to_employee_id' => [$user->employee->id],
+        ];
+        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+
+        return true;
+
     }
 }
