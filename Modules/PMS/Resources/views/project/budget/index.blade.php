@@ -26,8 +26,66 @@
         <br>
 
         <div class="row justify-content-center">
-            @include('pms::project.budget.partials.annexure-4')
-            @include('pms::project.budget.partials.annexure-5')
+            <div class="col-md-12">
+                <section id="number-tabs">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">@lang('draft-proposal-budget.annexure-4')</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a href="{{route('project-budget.export-excel', [$project->id, 'annexure-4'])}}">
+                                                    <i class="la la-file-text-o"></i>
+                                                </a>
+                                            </li>
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                    @include('pms::project.budget.partials.annexure-4')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="col-md-12">
+                <section id="number-tabs">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">@lang('draft-proposal-budget.annexure-5')</h4>
+                                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                                    <div class="heading-elements">
+                                        <ul class="list-inline mb-0">
+                                            <li><a href="{{route('project-budget.export-excel', [$project->id, 'annexure-5'])}}">
+                                                    <i class="la la-file-text-o"></i>
+                                                </a>
+                                            </li>
+                                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-content collapse show">
+                                    <div class="card-body">
+                                        @include('pms::project.budget.partials.annexure-5')
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 @endsection
