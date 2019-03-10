@@ -75,7 +75,7 @@ class RMSController extends Controller
 
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+//        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 //        dd($shareConversations[0]->researchProposal);
         if (is_null($employee)) {
             $researchPendingTasks = [];
@@ -84,6 +84,8 @@ class RMSController extends Controller
         } else {
             $researchPendingTasks = [];
         }
+
+        $shareConversations = (is_null($employee)) ? null :  $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
