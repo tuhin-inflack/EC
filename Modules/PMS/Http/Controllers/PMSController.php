@@ -74,10 +74,9 @@ class PMSController extends Controller
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
         $loggedUserDesignation = $this->userService->getDesignation(Auth::user()->username);
+        $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
 
-        $user = Auth::user();
-        $employee = $this->employeeService->findOne($user->reference_table_id);
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
 
         if ($loggedUserDesignation == "Project Director")
             $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
@@ -192,7 +191,6 @@ class PMSController extends Controller
                 'item_id' => $proposalId,
             );
             $this->dashboardService->updateDashboardItem($data);
-
             Session::flash('message', __('labels.update_success'));
 
             return redirect(route('pms'));
@@ -264,11 +262,11 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
+        $data = $request->all(); unset($data['status']);
         $save = $this->shareConversationService->save($request->all());
         Session::flash('message', trans('labels.save_success'));
 
         return redirect(route('pms'));
-
     }
 
     public function getReviewForJointDirect($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)

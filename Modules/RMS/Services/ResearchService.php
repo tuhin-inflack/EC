@@ -51,6 +51,9 @@ class ResearchService
     /**
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
+     * @param FeatureService $featureService
+     * @param WorkflowService $workflowService
+     * @param ResearchPublicationRepository $researchPublicationRepository
      */
 
     public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService,
@@ -169,7 +172,7 @@ class ResearchService
 
     public function closeWorkflow($workflowMasterId)
     {
-        $response = $this->workflowService->closeWorkflow($workflowMasterId);
+        $this->workflowService->closeWorkflow($workflowMasterId);
         return Response(trans('labels.research_closed'));
     }
 

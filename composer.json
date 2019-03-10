@@ -13,11 +13,12 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "laravelista/ekko": "^1.5",
+        "maatwebsite/excel": "^3.1",
         "nwidart/laravel-modules": "^4.0",
+        "orangehill/iseed": "dev-master",
         "phpoffice/phpspreadsheet": "^1.5",
         "phpoffice/phpword": "v0.14.*",
-        "rap2hpoutre/laravel-log-viewer": "^1.0",
-        "orangehill/iseed": "dev-master"
+        "rap2hpoutre/laravel-log-viewer": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

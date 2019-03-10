@@ -11,35 +11,33 @@ namespace App\Services\DraftProposalBudget;
 use App\Entities\DraftProposalBudget\DraftProposalBudgetFiscalValue;
 use App\Repositories\DraftProposalBudget\DraftProposalBudgetRepository;
 use App\Services\workflow\FeatureService;
-use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
+use App\Traits\ExcelExportTrait;
+use App\Utilities\ExcelExporter;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
+use Maatwebsite\Excel\Facades\Excel;
 use stdClass;
 
 
 class DraftProposalBudgetService
 {
-    use CrudTrait;
+    use CrudTrait, ExcelExportTrait;
 
     private $draftProposalBudgetRepository;
     private $featureService;
-    private $workflowService;
 
     /**
      * ProjectRequestService constructor.
      *
      * @param DraftProposalBudgetRepository $draftProposalBudgetRepository
      * @param FeatureService $featureService
-     * @param WorkflowService $workflowService
      */
 
-    public function __construct(DraftProposalBudgetRepository $draftProposalBudgetRepository,FeatureService $featureService,
-                                WorkflowService $workflowService)
+    public function __construct(DraftProposalBudgetRepository $draftProposalBudgetRepository,FeatureService $featureService)
     {
         $this->draftProposalBudgetRepository = $draftProposalBudgetRepository;
         $this->featureService = $featureService;
-        $this->workflowService = $workflowService;
 
         $this->setActionRepository($draftProposalBudgetRepository);
 
@@ -137,6 +135,20 @@ class DraftProposalBudgetService
 
         return $totalBasedOnEconomyCode;
     }
+
+    /**
+     * Export View as a Excel File
+     * @param $data
+     * @param $viewName
+     * @param null $fileName
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function exportExcel($data, $viewName, $fileName = null)
+    {
+        $fileName = $fileName ? $fileName . '.xlsx' : 'DPPBudget.xlsx';
+        return $this->downloadExcel($data, $viewName, $fileName);
+    }
+
 
     /**
      * @param $budgetable
