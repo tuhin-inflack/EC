@@ -4,7 +4,7 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
-    @if(!is_null($shareConversations))
+    @if(count($shareConversations)>0)
         <section id="shareConversation">
             <div class="card">
                 <div class="card-body">
