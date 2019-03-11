@@ -165,5 +165,7 @@ return [
     'no_notification' => 'No notificaitons available',
     'read_notification' => 'Read all notifications',
     'wise' => 'Wise',
-    'share' => 'Share'
+    'share' => 'Share',
+    'start' => 'Start',
+    'end' => 'End',
 ];

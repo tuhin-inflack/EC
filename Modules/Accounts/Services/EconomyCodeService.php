@@ -10,6 +10,7 @@ namespace Modules\Accounts\Services;
 
 
 use App\Traits\CrudTrait;
+use Closure;
 use Illuminate\Support\Facades\Lang;
 use Modules\Accounts\Repositories\EconomyCodeRepository;
 
@@ -33,12 +34,12 @@ class EconomyCodeService
      * <h3>Economy Codes</h3>
      * <p>Custom Implementation of concatenation</p>
      *
-     * @param Null | Callable $implementedValue Anonymous Implementation of Value
-     * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @param Closure $implementedValue Anonymous Implementation of Value
+     * @param Closure $implementedKey Anonymous Implementation Key index
      * @param bool $emptyOption
      * @return array
      */
-    public function getEconomyCodesForDropdown($implementedValue = null, $implementedKey = null, $emptyOption = false)
+    public function getEconomyCodesForDropdown(Closure $implementedValue = null, Closure $implementedKey = null, $emptyOption = false)
     {
         $economyCodes = $this->actionRepository->findAll();
 

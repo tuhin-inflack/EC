@@ -22,6 +22,11 @@
                         <i class="la la-tag"></i>
                         <span class="menu-title" data-i18n="nav.dash.main">@lang('accounts::economy-head.title')</span></a>
                 </li>
+                <li class="{{ is_active_route('fiscal-year.index') }}">
+                    <a href="{{ route('fiscal-year.index') }}">
+                        <i class="la la-calendar-o"></i>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('accounts::fiscal-year.title')</span></a>
+                </li>
             </ul>
         @endauth
     </div>
