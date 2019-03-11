@@ -4,7 +4,7 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
-    @if(count($shareConversations)>0)
+    @if(!is_null($shareConversations))
         <section id="shareConversation">
             <div class="card">
                 <div class="card-body">
@@ -12,7 +12,6 @@
                     <h2>Share Conversation</h2>
                     <table class="table table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -238,14 +237,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {{--@foreach($tasks as $task)
+                                    @foreach($tasks as $task)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $task->name }}</td>
+                                            <td>@lang('rms::research.' .$task->name)</td>
                                             <td>{{ $task->researches->title }}</td>
                                         </tr>
-                                    @endforeach--}}
-                                    <tr>
+                                    @endforeach
+                                    {{--<tr>
                                         <th scope="row">1</th>
                                         <td>{{ __('rms::research.review_of_literature') }}</td>
                                         <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
@@ -324,7 +323,7 @@
                                         <th scope="row">16</th>
                                         <td>{{ __('rms::research.send_for_publication') }}</td>
                                         <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
+                                    </tr>--}}
 
                                     </tbody>
                                 </table>
@@ -441,31 +440,31 @@
             type: 'bar',
             data: {
                 labels: [
-                    "{{ __('rms::research.review_of_literature') }}",
-                    "{{ __('rms::research.proposal_writing') }}",
-                    "{{ __('rms::research.questionnaire_preparation') }}",
-                    "{{ __('rms::research.questionnaire_pretesting') }}",
-                    "{{ __('rms::research.data_collection') }}",
-                    "{{ __('rms::research.data_tabulation') }}",
-                    "{{ __('rms::research.report_writing') }}",
-                    "{{ __('rms::research.draft_report_submission') }}",
-                    "{{ __('rms::research.incorporating_research_division_comments') }}",
-                    "{{ __('rms::research.first_final_report_submission') }}",
-                    "{{ __('rms::research.received_final_report') }}",
-                    "{{ __('rms::research.sending_external_reviewer') }}",
-                    "{{ __('rms::research.comments_from_external_reviewer') }}",
-                    "{{ __('rms::research.send_to_respective_researcher') }}",
-                    "{{ __('rms::research.accepted_final_report') }}",
-                    "{{ __('rms::research.send_for_publication') }}"
+                    "{{ __('rms::research.Review of literature') }}",
+                    "{{ __('rms::research.Proposal writing') }}",
+                    "{{ __('rms::research.Questionnaire preparation') }}",
+                    "{{ __('rms::research.Questionnaire pretesting') }}",
+                    "{{ __('rms::research.Data collection') }}",
+                    "{{ __('rms::research.Data tabulation') }}",
+                    "{{ __('rms::research.Report writing') }}",
+                    "{{ __('rms::research.Draft report submission') }}",
+                    "{{ __('rms::research.Incorporating research division comments') }}",
+                    "{{ __('rms::research.First final report submission') }}",
+                    "{{ __('rms::research.Received final report') }}",
+                    "{{ __('rms::research.Sending external reviewer') }}",
+                    "{{ __('rms::research.Comments from external reviewer') }}",
+                    "{{ __('rms::research.Send to respective researcher') }}",
+                    "{{ __('rms::research.Accepted final report') }}",
+                    "{{ __('rms::research.Send for publication') }}"
                 ],
-                
+
                 datasets: [{
-                    data: [10, 14, 7, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 9, 3, 5],
+                    data: JSON.parse('{!! json_encode($chartData[0] ) !!}'),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 },{
-                    data: [6, 9, 11, 8, 14, 7, 2, 9, 13, 15, 12, 13, 2, 19, 13, 15],
+                    data: JSON.parse('{!! json_encode($chartData[1] ) !!}'),
                     backgroundColor:'rgba(54, 162, 235, 0.2)',
                     borderColor:'rgba(255,99,132,1)',
                     borderWidth: 1
