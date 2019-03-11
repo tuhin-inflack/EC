@@ -52,4 +52,11 @@ return [
     'fax' => 'ফ্যাক্স',
     'upload_photo' => 'ছবি আপলোড করুন',
     'dob' => 'জন্ম তারিখ',
+    'general_info' => 'সাধারণ তথ্য',
+    'fathers_name' => 'বাবার নাম',
+    'mothers_name' => 'মায়ের নাম',
+    'birth_place' => 'জন্মস্থান',
+    'marital_status' => 'বৈবাহিক অবস্থা',
+    'select' => 'নির্বাচন করা',
+    'present_address' => 'বর্তমান ঠিকানা',
 ];

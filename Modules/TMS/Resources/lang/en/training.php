@@ -52,4 +52,11 @@ return [
     'fax' => 'Fax',
     'upload_photo' => 'Upload Photo',
     'dob' => 'Date of Birth',
+    'general_info' => 'General Information',
+    'fathers_name' => "Father's Name",
+    'mothers_name' => "Mother's Name",
+    'birth_place' => "Birth Place",
+    'marital_status' => "Marital Status",
+    'select' => "Select",
+    'present_address' => 'Present Address',
 ];

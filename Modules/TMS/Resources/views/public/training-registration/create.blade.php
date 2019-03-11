@@ -34,13 +34,13 @@
                                     </div>
                                     <div class="card-content collapse show">
                                         <div class="card-body">
-                                        {!! Form::open(['route' =>  'public-booking-requests.store', 'class' => 'booking-request-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                        {!! Form::open(['class' => 'number-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 
                                         <!-- Step 1 -->
                                         @include('tms::public.training-registration.partials.form.step-1')
-                                        {{--<!-- Step 2 -->
-                                        @include('hm::booking-request.partials.form.step-2')
-                                        <!-- Step 3 -->
+                                        <!-- Step 2 -->
+                                        @include('tms::public.training-registration.partials.form.step-2')
+                                        {{--<!-- Step 3 -->
                                         @include('hm::booking-request.partials.form.step-3')
                                         <!-- Step 4 -->
                                             @include('hm::booking-request.partials.form.step-4')--}}
@@ -108,5 +108,4 @@
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/booking-request/page.js') }}"></script>
 @endpush
