@@ -38,6 +38,10 @@ Route::prefix( 'hrm' )->group( function () {
 		Route::put( 'update-research-info/{id}', 'EmployeeResearchController@update' );
 	} );
 
+	Route::prefix('leave')->group( function (){
+	    Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
+    });
+
 	Route::resources(
 		[
 			'employee'   => 'EmployeeController',
