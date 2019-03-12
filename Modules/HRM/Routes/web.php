@@ -40,6 +40,7 @@ Route::prefix( 'hrm' )->group( function () {
 
 	Route::prefix('leave')->group( function (){
 	    Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
+	    Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
     });
 
 	Route::resources(

@@ -3,7 +3,7 @@
 
     <div class="card-content collapse show">
         <div class="card-body">
-            {!! Form::open(['url' =>  route('training.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+            {!! Form::open(['url' =>  route('employee-leave.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
             <div class="form-body">
                 <h5 class="form-section"><i class="ft-user"></i> {{trans('hrm::leave.employee_info')}}</h5>
                 <div class="row">
@@ -78,11 +78,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="training_end_date" class="form-label required">{{trans('hrm::employee_general_info.employee_designation')}}</label>
-                            <input type='text'
-                                   class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}" value="{{ $user->employee->designation->name}}"
-                                   placeholder="Pick a Date" id="" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
-                          <div class="help-block"></div>
+                            <label for="attachment" class="form-label required">{{trans('labels.attachments')}}</label>
+                            <input name="attachment" id="attachment" class="form-control" type="file">
+                            <div class="help-block"></div>
                             @if ($errors->has('end_date'))
                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('end_date') }}</strong></span>
                             @endif
@@ -95,7 +93,7 @@
                         <div class="form-group">
                             <label for="leave_start_date" class="form-label required">{{trans('hrm::leave.leave_start_date')}}</label>
                             <input type="text" class="form-control required {{ $errors->has('end_date') ? ' is-invalid' : '' }}"
-                                   name="start_date" placeholder="{{trans('labels.pick_a_date')}}" id="leave_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.start_date')])}}">
+                                   name="start_date" placeholder="{{trans('labels.pick_a_date')}}" id="leave_start_date" value="{{ old('start_date') }}" onchange="dateDifference()" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('hrm::leave.leave_start_date')])}}">
                             <div class="help-block"></div>
                             @if ($errors->has('start_date'))
                                 <span class="invalid-feedback" role="alert">
@@ -108,7 +106,7 @@
                         <div class="form-group">
                             <label for="leave_end_date" class="form-label required">{{trans('hrm::leave.leave_end_date')}}</label>
                             <input type='text' onchange="dateDifference()" class="form-control required" value="{{ old('end_date') }}"
-                                   placeholder="{{trans('labels.pick_a_date')}}" id="leave_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('tms::training.end_date')])}}">
+                                   placeholder="{{trans('labels.pick_a_date')}}" id="leave_end_date" name="end_date" required data-validation-required-message="{{trans('validation.required', ['attribute' => trans('hrm::leave.leave_end_date')])}}">
                           <div class="help-block"></div>
                             @if ($errors->has('end_date'))
                                 <span class="invalid-feedback" role="alert"><strong>{{ $errors->first('end_date') }}</strong></span>

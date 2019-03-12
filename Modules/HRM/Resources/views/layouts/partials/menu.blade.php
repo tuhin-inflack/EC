@@ -34,12 +34,12 @@
                                 <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::leave.leave_application') }}</span>
                             </a>
                         </li>
-                        <li class="{{ is_active_url('hm/hostel-budget-section')}}">
+                        {{--<li class="{{ is_active_url('hm/hostel-budget-section')}}">
                             <a href="{{ url('hm/hostel-budget-section') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
                             </a>
-                        </li>
+                        </li>--}}
                     </ul>
                 </li>
             </ul>
