@@ -75,4 +75,13 @@ return [
     'emergency_contact' => 'Emergency Contact',
     'name' => 'Name',
     'relation' => 'Relation',
+    'health_examination_report' => 'Health Examination Report',
+    'present_deseases' => 'Present Deseases',
+    'physical_disability' => 'Physical Disability',
+    'general_exammination' => 'General Exammination',
+    'systemic_exammination' => 'Systemic Exammination',
+    'eye_sight' => 'Eye Sight',
+    'left_eye' => 'Left Eye',
+    'right_eye' => 'Right Eye',
+    'comments' => 'Comments',
 ];

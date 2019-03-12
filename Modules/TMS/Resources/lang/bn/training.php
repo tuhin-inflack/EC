@@ -75,4 +75,13 @@ return [
     'emergency_contact' => 'জরুরী যোগাযোগ',
     'name' => 'নাম',
     'relation' => 'সম্পর্ক',
+    'health_examination_report' => 'স্বাস্থ্য পরীক্ষার রিপোর্ট',
+    'present_deseases' => 'বর্তমান রোগ',
+    'physical_disability' => 'শারীরিক অক্ষমতা',
+    'general_exammination' => 'সাধারণ পরীক্ষা',
+    'systemic_exammination' => 'দেহযন্ত্রসংক্রান্ত পরীক্ষা',
+    'eye_sight' => 'দৃষ্টিশক্তি',
+    'left_eye' => 'বাম চোখ',
+    'right_eye' => 'ডান চোখ',
+    'comments' => 'মন্তব্য',
 ];
