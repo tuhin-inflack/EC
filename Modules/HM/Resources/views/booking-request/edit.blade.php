@@ -2,6 +2,7 @@
 @section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -59,6 +60,7 @@
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script>
+
         /*
         *  Creation of js variables from php variables to be used in page.js and step.js
         * */

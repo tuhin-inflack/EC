@@ -485,6 +485,7 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+
             $('#start_date, #end_date').pickadate();
             $('#guest-gender-select').select2({
                 placeholder: 'Select Gender'
