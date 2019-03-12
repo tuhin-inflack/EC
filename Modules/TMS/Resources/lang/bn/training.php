@@ -65,4 +65,11 @@ return [
     'education_board' => 'শিক্ষা বোর্ড',
     'university' => 'বিশ্ববিদ্যালয়',
     'educational_info' => 'শিক্ষা-সংক্রান্ত তথ্য',
+    'trainee_service' => 'প্রশিক্ষণার্থী এর চাকুরি',
+    'designation' => 'উপাধি',
+    'organization' => 'প্রতিষ্ঠান',
+    'service_code' => 'চাকুরি কোড',
+    'joining_date' => 'যোগদান তারিখ',
+    'experience' => 'অভিজ্ঞতা',
+    'address' => 'ঠিকানা',
 ];

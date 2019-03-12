@@ -34,16 +34,15 @@
                                     </div>
                                     <div class="card-content collapse show">
                                         <div class="card-body">
-                                        {!! Form::open(['class' => 'number-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
-
-                                        <!-- Step 1 -->
-                                        @include('tms::public.training-registration.partials.form.step-1')
-                                        <!-- Step 2 -->
-                                        @include('tms::public.training-registration.partials.form.step-2')
-                                        <!-- Step 3 -->
-                                        @include('tms::public.training-registration.partials.form.step-3')
-                                        <!-- Step 4 -->
-                                            {{--@include('hm::booking-request.partials.form.step-4')--}}
+                                            {!! Form::open(['class' => 'number-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
+                                            <!-- Step 1 -->
+                                            @include('tms::public.training-registration.partials.form.step-1')
+                                            <!-- Step 2 -->
+                                            @include('tms::public.training-registration.partials.form.step-2')
+                                            <!-- Step 3 -->
+                                            @include('tms::public.training-registration.partials.form.step-3')
+                                            <!-- Step 4 -->
+                                            @include('tms::public.training-registration.partials.form.step-4')
                                             {{ Form::close() }}
                                         </div>
                                     </div>

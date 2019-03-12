@@ -65,4 +65,11 @@ return [
     'education_board' => 'Education Board',
     'university' => 'University',
     'educational_info' => 'Education Information',
+    'trainee_service' => "Trainee's Service",
+    'designation' => 'Designation',
+    'organization' => 'Organization',
+    'service_code' => 'Service Code',
+    'joining_date' => 'Joining Date',
+    'experience' => 'Experience',
+    'address' => 'Address',
 ];
