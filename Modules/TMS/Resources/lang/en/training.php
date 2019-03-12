@@ -72,4 +72,7 @@ return [
     'joining_date' => 'Joining Date',
     'experience' => 'Experience',
     'address' => 'Address',
+    'emergency_contact' => 'Emergency Contact',
+    'name' => 'Name',
+    'relation' => 'Relation',
 ];

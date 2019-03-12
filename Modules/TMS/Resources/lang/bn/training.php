@@ -72,4 +72,7 @@ return [
     'joining_date' => 'যোগদান তারিখ',
     'experience' => 'অভিজ্ঞতা',
     'address' => 'ঠিকানা',
+    'emergency_contact' => 'জরুরী যোগাযোগ',
+    'name' => 'নাম',
+    'relation' => 'সম্পর্ক',
 ];
