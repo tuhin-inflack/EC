@@ -59,4 +59,10 @@ return [
     'marital_status' => 'বৈবাহিক অবস্থা',
     'select' => 'নির্বাচন করা',
     'present_address' => 'বর্তমান ঠিকানা',
+    'degree_name' => 'ডিগ্রী নাম',
+    'degree_subject' => 'অধ্যয়ন বিষয়',
+    'passing_year' => 'পাসের বছর',
+    'education_board' => 'শিক্ষা বোর্ড',
+    'university' => 'বিশ্ববিদ্যালয়',
+    'educational_info' => 'শিক্ষা-সংক্রান্ত তথ্য',
 ];

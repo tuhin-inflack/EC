@@ -40,10 +40,10 @@
                                         @include('tms::public.training-registration.partials.form.step-1')
                                         <!-- Step 2 -->
                                         @include('tms::public.training-registration.partials.form.step-2')
-                                        {{--<!-- Step 3 -->
-                                        @include('hm::booking-request.partials.form.step-3')
+                                        <!-- Step 3 -->
+                                        @include('tms::public.training-registration.partials.form.step-3')
                                         <!-- Step 4 -->
-                                            @include('hm::booking-request.partials.form.step-4')--}}
+                                            {{--@include('hm::booking-request.partials.form.step-4')--}}
                                             {{ Form::close() }}
                                         </div>
                                     </div>
@@ -59,24 +59,30 @@
 @endsection
 
 @push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/wizard.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/photo-upload.css') }}">
-    <link rel="stylesheet" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
-    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
-    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
+    <link rel="stylesheet" href="{{ asset('css/photo-upload.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/core/colors/palette-gradient.css')  }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/selects/select2.min.css')  }}">
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.time.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/legacy.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}"></script>
     <script>
         /*
         *  Creation of js variables from php variables to be used in page.js and step.js
@@ -107,5 +113,5 @@
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
 @endpush

@@ -59,4 +59,10 @@ return [
     'marital_status' => "Marital Status",
     'select' => "Select",
     'present_address' => 'Present Address',
+    'degree_name' => 'Degree Name',
+    'degree_subject' => 'Degree Subject',
+    'passing_year' => 'Passing Year',
+    'education_board' => 'Education Board',
+    'university' => 'University',
+    'educational_info' => 'Education Information',
 ];
