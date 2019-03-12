@@ -80,7 +80,7 @@
     @if(!empty($researchPendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
-                <div class="card-body">
+                 <div class="card-body">
                     <h4>@lang('rms::research.research_pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
@@ -165,8 +165,8 @@
                                 <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
-                                    Proposal Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
-                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Research proposal title : {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                    Invitation Title: {{ $item->dynamicValues['research_title'] }}<br/>
                                     Remarks: {{ $item->dynamicValues['remarks'] }}
 
                                 </td>
