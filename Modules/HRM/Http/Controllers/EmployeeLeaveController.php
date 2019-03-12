@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 class EmployeeLeaveController extends Controller
 {
@@ -35,7 +37,8 @@ class EmployeeLeaveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Session::flash('message', 'Demo! Data Not saved');
+        return redirect()->back();
     }
 
     /**
