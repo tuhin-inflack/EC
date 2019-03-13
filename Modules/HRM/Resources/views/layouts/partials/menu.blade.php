@@ -16,13 +16,15 @@
                 <li class="{{ is_active_match('hrm/department')}}">
                     <a href="{{ url('hrm/department') }}">
                         <i class="la la-list-alt"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::department.left_menu_title')</span>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">@lang('hrm::department.left_menu_title')</span>
                     </a>
                 </li>
                 <li class="{{ is_active_match('hrm/designation') }}">
                     <a href="{{ url('hrm/designation') }}">
                         <i class="la la-list-alt"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -42,6 +44,41 @@
                         </li>--}}
                     </ul>
                 </li>
+
+                <!-- House Rent Options -->
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
+                                                                          data-i18n="nav.templates.main">House Rent</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ is_active_match('house-rent/circulate-house') }}">
+                            <a href="{{ url('hrm/house-rent/circulate-house') }}">
+                                <i class="la la-institution"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Circulate House</span>
+                            </a>
+                        </li>
+
+                        <!-- This Should Only be visible to Employee -->
+                        <li class="{{ is_active_url('house-rent/show-house')}}">
+                            <a href="{{ url('hrm/house-rent/show-house') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Apply House Rent</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ is_active_url('house-rent/applications')}}">
+                            <a href="{{ url('hrm/house-rent/applications') }}">
+                                <i class="la ft-check"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">House Rent Request</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
             </ul>
         @endauth
     </div>
