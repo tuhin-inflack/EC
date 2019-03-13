@@ -40,13 +40,7 @@ class ProjectBudgetController extends Controller
      */
     public function exportExcel(Project $project, $tableType){
         $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
-        $viewName = '';
-
-        if ($tableType == 'annexure-4'){
-            $viewName = 'pms::project.budget.partials.annexure-4';
-        } else if ($tableType == 'annexure-5'){
-            $viewName = 'pms::project.budget.partials.annexure-5';
-        }
+        $viewName = 'pms::project.budget.partials.' . $tableType;
 
         return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
     }
