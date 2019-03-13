@@ -28,12 +28,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
+                    <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title"
+                                                                                     data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
                     <ul class="menu-content">
                         <li class="{{ is_active_match('hm/hostel-budget') }}">
                             <a href="{{ route('employee-leave.apply') }}">
                                 <i class="la la-hotel"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::leave.leave_application') }}</span>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">{{ trans('hrm::leave.leave_application') }}</span>
                             </a>
                         </li>
                         {{--<li class="{{ is_active_url('hm/hostel-budget-section')}}">
@@ -72,6 +74,33 @@
                                 <i class="la ft-check"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">House Rent Request</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+                <!-- Note Options -->
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
+                                                                          data-i18n="nav.templates.main">House Rent</span></a>
+                    <!-- This Should Only be visible to Employee -->
+                    <ul class="menu-content">
+                        <li class="{{ is_active_match('notes/create') }}">
+                            <a href="{{ url('hrm/notes/create') }}">
+                                <i class="la la-institution"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Create Note</span>
+                            </a>
+                        </li>
+
+                        <!-- This Should Only be visible to Employee -->
+                        <li class="{{ is_active_url('notes')}}">
+                            <a href="{{ url('hrm/notes') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">My Notes</span>
                             </a>
                         </li>
 
