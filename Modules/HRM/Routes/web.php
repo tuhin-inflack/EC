@@ -38,18 +38,18 @@ Route::prefix('hrm')->group(function () {
         Route::put('update-research-info/{id}', 'EmployeeResearchController@update');
     });
 
-	Route::prefix('leave')->group( function (){
-	    Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
-	    Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
+    Route::prefix('leave')->group(function () {
+        Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
+        Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
     });
 
-	Route::resources(
-		[
-			'employee'   => 'EmployeeController',
-			'department' => 'DepartmentController',
-			'designation' => 'DesignationController',
-		]
-	);
+    Route::resources(
+        [
+            'employee' => 'EmployeeController',
+            'department' => 'DepartmentController',
+            'designation' => 'DesignationController',
+        ]
+    );
     #---------------- House Rent Urls-----------------------------#
     Route::prefix('house-rent')->group(function () {
         Route::get('/circulate-house', 'HouseRentController@index');
@@ -60,6 +60,13 @@ Route::prefix('hrm')->group(function () {
         Route::get('/applications', 'HouseRentController@showAllApplications');
     });
     #--------------- /House Rent Urls ---------------------------------
+
+    #---------------- Notes Urls-----------------------------#
+    Route::prefix('notes')->group(function () {
+        Route::get('/', 'NotesController@index');
+        Route::get('/create', 'NotesController@create');
+    });
+    #--------------- /Notes Urls ---------------------------------
 
     Route::resources(
         [
