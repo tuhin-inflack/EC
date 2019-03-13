@@ -11,32 +11,37 @@
 |
 */
 //Route::middleware( 'auth:web' )->group( function () {
-Route::prefix( 'hrm' )->group( function () {
-	Route::get('/', 'HRMController@index' );
-	Route::get('/show', 'HRMController@show' ); // Temporary & Demo
+Route::prefix('hrm')->group(function () {
+    Route::get('/', 'HRMController@index');
+    Route::get('/show', 'HRMController@show'); // Temporary & Demo
 
-	Route::prefix( 'employee' )->group( function () {
+    Route::prefix('employee')->group(function () {
 
-		Route::post( 'general-info', 'EmployeeController@store' );
-
-
-		Route::post( 'personal-info', 'EmployeePersonalInfoController@store' );
-		Route::put( 'update-personal-info/{id}', 'EmployeePersonalInfoController@update' );
-
-		Route::post( 'education-info', 'EmployeeEducationController@store' );
-		Route::put( 'update-education-info/{id}', 'EmployeeEducationController@update' );
+        Route::post('general-info', 'EmployeeController@store');
 
 
-		Route::post( 'training-info', 'EmployeeTrainingController@store' );
-		Route::put( 'update-training-info/{id}', 'EmployeeTrainingController@update' );
+        Route::post('personal-info', 'EmployeePersonalInfoController@store');
+        Route::put('update-personal-info/{id}', 'EmployeePersonalInfoController@update');
 
-		Route::post( 'publication-info', 'EmployeePublicationController@store' );
-		Route::put( 'update-publication-info/{id}', 'EmployeePublicationController@update' );
+        Route::post('education-info', 'EmployeeEducationController@store');
+        Route::put('update-education-info/{id}', 'EmployeeEducationController@update');
 
 
-		Route::post( 'research-info', 'EmployeeResearchController@store' );
-		Route::put( 'update-research-info/{id}', 'EmployeeResearchController@update' );
-	} );
+        Route::post('training-info', 'EmployeeTrainingController@store');
+        Route::put('update-training-info/{id}', 'EmployeeTrainingController@update');
+
+        Route::post('publication-info', 'EmployeePublicationController@store');
+        Route::put('update-publication-info/{id}', 'EmployeePublicationController@update');
+
+
+        Route::post('research-info', 'EmployeeResearchController@store');
+        Route::put('update-research-info/{id}', 'EmployeeResearchController@update');
+    });
+
+	Route::prefix('leave')->group( function (){
+	    Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
+	    Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
+    });
 
 	Route::resources(
 		[
@@ -45,7 +50,25 @@ Route::prefix( 'hrm' )->group( function () {
 			'designation' => 'DesignationController',
 		]
 	);
+    #---------------- House Rent Urls-----------------------------#
+    Route::prefix('house-rent')->group(function () {
+        Route::get('/circulate-house', 'HouseRentController@index');
+        Route::get('/apply-for-house', 'HouseRentController@applyForHouse');
+        Route::get('/show-house', 'HouseRentController@showHouse');
+        Route::get('/approve-house-rent', 'HouseRentController@approveHouseRent');
+        Route::get('/apply', 'HouseRentController@showApplyForm');
+        Route::get('/applications', 'HouseRentController@showAllApplications');
+    });
+    #--------------- /House Rent Urls ---------------------------------
 
-} );
+    Route::resources(
+        [
+            'employee' => 'EmployeeController',
+            'department' => 'DepartmentController',
+            'designation' => 'DesignationController',
+        ]
+    );
+
+});
 
 //} );
