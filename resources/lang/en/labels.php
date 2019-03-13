@@ -167,4 +167,6 @@ return [
     'wise' => 'Wise',
     'share' => 'Share',
     'pick_a_date' => 'Pick a Date',
+    'start' => 'Start',
+    'end' => 'End',
 ];
