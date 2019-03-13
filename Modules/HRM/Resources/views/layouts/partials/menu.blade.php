@@ -84,7 +84,7 @@
                 <!-- Note Options -->
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
-                                                                          data-i18n="nav.templates.main">House Rent</span></a>
+                                                                          data-i18n="nav.templates.main">Notes</span></a>
                     <!-- This Should Only be visible to Employee -->
                     <ul class="menu-content">
                         <li class="{{ is_active_match('notes/create') }}">
