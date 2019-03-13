@@ -1,6 +1,5 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('hrm::leave.leave_application_form_title') </h4>
-
     <div class="card-content collapse show">
         <div class="card-body">
             {!! Form::open(['url' =>  route('employee-leave.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}

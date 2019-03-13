@@ -43,6 +43,11 @@ Route::prefix( 'hrm' )->group( function () {
 	    Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
     });
 
+    Route::prefix('loan')->group( function (){
+        Route::get('/', 'EmployeeLoanController@create')->name('employee-loan.apply');
+        Route::post('/', 'EmployeeLoanController@store')->name('employee-loan.store');
+    });
+
 	Route::resources(
 		[
 			'employee'   => 'EmployeeController',
