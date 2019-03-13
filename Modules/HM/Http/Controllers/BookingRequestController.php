@@ -6,6 +6,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\StoreBookingRequest;
