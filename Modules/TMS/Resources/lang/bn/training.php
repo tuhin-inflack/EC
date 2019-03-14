@@ -92,6 +92,8 @@ return [
     'games' => 'ক্রীড়া',
     'hieght' => 'উচ্চতা',
     'weight' => 'ওজন',
+    'married' => 'বিবাহিত',
+    'unmarried' => 'অবিবাহিত',
     'normal_chest' => 'স্বাভাবিক বুক',
     'expended_chest' => 'প্রসারিত বুক',
     'weight_end_course' => 'কোর্স শেষে ওজন',

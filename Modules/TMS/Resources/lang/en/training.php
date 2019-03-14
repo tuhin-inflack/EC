@@ -92,6 +92,8 @@ return [
     'games' => 'Games',
     'height' => 'Height',
     'weight' => 'Weight',
+    'married' => 'Married',
+    'unmarried' => 'Unmarried',
     'normal_chest' => 'Normal Chest',
     'expended_chest' => 'Expended Chest',
     'weight_end_course' => 'Weight at the end of course',

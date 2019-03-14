@@ -74,64 +74,64 @@
 </fieldset>
 
 @push('page-js')
-    <script>
+    {{--<script>--}}
 
-        $(document).ready(function () {
+        {{--$(document).ready(function () {--}}
 
-            $(" .instituteSelection, .academicDepartmentSelect, .academicDegreeSelect").select2({width: '100%'});
-            $(".addOtherInstitute").hide();
-            $(".addDepartmentSection").hide();
-            $(".addDegreeSection").hide();
+            {{--$(" .instituteSelection, .academicDepartmentSelect, .academicDegreeSelect").select2({width: '100%'});--}}
+            {{--$(".addOtherInstitute").hide();--}}
+            {{--$(".addDepartmentSection").hide();--}}
+            {{--$(".addDegreeSection").hide();--}}
 
 
-            $('.instituteSelection').on('select2:select', function (e) {
-                var value = $(".instituteSelection option:selected").val();
-                if (value === 'other') {
-                    $(".addOtherInstitute").show();
-                    $(".addInstituteInput").focus();
-                } else {
-                    $(".addOtherInstitute").hide();
+            {{--$('.instituteSelection').on('select2:select', function (e) {--}}
+                {{--var value = $(".instituteSelection option:selected").val();--}}
+                {{--if (value === 'other') {--}}
+                    {{--$(".addOtherInstitute").show();--}}
+                    {{--$(".addInstituteInput").focus();--}}
+                {{--} else {--}}
+                    {{--$(".addOtherInstitute").hide();--}}
 
-                }
-            });
-            $('.academicDepartmentSelect').on('select2:select', function (e) {
-                var value = $(".academicDepartmentSelect option:selected").val();
-                if (value === 'other_department') {
-                    $(".addDepartmentSection").show();
-                    $(".addDepartmentInput").focus();
-                } else {
-                    $(".addDepartmentSection").hide();
+                {{--}--}}
+            {{--});--}}
+            {{--$('.academicDepartmentSelect').on('select2:select', function (e) {--}}
+                {{--var value = $(".academicDepartmentSelect option:selected").val();--}}
+                {{--if (value === 'other_department') {--}}
+                    {{--$(".addDepartmentSection").show();--}}
+                    {{--$(".addDepartmentInput").focus();--}}
+                {{--} else {--}}
+                    {{--$(".addDepartmentSection").hide();--}}
 
-                }
-            });
-            $('.academicDegreeSelect').on('select2:select', function (e) {
-                var value = $(".academicDegreeSelect option:selected").val();
-                if (value === 'other_degree') {
-                    $(".addDegreeSection").show();
-                    $(".addDegreeInput").focus();
-                } else {
-                    $(".addDegreeSection").hide();
+                {{--}--}}
+            {{--});--}}
+            {{--$('.academicDegreeSelect').on('select2:select', function (e) {--}}
+                {{--var value = $(".academicDegreeSelect option:selected").val();--}}
+                {{--if (value === 'other_degree') {--}}
+                    {{--$(".addDegreeSection").show();--}}
+                    {{--$(".addDegreeInput").focus();--}}
+                {{--} else {--}}
+                    {{--$(".addDegreeSection").hide();--}}
 
-                }
-            });
-            $('.education-repeater').repeater({
-                show: function () {
-                    $(this).find('.select2-container').remove();
-                    $(this).find('select').select2({
-                        placeholder: selectPlaceholder
-                    });
+                {{--}--}}
+            {{--});--}}
+            {{--$('.education-repeater').repeater({--}}
+                {{--show: function () {--}}
+                    {{--$(this).find('.select2-container').remove();--}}
+                    {{--$(this).find('select').select2({--}}
+                        {{--placeholder: selectPlaceholder--}}
+                    {{--});--}}
 
-                    // remove error span
-                    $('div:hidden[data-repeater-item]')
-                        .find('input.is-invalid, select.is-invalid')
-                        .each((index, element) => {
-                            $(element).removeClass('is-invalid');
-                        });
+                    {{--// remove error span--}}
+                    {{--$('div:hidden[data-repeater-item]')--}}
+                        {{--.find('input.is-invalid, select.is-invalid')--}}
+                        {{--.each((index, element) => {--}}
+                            {{--$(element).removeClass('is-invalid');--}}
+                        {{--});--}}
 
-                    $(this).slideDown();
-                }
-            });
-        })
-    </script>
+                    {{--$(this).slideDown();--}}
+                {{--}--}}
+            {{--});--}}
+        {{--})--}}
+    {{--</script>--}}
 @endpush
 

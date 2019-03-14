@@ -69,6 +69,7 @@ Route::prefix('training')->group(function (){
     Route::get('/','PublicTrainingRegistrationController@index')->name('training-registration.index');
     Route::prefix('{training}/registration')->group(function (){
         Route::get('create','PublicTrainingRegistrationController@create')->name('training-registration.create');
+        Route::post('store','PublicTrainingRegistrationController@store')->name('training-registration.store');
     });
 });
 
