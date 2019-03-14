@@ -17,7 +17,12 @@ class EmployeeLeaveController extends Controller
      */
     public function index()
     {
-        return view('hrm::leave.index');
+        $leaves = [
+           0 => ['type' => 'casual' , 'from' => '2018-12-14', 'to' => '2018-12-16', 'duration' => 3, 'created_at' => '2018-12-10', 'status' => 'pending' ],
+           1=> ['type' => 'sick' , 'from' => '2019-02-04', 'to' => '2019-02-05', 'duration' => 2, 'created_at' => '2019-02-08', 'status' => 'approved' ],
+           2=> ['type' => 'earn' , 'from' => '2019-03-22', 'to' => '2019-03-26', 'duration' => 5, 'created_at' => '2019-03-10', 'status' => 'pending' ],
+        ];
+        return view('hrm::leave.index', compact('leaves'));
     }
 
     /**

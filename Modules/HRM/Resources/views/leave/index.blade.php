@@ -12,8 +12,8 @@
                         <h4 class="card-title">@lang('hrm::designation.list_page_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
-                            <a href="{{url('/hrm/designation/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> @lang('labels.add')</a>
+                            <a href="{{route('employee-leave.apply')}}" class="btn btn-primary btn-sm"><i
+                                        class="ft-plus white"></i> @lang('hrm::leave.leave_application')</a>
 
                         </div>
                     </div>
@@ -26,50 +26,52 @@
                                     <thead>
                                     <tr>
                                         <th>@lang('labels.serial')</th>
-                                        <th>@lang('labels.name')</th>
-                                        <th>@lang('labels.short_name')</th>
+                                        <th>@lang('hrm::leave.leave_type')</th>
+                                        <th>@lang('hrm::leave.leave_start_date')</th>
+                                        <th>@lang('hrm::leave.leave_end_date')</th>
+                                        <th>@lang('hrm::leave.leave_duration')</th>
+                                        <th>@lang('hrm::leave.leave_application_date')</th>
+                                        <th>@lang('labels.status')</th>
                                         <th>@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @if(isset($designationList) && count($designationList)>0)
-                                        @foreach($designationList as $designation)
 
-                                            <tr>
-                                                <th scope="row">{{$loop->iteration}}</th>
-                                                <th>{{ $designation->name }}</th>
-                                                <td>{{ $designation->short_name }}</td>
+                                    @foreach($leaves as $leave)
+                                        <tr>
+                                            <th scope="row">{{$loop->iteration}}</th>
+                                            <th>{{ $leave['type'] }}</th>
+                                            <th>{{ $leave['from'] }}</th>
+                                            <th>{{ $leave['to'] }}</th>
+                                            <th>{{ $leave['duration'].' days' }}</th>
+                                            <th>{{ $leave['created_at'] }}</th>
+                                            <th>{{ $leave['status'] }}</th>
 
-                                                <td>
-                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                            aria-haspopup="true"
-                                                            aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i></button>
-                                                    <span aria-labelledby="btnSearchDrop2"
-                                                          class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ url('/hrm/designation',$designation->id) }}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                            <td>
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                    <i class="la la-cog"></i></button>
+                                                <span aria-labelledby="btnSearchDrop2"
+                                                      class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                          <div class="dropdown-divider"></div>
-                                                        <a href="{{ url('/hrm/designation/' . $designation->id . '/edit')  }}"
-                                                           class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-
+                                                        <a href="" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                          <div class="dropdown-divider"></div>
-                                                        {!! Form::open(['url' =>  ['/hrm/designation', $designation->id], 'method' => 'DELETE', 'class' => 'form',' novalidate']) !!}
+                                                        {!! Form::open(['url' =>  '', 'method' => 'DELETE', 'class' => 'form',' novalidate']) !!}
 
-                                                        {!! Form::button('<i class="ft-trash"></i> ' . trans('labels.delete'), array(
-                                                            'type' => 'submit',
-                                                            'class' => 'dropdown-item',
-                                                            'title' => 'Delete the hostel',
-                                                            'onclick'=>'return confirmMessage()',
-                                                        )) !!}
-                                                        {!! Form::close() !!}
+                                                    {!! Form::button('<i class="ft-trash"></i> ' . trans('labels.delete'), array(
+                                                        'type' => 'submit',
+                                                        'class' => 'dropdown-item',
+                                                        'title' => 'Delete the hostel',
+                                                        'onclick'=>'return confirmMessage()',
+                                                    )) !!}
+                                                    {!! Form::close() !!}
                                                 </span>
 
-                                                    </span>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @endif
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
                                     </tbody>
                                 </table>
                             </div>

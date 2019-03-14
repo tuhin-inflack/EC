@@ -20,4 +20,6 @@ return [
     'leave_reason' => 'ছুটি নেয়ার কারন',
     'leave_reason_placeholder' => 'সংক্ষেপে ছুটি নেয়ার কারন লিখুন',
     'leave_duration_placeholder' => 'ছুটির সময়কাল (দিন)',
+    'leave_list' => 'আবেদনকৃত ছুটিসমূহ',
+    'leave_application_date' => 'আবেদনের তারিখ'
 ];

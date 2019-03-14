@@ -38,14 +38,18 @@ Route::prefix('hrm')->group(function () {
         Route::put('update-research-info/{id}', 'EmployeeResearchController@update');
     });
 
+    // Routes for Employee Leave
     Route::prefix('leave')->group(function () {
         Route::get('/', 'EmployeeLeaveController@create')->name('employee-leave.apply');
         Route::post('/', 'EmployeeLeaveController@store')->name('employee-leave.store');
+        Route::get('/list', 'EmployeeLeaveController@index')->name('employee-leave.list');
     });
 
+    // Routes for Employee Loan
     Route::prefix('loan')->group( function (){
         Route::get('/', 'EmployeeLoanController@create')->name('employee-loan.apply');
         Route::post('/', 'EmployeeLoanController@store')->name('employee-loan.store');
+        Route::get('/list', 'EmployeeLoanController@index')->name('employee-loan.list');
     });
 
     #---------------- House Rent Urls-----------------------------#

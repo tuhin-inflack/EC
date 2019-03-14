@@ -23,27 +23,25 @@
                 <li class="{{ is_active_match('hrm/designation') }}">
                     <a href="{{ url('hrm/designation') }}">
                         <i class="la la-list-alt"></i>
-                        <span class="menu-title"
-                              data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
+                        <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title"
-                                                                                     data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
+                    <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
                     <ul class="menu-content">
-                        <li class="{{ is_active_match('hm/hostel-budget') }}">
+                        <li class="{{ is_active_match('hrm/leave') }}">
                             <a href="{{ route('employee-leave.apply') }}">
                                 <i class="la la-hotel"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">{{ trans('hrm::leave.leave_application') }}</span>
                             </a>
                         </li>
-                        {{--<li class="{{ is_active_url('hm/hostel-budget-section')}}">
-                            <a href="{{ url('hm/hostel-budget-section') }}">
+                        <li class="{{ is_active_url('hrm/leave/list')}}">
+                            <a href="{{ url('hrm/leave/list') }}">
                                 <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hm::hostel_budget.sub_menu_section') }}</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::leave.leave_list') }}</span>
                             </a>
-                        </li>--}}
+                        </li>
                     </ul>
                 </li>
 
@@ -68,8 +66,7 @@
 
                 <!-- House Rent Options -->
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
-                                                                          data-i18n="nav.templates.main">House Rent</span></a>
+                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title" data-i18n="nav.templates.main">House Rent</span></a>
                     <ul class="menu-content">
                         <li class="{{ is_active_match('house-rent/circulate-house') }}">
                             <a href="{{ url('hrm/house-rent/circulate-house') }}">
@@ -91,8 +88,7 @@
                         <li class="{{ is_active_url('house-rent/applications')}}">
                             <a href="{{ url('hrm/house-rent/applications') }}">
                                 <i class="la ft-check"></i>
-                                <span class="menu-title"
-                                      data-i18n="nav.dash.main">House Rent Request</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">House Rent Request</span>
                             </a>
                         </li>
 
@@ -102,8 +98,7 @@
 
                 <!-- Note Options -->
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
-                                                                          data-i18n="nav.templates.main">Notes</span></a>
+                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title" data-i18n="nav.templates.main">Notes</span></a>
                     <!-- This Should Only be visible to Employee -->
                     <ul class="menu-content">
                         <li class="{{ is_active_match('notes/create') }}">

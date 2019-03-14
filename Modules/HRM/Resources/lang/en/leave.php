@@ -19,5 +19,7 @@ return [
     'leave_duration' => 'Leave Duration',
     'leave_reason' => 'Reason of Leave',
     'leave_reason_placeholder' => 'Type an Appropriate Reason for The Leave You are Applying',
-    'leave_duration_placeholder' => 'ছুটির সময়কাল (দিন)',
+    'leave_duration_placeholder' => 'Duration of leave (Days)',
+    'leave_list' => 'Applied Leaves',
+    'leave_application_date' => 'Apply Date'
 ];
