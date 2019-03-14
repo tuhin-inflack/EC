@@ -128,7 +128,7 @@
                     <div class="help-block"></div>
                     @if ($errors->has('photo'))
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('photo    ') }}</strong>
+                            <strong>{{ $errors->first('photo') }}</strong>
                         </span>
                     @endif
                 </div>
