@@ -35,7 +35,7 @@
                                     <div class="card-body">
                                             {!! Form::open(['route' =>  ['training-registration.store', $training->id], 'class' => 'wizard-circle training-steps', 'enctype' => 'multipart/form-data']) !!}
                                                 <!-- Step 1 -->
-                                                {{--@include('tms::public.training-registration.partials.form.step-1')--}}
+                                                @include('tms::public.training-registration.partials.form.step-1')
                                                 <!-- Step 2 -->
                                                 @include('tms::public.training-registration.partials.form.step-2')
                                                 <!-- Step 3 -->

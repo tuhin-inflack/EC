@@ -66,7 +66,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="shortDescription1" class="required">@lang('tms::training.present_address') :</label>
-                        {!! Form::textarea('present_address', null, ['id' => 'shortDescription1', 'data-msg-required' => Lang::get('labels.This field is required'), 'rows' => 4, 'class' => 'form-control required']) !!}
+                        {!! Form::textarea('present_address', null, ['id' => 'shortDescription1', 'data-msg-required' => Lang::get('labels.This field is required'),'data-msg-maxlength'=>Lang::get('labels.At most 150 characters'), 'rows' => 4, 'class' => 'form-control required']) !!}
                     </div>
                 </div>
             </div>

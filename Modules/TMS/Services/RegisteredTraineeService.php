@@ -10,6 +10,7 @@ namespace Modules\TMS\Services;
 
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Modules\TMS\Entities\RegisteredTraineeGeneralInfo;
 use Modules\TMS\Repositories\RegisteredTraineeRepository;
 
 class RegisteredTraineeService
@@ -40,7 +41,14 @@ class RegisteredTraineeService
         }
 
         $trainee = $this->save($data);
+        $this->saveTraineeGeneralInfo($data, $trainee);
         return $trainee;
+    }
+
+    private function saveTraineeGeneralInfo($data, $trainee): void
+    {
+        $traineeGeneralInfo = new RegisteredTraineeGeneralInfo($data);
+        $trainee->generalInfos()->save($traineeGeneralInfo);
     }
 
 
