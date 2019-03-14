@@ -18,4 +18,9 @@ class RegisteredTrainee extends Model
     {
         return $this->hasOne(RegisteredTraineeServiceInfo::class, 'trainee_id', 'id');
     }
+
+    public function emergencyContacts()
+    {
+        return $this->hasOne(RegisteredTraineeEmergency::class, 'trainee_id', 'id');
+    }
 }

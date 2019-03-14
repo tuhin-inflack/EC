@@ -72,6 +72,12 @@
                 <div class="col-md-6">
                     <label for="shortDescription1" class="required">@lang('tms::training.address') :</label>
                     {!! Form::textarea('address', null, ['id' => 'shortDescription1', 'data-msg-required' => Lang::get('labels.This field is required'),'data-msg-maxlength'=>Lang::get('labels.At most 150 characters'), 'rows' => 4, 'class' => 'form-control required']) !!}
+
+                    @if ($errors->has('address'))
+                        <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('address') }}</strong>
+                            </span>
+                    @endif
                 </div>
             </div>
         </div>
