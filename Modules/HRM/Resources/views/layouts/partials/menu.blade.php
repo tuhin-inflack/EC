@@ -29,7 +29,7 @@
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
                     <ul class="menu-content">
-                        <li class="{{ is_active_match('hrm/leave') }}">
+                        <li class="{{ is_active_url('hrm/leave') }}">
                             <a href="{{ route('employee-leave.apply') }}">
                                 <i class="la la-hotel"></i>
                                 <span class="menu-title"
@@ -48,7 +48,7 @@
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::employee.employee_loan') }}</span></a>
                     <ul class="menu-content">
-                        <li class="{{ is_active_match('hm/hostel-budget') }}">
+                        <li class="{{ is_active_url('hrm/loan') }}">
                             <a href="{{ route('employee-loan.apply') }}">
                                 <i class="la la-hotel"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.employee_loan_apply') }}</span>
@@ -63,6 +63,23 @@
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la la-money"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::employee.employee_training') }}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ is_active_url('hrm/training') }}">
+                            <a href="{{ route('employee-training.apply') }}">
+                                <i class="la la-hotel"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.employee_training_apply') }}</span>
+                            </a>
+                        </li>
+                        <li class="{{ is_active_match('hrm/training/list')}}">
+                            <a href="{{  route('employee-training.list') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.trainee_card_title') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
 
                 <!-- House Rent Options -->
                 <li class="nav-item">
