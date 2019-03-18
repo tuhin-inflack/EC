@@ -23,4 +23,9 @@ class RegisteredTrainee extends Model
     {
         return $this->hasOne(RegisteredTraineeEmergency::class, 'trainee_id', 'id');
     }
+
+    public function educations()
+    {
+        return $this->hasOne(RegisteredTraineeEducation::class, 'trainee_id', 'id');
+    }
 }

@@ -45,9 +45,9 @@
                                                 <!-- Step 5 -->
                                                 @include('tms::public.training-registration.partials.form.step-5')
                                                 <!-- Step 6 -->
-                                                @include('tms::public.training-registration.partials.form.step-6')
+                                                {{--@include('tms::public.training-registration.partials.form.step-6')
                                                 <!-- Step 7 -->
-                                                @include('tms::public.training-registration.partials.form.step-7')
+                                                @include('tms::public.training-registration.partials.form.step-7')--}}
                                             {{ Form::close() }}
                                     </div>
                                 </div>

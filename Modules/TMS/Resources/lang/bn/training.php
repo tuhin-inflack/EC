@@ -64,7 +64,7 @@ return [
     'passing_year' => 'পাসের বছর',
     'education_board' => 'শিক্ষা বোর্ড',
     'university' => 'বিশ্ববিদ্যালয়',
-    'educational_info' => 'শিক্ষা-সংক্রান্ত তথ্য',
+    'educational_info' => 'সর্বশেষ শিক্ষা-সংক্রান্ত তথ্য',
     'trainee_service' => 'প্রশিক্ষণার্থী এর চাকুরি',
     'designation' => 'উপাধি',
     'organization' => 'প্রতিষ্ঠান',
@@ -97,4 +97,5 @@ return [
     'normal_chest' => 'স্বাভাবিক বুক',
     'expended_chest' => 'প্রসারিত বুক',
     'weight_end_course' => 'কোর্স শেষে ওজন',
+    'optional' => 'ঐচ্ছিক',
 ];

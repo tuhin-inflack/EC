@@ -6,8 +6,14 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="firstName1" class="required">@lang('tms::training.present_deseases') : </label>
-                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
+                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control required     instituteSelection',
                                             'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+
+                        @if ($errors->has('academic_institute_id'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('academic_institute_id') }}</strong>
+                        </span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">

@@ -64,7 +64,7 @@ return [
     'passing_year' => 'Passing Year',
     'education_board' => 'Education Board',
     'university' => 'University',
-    'educational_info' => 'Education Information',
+    'educational_info' => 'Final Education Information',
     'trainee_service' => "Trainee's Service",
     'designation' => 'Designation',
     'organization' => 'Organization',
@@ -97,4 +97,5 @@ return [
     'normal_chest' => 'Normal Chest',
     'expended_chest' => 'Expended Chest',
     'weight_end_course' => 'Weight at the end of course',
+    'optional' => 'Optional',
 ];
