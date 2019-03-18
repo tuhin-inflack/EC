@@ -8,11 +8,11 @@
 namespace Modules\TMS\Repositories;
 
 use App\Repositories\AbstractBaseRepository;
-use Modules\TMS\Entities\RegisteredTrainee;
+use Modules\TMS\Entities\Trainee;
 
 
 class RegisteredTraineeRepository extends AbstractBaseRepository
 {
-    protected $modelName = RegisteredTrainee::class;
+    protected $modelName = Trainee::class;
 
 }

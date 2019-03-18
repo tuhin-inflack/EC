@@ -16,7 +16,7 @@ class StoreRegisteredTraineeRequest extends FormRequest
         return [
             'bangla_name'   => 'required|max:50',
             'english_name'  => 'required|max:50',
-            'gender'        => 'required',
+            'trainee_gender'        => 'required',
             'dob'           => 'required',
             'email'         => 'required|email',
             'mobile'        => 'numeric|digits_between:11,13|required',

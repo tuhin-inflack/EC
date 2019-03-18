@@ -35,16 +35,16 @@
                 <div class="form-group col-md-6">
                     <label class="required">@lang('tms::training.gender')</label>
                     <div class="skin skin-flat">
-                        {!! Form::radio('gender', 'male', old('gender'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                        {!! Form::radio('trainee_gender', 'male', old('trainee_gender'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                         <label>@lang('tms::training.male')</label>
                     </div>
                     <div class="skin skin-flat">
-                        {!! Form::radio('gender', 'female', old('gender'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                        {!! Form::radio('trainee_gender', 'female', old('trainee_gender'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                         <label>@lang('tms::training.female')</label>
                     </div>
                     <div class="row col-md-12 radio-error">
-                        @if ($errors->has('gender'))
-                            <span class="small text-danger"><strong>{{ $errors->first('gender') }}</strong></span>
+                        @if ($errors->has('trainee_gender'))
+                            <span class="small text-danger"><strong>{{ $errors->first('trainee_gender') }}</strong></span>
                         @endif
                     </div>
                 </div>
