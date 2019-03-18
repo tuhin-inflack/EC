@@ -154,6 +154,7 @@ class ProposalSubmitController extends Controller
     {
 
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+        $researchInvitation = $research->requester;
         $organizations = $research->organizations;
         $featureName = Config::get('constants.research_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
@@ -180,7 +181,7 @@ class ProposalSubmitController extends Controller
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
-            'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton'));
+            'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton', 'researchInvitation'));
 
     }
     public function reviewUpdate(CreateReviewRequest $request)

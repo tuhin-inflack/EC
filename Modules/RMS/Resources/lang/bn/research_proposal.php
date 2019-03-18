@@ -76,5 +76,6 @@ return [
     'research_name' => 'গবেষণা নাম',
     'planned' => 'পরিকল্পিত',
     'achieved' => 'অর্জিত',
+    'invitation_title' => 'আমন্ত্রণ শিরোনাম',
 ];
 
