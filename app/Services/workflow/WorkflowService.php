@@ -211,7 +211,9 @@ class WorkflowService
     public function reinitializeWorkflow($data)
     {
         $workflowMaster = $this->workFlowMasterRepository->findOneBy(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id']]);
+
         $workflowDetails = $workflowMaster->workflowDetails;
+
         foreach ($workflowDetails as $workflowDetail) {
             $workflowDetail->status = $workflowDetail->notification_order == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED;
             $workflowDetail->update();

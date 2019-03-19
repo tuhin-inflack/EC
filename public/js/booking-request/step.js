@@ -85,6 +85,7 @@ $('.booking-request-tab-steps').steps({
             }
 
             if (pageType == 'checkin') {
+
                 // added by sumon mahmud
                 // capturing data from matrix
                 var selectedRoomTypeNumberFromMatrix = [];
@@ -98,15 +99,35 @@ $('.booking-request-tab-steps').steps({
                 allSelectedRoom.forEach(function (i) {
                     selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;
                 });
-                // counting the total number of room taken from input
+                // counting the total number of room taken from matrix
                 var totalSelectedRoomFromMatrix = 0;
                 for (var i in selectedRoomTypeNumberFromMatrix) {
                     totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
                 }
 
-                // Capturing data from repetitive form
-                var data = $('.repeater-room-infos').repeaterVal('roomInfos');
-                var roomInfoFromInput = data['roomInfos'];
+                var collectingDataFromRepeatForm = $('.repeater-room-infos').repeaterVal('roomInfos').roomInfos.reduce(function (groups, item) {
+                    var val = item['room_type_id'];
+                    groups[val] = groups[val] || [];
+                    groups[val].push(item);
+                    return groups;
+                }, []).filter(el => {
+                    return el;
+                })
+                // console.log(x);
+
+                var roomInfoFromInput = [];
+
+                for (i = 0; i < collectingDataFromRepeatForm.length; i++) {
+                    collection = collectingDataFromRepeatForm[i];
+                    for (j = 0; j < collection.length; j++) {
+                        if (typeof roomInfoFromInput[i] == "undefined") {
+                            roomInfoFromInput[i] = collection[j]
+                        } else {
+                            totalRoom = Number(collection[j]['quantity']) + Number(roomInfoFromInput[i]['quantity']);
+                            roomInfoFromInput[i]['quantity'] = totalRoom;
+                        }
+                    }
+                }
 
                 // counting the total number of room taken from input
                 var totalRoomSelectedFromInput = 0;
@@ -123,6 +144,7 @@ $('.booking-request-tab-steps').steps({
                     $('#validationError').html(maximum_message + " " + totalRoomSelectedFromInput + " " + room);
                     $('#validationError').show();
                 } else {
+
                     for (i = 0; i < roomInfoFromInput.length; i++) {
                         var singleRoom = roomInfoFromInput[i];
                         roomTypeIdFromForm = singleRoom['room_type_id'];

@@ -70,7 +70,7 @@
                                     <div class="help-block"></div>
 
                                 </div>
-                                <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                <div class="form-group col-sm-12 col-md-2 text-center mt-2" id="cd">
                                     <button type="button" class="btn btn-outline-danger"
                                             data-repeater-delete=""><i
                                                 class="ft-x"></i>
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="form-actions text-center">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary submit">
                         <i class="la la-check-square-o"></i> {{ trans('labels.save') }}
                     </button>
                     <a class="btn btn-warning mr-1" role="button" href="{{ route('hostel-budgets.index') }}">

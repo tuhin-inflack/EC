@@ -41,8 +41,10 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+
                 <label for="expected_start_time"
                        class="form-label required">{{trans('pms::task.expected_start_date')}}</label>
+                <div class="input-group">
                 {{ Form::text('expected_start_time', isset($task) ? $task->expected_start_time : null, [
                     'id' => "expected_start_time",
                     'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''),
@@ -56,6 +58,7 @@
                         <strong>{{ $errors->first('expected_start_time') }}</strong>
                     </span>
                 @endif
+                </div>
             </div>
         </div>
         <div class="col-md-6">

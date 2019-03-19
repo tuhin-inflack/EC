@@ -36,9 +36,10 @@
                     {{--file repeater--}}
                     <div class="form-group mb-1 col-sm-12 col-md-12 file-repeater">
                         <div data-repeater-list="fileRepeater">
+
                             @if(isset($research->publication->attachments))
                                 @foreach($research->publication->attachments as $attachment)
-                                        <div data-repeater-item>
+                                        <div>
                                             <input type="hidden" name="oldFiles[]" value=""/>
                                             <div class="row mb-1">
                                                 <div class="col-9 col-xl-10">
@@ -58,20 +59,20 @@
                                         </div>
                                 @endforeach
                             @endif
-                            <div data-repeater-item>
-                                <div class="row mb-1">
-                                    <div class="col-9 col-xl-10">
+                                <div data-repeater-item>
+                                    <div class="row mb-1">
+                                        <div class="col-9 col-xl-10">
 
-                                        <input name="file" type="file" id="file" class="form-control">
-                                        <span class="file-custom"></span>
+                                            <input name="file" type="file" id="file" class="form-control">
+                                            <span class="file-custom"></span>
 
-                                    </div>
-                                    <div class="col-2 col-xl-1">
-                                        <button type="button" data-repeater-delete class="btn btn-icon btn-danger mr-1">
-                                            <i class="ft-x"></i></button>
+                                        </div>
+                                        <div class="col-2 col-xl-1">
+                                            <button type="button" data-repeater-delete class="btn btn-icon btn-danger mr-1">
+                                                <i class="ft-x"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
                         <button type="button" data-repeater-create class="btn btn-primary">
                             <i class="ft-plus"></i> Add new file
