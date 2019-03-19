@@ -49,9 +49,9 @@
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js') }}"></script>
 
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
