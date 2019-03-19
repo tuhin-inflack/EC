@@ -25,6 +25,13 @@
                         <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
                     </a>
                 </li>
+                <li class="{{ is_active_match('hrm/job') }}">
+                    <a href="{{ url('hrm/job-circular') }}">
+                        <i class="la la-file-o"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Job Circular</span>
+                    </a>
+                </li>
             </ul>
         @endauth
     </div>
