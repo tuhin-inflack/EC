@@ -6,6 +6,7 @@ return [
     'add_employee' => 'কর্মচারী যোগ করুন ',
     'edit_employee' => 'কর্মচারী সম্পাদনা',
     'employee_details' => 'কর্মচারী বিস্তারিত',
+    'employee_id' => 'কর্মচারী আইডি',
 
     'employee_loan' => 'কর্মী লোণ',
     'employee_loan_apply' => 'লোণ আবেদন',
@@ -20,6 +21,7 @@ return [
 
     'employee_training' => 'কর্মী প্রশিক্ষণ',
     'employee_training_apply' => 'প্রশিক্ষণ আবেদন',
+    'employee_training_apply_btn' => 'প্রশিক্ষণ আবেদন করুন',
     'employee_training_apply_form' => 'প্রশিক্ষণ আবেদন ফর্ম',
     'training_list' => 'প্রশিক্ষণ তালিকা',
     'trainee_card_title' => 'প্রশিক্ষণার্থীর তালিকা',

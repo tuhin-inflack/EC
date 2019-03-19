@@ -29,7 +29,5 @@ class WorkflowRuleDetailsTableSeeder extends Seeder
 
             ['rule_master_id' => 3, 'designation_id' => 3, 'notification_order' => 1, 'number_of_responder' => 1, 'is_group_notification' => 1, 'get_back_status' => 'INITIAL', 'flow_type' => 'approval', 'is_shareable' =>'0', 'share_rule_id'=>NULL, 'proceed_btn_label' => 'Approve'],
         ]);
-        
-        
     }
 }

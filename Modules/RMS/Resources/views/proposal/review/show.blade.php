@@ -27,12 +27,14 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
+                                            <label class="black">@lang('rms::research_proposal.invitation_title'): </label>
+                                            <p class="card-text">{{ $researchInvitation->title }}</p>
                                             <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
-
-                                            <label class="black">@lang('rms::research_proposal.submission_date')
-                                                : </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
+                                            <label class="black">@lang('rms::research_proposal.last_sub_date'): </label>
+                                            <p> {{ date('d/m/y', strtotime($researchInvitation->end_date)) }} </p>
                                             <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                             <p> {{ $research->submittedBy->name }} </p>
                                         </div>
