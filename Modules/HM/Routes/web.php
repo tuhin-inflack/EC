@@ -69,9 +69,8 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
             Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
             Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
-
-
         });
+
         Route::resources(
             [
                 'hostel-budget-section' => 'HostelBudgetSectionController',
