@@ -91,7 +91,7 @@ class ResearchService
 
 
         //Save workflow
-        $featureName = Config::get('rms.research_feature_name');;
+        $featureName = Config::get('rms.research_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $workflowData = [
             'feature_id' => $feature->id,

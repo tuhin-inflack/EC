@@ -41,7 +41,7 @@
 
 <div class="form-actions">
     <button type="submit" class="btn btn-primary">
-        <i class="ft-check-square"></i> {{trans('hrm::employee.employee_loan_apply_btn')}}
+        <i class="ft-check-square"></i> {{trans('hrm::employee.employee_training_apply_btn')}}
     </button>
     <button class="btn btn-warning" type="button" onclick="window.location = '{{route('training.index')}}'">
         <i class="ft-x"></i> {{trans('labels.cancel')}}
