@@ -18,4 +18,9 @@ class ResearchRequest extends Model
     {
         return $this->hasMany(ResearchRequestReceiver::class, 'research_request_id', 'id');
     }
+
+    public function researchProposals()
+    {
+        return $this->belongsTo(ResearchProposalSubmission::class, 'research_request_id', 'id');
+    }
 }
