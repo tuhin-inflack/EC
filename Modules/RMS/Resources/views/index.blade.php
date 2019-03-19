@@ -237,11 +237,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+
                                     @foreach($tasks as $task)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>@lang('rms::research.' .$task->name)</td>
-                                            <td>{{ $task->researches->title }}</td>
+                                            <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
                                         </tr>
                                     @endforeach
                                     {{--<tr>
@@ -408,14 +409,14 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            @php
-                                                $wfMasterId = $proposal->workflowMasters->first()->id;
-                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                // $featureName = $proposal->workflowMasters[1]->feature->name;
-                                                $featureName = 'Research Proposal';
-                                            @endphp
+                                            {{--@php--}}
+                                                {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
+                                                {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
+                                                {{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}
+                                                {{--$featureName = 'Research Proposal';--}}
+                                            {{--@endphp--}}
                                             <td>
-                                                <a href="{{ route('research-proposal-submission.show', [$proposal->id]) }}">{{ $proposal->title }}</a>
+                                                <a href="#">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
