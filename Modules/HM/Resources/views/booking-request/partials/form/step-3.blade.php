@@ -24,7 +24,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>@lang('hm::booking-request.middle_name')</label>
                                     <br>
-                                    {!! Form::text('middle_name', $oldInput['middle_name'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.middle_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                    {!! Form::text('middle_name', isset($oldInput['middle_name']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.middle_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.middle_name'))
                                         <span class="invalid-feedback"
@@ -48,7 +48,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.age') }}</label>
                                     <br>
-                                    {!! Form::number('age', $oldInput['age'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                    {!! Form::number('age', isset($oldInput['age']) ? : 0, ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.age') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.age'))
                                         <span class="invalid-feedback"
@@ -60,7 +60,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
                                     <br>
-                                    {!! Form::text('nationality', $oldInput['nationality'], ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.nationality') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                    {!! Form::text('nationality', isset($oldInput['nationality']) ? : '', ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.nationality') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nationality'))
                                         <span class="invalid-feedback"
@@ -110,7 +110,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid') }}</label>
                                     <br>
-                                    {!! Form::text('nid_no', $oldInput['nid_no'], ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number', 'data-rule-minlength' => 10, 'data-msg-minlength' => Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
+                                    {!! Form::text('nid_no', isset($oldInput['nid_no']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number', 'data-rule-minlength' => 10, 'data-msg-minlength' => Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nid_no'))
                                         <span class="invalid-feedback"

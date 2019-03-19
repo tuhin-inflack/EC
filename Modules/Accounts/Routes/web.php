@@ -49,4 +49,14 @@ Route::prefix('accounts')->group(function() {
         Route::put('update/{economyHead}', 'EconomyHeadController@update')->name('economy-head.update');
         Route::delete('delete/{economyHead}', 'EconomyHeadController@destroy')->name('economy-head.destroy');
     });
+
+    Route::prefix('fiscal-year')->group(function () {
+        Route::get('/', 'FiscalYearController@index')->name('fiscal-year.index');
+        Route::get('create', 'FiscalYearController@create')->name('fiscal-year.create');
+        Route::post('store', 'FiscalYearController@store')->name('fiscal-year.store');
+        Route::get('edit/{fiscalYear}', 'FiscalYearController@edit')->name('fiscal-year.edit');
+        Route::put('update/{fiscalYear}', 'FiscalYearController@update')->name('fiscal-year.update');
+        Route::delete('delete/{fiscalYear}', 'FiscalYearController@destroy')->name('fiscal-year.destroy');
+    });
+
 });
