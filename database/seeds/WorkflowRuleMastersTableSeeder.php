@@ -44,7 +44,7 @@ class WorkflowRuleMastersTableSeeder extends Seeder
                 'id' => 3,
                 'feature_id' => 3,
                 'department_id' => 1,
-                'name' => 'Research Paper Workflow',
+                'name' => 'Research Workflow',
                 'rule' => 'Initiator to Research Director (Send Back/Approved)',
                 'get_back_status' => 'previous',
                 'created_at' => NULL,

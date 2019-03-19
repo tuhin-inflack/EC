@@ -105,13 +105,7 @@ $('.booking-request-tab-steps').steps({
                     totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
                 }
 
-                // Capturing data from repetitive form
-                // var data = $('.repeater-room-infos').repeaterVal('roomInfos');
-                // var roomInfoFromInput = data['roomInfos'];
-                // console.log(roomInfoFromInput);
-
-
-                var CollectingDataFromRepeatForm = $('.repeater-room-infos').repeaterVal('roomInfos').roomInfos.reduce(function (groups, item) {
+                var collectingDataFromRepeatForm = $('.repeater-room-infos').repeaterVal('roomInfos').roomInfos.reduce(function (groups, item) {
                     var val = item['room_type_id'];
                     groups[val] = groups[val] || [];
                     groups[val].push(item);
@@ -123,8 +117,8 @@ $('.booking-request-tab-steps').steps({
 
                 var roomInfoFromInput = [];
 
-                for (i = 0; i < CollectingDataFromRepeatForm.length; i++) {
-                    collection = CollectingDataFromRepeatForm[i];
+                for (i = 0; i < collectingDataFromRepeatForm.length; i++) {
+                    collection = collectingDataFromRepeatForm[i];
                     for (j = 0; j < collection.length; j++) {
                         if (typeof roomInfoFromInput[i] == "undefined") {
                             roomInfoFromInput[i] = collection[j]
@@ -134,7 +128,6 @@ $('.booking-request-tab-steps').steps({
                         }
                     }
                 }
-
 
                 // counting the total number of room taken from input
                 var totalRoomSelectedFromInput = 0;
