@@ -91,7 +91,7 @@ class ResearchService
 
 
         //Save workflow
-        $featureName = Config::get('rms.research_feature_name');;
+        $featureName = Config::get('rms.research_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $workflowData = [
             'feature_id' => $feature->id,
@@ -110,6 +110,7 @@ class ResearchService
 
         $publicationData = ['research_id' => $data['research_id'], 'description' => $data['description']];
         $publication = $this->researchPublicationRepository->findOne($publicationId);
+
         $status = $publication->update($publicationData);
 
         if (isset($data['fileRepeater'])) {
@@ -159,6 +160,7 @@ class ResearchService
     {
         $featureName = Config::get('rms.research_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
         $reInitializeData = [
             'feature_id' => $feature->id,
             'ref_table_id' => $researchId,

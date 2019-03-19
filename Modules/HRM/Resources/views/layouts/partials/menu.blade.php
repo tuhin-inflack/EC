@@ -26,6 +26,14 @@
                         <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::designation.left_menu_title')</span>
                     </a>
                 </li>
+
+                <li class="{{ is_active_match('hrm/job') }}">
+                    <a href="{{ url('hrm/job-circular') }}">
+                        <i class="la la-file-o"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Job Circular</span>
+                    </a>
+                </li>
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
                     <ul class="menu-content">

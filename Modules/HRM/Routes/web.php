@@ -82,6 +82,7 @@ Route::prefix('hrm')->group(function () {
 			'employee'   => 'EmployeeController',
 			'department' => 'DepartmentController',
 			'designation' => 'DesignationController',
+            'job-circular' => 'JobCircularController'
 		]
 	);
 });
