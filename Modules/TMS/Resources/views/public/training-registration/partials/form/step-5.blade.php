@@ -6,7 +6,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="firstName1" class="required">@lang('tms::training.name') : </label>
-                        {!! Form::text('name', old('name'), ['class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('name', old('name'), ['class' => 'form-control required' . ($errors->has('name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Abdul Mutaleb', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('name'))
                             <span class="invalid-feedback" role="alert">
@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="lastName1" class="required">@lang('tms::training.mobile') : </label>
-                        {!! Form::text('mobile_no', old('mobile_no'), ['class' => 'form-control required' . ($errors->has('mobile_no') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => '017XXXXXXXX', 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>Lang::get('labels.At least 11 characters')]) !!}
+                        {!! Form::text('mobile_no', old('mobile_no'), ['class' => 'form-control required' . ($errors->has('mobile_no') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => '01XXXXXXXXX', 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>Lang::get('labels.At least 11 characters')]) !!}
 
                         @if ($errors->has('mobile_no'))
                             <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="emailAddress1" class="required">@lang('tms::training.relation') :</label>
-                        {!! Form::text('relation', old('relation'), ['class' => 'form-control required' . ($errors->has('relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('relation', old('relation'), ['class' => 'form-control required' . ($errors->has('relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Father', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('relation'))
                             <span class="invalid-feedback" role="alert">

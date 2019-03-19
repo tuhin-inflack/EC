@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class TraineesTableSeeder extends Seeder
 {
@@ -14,9 +15,9 @@ class TraineesTableSeeder extends Seeder
     {
         
 
-        \DB::table('trainees')->delete();
+        DB::table('trainees')->delete();
         
-        \DB::table('trainees')->insert(array (
+        DB::table('trainees')->insert(array (
             0 => 
             array (
                 'id' => 1,

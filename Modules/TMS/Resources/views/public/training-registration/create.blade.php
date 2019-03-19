@@ -45,7 +45,7 @@
                                                 <!-- Step 5 -->
                                                 @include('tms::public.training-registration.partials.form.step-5')
                                                 <!-- Step 6 -->
-                                                {{--@include('tms::public.training-registration.partials.form.step-6')
+                                               {{-- @include('tms::public.training-registration.partials.form.step-6')
                                                 <!-- Step 7 -->
                                                 @include('tms::public.training-registration.partials.form.step-7')--}}
                                             {{ Form::close() }}
@@ -78,16 +78,14 @@
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/vendors.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
     <script src="{{ asset('theme/js/core/app-menu.js') }}"></script>
     <script src="{{ asset('theme/js/core/app.js') }}"></script>
-    <script src="{{ asset('theme/js/scripts/customizer.js') }}"></script>
-    <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/forms/select/select2.full.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}"></script>
     <script>
         let trainingForm = '.training-steps';
         var form = $(trainingForm).show();
@@ -98,7 +96,9 @@
             transitionEffect: "fade",
             titleTemplate: '<span class="step">#index#</span> #title#',
             labels: {
-                finish: 'Submit'
+                finish: '{!! trans('labels.submit') !!}',
+                next: '{!! trans('labels.next') !!}',
+                previous: '{!! trans('labels.previous') !!}',
             },
             onStepChanging: function (event, currentIndex, newIndex)
             {
@@ -178,4 +178,5 @@
             });
         });
     </script>
+
 @endpush

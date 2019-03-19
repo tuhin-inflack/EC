@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <label class="required">@lang('tms::training.full_name') : (@lang('tms::training.in_bangla')
                             )</label>
-                        {!! Form::text('bangla_name', old('bangla_name'), ['class' => 'form-control required' . ($errors->has('bangla_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('bangla_name', old('bangla_name'), ['class' => 'form-control required' . ($errors->has('bangla_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'হামিদুর রহমান', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('bangla_name'))
                             <span class="invalid-feedback" role="alert">
@@ -20,7 +20,7 @@
                     <div class="form-group">
                         <label class="required">@lang('tms::training.full_name') : (@lang('tms::training.in_english')
                             )</label>
-                        {!! Form::text('english_name', old('english_name'), ['class' => 'form-control required' . ($errors->has('english_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('english_name', old('english_name'), ['class' => 'form-control required' . ($errors->has('english_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Hamidur Rahman', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('english_name'))
                             <span class="invalid-feedback" role="alert">
@@ -74,7 +74,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="phoneNumber1" class="required">@lang('tms::training.mobile') :</label>
-                        {!! Form::text('mobile', old('mobile'), ['class' => 'form-control required' . ($errors->has('mobile') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => '017XXXXXXXX', 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>Lang::get('labels.At least 11 characters')]) !!}
+                        {!! Form::text('mobile', old('mobile'), ['class' => 'form-control required' . ($errors->has('mobile') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => '01XXXXXXXXX', 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>Lang::get('labels.At least 11 characters')]) !!}
 
                         @if ($errors->has('mobile'))
                             <span class="invalid-feedback" role="alert">
@@ -116,8 +116,8 @@
                 <h1><label class="required">@lang('tms::training.upload_photo')</label></h1>
                 <div class="avatar-upload">
                     <div class="avatar-edit">
-                        <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" class="form-control required"
-                               data-msg-required = "{{ trans('labels.Picture field is required') }}"/>
+                        <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" class="form-control" required
+                               data-validation-required-message = "{{ trans('labels.Picture field is required') }}"/>
                         <label for="imageUpload"></label>
                     </div>
                     <div class="avatar-preview">
@@ -157,5 +157,6 @@
             });
         })
     </script>
+
 @endpush
 

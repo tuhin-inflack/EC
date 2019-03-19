@@ -6,7 +6,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label class="required">@lang('tms::training.designation') : </label>
-                        {!! Form::text('designation', old('designation'), ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('designation', old('designation'), ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Designation', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('designation'))
                             <span class="invalid-feedback" role="alert">
@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="lastName1" class="required">@lang('tms::training.organization') : </label>
-                        {!! Form::text('organization', old('organization'), ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('organization', old('organization'), ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Organization Name', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('organization'))
                             <span class="invalid-feedback" role="alert">
@@ -32,7 +32,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="emailAddress1" class="required">@lang('tms::training.service_code') :</label>
-                        {!! Form::text('service_code', old('service_code'), ['class' => 'form-control required' . ($errors->has('service_code') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::text('service_code', old('service_code'), ['class' => 'form-control required' . ($errors->has('service_code') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Service Code', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('service_code'))
                             <span class="invalid-feedback" role="alert">
@@ -60,7 +60,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="emailAddress1" class="required">@lang('tms::training.experience') :</label>
-                        {!! Form::text('experience', old('experience'), ['class' => 'form-control required' . ($errors->has('experience') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                        {!! Form::number('experience', old('experience'), ['class' => 'form-control required' . ($errors->has('experience') ? ' is-invalid' : ''),'placeholder' => '2', 'data-msg-required' => Lang::get('labels.This field is required'), 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                         @if ($errors->has('experience'))
                             <span class="invalid-feedback" role="alert">
