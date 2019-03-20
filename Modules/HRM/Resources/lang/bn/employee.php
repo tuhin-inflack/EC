@@ -39,4 +39,11 @@ return [
     'training_id' => 'প্রশিক্ষণ আইডি',
     'training_name' => 'প্রশিক্ষণের শিরোনাম',
     'select_training' => 'প্রশিক্ষণ নির্বাচন করুন',
+
+    'attendance' => 'হাজিরা',
+    'attendance_list' => 'হাজিরা তালিকা',
+    'in_time' => 'প্রবেশের সময়',
+    'out_time' => 'প্রস্থানের সময়',
+    'working_hour' => 'কর্ম ঘণ্টা',
+
 ];

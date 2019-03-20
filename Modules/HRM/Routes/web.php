@@ -59,6 +59,12 @@ Route::prefix('hrm')->group(function () {
         Route::get('/list/{trainingId?}', 'HRMTrainingController@index')->name('employee-training.list');
     });
 
+    // Routes for Employee Attendance
+    Route::prefix('attendance')->group( function (){
+        Route::get('/', 'EmployeeAttendanceController@index')->name('employee-attendance.index');
+        Route::post('/', 'EmployeeAttendanceController@store')->name('employee-training.store');
+    });
+
     #---------------- House Rent Urls-----------------------------#
     Route::prefix('house-rent')->group(function () {
         Route::get('/circulate-house', 'HouseRentController@index');
