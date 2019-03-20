@@ -34,6 +34,20 @@
                               data-i18n="nav.dash.main">Job Circular</span>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la la-calendar"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::employee.attendance') }}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ is_active_url('hrm/attendance') }}">
+                            <a href="{{ route('employee-attendance.index') }}">
+                                <i class="la la-list-ol"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">{{ trans('hrm::employee.attendance_list') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-calendar-times-o"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::leave.leave') }}</span></a>
                     <ul class="menu-content">
