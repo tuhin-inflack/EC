@@ -1,67 +1,66 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::employee.list_title'))
-{{--@section("employee_create", 'active')--}}
-
-
-@section('content')
-
-    @if (!Auth::guest())
-        <div class="col-xl-12 col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Job circular form</h4>
-                    <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-                    <div class="heading-elements">
-                        <a href="{{url('/hrm/job-circular/create')}}" class="btn btn-primary btn-sm"><i
-                                    class="ft-plus white"></i> @lang('labels.add')</a>
-
-                    </div>
-                </div>
-                <div class="card-content collapse show">
-                    <div class="form-body">
-                        <h4 class="form-section"><i class="ft-grid"></i> @lang('hrm::designation.designation_form')
-                        </h4>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <div class="form-group {{ $errors->has('name') ? ' error' : '' }}">
-                                    {{ Form::label('name', trans('labels.name'), ['class' => 'required']) }}
-                                    {{ Form::text('name', null, ['class' => ' form-control', 'placeholder' => 'Senior HR Executive', 'required' => 'required', 'data-validation-required-message'=> Lang::get('labels.This field is required')]) }}
-                                    <div class="help-block"></div>
-                                    @if ($errors->has('name'))
-                                        <div class="help-block">  {{ $errors->first('name') }}</div>
-                                    @endif
-                                </div>
-                                <div class="form-group ">
-                                    {{ Form::label('short_name', trans('labels.short_name') . " ( ". trans('labels.optional'). " ) " ) }}
-                                    {{ Form::text('short_name', null, ['class' => 'form-control', 'placeholder' => 'SHR']) }}
-                                </div>
-                                {{ Form::hidden('id', null) }}
-                            </div>
-                            <div class="form-actions col-md-12 ">
-                                <div class="pull-right">
-                                    {{ Form::button('<i class="la la-check-square-o"></i> '. trans('labels.save'), ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                                    <a href="{{ url('/hrm/designation') }}">
-                                        <button type="button" class="btn btn-warning mr-1">
-                                            <i class="la la-times"></i> @lang('labels.cancel')
-                                        </button>
-                                    </a>
-
-                                </div>
-                            </div>
+@section('title', trans('hrm::leave.leave_application'))
+@push('page-css')
+    <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+@endpush
+@section("content")
+    <section id="leave">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        {{--<h4 class="card-title" id="repeat-form">@lang('hrm::leave.leave_application')</h4>--}}
+                        <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
+                        <div class="heading-elements">
+                            <ul class="list-inline mb-0">
+                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                            </ul>
                         </div>
-
-
                     </div>
+                    <div class="card-content collapse show">
+                        <div class="card-body">
+                            {{--<h3 class="form-section"><i class="ft-grid"></i> @lang('hrm::leave.leave_application_form_title') </h3>--}}
+                            {!! Form::open(['url' =>  route('employee-leave.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
+                            @include('hrm::job-circular.form.circular_creating_form')
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+
                 </div>
-
-
             </div>
-
         </div>
-
-    @endif
-
-
-
+        </div>
+    </section>
 @endsection
+
+@push('page-js')
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script type="text/javascript">
+        $('#leave_start_date').change(function () {
+            $('#leave_end_date').pickadate('picker').set('min', new Date($(this).val()));
+        });
+
+        $('#leave_start_date, #leave_end_date').pickadate({
+            format: 'dd mmmm, yyyy',
+        });
+
+        function dateDifference() {
+            var val1 = document.getElementById('leave_start_date').value;
+            var val2 = document.getElementById('leave_end_date').value;
+            var date1 = new Date(val1);
+            var date2 = new Date(val2);
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            var diffDays = (Math.ceil(timeDiff / (1000 * 3600 * 24))) + 1;
+
+            console.log('triggered');
+
+            if (diffDays)
+                document.getElementById('duration').value = diffDays + " days";
+            else
+                document.getElementById('duration').value = "...";
+        }
+    </script>
+@endpush

@@ -39,4 +39,9 @@ class ResearchProposalSubmission extends Model
     {
         return $this->hasMany(WorkflowMaster::class, 'ref_table_id', 'id');
     }
+
+    public function researchRequests()
+    {
+        return $this->hasMany(ResearchRequest::class, 'ressearch_request_id', 'id');
+    }
 }

@@ -49,7 +49,6 @@
 
 @push('page-js')
 
-
     <!-- BEGIN PAGE VENDOR JS-->
     <script src="{{asset('theme/vendors/js/editors/tinymce/tinymce.js')}}" type="text/javascript"></script>
     <!-- END PAGE VENDOR JS-->

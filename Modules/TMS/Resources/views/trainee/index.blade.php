@@ -61,7 +61,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td><a href="{{route( 'training.show' ,$trainee->training_id)}}">{{$trainee->training->training_id}}</a></td>
-                                            <td>{{$trainee['trainee_first_name']." ".$trainee['trainee_last_name']}}</td>
+                                            <td>{{$trainee['bangla_name']}}</td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
                                             <td>{{($trainee['status'] == 1)? "Active":"Inactive"}}</td>
