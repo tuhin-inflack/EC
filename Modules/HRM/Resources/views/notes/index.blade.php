@@ -9,51 +9,42 @@
 
 @section('content')
 
-    <div class="content-body">
-        <!-- Card move section start -->
-        <section id="card-move-section">
-            <div class="row">
-                <div class="col-12 mt-1 mb-3">
-                    <h4 class="text-uppercase">My Notes</h4>
-                    <hr>
-                </div>
-            </div>
-            <div class="row" id="card-move">
-                @for($i=0; $i<3;$i++)
-                    <div class="col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">No:{{$i+1}}</h4>
-                                <a class="heading-elements-toggle"><i
-                                            class="la la-ellipsis-v font-medium-3"></i></a>
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="card-content collapse show">
-                                <div class="card-body">
-                                    <h4 class="card-title"> Title</h4>
-                                    <p class="card-text">
-                                        Jelly beans sugar plum cheesecake cookie oat cake
-                                        soufflé.Tootsie
-                                        roll bonbon liquorice tiramisu pie powder.Donut sweet roll
-                                        marzipan pastry cookie cake tootsie roll oat cake cookie.</p>
+    @for($i = 0 ; $i<10; $i++)
 
+        <section id="card-footer-options">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Note Title</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+
+
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <p>Oat cake ice cream candy chocolate cake chocolate cake cotton
+                                    candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                                    fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                                    chocolate cake liquorice. Apple pie sugar plum powder donut
+                                    soufflé.
+                                </p>
+                                <div class="card-footer text-muted mt-2">
+                                    <span>Added 3 hours ago</span>
+                                    <span class="float-none">
+                        <span class="badge bg-teal">Technology</span>
+                        <span class="badge badge-warning">Mobile</span>
+                      </span>
+                                    <span class="float-right primary">View More <i class="ft-arrow-right"></i></span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endfor
+                </div>
 
             </div>
         </section>
-    </div>
-
-    <!-- // Card move section end -->
+    @endfor
 
 @endsection
 

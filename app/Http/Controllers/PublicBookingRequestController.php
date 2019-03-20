@@ -90,7 +90,6 @@ class PublicBookingRequestController extends Controller
     {
         $this->bookingRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-
         return redirect()->back();
     }
 }

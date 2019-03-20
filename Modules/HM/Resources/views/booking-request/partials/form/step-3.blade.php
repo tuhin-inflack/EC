@@ -39,10 +39,9 @@
                                     {!! Form::text('last_name', $oldInput['last_name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.last_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.last_name'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-                    <strong>{{ $errors->first('guests.' . $loop->index . '.last_name') }}</strong>
-                </span>
+                                        <span class="invalid-feedback"  role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.last_name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
