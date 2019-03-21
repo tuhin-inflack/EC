@@ -84,7 +84,7 @@ return [
     'left_eye' => 'Left Eye',
     'right_eye' => 'Right Eye',
     'comments' => 'Comments',
-    'physical_information' => 'Physical Information',
+    'physical_information' => 'Physical Exercise and Sports',
     'joining_age' => 'Age at the time of joining the course',
     'physical_problem' => 'Physical Problem',
     'expertise_sports' => 'Expertise in Sports',

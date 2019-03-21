@@ -32,7 +32,7 @@
                     <a href="{{ url('hrm/job-circular') }}">
                         <i class="la la-file-o"></i>
                         <span class="menu-title"
-                              data-i18n="nav.dash.main">Job Circular</span>
+                              data-i18n="nav.dash.main">@lang('hrm::job_circular.menu_name')</span>
                     </a>
                 </li>
 

@@ -84,7 +84,7 @@ return [
     'left_eye' => 'বাম চোখ',
     'right_eye' => 'ডান চোখ',
     'comments' => 'মন্তব্য',
-    'physical_information' => 'শারীরিক তথ্য',
+    'physical_information' => 'শারীরিক ব্যায়াম এবং ক্রীড়া',
     'joining_age' => 'কোর্স যোগদানের সময় বয়স',
     'physical_problem' => 'শারীরিক সমস্যা',
     'expertise_sports' => 'ক্রীড়া দক্ষতা',

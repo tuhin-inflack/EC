@@ -36,7 +36,7 @@
                         <h4 class="card-title"><p style="color: black"> Brain Station 23 Ltd</p></h4>
                         <a>   <i class="la la-map-marker"></i>&nbsp;&nbsp;&nbsp;&nbsp;Dhaka</a><br/>
                         <a>   <i class="la la-graduation-cap"></i>&nbsp;&nbsp;&nbsp;&nbsp;B.Sc in Computer Science</a><br/>
-                        <a>   <i class="la la-briefcase"></i>&nbsp;&nbsp;&nbsp;&nbsp;NA</a><span class="pull-right">Deadline : March 30, 2019</span><br/>
+                        <a>   <i class="la la-briefcase"></i>&nbsp;&nbsp;&nbsp;&nbsp;NA</a><span class="pull-right">@lang('hrm::job_circular.application_deadline') : March 30, 2019</span><br/>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     </div>
                     <div class="card-content collapse show">
