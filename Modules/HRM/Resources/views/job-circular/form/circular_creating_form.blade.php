@@ -119,7 +119,7 @@
     <div class="form-actions col-md-12 ">
         <div class="pull-right">
             {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-            <a href="{{ url('/hrm/employee') }}">
+            <a href="{{ url('/hrm/job-circular') }}">
                 <button type="button" class="btn btn-warning mr-1">
                     <i class="la la-times"></i> @lang('labels.cancel')
                 </button>
@@ -135,7 +135,6 @@
     <script src="{{asset('theme/vendors/js/editors/tinymce/tinymce.js')}}" type="text/javascript"></script>
     <script src="{{asset('theme/js/scripts/editors/editor-tinymce.js')}}" type="text/javascript"></script>
     <script>
-
         tinymce.init({
             selector: 'textarea',
             menubar: false,

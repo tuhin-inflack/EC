@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{--<h3 class="form-section"><i class="ft-grid"></i> @lang('hrm::leave.leave_application_form_title') </h3>--}}
+                            <h3 class="form-section"><i class="ft-grid"></i> Job Circular Form </h3>
                             {!! Form::open(['url' =>  route('employee-leave.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
                             @include('hrm::job-circular.form.circular_creating_form')
                             {!! Form::close() !!}
