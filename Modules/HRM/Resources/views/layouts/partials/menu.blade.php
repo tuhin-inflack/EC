@@ -32,7 +32,7 @@
                     <a href="{{ url('hrm/job-circular') }}">
                         <i class="la la-file-o"></i>
                         <span class="menu-title"
-                              data-i18n="nav.dash.main">Job Circular</span>
+                              data-i18n="nav.dash.main">@lang('hrm::job_circular.menu_name')</span>
                     </a>
                 </li>
 
@@ -179,8 +179,8 @@
                                                                           data-i18n="nav.templates.main">Appraisal</span></a>
                     <!-- This Should Only be visible to Employee -->
                     <ul class="menu-content">
-                        <li class="{{ is_active_match('notes/create') }}">
-                            <a href="{{ url('hrm/notes/create') }}">
+                        <li class="{{ is_active_match('appraisal/create') }}">
+                            <a href="{{ url('hrm/appraisal/create') }}">
                                 <i class="la la-institution"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Appraisal Form</span>
@@ -188,8 +188,8 @@
                         </li>
 
                         <!-- This Should Only be visible to Employee -->
-                        <li class="{{ is_active_url('notes')}}">
-                            <a href="{{ url('hrm/notes') }}">
+                        <li class="{{ is_active_url('retirement')}}">
+                            <a href="{{ url('hrm/retirement') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Retirement Form</span>

@@ -89,7 +89,7 @@
                                         <div class="col-md-12">
                                             <div class="media">
                                                 <div class="media-left pr-1">
-                                                    <a href="#">
+                                                    <a href="javascript:;">
                                                         <span class="avatar avatar-online comment-user-avatar">
                                                           <img src="{{ asset('theme/images/portrait/small/avatar-s-1.png') }}" alt="avatar">
                                                         </span>

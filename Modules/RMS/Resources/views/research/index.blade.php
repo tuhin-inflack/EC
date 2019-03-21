@@ -1,4 +1,4 @@
-    @extends('rms::layouts.master')
+@extends('rms::layouts.master')
 @section('title', trans('rms::research_proposal.research_list'))
 
 @section('content')

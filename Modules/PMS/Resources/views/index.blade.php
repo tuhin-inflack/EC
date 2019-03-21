@@ -267,11 +267,7 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            @php
-                                                $wfMasterId = $proposal->workflowMasters->first()->id;
-                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                $featureId = $proposal->workflowMasters->first()->feature->id;
-                                            @endphp
+
                                             <td>
                                                 <a href="{{ route('project-proposal-submitted.view', [$proposal->id]) }}">{{ $proposal->title }}</a>
                                             </td>

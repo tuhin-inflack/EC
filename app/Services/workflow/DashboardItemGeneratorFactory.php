@@ -17,6 +17,7 @@ abstract class DashboardItemGeneratorFactory
 {
     public static function getDashboardItemGenerator($feature) : BaseDashboardItemGenerator
     {
+
         switch ($feature) {
             case 'Research Proposal':
                 return app()->make('App\Services\workflow\Generators\ResearchProposalItemGenerator');
