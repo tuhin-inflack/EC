@@ -50,7 +50,8 @@
                         </table>
                         <div class="form-actions">
                             <a href="{{URL::to( '/tms/training/'.$training->id.'/edit')}}" class="btn btn-primary"><i class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
-                            <a href="{{URL::to( '/tms/trainee/show/'.$training->id)}}" class="btn btn-primary"><i class="ft-list"></i> {{trans('tms::training.trainee_card_title')}}</a>
+                            {{--<a href="{{URL::to( '/tms/trainee/show/'.$training->id)}}" class="btn btn-primary"><i class="ft-list"></i> {{trans('tms::training.trainee_card_title')}}</a>--}}
+                            <a href="{{route('trainee.index', $training->id)}}" class="btn btn-primary"><i class="ft-list"></i> {{trans('tms::training.trainee_card_title')}}</a>
                             <a class="btn btn-warning mr-1" role="button" href="{{url('/tms/training')}}">
                                 <i class="ft-x"></i> {{trans('labels.back_page')}}
                             </a>
