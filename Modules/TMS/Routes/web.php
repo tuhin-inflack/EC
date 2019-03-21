@@ -36,7 +36,7 @@ Route::prefix('tms')->group(function() {
         Route::post('/add/to/{training_id}', 'TraineeController@store')->name('trainee.store');
         Route::get('/edit/{trainee_id}', 'TraineeController@edit')->name('trainee.edit');
         Route::post('/edit/{trainee_id}', 'TraineeController@update')->name('trainee.update');
-        Route::get('/show/{training_id}', 'TraineeController@show')->name('trainee.show');
+        Route::get('/show/{trainee}', 'TraineeController@show')->name('trainee.show');
         Route::delete('/delete/{trainee_id}', 'TraineeController@destroy')->name('trainee.delete');
     });
 

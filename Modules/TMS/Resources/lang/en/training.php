@@ -98,4 +98,5 @@ return [
     'expended_chest' => 'Expended Chest',
     'weight_end_course' => 'Weight at the end of course',
     'optional' => 'Optional',
+    'trainee_details' => 'Trainee Details',
 ];
