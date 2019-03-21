@@ -7,6 +7,7 @@ return [
     'employee_details' => 'Employee Details',
     'employee_id' => 'Employee Id',
 
+    // Employee Loan
     'employee_loan' => 'Employee Loan',
     'employee_loan_apply' => 'Loan Application',
     'employee_loan_from' => 'Loan Application Form',
@@ -18,6 +19,7 @@ return [
     'select_loan_type' => 'Select Loan Type',
     'employee_loan_apply_btn' => 'Apply Loan',
 
+    // Employee Training
     'employee_training' => 'Employee Training',
     'employee_training_apply' => 'Training Application',
     'employee_training_apply_btn' => 'Apply Training',
@@ -39,6 +41,7 @@ return [
     'training_name' => 'Training Title',
     'select_training' => 'Select Training',
 
+    // Employee Attendance
     'attendance' => 'Attendance',
     'attendance_list' => 'Attendance List',
     'in_time' => 'In Time',

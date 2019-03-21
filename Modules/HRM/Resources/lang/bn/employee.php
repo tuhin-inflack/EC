@@ -8,6 +8,7 @@ return [
     'employee_details' => 'কর্মচারী বিস্তারিত',
     'employee_id' => 'কর্মচারী আইডি',
 
+    // Employee Loan
     'employee_loan' => 'কর্মী লোণ',
     'employee_loan_apply' => 'লোণ আবেদন',
     'employee_loan_from' => 'লোণ আবেদন ফর্ম',
@@ -19,6 +20,7 @@ return [
     'select_loan_type' => 'লোণের ধরন নির্বাচন করুন',
     'employee_loan_apply_btn' => 'লোণের আবেদন করুন',
 
+    // Employee Training
     'employee_training' => 'কর্মী প্রশিক্ষণ',
     'employee_training_apply' => 'প্রশিক্ষণ আবেদন',
     'employee_training_apply_btn' => 'প্রশিক্ষণ আবেদন করুন',
@@ -40,10 +42,14 @@ return [
     'training_name' => 'প্রশিক্ষণের শিরোনাম',
     'select_training' => 'প্রশিক্ষণ নির্বাচন করুন',
 
+    // Employee Attendance
     'attendance' => 'হাজিরা',
     'attendance_list' => 'হাজিরা তালিকা',
     'in_time' => 'প্রবেশের সময়',
     'out_time' => 'প্রস্থানের সময়',
     'working_hour' => 'কর্ম ঘণ্টা',
+
+    // Employee Punishment
+    'employee_punishment' => ''
 
 ];
