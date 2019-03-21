@@ -38,4 +38,11 @@ return [
     'training_id' => 'Training ID',
     'training_name' => 'Training Title',
     'select_training' => 'Select Training',
+
+    'attendance' => 'Attendance',
+    'attendance_list' => 'Attendance List',
+    'in_time' => 'In Time',
+    'out_time' => 'Out Time',
+    'working_hour' => 'Working Hour',
+
 ];
