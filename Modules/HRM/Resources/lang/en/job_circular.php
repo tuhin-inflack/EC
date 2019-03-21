@@ -1,0 +1,21 @@
+<?php
+return [
+    'menu_name' => 'Job circular',
+    'job_circular_form_title' => 'Job circular form',
+    'job_title' => 'Job title',
+    'vacancy_no' => 'No. of Vacancy',
+    'organization_name' => 'Organization name',
+    'job_nature' => 'Jon nature',
+    'job_location' => 'Job location',
+    'salary' => 'Salary',
+    'application_deadline' => 'Application deadline',
+    'job_source' => 'Job source',
+    'educational_requirement' => 'Educational requirement',
+    'experience_requirement' => 'Experience requirement',
+    'job_responsibility' => 'Job responsibility',
+    'other_benefits' => 'Other benefits',
+    'published' => 'Published',
+    'age' => 'Age',
+    'gender' => 'Gender',
+    'job_nature' => 'Jon nature',
+];
