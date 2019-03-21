@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Constants\DesignationShortName;
+use App\Entities\Sharing\ShareConversation;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\TaskService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -67,10 +68,11 @@ class RMSController extends Controller
         //Research proposal items
         $featureName = Config::get('constants.research_proposal_feature_name');
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //       Research Items
         $researchFeatureName = Config::get('rms.research_feature_name');
-        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+//        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
 
 
         $user = Auth::user();
@@ -85,7 +87,7 @@ class RMSController extends Controller
             $researchPendingTasks = [];
         }
 
-        $shareConversations = (is_null($employee)) ? null :  $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+        $shareConversations = (is_null($employee)) ? null : $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
