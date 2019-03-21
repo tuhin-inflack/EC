@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::employee.list_title'))
+@section('title', trans('hrm::job_circular.menu_name'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -10,7 +10,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">@lang('hrm::employee.list_title')</h4>
+                            <h4 class="card-title">@lang('hrm::job_circular.menu_name')</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <a href="{{url('/hrm/employee/create')}}" class="btn btn-primary btn-sm"><i
@@ -42,9 +42,9 @@
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        <h5 class="text-bold-500">&nbsp;Vacancy</h5>
+                        <h5 class="text-bold-500">&nbsp; @lang('hrm::job_circular.vacancy_no')</h5>
                         <p class="pl-2">01</p>
-                        <h5 class="text-bold-500 pt-1">Job Responsibilities</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.job_responsibility')</h5>
                         <ul class="">
                             <li class="">First item</li>
                             <li class="">Second item</li>
@@ -62,14 +62,14 @@
                             </li>
                             <li>Good communication skills in English.</li>
                         </ul>
-                        <h5 class="text-bold-500 pt-1">Employment Status</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.job_nature')</h5>
                         <p class="pl-2">Full-time</p>
 
-                        <h5 class="text-bold-500 pt-1">Educational Requirements</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.educational_requirement')</h5>
                         <ul class="">
                             <li>Masters degree in any discipline</li>
                         </ul>
-                        <h5 class="text-bold-500 pt-1">Experience Requirements</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.experience_requirement')</h5>
                         <ul class="">
                             <li>At least 8 year(s)</li>
                             <li>The applicants should have experienced in the following area(s): Software Development
@@ -78,7 +78,7 @@
                                 Industries
                             </li>
                         </ul>
-                        <h5 class="text-bold-500 pt-1">Additional Requirement</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.job_responsibility')</h5>
                         <ul class="">
                             <li>Age at least 30 years</li>
                             <li>Only males are allowed to apply</li>
@@ -87,11 +87,11 @@
                             <li>Positive approach and decision making ability</li>
                             <li>Ability to work under pressure</li>
                         </ul>
-                        <h5 class="text-bold-500 pt-1">Job Location</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.job_location')</h5>
                         <p class="pl-2">Dhaka</p>
-                        <h5 class="text-bold-500 pt-1">Salary</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.salary')</h5>
                         <p class="pl-2">Negotiable</p>
-                        <h5 class="text-bold-500 pt-1">Compensation & Other Benefits</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.other_benefits')</h5>
                         <ul>
                             <li>Very attractive salary for the deserving candidates.</li>
                             <li>Salary review twice in a year.</li>
@@ -104,7 +104,7 @@
                             <li> Opportunity to work with foreign clients.</li>
                             <li> Very good and friendly working environment.</li>
                         </ul>
-                        <h5 class="text-bold-500 pt-1">Job Source</h5>
+                        <h5 class="text-bold-500 pt-1">@lang('hrm::job_circular.job_source')</h5>
                         <p class="pl-2">http://www.bard.gov.bd/</p>
 
                     </div>
@@ -117,14 +117,14 @@
                     <h2 class="card-title"><p class="bg-dark text-white p-1">
                             <a>Job Summary</a></p></h2>
                     <div class="list-group">
-                        <p><b>Published on:</b> Mar 17, 2019</p>
-                        <p><b>Vacancy:</b> 01</p>
-                        <p><b>Experience:</b> At least 8 year(s)</p>
-                        <p><b>Gender:</b> Only males are allowed to apply</p>
-                        <p><b>Age:</b> Age at least 30 years</p>
-                        <p><b>Job Location:</b> Dhaka (Mohakhali)</p>
-                        <p><b>Salary:</b> Negotiable</p>
-                        <p><b>Application Deadline:</b> Apr 16, 2019</p>
+                        <p><b>@lang('hrm::job_circular.published'):</b> Mar 17, 2019</p>
+                        <p><b>@lang('hrm::job_circular.vacancy_no'):</b> 01</p>
+                        <p><b>@lang('hrm::job_circular.experience_requirement'):</b> At least 8 year(s)</p>
+                        <p><b>@lang('hrm::job_circular.gender'):</b> Only males are allowed to apply</p>
+                        {{--<p><b>@lang('hrm::job_circular.experience_requirement'):</b> Age at least 30 years</p>--}}
+                        <p><b>@lang('hrm::job_circular.job_location'):</b> Dhaka (Mohakhali)</p>
+                        <p><b>@lang('hrm::job_circular.salary'):</b> Negotiable</p>
+                        <p><b>@lang('hrm::job_circular.application_deadline'):</b> Apr 16, 2019</p>
                     </div>
                 </div>
                 {{--<div class="card-content collapse show">--}}
