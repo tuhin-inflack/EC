@@ -115,9 +115,9 @@
             <div class="form-group">
                 <h1><label class="required">@lang('tms::training.upload_photo')</label></h1>
                 <div class="avatar-upload">
-                    <div class="avatar-edit">
+                    <div class="avatar-edits">
                         <input type='file' name="photo" id="imageUpload" accept=".png, .jpg, .jpeg" class="form-control" required
-                               data-validation-required-message = "{{ trans('labels.Picture field is required') }}"/>
+                               data-msg-required = "{{ trans('labels.Picture field is required') }}"/>
                         <label for="imageUpload"></label>
                     </div>
                     <div class="avatar-preview">
