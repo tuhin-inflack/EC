@@ -4,56 +4,56 @@
 @section('title', 'Note')
 
 @push('page-css')
-
+    <!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('theme/vendors/css/extensions/sweetalert.css')}}">
+    <!-- END VENDOR CSS -->
 @endpush
 
 @section('content')
 
-    <div class="content-body">
-        <!-- Card move section start -->
-        <section id="card-move-section">
+    @for($i = 0 ; $i<10; $i++)
+
+        <section id="card-footer-options">
             <div class="row">
-                <div class="col-12 mt-1 mb-3">
-                    <h4 class="text-uppercase">My Notes</h4>
-                    <hr>
-                </div>
-            </div>
-            <div class="row" id="card-move">
-                @for($i=0; $i<3;$i++)
-                    <div class="col-md-6 col-sm-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">No:{{$i+1}}</h4>
-                                <a class="heading-elements-toggle"><i
-                                            class="la la-ellipsis-v font-medium-3"></i></a>
-                                <div class="heading-elements">
-                                    <ul class="list-inline mb-0">
-                                        <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                        <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                        <li><a data-action="close"><i class="ft-x"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Note Title
+                                <span class="badge bg-teal">Type</span>
+
+                                <label class="fonticon-unit float-right">
+                                    <div class="fonticon-wrap">
+
+                                        <a href="{{url('hrm/notes/edit/1')}}"><i class="ft-edit"></i></a>
+
+                                        <a href="#" class="custom_delete ft-trash-2" data-id="{{1}}">
+                                        </a>
+
+                                    </div>
+
+                                </label>
+
+
+                            </h4>
                             <div class="card-content collapse show">
                                 <div class="card-body">
-                                    <h4 class="card-title"> Title</h4>
-                                    <p class="card-text">
-                                        Jelly beans sugar plum cheesecake cookie oat cake
-                                        soufflé.Tootsie
-                                        roll bonbon liquorice tiramisu pie powder.Donut sweet roll
-                                        marzipan pastry cookie cake tootsie roll oat cake cookie.</p>
+                                    <p>{{ str_limit($dummy_string, $limit = 50, $end = '...') }}
+                                    </p>
+                                    <div class="card-footer text-muted mt-2">
+                                        <span>Added 3 hours ago</span>
 
+                                        <a href="{{url('hrm/notes/1')}}"><span class="float-right primary">View Full Note <i
+                                                        class="ft-arrow-right"></i></span></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endfor
 
+                </div>
             </div>
         </section>
-    </div>
-
-    <!-- // Card move section end -->
+    @endfor
 
 @endsection
 
@@ -63,5 +63,60 @@
     <script src="{{asset('theme/vendors/js/scripts/cards/draggable.js')}}"></script>
 
     <script src="{{asset('theme/vendors/js/extensions/dragula.min.js')}}"></script>
+
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="{{asset('theme/vendors/js/extensions/sweetalert.min.js')}}" type="text/javascript"></script>
+    <!-- END PAGE VENDOR JS-->
+
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="{{asset('theme/js/scripts/extensions/sweet-alerts.js')}}" type="text/javascript"></script>
+    <!-- END PAGE LEVEL JS-->
+
+    <script type="text/javascript">
+
+        // $('.custom_delete').on('click', function () {
+        //     var id = $(this).data('id');
+        //     alert(id);
+        //
+        // });
+        //
+
+        $(document).on('click', '.custom_delete', function (e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+
+            swal({
+                title: "Are you sure!",
+                type: "error",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: "POST",
+                            url: "{{url('/hrm/notes/1')}}",
+                            data: {
+                                _token: '{{ csrf_token() }}',
+                                _method: "DELETE"
+                            },
+                            success: function (data) {
+                                console.log(data);
+                                swal("Poof! Your imaginary file has been deleted!", {
+                                    icon: "success",
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            }
+
+                        });
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        });
+    </script>
+
 
 @endpush

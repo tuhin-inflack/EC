@@ -1,15 +1,15 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::leave.leave_application'))
+@section('title', trans('hrm::employee.employee_training'))
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
 @endpush
 @section("content")
-    <section id="leave">
+    <section id="loan">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        {{--<h4 class="card-title" id="repeat-form">@lang('hrm::leave.leave_application')</h4>--}}
+                        <h4 class="card-title" id="repeat-form">@lang('hrm::employee.employee_training')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -21,25 +21,22 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{--<h3 class="form-section"><i class="ft-grid"></i> @lang('hrm::leave.leave_application_form_title') </h3>--}}
-                            {!! Form::open(['url' =>  route('employee-leave.store'), 'class' => 'form', 'novalidate', 'method' => 'post']) !!}
-                            @include('hrm::job-circular.form.circular_creating_form')
-                            {!! Form::close() !!}
+                            @include('hrm::training.form.training-application')
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-        </div>
+
     </section>
+
 @endsection
 
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
     <script type="text/javascript">
-        $('#leave_start_date').change(function () {
+        $('#leave_start_date').change(function(){
             $('#leave_end_date').pickadate('picker').set('min', new Date($(this).val()));
         });
 
@@ -48,16 +45,16 @@
         });
 
         function dateDifference() {
-            var val1 = document.getElementById('leave_start_date').value;
-            var val2 = document.getElementById('leave_end_date').value;
+            var val1 =  document.getElementById('leave_start_date').value;
+            var val2 =  document.getElementById('leave_end_date').value;
             var date1 = new Date(val1);
             var date2 = new Date(val2);
             var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-            var diffDays = (Math.ceil(timeDiff / (1000 * 3600 * 24))) + 1;
+            var diffDays = (Math.ceil(timeDiff / (1000 * 3600 * 24)))+1;
 
             console.log('triggered');
 
-            if (diffDays)
+            if(diffDays)
                 document.getElementById('duration').value = diffDays + " days";
             else
                 document.getElementById('duration').value = "...";
