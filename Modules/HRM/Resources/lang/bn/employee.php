@@ -50,6 +50,17 @@ return [
     'working_hour' => 'কর্ম ঘণ্টা',
 
     // Employee Punishment
-    'employee_punishment' => ''
+    'employee_punishment' => 'শাস্তিবিধান',
+    'employee_punishment_list' => 'শাস্তির তালিকা',
+    'employee_punishment_type' => 'শাস্তির ধরন',
+    'select_employee_punishment_type' => 'শাস্তির ধরন নির্বাচন করুন',
+    'punishment_start' => 'শাস্তি শুরু',
+    'punishment_end' => 'শাস্তি শেষ',
+    'punishment_duration' => 'শাস্তির সময়কাল',
+    'new_punishment_record' => 'শাস্তি নিবন্ধন',
+    'new_punishment_record_form' => 'শাস্তি নিবন্ধন ফর্ম',
+    'new_punishment_record_submit' => 'শাস্তি নিবন্ধন করুন',
+    'punishment_reason' => 'শাস্তির কারন',
+    'punishment_reason_placeholder' => 'সংক্ষেপে শাস্তির কারন লিখুন',
 
 ];

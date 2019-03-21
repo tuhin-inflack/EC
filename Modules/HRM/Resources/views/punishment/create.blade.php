@@ -1,7 +1,7 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::leave.leave_application'))
+@section('title', trans('hrm::employee.employee_punishment'))
 @push('page-css')
-    <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{asset('theme/vendors/css/pickers/pickadate/pickadate.css')}}">
 @endpush
 @section("content")
     <section id="leave">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('hrm::leave.form.leave-application')
+                            @include('hrm::punishment.form.punishment-form')
                         </div>
                     </div>
                 </div>
