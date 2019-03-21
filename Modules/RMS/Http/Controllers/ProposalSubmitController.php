@@ -2,19 +2,13 @@
 
 namespace Modules\RMS\Http\Controllers;
 
-use App\Constants\DesignationShortName;
-use App\Constants\NotificationType;
 use App\Constants\WorkflowStatus;
-use App\Events\NotificationGeneration;
-use App\Models\NotificationInfo;
 use App\Services\Remark\RemarkService;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\Sharing\ShareRulesService;
-use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
-use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -127,7 +121,7 @@ class ProposalSubmitController extends Controller
      * Update the specified resource in storage.
      * @param  Request $request
      * @param ResearchProposalSubmission $researchProposalSubmission
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, ResearchProposalSubmission $researchProposalSubmission)
     {

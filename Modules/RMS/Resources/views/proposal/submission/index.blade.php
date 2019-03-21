@@ -39,12 +39,11 @@
                                             @php
                                                 $wfMasterId = $proposal->workflowMasters->first()->id;
                                                 $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                // $featureName = $proposal->workflowMasters[1]->feature->name;
-                                               $featureName = 'Research Proposal';
+                                                $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->first()->ruleDetails->first()->id;
+                                                $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
-{{--                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId]) }}">{{ $proposal->title }}</a>--}}
-                                                <a href="#">{{ $proposal->title }}</a>
+                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
                                             <td>
