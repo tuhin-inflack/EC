@@ -46,14 +46,14 @@ Route::prefix('hrm')->group(function () {
     });
 
     // Routes for Employee Loan
-    Route::prefix('loan')->group( function (){
+    Route::prefix('loan')->group(function () {
         Route::get('/', 'EmployeeLoanController@create')->name('employee-loan.apply');
         Route::post('/', 'EmployeeLoanController@store')->name('employee-loan.store');
         Route::get('/list', 'EmployeeLoanController@index')->name('employee-loan.list');
     });
 
     // Routes for Employee HRM Training
-    Route::prefix('training')->group( function (){
+    Route::prefix('training')->group(function () {
         Route::get('/', 'HRMTrainingController@create')->name('employee-training.apply');
         Route::post('/', 'HRMTrainingController@store')->name('employee-training.store');
         Route::get('/list/{trainingId?}', 'HRMTrainingController@index')->name('employee-training.list');
@@ -74,23 +74,28 @@ Route::prefix('hrm')->group(function () {
         Route::get('/apply', 'HouseRentController@showApplyForm');
         Route::get('/applications', 'HouseRentController@showAllApplications');
     });
-    #--------------- /House Rent Urls ---------------------------------
+    #--------------- // House Rent Urls ---------------------------------
 
     #---------------- Notes Urls-----------------------------#
     Route::prefix('notes')->group(function () {
         Route::get('/', 'NotesController@index');
         Route::get('/create', 'NotesController@create');
+        Route::get('/{id}', 'NotesController@show');
+        Route::delete('/{id}', 'NotesController@destroy');
+        Route::get('edit/{id}', 'NotesController@edit');
     });
 
+    #--------------- // Note Urls ---------------------------------
 
-	Route::resources(
-		[
-			'employee'   => 'EmployeeController',
-			'department' => 'DepartmentController',
-			'designation' => 'DesignationController',
+
+    Route::resources(
+        [
+            'employee' => 'EmployeeController',
+            'department' => 'DepartmentController',
+            'designation' => 'DesignationController',
             'job-circular' => 'JobCircularController'
-		]
-	);
+        ]
+    );
 });
 
 //} );

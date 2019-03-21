@@ -35,19 +35,19 @@
                                     <div class="card-body">
                                             {!! Form::open(['route' =>  ['training-registration.store', $training->id], 'class' => 'wizard-circle training-steps', 'enctype' => 'multipart/form-data']) !!}
                                                 <!-- Step 1 -->
-                                                @include('tms::public.training-registration.partials.form.step-1')
-                                                <!-- Step 2 -->
-                                                @include('tms::public.training-registration.partials.form.step-2')
-                                                <!-- Step 3 -->
-                                                @include('tms::public.training-registration.partials.form.step-3')
-                                                <!-- Step 4 -->
-                                                @include('tms::public.training-registration.partials.form.step-4')
-                                                <!-- Step 5 -->
-                                                @include('tms::public.training-registration.partials.form.step-5')
-                                                <!-- Step 6 -->
-                                               {{-- @include('tms::public.training-registration.partials.form.step-6')
-                                                <!-- Step 7 -->
-                                                @include('tms::public.training-registration.partials.form.step-7')--}}
+                                            @include('tms::public.training-registration.partials.form.step-1')
+                                            <!-- Step 2 -->
+                                            @include('tms::public.training-registration.partials.form.step-2')
+                                            <!-- Step 3 -->
+                                            @include('tms::public.training-registration.partials.form.step-3')
+                                            <!-- Step 4 -->
+                                            @include('tms::public.training-registration.partials.form.step-4')
+                                            <!-- Step 5 -->
+                                            @include('tms::public.training-registration.partials.form.step-5')
+                                            <!-- Step 6 -->
+                                            {{--@include('tms::public.training-registration.partials.form.step-6')--}}
+                                            <!-- Step 7 -->
+                                            {{--@include('tms::public.training-registration.partials.form.step-7')--}}
                                             {{ Form::close() }}
                                     </div>
                                 </div>
@@ -84,8 +84,6 @@
     <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('theme/js/core/app-menu.js') }}"></script>
     <script src="{{ asset('theme/js/core/app.js') }}"></script>
-    <script src="{{ asset('theme/vendors/js/forms/select/select2.full.min.js') }}"></script>
-    <script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}"></script>
     <script>
         let trainingForm = '.training-steps';
         var form = $(trainingForm).show();
@@ -179,4 +177,6 @@
         });
     </script>
 
+    <script src="{{ asset('theme/js/scripts/forms/select/form-select2.js') }}"></script>
 @endpush
+

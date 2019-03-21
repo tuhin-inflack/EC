@@ -14,7 +14,12 @@ class NotesController extends Controller
      */
     public function index()
     {
-        return view('hrm::notes.index');
+        $dummy_string = "Oat cake ice cream candy chocolate cake chocolate cake cotton
+                                    candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                                    fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                                    chocolate cake liquorice. Apple pie sugar plum powder donut
+                                    soufflé.";
+        return view('hrm::notes.index', compact('dummy_string'));
     }
 
     /**
@@ -39,9 +44,16 @@ class NotesController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('hrm::show');
+
+        $dummy_string = "Oat cake ice cream candy chocolate cake chocolate cake cotton
+                                    candy dragée apple pie. Brownie carrot cake candy canes bonbon
+                                    fruitcake topping halvah. Cake sweet roll cake cheesecake cookie
+                                    chocolate cake liquorice. Apple pie sugar plum powder donut
+                                    soufflé.";
+
+        return view('hrm::notes.detail', compact('dummy_string'));
     }
 
     /**
@@ -50,7 +62,7 @@ class NotesController extends Controller
      */
     public function edit()
     {
-        return view('hrm::edit');
+        return view('hrm::notes.edit');
     }
 
     /**
@@ -68,5 +80,6 @@ class NotesController extends Controller
      */
     public function destroy()
     {
+       return "workded";
     }
 }
