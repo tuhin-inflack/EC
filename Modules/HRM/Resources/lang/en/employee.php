@@ -7,6 +7,7 @@ return [
     'employee_details' => 'Employee Details',
     'employee_id' => 'Employee Id',
 
+    // Employee Loan
     'employee_loan' => 'Employee Loan',
     'employee_loan_apply' => 'Loan Application',
     'employee_loan_from' => 'Loan Application Form',
@@ -18,6 +19,7 @@ return [
     'select_loan_type' => 'Select Loan Type',
     'employee_loan_apply_btn' => 'Apply Loan',
 
+    // Employee Training
     'employee_training' => 'Employee Training',
     'employee_training_apply' => 'Training Application',
     'employee_training_apply_btn' => 'Apply Training',
@@ -39,10 +41,27 @@ return [
     'training_name' => 'Training Title',
     'select_training' => 'Select Training',
 
+    // Employee Attendance
     'attendance' => 'Attendance',
     'attendance_list' => 'Attendance List',
     'in_time' => 'In Time',
     'out_time' => 'Out Time',
     'working_hour' => 'Working Hour',
+
+    // Employee Punishment
+    'employee_punishment' => 'Employee Punishment',
+    'employee_punishment_list' => 'Punishment List',
+    'employee_punishment_type' => 'Punishment Type',
+    'select_employee_punishment_type' => 'Select Punishment Type',
+    'punishment_start' => 'Punishment Start',
+    'punishment_end' => 'Punishment End',
+    'punishment_duration' => 'Punishment Duration',
+    'new_punishment_record' => 'Punishment Record',
+    'new_punishment_record_form' => 'Punishment Record Form',
+    'new_punishment_record_submit' => 'Record Punishment',
+    'punishment_reason' => 'Reason of Punishment',
+    'punishment_reason_placeholder' => 'Reason of Punishment',
+    'show_punishment' => 'Show Punishment',
+
 
 ];

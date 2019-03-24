@@ -60,9 +60,17 @@ Route::prefix('hrm')->group(function () {
     });
 
     // Routes for Employee Attendance
-    Route::prefix('attendance')->group( function (){
+    Route::prefix('attendance')->group(function () {
         Route::get('/', 'EmployeeAttendanceController@index')->name('employee-attendance.index');
         Route::post('/', 'EmployeeAttendanceController@store')->name('employee-training.store');
+    });
+
+    // Routes for Employee Punishment
+    Route::prefix('punishment')->group( function (){
+        Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.list');
+        Route::get('/show/{punishmentId}', 'EmployeePunishmentController@show')->name('employee-punishment.show');
+        Route::get('/create', 'EmployeePunishmentController@create')->name('employee-punishment.create');
+        Route::post('/create', 'EmployeePunishmentController@store')->name('employee-punishment.store');
     });
 
     #---------------- House Rent Urls-----------------------------#
@@ -84,8 +92,27 @@ Route::prefix('hrm')->group(function () {
         Route::delete('/{id}', 'NotesController@destroy');
         Route::get('edit/{id}', 'NotesController@edit');
     });
-
     #--------------- // Note Urls ---------------------------------
+
+    #---------------- Appraisal Urls-----------------------------#
+    Route::prefix('appraisal')->group(function () {
+        Route::get('/', 'AppraisalController@index');
+        Route::get('/create', 'AppraisalController@create');
+        Route::get('/{id}', 'AppraisalController@show');
+        Route::delete('/{id}', 'AppraisalController@destroy');
+        Route::get('edit/{id}', 'AppraisalController@edit');
+    });
+    #--------------- // Appraisal Urls ---------------------------------
+
+     #---------------- Retirement Urls-----------------------------#
+    Route::prefix('retirement')->group(function () {
+        Route::get('/', 'AppraisalController@retirement');
+        Route::get('/create', 'AppraisalController@create');
+        Route::get('/{id}', 'AppraisalController@show');
+        Route::delete('/{id}', 'AppraisalController@destroy');
+        Route::get('edit/{id}', 'AppraisalController@edit');
+    });
+    #--------------- // Retirement Urls ---------------------------------
 
 
     Route::resources(

@@ -41,7 +41,6 @@ class ProjectProposalController extends Controller
     public function index()
     {
         $proposals = $this->projectProposalService->getAll();
-
         $featureName = config('constants.project_proposal_feature_name');
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
 
