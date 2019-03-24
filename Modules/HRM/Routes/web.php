@@ -65,6 +65,14 @@ Route::prefix('hrm')->group(function () {
         Route::post('/', 'EmployeeAttendanceController@store')->name('employee-training.store');
     });
 
+    // Routes for Employee Punishment
+    Route::prefix('punishment')->group( function (){
+        Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.list');
+        Route::get('/show/{punishmentId}', 'EmployeePunishmentController@show')->name('employee-punishment.show');
+        Route::get('/create', 'EmployeePunishmentController@create')->name('employee-punishment.create');
+        Route::post('/create', 'EmployeePunishmentController@store')->name('employee-punishment.store');
+    });
+
     #---------------- House Rent Urls-----------------------------#
     Route::prefix('house-rent')->group(function () {
         Route::get('/circulate-house', 'HouseRentController@index');
