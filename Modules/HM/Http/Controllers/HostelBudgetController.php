@@ -85,9 +85,15 @@ class HostelBudgetController extends Controller
     }
 
 
-    public function edit()
+    public function edit($id)
     {
-        return view('hm::edit');
+
+        $budgetWithTitles = $this->hostelBudgetTitleService->getTitleWithBudget($id);
+//        $budgetTitles = $this->hostelBudgetTitleService->getHostelBudgetTitles();
+//        dd($budgetTitles);
+        $budgetSections = $this->hostelBudgetSectionService->getHostelBudgetSectionAsPluck();
+
+        return view('hm::hostel-budget.edit', compact( 'budgetSections', 'budgetWithTitles'));
     }
 
 

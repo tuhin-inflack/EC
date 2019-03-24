@@ -12,26 +12,33 @@ namespace Modules\HM\Repositories;
 use App\Repositories\AbstractBaseRepository;
 use Modules\HM\Entities\HostelBudgetTitle;
 
-class HostelBudgetTitleRepository extends AbstractBaseRepository {
-	protected $modelName = HostelBudgetTitle::class;
+class HostelBudgetTitleRepository extends AbstractBaseRepository
+{
+    protected $modelName = HostelBudgetTitle::class;
 
-	public function getHostelBudgetTitle() {
-		$titles = HostelBudgetTitle::where( 'current_year', ">=", date( 'Y' ) )->get()->pluck( 'name', 'id' );
+    public function getHostelBudgetTitle()
+    {
+        $titles = HostelBudgetTitle::
+        where('current_year', ">=", date('Y'))
+            ->where('status', '=', null)
+            ->get()->pluck('name', 'id');
 
-		return $titles;
-	}
+        return $titles;
+    }
 
-	public function getTitleWithHostelBudget( $id ) {
-		$titleWithBudget = HostelBudgetTitle::whereId( $id )->with( 'hostelBudgets' )->first();
+    public function getTitleWithHostelBudget($id)
+    {
+        $titleWithBudget = HostelBudgetTitle::whereId($id)->with('hostelBudgets')->first();
 
-		return $titleWithBudget;
-	}
+        return $titleWithBudget;
+    }
 
-	public function getApproveOrPendingTitle() {
-		$hostelBudgets = HostelBudgetTitle::where( 'status', '!=', 'null' )->orderBy('updated_at', 'desc')->get();
+    public function getApproveOrPendingTitle()
+    {
+        $hostelBudgets = HostelBudgetTitle::where('status', '!=', null)->orderBy('updated_at', 'desc')->get();
 
-		return $hostelBudgets;
-	}
+        return $hostelBudgets;
+    }
 
 
 }
