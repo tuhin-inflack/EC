@@ -33,8 +33,8 @@
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_amount', $budget->budget_amount, [ 'class' => 'form-control', 'placeholder' => '',]) }}
-
+                                    {{ Form::number('budget_amount', $budget->budget_amount, ['placeholder' => '','required' => 'required', 'class' => 'form-control']) }}
+                                    <div class="help-block"></div>
                                 </div>
 
                             </div>

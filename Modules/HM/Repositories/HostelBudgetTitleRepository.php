@@ -20,7 +20,7 @@ class HostelBudgetTitleRepository extends AbstractBaseRepository
     {
         $titles = HostelBudgetTitle::
         where('current_year', ">=", date('Y'))
-            ->where('status', '=', null)
+            ->whereStatus(0)
             ->get()->pluck('name', 'id');
 
         return $titles;
@@ -35,8 +35,7 @@ class HostelBudgetTitleRepository extends AbstractBaseRepository
 
     public function getApproveOrPendingTitle()
     {
-        $hostelBudgets = HostelBudgetTitle::where('status', '!=', null)->orderBy('updated_at', 'desc')->get();
-
+        $hostelBudgets = HostelBudgetTitle::where('status', '!=', 0)->orderBy('updated_at', 'desc')->get();
         return $hostelBudgets;
     }
 

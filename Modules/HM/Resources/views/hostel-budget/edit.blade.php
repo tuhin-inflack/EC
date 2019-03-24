@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form budgetCreateForm',' novalidate']) !!}
+                            {!! Form::open(['route' => ['hostel-budgets.update', $budgetWithTitles->id], 'class' => 'form budgetCreateForm',' novalidate']) !!}
                             @include('hm::hostel-budget.form.budget_edit_form')
                             {!! Form::close() !!}
 
