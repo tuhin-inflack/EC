@@ -114,16 +114,16 @@
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-user"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('hrm::employee.employee_punishment') }}</span></a>
                     <ul class="menu-content">
-                        <li class="{{ is_active_url('hrm/training') }}">
+                        <li class="{{ is_active_url('hrm/punishment/create') }}">
                             <a href="{{ route('employee-punishment.create') }}">
                                 <i class="la la-hotel"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.new_punishment_record') }}</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{trans('hrm::employee.new_punishment_record')}}</span>
                             </a>
                         </li>
-                        <li class="{{ is_active_match('hrm/training/list')}}">
-                            <a href="{{  route('employee-training.list') }}">
+                        <li class="{{ is_active_match('hrm/punishment/list')}}">
+                            <a href="{{  route('employee-punishment.list') }}">
                                 <i class="la la-list-alt"></i>
-                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.punis') }}</span>
+                                <span class="menu-title" data-i18n="nav.dash.main">{{ trans('hrm::employee.employee_punishment_list') }}</span>
                             </a>
                         </li>
                     </ul>

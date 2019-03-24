@@ -62,5 +62,6 @@ return [
     'new_punishment_record_submit' => 'শাস্তি নিবন্ধন করুন',
     'punishment_reason' => 'শাস্তির কারন',
     'punishment_reason_placeholder' => 'সংক্ষেপে শাস্তির কারন লিখুন',
+    'show_punishment' => 'শাস্তি সম্পর্কিত তথ্য',
 
 ];

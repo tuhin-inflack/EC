@@ -1,5 +1,5 @@
 @extends('hrm::layouts.master')
-@section('title', trans('hrm::designation.list_page_title'))
+@section('title', trans('hrm::employee.employee_punishment_list'))
 {{--@section("employee_create", 'active')--}}
 
 
@@ -9,13 +9,8 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('hrm::designation.list_page_title')</h4>
+                        <h4 class="card-title">@lang('hrm::employee.employee_punishment_list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <a href="{{route('employee-leave.apply')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> @lang('hrm::leave.leave_application')</a>
-
-                        </div>
                     </div>
 
                     <div class="card-content collapse show">
@@ -26,33 +21,27 @@
                                     <thead>
                                     <tr>
                                         <th>@lang('labels.serial')</th>
-                                        <th>@lang('hrm::leave.leave_type')</th>
-                                        <th>@lang('hrm::leave.leave_start_date')</th>
-                                        <th>@lang('hrm::leave.leave_end_date')</th>
-                                        <th>@lang('hrm::leave.leave_duration')</th>
-                                        <th>@lang('hrm::leave.leave_application_date')</th>
-                                        <th>@lang('labels.status')</th>
+                                        <th>@lang('hrm::employee.employee_punishment_type')</th>
+                                        <th>@lang('hrm::employee.punishment_start')</th>
+                                        <th>@lang('hrm::employee.punishment_end')</th>
+
                                         <th>@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
 
-                                    @foreach($leaves as $leave)
+                                    @foreach($punishmentList as $punishment)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
-                                            <th>{{ $leave['type'] }}</th>
-                                            <th>{{ $leave['from'] }}</th>
-                                            <th>{{ $leave['to'] }}</th>
-                                            <th>{{ $leave['duration'].' days' }}</th>
-                                            <th>{{ $leave['created_at'] }}</th>
-                                            <th>{{ $leave['status'] }}</th>
-
+                                            <th>{{ $punishment['punishment_type'] }}</th>
+                                            <th>{{ $punishment['from'] }}</th>
+                                            <th>{{ $punishment['to'] }}</th>
                                             <td>
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                     <i class="la la-cog"></i></button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{route('employee-punishment.show', 1)}}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                          <div class="dropdown-divider"></div>
                                                         <a href="" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                          <div class="dropdown-divider"></div>

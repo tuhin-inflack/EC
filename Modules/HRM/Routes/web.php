@@ -67,7 +67,8 @@ Route::prefix('hrm')->group(function () {
 
     // Routes for Employee Punishment
     Route::prefix('punishment')->group( function (){
-        Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.index');
+        Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.list');
+        Route::get('/show/{punishmentId}', 'EmployeePunishmentController@show')->name('employee-punishment.show');
         Route::get('/create', 'EmployeePunishmentController@create')->name('employee-punishment.create');
         Route::post('/create', 'EmployeePunishmentController@store')->name('employee-punishment.store');
     });

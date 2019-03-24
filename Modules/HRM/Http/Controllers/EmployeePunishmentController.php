@@ -18,7 +18,12 @@ class EmployeePunishmentController extends Controller
 
     public function index()
     {
-        return view('hrm::punishment.index');
+        $punishmentList = [
+            ['name' => 'Abdus Sattar', 'punishment_type' => 'Suspended', 'from' => '2019-01-12', 'to' => '2019-02-20' ],
+            ['name' => 'Imran Khan', 'punishment_type' => 'Penalty', 'from' => '2019-01-12', 'to' => '2019-02-20' ],
+        ];
+
+        return view('hrm::punishment.index', compact('punishmentList'));
     }
 
     public function create()
@@ -35,7 +40,7 @@ class EmployeePunishmentController extends Controller
 
     public function show($id)
     {
-        return view('hrm::show');
+        return view('hrm::punishment.show');
     }
 
     public function edit($id)

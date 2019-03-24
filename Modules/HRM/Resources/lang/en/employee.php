@@ -48,4 +48,20 @@ return [
     'out_time' => 'Out Time',
     'working_hour' => 'Working Hour',
 
+    // Employee Punishment
+    'employee_punishment' => 'Employee Punishment',
+    'employee_punishment_list' => 'Punishment List',
+    'employee_punishment_type' => 'Punishment Type',
+    'select_employee_punishment_type' => 'Select Punishment Type',
+    'punishment_start' => 'Punishment Start',
+    'punishment_end' => 'Punishment End',
+    'punishment_duration' => 'Punishment Duration',
+    'new_punishment_record' => 'Punishment Record',
+    'new_punishment_record_form' => 'Punishment Record Form',
+    'new_punishment_record_submit' => 'Record Punishment',
+    'punishment_reason' => 'Reason of Punishment',
+    'punishment_reason_placeholder' => 'Reason of Punishment',
+    'show_punishment' => 'Show Punishment',
+
+
 ];
