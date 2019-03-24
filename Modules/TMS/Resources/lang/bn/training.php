@@ -18,6 +18,7 @@ return [
     'training_id' => 'প্রশিক্ষণ আইডি',
     'training_name' => 'প্রশিক্ষণের শিরোনাম',
     'training_period' => 'প্রশিক্ষণের দৈর্ঘ্য',
+    'trainee_details' => 'প্রশিক্ষণার্থীর বিস্তারিত',
     'training_participant_no' => 'প্রশিক্ষণার্থীর সংখ্যা',
     'trainee_first_name' => 'প্রশিক্ষণার্থীর প্রথম নাম',
     'trainee_last_name' => 'প্রশিক্ষণার্থীর শেষ নাম',

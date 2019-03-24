@@ -36,7 +36,7 @@ class RegisteredTraineeService
 
     public function store(array $data)
     {
-        if (isset($data['photo'])) {
+        if (array_key_exists('photo', $data)) {
             $file = $data['photo'];
             $photoName = $file->getClientOriginalName();
             $path = $this->upload($file, 'registered-trainees');

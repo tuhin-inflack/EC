@@ -131,7 +131,7 @@
                                     <!-- TODO: Fix research title and proposal title -->
                                     <!-- TODO: Title interchanged -->
                                     Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
-                                    Research Title: {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                    Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
@@ -441,22 +441,22 @@
             type: 'bar',
             data: {
                 labels: [
-                    "{{ __('rms::research.Review of literature') }}",
-                    "{{ __('rms::research.Proposal writing') }}",
-                    "{{ __('rms::research.Questionnaire preparation') }}",
-                    "{{ __('rms::research.Questionnaire pretesting') }}",
-                    "{{ __('rms::research.Data collection') }}",
-                    "{{ __('rms::research.Data tabulation') }}",
-                    "{{ __('rms::research.Report writing') }}",
-                    "{{ __('rms::research.Draft report submission') }}",
-                    "{{ __('rms::research.Incorporating research division comments') }}",
-                    "{{ __('rms::research.First final report submission') }}",
-                    "{{ __('rms::research.Received final report') }}",
-                    "{{ __('rms::research.Sending external reviewer') }}",
-                    "{{ __('rms::research.Comments from external reviewer') }}",
-                    "{{ __('rms::research.Send to respective researcher') }}",
-                    "{{ __('rms::research.Accepted final report') }}",
-                    "{{ __('rms::research.Send for publication') }}"
+                    "{{ trans('rms::research.Review of literature') }}",
+                    "{{ trans('rms::research.Proposal writing') }}",
+                    "{{ trans('rms::research.Questionnaire preparation') }}",
+                    "{{ trans('rms::research.Questionnaire pretesting') }}",
+                    "{{ trans('rms::research.Data collection') }}",
+                    "{{ trans('rms::research.Data tabulation') }}",
+                    "{{ trans('rms::research.Report writing') }}",
+                    "{{ trans('rms::research.Draft report submission') }}",
+                    "{{ trans('rms::research.Incorporating research division comments') }}",
+                    "{{ trans('rms::research.First final report submission') }}",
+                    "{{ trans('rms::research.Received final report') }}",
+                    "{{ trans('rms::research.Sending external reviewer') }}",
+                    "{{ trans('rms::research.Comments from external reviewer') }}",
+                    "{{ trans('rms::research.Send to respective researcher') }}",
+                    "{{ trans('rms::research.Accepted final report') }}",
+                    "{{ trans('rms::research.Send for publication') }}"
                 ],
 
                 datasets: [{

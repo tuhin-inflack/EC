@@ -2,6 +2,7 @@
 
 namespace Modules\TMS\Http\Controllers;
 
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
@@ -96,13 +97,13 @@ class TraineeController extends Controller
         return back();
     }
 
-    public function show($trainingId)
+    public function show(Trainee $trainee)
     {
-        $this->authorize('view', Trainee::class);
+        /*$this->authorize('view', Trainee::class);
         $trainees = $this->traineeService->fetchTraineesWithID($trainingId);
-        $training = $this->trainingService->findOrFail($trainingId);
+        $training = $this->trainingService->findOrFail($trainingId);*/
 
-        return view('tms::trainee.show', compact('trainees', 'training'));
+        return view('tms::trainee.show', compact('trainee'));
     }
 
     public function edit($traineeId)

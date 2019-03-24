@@ -128,12 +128,6 @@ class ProjectProposalService
         return $zipFilePath;
     }
 
-    public function getGanttChartData(ProjectProposal $projectProposal)
-    {
-        $tasks = $projectProposal->task;
-        $chartData = [];
-    }
-
     public function getProjectProposalByStatus()
     {
         $projectProposal = new ProjectProposal();
