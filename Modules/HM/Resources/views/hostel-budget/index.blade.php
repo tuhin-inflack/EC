@@ -11,12 +11,13 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-{{--                        <h4 class="card-title">{{ trans('hm::hostel_budget.list_card_title') }}</h4>--}}
+                        {{--                        <h4 class="card-title">{{ trans('hm::hostel_budget.list_card_title') }}</h4>--}}
                         <h4 class="card-title">{{ trans('hm::hostel_budget.list_card_title') }}</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <a href="{{url('/hm/hostel-budgets/create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{ trans('hm::hostel_budget.budget_add_button') }}</a>
+                                        class="ft-plus white"></i> {{ trans('hm::hostel_budget.budget_add_button') }}
+                            </a>
 
                         </div>
                     </div>
@@ -49,11 +50,10 @@
                                                     </button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        {{--<a href="{{ url('/hm/hostel-budget-section/' . $title->id . '/edit')  }}"--}}
-                                                        {{--class="dropdown-item"><i class="ft-edit-2"></i> Edit--}}
-                                                        {{--</a>--}}
+                                                        <a href=" {{ route('hostel-budgets.edit',  $title->id )}}"
+                                                           class="dropdown-item"><i class="ft-edit"></i> {{trans('labels.edit')}}</a>
                                                         <a href=" {{ route('hostel-budgets.show',  $title->id )}}"
-                                                           class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                                class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
 
                                                     </span>
                                                 </td>

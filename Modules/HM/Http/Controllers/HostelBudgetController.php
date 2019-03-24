@@ -85,14 +85,32 @@ class HostelBudgetController extends Controller
     }
 
 
-    public function edit()
+    public function edit($id)
     {
-        return view('hm::edit');
+
+        $budgetWithTitles = $this->hostelBudgetTitleService->getTitleWithBudget($id);
+        $budgetSections = $this->hostelBudgetSectionService->getHostelBudgetSectionAsPluck();
+
+        return view('hm::hostel-budget.edit', compact('budgetSections', 'budgetWithTitles'));
     }
 
 
-    public function update(Request $request)
+    public function update(Request $request, $budgetTitleId)
     {
+
+        $hostelBudget = $this->hostelBudgetTitleService->findOne($budgetTitleId);
+        $hostelBudget->hostelBudgets()->delete();
+
+
+        $hostelBudgets = $request->hostel_budgets;
+        $hostelBudgetTitleId = $request->hostel_budget_title_id;
+
+        $budget = $this->hostelBudgetService->storeHostelBudget($hostelBudgets, $hostelBudgetTitleId);
+
+        Session::flash('message', $budget->getContent());
+
+        return redirect('/hm/hostel-budgets/');
+
     }
 
 
