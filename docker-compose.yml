@@ -38,3 +38,5 @@ services:
       MYSQL_USER: bard
       MYSQL_PASSWORD: bs@2345678
       MYSQL_ROOT_PASSWORD: bs@2345678
+    volumes:
+      - ./../mysql:/var/lib/mysql
