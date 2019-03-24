@@ -177,13 +177,23 @@
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
                                                                           data-i18n="nav.templates.main">Appraisal</span></a>
-                    <!-- This Should Only be visible to Employee -->
+
+
                     <ul class="menu-content">
+                        <!-- This Should Only be visible to Employee -->
                         <li class="{{ is_active_match('appraisal/create') }}">
                             <a href="{{ url('hrm/appraisal/create') }}">
                                 <i class="la la-institution"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Appraisal Form</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ is_active_match('appraisal/') }}">
+                            <a href="{{ url('hrm/appraisal/') }}">
+                                <i class="la la-institution"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Appraisal View</span>
                             </a>
                         </li>
 
@@ -197,8 +207,8 @@
                         </li>
 
 
-                        <li class="{{ is_active_url('notes')}}">
-                            <a href="{{ url('hrm/notes') }}">
+                        <li class="{{ is_active_url('promotion')}}">
+                            <a href="{{ url('hrm/promotion') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Promotion</span>

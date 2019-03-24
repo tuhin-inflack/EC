@@ -9,7 +9,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title" id="striped-row-layout-basic">Project Info</h4>
+                        <h4 class="card-title" id="striped-row-layout-basic">Retirement Form </h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -23,9 +23,7 @@
                     <div class="card-content collpase show">
                         <div class="card-body">
                             <div class="card-text">
-                                <p>Add <code>.striped-rows</code> to form tag to add striped rows.
-                                    In this example <code>.form-horizontal</code> and <code>.form-bordered</code> is
-                                    used to show the striped rows functionality.</p>
+
                             </div>
                             <form class="form form-horizontal striped-rows form-bordered">
                                 <div class="form-body">
@@ -125,7 +123,7 @@
                 </div>
             </div>
         </div>
-       
+
 
     </section>
 @endsection
