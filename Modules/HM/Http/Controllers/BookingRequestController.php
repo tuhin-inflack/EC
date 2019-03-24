@@ -105,6 +105,7 @@ class BookingRequestController extends Controller
                 break;
         }
 
+
         return view('hm::booking-request.index', compact('bookingRequests'));
     }
 
