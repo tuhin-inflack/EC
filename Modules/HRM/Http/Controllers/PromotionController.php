@@ -5,32 +5,16 @@ namespace Modules\HRM\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\HM\Services\RoomTypeService;
 
-class AppraisalController extends Controller
+class PromotionController extends Controller
 {
-
-
-    private $roomTypeService;
-
-    /**
-     * HostelController constructor.
-     * @param HostelService $hostelService
-     */
-    public function __construct(RoomTypeService $roomTypeService)
-    {
-        $this->roomTypeService = $roomTypeService;
-    }
-
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        //todo: Detect if the user is supervisor or a single user, then sends the only specific
-        // Appraisal List
-        return view('hrm::appraisal.index');
+        return view('hrm::promotion.index');
     }
 
     /**
@@ -39,8 +23,7 @@ class AppraisalController extends Controller
      */
     public function create()
     {
-        $supervisor = 0;
-        return view('hrm::appraisal.create', compact('supervisor'));
+        return view('hrm::promotion.create');
     }
 
     /**
@@ -56,12 +39,9 @@ class AppraisalController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show($id)
+    public function show()
     {
-        //todo: find the value using id and send it to view
-        //Normal user can only view the form , supervisor can give number to it
-        $supervisor = 1;
-        return view('hrm::appraisal.show', compact('supervisor'));
+        return view('hrm::promotion.show');
     }
 
     /**
@@ -70,7 +50,7 @@ class AppraisalController extends Controller
      */
     public function edit()
     {
-        return view('hrm::edit');
+        return view('hrm::promotion.edit');
     }
 
     /**
@@ -88,11 +68,5 @@ class AppraisalController extends Controller
      */
     public function destroy()
     {
-    }
-
-    public function retirement()
-    {
-        return view('hrm::appraisal.retirement_form');
-
     }
 }

@@ -68,6 +68,7 @@
                                                 {{--class="la  la-table"></i>{{__('hm::hostel.room').' '.__('labels.details')}}--}}
                                                 class="la  la-table"></i>{{'Project '.__('labels.details')}}
                                     </h4>
+                                    <!--Todo: Below values should be printed in loops  -->
 
                                     <div class="repeater-rooms">
                                         <div data-repeater-list="rooms">
@@ -80,11 +81,10 @@
                                                         <!-- Todo: Load this from an array  -->
                                                         <select class="form-control" required="required"
                                                                 data-validation-required-message="The Room Type field is required."
-                                                                id="room_type" name="room_type">
-                                                            <option value="" selected="selected">--Please Select--
-                                                            </option>
+                                                                id="room_type" name="room_type" disabled>
+
                                                             <option value="1">BARD</option>
-                                                            <option value="2">ONLINE KAIZEN</option>
+                                                            <option value="2" selected>ONLINE KAIZEN</option>
                                                             <option value="3">LAZZ-PHARMA</option>
                                                             <option value="4">APEZ</option>
                                                         </select>
@@ -97,10 +97,9 @@
                                                         <!-- Todo: Load this from an array  -->
                                                         <select class="form-control" required="required"
                                                                 data-validation-required-message="The Room Type field is required."
-                                                                id="room_type" name="room_type">
-                                                            <option value="" selected="selected">--Please Select--
-                                                            </option>
-                                                            <option value="1">Team Leader</option>
+                                                                id="room_type" name="room_type" disabled>
+
+                                                            <option value="1" selected>Team Leader</option>
                                                             <option value="2">Senior Software Engineer</option>
                                                             <option value="3">Associate Software Engineer</option>
                                                             <option value="4">Junior Software Engineer</option>
@@ -108,55 +107,27 @@
                                                         <div class="help-block"></div>
                                                     </div>
 
-                                                @if($supervisor == 0)
 
-                                                    <!--Todo: This field should only be visible to Supervisor -->
-
-                                                        <div class="mb-1 col-sm-12 col-md-3 form-group">
-                                                            <label for="room_type" class="required">Supervisor
-                                                                Remarks: </label>
-                                                            <input type="text" class="form-control"
-                                                                   name="supervisor_remarks"
-                                                                   id="supervisor_remarks" disabled>
-                                                        </div>
-
-                                                @else
-                                                    <!--Todo: This field should only be visible to Supervisor -->
-
-                                                        <div class="mb-1 col-sm-12 col-md-3 form-group">
-                                                            <label for="room_type" class="required">Supervisor
-                                                                Remarks: </label>
-                                                            <input type="text" class="form-control"
-                                                                   name="supervisor_remarks"
-                                                                   id="supervisor_remarks">
-                                                        </div>
-                                                    @endif
-
-                                                    <div class="col-sm-12 col-md-3 text-center mt-2">
-                                                        <button type="button" class="btn btn-outline-danger"
-                                                                data-repeater-delete=""><i
-                                                                    class="ft-x"></i>
-                                                        </button>
+                                                    <div class="mb-1 col-sm-12 col-md-3 form-group">
+                                                        <label for="room_type" class="required">Supervisor
+                                                            Remarks: </label>
+                                                        <input type="text" class="form-control"
+                                                               name="supervisor_remarks"
+                                                               id="supervisor_remarks">
                                                     </div>
+
                                                 </div>
                                                 <hr>
                                             </div>
                                         </div>
-                                        <div class="form-group overflow-auto">
-                                            <div class="col-12">
-                                                <button type="button" data-repeater-create=""
-                                                        class="pull-right btn btn-sm btn-outline-primary add">
-                                                    <i class="ft-plus"></i> Add
-                                                </button>
-                                            </div>
-                                        </div>
+
 
                                         <div class="form-actions text-center">
                                             <button type="submit" class="btn btn-primary">
                                                 <i class="la la-check-square-o"></i> Submit
                                             </button>
                                             <a class="btn btn-warning mr-1" role="button"
-                                               href="http://127.0.0.1:8080/hm/hostels">
+                                               href="#">
                                                 <i class="ft-x"></i> Cancel
                                             </a>
                                         </div>
@@ -183,24 +154,6 @@
     <script src="{{asset('theme/js/scripts/forms/form-repeater.js')}}" type="text/javascript"></script>
     <!-- END PAGE LEVEL JS-->
 
-    <script>
-        $(document).ready(() => {
-            //
-            $('.repeater-rooms').repeater({
-                show: function () {
-                    $('div:hidden[data-repeater-item]')
-                        .find('input.is-invalid')
-                        .each((index, element) => {
-                            $(element).removeClass('is-invalid');
-                        });
-                    $(this).slideDown();
-                },
-            });
-            $('.add').on('click', function () {
-                $('input, select,textarea').jqBootstrapValidation('destroy');
-                $('input, select,textarea').jqBootstrapValidation();
-            });
-        });
-    </script>
+
 
 @endpush
