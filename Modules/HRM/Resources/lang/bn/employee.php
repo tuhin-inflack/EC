@@ -8,6 +8,7 @@ return [
     'employee_details' => 'কর্মচারী বিস্তারিত',
     'employee_id' => 'কর্মচারী আইডি',
 
+    // Employee Loan
     'employee_loan' => 'কর্মী লোণ',
     'employee_loan_apply' => 'লোণ আবেদন',
     'employee_loan_from' => 'লোণ আবেদন ফর্ম',
@@ -19,6 +20,7 @@ return [
     'select_loan_type' => 'লোণের ধরন নির্বাচন করুন',
     'employee_loan_apply_btn' => 'লোণের আবেদন করুন',
 
+    // Employee Training
     'employee_training' => 'কর্মী প্রশিক্ষণ',
     'employee_training_apply' => 'প্রশিক্ষণ আবেদন',
     'employee_training_apply_btn' => 'প্রশিক্ষণ আবেদন করুন',
@@ -40,10 +42,26 @@ return [
     'training_name' => 'প্রশিক্ষণের শিরোনাম',
     'select_training' => 'প্রশিক্ষণ নির্বাচন করুন',
 
+    // Employee Attendance
     'attendance' => 'হাজিরা',
     'attendance_list' => 'হাজিরা তালিকা',
     'in_time' => 'প্রবেশের সময়',
     'out_time' => 'প্রস্থানের সময়',
     'working_hour' => 'কর্ম ঘণ্টা',
+
+    // Employee Punishment
+    'employee_punishment' => 'শাস্তিবিধান',
+    'employee_punishment_list' => 'শাস্তির তালিকা',
+    'employee_punishment_type' => 'শাস্তির ধরন',
+    'select_employee_punishment_type' => 'শাস্তির ধরন নির্বাচন করুন',
+    'punishment_start' => 'শাস্তি শুরু',
+    'punishment_end' => 'শাস্তি শেষ',
+    'punishment_duration' => 'শাস্তির সময়কাল',
+    'new_punishment_record' => 'শাস্তি নিবন্ধন',
+    'new_punishment_record_form' => 'শাস্তি নিবন্ধন ফর্ম',
+    'new_punishment_record_submit' => 'শাস্তি নিবন্ধন করুন',
+    'punishment_reason' => 'শাস্তির কারন',
+    'punishment_reason_placeholder' => 'সংক্ষেপে শাস্তির কারন লিখুন',
+    'show_punishment' => 'শাস্তি সম্পর্কিত তথ্য',
 
 ];

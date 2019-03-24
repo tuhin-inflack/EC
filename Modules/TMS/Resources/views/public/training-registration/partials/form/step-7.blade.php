@@ -27,7 +27,7 @@
                     <div class="form-group">
                         <div class="form-group">
                             <label for="emailAddress1" class="">@lang('tms::training.experience') :</label>
-                            {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
+                            {{ Form::select('academic_institute_id',['Song' => 'Song', 'Acting' => 'Acting', 'Dancing' => 'Dancing', 'Speech' => 'Speech'], NULL , ['class' => ' form-control instituteSelection',
                                                 'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
                         </div>
                     </div>
@@ -35,24 +35,8 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.experience') :</label>
-                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
-                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.games') :</label>
-                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection', 'data-validation-required-message'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
                     <label for="shortDescription1" class="required">@lang('tms::training.hieght') :</label>
-                    {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
-                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                    {!! Form::text('bangla_name', old('bangla_name'), ['class' => 'form-control required' . ($errors->has('bangla_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'হামিদুর রহমান', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
                 </div>
                 <div class="col-md-6">
                     <label for="shortDescription1" class="required">@lang('tms::training.weight') :</label>
