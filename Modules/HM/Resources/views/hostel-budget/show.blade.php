@@ -74,8 +74,8 @@
                         </div>
                         <div class="card-content collapse show">
                             <div class="card-body">
-                                {!! Form::open(['route' => 'hostel-budgets.approve', 'class' => 'form budgetCreateForm',' novalidate']) !!}
-                                @include('hm::hostel-budget.approve-form.budget_approve_form')
+                                {!! Form::open(['route' => ['hostel-budgets.approve', $budgetWithTitles->id], 'class' => 'form budgetCreateForm',' novalidate']) !!}
+                                @include('hm::hostel-budget.form.budget_approve_form')
                                 {!! Form::close() !!}
 
                             </div>
