@@ -8,6 +8,7 @@ return [
         'bar_code' => 'Barcode',
     ],
     'links' => [
-        'add' => 'New Product'
+        'add' => 'New Product',
+        'list' => 'Product List'
     ]
 ];
