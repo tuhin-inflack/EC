@@ -73,15 +73,14 @@ class HostelBudgetController extends Controller
 
     }
 
-    public function approve(Request $request)
+    public function approve(Request $request, $budgetTitleId)
     {
         $hostelBudgets = $request->hostel_budgets;
-        $hostelBudgetTitleId = $request->hostel_budget_title_id;
-        $budget = $this->hostelBudgetService->approvedHostelBudget($hostelBudgets, $hostelBudgetTitleId);
+        $budget = $this->hostelBudgetService->approvedHostelBudget($hostelBudgets, $budgetTitleId);
 
         Session::flash('message', $budget->getContent());
 
-        return redirect('/hm/hostel-budgets/' . $hostelBudgetTitleId);
+        return redirect('/hm/hostel-budgets/' . $budgetTitleId);
     }
 
 

@@ -31,13 +31,13 @@
                                     <tr>
                                         <th>{{trans('labels.serial')}}</th>
                                         <th>{{trans('labels.name')}}</th>
+                                        <th>{{ trans('labels.status') }}</th>
                                         <th>{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     @if(count($budgetTitles)>0)
                                         @foreach($budgetTitles as $title)
-
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $title->name }}</td>
@@ -50,10 +50,12 @@
                                                     </button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href=" {{ route('hostel-budgets.edit',  $title->id )}}"
-                                                           class="dropdown-item"><i class="ft-edit"></i> {{trans('labels.edit')}}</a>
+                                                        @if($title->status==3)
+                                                            <a href=" {{ route('hostel-budgets.edit',  $title->id )}}"
+                                                               class="dropdown-item"><i class="ft-edit"></i> {{trans('labels.edit')}}</a>
+                                                        @endif
                                                         <a href=" {{ route('hostel-budgets.show',  $title->id )}}"
-                                                                class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
+                                                           class="dropdown-item"><i class="ft-eye"></i> {{trans('labels.details')}}</a>
 
                                                     </span>
                                                 </td>

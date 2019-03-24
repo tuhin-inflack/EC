@@ -69,7 +69,7 @@ Route::middleware(['auth', 'can:hm-access'])->group(function () {
             Route::get('/edit/{id}', 'HostelBudgetController@edit')->name('hostel-budgets.edit');
             Route::post('/hostel-budgets.update/{id?}', 'HostelBudgetController@update')->name('hostel-budgets.update');
             Route::post('/', 'HostelBudgetController@store')->name('hostel-budgets.store');
-            Route::post('/approve', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
+            Route::post('/approve/{id}', 'HostelBudgetController@approve')->name('hostel-budgets.approve');
             Route::get('/{id}', 'HostelBudgetController@show')->name('hostel-budgets.show');
         });
 
