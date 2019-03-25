@@ -42,7 +42,7 @@
                                 </div>
                             </div>
 
-                            <table class="table table-striped table-bordered alt-pagination">
+                            <table class="table table-striped table-bordered alt-pagination" id="Example1">
                                 <thead>
                                 <tr>
                                     <th>{{trans('labels.serial')}}</th>
@@ -108,6 +108,30 @@
                     text: '{{__("tms::training.select_training")}}'
                 }
             });
+
+            //        table export configuration
+            $('#Example1').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'csv', className: 'csv',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        }
+                    },
+                    {
+                        extend: 'excel', className: 'excel',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5],
+                        }
+                    },
+                ],
+                paging: true,
+                searching: true,
+                "bDestroy": true,
+
+            });
         });
+
     </script>
 @endpush
