@@ -68,5 +68,21 @@ class PromotionController extends Controller
      */
     public function destroy()
     {
+
+    }
+
+    /**
+     * Promote a users role and designation
+     * @param Request $request
+     * @return Response
+     */
+
+    public function promote(Request $request)
+    {
+
+        $roles = ['Demo 1', 'Demo 2', 'Demo 3'];
+        $designations = ['Senior Software Engineer', 'Software Engineer', 'Associate Software Engineer'];
+        return view('hrm::promotion.promote', compact('roles', 'designations'));
+
     }
 }
