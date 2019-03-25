@@ -32,6 +32,9 @@
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
                                         );
+                                    $budgetStatus = [
+                                            1 => 'APPROVED', 2 => 'REJECTED', '3' => 'PENDING'
+                                        ];
                                     @endphp
                                     @foreach($proposals as $proposal)
                                         <tr>

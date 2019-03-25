@@ -18,4 +18,6 @@ class RoleRepository extends AbstractBaseRepository
     {
         return $this->getModel()->pluck('name', 'id');
     }
+
+
 }

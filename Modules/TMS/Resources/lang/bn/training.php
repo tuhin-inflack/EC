@@ -99,4 +99,5 @@ return [
     'expended_chest' => 'প্রসারিত বুক',
     'weight_end_course' => 'কোর্স শেষে ওজন',
     'optional' => 'ঐচ্ছিক',
+    'training_completed' => 'এই প্রশিক্ষনের জন্য নিবন্ধন সম্পন্ন হয়েছে',
 ];

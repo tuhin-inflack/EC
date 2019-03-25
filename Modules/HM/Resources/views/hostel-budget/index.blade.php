@@ -36,12 +36,21 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @php
+                                        $statusAr = array(
+                                            'APPROVED' => 'bg-success',
+                                            'REJECTED' => 'bg-danger',
+                                            'PENDING' => 'bg-warning',
+                                            'REVIEWED' => 'bg-info',
+                                        );
+                                    @endphp
+
                                     @if(count($budgetTitles)>0)
                                         @foreach($budgetTitles as $title)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $title->name }}</td>
-
+                                                <td></td>
                                                 <td>
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true"
