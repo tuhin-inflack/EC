@@ -2,10 +2,12 @@
 
 namespace Modules\HM\Http\Controllers;
 
+use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Http\Requests\UpdateBookingRequestStatusRequest;
 use Modules\HM\Services\BookingRequestService;
@@ -18,13 +20,15 @@ class BookingRequestStatusController extends Controller
      * @var BookingRequestService
      */
     private $bookingRequestService;
+    private $roleService;
 
     /**
      * BookingRequestStatusController constructor.
      * @param BookingRequestService $bookingRequestService
      */
-    public function __construct(BookingRequestService $bookingRequestService)
+    public function __construct(BookingRequestService $bookingRequestService, RoleService $roleService)
     {
+        $this->roleService = $roleService;
         $this->bookingRequestService = $bookingRequestService;
     }
 
@@ -46,9 +50,15 @@ class BookingRequestStatusController extends Controller
 
     public function approve(UpdateBookingRequestStatusRequest $request, RoomBooking $roomBooking)
     {
+
         if ($this->bookingRequestService->approveBookingRequest($roomBooking, $request->all())) {
             if (isset($roomBooking->requester->email)) {
                 Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));
+                $usersForEmailNotification = $this->roleService->getUserEmailByRoles();
+                foreach ($usersForEmailNotification as $email) {
+                    Mail::to($email)->send(new BookingRequestMail($roomBooking));
+                }
+
             }
             Session::flash('success', trans('labels.update_success'));
         } else {

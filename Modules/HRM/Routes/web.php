@@ -100,11 +100,23 @@ Route::prefix('hrm')->group(function () {
         Route::get('/create', 'AppraisalController@create');
         Route::get('/{id}', 'AppraisalController@show');
         Route::delete('/{id}', 'AppraisalController@destroy');
-        Route::get('edit/{id}', 'AppraisalController@edit');
+        Route::get('/edit/{id}', 'AppraisalController@edit');
+
     });
     #--------------- // Appraisal Urls ---------------------------------
 
-     #---------------- Retirement Urls-----------------------------#
+    #---------------- promotion Urls-----------------------------#
+    Route::prefix('promotion')->group(function () {
+        Route::get('/', 'PromotionController@index');
+        Route::get('/create', 'PromotionController@create');
+        Route::get('/{id}', 'PromotionController@show');
+        Route::delete('/{id}', 'PromotionController@destroy');
+        Route::get('/edit/{id}', 'PromotionController@edit');
+
+    });
+    #--------------- // Promotion Urls ---------------------------------
+
+    #---------------- Retirement Urls-----------------------------#
     Route::prefix('retirement')->group(function () {
         Route::get('/', 'AppraisalController@retirement');
         Route::get('/create', 'AppraisalController@create');
