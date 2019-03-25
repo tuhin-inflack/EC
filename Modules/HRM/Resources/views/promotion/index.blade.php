@@ -40,7 +40,7 @@
                                             <i class="la la-cog"></i></button>
                                         <span aria-labelledby="btnSearchDrop2"
                                               class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{url('hrm/appraisal/12')}}"
+                                                        <a href="{{url('hrm/promotion/promote')}}"
                                                            class="dropdown-item"><i class="ft-eye"></i> Promote</a>
                                                          <div class="dropdown-divider"></div>
                                                          <a href="#" class="dropdown-item"><i class="ft ft-trash"></i> @lang('labels.delete')</a>

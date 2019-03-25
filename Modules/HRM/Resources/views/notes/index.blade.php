@@ -15,7 +15,7 @@
 
         <section id="card-footer-options">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-sm-12 col-md-6">
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Note Title
@@ -37,7 +37,43 @@
                             </h4>
                             <div class="card-content collapse show">
                                 <div class="card-body">
-                                    <p>{{ str_limit($dummy_string, $limit = 50, $end = '...') }}
+                                    <p>{{ str_limit($dummy_string, $limit = 500, $end = '...') }}
+                                    </p>
+                                    <div class="card-footer text-muted mt-2">
+                                        <span>Added 3 hours ago</span>
+
+                                        <a href="{{url('hrm/notes/1')}}"><span class="float-right primary">View Full Note <i
+                                                        class="ft-arrow-right"></i></span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Note Title
+                                <span class="badge bg-teal">Type</span>
+
+                                <label class="fonticon-unit float-right">
+                                    <div class="fonticon-wrap">
+
+                                        <a href="{{url('hrm/notes/edit/1')}}"><i class="ft-edit"></i></a>
+
+                                        <a href="#" class="custom_delete ft-trash-2" data-id="{{1}}">
+                                        </a>
+
+                                    </div>
+
+                                </label>
+
+
+                            </h4>
+                            <div class="card-content collapse show">
+                                <div class="card-body">
+                                    <p>{{ str_limit($dummy_string, $limit = 500, $end = '...') }}
                                     </p>
                                     <div class="card-footer text-muted mt-2">
                                         <span>Added 3 hours ago</span>
