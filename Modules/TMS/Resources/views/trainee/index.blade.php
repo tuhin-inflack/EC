@@ -50,7 +50,7 @@
                                     <th>{{trans('tms::training.trainee_name')}}</th>
                                     <th>{{trans('tms::training.trainee_gender')}}</th>
                                     <th>{{trans('labels.mobile')}}</th>
-                                    <th>{{trans('labels.status')}}</th>
+                                    <th>{{trans('tms::training.email')}}</th>
                                     <th>{{trans('labels.action')}}</th>
                                 </tr>
                                 </thead>
@@ -64,7 +64,7 @@
                                             <td><a href="{{route( 'trainee.show' ,$trainee['id'])}}">{{$trainee['bangla_name']}}</a></td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
-                                            <td>{{($trainee['status'] == 1)? "Active":"Inactive"}}</td>
+                                            <td>{{$trainee['email']}}</td>
                                             <td>
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown" aria-haspopup="true"
