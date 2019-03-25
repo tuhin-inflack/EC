@@ -240,6 +240,48 @@
                 </li>
                 <!-- / Appraisal Options -->
 
+                <!-- Contact  Options -->
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la ft-users"></i><span class="menu-title"
+                                                                          data-i18n="nav.templates.main">Contact</span></a>
+
+
+                    <ul class="menu-content">
+                        <!-- This Should Only be visible to Employee -->
+                        <li class="{{ is_active_match('contact/create') }}">
+                            <a href="{{ url('hrm/contact/create') }}">
+                                <i class="la ft-file-text"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Create Contact</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ is_active_match('contact/view') }}">
+                            <a href="{{ url('hrm/contact/') }}">
+                                <i class="la ft-grid"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Contact View</span>
+                            </a>
+                        </li>
+
+                        <li><a class="menu-item" href="#"
+                               data-i18n="nav.menu_levels.second_level_child.third_level_child.main">Contact Type</a>
+                            <ul class="menu-content">
+                                <li><a class="menu-item" href="#"
+                                       data-i18n="nav.menu_levels.second_level_child.third_level_child.fourth_level1">Create
+                                        Contact Type</a>
+                                </li>
+                                <li><a class="menu-item" href="#"
+                                       data-i18n="nav.menu_levels.second_level_child.third_level_child.fourth_level2">View
+                                        Contact Type</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+                <!-- / Contact Options -->
+
             </ul>
         @endauth
     </div>
