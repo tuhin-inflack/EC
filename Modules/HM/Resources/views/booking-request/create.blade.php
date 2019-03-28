@@ -90,7 +90,13 @@
         let current_lang = '{!!  Lang::locale()  !!}';
         // end by sumon
 
-
+        // Relation Localization
+        let guestRelations = {
+            myself: '{!! trans('hm::booking-request.relation_myself') !!}',
+            family: '{!! trans('hm::booking-request.relation_family') !!}',
+            friend: '{!! trans('hm::booking-request.relation_friend') !!}',
+            trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+        };
 
         // select2 placeholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
