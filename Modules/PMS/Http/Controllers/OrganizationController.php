@@ -3,6 +3,7 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\Organization\Organization;
+use App\Entities\Union;
 use App\Services\AttributeValueService;
 use App\Services\DivisionService;
 use App\Services\OrganizationService;
@@ -52,7 +53,7 @@ class OrganizationController extends Controller
             'organizableType' => $organizableType,
             'organizations' => $organizations,
             'divisions' => $this->divisionService->findAll(),
-            'unions' => Unions
+            'unions' => Union::all()
         ]);
     }
 
