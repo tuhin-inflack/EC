@@ -135,11 +135,8 @@ Route::prefix('hrm')->group(function () {
 
     #---------------- Contact Type Urls-----------------------------#
     Route::prefix('contact/type')->group(function () {
-        Route::get('/', 'ContactTypeController@index');
         Route::get('/create', 'ContactTypeController@create');
-        Route::get('/{id}', 'ContactTypeController@show');
-        Route::delete('/{id}', 'ContactTypeController@destroy');
-        Route::get('edit/{id}', 'ContactTypeController@edit');
+
     });
     #--------------- // Contact Type Urls ---------------------------------
 

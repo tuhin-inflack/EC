@@ -16,8 +16,6 @@ use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Modules\RMS\Entities\Research;
-use PhpParser\Node\Expr\Array_;
 
 class TaskService
 {
@@ -88,39 +86,54 @@ class TaskService
     {
         $chartData = [];
         foreach ($tasks as $task) {
-            array_push($chartData, array(
-                "id" => $task->id,
-                "text" => $task->name,
-                "start_date" => $task->actual_start_time ? : date('Y-m-d'),
-                "duration" => $this->calculateTaskCurrentDuration($task),
-                "progress" => 0,
-                "parent" => 0,
-                "deadline" => $task->expected_end_time,
-                "planned_start" => $task->expected_start_time,
-                "planned_end" => $task->expected_end_time,
-            ));
+
+            if ($task->expected_start_time && $task->expected_end_time) {
+
+                $manipulatedTaskData = $this->getManipulatedTaskData($task);
+                array_push($chartData, array(
+                    "id" => $task->id,
+                    "text" => $task->name,
+                    "start_date" => $manipulatedTaskData->actualStartTime,
+                    "duration" => $manipulatedTaskData->duration,
+                    "progress" => 0,
+                    "parent" => 0,
+                    //"deadline" => $manipulatedTaskData->deadline,
+                    "planned_start" => $task->expected_start_time,
+                    "planned_end" => $task->expected_end_time,
+                ));
+            }
         }
         return $chartData;
     }
 
-    private function calculateTaskCurrentDuration($task) : int
+    /**
+     * @param $task
+     * @return object
+     */
+    private function getManipulatedTaskData($task)
     {
-        $duration = 0;
+        $data['duration'] = 0;
+        //$data['deadline'] = $task->expected_end_time;
+        $data['actualStartTime'] = $task->actual_start_time ? : $task->expected_start_time;
 
-        if (!$task->actual_start_time){
-            return $duration;
+        if ($task->actual_start_time && $task->actual_end_time){
+            $data['duration'] = Carbon::parse($task->actual_start_time)->diffInDays($task->actual_end_time);
 
-        } else if ($task->actual_end_time){
-            return Carbon::parse($task->actual_end_time)->diffInDays($task->actual_start_time);
+        } else if ($task->actual_start_time && !$task->actual_end_time){
+            $data['duration'] = Carbon::parse($task->expected_start_time)->diffInDays($task->expected_end_time);
 
-        } else if (Carbon::parse($task->actual_end_time)->isCurrentDay() || Carbon::now()->diffInDays($task->actual_start_time, false) < 0){
-            return $duration;
-
-        } else {
-            return Carbon::parse($task->actual_start_time)->diffInDays($task->actual_end_time);
+        } else if (!$task->actual_start_time && !$task->actual_end_time){
+            $data['duration'] = Carbon::parse($task->expected_start_time)->diffInDays($task->expected_end_time);
         }
+
+        return (object) $data;
     }
 
+    /**
+     * @param $taskable
+     * @param $task
+     * @param $data
+     */
     private function syncTaskAttachments($taskable, $task, $data)
     {
         if (array_key_exists('deleted_attachments', $data)) {

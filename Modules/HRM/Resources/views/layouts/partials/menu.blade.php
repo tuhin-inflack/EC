@@ -267,14 +267,11 @@
                         <li><a class="menu-item" href="#"
                                data-i18n="nav.menu_levels.second_level_child.third_level_child.main">Contact Type</a>
                             <ul class="menu-content">
-                                <li><a class="menu-item" href="#"
+                                <li><a class="menu-item" href="{{url('/hrm/contact/type/create')}}"
                                        data-i18n="nav.menu_levels.second_level_child.third_level_child.fourth_level1">Create
                                         Contact Type</a>
                                 </li>
-                                <li><a class="menu-item" href="#"
-                                       data-i18n="nav.menu_levels.second_level_child.third_level_child.fourth_level2">View
-                                        Contact Type</a>
-                                </li>
+
                             </ul>
                         </li>
 

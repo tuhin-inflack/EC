@@ -45,10 +45,6 @@
                                                 $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
                                             @endphp
                                             <td>
-                                                {{ $wfMasterId }}
-                                                {{ $wfConvId }}
-                                                {{ $featureId }}
-                                                {{ $wfRuleDetailsId }}
                                                 <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>

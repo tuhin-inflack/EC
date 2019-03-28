@@ -37,4 +37,9 @@ class Trainee extends Model
     {
         return $this->hasOne(RegisteredTraineeEducation::class, 'trainee_id', 'id');
     }
+
+    public function physicalInfos()
+    {
+        return $this->hasOne(RegisteredTraineePhysicalInfo::class, 'trainee_id', 'id');
+    }
 }

@@ -11,6 +11,7 @@
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
+                                <li><button onclick="printTraineeDetails()">@lang('labels.print')</button></li>
                                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                                 <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -23,13 +24,13 @@
                                 <ul class="nav nav-tabs nav-underline no-hover-bg">
                                     @include('tms::trainee.partials.tab')
                                 </ul>
-                                <div class="tab-content px-1 pt-1">
+                                <div class="tab-content px-1 pt-1" id="section-to-print">
                                     <div role="tabpanel" class="tab-pane active" id="personal_info" aria-expanded="true"
                                          aria-labelledby="base-tab31">
                                         <table class="table">
                                             <tbody>
                                             <tr>
-                                                <th style="border-top: none;">@lang('labels.image')</th>
+                                                <th style="border-top: none;" class="hide">@lang('labels.image')</th>
                                                 <td style="border-top: none;">
 
                                                     <img src="{{ url("/file/get?filePath=" .  $trainee->photo) }}"
@@ -192,6 +193,31 @@
     </section>
 @endsection
 
+@push('page-css')
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #section-to-print, #section-to-print * {
+                visibility: visible;
+            }
+            #section-to-print {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .tab-content > .tab-pane {
+                display: block;
+            }
+            .hide{
+                display: none;
+            }
+
+        }
+    </style>
+@endpush
+
 @push('page-js')
     <script>
         $(document).ready(function () {
@@ -209,5 +235,11 @@
             });
 
         })
+    </script>
+
+    <script>
+        function printTraineeDetails() {
+            window.print();
+        }
     </script>
 @endpush
