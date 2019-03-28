@@ -68,7 +68,7 @@ class ProjectService
 
     public function getProjectsForUser(User $user)
     {
-        if ($this->userService->isProjectDivisionUser($user) && $this->userService->isDirectorGeneral()) {
+        if ($this->userService->isProjectDivisionUser($user) || $this->userService->isDirectorGeneral()) {
             return $this->projectRepository->findAll();
         } else {
             return $this->projectRepository->findBy(['submitted_by' => $user->id]);
