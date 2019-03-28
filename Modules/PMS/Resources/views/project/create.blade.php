@@ -1,4 +1,4 @@
-@extends('pms::layouts.master')
+c@extends('pms::layouts.master')
 @section('title', trans('pms::project_proposal.project_creation'))
 
 @section('content')
