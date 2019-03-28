@@ -8,9 +8,12 @@
 
 namespace Modules\PMS\Services;
 
+use App\Constants\DesignationShortName;
 use App\Entities\Attribute;
 use App\Entities\Organization\Organization;
+use App\Services\UserService;
 use App\Traits\CrudTrait;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\Project;
@@ -25,6 +28,10 @@ class ProjectService
      */
     private $projectRepository;
 
+    /**
+     * ProjectService constructor.
+     * @param ProjectRepository $projectRepository
+     */
     public function __construct(ProjectRepository $projectRepository)
     {
         $this->projectRepository = $projectRepository;
@@ -55,9 +62,13 @@ class ProjectService
         });
     }
 
-    public function getAll()
+    public function getProjectsForUser(User $user)
     {
-        return $this->projectRepository->findAll();
+        if ($this->isFacultyMember($user)) {
+            return $this->projectRepository->findBy(['submitted_by' => $user->id]);
+        } else {
+            return $this->projectRepository->findAll();
+        }
     }
 
     public function getTotalMembersByGender(Project $project, $gender)
@@ -65,5 +76,14 @@ class ProjectService
         return $project->organizations->reduce(function ($carry, Organization $organization) use ($gender) {
             return $carry + $organization->members->where('gender', $gender)->count();
         }, 0);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    private function isFacultyMember(User $user): bool
+    {
+        return $user->employee->designation->short_name == DesignationShortName::FM;
     }
 }
