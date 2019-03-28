@@ -50,6 +50,7 @@ class PublicTrainingRegistrationController extends Controller
 
     public function store(StoreRegisteredTraineeRequest $request)
     {
+        return $request;
         $this->registeredTraineeService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->back();

@@ -13,6 +13,7 @@ use App\Traits\FileTrait;
 use Modules\TMS\Entities\RegisteredTraineeEducation;
 use Modules\TMS\Entities\RegisteredTraineeEmergency;
 use Modules\TMS\Entities\RegisteredTraineeGeneralInfo;
+use Modules\TMS\Entities\RegisteredTraineePhysicalInfo;
 use Modules\TMS\Entities\RegisteredTraineeServiceInfo;
 use Modules\TMS\Repositories\RegisteredTraineeRepository;
 
@@ -48,6 +49,7 @@ class RegisteredTraineeService
         $this->saveTraineeServiceInfo($data, $trainee);
         $this->saveTraineeEmergencyContact($data, $trainee);
         $this->saveTraineeEducation($data, $trainee);
+        $this->saveTraineePhysicalInfo($data, $trainee);
         return $trainee;
     }
 
@@ -73,6 +75,12 @@ class RegisteredTraineeService
     {
         $traineeEducation = new RegisteredTraineeEducation($data);
         $trainee->educations()->save($traineeEducation);
+    }
+
+    private function saveTraineePhysicalInfo($data, $trainee): void
+    {
+        $traineePhysicalInfo = new RegisteredTraineePhysicalInfo($data);
+        $trainee->physicalInfos()->save($traineePhysicalInfo);
     }
 
 
