@@ -10,4 +10,5 @@ class HostelBudgetTitle extends Model {
 	public function hostelBudgets() {
 		return $this->hasMany( HostelBudget::class );
 	}
+
 }

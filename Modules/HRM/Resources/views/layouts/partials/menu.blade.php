@@ -112,6 +112,27 @@
                     </ul>
                 </li>
 
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la la-user"></i><span class="menu-title"
+                                                                         data-i18n="nav.templates.main">{{ trans('hrm::employee.employee_punishment') }}</span></a>
+                    <ul class="menu-content">
+                        <li class="{{ is_active_url('hrm/punishment/create') }}">
+                            <a href="{{ route('employee-punishment.create') }}">
+                                <i class="la la-hotel"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">{{trans('hrm::employee.new_punishment_record')}}</span>
+                            </a>
+                        </li>
+                        <li class="{{ is_active_match('hrm/punishment/list')}}">
+                            <a href="{{  route('employee-punishment.list') }}">
+                                <i class="la la-list-alt"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">{{ trans('hrm::employee.employee_punishment_list') }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
                 <!-- House Rent Options -->
                 <li class="nav-item">
                     <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
@@ -126,7 +147,7 @@
                         </li>
 
                         <!-- This Should Only be visible to Employee -->
-                        <li class="{{ is_active_url('house-rent/show-house')}}">
+                        <li class="{{ is_active_match('house-rent/show-house')}}">
                             <a href="{{ url('hrm/house-rent/show-house') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title"
@@ -134,7 +155,7 @@
                             </a>
                         </li>
 
-                        <li class="{{ is_active_url('house-rent/applications')}}">
+                        <li class="{{ is_active_match('house-rent/applications')}}">
                             <a href="{{ url('hrm/house-rent/applications') }}">
                                 <i class="la ft-check"></i>
                                 <span class="menu-title" data-i18n="nav.dash.main">House Rent Request</span>
@@ -148,20 +169,20 @@
 
                 <!-- Note Options -->
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
-                                                                          data-i18n="nav.templates.main">Notes</span></a>
+                    <a href="#" class=""><i class="la la-clipboard"></i><span class="menu-title"
+                                                                              data-i18n="nav.templates.main">Notes</span></a>
                     <!-- This Should Only be visible to Employee -->
                     <ul class="menu-content">
                         <li class="{{ is_active_match('notes/create') }}">
                             <a href="{{ url('hrm/notes/create') }}">
-                                <i class="la la-institution"></i>
+                                <i class="la ft-edit-3"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Create Note</span>
                             </a>
                         </li>
 
                         <!-- This Should Only be visible to Employee -->
-                        <li class="{{ is_active_url('notes')}}">
+                        <li class="{{ is_active_match('notes')}}">
                             <a href="{{ url('hrm/notes') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title"
@@ -175,31 +196,41 @@
 
                 <!-- Appraisal  Options -->
                 <li class="nav-item">
-                    <a href="#" class=""><i class="la la-hotel"></i><span class="menu-title"
+                    <a href="#" class=""><i class="la ft-users"></i><span class="menu-title"
                                                                           data-i18n="nav.templates.main">Appraisal</span></a>
-                    <!-- This Should Only be visible to Employee -->
+
+
                     <ul class="menu-content">
+                        <!-- This Should Only be visible to Employee -->
                         <li class="{{ is_active_match('appraisal/create') }}">
                             <a href="{{ url('hrm/appraisal/create') }}">
-                                <i class="la la-institution"></i>
+                                <i class="la ft-file-text"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Appraisal Form</span>
                             </a>
                         </li>
 
+                        <li class="{{ is_active_match('appraisal/view') }}">
+                            <a href="{{ url('hrm/appraisal/') }}">
+                                <i class="la ft-grid"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Appraisal View</span>
+                            </a>
+                        </li>
+
                         <!-- This Should Only be visible to Employee -->
-                        <li class="{{ is_active_url('retirement')}}">
+                        <li class="{{ is_active_match('retirement')}}">
                             <a href="{{ url('hrm/retirement') }}">
-                                <i class="la la-list-alt"></i>
+                                <i class="la ft-file-text"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Retirement Form</span>
                             </a>
                         </li>
 
 
-                        <li class="{{ is_active_url('notes')}}">
-                            <a href="{{ url('hrm/notes') }}">
-                                <i class="la la-list-alt"></i>
+                        <li class="{{ is_active_match('promotion')}}">
+                            <a href="{{ url('hrm/promotion') }}">
+                                <i class="la ft-user-check"></i>
                                 <span class="menu-title"
                                       data-i18n="nav.dash.main">Promotion</span>
                             </a>
@@ -208,6 +239,45 @@
                     </ul>
                 </li>
                 <!-- / Appraisal Options -->
+
+                <!-- Contact  Options -->
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la ft-users"></i><span class="menu-title"
+                                                                          data-i18n="nav.templates.main">Contact</span></a>
+
+
+                    <ul class="menu-content">
+                        <!-- This Should Only be visible to Employee -->
+                        <li class="{{ is_active_match('contact/create') }}">
+                            <a href="{{ url('hrm/contact/create') }}">
+                                <i class="la ft-file-text"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Create Contact</span>
+                            </a>
+                        </li>
+
+                        <li class="{{ is_active_match('contact/view') }}">
+                            <a href="{{ url('hrm/contact/') }}">
+                                <i class="la ft-grid"></i>
+                                <span class="menu-title"
+                                      data-i18n="nav.dash.main">Contact View</span>
+                            </a>
+                        </li>
+
+                        <li><a class="menu-item" href="#"
+                               data-i18n="nav.menu_levels.second_level_child.third_level_child.main">Contact Type</a>
+                            <ul class="menu-content">
+                                <li><a class="menu-item" href="{{url('/hrm/contact/type/create')}}"
+                                       data-i18n="nav.menu_levels.second_level_child.third_level_child.fourth_level1">Create
+                                        Contact Type</a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                    </ul>
+                </li>
+                <!-- / Contact Options -->
 
             </ul>
         @endauth

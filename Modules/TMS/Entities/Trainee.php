@@ -20,7 +20,7 @@ class Trainee extends Model
 
     public function generalInfos()
     {
-        return $this->hasOne(Trainee::class, 'trainee_id', 'id');
+        return $this->hasOne(RegisteredTraineeGeneralInfo::class, 'trainee_id', 'id');
     }
 
     public function services()

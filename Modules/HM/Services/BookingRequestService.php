@@ -9,6 +9,7 @@
 namespace Modules\HM\Services;
 
 
+use App\Services\RoleService;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
+use phpDocumentor\Reflection\Types\Object_;
 
 class BookingRequestService
 {
@@ -40,6 +42,7 @@ class BookingRequestService
     private $roomBookingRequesterRepository;
     private $bookingRequesteForwardRepository;
     private $roomService;
+    private $roleService;
     /**
      * @var RoomTypeService
      */
@@ -60,7 +63,8 @@ class BookingRequestService
         RoomBookingRequesterRepository $roomBookingRequesterRepository,
         BookingRequestForwardRepository $bookingRequesteForwardRepository,
         RoomTypeService $roomTypeService,
-        RoomService $roomService
+        RoomService $roomService,
+        RoleService $roleService
     )
     {
         $this->roomBookingRepository = $roomBookingRepository;
@@ -69,11 +73,14 @@ class BookingRequestService
         $this->bookingRequesteForwardRepository = $bookingRequesteForwardRepository;
         $this->roomTypeService = $roomTypeService;
         $this->roomService = $roomService;
+        $this->roleService = $roleService;
         $this->setActionRepository($roomBookingRepository);
     }
 
     public function store(array $data, $type = 'booking')
     {
+
+
         return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
@@ -96,9 +103,13 @@ class BookingRequestService
                 $this->saveRoomNumbers($roomBooking, $data['room_numbers']);
             }
             if ($roomBooking && !empty($data['email'])) {
-                Mail::to($data['email'])
-                    ->send(new BookingRequestMail($roomBooking));
+                Mail::to($data['email'])->send(new BookingRequestMail($roomBooking));
+                $usersForEmailNotification = $this->roleService->getUserEmailByRoles();
+                foreach ($usersForEmailNotification as $email) {
+                    Mail::to($email)->send(new BookingRequestMail($roomBooking));
+                }
             }
+
             return $roomBooking;
         });
     }
@@ -386,7 +397,8 @@ class BookingRequestService
      * @param $totalRoomsByRoomType
      * @return mixed
      */
-    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    private
+    function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
     {
         if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];

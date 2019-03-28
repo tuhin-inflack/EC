@@ -28,7 +28,9 @@ class AppraisalController extends Controller
      */
     public function index()
     {
-        return view('hrm::index');
+        //todo: Detect if the user is supervisor or a single user, then sends the only specific
+        // Appraisal List
+        return view('hrm::appraisal.index');
     }
 
     /**
@@ -37,9 +39,8 @@ class AppraisalController extends Controller
      */
     public function create()
     {
-        $roomTypes = $this->roomTypeService->pluck();
-        $roomTypes->prepend('--Please Select--', '');
-        return view('hrm::appraisal.create');
+        $supervisor = 0;
+        return view('hrm::appraisal.create', compact('supervisor'));
     }
 
     /**
@@ -55,9 +56,12 @@ class AppraisalController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show($id)
     {
-        return view('hrm::show');
+        //todo: find the value using id and send it to view
+        //Normal user can only view the form , supervisor can give number to it
+        $supervisor = 1;
+        return view('hrm::appraisal.show', compact('supervisor'));
     }
 
     /**

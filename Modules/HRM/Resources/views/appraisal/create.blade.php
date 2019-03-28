@@ -74,8 +74,10 @@
                                             <div data-repeater-item="" style="">
                                                 <div class="form row">
 
-                                                    <div class="mb-1 col-sm-12 col-md-5 form-group">
+                                                    <div class="mb-1 col-sm-12 col-md-3 form-group">
                                                         <label for="room_type" class="required">Project Name</label>
+
+                                                        <!-- Todo: Load this from an array  -->
                                                         <select class="form-control" required="required"
                                                                 data-validation-required-message="The Room Type field is required."
                                                                 id="room_type" name="room_type">
@@ -88,22 +90,49 @@
                                                         </select>
                                                         <div class="help-block"></div>
                                                     </div>
-                                                    <div class="mb-1 col-sm-12 col-md-5 form-group">
-                                                        <label for="room_type" class="required">Contributed As </label>
+                                                    <div class="mb-1 col-sm-12 col-md-3">
+                                                        <label for="room_type" class="required">Contributed As
+                                                            : </label>
+
+                                                        <!-- Todo: Load this from an array  -->
                                                         <select class="form-control" required="required"
                                                                 data-validation-required-message="The Room Type field is required."
                                                                 id="room_type" name="room_type">
                                                             <option value="" selected="selected">--Please Select--
                                                             </option>
                                                             <option value="1">Team Leader</option>
-                                                            <option value="2">Senior Developer</option>
-                                                            <option value="3">Developer</option>
-                                                            <option value="4">Junior Developer</option>
+                                                            <option value="2">Senior Software Engineer</option>
+                                                            <option value="3">Associate Software Engineer</option>
+                                                            <option value="4">Junior Software Engineer</option>
                                                         </select>
                                                         <div class="help-block"></div>
                                                     </div>
 
-                                                    <div class="form-group col-sm-12 col-md-2 text-center mt-2">
+                                                @if($supervisor == 0)
+
+                                                    <!--Todo: This field should only be visible to Supervisor -->
+
+                                                        <div class="mb-1 col-sm-12 col-md-3 form-group">
+                                                            <label for="room_type" class="required">Supervisor
+                                                                Remarks: </label>
+                                                            <input type="text" class="form-control"
+                                                                   name="supervisor_remarks"
+                                                                   id="supervisor_remarks" disabled>
+                                                        </div>
+
+                                                @else
+                                                    <!--Todo: This field should only be visible to Supervisor -->
+
+                                                        <div class="mb-1 col-sm-12 col-md-3 form-group">
+                                                            <label for="room_type" class="required">Supervisor
+                                                                Remarks: </label>
+                                                            <input type="text" class="form-control"
+                                                                   name="supervisor_remarks"
+                                                                   id="supervisor_remarks">
+                                                        </div>
+                                                    @endif
+
+                                                    <div class="col-sm-12 col-md-3 text-center mt-2">
                                                         <button type="button" class="btn btn-outline-danger"
                                                                 data-repeater-delete=""><i
                                                                     class="ft-x"></i>

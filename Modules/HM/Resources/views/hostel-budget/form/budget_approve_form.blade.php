@@ -5,9 +5,8 @@
         <div class="col-md-5">
             <div class="form-group">
                 <div class="form-group {{ $errors->has('hostel_budget_title_id') ? ' error' : '' }}">
-                    {{ Form::label('hostel_budget_title_id', trans('hm::hostel_budget.budget_for') ,  ['class' => 'form-label required'])}}
-
-                    {{ Form::select('hostel_budget_title_id', $budgetTitles, isset($budgetWithTitles->id) ? $budgetWithTitles->id : null, ['disabled', 'class' => 'form-control', 'placeholder' => 'Select Budget Year', 'required' => 'required', 'data-validation-required-message'=>'Please select budget title']) }}
+                  <h3>{{ $budgetWithTitles->name }}</h3>
+{{--                    {{ Form::select('hostel_budget_title_id', $budgetTitles, isset($budgetWithTitles->id) ? $budgetWithTitles->id : null, ['disabled', 'class' => 'form-control', 'placeholder' => 'Select Budget Year', 'required' => 'required', 'data-validation-required-message'=>'Please select budget title']) }}--}}
                     {{ Form::hidden('hostel_budget_title_id', isset($budgetWithTitles->id) ? $budgetWithTitles->id : null ) }}
                     <div class="help-block"></div>
                     @if ($errors->has('hostel_budget_title_id'))

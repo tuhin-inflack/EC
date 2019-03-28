@@ -20,7 +20,7 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form budgetCreateForm',' novalidate']) !!}
-                            @include('hm::hostel-budget.create-form.budget_create_form')
+                            @include('hm::hostel-budget.form.budget_create_form')
                             {!! Form::close() !!}
 
                         </div>

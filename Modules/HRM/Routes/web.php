@@ -65,6 +65,14 @@ Route::prefix('hrm')->group(function () {
         Route::post('/', 'EmployeeAttendanceController@store')->name('employee-training.store');
     });
 
+    // Routes for Employee Punishment
+    Route::prefix('punishment')->group(function () {
+        Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.list');
+        Route::get('/show/{punishmentId}', 'EmployeePunishmentController@show')->name('employee-punishment.show');
+        Route::get('/create', 'EmployeePunishmentController@create')->name('employee-punishment.create');
+        Route::post('/create', 'EmployeePunishmentController@store')->name('employee-punishment.store');
+    });
+
     #---------------- House Rent Urls-----------------------------#
     Route::prefix('house-rent')->group(function () {
         Route::get('/circulate-house', 'HouseRentController@index');
@@ -92,11 +100,20 @@ Route::prefix('hrm')->group(function () {
         Route::get('/create', 'AppraisalController@create');
         Route::get('/{id}', 'AppraisalController@show');
         Route::delete('/{id}', 'AppraisalController@destroy');
-        Route::get('edit/{id}', 'AppraisalController@edit');
+        Route::get('/edit/{id}', 'AppraisalController@edit');
+
     });
     #--------------- // Appraisal Urls ---------------------------------
 
-     #---------------- Retirement Urls-----------------------------#
+    #---------------- promotion Urls-----------------------------#
+    Route::prefix('promotion')->group(function () {
+        Route::get('/', 'PromotionController@index');
+        Route::get('/promote', 'PromotionController@promote');
+
+    });
+    #--------------- // Promotion Urls ---------------------------------
+
+    #---------------- Retirement Urls-----------------------------#
     Route::prefix('retirement')->group(function () {
         Route::get('/', 'AppraisalController@retirement');
         Route::get('/create', 'AppraisalController@create');
@@ -105,6 +122,26 @@ Route::prefix('hrm')->group(function () {
         Route::get('edit/{id}', 'AppraisalController@edit');
     });
     #--------------- // Retirement Urls ---------------------------------
+
+    #---------------- Contact Urls-----------------------------#
+    Route::prefix('contact')->group(function () {
+        Route::get('/', 'ContactController@index');
+        Route::get('/create', 'ContactController@create');
+        Route::get('/{id}', 'ContactController@show');
+        Route::delete('/{id}', 'ContactController@destroy');
+        Route::get('edit/{id}', 'ContactController@edit');
+    });
+    #--------------- // Contact Urls ---------------------------------
+
+    #---------------- Contact Type Urls-----------------------------#
+    Route::prefix('contact/type')->group(function () {
+        Route::get('/', 'ContactTypeController@index');
+        Route::get('/create', 'ContactTypeController@create');
+        Route::get('/{id}', 'ContactTypeController@show');
+        Route::delete('/{id}', 'ContactTypeController@destroy');
+        Route::get('edit/{id}', 'ContactTypeController@edit');
+    });
+    #--------------- // Contact Type Urls ---------------------------------
 
 
     Route::resources(

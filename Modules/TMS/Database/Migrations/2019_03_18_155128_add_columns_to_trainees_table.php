@@ -31,7 +31,7 @@ class AddColumnsToTraineesTable extends Migration
     public function down()
     {
         Schema::table('trainees', function (Blueprint $table) {
-
+            $table->dropColumn(['bangla_name', 'english_name', 'dob', 'fax', 'photo']);
         });
     }
 }

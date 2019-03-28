@@ -36,12 +36,12 @@ class RoleService
 
     public function getRolesWithPermission()
     {
-        return $this->findAll(null, 'permissions', ['column'=>'id', 'direction' => 'desc']);
+        return $this->findAll(null, 'permissions', ['column' => 'id', 'direction' => 'desc']);
     }
 
     public function store(array $data)
     {
-        DB::transaction(function () use ($data){
+        DB::transaction(function () use ($data) {
             $role = $this->save($data);
             $role->permissions()->attach($data['permissions']);
         });
@@ -75,5 +75,21 @@ class RoleService
     {
         return $this->roleRepository->pluck();
     }
+
+    public function getUserEmailByRoles()
+    {
+        $users = [];
+        $userRoles = ['ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER', 'ROLE_DIRECTOR_TRAINING', 'ROLE_DIRECTOR_GENERAL'];
+        foreach ($userRoles as $key => $userRole) {
+            $role = $this->roleRepository->findBy(['name' => $userRole])->first();
+            if (isset($role->users)) {
+                $users = array_merge($users, $role->users->toArray());
+            }
+        }
+        $emails = array_unique(array_column($users, 'email'));
+
+        return $emails;
+    }
+
 
 }
