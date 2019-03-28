@@ -40,7 +40,7 @@
                                     <div class="card-body">
                                             {!! Form::open(['route' =>  ['training-registration.store', $training->id], 'class' => 'wizard-circle training-steps', 'enctype' => 'multipart/form-data']) !!}
                                                 <!-- Step 1 -->
-                                            @include('tms::public.training-registration.partials.form.step-1')
+                                            {{--@include('tms::public.training-registration.partials.form.step-1')
                                             <!-- Step 2 -->
                                             @include('tms::public.training-registration.partials.form.step-2')
                                             <!-- Step 3 -->
@@ -48,11 +48,11 @@
                                             <!-- Step 4 -->
                                             @include('tms::public.training-registration.partials.form.step-4')
                                             <!-- Step 5 -->
-                                            @include('tms::public.training-registration.partials.form.step-5')
+                                            @include('tms::public.training-registration.partials.form.step-5')--}}
                                             <!-- Step 6 -->
-                                            {{--@include('tms::public.training-registration.partials.form.step-6')
+                                            {{--@include('tms::public.training-registration.partials.form.step-6')--}}
                                             <!-- Step 7 -->
-                                            @include('tms::public.training-registration.partials.form.step-7')--}}
+                                            @include('tms::public.training-registration.partials.form.step-7')
                                             {{ Form::close() }}
                                     </div>
                                 </div>

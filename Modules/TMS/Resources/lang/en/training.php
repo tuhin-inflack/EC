@@ -100,4 +100,6 @@ return [
     'optional' => 'Optional',
     'trainee_details' => 'Trainee Details',
     'training_completed' => 'Registration for this training is completed',
+    'inch' => 'Inch',
+    'kilogran' => 'Kilogram',
 ];

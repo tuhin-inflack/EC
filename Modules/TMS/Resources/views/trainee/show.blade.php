@@ -30,7 +30,7 @@
                                         <table class="table">
                                             <tbody>
                                             <tr>
-                                                <th style="border-top: none;">@lang('labels.image')</th>
+                                                <th style="border-top: none;" class="hide">@lang('labels.image')</th>
                                                 <td style="border-top: none;">
 
                                                     <img src="{{ url("/file/get?filePath=" .  $trainee->photo) }}"
@@ -210,6 +210,10 @@
             .tab-content > .tab-pane {
                 display: block;
             }
+            .hide{
+                display: none;
+            }
+
         }
     </style>
 @endpush
