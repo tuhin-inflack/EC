@@ -9,6 +9,7 @@
 namespace Modules\PMS\Services;
 
 use App\Constants\NotificationType;
+use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\UserService;
@@ -55,14 +56,21 @@ class ProjectProposalService
         $this->setActionRepository($projectProposalRepository);
     }
 
-    public function getAll()
+    /**
+     * @param User $user
+     * @return \App\Repositories\Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     */
+    public function getProposalsForUser(User $user)
     {
-        return $this->projectProposalRepository->findAll();
+        if ($this->userService->isDirectorGeneral() || $this->userService->isProjectDivisionUser($user)) {
+            return $this->findAll();
+        } else {
+            return $this->findBy(['auth_user_id' => $user->id]);
+        }
     }
 
     public function store(array $data)
     {
-
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
 
