@@ -51,7 +51,8 @@ class OrganizationController extends Controller
             'organizable' => $project,
             'organizableType' => $organizableType,
             'organizations' => $organizations,
-            'divisions' => $this->divisionService->findAll()
+            'divisions' => $this->divisionService->findAll(),
+            'unions' => Unions
         ]);
     }
 
