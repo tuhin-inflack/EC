@@ -130,8 +130,8 @@
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
                                     <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
-                                                                    </span>
+                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -169,9 +169,8 @@
                             </div>
 
                             <div class="form-group col-sm-12 col-md-1 text-center mt-2">
-                                <button type="button" class="btn btn-outline-danger"
-                                        data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                    <i class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -200,10 +199,8 @@
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                    <button type="button"
-                                            class="btn btn-outline-danger"
-                                            data-repeater-delete=""><i
-                                                class="ft-x"></i>
+                                    <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                        <i class="ft-x"></i>
                                     </button>
                                 </div>
                             </div>
