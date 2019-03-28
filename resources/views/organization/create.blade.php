@@ -126,6 +126,7 @@
                                                 <br/>
                                                 {{ Form::select('division_id',  $divisions->pluck('name', 'id'), null, [
                                                     'class' => ' form-control select2',
+                                                     'disabled',
                                                     'placeholder' => trans('labels.select')
                                                 ]) }}
                                                 <div class="help-block"></div>
@@ -139,6 +140,7 @@
                                                 <br/>
                                                 {{ Form::select('district_id',  [], null, [
                                                     'class' => ' form-control select2',
+                                                    'disabled',
                                                     'placeholder' => trans('labels.select')
                                                 ]) }}
                                                 <div class="help-block"></div>
@@ -152,6 +154,7 @@
                                                 <br/>
                                                 {{ Form::select('thana_id',  [], null, [
                                                     'class' => ' form-control select2',
+                                                    'disabled',
                                                     'placeholder' => trans('labels.select')
                                                 ]) }}
                                                 <div class="help-block"></div>
@@ -163,7 +166,7 @@
                                             <div class="form-group ">
                                                 {{ Form::label('union_id', trans('union.union')) }}
                                                 <br/>
-                                                {{ Form::select('union_id',  [], null, [
+                                                {{ Form::select('union_id',  $unions->pluck('name', 'id'), null, [
                                                     'class' => ' form-control select2', 
                                                     'placeholder' => trans('labels.select')
                                                 ]) }}
@@ -214,6 +217,24 @@
                     $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").hide();
                 }
+            });
+
+            $('#union_id').change(function () {
+                var union_id = $('#union_id').val();
+                $.ajax({
+                    url: '{{url('')}}',
+                    type: "GET",
+                    data: {
+                        "union_id": union_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (response) {
+                        console.log(response);
+                        //location.reload();
+                    }
+                });
+
+
             });
         });
     </script>
