@@ -8,13 +8,11 @@
 
 namespace Modules\PMS\Services;
 
-use App\Constants\DesignationShortName;
 use App\Entities\Attribute;
 use App\Entities\Organization\Organization;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
 use Illuminate\Foundation\Auth\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\Project;
 use Modules\PMS\Repositories\ProjectRepository;
@@ -27,15 +25,21 @@ class ProjectService
      * @var ProjectRepository
      */
     private $projectRepository;
+    /**
+     * @var UserService
+     */
+    private $userService;
 
     /**
      * ProjectService constructor.
      * @param ProjectRepository $projectRepository
+     * @param UserService $userService
      */
-    public function __construct(ProjectRepository $projectRepository)
+    public function __construct(ProjectRepository $projectRepository, UserService $userService)
     {
         $this->projectRepository = $projectRepository;
         $this->setActionRepository($projectRepository);
+        $this->userService = $userService;
     }
 
     public function store(array $data)
@@ -64,10 +68,10 @@ class ProjectService
 
     public function getProjectsForUser(User $user)
     {
-        if ($this->isFacultyMember($user)) {
-            return $this->projectRepository->findBy(['submitted_by' => $user->id]);
-        } else {
+        if ($this->userService->isProjectDivisionUser($user) && $this->userService->isDirectorGeneral()) {
             return $this->projectRepository->findAll();
+        } else {
+            return $this->projectRepository->findBy(['submitted_by' => $user->id]);
         }
     }
 
@@ -76,14 +80,5 @@ class ProjectService
         return $project->organizations->reduce(function ($carry, Organization $organization) use ($gender) {
             return $carry + $organization->members->where('gender', $gender)->count();
         }, 0);
-    }
-
-    /**
-     * @param User $user
-     * @return bool
-     */
-    private function isFacultyMember(User $user): bool
-    {
-        return $user->employee->designation->short_name == DesignationShortName::FM;
     }
 }
