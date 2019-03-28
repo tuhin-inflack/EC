@@ -6,4 +6,5 @@ return [
     'planning_list' => 'Planning List',
     'total_planned_value' => 'Total Planned Value',
     'enter_planning' => 'Enter Planning',
+    'calculator' => 'Calculator',
 ];

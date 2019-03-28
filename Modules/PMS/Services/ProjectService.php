@@ -9,8 +9,11 @@
 namespace Modules\PMS\Services;
 
 use App\Entities\Attribute;
+use App\Entities\Organization\Organization;
 use App\Traits\CrudTrait;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Modules\PMS\Entities\Project;
 use Modules\PMS\Repositories\ProjectRepository;
 
 class ProjectService
@@ -55,5 +58,12 @@ class ProjectService
     public function getAll()
     {
         return $this->projectRepository->findAll();
+    }
+
+    public function getTotalMembersByGender(Project $project, $gender)
+    {
+        return $project->organizations->reduce(function ($carry, Organization $organization) use ($gender) {
+            return $carry + $organization->members->where('gender', $gender)->count();
+        }, 0);
     }
 }

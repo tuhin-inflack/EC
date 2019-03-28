@@ -123,6 +123,23 @@ Route::prefix('hrm')->group(function () {
     });
     #--------------- // Retirement Urls ---------------------------------
 
+    #---------------- Contact Urls-----------------------------#
+    Route::prefix('contact')->group(function () {
+        Route::get('/', 'ContactController@index');
+        Route::get('/create', 'ContactController@create');
+        Route::get('/{id}', 'ContactController@show');
+        Route::delete('/{id}', 'ContactController@destroy');
+        Route::get('edit/{id}', 'ContactController@edit');
+    });
+    #--------------- // Contact Urls ---------------------------------
+
+    #---------------- Contact Type Urls-----------------------------#
+    Route::prefix('contact/type')->group(function () {
+        Route::get('/create', 'ContactTypeController@create');
+
+    });
+    #--------------- // Contact Type Urls ---------------------------------
+
 
     Route::resources(
         [

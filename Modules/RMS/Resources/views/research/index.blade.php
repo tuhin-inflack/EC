@@ -53,7 +53,7 @@
                                                     <a href="{{route('research.show', $research->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href="{{route('research-budget.index', $research->id) }}"
-                                                       class="dropdown-item"><i class="ft-folder"></i>@lang('rms::research.title') @lang('labels.details')</a>
+                                                       class="dropdown-item"><i class="ft-folder"></i>@lang('rms::research_budget.title') @lang('labels.details')</a>
                                                 </span>
                                             </span>
                                             </td>
