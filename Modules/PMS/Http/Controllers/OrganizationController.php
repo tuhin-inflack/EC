@@ -42,7 +42,7 @@ class OrganizationController extends Controller
         $this->organizationService = $organizationService;
         $this->attributeValueService = $attributeValueService;
         $this->divisionService = $divisionService;
-    }
+     }
 
     public function create(Project $project)
     {
