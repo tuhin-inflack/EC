@@ -48,10 +48,12 @@ class PublicTrainingRegistrationController extends Controller
         return view('tms::public.training-registration.create', compact('training', 'diseases'));
     }
 
-    public function store(StoreRegisteredTraineeRequest $request)
+    public function store(Request $request)
     {
-        return $request;
-        $this->registeredTraineeService->store($request->all());
+        $data = $request->all();
+        $data['expertise_sports'] = implode(',', $data['expertise_sports']);
+        $data['hobby'] = implode(',', $data['hobby']);
+        $this->registeredTraineeService->store($data);
         Session::flash('success', trans('labels.save_success'));
         return redirect()->back();
     }
