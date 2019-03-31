@@ -122,12 +122,11 @@
                                     <div class="col-md-6 ">
                                         <div class="form-group ">
                                             <div class="form-group ">
-                                                {{ Form::label('division_id', trans('division.division')) }}
-                                                <br/>
-                                                {{ Form::select('division_id',  $divisions->pluck('name', 'id'), null, [
-                                                    'class' => ' form-control select2',
-                                                    'placeholder' => trans('labels.select')
-                                                ]) }}
+                                                <label for="division_id">Division</label>
+                                                <select  class="form-control select2" readonly id="division_id"
+                                                        name="division_id">
+
+                                                </select>
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -135,12 +134,25 @@
                                     <div class="col-md-6 ">
                                         <div class="form-group ">
                                             <div class="form-group ">
-                                                {{ Form::label('district_id', trans('district.district')) }}
-                                                <br/>
-                                                {{ Form::select('district_id',  [], null, [
-                                                    'class' => ' form-control select2',
-                                                    'placeholder' => trans('labels.select')
-                                                ]) }}
+                                                <div class="form-group ">
+                                                    <label for="district_id">District</label>
+                                                    <select  class="form-control select2" id="district_id" readonly
+                                                            name="district_id">
+
+                                                    </select>
+                                                    <div class="help-block"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="form-group ">
+                                            <div class="form-group ">
+                                                <label for="thana_id">Thana</label>
+                                                <select  class="form-control select2" readonly id="thana_id"
+                                                        name="thana_id">
+
+                                                </select>
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -148,25 +160,14 @@
                                     <div class="col-md-6 ">
                                         <div class="form-group ">
                                             <div class="form-group ">
-                                                {{ Form::label('thana_id', trans('thana.thana')) }}
-                                                <br/>
-                                                {{ Form::select('thana_id',  [], null, [
-                                                    'class' => ' form-control select2',
-                                                    'placeholder' => trans('labels.select')
-                                                ]) }}
-                                                <div class="help-block"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 ">
-                                        <div class="form-group ">
-                                            <div class="form-group ">
-                                                {{ Form::label('union_id', trans('union.union')) }}
-                                                <br/>
-                                                {{ Form::select('union_id',  [], null, [
-                                                    'class' => ' form-control select2', 
-                                                    'placeholder' => trans('labels.select')
-                                                ]) }}
+                                                <label for="union_id">Union</label>
+                                                <select class="form-control " id="union_id"
+                                                        name="union_id">
+                                                    <option value="">Select</option>
+                                                    @foreach($unions as $union)
+                                                        <option value="{{$union->id}}">{{$union->name}}</option>
+                                                    @endforeach
+                                                </select>
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>
@@ -214,6 +215,28 @@
                     $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").hide();
                 }
+            });
+
+            $('#union_id').on('change', function (e) {
+                var union_id = $('#union_id').val();
+                console.log(union_id);
+                $.ajax({
+                    url: '{{url('union/1')}}',
+                    type: "GET",
+                    data: {
+                        "union_id": union_id,
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function (response) {
+                        console.log(response[1].id, response[2].id, response[3].id);
+                        $('#division_id').append('<option selected  readonly="readonly" value="' + response[1].id + '">' + response[1].name + '</option>');
+                        $('#district_id').append('<option selected  readonly="readonly" value="' + response[2].id + '">' + response[2].name + '</option>');
+                        $('#thana_id').append('<option selected readonly="readonly"  value="' + response[3].id + '">' + response[3].name + '</option>');
+                        //location.reload();
+                    }
+                });
+
+
             });
         });
     </script>

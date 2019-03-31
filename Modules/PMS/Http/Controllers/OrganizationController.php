@@ -2,7 +2,9 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Entities\District;
 use App\Entities\Organization\Organization;
+use App\Entities\Thana;
 use App\Entities\Union;
 use App\Services\AttributeValueService;
 use App\Services\DivisionService;
@@ -40,7 +42,7 @@ class OrganizationController extends Controller
         $this->organizationService = $organizationService;
         $this->attributeValueService = $attributeValueService;
         $this->divisionService = $divisionService;
-    }
+     }
 
     public function create(Project $project)
     {
@@ -52,7 +54,6 @@ class OrganizationController extends Controller
             'organizable' => $project,
             'organizableType' => $organizableType,
             'organizations' => $organizations,
-            'divisions' => $this->divisionService->findAll(),
             'unions' => Union::all()
         ]);
     }
