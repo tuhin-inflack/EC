@@ -26,4 +26,10 @@ Route::prefix('ims')->group(function() {
         Route::get('add', 'Warehouse\WarehouseController@create')->name('inventory.warehouse.create');
     });
 
+    Route::prefix('inventory')->group(function() {
+        Route::get('/', 'Inventory\InventoryController@index')->name('inventory.list');
+        Route::get('/add', 'Inventory\InventoryController@edit')->name('inventory.add');
+        Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
+    });
+
 });

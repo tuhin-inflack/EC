@@ -3,9 +3,15 @@
 @section('title', trans('ims::product.transfer_page_title'))
 
 @section('content')
-    <h1>Hello World</h1>
-
-    <p>
-        This view is loaded from module: {!! config('ims.subTitle') !!}
-    </p>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop

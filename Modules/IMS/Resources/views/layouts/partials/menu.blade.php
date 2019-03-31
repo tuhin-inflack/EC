@@ -53,6 +53,32 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::inventory.title')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('inventory.list') }}">
+                        <a href="{{ route('inventory.list') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.list_menu_title')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('inventory.add') }}">
+                        <a href="{{ route('inventory.add') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.add_menu_title')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('inventory.list.by.warehouse') }}">
+                        <a href="{{ route('inventory.list.by.warehouse') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.warehouse.list_menu_title')</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
