@@ -46,6 +46,7 @@ function renderRequesterInfo() {
 
 function renderGuestInfos() {
     let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
+    console.log(guestInfos);
     let guestInfoRows = guestInfos.map(guestInfo => {
         return `<tr>
         <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
@@ -210,6 +211,7 @@ $('.booking-request-tab-steps').steps({
                 renderGuestInfos();
             } else {
                 // $('.guests-info-div').hide();
+                $('#guests-info-table').find('tbody').html('');
             }
 
             let isReferencePresent = $('#referee-select').val();
