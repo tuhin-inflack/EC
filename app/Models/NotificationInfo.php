@@ -59,7 +59,4 @@ class NotificationInfo
     {
         $this->dynamicValues = $dynamicValues;
     }
-
-
-
 }

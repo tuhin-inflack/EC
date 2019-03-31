@@ -59,5 +59,5 @@ return [
     'edit_invitation' => 'Edit Request',
     'edit_request_form' => 'Project Request Edit Form',
     'project_name' => 'Project Name',
-
+    'view_changes' => 'View Changes',
 ];

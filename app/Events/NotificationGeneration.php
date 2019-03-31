@@ -3,23 +3,20 @@
 namespace App\Events;
 
 use App\Models\NotificationInfo;
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class NotificationGeneration
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $notificationInfo;
+
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param NotificationInfo $notificationInfo
      */
     public function __construct(NotificationInfo $notificationInfo)
     {

@@ -49,7 +49,7 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
     }
 
 
-    public function notify(NotificationInfo $notificationInfo, NotificationType $notificationTypeDetails)
+    public function notify(NotificationInfo $notificationInfo, NotificationType $notificationType)
     {
 
         $this->saveAppNotification($notificationInfo);

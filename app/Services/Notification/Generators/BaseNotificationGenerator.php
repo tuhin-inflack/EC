@@ -14,5 +14,5 @@ use App\Models\NotificationInfo;
 
 abstract class BaseNotificationGenerator
 {
-    abstract public function notify(NotificationInfo $notificationInfo, NotificationType $notificationTypeDetails);
+    abstract public function notify(NotificationInfo $notificationInfo, NotificationType $notificationType);
 }

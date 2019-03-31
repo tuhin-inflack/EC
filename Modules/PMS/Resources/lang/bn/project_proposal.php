@@ -59,6 +59,6 @@ return [
     'edit_invitation' => 'আমন্ত্রণ সম্পাদনা',
     'edit_request_form' => 'আমন্ত্রণ সম্পাদনা ফর্ম',
     'project_name' => 'প্রকল্পের নাম',
-
+    'view_changes' => 'View Changes',
 ];
 
