@@ -148,10 +148,9 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
-
-        /*
-         * Package Services Providers...
-         */
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Services Providers...
@@ -161,14 +160,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
-        /*
-         * Package Services Providers...
-         */
-        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-        Orangehill\Iseed\IseedServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-
+        App\Providers\BladeServiceProvider::class,
     ],
 
     /*
