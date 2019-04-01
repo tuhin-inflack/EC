@@ -124,6 +124,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getReviewForJointDirect')->name('research-proposal-submission.review');
         Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@feedbackForJointDirect')->name('research-proposal-submission.feedback');
 
+        Route::post('reviewer-add-attachment', 'ProposalSubmitController@addAttachment')->name('research.proposal.reviewer.add.attachment');
+
 
     });
 
