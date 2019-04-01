@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -48,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
 
     // districts
     Route::get('divisions/{division}/districts', function (\App\Entities\Division $division) {
-       return $division->districts;
+        return $division->districts;
     });
     // thanas
     Route::get('districts/{district}/thanas', function (\App\Entities\District $district) {
@@ -56,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
     });
     // unions
     Route::get('thanas/{thana}/unions', function (\App\Entities\Thana $thana) {
-       return $thana->unions;
+        return $thana->unions;
     });
 });
 
@@ -65,11 +67,11 @@ Route::post('booking-requests', 'PublicBookingRequestController@store')->name('p
 
 //Training Registration
 
-Route::prefix('training')->group(function (){
-    Route::get('/','PublicTrainingRegistrationController@index')->name('training-registration.index');
-    Route::prefix('{training}/registration')->group(function (){
-        Route::get('create','PublicTrainingRegistrationController@create')->name('training-registration.create');
-        Route::post('store','PublicTrainingRegistrationController@store')->name('training-registration.store');
+Route::prefix('training')->group(function () {
+    Route::get('/', 'PublicTrainingRegistrationController@index')->name('training-registration.index');
+    Route::prefix('{training}/registration')->group(function () {
+        Route::get('create', 'PublicTrainingRegistrationController@create')->name('training-registration.create');
+        Route::post('store', 'PublicTrainingRegistrationController@store')->name('training-registration.store');
     });
 });
 
@@ -87,3 +89,7 @@ Route::get('/file/get', 'AttachmentController@get')->name('file.getfile');
 Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.fileUrl');
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
+Route::post('test1', function (Request $request) {
+    dd($request->all());
+})->name('test1');
