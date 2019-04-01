@@ -116,4 +116,5 @@ return [
     'heart' => 'Heart',
     'lung' => 'Lung',
     'abdomen' => 'Abdomen',
+    'degree' => 'Degree',
 ];
