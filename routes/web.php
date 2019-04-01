@@ -25,8 +25,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
+
+
     // organisation
+    /*
+     * Only store method is used from OrganizationController,Everything else is from PMS-OrganizationController
+     */
     Route::post('organizations', 'OrganizationController@store')->name('organizations.store');
+
     // attributes
     Route::prefix('attributes')->group(function () {
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
