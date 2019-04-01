@@ -4,9 +4,11 @@ namespace Modules\PMS\Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class PMSDatabaseSeeder extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
@@ -17,5 +19,9 @@ class PMSDatabaseSeeder extends Seeder
         Model::unguard();
 
         // $this->call("OthersTableSeeder");
+
+        $this->call(FakeLocationsTableSeeder::class);
     }
+
+
 }

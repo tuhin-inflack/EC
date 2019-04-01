@@ -9,6 +9,7 @@ return [
         'TA/DA for Research Investigators',
         'Data tabulation, processing/analysis',
         'Honorarium for Researchers',
+        'Honorarium for Reviewers',
         'Miscellaneous',
         'Other Specific Cost'
     ],

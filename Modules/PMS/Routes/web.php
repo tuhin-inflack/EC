@@ -30,15 +30,15 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         });
         // training under a project
         Route::prefix('{project}')->group(function () {
-            Route::prefix('training')->group( function() {
-                Route::get('/','ProjectTrainingController@index')->name('project-training.index');
-                Route::get('create','ProjectTrainingController@create')->name('project-training.create');
-                Route::post('store','ProjectTrainingController@store')->name('project-training.store');
-                Route::get('{training}','ProjectTrainingController@show')->name('project-training.show');
+            Route::prefix('training')->group(function () {
+                Route::get('/', 'ProjectTrainingController@index')->name('project-training.index');
+                Route::get('create', 'ProjectTrainingController@create')->name('project-training.create');
+                Route::post('store', 'ProjectTrainingController@store')->name('project-training.store');
+                Route::get('{training}', 'ProjectTrainingController@show')->name('project-training.show');
                 // training members
                 Route::prefix('{training}/members')->group(function () {
                     Route::get('/', 'ProjectTrainingMemberController@index')->name('projectTraining-members.index');
-                    Route::post('store','ProjectTrainingMemberController@store')->name('projectTraining-members.store');
+                    Route::post('store', 'ProjectTrainingMemberController@store')->name('projectTraining-members.store');
                 });
             });
         });
@@ -47,6 +47,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             // project organisations
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
+                Route::post('test', 'OrganizationController@store')->name('pms-organizations.store');
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
                 // organisation members
                 Route::prefix('{organization}/members')->group(function () {
@@ -95,7 +96,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
     Route::prefix('organizations/{organization}')->group(function () {
         // organization members
         Route::prefix('members')->group(function () {
-            $OrganizationMemberController = '\App\Http\Controllers\OrganizationMemberController';
+            $OrganizationMemberController = '\Modules\PMS\Http\Controllers\OrganizationMemberController';
             Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
             Route::post('/', $OrganizationMemberController . '@store')->name('pms-organization-members.store');
             Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('pms-organization-members.edit');
