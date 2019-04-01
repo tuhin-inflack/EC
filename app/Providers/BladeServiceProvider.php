@@ -28,7 +28,7 @@ class BladeServiceProvider extends ServiceProvider
             $needle = Auth::user()->employee->designation->short_name;
             $result = in_array($needle, $haystack) ? 1 : 0;
 
-            return "<?php } else if('{$result}') { ?>";
+            return "<?php } elseif('{$result}') { ?>";
         });
 
         Blade::directive('else_designation', function () {
