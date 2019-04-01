@@ -30,7 +30,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="hobby" class="">@lang('tms::training.hobby') : </label>
-                        {{ Form::select('hobby',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
+                        {{ Form::select('hobby[]',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
                         @if ($errors->has('hobby'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('hobby') }}</strong>
