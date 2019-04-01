@@ -51,7 +51,7 @@ class DesignationsTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'name' => 'Project Director',
-                'short_name' => 'RD',
+                'short_name' => 'PD',
                 'department_id' => 2,
                 'created_at' => NULL,
                 'updated_at' => NULL,

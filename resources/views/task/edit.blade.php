@@ -58,11 +58,11 @@
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-        $('#expected_start_time').change(function(){
+        $('#expected_start_time').change(function () {
             $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
         });
 
-        $('#expected_start_time, #expected_end_time').pickadate({
+        $('#expected_start_time, #expected_end_time, #actual_end_time').pickadate({
             format: 'yyyy-mm-dd',
         });
 
@@ -72,11 +72,11 @@
 
         function deleteAttachment(id) {
             document.getElementById(id).className = 'list-group-item list-group-item-dark';
-            $('#repeat-attachments').append('<input type="hidden" name="deleted_attachments[]" value="'+id+'">');
+            $('#repeat-attachments').append('<input type="hidden" name="deleted_attachments[]" value="' + id + '">');
         }
 
         $('.select2').select2({
-            tags:true,
+            tags: true,
             newTag: false,
             placeholder: "{{__('pms::task.task_name_create')}}",
         });

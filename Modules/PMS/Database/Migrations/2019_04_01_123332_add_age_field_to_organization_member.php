@@ -26,7 +26,7 @@ class AddAgeFieldToOrganizationMember extends Migration
      */
     public function down()
     {
-        Schema::table('', function (Blueprint $table) {
+        Schema::table('organization_members', function (Blueprint $table) {
             $table->dropColumn(['age']);
         });
     }

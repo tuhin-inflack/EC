@@ -256,7 +256,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->photo)}}"
+                        <img src="{{ $roomBooking->requester->photo ? asset('/storage/app/'.$roomBooking->requester->photo) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px;" alt="">
                     </div>
                 @endif
@@ -274,7 +274,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->nid_doc)}}"
+                        <img src="{{ $roomBooking->requester->nid_doc ? asset('/storage/app/'.$roomBooking->requester->nid_doc) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif
@@ -292,7 +292,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->passport_doc)}}"
+                        <img src="{{ $roomBooking->requester->passport_doc ? asset('/storage/app/'.$roomBooking->requester->passport_doc) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif

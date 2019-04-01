@@ -59,9 +59,10 @@ class TaskController extends Controller
     {
         $action = route('rms-tasks.update', [$research->id, $task->id]);
         $module = 'rms';
-
+        $is_edit=true;
         return view('task.edit', compact('task', 'action', 'module'))->with([
-            'taskable' => $research
+            'taskable' => $research,
+            'is_edit' => $is_edit
         ]);
     }
 
