@@ -6,7 +6,6 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="present_deseases">@lang('tms::training.present_deseases') : </label>
-
                         {{ Form::select('present_deseases[]',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
                         @if ($errors->has('present_deseases'))
                             <span class="invalid-feedback" role="alert">
@@ -76,7 +75,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="conjunctiva" class="required">@lang('tms::training.conjunctiva') : </label>
-                                {!! Form::text('conjunctiva', old('conjunctiva'), ['class' => 'form-control required' . ($errors->has('temperature') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'কনজান্কটিভা', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                                {!! Form::text('conjunctiva', old('conjunctiva'), ['class' => 'form-control required' . ($errors->has('conjunctiva') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'কনজান্কটিভা', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                                 @if ($errors->has('conjunctiva'))
                                     <span class="invalid-feedback" role="alert">
@@ -100,7 +99,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="denture" class="required">@lang('tms::training.denture') : </label>
-                                {!! Form::text('denture', old('respiration'), ['class' => 'form-control required' . ($errors->has('denture') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ডেন্চার', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+                                {!! Form::text('denture', old('denture'), ['class' => 'form-control required' . ($errors->has('denture') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ডেন্চার', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
 
                                 @if ($errors->has('denture'))
                                     <span class="invalid-feedback" role="alert">
@@ -117,7 +116,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group col-md-12">
-                                <label class="required">@lang('tms::training.blood_pressure')</label>
+                                <label for="blood_pressure" class="required">@lang('tms::training.blood_pressure')</label>
                                 <div class="skin skin-flat">
                                     {!! Form::radio('blood_pressure', '1', old('blood_pressure'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     <label>@lang('tms::training.yes')</label>
@@ -135,7 +134,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group col-md-12">
-                                <label class="required">@lang('tms::training.anaemia')</label>
+                                <label for="anaemia" class="required">@lang('tms::training.anaemia')</label>
                                 <div class="skin skin-flat">
                                     {!! Form::radio('anaemia', '1', old('anaemia'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     <label>@lang('tms::training.yes')</label>
@@ -153,7 +152,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group col-md-12">
-                                <label class="required">@lang('tms::training.oedema')</label>
+                                <label for="oedema" class="required">@lang('tms::training.oedema')</label>
                                 <div class="skin skin-flat">
                                     {!! Form::radio('oedema', '1', old('oedema'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     <label>@lang('tms::training.yes')</label>
@@ -178,7 +177,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="conjunctiva" class="required">@lang('tms::training.heart') : </label>
+                                <label for="heart" class="required">@lang('tms::training.heart') : </label>
                                 {!! Form::text('heart', old('heart'), ['class' => 'form-control required' . ($errors->has('heart') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'হার্ট', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
                                 @if ($errors->has('heart'))
@@ -203,7 +202,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="abdomen" class="required">@lang('tms::training.abdomen') : </label>
-                                {!! Form::text('abdomen', old('denture'), ['class' => 'form-control required' . ($errors->has('abdomen') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'তলপেট', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+                                {!! Form::text('abdomen', old('abdomen'), ['class' => 'form-control required' . ($errors->has('abdomen') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'তলপেট', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
                                 @if ($errors->has('abdomen'))
                                     <span class="invalid-feedback" role="alert">
