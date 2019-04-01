@@ -45,6 +45,17 @@
                 @endif
             </div>
         </div>
+        <!-- Member Age -->
+        <div class="col-md-6 ">
+            <div class="form-group ">
+                <div class="form-group ">
+                    {{ Form::label('age', trans('pms::member.member_age')) }}
+                    {{ Form::number('age',  isset($member) ? $member->age : null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => \Illuminate\Support\Facades\Lang::get('pms::member.member_age') ]) }}
+                    <div class="help-block"></div>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-6 ">
             <div class="form-group ">
                 <div class="form-group ">
@@ -54,6 +65,7 @@
                 </div>
             </div>
         </div>
+
         {{ Form::hidden('organization_id', isset($organization->id) ? $organization->id : null) }}
         {{ Form::hidden('id', isset($member->id)  ? $member->id : null ) }}
     </div>

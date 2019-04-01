@@ -23,7 +23,8 @@
                 <th>@lang('labels.mobile')</th>
                 <th>@lang('labels.address')</th>
                 <th>@lang('labels.nid_number')</th>
-                <th>@lang('labels.action')</th>
+                <th>@lang('pms::member.member_age')</th>
+                <th>@lang('labels.action')<ll/th>
                 </thead>
                 <tbody>
                 @foreach($organization->members as $member)
@@ -34,6 +35,7 @@
                         <td>{{ $member->mobile }}</td>
                         <td>{{ $member->address }}</td>
                         <td>{{ $member->nid }}</td>
+                        <td>{{ $member->age ?? 'Null' }}</td>
                         <td class="text-center">
                             <span class="dropdown">
                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

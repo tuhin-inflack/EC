@@ -14,7 +14,8 @@ class OrganizationMember extends Model
         'mobile',
         'address',
         'gender',
-        'nid'
+        'nid',
+        'age'
     ];
 
     public function organization()
