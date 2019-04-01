@@ -89,6 +89,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ShareRulesSeeder::class);
         $this->call(DesignationsTableSeeder::class);
         $this->call(ShareRulesDesignationSeeder::class);
+        $this->call(\Modules\PMS\Database\Seeders\FakeLocationsTableSeeder::class);
 
     }
 }

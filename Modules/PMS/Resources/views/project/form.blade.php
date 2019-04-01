@@ -12,13 +12,37 @@
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">@lang('pms::project_proposal.project_name')</label>
                         <br>
-                        {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('title') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+                        {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('title') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => Lang::get('pms::project_proposal.project_name'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
                         @if ($errors->has('title'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('title') }}</strong>
                         </span>
                         @endif
+
+                    <!-- Budget-->
+                        <label class="required">@lang('pms::project_proposal.project_budget')</label>
+                        <br>
+                        {!! Form::text('budget', old('budget'), ['class' => 'form-control required' . ($errors->has('budget') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => Lang::get('pms::project_proposal.project_budget'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+
+                        @if ($errors->has('budget'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('budget') }}</strong>
+                        </span>
+                        @endif
+
+                    <!-- Duration-->
+                        <label class="required">@lang('pms::project_proposal.project_duration')</label>
+                        <br>
+                        {!! Form::text('duration', old('duration'), ['class' => 'form-control required' . ($errors->has('duration') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => Lang::get('pms::project_proposal.project_duration'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+
+                        @if ($errors->has('duration'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('duration') }}</strong>
+                        </span>
+                        @endif
+
+
                     </div>
                 </div>
             </fieldset>

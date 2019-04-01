@@ -66,7 +66,7 @@ Route::prefix('hrm')->group(function () {
     });
 
     // Routes for Employee Punishment
-    Route::prefix('punishment')->group( function (){
+    Route::prefix('punishment')->group(function () {
         Route::get('/list', 'EmployeePunishmentController@index')->name('employee-punishment.list');
         Route::get('/show/{punishmentId}', 'EmployeePunishmentController@show')->name('employee-punishment.show');
         Route::get('/create', 'EmployeePunishmentController@create')->name('employee-punishment.create');
@@ -108,10 +108,7 @@ Route::prefix('hrm')->group(function () {
     #---------------- promotion Urls-----------------------------#
     Route::prefix('promotion')->group(function () {
         Route::get('/', 'PromotionController@index');
-        Route::get('/create', 'PromotionController@create');
-        Route::get('/{id}', 'PromotionController@show');
-        Route::delete('/{id}', 'PromotionController@destroy');
-        Route::get('/edit/{id}', 'PromotionController@edit');
+        Route::get('/promote', 'PromotionController@promote');
 
     });
     #--------------- // Promotion Urls ---------------------------------
@@ -125,6 +122,23 @@ Route::prefix('hrm')->group(function () {
         Route::get('edit/{id}', 'AppraisalController@edit');
     });
     #--------------- // Retirement Urls ---------------------------------
+
+    #---------------- Contact Urls-----------------------------#
+    Route::prefix('contact')->group(function () {
+        Route::get('/', 'ContactController@index');
+        Route::get('/create', 'ContactController@create');
+        Route::get('/{id}', 'ContactController@show');
+        Route::delete('/{id}', 'ContactController@destroy');
+        Route::get('edit/{id}', 'ContactController@edit');
+    });
+    #--------------- // Contact Urls ---------------------------------
+
+    #---------------- Contact Type Urls-----------------------------#
+    Route::prefix('contact/type')->group(function () {
+        Route::get('/create', 'ContactTypeController@create');
+
+    });
+    #--------------- // Contact Type Urls ---------------------------------
 
 
     Route::resources(

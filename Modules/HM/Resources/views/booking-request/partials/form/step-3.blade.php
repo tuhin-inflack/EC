@@ -15,10 +15,9 @@
                                     {!! Form::text('first_name', $oldInput['first_name'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.first_name') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.first_name'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-                            <strong>{{ $errors->first('guests.' . $loop->index . '.first_name') }}</strong>
-                        </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.first_name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -27,10 +26,9 @@
                                     {!! Form::text('middle_name', isset($oldInput['middle_name']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.middle_name') ? ' is-invalid' : ''), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.middle_name'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-                        <strong>{{ $errors->first('guests.' . $loop->index . '.middle_name') }}</strong>
-                    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.middle_name') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -83,13 +81,12 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                                     <br>
-                                    {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $oldInput['relation'], ['class' => 'form-control relation-select required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                    {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker') ], $oldInput['relation'], ['class' => 'form-control relation-select required' . ($errors->has('guests.' . $loop->index . '.relation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.relation'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-        <strong>{{ $errors->first('guests.' . $loop->index . '.relation') }}</strong>
-    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.relation') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                             </div>
@@ -100,10 +97,9 @@
                                     {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_doc') ? ' is-invalid' : '')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nid_doc'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-        <strong>{{ $errors->first('guests.' . $loop->index . '.nid_doc') }}</strong>
-    </span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.nid_doc') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -112,10 +108,9 @@
                                     {!! Form::text('nid_no', isset($oldInput['nid_no']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number', 'data-rule-minlength' => 10, 'data-msg-minlength' => Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nid_no'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-    <strong>{{ $errors->first('guests.' . $loop->index . '.nid_no') }}</strong>
-</span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.nid_no') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
@@ -124,10 +119,9 @@
                                     {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => Lang::get('labels.At most 300 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.address'))
-                                        <span class="invalid-feedback"
-                                              role="alert">
-    <strong>{{ $errors->first('guests.' . $loop->index . '.address') }}</strong>
-</span>
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('guests.' . $loop->index . '.address') }}</strong>
+                                        </span>
                                     @endif
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -182,7 +176,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                                     <br>
-                                    {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                    {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -261,7 +255,7 @@
                                             <label>@lang('hm::booking-request.relation') <span
                                                         class="danger">*</span></label>
                                             <br>
-                                            {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                            {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -271,7 +265,7 @@
                                             {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                                            <img src="{{asset('/storage/app/'.$guestInfo->nid_doc)}}"
+                                            <img src="{{$guestInfo->nid_doc ? asset('/storage/app/'.$guestInfo->nid_doc) : ''}}"
                                                  style="width: 80px;height: 80px" alt="">
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
@@ -337,7 +331,7 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                                         <br>
-                                        {!! Form::select('relation', ['' => '', 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                        {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -391,8 +385,8 @@
 
                     @if ($errors->has('employee_id'))
                         <span class="invalid-feedback" role="alert">
-                    <strong>{{ $errors->first('employee_id') }}</strong>
-                </span>
+                            <strong>{{ $errors->first('employee_id') }}</strong>
+                        </span>
                     @endif
                 </div>
             </div>

@@ -27,8 +27,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/change/password', 'ChangePasswordController@change');
     Route::post('/change/password', 'ChangePasswordController@update');
+
+
     // organisation
+    /*
+     * Only store method is used from OrganizationController,Everything else is from PMS-OrganizationController
+     */
     Route::post('organizations', 'OrganizationController@store')->name('organizations.store');
+
     // attributes
     Route::prefix('attributes')->group(function () {
         Route::put('{attribute}', 'AttributeController@update')->name('attributes.update');
@@ -59,6 +65,12 @@ Route::middleware(['auth'])->group(function () {
     // unions
     Route::get('thanas/{thana}/unions', function (\App\Entities\Thana $thana) {
         return $thana->unions;
+
+    });
+    // single union detail
+    Route::get('/union/{union}', function (\App\Entities\Union $union) {
+        return array($union, $union->thana->district->division, $union->thana->district, $union->thana);
+
     });
 });
 

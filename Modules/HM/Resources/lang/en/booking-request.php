@@ -90,6 +90,7 @@ return [
     'edit_it' => 'Edit',
     'select_refferer' => 'Select Referee',
     'create_booking_request' => 'Create Booking Request',
+    'relation_myself' => 'Myself',
     'relation_family' => 'Family',
     'relation_friend' => 'Friend',
     'relation_coworker' => 'Coworker',

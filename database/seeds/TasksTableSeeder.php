@@ -12,7 +12,6 @@ class TasksTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
         \DB::table('tasks')->delete();
         
@@ -273,7 +272,6 @@ class TasksTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
     }
 }

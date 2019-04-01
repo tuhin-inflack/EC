@@ -276,6 +276,7 @@
                                         </thead>
                                         <tbody>
 
+
                                         @foreach($tasks as $task)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
@@ -283,6 +284,23 @@
                                                 <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
                                             </tr>
                                         @endforeach
+
+                                        @if(count($tasks))
+
+                                            @foreach($tasks as $task)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>@lang('rms::research.' .$task->name)</td>
+                                                    <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+
+                                            <tr>
+                                                <td colspan="3" class="text-center">No started task is found</td>
+                                            </tr>
+                                        @endif
+
                                         {{--<tr>
                                             <th scope="row">1</th>
                                             <td>{{ __('rms::research.review_of_literature') }}</td>
@@ -572,11 +590,15 @@
                 ],
 
                 datasets: [{
+                    label: 'Submitted',
                     data: JSON.parse('{!! json_encode($chartData[0] ) !!}'),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }, {
+
+                    label: 'Accepted',
+
                     data: JSON.parse('{!! json_encode($chartData[1] ) !!}'),
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(255,99,132,1)',
@@ -585,7 +607,7 @@
             },
             options: {
                 legend: {
-                    display: false
+                    display: true
                 },
                 responsive: true,
                 maintainAspectRatio: false,

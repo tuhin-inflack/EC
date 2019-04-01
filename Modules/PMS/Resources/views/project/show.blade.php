@@ -2,28 +2,30 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
-    <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12">
-            <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
-                        <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
-                    </a>
-                    <a class="btn btn-outline-info round" href="{{ route('project-training.index', $project->id) }}">
-                        <i class="ft-plus"></i> @lang('pms::project.add_training')
-                    </a>
+    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12">
+                <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
+                            <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
+                        </a>
+                        <a class="btn btn-outline-info round"
+                           href="{{ route('project-training.index', $project->id) }}">
+                            <i class="ft-plus"></i> @lang('pms::project.add_training')
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content-header-right col-md-6 col-12">
+            <div class="content-header-right col-md-6 col-12">
 
+            </div>
         </div>
-    </div>
     @endif
     <br>
 
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_PROJECT'))
+    {{--    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_PROJECT'))--}}
+    @if(Auth::user()->hasAnyRole(['ROLE_PROJECT_DIRECTOR', 'ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_PROJECT']))
         <!-- Basic tabs start -->
         <section>
             <div class="row match-height">
@@ -37,7 +39,7 @@
                                            href="#tab1"
                                            aria-expanded="true">@lang('pms::project_proposal.organization_report')</a>
                                     </li>
-                                    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+                                    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
                                         <li class="nav-item">
                                             <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
                                                href="#tab2"
@@ -51,7 +53,6 @@
                                     @endif
                                 </ul>
                                 <div class="tab-content px-1 pt-1">
-
                                     <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
                                          aria-labelledby="base-tab1">
                                         <section>
@@ -63,7 +64,6 @@
                                                 </div>
                                             </div>
                                         </section>
-
                                         <section>
                                             <div class="row">
                                                 <div class="col-md-12">
@@ -223,6 +223,27 @@
                                     <dd class="col-sm-9">{{ $project->title }}</dd>
                                 </dl>
                                 <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_budget')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->budget))
+                                            {{$project->budget}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_duration')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->duration))
+                                            {{$project->duration}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+                                    </dd>
+                                </dl>
+                                <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.submitted_by')</dt>
                                     <dd class="col-sm-9">{{ $project->projectSubmittedByUser->name }}</dd>
                                 </dl>
@@ -233,6 +254,11 @@
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
                                     <dd class="col-sm-9">@lang('rms::research_proposal.' . $project->status)</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('member.member')</dt>
+                                    <dd class="col-sm-9">{{ $femaleMembersCount }} @lang('labels.female')
+                                        , {{ $maleMembersCount }} @lang('labels.male')</dd>
                                 </dl>
                             </div>
                         </div>
@@ -260,7 +286,7 @@
 @endpush
 
 @push('page-js')
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
         <script>
             let nodeName = "GanttChartDIV";
             let chartData = {
