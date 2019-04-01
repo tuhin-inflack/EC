@@ -6,4 +6,5 @@ return [
     'member_adding_form' => 'Member adding form',
     'member_editing_form' => 'Member editing form',
     'member_list' => 'Member list',
+    'member_age' => 'Age',
 ];

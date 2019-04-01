@@ -17,7 +17,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="expertise_sports" class="">@lang('tms::training.expertise_sports') : </label>
-                        {{ Form::select('expertise_sports',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
+                        {{ Form::select('expertise_sports[]',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
                         @if ($errors->has('expertise_sports'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('expertise_sports') }}</strong>
@@ -41,12 +41,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <div class="form-group">
-                            <label for="experience" class="">@lang('tms::training.experience') :</label>
-                            {{ Form::select('experience',['Song' => 'Song', 'Acting' => 'Acting', 'Dancing' => 'Dancing', 'Speech' => 'Speech'], NULL , ['class' => ' form-control instituteSelection',
+                            <label for="sports_experience" class="">@lang('tms::training.experience') :</label>
+                            {{ Form::select('sports_experience',['Song' => 'Song', 'Acting' => 'Acting', 'Dancing' => 'Dancing', 'Speech' => 'Speech'], NULL , ['class' => ' form-control instituteSelection',
                                                 'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
-                            @if ($errors->has('experience'))
+                            @if ($errors->has('sports_experience'))
                                 <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('experience') }}</strong>
+                            <strong>{{ $errors->first('sports_experience') }}</strong>
                             </span>
                             @endif
                         </div>

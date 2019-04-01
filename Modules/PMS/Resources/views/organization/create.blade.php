@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{ Form::open(['route' => 'pms-organizations.store', 'class' => 'form']) }}
+                            {{ Form::open(['route' => 'organizations.store', 'class' => 'form' ]) }}
                             <div class="form-body">
                                 <h4 class="form-section"><i
                                             class="ft-grid"></i>
@@ -123,7 +123,7 @@
                                         <div class="form-group ">
                                             <div class="form-group ">
                                                 <label for="division_id">Division</label>
-                                                <select  class="form-control select2" readonly id="division_id"
+                                                <select class="form-control select2" readonly id="division_id"
                                                         name="division_id">
 
                                                 </select>
@@ -136,7 +136,7 @@
                                             <div class="form-group ">
                                                 <div class="form-group ">
                                                     <label for="district_id">District</label>
-                                                    <select  class="form-control select2" id="district_id" readonly
+                                                    <select class="form-control select2" id="district_id" readonly
                                                             name="district_id">
 
                                                     </select>
@@ -149,7 +149,7 @@
                                         <div class="form-group ">
                                             <div class="form-group ">
                                                 <label for="thana_id">Thana</label>
-                                                <select  class="form-control select2" readonly id="thana_id"
+                                                <select class="form-control select2" readonly id="thana_id"
                                                         name="thana_id">
 
                                                 </select>

@@ -50,9 +50,9 @@
                                                 <!-- Step 5 -->
                                                 @include('tms::public.training-registration.partials.form.step-5')
                                                 <!-- Step 6 -->
-                                                @include('tms::public.training-registration.partials.form.step-6')
+                                                {{--@include('tms::public.training-registration.partials.form.step-6')--}}
                                                 <!-- Step 7 -->
-                                                {{--@include('tms::public.training-registration.partials.form.step-7')--}}
+                                                @include('tms::public.training-registration.partials.form.step-7')
                                                 {{ Form::close() }}
                                     </div>
                                 </div>
@@ -83,8 +83,8 @@
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('theme/js/core/app-menu.js') }}"></script>
