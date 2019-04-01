@@ -85,7 +85,7 @@
                                                     <br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
-                                                <td><input type="checkbox" class="wf-item-checkbox" name="pending_select"></td>
+                                                <td><input type="checkbox" class="wf-item-checkbox" name="pending_select[]"></td>
                                                 <td>
                                                     <a href="{{ url($item->checkUrl )}}"
                                                        class="btn btn-primary btn-sm">@lang('labels.details')</a>
@@ -309,6 +309,11 @@
         {
             if(this.checked) $(".wf-item-checkbox").attr('checked' ,true); else $(".wf-item-checkbox").attr('checked',false);
         });
+
+        $(".wf-item-checkbox").change(function () {
+            console.log($('.wf-item-checkbox:checked').length);
+            }
+        );
 
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {

@@ -141,6 +141,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         //Routes for workflow
         Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
+        Route::post('/review-selected/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-selected-update');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
