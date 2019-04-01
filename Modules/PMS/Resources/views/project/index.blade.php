@@ -24,6 +24,8 @@
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
                                         <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('pms::project_proposal.project_budget')</th>
+                                        <th scope="col">@lang('pms::project_proposal.project_duration')</th>
                                         <th scope="col">{{trans('pms::project_proposal.submitted_by')}}</th>
                                         <th scope="col">{{trans('pms::project_proposal.submission_date')}}</th>
                                         <th scope="col">{{trans('labels.status')}}</th>
@@ -35,17 +37,37 @@
                                     @foreach($projects as $project)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a></td>
+                                            <td>
+                                                <a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a>
+                                            </td>
+                                            <td>
+
+                                                @if(isset($project->budget))
+                                                    {{$project->budget}}
+                                                @else
+                                                    <p class="text-danger">Not Added</p>
+                                                @endif
+
+                                            </td>
+                                            <td>
+                                                @if(isset($project->duration))
+                                                    {{$project->duration}}
+                                                @else
+                                                    <p class="text-danger">Not Added</p>
+                                                @endif
+                                            </td>
                                             <td>{{ $project->projectSubmittedByUser->name }}</td>
                                             <td>{{ date('d/m/Y, h:iA', strtotime($project->created_at)) }}</td>
                                             <td>@lang('pms::project_proposal.' . $project->status)</td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
+                                                        aria-haspopup="true" aria-expanded="false"
+                                                        class="btn btn-info dropdown-toggle">
                                                     <i class="la la-cog"></i>
                                                 </button>
-                                                <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                <span aria-labelledby="btnSearchDrop2"
+                                                      class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href="{{ route('project.show', $project->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href="{{ route('project-budget.index', $project->id) }}"

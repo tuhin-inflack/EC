@@ -265,7 +265,7 @@
                                             {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
-                                            <img src="{{asset('/storage/app/'.$guestInfo->nid_doc)}}"
+                                            <img src="{{$guestInfo->nid_doc ? asset('/storage/app/'.$guestInfo->nid_doc) : ''}}"
                                                  style="width: 80px;height: 80px" alt="">
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">

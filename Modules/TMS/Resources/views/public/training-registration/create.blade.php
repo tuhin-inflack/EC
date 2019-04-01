@@ -20,12 +20,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-content">
+                                {{--<div class="card-content">
                                     <div class="card-body text-center">
                                         <h1>@lang('tms::training.training_completed')</h1>
                                     </div>
-                                </div>
-                                {{--<div class="card-header">
+                                </div>--}}
+                                <div class="card-header">
                                     <h4 class="card-title">@lang('tms::training.training_registration_form')</h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -40,22 +40,22 @@
                                     <div class="card-body">
                                             {!! Form::open(['route' =>  ['training-registration.store', $training->id], 'class' => 'wizard-circle training-steps', 'enctype' => 'multipart/form-data']) !!}
                                                 <!-- Step 1 -->
-                                            @include('tms::public.training-registration.partials.form.step-1')
-                                            <!-- Step 2 -->
-                                            @include('tms::public.training-registration.partials.form.step-2')
-                                            <!-- Step 3 -->
-                                            @include('tms::public.training-registration.partials.form.step-3')
-                                            <!-- Step 4 -->
-                                            @include('tms::public.training-registration.partials.form.step-4')
-                                            <!-- Step 5 -->
-                                            @include('tms::public.training-registration.partials.form.step-5')
-                                            <!-- Step 6 -->
-                                            @include('tms::public.training-registration.partials.form.step-6')
-                                            <!-- Step 7 -->
-                                            @include('tms::public.training-registration.partials.form.step-7')
-                                            {{ Form::close() }}
+                                                @include('tms::public.training-registration.partials.form.step-1')
+                                                <!-- Step 2 -->
+                                                @include('tms::public.training-registration.partials.form.step-2')
+                                                <!-- Step 3 -->
+                                                @include('tms::public.training-registration.partials.form.step-3')
+                                                <!-- Step 4 -->
+                                                @include('tms::public.training-registration.partials.form.step-4')
+                                                <!-- Step 5 -->
+                                                @include('tms::public.training-registration.partials.form.step-5')
+                                                <!-- Step 6 -->
+                                                {{--@include('tms::public.training-registration.partials.form.step-6')--}}
+                                                <!-- Step 7 -->
+                                                @include('tms::public.training-registration.partials.form.step-7')
+                                                {{ Form::close() }}
                                     </div>
-                                </div>--}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,8 +83,8 @@
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/ui/jquery.sticky.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/dateTime/moment-with-locales.min.js') }}"></script>
     <script src="{{ asset('theme/js/core/app-menu.js') }}"></script>

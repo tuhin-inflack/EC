@@ -60,5 +60,9 @@ return [
     'edit_request_form' => 'আমন্ত্রণ সম্পাদনা ফর্ম',
     'project_name' => 'প্রকল্পের নাম',
     'view_changes' => 'পরিবর্তন দেখুন',
+    'project_budget' => 'বাজেট',
+    'project_duration' => 'ব্যাপ্তিকাল',
+    'project_title' => 'ব্যাপ্তিকাল',
+
 ];
 

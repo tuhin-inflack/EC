@@ -213,7 +213,8 @@
     <script>
         $(document).ready(function () {
             $('.organization-table, .task-table, .monthly-update-table').DataTable({
-                "pageLength": 5
+                "pageLength": 5,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]]
             })
         });
     </script>

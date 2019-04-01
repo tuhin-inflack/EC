@@ -60,4 +60,8 @@ return [
     'edit_request_form' => 'Project Request Edit Form',
     'project_name' => 'Project Name',
     'view_changes' => 'View Changes',
+    'project_budget' => 'Budget',
+    'project_duration' => 'Duration',
+    'project_title' => 'Title',
+
 ];

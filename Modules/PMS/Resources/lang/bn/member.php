@@ -6,4 +6,5 @@ return [
     'member_adding_form' => 'মেম্বার যোগ করার ফর্ম',
     'member_editing_form' => 'েম্বার সম্পাদন করার ফর্ম',
     'member_list' => 'মেম্বার তালিকা',
+    'member_age' => 'বয়স',
 ];

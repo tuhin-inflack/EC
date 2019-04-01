@@ -1,7 +1,7 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('pms::member.member_adding_form') </h4>
 
-    <h3>{{ $mode }}   <strong>({{ $organization->name }})</strong></h3>
+    <h3>{{ $mode }} <strong>({{ $organization->name }})</strong></h3>
     <div class="row " style="">
         <div class="col-md-6 ">
             <div class="form-group ">
@@ -47,6 +47,16 @@
                 @if ($errors->has('gender'))
                     <div class="help-block">  {{ trans('labels.This field is required') }}</div>
                 @endif
+            </div>
+        </div>
+        <div class="col-md-6 ">
+            <div class="form-group ">
+                <div class="form-group ">
+                    {{ Form::label('nid', trans('labels.nid_number')) }}
+                    <br/>
+                    {{ Form::text('nid',  null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter NID number']) }}
+                    <div class="help-block"></div>
+                </div>
             </div>
         </div>
         <div class="col-md-6 ">
