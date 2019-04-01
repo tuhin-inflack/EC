@@ -26,10 +26,11 @@
                                 </td>
 
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+                                    <a class="btn btn-primary btn-sm"
+                                       href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
 
                                     {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
-                                       {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                    {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
                                 </td>
                             </tr>
                         @endforeach
@@ -80,7 +81,7 @@
     @if(!empty($researchPendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
-                 <div class="card-body">
+                <div class="card-body">
                     <h4>@lang('rms::research.research_pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
@@ -188,153 +189,161 @@
     @endif
 
     @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR'))
-    <section>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">@lang('rms::research_proposal.research_proposal_status_graph')</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@lang('rms::research_proposal.research_proposal_status_graph')</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-content collapse show">
-                        <div class="card-body" >
-                            <canvas id="myChart" height="400"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">@lang('task.task_list')</h4>
-                        <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
-                        <div class="heading-elements">
-                            <ul class="list-inline mb-0">
-                                <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
-                                <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
-                                <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="card-content collapse show">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">@lang('labels.serial')</th>
-                                        <th scope="col">@lang('task.task')</th>
-                                        <th scope="col">@lang('rms::research.title')</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    @foreach($tasks as $task)
-                                        <tr>
-                                            <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>@lang('rms::research.' .$task->name)</td>
-                                            <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
-                                        </tr>
-                                    @endforeach
-                                    {{--<tr>
-                                        <th scope="row">1</th>
-                                        <td>{{ __('rms::research.review_of_literature') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>{{ __('rms::research.proposal_writing') }}</td>
-                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>{{ __('rms::research.questionnaire_preparation') }}</td>
-                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">4</th>
-                                        <td>{{ __('rms::research.questionnaire_pretesting') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">5</th>
-                                        <td>{{ __('rms::research.data_collection') }}</td>
-                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">6</th>
-                                        <td>{{ __('rms::research.data_tabulation') }}</td>
-                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">7</th>
-                                        <td>{{ __('rms::research.report_writing') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">8</th>
-                                        <td>{{ __('rms::research.draft_report_submission') }}</td>
-                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">9</th>
-                                        <td>{{ __('rms::research.incorporating_research_division_comments') }}</td>
-                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">10</th>
-                                        <td>{{ __('rms::research.first_final_report_submission') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">11</th>
-                                        <td>{{ __('rms::research.received_final_report') }}</td>
-                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">12</th>
-                                        <td>{{ __('rms::research.sending_external_reviewer') }}</td>
-                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">13</th>
-                                        <td>{{ __('rms::research.comments_from_external_reviewer') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">14</th>
-                                        <td>{{ __('rms::research.send_to_respective_researcher') }}</td>
-                                        <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">15</th>
-                                        <td>{{ __('rms::research.accepted_final_report') }}</td>
-                                        <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">16</th>
-                                        <td>{{ __('rms::research.send_for_publication') }}</td>
-                                        <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
-                                    </tr>--}}
-
-                                    </tbody>
-                                </table>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <canvas id="myChart" height="400"></canvas>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">@lang('task.task_list')</h4>
+                            <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                                    <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                                    <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-content collapse show">
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">@lang('labels.serial')</th>
+                                            <th scope="col">@lang('task.task')</th>
+                                            <th scope="col">@lang('rms::research.title')</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        @if(count($tasks))
+
+                                            @foreach($tasks as $task)
+                                                <tr>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
+                                                    <td>@lang('rms::research.' .$task->name)</td>
+                                                    <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
+                                                </tr>
+                                            @endforeach
+                                        @else
+
+                                            <tr>
+                                                <td colspan="3" class="text-center">No started task is found</td>
+                                            </tr>
+                                        @endif
+                                        {{--<tr>
+                                            <th scope="row">1</th>
+                                            <td>{{ __('rms::research.review_of_literature') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">2</th>
+                                            <td>{{ __('rms::research.proposal_writing') }}</td>
+                                            <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">3</th>
+                                            <td>{{ __('rms::research.questionnaire_preparation') }}</td>
+                                            <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">4</th>
+                                            <td>{{ __('rms::research.questionnaire_pretesting') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">5</th>
+                                            <td>{{ __('rms::research.data_collection') }}</td>
+                                            <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">6</th>
+                                            <td>{{ __('rms::research.data_tabulation') }}</td>
+                                            <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">7</th>
+                                            <td>{{ __('rms::research.report_writing') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">8</th>
+                                            <td>{{ __('rms::research.draft_report_submission') }}</td>
+                                            <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">9</th>
+                                            <td>{{ __('rms::research.incorporating_research_division_comments') }}</td>
+                                            <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">10</th>
+                                            <td>{{ __('rms::research.first_final_report_submission') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">11</th>
+                                            <td>{{ __('rms::research.received_final_report') }}</td>
+                                            <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">12</th>
+                                            <td>{{ __('rms::research.sending_external_reviewer') }}</td>
+                                            <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">13</th>
+                                            <td>{{ __('rms::research.comments_from_external_reviewer') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">14</th>
+                                            <td>{{ __('rms::research.send_to_respective_researcher') }}</td>
+                                            <td>Value Chain Analysis of Poultry and Pineapple: Selected Cases of Bangladesh</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">15</th>
+                                            <td>{{ __('rms::research.accepted_final_report') }}</td>
+                                            <td>Micro Credit Operation by the Public Sector in BD: Origin, Performance and Replication</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">16</th>
+                                            <td>{{ __('rms::research.send_for_publication') }}</td>
+                                            <td>River Bank Erosion and its Effects on Rural Society in Bangladesh</td>
+                                        </tr>--}}
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     @endif
 
     <section>
@@ -410,10 +419,10 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             {{--@php--}}
-                                                {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
-                                                {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
-                                                {{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}
-                                                {{--$featureName = 'Research Proposal';--}}
+                                            {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
+                                            {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
+                                            {{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}
+                                            {{--$featureName = 'Research Proposal';--}}
                                             {{--@endphp--}}
                                             <td>
                                                 <a href="#">{{ $proposal->title }}</a>
@@ -460,20 +469,22 @@
                 ],
 
                 datasets: [{
+                    label: 'Submitted',
                     data: JSON.parse('{!! json_encode($chartData[0] ) !!}'),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
-                },{
+                }, {
+                    label: 'Accepted',
                     data: JSON.parse('{!! json_encode($chartData[1] ) !!}'),
-                    backgroundColor:'rgba(54, 162, 235, 0.2)',
-                    borderColor:'rgba(255,99,132,1)',
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(255,99,132,1)',
                     borderWidth: 1
                 }]
             },
             options: {
                 legend: {
-                    display: false
+                    display: true
                 },
                 responsive: true,
                 maintainAspectRatio: false,

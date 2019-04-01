@@ -29,7 +29,7 @@
                 </thead>
                 <tbody>
                 @foreach($taskable->tasks as $task)
-
+                   
                     @designation(RD, JDR)
                         @if(!in_array($task->name, [ 'Sending external reviewer', 'Comments from external reviewer', 'Send to respective researcher', 'Accepted final report', 'Send for publication' ] ))
                             @continue
