@@ -1,7 +1,8 @@
 @component('mail::message')
 # {{ $projectProposal->title }}
-@component('mail::button', ['url' => 'http://bard.inflack.com'])
-@lang('')
+{{ $message }}
+@component('mail::button', ['url' => $url])
+@lang('pms::project_proposal.view_changes')
 @endcomponent
 Thanks,<br>
 {{ config('app.name') }}

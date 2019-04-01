@@ -13,6 +13,7 @@ use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\UserService;
+use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
@@ -35,18 +36,27 @@ class ProjectProposalService
     private $featureService;
     private $workflowService;
     private $userService;
+    private $dashboardService;
+    /**
+     * @var DashboardWorkflowService
+     */
+    private $dashboardWorkflowService;
 
     /**
      * ProjectRequestService constructor.
      * @param ProjectProposalRepository $projectProposalRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
+     * @param UserService $userService
+     * @param DashboardWorkflowService $dashboardWorkflowService
      */
 
     public function __construct(ProjectProposalRepository $projectProposalRepository,
                                 FeatureService $featureService,
                                 WorkflowService $workflowService,
-                                UserService $userService)
+                                UserService $userService,
+                                DashboardWorkflowService $dashboardWorkflowService
+    )
     {
         $this->projectProposalRepository = $projectProposalRepository;
         $this->featureService = $featureService;
@@ -54,6 +64,7 @@ class ProjectProposalService
         $this->userService = $userService;
 
         $this->setActionRepository($projectProposalRepository);
+        $this->dashboardWorkflowService = $dashboardWorkflowService;
     }
 
     /**
@@ -102,7 +113,7 @@ class ProjectProposalService
             // Workflow initiate done
 
             //Generating Notification
-            $this->generatePMSNotification(['ref_table_id' =>  $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
+            $this->generatePMSNotification(['ref_table_id' => $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
             // Notification generation done
 
             return $proposalSubmission;
@@ -151,15 +162,22 @@ class ProjectProposalService
         return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
     }
 
-    //Methods for triggering notifications
-    public function generatePMSNotification($notificationData, $event) : void
+    // Methods for triggering notifications
+    public function generatePMSNotification($notificationData, $event): void
     {
-        $activityBy = (array_key_exists('activity_by', $notificationData))? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
+        $featureName = config('constants.project_proposal_feature_name');
+        $pendingTasks = $this->dashboardWorkflowService->getDashboardWorkflowItems($featureName);
+        dd($pendingTasks);
+
+
+        $projectProposal = $this->findOne($notificationData['ref_table_id']);
+        $activityBy = (array_key_exists('activity_by', $notificationData)) ? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
         $dynamicValues['notificationData'] = [
-            'ref_table_id'=> $notificationData['ref_table_id'],
-            'from_user_id'=> Auth::user()->id,
-            'message'=> 'A project has been '.$notificationData['status'].' by '.$activityBy,
-            'is_read'=> 0,
+            'ref_table_id' => $notificationData['ref_table_id'],
+            'from_user_id' => Auth::user()->id,
+            'message' => $projectProposal->title . ' has been ' . $notificationData['status'] . ' by ' . $activityBy,
+            'is_read' => 0,
+            'url' => 'http://bard.inflack.com/pms'
         ];
         $dynamicValues['event'] = $event;
         event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));

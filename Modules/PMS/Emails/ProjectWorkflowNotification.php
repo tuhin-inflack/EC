@@ -15,15 +15,21 @@ class ProjectWorkflowNotification extends Mailable
      * @var ProjectProposal
      */
     private $projectProposal;
+    private $message;
+    private $url;
 
     /**
      * Create a new message instance.
      *
      * @param ProjectProposal $projectProposal
+     * @param $message
+     * @param $url
      */
-    public function __construct(ProjectProposal $projectProposal)
+    public function __construct(ProjectProposal $projectProposal, $message, $url)
     {
         $this->projectProposal = $projectProposal;
+        $this->message = $message;
+        $this->url = $url;
     }
 
     /**
@@ -33,9 +39,11 @@ class ProjectWorkflowNotification extends Mailable
      */
     public function build()
     {
-//        return $this->markdown('pms::emails.project_proposal_notification_mail')
-//            ->with('projectProposal' => $this->projectProposal);
         return $this->markdown('pms::emails.project_proposal_notification_mail')
-            ->with('projectProposal', $this->projectProposal);
+            ->with([
+                'projectProposal' => $this->projectProposal,
+                'message' => $this->message,
+                'url' => $this->url
+            ]);
     }
 }
