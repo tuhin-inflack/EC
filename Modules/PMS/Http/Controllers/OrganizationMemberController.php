@@ -37,12 +37,14 @@ class OrganizationMemberController extends Controller
 
     public function create(Organization $organization)
     {
+
         $module = explode('/', Request()->route()->getPrefix())[0];
         return view('pms::organization-member.create', compact('organization', 'module'));
     }
 
     public function store(StoreUpdateOrgMemberRequest $request, Organization $organization)
     {
+
         if ($this->organizationMemberService->save($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
@@ -54,6 +56,7 @@ class OrganizationMemberController extends Controller
 
     public function show(Project $project, Organization $organization, OrganizationMember $member)
     {
+
         $attributeIds = $project->attributes->pluck('id')->toArray();
 
         $attributeValues = $this->attributeValueService->getMemberAttributeValues($member->id, $attributeIds);
@@ -69,12 +72,14 @@ class OrganizationMemberController extends Controller
 
     public function edit(Organization $organization, OrganizationMember $member)
     {
+
         $module = explode('/', Request()->route()->getPrefix())[0];
         return view('pms::organization-member.edit', compact('organization', 'member', 'module'));
     }
 
     public function update(StoreUpdateOrgMemberRequest $request, Organization $organization, OrganizationMember $member)
     {
+
         if ($this->organizationMemberService->update($member, $request->all())) {
             Session::flash('success', trans('labels.update_success'));
         } else {

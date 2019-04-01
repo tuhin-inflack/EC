@@ -60,30 +60,19 @@ class OrganizationController extends Controller
     }
     public function show(Project $project, Organization $organization)
     {
+
         if (!$project->organizations->where('id', $organization->id)->count()) {
             abort(404);
         }
 
-        return view('organization.show', compact(
+        return view('pms::organization.show', compact(
                 'organization',
                 'project'
             )
         );
     }
-
-    public function store(StoreOrganizationRequest $request)
-    {
-
-        if ($this->organizationService->store($request->all())) {
-            Session::flash('success', trans('labels.save_success'));
-        } else {
-            Session::flash('error', trans('labels.save_fail'));
-        }
-
-        $redirectUrl = url()->previous();
-        $redirectUrl = str_replace('organizations/create', '', $redirectUrl);
-
-        return redirect($redirectUrl);
-    }
-
+    /*
+     * If You are looking for store function
+     * Store function is kept global OrganiationController , you can find the route in Global web.php
+     */
 }
