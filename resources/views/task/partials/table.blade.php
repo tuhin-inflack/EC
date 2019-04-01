@@ -31,10 +31,14 @@
                 @foreach($taskable->tasks as $task)
                    
                     @designation(RD, JDR)
-                    @if(!in_array($task->name, [ 'Sending external reviewer', 'Comments from external reviewer', 'Send to respective researcher', 'Accepted final report', 'Send for publication' ] ))
-                        @php continue; @endphp
-                    @endif
-                    @enddesignation
+                        @if(!in_array($task->name, [ 'Sending external reviewer', 'Comments from external reviewer', 'Send to respective researcher', 'Accepted final report', 'Send for publication' ] ))
+                            @continue
+                        @endif
+                    @elseif_designation(FM)
+                        @if(in_array($task->name, [ 'Sending external reviewer', 'Comments from external reviewer', 'Send to respective researcher', 'Accepted final report', 'Send for publication' ] ))
+                            @continue
+                        @endif
+                    @end_designation
 
                     <tr>
                         <td>{{ $loop->iteration }}</td>

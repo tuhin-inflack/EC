@@ -5,100 +5,211 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="firstName1" class="required">@lang('tms::training.present_deseases') : </label>
-                        {{--{{ Form::select('present_deseases', $diseases->pluck('name', 'id'), NULL , ['class' => 'room-type-select form-control required' . ($errors->has('present_deseases') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => trans('labels.select')]) }}
-
+                        <label for="present_deseases">@lang('tms::training.present_deseases') : </label>
+                        {{ Form::select('present_deseases[]',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
                         @if ($errors->has('present_deseases'))
                             <span class="invalid-feedback" role="alert">
                             <strong>{{ $errors->first('present_deseases') }}</strong>
-                        </span>
-                        @endif--}}
-                        <select class="select2 form-control">
-                            <optgroup label="Alaskan/Hawaiian Time Zone">
-                                <option value="AK">Alaska</option>
-                                <option value="HI">Hawaii</option>
-                            </optgroup>
-                            <optgroup label="Pacific Time Zone">
-                                <option value="CA">California</option>
-                                <option value="NV">Nevada</option>
-                                <option value="OR">Oregon</option>
-                                <option value="WA">Washington</option>
-                            </optgroup>
-                            <optgroup label="Mountain Time Zone">
-                                <option value="AZ">Arizona</option>
-                                <option value="CO">Colorado</option>
-                                <option value="ID">Idaho</option>
-                                <option value="MT">Montana</option>
-                                <option value="NE">Nebraska</option>
-                                <option value="NM">New Mexico</option>
-                                <option value="ND">North Dakota</option>
-                                <option value="UT">Utah</option>
-                                <option value="WY">Wyoming</option>
-                            </optgroup>
-                            <optgroup label="Central Time Zone">
-                                <option value="AL">Alabama</option>
-                                <option value="AR">Arkansas</option>
-                                <option value="IL">Illinois</option>
-                                <option value="IA">Iowa</option>
-                                <option value="KS">Kansas</option>
-                                <option value="KY">Kentucky</option>
-                                <option value="LA">Louisiana</option>
-                                <option value="MN">Minnesota</option>
-                                <option value="MS">Mississippi</option>
-                                <option value="MO">Missouri</option>
-                                <option value="OK">Oklahoma</option>
-                                <option value="SD">South Dakota</option>
-                                <option value="TX">Texas</option>
-                                <option value="TN">Tennessee</option>
-                                <option value="WI">Wisconsin</option>
-                            </optgroup>
-                            <optgroup label="Eastern Time Zone">
-                                <option value="CT">Connecticut</option>
-                                <option value="DE">Delaware</option>
-                                <option value="FL">Florida</option>
-                                <option value="GA">Georgia</option>
-                                <option value="IN">Indiana</option>
-                                <option value="ME">Maine</option>
-                                <option value="MD">Maryland</option>
-                                <option value="MA">Massachusetts</option>
-                                <option value="MI">Michigan</option>
-                                <option value="NH">New Hampshire</option>
-                                <option value="NJ">New Jersey</option>
-                                <option value="NY">New York</option>
-                                <option value="NC">North Carolina</option>
-                                <option value="OH">Ohio</option>
-                                <option value="PA">Pennsylvania</option>
-                                <option value="RI">Rhode Island</option>
-                                <option value="SC">South Carolina</option>
-                                <option value="VT">Vermont</option>
-                                <option value="VA">Virginia</option>
-                                <option value="WV">West Virginia</option>
-                            </optgroup>
-                        </select>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="lastName1" class="required">@lang('tms::training.physical_disability') : </label>
-                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
-                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                        <label for="physical_disability">@lang('tms::training.physical_disability') : </label>
+                        {{ Form::select('physical_disability[]',[], NULL , ['class' => 'select2-tags form-control', 'id' => 'select2-tags', 'data-msg-required'=>trans('labels.This field is required'), 'multiple' => 'multiple']) }}
+                        @if ($errors->has('physical_disability'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('physical_disability') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div><h1>@lang('tms::training.general_exammination')</h1></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="temperature" class="required">@lang('tms::training.temperature') : </label>
+                                {!! Form::text('temperature', old('temperature'), ['class' => 'form-control required' . ($errors->has('temperature') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'তাপমাত্রা (ডিগ্রি)']) !!}
+
+                                @if ($errors->has('temperature'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('temperature') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="pulse" class="required">@lang('tms::training.pulse') : </label>
+                                {!! Form::text('pulse', old('pulse'), ['class' => 'form-control required' . ($errors->has('pulse') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'পাল্স']) !!}
+
+                                @if ($errors->has('pulse'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('pulse') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="respiration" class="required">@lang('tms::training.respiration') : </label>
+                                {!! Form::text('respiration', old('respiration'), ['class' => 'form-control required' . ($errors->has('respiration') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'রেস্পিরেশন']) !!}
+
+                                @if ($errors->has('respiration'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('respiration') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.general_exammination') :</label>
-                        {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => ' form-control instituteSelection',
-                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="conjunctiva" class="required">@lang('tms::training.conjunctiva') : </label>
+                                {!! Form::text('conjunctiva', old('conjunctiva'), ['class' => 'form-control required' . ($errors->has('conjunctiva') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'কনজান্কটিভা', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+
+                                @if ($errors->has('conjunctiva'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('conjunctiva') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="oral_cavity" class="required">@lang('tms::training.oral_cavity') : </label>
+                                {!! Form::text('oral_cavity', old('oral_cavity'), ['class' => 'form-control required' . ($errors->has('oral_cavity') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ওরাল ক্যাভিটি', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+
+                                @if ($errors->has('oral_cavity'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('oral_cavity') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="denture" class="required">@lang('tms::training.denture') : </label>
+                                {!! Form::text('denture', old('denture'), ['class' => 'form-control required' . ($errors->has('denture') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ডেন্চার', 'data-rule-maxlength' => 50, 'data-msg-maxlength'=>Lang::get('labels.At most 50 characters')]) !!}
+
+                                @if ($errors->has('denture'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('denture') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div class="form-group">
-                            <label for="location1" class="required">@lang('tms::training.systemic_exammination') :</label>
-                            {{ Form::select('academic_institute_id',['L' => 'Large', 'S' => 'Small'], NULL , ['class' => 'form-control instituteSelection',
-                                            'placeholder' => trans('labels.select'),'data-validation-required-message'=>trans('labels.This field is required')]) }}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12">
+                                <label for="blood_pressure" class="required">@lang('tms::training.blood_pressure')</label>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('blood_pressure', '1', old('blood_pressure'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.yes')</label>
+                                </div>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('blood_pressure', '0', old('blood_pressure'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.no')</label>
+                                </div>
+                                <div class="row col-md-12 radio-error">
+                                    @if ($errors->has('blood_pressure'))
+                                        <span class="small text-danger"><strong>{{ $errors->first('blood_pressure') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12">
+                                <label for="anaemia" class="required">@lang('tms::training.anaemia')</label>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('anaemia', '1', old('anaemia'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.yes')</label>
+                                </div>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('anaemia', '0', old('anaemia'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.no')</label>
+                                </div>
+                                <div class="row col-md-12 radio-error">
+                                    @if ($errors->has('anaemia'))
+                                        <span class="small text-danger"><strong>{{ $errors->first('anaemia') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group col-md-12">
+                                <label for="oedema" class="required">@lang('tms::training.oedema')</label>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('oedema', '1', old('oedema'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.yes')</label>
+                                </div>
+                                <div class="skin skin-flat">
+                                    {!! Form::radio('oedema', '0', old('oedema'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+                                    <label>@lang('tms::training.no')</label>
+                                </div>
+                                <div class="row col-md-12 radio-error">
+                                    @if ($errors->has('oedema'))
+                                        <span class="small text-danger"><strong>{{ $errors->first('oedema') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div><h1>@lang('tms::training.systemic_exammination')</h1></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="heart" class="required">@lang('tms::training.heart') : </label>
+                                {!! Form::text('heart', old('heart'), ['class' => 'form-control required' . ($errors->has('heart') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'হার্ট', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+
+                                @if ($errors->has('heart'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('heart') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="lung" class="required">@lang('tms::training.lung') : </label>
+                                {!! Form::text('lung', old('lung'), ['class' => 'form-control required' . ($errors->has('lung') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ফুসফুস', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+
+                                @if ($errors->has('lung'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('lung') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="abdomen" class="required">@lang('tms::training.abdomen') : </label>
+                                {!! Form::text('abdomen', old('abdomen'), ['class' => 'form-control required' . ($errors->has('abdomen') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'তলপেট', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
+
+                                @if ($errors->has('abdomen'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('abdomen') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -106,27 +217,39 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.eye_sight') :</label>
-                        <input type="email" class="form-control" id="emailAddress1">
+                        <label for="eye_sight" class="required">@lang('tms::training.eye_sight') : </label>
+                        {!! Form::text('eye_sight', old('eye_sight'), ['class' => 'form-control required' . ($errors->has('eye_sight') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'দৃষ্টিশক্তি']) !!}
+
+                        @if ($errors->has('eye_sight'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('eye_sight') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.left_eye') :</label>
-                        <input type="email" class="form-control" id="emailAddress1">
+                        <label for="left_eye" class="required">@lang('tms::training.left_eye') :</label>
+                        {!! Form::text('left_eye', old('left_eye'), ['class' => 'form-control required' . ($errors->has('left_eye') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'বাম চোখ']) !!}
+
+                        @if ($errors->has('left_eye'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('left_eye') }}</strong>
+                            </span>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="emailAddress1" class="required">@lang('tms::training.right_eye') :</label>
-                        <input type="email" class="form-control" id="emailAddress1">
+                        <label for="right_eye" class="required">@lang('tms::training.right_eye') :</label>
+                        {!! Form::text('right_eye', old('right_eye'), ['class' => 'form-control required' . ($errors->has('right_eye') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'ডান চোখ']) !!}
+
+                        @if ($errors->has('right_eye'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('right_eye') }}</strong>
+                            </span>
+                        @endif
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="shortDescription1" class="required">@lang('tms::training.comments') :</label>
-                    <textarea name="shortDescription" id="shortDescription1" rows="4" class="form-control"></textarea>
                 </div>
             </div>
         </div>
