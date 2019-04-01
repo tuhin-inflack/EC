@@ -19,6 +19,7 @@
                 </div>
                 <div class="card-content collapse show">
                     {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                    {!! Form::hidden('reviewUrl', url()->current()) !!}
                     <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
                     <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                     <div class="card-body">

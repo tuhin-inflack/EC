@@ -19,6 +19,6 @@ class Feature extends Model
 
     public function workflowRuleMaster()
     {
-    return $this->hasOne(WorkflowRuleMaster::class, 'feature_id', 'id');
+        return $this->hasOne(WorkflowRuleMaster::class, 'feature_id', 'id');
     }
 }

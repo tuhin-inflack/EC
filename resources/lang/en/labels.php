@@ -169,4 +169,5 @@ return [
     'pick_a_date' => 'Pick a Date',
     'start' => 'Start',
     'end' => 'End',
+    'thanks' => 'Thanks',
 ];

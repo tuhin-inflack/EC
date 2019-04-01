@@ -170,7 +170,14 @@ class PMSController extends Controller
     {
         //Generating notification
         $event = ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
-        $this->projectProposalService->generatePMSNotification(['ref_table_id' => $proposalId, 'status' => $request->input('status')], $event);
+        $this->projectProposalService->generatePMSNotification(
+            [
+                'ref_table_id' => $proposalId,
+                'status' => $request->input('status')
+            ],
+            $event,
+            $request->input('reviewUrl')
+        );
         // Notification generation done
 
         if ($request->input('status') == 'CLOSED') {
@@ -281,7 +288,6 @@ class PMSController extends Controller
 
     public function feedbackForJointDirect(Request $request, $shareConversationId)
     {
-
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
         $data['remarks'] = $request->approval_remark;

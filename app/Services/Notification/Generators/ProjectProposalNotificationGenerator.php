@@ -74,7 +74,6 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     {
         $recipients = config('constants.' . $event);
         $usersByKeys = [];
-
         if ($key = array_search('initiator', $recipients) !== false) {
             unset($recipients[$key]);
             $proposal = $this->projectProposalService->findOne($proposalId);

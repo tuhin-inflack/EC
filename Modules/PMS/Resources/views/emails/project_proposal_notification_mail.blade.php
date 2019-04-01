@@ -2,8 +2,8 @@
 # {{ $projectProposal->title }}
 {{ $message }}
 @component('mail::button', ['url' => $url])
-@lang('pms::project_proposal.view_changes')
+@lang('labels.details')
 @endcomponent
-Thanks,<br>
+@lang('labels.thanks'),<br>
 {{ config('app.name') }}
 @endcomponent

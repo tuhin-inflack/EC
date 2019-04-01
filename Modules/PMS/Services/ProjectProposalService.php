@@ -10,11 +10,14 @@ namespace Modules\PMS\Services;
 
 use App\Constants\NotificationType;
 use App\Entities\User;
+use App\Entities\workflow\WorkflowMaster;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkFlowConversationService;
+use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
@@ -22,7 +25,6 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Config;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
@@ -38,9 +40,13 @@ class ProjectProposalService
     private $userService;
     private $dashboardService;
     /**
-     * @var DashboardWorkflowService
+     * @var WorkflowMasterService
      */
-    private $dashboardWorkflowService;
+    private $workflowMasterService;
+    /**
+     * @var WorkFlowConversationService
+     */
+    private $workFlowConversationService;
 
     /**
      * ProjectRequestService constructor.
@@ -48,23 +54,26 @@ class ProjectProposalService
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      * @param UserService $userService
-     * @param DashboardWorkflowService $dashboardWorkflowService
+     * @param WorkflowMasterService $workflowMasterService
+     * @param WorkFlowConversationService $workFlowConversationService
      */
 
     public function __construct(ProjectProposalRepository $projectProposalRepository,
                                 FeatureService $featureService,
                                 WorkflowService $workflowService,
                                 UserService $userService,
-                                DashboardWorkflowService $dashboardWorkflowService
+                                WorkflowMasterService $workflowMasterService,
+                                WorkFlowConversationService $workFlowConversationService
     )
     {
         $this->projectProposalRepository = $projectProposalRepository;
-        $this->featureService = $featureService;
+        $this->workflowMasterService = $workflowMasterService;
         $this->workflowService = $workflowService;
+        $this->featureService = $featureService;
         $this->userService = $userService;
 
         $this->setActionRepository($projectProposalRepository);
-        $this->dashboardWorkflowService = $dashboardWorkflowService;
+        $this->workFlowConversationService = $workFlowConversationService;
     }
 
     /**
@@ -113,7 +122,14 @@ class ProjectProposalService
             // Workflow initiate done
 
             //Generating Notification
-            $this->generatePMSNotification(['ref_table_id' => $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
+            $this->generatePMSNotification(
+                [
+                    'ref_table_id' => $proposalSubmission->id,
+                    'status' => 'SUBMITTED'
+                ],
+                'project_proposal_submission',
+                $this->getReviewUrl($feature, $proposalSubmission)
+            );
             // Notification generation done
 
             return $proposalSubmission;
@@ -163,13 +179,8 @@ class ProjectProposalService
     }
 
     // Methods for triggering notifications
-    public function generatePMSNotification($notificationData, $event): void
+    public function generatePMSNotification($notificationData, $event, $url): void
     {
-        $featureName = config('constants.project_proposal_feature_name');
-        $pendingTasks = $this->dashboardWorkflowService->getDashboardWorkflowItems($featureName);
-        dd($pendingTasks);
-
-
         $projectProposal = $this->findOne($notificationData['ref_table_id']);
         $activityBy = (array_key_exists('activity_by', $notificationData)) ? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
         $dynamicValues['notificationData'] = [
@@ -177,9 +188,57 @@ class ProjectProposalService
             'from_user_id' => Auth::user()->id,
             'message' => $projectProposal->title . ' has been ' . $notificationData['status'] . ' by ' . $activityBy,
             'is_read' => 0,
-            'url' => 'http://bard.inflack.com/pms'
+            'url' => $url
         ];
         $dynamicValues['event'] = $event;
         event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
+    }
+
+    /**
+     * @param $feature
+     * @param $proposalSubmission
+     * @return mixed
+     */
+    private function getWorkflowMaster($feature, $proposalSubmission): WorkflowMaster
+    {
+        $workflowMaster = $this->workflowMasterService->findBy([
+            'feature_id' => $feature->id,
+            'rule_master_id' => $feature->workflowRuleMaster->id,
+            'ref_table_id' => $proposalSubmission->id,
+        ])->first();
+
+        return $workflowMaster;
+    }
+
+    /**
+     * @param $feature
+     * @return mixed
+     */
+    private function getWorkflowDetail($feature)
+    {
+        $workflowRuleDetail = $feature->workflowRuleMaster->ruleDetails
+            ->where('rule_master_id', $feature->workflowRuleMaster->id)
+            ->where('notification_order', 1)
+            ->first();
+
+        return $workflowRuleDetail;
+    }
+
+    /**
+     * @param $feature
+     * @param $proposalSubmission
+     * @return string
+     */
+    private function getReviewUrl($feature, $proposalSubmission): string
+    {
+        $workflowMaster = $this->getWorkflowMaster($feature, $proposalSubmission);
+
+        $workflowRuleDetail = $this->getWorkflowDetail($feature);
+
+        $workflowConversation = $this->workFlowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
+
+        $url = route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetail->id]);
+
+        return $url;
     }
 }
