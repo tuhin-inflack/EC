@@ -118,11 +118,7 @@ class TaskService
 
         if ($task->actual_start_time && $task->actual_end_time){
             $data['duration'] = Carbon::parse($task->actual_start_time)->diffInDays($task->actual_end_time);
-
-        } else if ($task->actual_start_time && !$task->actual_end_time){
-            $data['duration'] = Carbon::parse($task->expected_start_time)->diffInDays($task->expected_end_time);
-
-        } else if (!$task->actual_start_time && !$task->actual_end_time){
+        } else if (!$task->actual_end_time){
             $data['duration'] = Carbon::parse($task->expected_start_time)->diffInDays($task->expected_end_time);
         }
 
