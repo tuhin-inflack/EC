@@ -137,7 +137,6 @@ $(document).ready(function () {
                 dataType: 'json'
             })
                 .done(function (data) {
-                    console.log(data);
                     // remove form repeater inputs
                     $guestInfoRepeater.find('div[data-repeater-item]').remove();
                     // hide add more button
