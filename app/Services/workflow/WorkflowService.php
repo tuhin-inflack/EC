@@ -257,4 +257,8 @@ class WorkflowService
         return $this->flowConversationRepository->findOne($id);
     }
 
+    public function getWorkflowMasterByFeatureAndRefTableId($featureId,$refTableId)
+    {
+        return $this->workFlowMasterRepository->findBy(['feature_id' => $featureId, 'ref_table_id' => $refTableId]);
+    }
 }

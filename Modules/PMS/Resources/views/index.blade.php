@@ -2,13 +2,13 @@
 @section('title', trans('labels.PMS'))
 
 @section('content')
-    <section id="pending-tasks">
-        <div class="card">
-            <div class="card-header">
-                <div class="card-title">
-                    <h1>{{trans('labels.PMS')}}</h1>
-                </div>
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                <h1>{{trans('labels.PMS')}}</h1>
             </div>
+        </div>
+        <form method="post" action="">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -31,8 +31,7 @@
                                                     <td>{{ $shareConversation->feature->name }}</td>
                                                     <td>{{$shareConversation->message}}</td>
                                                     <td>
-                                                        Research
-                                                        proposal: {{ $shareConversation->projectProposal->title }}<br/>
+                                                        Proposal: {{ $shareConversation->projectProposal->title }}<br/>
                                                     </td>
 
                                                     <td>
@@ -52,6 +51,12 @@
 
                                     </div>
                                 </div>
+                                <div class="card-footer">
+                                    <div class="form-group">
+                                        <input type="submit" name="share_approve" value="Approve All" class="btn btn-success">
+                                        <input type="submit" name="share_reject" value="Reject All" class="btn btn-danger">
+                                    </div>
+                                </div>
                             </section>
                         @endif
                         @if(!empty($pendingTasks->dashboardItems))
@@ -65,6 +70,7 @@
                                         <th>{{__('labels.feature_name')}}</th>
                                         <th>{{__('labels.message')}}</th>
                                         <th>{{__('labels.details')}}</th>
+                                        <th>{{__('labels.select')}} <input id="select_all" type="checkbox" name="select_all"></th>
                                         <th>{{__('labels.check')}}</th>
                                         </thead>
                                         <tbody>
@@ -79,6 +85,7 @@
                                                     <br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
+                                                <td><input type="checkbox" class="wf-item-checkbox" name="pending_select"></td>
                                                 <td>
                                                     <a href="{{ url($item->checkUrl )}}"
                                                        class="btn btn-primary btn-sm">@lang('labels.details')</a>
@@ -87,7 +94,14 @@
                                         @endforeach
                                         </tbody>
                                     </table>
+                                    <div class="card-footer pull-right">
+                                        <div class="form-group">
+                                            <input type="submit" name="pending_approve" value="Approve Selected" class="btn btn-success">
+                                            <input type="submit" name="pending_reject" value="Reject Selected" class="btn btn-danger">
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         @endif
 
@@ -169,7 +183,9 @@
                 </div>
 
             </div>
-        </div>
+        </form>
+    </div>
+
     </section>
     {{--<section>
         <div class="row">
@@ -289,6 +305,11 @@
 @push('page-js')
     <script type="text/javascript" src="{{ asset('theme/vendors/js/charts/chart.min.js') }}"></script>
     <script>
+        $("#select_all").change(function ()
+        {
+            if(this.checked) $(".wf-item-checkbox").attr('checked' ,true); else $(".wf-item-checkbox").attr('checked',false);
+        });
+
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',
