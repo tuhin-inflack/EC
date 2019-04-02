@@ -8,14 +8,17 @@
 
 namespace Modules\TMS\Services;
 
+use App\Mail\TrainingRegistrationMail;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Illuminate\Support\Facades\Mail;
 use Modules\TMS\Entities\RegisteredTraineeEducation;
 use Modules\TMS\Entities\RegisteredTraineeEmergency;
 use Modules\TMS\Entities\RegisteredTraineeGeneralInfo;
 use Modules\TMS\Entities\RegisteredTraineeHealthExam;
 use Modules\TMS\Entities\RegisteredTraineePhysicalInfo;
 use Modules\TMS\Entities\RegisteredTraineeServiceInfo;
+use Modules\TMS\Entities\Training;
 use Modules\TMS\Repositories\RegisteredTraineeRepository;
 
 class RegisteredTraineeService
@@ -50,8 +53,13 @@ class RegisteredTraineeService
         $this->saveTraineeServiceInfo($data, $trainee);
         $this->saveTraineeEmergencyContact($data, $trainee);
         $this->saveTraineeEducation($data, $trainee);
-        $this->saveTraineePhysicalInfo($data, $trainee);
-        $this->saveTraineeHealthExam($data, $trainee);
+        /*$this->saveTraineePhysicalInfo($data, $trainee);
+        $this->saveTraineeHealthExam($data, $trainee);*/
+
+        if ($trainee && !empty($data['email'])) {
+            Mail::to($data['email'])->send(new TrainingRegistrationMail($trainee));
+        }
+
         return $trainee;
     }
 
