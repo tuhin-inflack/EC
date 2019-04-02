@@ -30,7 +30,6 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('research-workflow-close-reviewer/{workflowMasterId?}/{researchId?}', 'ResearchController@closeWorkflowByReviewer')->name('research-workflow-close-reviewer');
 
 
-
         Route::prefix('{research}')->group(function () {
 
             // research budgeting
@@ -138,4 +137,10 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('{researchRequest}/request-date-extend', 'InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
         Route::post('/', 'InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
     });
+
+    Route::prefix('research-proposal-details')->group(function () {
+
+    });
+
+
 });

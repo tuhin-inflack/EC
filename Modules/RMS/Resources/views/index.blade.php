@@ -559,9 +559,6 @@
                 $('#example-console-form').text($(form).serialize());
                 // $('input[name="id\[\]"]', form).remove();
                 // e.preventDefault();
-
-
-
             });
 
         });
