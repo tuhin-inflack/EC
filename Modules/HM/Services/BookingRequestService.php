@@ -171,10 +171,12 @@ class BookingRequestService
     private function saveGuestInfos($data, $roomBooking): void
     {
         if (array_key_exists('guests', $data)) {
-            $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
-                return new BookingGuestInfo($guest);
-            }));
+            $roomBooking->guestInfos()->saveMany(
+                collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    return new BookingGuestInfo($guest);
+                })
+            );
         }
     }
 
@@ -229,25 +231,61 @@ class BookingRequestService
 
             $roomBooking->requester->update($data);
 
-            if (array_key_exists('guests', $data)) {
-                foreach ($data['guests'] as $value) {
-                    if (array_key_exists('nid_doc', $value)) {
-                        $guest = $roomBooking->guestInfos()->find($value['id']);
-                        if ($guest->nid_doc) {
-                            Storage::delete($guest->nid_doc);
-                        }
-                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
-                    }
-                    $roomBooking->guestInfos()->updateOrCreate([
-                        'id' => $value['id'],
-                    ], $value);
-                }
-            } else {
-                $roomBooking->guestInfos()->delete();
-            }
+            $this->updateGuestInfo($roomBooking, $data);
 
             return $roomBooking;
         });
+    }
+
+    private function updateGuestInfo($roomBooking, $data): void
+    {
+        // TODO: Find all Previous Guests info
+
+        if (array_key_exists('guests', $data)) {
+
+            foreach ($data['guests'] as $value) {
+                if ($value['id']) {
+                    // TODO: update old users
+                    $allGuest = $roomBooking->guestInfos()->all()->toArray();
+
+                    if (in_array($value['id'], $allGuest)){
+
+                    }
+
+                    if (array_key_exists('nid_doc', $value)) {
+
+                        $guest = $roomBooking->guestInfos()->find($value['id']);
+
+                        if ($guest->nid_doc) {
+                            Storage::delete($guest->nid_doc);
+                        }
+
+                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
+                    }
+
+                    $roomBooking->guestInfos()->updateOrCreate([
+                        'id' => $value['id'],
+                    ], $value);
+
+
+
+                } else {
+                    // TODO : add new users
+                    $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $roomBooking->guestInfos()->save($value);
+                }
+            }
+        } else {
+
+            foreach ($roomBooking->guestInfos()->all() as $guest) {
+                if ($guest->nid_doc) {
+                    Storage::delete($guest->nid_doc);
+                }
+            }
+
+            $roomBooking->guestInfos()->delete();
+
+        }
     }
 
     public function getStatus($type)

@@ -281,9 +281,7 @@
                                         </div>
                                         <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                             <button type="button"
-                                                    class="btn btn-outline-danger"
-                                                    data-repeater-delete=""><i
-                                                        class="ft-x"></i>
+                                                    class="btn btn-outline-danger" data-repeater-delete=""><i class="ft-x"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -367,8 +365,7 @@
         @endif
         <div class="form-group overflow-auto">
             <div class="col-12">
-                <button type="button" data-repeater-create=""
-                        class="pull-right btn btn-sm btn-outline-primary">
+                <button type="button" data-repeater-create="" class="pull-right btn btn-sm btn-outline-primary">
                     <i class="ft-plus"></i> @lang('labels.add')
                 </button>
             </div>
