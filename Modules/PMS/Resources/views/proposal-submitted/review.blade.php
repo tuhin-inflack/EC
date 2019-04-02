@@ -18,9 +18,6 @@
                     </div>
                 </div>
                 <div class="card-content collapse show">
-                    {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
-                    <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
-                    <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -56,7 +53,7 @@
                             </div>
                             <div class="col-md-6">
                                 <ul>
-                                    @foreach($proposal->projectProposalFiles as $file)
+                                    @foreach($proposal->distinctProjectProposalFiles->unique('file_name') as $file)
                                         <li>
                                             <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
                                         </li>
@@ -67,11 +64,15 @@
                                         <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
                                     </li>
                                 </ul>
+                                @include('pms::proposal-submitted.reviewer-add-attachments')
                             </div>
                         </div>
                     </div>
 
                     <div class="card-footer">
+                        {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                        <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
+                        <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">

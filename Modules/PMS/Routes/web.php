@@ -148,5 +148,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('/share', 'PMSController@share')->name('project-proposal.share');
         Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'PMSController@getReviewForJointDirect')->name('sending-project-for-review');
         Route::post('posting-review/{shareConversationId?}', 'PMSController@feedbackForJointDirect')->name('project-proposal-submission.feedback');
+        Route::post('reviewer-add-attachment', 'PMSController@addAttachment')->name('project.proposal.reviewer.add.attachment');
     });
 });
