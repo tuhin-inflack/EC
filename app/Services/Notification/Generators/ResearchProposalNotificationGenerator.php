@@ -24,7 +24,7 @@ use Modules\HRM\Services\DesignationService;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 use Prophecy\Doubler\Generator\TypeHintReference;
 
-class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable
+class ResearchProposalNotificationGenerator extends BaseNotificationGenerator implements SystemNotifiable, EmailNotifiable
 {
     use MailSender;
 
@@ -36,16 +36,22 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
 
     /**
      * ResearchProposalNotificationGenerator constructor.
+     * @param UserService $userService
      * @param AppNotificationService $appNotificationService
+     * @param NotificationTypeRepository $notificationTypeRepository
+     * @param ResearchProposalSubmissionService $researchProposalSubmissionService
      */
-    public function __construct(AppNotificationService $appNotificationService, NotificationTypeRepository $notificationTypeRepository,
-                                UserService $userService, ResearchProposalSubmissionService $researchProposalSubmissionService)
+    public function __construct(
+        UserService $userService,
+        AppNotificationService $appNotificationService,
+        NotificationTypeRepository $notificationTypeRepository,
+        ResearchProposalSubmissionService $researchProposalSubmissionService
+    )
     {
         $this->appNotificationService = $appNotificationService;
         $this->notificationTypeRepository = $notificationTypeRepository;
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
         $this->userService = $userService;
-
     }
 
 
@@ -62,6 +68,33 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         $notificationData = (array)$data->dynamicValues;
         $notificationData['type_id'] = $notificationType->id;
         $notificationData['from_user_id'] = Auth::user()->id;
+
+        $users = $this->getNotifiableUsers($data);
+
+        foreach ($users as $user) {
+            $notificationData['to_user_id'] = $user['id'];
+            $this->appNotificationService->save($notificationData);
+            $user = $this->userService->findOne($user['id']);
+
+            $researchProposal = $this->researchProposalSubmissionService->findOne($notificationData['ref_table_id']);
+            $notificationMessage = $this->getNotificationMessage($data);
+            $notificationUrl = $data->dynamicValues['url'];
+
+            dd($researchProposal, $notificationMessage, $notificationUrl);
+        }
+    }
+
+    public function sendEmailNotification($data)
+    {
+        // TODO: Implement sendEmailNotification() method.
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    private function getNotifiableUsers($data): array
+    {
         if (!empty($data->dynamicValues['to_users_designation'])) {
             $users = $this->userService->getUserForNotificationSend($data->dynamicValues['to_users_designation']);
         } else {
@@ -73,24 +106,20 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
             $users = array_merge($users, $employeesUsers);
         }
 
-
         if (isset($data->dynamicValues['proposal_id'])) {
             $proposal = $this->researchProposalSubmissionService->findOne($data->dynamicValues['proposal_id']);
             array_push($users, $proposal->submittedBy->toArray());
         }
 
-
-        foreach ($users as $user) {
-            $notificationData['to_user_id'] = $user['id'];
-            $this->appNotificationService->save($notificationData);
-        }
-
-
+        return $users;
     }
 
-//    public function sendEmailNotification($data)
-//    {
-//        //TODO: Do the implementation
-//        $this->sendEmail('toaddress', null);
-//    }
+    /**
+     * @param $data
+     * @return string
+     */
+    private function getNotificationMessage($data): string
+    {
+        return $data->dynamicValues['message'];
+    }
 }

@@ -52,7 +52,7 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
         $notificationData['type_id'] = $notificationType->id;
         $recipients = $this->fetchRecipients($notificationData['ref_table_id'], $notificationInfo->getDynamicValues()['event']);
 
-        foreach ($recipients as $recipient) {
+         foreach ($recipients as $recipient) {
             $notificationData['to_user_id'] = $recipient['id'];
             $this->saveAppNotification($notificationData);
 

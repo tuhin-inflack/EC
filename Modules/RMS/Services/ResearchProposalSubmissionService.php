@@ -35,8 +35,12 @@ class ResearchProposalSubmissionService
     private $featureService;
     private $userService;
 
-    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService,
-                                FeatureService $featureService, UserService $userService)
+    public function __construct(
+        ResearchProposalSubmissionRepository $researchProposalSubmissionRepository,
+        WorkflowService $workflowService,
+        FeatureService $featureService,
+        UserService $userService
+    )
     {
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
@@ -47,11 +51,8 @@ class ResearchProposalSubmissionService
 
     public function store(array $data)
     {
-
-
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
-
 
             $proposalSubmission = $this->save($data);
 
