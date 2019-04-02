@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateResigteredTraineeHealthExamTable extends Migration
+class CreateRegisteredTraineeHealthExamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateResigteredTraineeHealthExamTable extends Migration
      */
     public function up()
     {
-        Schema::create('resigtered_trainee_healthExam', function (Blueprint $table) {
+        Schema::create('registered_trainee_healthExam', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('trainee_id');
             $table->string('present_deseases')->nullable();
@@ -44,6 +44,6 @@ class CreateResigteredTraineeHealthExamTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resigtered_trainee_healthExam');
+        Schema::dropIfExists('registered_trainee_healthExam');
     }
 }

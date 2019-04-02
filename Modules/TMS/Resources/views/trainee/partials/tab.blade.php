@@ -24,3 +24,16 @@
        aria-controls="tab35" href="#emergency_contact"
        aria-expanded="false">{{ trans('tms::training.emergency_contact') }}</a>
 </li>
+
+{{--
+<li class="nav-item">
+    <a class="nav-link" id="base-tab36" data-toggle="tab"
+       aria-controls="tab36" href="#health_examination_report"
+       aria-expanded="false">{{ trans('tms::training.health_examination_report') }}</a>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" id="base-tab37" data-toggle="tab"
+       aria-controls="tab37" href="#physical_information"
+       aria-expanded="false">{{ trans('tms::training.physical_information') }}</a>
+</li>--}}
