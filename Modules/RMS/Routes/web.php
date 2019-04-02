@@ -139,6 +139,9 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
     });
 
     Route::prefix('research-proposal-details')->group(function () {
+        Route::prefix('invitations')->group(function () {
+
+        });
 
     });
 
