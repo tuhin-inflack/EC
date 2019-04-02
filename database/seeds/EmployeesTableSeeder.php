@@ -164,8 +164,7 @@ class EmployeesTableSeeder extends Seeder
             $user = [];
             $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
             $user['email'] = $employee['email'];
-//            123123
-            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';
+            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';//            123123
             $user['username'] = $employee['employee_id'];
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
@@ -175,8 +174,6 @@ class EmployeesTableSeeder extends Seeder
 
         }
 
-
-
           $employees = array( 0 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, 'mobile_one' => '01711111113'],
             7 => ['employee_id' => 'DG1', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 17, 'mobile_one' => '01711111113'],
             8 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, 'mobile_one' => '01711111113'],
@@ -184,6 +181,7 @@ class EmployeesTableSeeder extends Seeder
             10 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
             11=> ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, 'mobile_one' => '01711111113'],
             12 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
+            13 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
         );
 
         foreach ($employees as $employee) {
@@ -191,8 +189,7 @@ class EmployeesTableSeeder extends Seeder
             $user = [];
             $user['name'] = $employee['first_name'] . " " . $employee['last_name'];
             $user['email'] = $employee['email'];
-//            123123
-            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';
+            $user['password'] = '$2y$10$Hy3h5XfdQK2e3cgke7ebHevS4E7no2Z6149YDVKS5t7WJ7Y9pJyrS';//  123123
             $user['username'] = $employee['employee_id'];
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
