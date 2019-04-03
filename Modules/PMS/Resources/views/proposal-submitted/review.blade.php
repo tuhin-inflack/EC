@@ -70,40 +70,49 @@
                     </div>
 
                     <div class="card-footer">
-                        {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
-                        <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
-                        <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{__('labels.remarks')}}</label>
-                                    <textarea class="form-control" name="approval_remark"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label>{{__('labels.message_to_receiver')}}</label>
-                                    <textarea class="form-control" name="message_to_receiver"></textarea>
+                        @if($proposal->status != 'APPROVED')
+                            {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                            <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
+                            <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>{{__('labels.remarks')}}</label>
+                                        <textarea class="form-control" name="approval_remark"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{__('labels.message_to_receiver')}}</label>
+                                        <textarea class="form-control" name="message_to_receiver"></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i
-                                                class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
-                                    @if($reviewButton)
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i
+                                                    class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
+                                        @if($reviewButton)
 
                                             <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i
                                                         class="ft-skip-back"></i> {{$ruleDetails->back_btn_label}}
                                             </button>
 
-                                    @endif
-                                    <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i
-                                                class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                        @endif
+                                        <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i
+                                                    class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            {!! Form::close() !!}
+                        @else
+                          <div class="row">
+                              <div class="col-md-12 text-center">
+                                  <a href="" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</a>
+                                  <a href="" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')</a>
+                              </div>
+                          </div>
+                        @endif
                     </div>
-                    {!! Form::close() !!}
                     @if($ruleDetails->is_shareable)
                         {!! Form::open(['url'=> route('project-proposal.share'), 'novalidate', 'class' => 'form', 'method' => 'post']) !!}
                         <div class="col-md-6">
