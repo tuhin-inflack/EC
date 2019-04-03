@@ -11,6 +11,7 @@ namespace App\Services\Notification\Generators;
 
 use App\Entities\Notification\NotificationType;
 use App\Entities\User;
+use App\Mail\WorkflowEmailNotification;
 use App\Models\NotificationInfo;
 use App\Services\Notification\AppNotificationService;
 use App\Services\Notification\EmailNotifiable;
@@ -19,7 +20,7 @@ use App\Services\UserService;
 use App\Traits\MailSender;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Mail;
-use Modules\PMS\Emails\ProjectWorkflowNotification;
+use Modules\PMS\Emails\WorkflowNotificationEmail;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Services\ProjectProposalService;
 
@@ -34,12 +35,14 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     /**
      * ProjectProposalNotificationGenerator constructor.
      * @param AppNotificationService $appNotificationService
-     * @param UserService $userService
      * @param ProjectProposalService $projectProposalService
+     * @param UserService $userService
      */
-    public function __construct(AppNotificationService $appNotificationService,
-                                UserService $userService,
-                                ProjectProposalService $projectProposalService)
+    public function __construct(
+        AppNotificationService $appNotificationService,
+        ProjectProposalService $projectProposalService,
+        UserService $userService
+    )
     {
         $this->appNotificationService = $appNotificationService;
         $this->userService = $userService;
@@ -52,16 +55,14 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
         $notificationData['type_id'] = $notificationType->id;
         $recipients = $this->fetchRecipients($notificationData['ref_table_id'], $notificationInfo->getDynamicValues()['event']);
 
-         foreach ($recipients as $recipient) {
+        foreach ($recipients as $recipient) {
             $notificationData['to_user_id'] = $recipient['id'];
             $this->saveAppNotification($notificationData);
 
             $user = $this->userService->findOne($recipient['id']);
             $projectProposal = $this->projectProposalService->findOne($this->getProjectProposalId($notificationInfo));
-            $notificationMessage = $this->getNotificationMessage($notificationInfo);
-            $notificationUrl = $notificationInfo->getDynamicValues()['notificationData']['url'];
 
-            $this->sendProjectProsalEmailNotification($notificationType, $user, $projectProposal, $notificationMessage, $notificationUrl);
+            $this->sendProjectProposalEmailNotification($notificationInfo, $notificationType, $projectProposal, $user);
         }
     }
 
@@ -87,7 +88,7 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
 
     public function sendEmailNotification($data)
     {
-        $this->sendEmail($data['user']->email, new ProjectWorkflowNotification($data['projectProposal'], $data['message'], $data['url']));
+        $this->sendEmail($data['user']->email, new WorkflowEmailNotification($data['projectProposal'], $data['message'], $data['url']));
     }
 
     /**
@@ -100,26 +101,24 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     }
 
     /**
+     * @param NotificationInfo $notificationInfo
      * @param NotificationType $notificationType
-     * @param User $user
      * @param ProjectProposal $projectProposal
-     * @param $notificationMessage
-     * @param $notificationUrl
+     * @param User $user
      */
-    private function sendProjectProsalEmailNotification(
+    private function sendProjectProposalEmailNotification(
+        NotificationInfo $notificationInfo,
         NotificationType $notificationType,
-        User $user,
         ProjectProposal $projectProposal,
-        $notificationMessage,
-        $notificationUrl
+        User $user
     ): void
     {
         if ($notificationType->is_email_notification) {
             $emailData = [
                 'user' => $user,
                 'projectProposal' => $projectProposal,
-                'message' => $notificationMessage,
-                'url' => $notificationUrl
+                'message' => $this->getNotificationMessage($notificationInfo),
+                'url' => $notificationInfo->getDynamicValues()['notificationData']['url']
             ];
 
             $this->sendEmailNotification($emailData);

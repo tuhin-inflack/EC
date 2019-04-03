@@ -13,6 +13,7 @@ use App\Entities\User;
 use App\Entities\workflow\WorkflowMaster;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
+use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
@@ -47,6 +48,10 @@ class ProjectProposalService
      * @var WorkFlowConversationService
      */
     private $workFlowConversationService;
+    /**
+     * @var ReviewUrlGenerator
+     */
+    private $reviewUrlGenerator;
 
     /**
      * ProjectRequestService constructor.
@@ -54,26 +59,24 @@ class ProjectProposalService
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      * @param UserService $userService
-     * @param WorkflowMasterService $workflowMasterService
-     * @param WorkFlowConversationService $workFlowConversationService
+     * @param ReviewUrlGenerator $reviewUrlGenerator
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository,
-                                FeatureService $featureService,
-                                WorkflowService $workflowService,
-                                UserService $userService,
-                                WorkflowMasterService $workflowMasterService,
-                                WorkFlowConversationService $workFlowConversationService
+    public function __construct(
+        ProjectProposalRepository $projectProposalRepository,
+        FeatureService $featureService,
+        WorkflowService $workflowService,
+        UserService $userService,
+        ReviewUrlGenerator $reviewUrlGenerator
     )
     {
         $this->projectProposalRepository = $projectProposalRepository;
-        $this->workflowMasterService = $workflowMasterService;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
         $this->userService = $userService;
 
         $this->setActionRepository($projectProposalRepository);
-        $this->workFlowConversationService = $workFlowConversationService;
+        $this->reviewUrlGenerator = $reviewUrlGenerator;
     }
 
     /**
@@ -128,7 +131,11 @@ class ProjectProposalService
                     'status' => 'SUBMITTED'
                 ],
                 'project_proposal_submission',
-                $this->getReviewUrl($feature, $proposalSubmission)
+                $this->reviewUrlGenerator->getReviewUrl(
+                    'project-proposal-submitted-review',
+                    $feature,
+                    $proposalSubmission
+                )
             );
             // Notification generation done
 
@@ -192,53 +199,5 @@ class ProjectProposalService
         ];
         $dynamicValues['event'] = $event;
         event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
-    }
-
-    /**
-     * @param $feature
-     * @param $proposalSubmission
-     * @return mixed
-     */
-    private function getWorkflowMaster($feature, $proposalSubmission): WorkflowMaster
-    {
-        $workflowMaster = $this->workflowMasterService->findBy([
-            'feature_id' => $feature->id,
-            'rule_master_id' => $feature->workflowRuleMaster->id,
-            'ref_table_id' => $proposalSubmission->id,
-        ])->first();
-
-        return $workflowMaster;
-    }
-
-    /**
-     * @param $feature
-     * @return mixed
-     */
-    private function getWorkflowDetail($feature)
-    {
-        $workflowRuleDetail = $feature->workflowRuleMaster->ruleDetails
-            ->where('rule_master_id', $feature->workflowRuleMaster->id)
-            ->where('notification_order', 1)
-            ->first();
-
-        return $workflowRuleDetail;
-    }
-
-    /**
-     * @param $feature
-     * @param $proposalSubmission
-     * @return string
-     */
-    private function getReviewUrl($feature, $proposalSubmission): string
-    {
-        $workflowMaster = $this->getWorkflowMaster($feature, $proposalSubmission);
-
-        $workflowRuleDetail = $this->getWorkflowDetail($feature);
-
-        $workflowConversation = $this->workFlowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
-
-        $url = route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetail->id]);
-
-        return $url;
     }
 }

@@ -81,7 +81,6 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('rms.index');
@@ -176,9 +175,9 @@ class ProposalSubmitController extends Controller
             'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton', 'researchInvitation'));
 
     }
+
     public function reviewUpdate(CreateReviewRequest $request)
     {
-
         if ($request->status == WorkflowStatus::REVIEW) {
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
@@ -188,7 +187,7 @@ class ProposalSubmitController extends Controller
             $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
             $data = $request->except('_token');
             $this->dashboardWorkflowService->updateDashboardItem($data);
-//        Send Notifications
+            // Send Notifications
             $this->researchProposalSubmissionService->sendNotification($request);
         }
         return redirect('/rms');
@@ -216,7 +215,6 @@ class ProposalSubmitController extends Controller
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
     }
-
 
 
     public function reInitiate($researchProposalSubmissionId)

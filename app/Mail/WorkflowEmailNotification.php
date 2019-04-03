@@ -1,33 +1,33 @@
 <?php
 
-namespace Modules\PMS\Emails;
+namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Modules\PMS\Entities\ProjectProposal;
 
-class ProjectWorkflowNotification extends Mailable
+class WorkflowEmailNotification extends Mailable
 {
     use Queueable, SerializesModels;
     /**
-     * @var ProjectProposal
+     * @var Model
      */
-    private $projectProposal;
+    private $model;
     private $message;
     private $url;
 
     /**
      * Create a new message instance.
      *
-     * @param ProjectProposal $projectProposal
+     * @param Model $model
      * @param $message
      * @param $url
      */
-    public function __construct(ProjectProposal $projectProposal, $message, $url)
+    public function __construct(Model $model, $message, $url)
     {
-        $this->projectProposal = $projectProposal;
+        $this->model = $model;
         $this->message = $message;
         $this->url = $url;
     }
@@ -39,9 +39,9 @@ class ProjectWorkflowNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('pms::emails.project_proposal_notification_mail')
+        return $this->markdown('emails.workflow.notification_email')
             ->with([
-                'projectProposal' => $this->projectProposal,
+                'title' => $this->model->title,
                 'message' => $this->message,
                 'url' => $this->url
             ]);

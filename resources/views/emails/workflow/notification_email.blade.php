@@ -1,5 +1,5 @@
 @component('mail::message')
-# {{ $projectProposal->title }}
+# {{ $title }}
 {{ $message }}
 @component('mail::button', ['url' => $url])
 @lang('labels.details')
