@@ -18,6 +18,11 @@ class ResearchProposalSubmission extends Model
         return $this->hasMany(ResearchProposalSubmissionAttachment::class, 'submissions_id', 'id');
     }
 
+    public function distinctResearchProposalSubmissionAttachments()
+    {
+        return $this->hasMany(ResearchProposalSubmissionAttachment::class, 'submissions_id', 'id')->orderBy('created_at', 'desc');
+    }
+
     public function tasks()
     {
         return $this->hasMany(ProjectResearchTask::class, 'task_for_id')->where('type', 'research');

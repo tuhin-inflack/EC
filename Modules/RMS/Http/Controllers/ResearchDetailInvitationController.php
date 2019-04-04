@@ -5,42 +5,49 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\HRM\Services\EmployeeServices;
 
 class ResearchDetailInvitationController extends Controller
 {
+
+    private $employeeServices;
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * ResearchDetailInvitationController constructor.
+     * @param EmployeeServices $employeeServices
      */
+    public function __construct(EmployeeServices $employeeServices)
+    {
+        $this->employeeServices = $employeeServices;
+    }
+
     public function index()
     {
-
         return view('rms::index');
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return view('rms::create');
+        $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee) {
+
+            return $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+        });
+        return view('rms::research-proposal-details.invitations.create', compact('employees'));
     }
 
     /**
-     * Store a newly created resource in storage.
      * @param Request $request
-     * @return Response
      */
     public function store(Request $request)
     {
-        //
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -48,9 +55,8 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -58,10 +64,8 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param $id
      */
     public function update(Request $request, $id)
     {
@@ -69,9 +73,7 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     * @param $id
      */
     public function destroy($id)
     {

@@ -19,6 +19,11 @@ class ProjectProposal extends Model
         return $this->hasMany(ProjectProposalFile::class, 'proposal_id', 'id');
     }
 
+    public function distinctProjectProposalFiles()
+    {
+        return $this->hasMany(ProjectProposalFile::class, 'proposal_id', 'id')->orderBy('created_at', 'desc');
+    }
+
     public function projectResearchOrg()
     {
         return $this->hasMany(ProjectResearchOrganization::class, 'organization_for_id', 'id');

@@ -20,8 +20,10 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Entities\ResearchRequest;
+use Modules\RMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Http\Requests\CreateReviewRequest;
+use Modules\RMS\Services\ResearchProposalReviewerAttachmentService;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 
 
@@ -35,11 +37,13 @@ class ProposalSubmitController extends Controller
     private $workflowService;
     private $shareRuleService;
     private $shareConversationService;
+    private $researchProposalReviewerAttachmentService;
 
     public function __construct(ResearchProposalSubmissionService $researchProposalSubmissionService,
                                 DashboardWorkflowService $dashboardWorkflowService, RemarkService $remarkService,
                                 FeatureService $featureService, EmployeeServices $employeeService,
-                                WorkflowService $workflowService, ShareRulesService $shareRulesService, ShareConversationService $shareConversationService)
+                                WorkflowService $workflowService, ShareRulesService $shareRulesService, ShareConversationService $shareConversationService,
+                                ResearchProposalReviewerAttachmentService $researchProposalReviewerAttachmentService)
     {
 
         $this->researchProposalSubmissionService = $researchProposalSubmissionService;
@@ -50,6 +54,7 @@ class ProposalSubmitController extends Controller
         $this->workflowService = $workflowService;
         $this->shareRuleService = $shareRulesService;
         $this->shareConversationService = $shareConversationService;
+        $this->researchProposalReviewerAttachmentService = $researchProposalReviewerAttachmentService;
     }
 
     /**
@@ -267,5 +272,12 @@ class ProposalSubmitController extends Controller
         $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
+    }
+
+    public function addAttachment(CreateProposalSubmissionAttachmentRequest $proposalSubmissionAttachment)
+    {
+        $this->researchProposalReviewerAttachmentService->store($proposalSubmissionAttachment->all());
+
+        return redirect()->back();
     }
 }

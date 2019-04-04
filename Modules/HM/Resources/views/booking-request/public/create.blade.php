@@ -91,6 +91,15 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
+
+        // Relation Localization
+        let guestRelations = {
+            myself: '{!! trans('hm::booking-request.relation_myself') !!}',
+            family: '{!! trans('hm::booking-request.relation_family') !!}',
+            friend: '{!! trans('hm::booking-request.relation_friend') !!}',
+            trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+        };
+
         //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
