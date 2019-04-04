@@ -15,8 +15,10 @@ class CreateResearchDetailInvitationsTable extends Migration
     {
         Schema::create('research_detail_invitations', function (Blueprint $table) {
             $table->increments('id');
-
-
+            $table->text('title');
+            $table->dateTime('end_date');
+            $table->text('remarks')->nullable();
+            $table->enum('status', ['pending', 'in progress', 'reviewed'])->default('pending');
             $table->timestamps();
         });
     }

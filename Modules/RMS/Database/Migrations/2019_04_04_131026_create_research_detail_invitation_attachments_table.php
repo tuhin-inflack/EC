@@ -15,7 +15,9 @@ class CreateResearchDetailInvitationAttachmentsTable extends Migration
     {
         Schema::create('research_detail_invitation_attachments', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('research_detail_invitation_id');
+            $table->string('attachments');
+            $table->string('file_name');
             $table->timestamps();
         });
     }

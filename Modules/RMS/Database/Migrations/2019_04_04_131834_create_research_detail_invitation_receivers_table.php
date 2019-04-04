@@ -15,7 +15,8 @@ class CreateResearchDetailInvitationReceiversTable extends Migration
     {
         Schema::create('research_detail_invitation_receivers', function (Blueprint $table) {
             $table->increments('id');
-
+            $table->integer('research_detail_invitation_id');
+            $table->integer('to');
             $table->timestamps();
         });
     }
