@@ -20,12 +20,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                {{--<div class="card-content">
+                                <div class="card-content">
                                     <div class="card-body text-center">
                                         <h1>@lang('tms::training.training_completed')</h1>
                                     </div>
-                                </div>--}}
-                                <div class="card-header">
+                                </div>
+                                {{--<div class="card-header">
                                     <h4 class="card-title">@lang('tms::training.training_registration_form')</h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -50,12 +50,12 @@
                                                 <!-- Step 5 -->
                                                 @include('tms::public.training-registration.partials.form.step-5')
                                                 <!-- Step 6 -->
-                                                {{--@include('tms::public.training-registration.partials.form.step-6')--}}
+                                                @include('tms::public.training-registration.partials.form.step-6')
                                                 <!-- Step 7 -->
                                                 @include('tms::public.training-registration.partials.form.step-7')
                                                 {{ Form::close() }}
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
                     </div>
