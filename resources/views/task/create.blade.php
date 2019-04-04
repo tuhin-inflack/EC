@@ -58,7 +58,7 @@
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
 
     <script type="text/javascript">
-        $('#expected_start_time, #expected_end_time').pickadate({
+        $('#expected_start_time, #expected_end_time,#actual_end_time').pickadate({
             format: 'yyyy-mm-dd',
         });
 

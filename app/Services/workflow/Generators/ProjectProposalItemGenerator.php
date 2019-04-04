@@ -56,6 +56,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $workflowRuleDetails = $workflow->ruleDetails;
             $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
             $projectData = [
+                'id' => $workflow->id,
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,
                 'requested_by' => $proposal->proposalSubmittedBy->name,

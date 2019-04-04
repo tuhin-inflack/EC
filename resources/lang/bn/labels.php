@@ -169,5 +169,10 @@ return [
     'pick_a_date' => 'তারিখ নির্ধারণ করুন',
     'start' => 'শুরু',
     'end' => 'শেষ',
+    'dear' => 'প্রিয়',
+    'trainings' => 'প্রশিক্ষনের',
+    'for' => 'জন্য',
+    'your_registration_is_completed' => 'আপনার নিবন্ধন সম্পন্ন হয়',
+    'thank_you' => 'ধন্যবাদ',
     'thanks' => 'ধন্যবাদ'
 ];

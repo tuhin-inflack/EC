@@ -51,8 +51,10 @@ class PublicTrainingRegistrationController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $data['expertise_sports'] = implode(',', $data['expertise_sports']);
-        $data['hobby'] = implode(',', $data['hobby']);
+//        $data['expertise_sports'] = implode(',', $data['expertise_sports']);
+//        $data['hobby'] = implode(',', $data['hobby']);
+//        $data['present_deseases'] = implode(',', $data['present_deseases']);
+//        $data['physical_disability'] = implode(',', $data['physical_disability']);
         $this->registeredTraineeService->store($data);
         Session::flash('success', trans('labels.save_success'));
         return redirect()->back();

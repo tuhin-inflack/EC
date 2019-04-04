@@ -169,5 +169,10 @@ return [
     'pick_a_date' => 'Pick a Date',
     'start' => 'Start',
     'end' => 'End',
+    'dear' => 'Dear',
+    'trainins' => 'trainings',
+    'for' => 'for',
+    'your_registration_is_completed' => 'your registration is completed',
+    'thank_you' => 'Thank You',
     'thanks' => 'Thanks',
 ];

@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.invitation_list')</h4>
+                        <h4 class="card-title">@lang('pms::project_proposal.project_invitation_details_list')</h4>
 
                         <div class="heading-elements">
                             <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
@@ -16,7 +16,6 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
-
                             <div class="table-responsive">
                                 <table class="proposal-request-table table table-striped table-bordered">
                                     <thead>
@@ -33,7 +32,7 @@
                                         @foreach($requests as $request)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
-                                                <td><a href="{{ route('project-request.show', $request->id) }}">{{ $request->title }}</a></td>
+                                                <td><a href="{{ route('project-request-details.show', $request->id) }}">{{ $request->title }}</a></td>
                                                 <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
                                                 <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
                                                 <td>{{ $request->end_date }}</td>

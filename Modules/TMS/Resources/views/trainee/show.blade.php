@@ -182,6 +182,146 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <div class="tab-pane" id="health_examination_report" aria-labelledby="base-tab36">
+                                        <table class="table ">
+                                            <tbody>
+                                            <tr>
+                                                <th style="border-top: none;">@lang('tms::training.present_deseases')</th>
+                                                <td style="border-top: none;">{{$trainee->healthExaminations->present_deseases}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.physical_disability')
+                                                </th>
+                                                <td>{{$trainee->healthExaminations->physical_disability}}</td>
+                                            </tr>
+                                            <tr>
+
+                                                <th class="">@lang('tms::training.temperature')
+                                                </th>
+                                                <td>{{$trainee->healthExaminations->temperature}} @lang('tms::training.degree')</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.pulse')</th>
+                                                <td>{{$trainee->healthExaminations->pulse}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.respiration')</th>
+                                                <td>{{$trainee->healthExaminations->respiration}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.conjunctiva')</th>
+                                                <td>{{$trainee->healthExaminations->conjunctiva}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.oral_cavity')</th>
+                                                <td>{{$trainee->healthExaminations->oral_cavity}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.denture')</th>
+                                                <td>{{$trainee->healthExaminations->conjunctiva}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.blood_pressure')</th>
+                                                <td>
+                                                    @if($trainee->healthExaminations->blood_pressure == 1)
+                                                    @lang('tms::training.yes')
+                                                    @else
+                                                    @lang('tms::training.no')
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.anaemia')</th>
+                                                <td>
+                                                    @if($trainee->healthExaminations->anaemia == 1)
+                                                        @lang('tms::training.yes')
+                                                    @else
+                                                        @lang('tms::training.no')
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.oedema')</th>
+                                                <td>
+                                                    @if($trainee->healthExaminations->oedema == 1)
+                                                        @lang('tms::training.yes')
+                                                    @else
+                                                        @lang('tms::training.no')
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.heart')</th>
+                                                <td>{{$trainee->healthExaminations->heart}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.lung')</th>
+                                                <td>{{$trainee->healthExaminations->lung}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.abdomen')</th>
+                                                <td>{{$trainee->healthExaminations->abdomen}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.eye_sight')</th>
+                                                <td>{{$trainee->healthExaminations->eye_sight}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.left_eye')</th>
+                                                <td>{{$trainee->healthExaminations->left_eye}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.right_eye')</th>
+                                                <td>{{$trainee->healthExaminations->right_eye}}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane" id="physical_information" aria-labelledby="base-tab37">
+                                        <table class="table ">
+                                            <tbody>
+                                            <tr>
+                                                <th style="border-top: none;">@lang('tms::training.joining_age')</th>
+                                                <td style="border-top: none;">{{$trainee->physicalInfos->joining_age}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.expertise_sports')
+                                                </th>
+                                                <td>{{$trainee->physicalInfos->expertise_sports}}</td>
+                                            </tr>
+                                            <tr>
+
+                                                <th class="">@lang('tms::training.hobby')
+                                                </th>
+                                                <td>{{$trainee->physicalInfos->hobby}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.experience')</th>
+                                                <td>{{$trainee->physicalInfos->sports_experience}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.hieght')</th>
+                                                <td>{{$trainee->physicalInfos->hieght}} @lang('tms::training.inch')</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.weight')</th>
+                                                <td>{{$trainee->physicalInfos->weight}} @lang('tms::training.kilogram')</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.normal_chest')</th>
+                                                <td>{{$trainee->physicalInfos->normal_chest}} @lang('tms::training.inch')</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.expended_chest')</th>
+                                                <td>{{$trainee->physicalInfos->expended_chest}} @lang('tms::training.inch')</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="">@lang('tms::training.weight_end_course')</th>
+                                                <td>{{$trainee->physicalInfos->weight_end_course}} @lang('tms::training.kilogram')</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
 

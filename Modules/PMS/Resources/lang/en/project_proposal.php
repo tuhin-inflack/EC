@@ -61,5 +61,10 @@ return [
     'project_name' => 'Project Name',
     'project_budget' => 'Budget',
     'project_duration' => 'Duration',
+    'project_invitation_brief' => 'Project Brief',
+    'project_invitation_brief_list' => 'Project Brief Invitation List',
+    'project_invitation_details' => 'Project Details',
+    'project_invitation_details_list' => 'Project Details Invitation List',
+
     'project_title' => 'Title',
 ];
