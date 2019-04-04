@@ -5,25 +5,46 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\RMS\Services\ResearchDetailSubmissionService;
+use mysql_xdevapi\CrudOperationBindable;
 
-class ResearchDetailInvitationController extends Controller
+class ResearchProposalDetailController extends Controller
 {
+
+    /**
+     * @var ResearchDetailSubmissionService
+     */
+    protected $researchDetailSubmissionService;
+
+    /**
+     * ResearchProposalDetailController constructor.
+     * @param ResearchDetailSubmissionService $researchDetailSubmissionService
+     */
+
+    public function __construct(ResearchDetailSubmissionService $researchDetailSubmissionService)
+    {
+        $this->researchDetailSubmissionService = $researchDetailSubmissionService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('rms::research-details.invitation.index');
+        $researchDetails = $this->researchDetailSubmissionService->findAll();
+        return view('rms::research-details.index', compact('researchDetails'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create($researchDetailInvitationId)
     {
-        return view('rms::create');
+
+        return view('rms::research-details.create', compact('researchDetailInvitationId'));
     }
 
     /**
@@ -33,7 +54,9 @@ class ResearchDetailInvitationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->researchDetailSubmissionService->storeResearchDetails($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('research.list');
     }
 
     /**
