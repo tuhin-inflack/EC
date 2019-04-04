@@ -141,10 +141,16 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
     });
 
     Route::prefix('research-proposal-details')->group(function () {
+        Route::get('/', 'ResearchProposalDetailController@index')->name('research.list');
+
+        Route::get('/create/{briefId?}', 'ResearchProposalDetailController@create')->name('details.create');
+        Route::post('/store', 'ResearchProposalDetailController@store')->name('research-details.store');
+
         Route::prefix('invitations')->group(function () {
             Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
             Route::get('create/{researchProposalSubmissionId}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
         });
+
 
     });
 });

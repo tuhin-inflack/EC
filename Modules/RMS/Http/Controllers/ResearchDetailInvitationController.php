@@ -18,12 +18,14 @@ class ResearchDetailInvitationController extends Controller
      */
     public function __construct(EmployeeServices $employeeServices)
     {
+
         $this->employeeServices = $employeeServices;
     }
 
     public function index()
     {
-        return view('rms::index');
+        return view('rms::research-details.invitation.index');
+
     }
 
     /**
