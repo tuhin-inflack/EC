@@ -137,8 +137,8 @@
                                     </div>
                                 @else
                                     <div class="col-md-12 text-center">
-                                        <a href="" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>
-                                        <a href="" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>
+                                        <a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>
+                                        <a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>
                                     </div>
                                 @endif
 

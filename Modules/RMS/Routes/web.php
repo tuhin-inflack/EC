@@ -140,4 +140,12 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('{researchRequest}/request-date-extend', 'InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
         Route::post('/', 'InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
     });
+
+    Route::prefix('research-proposal-details')->group(function () {
+        Route::prefix('invitations')->group(function () {
+            //Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
+            Route::get('create/{researchProposalSubmissionId}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
+        });
+
+    });
 });
