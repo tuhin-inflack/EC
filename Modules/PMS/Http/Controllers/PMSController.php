@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Constants\WorkflowStatus;
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Services\Remark\RemarkService;
 use App\Services\Sharing\ShareConversationService;
@@ -221,10 +222,24 @@ class PMSController extends Controller
         $this->projectProposalService->update($proposal, $updateData);
 
         // Reinitialising Workflow
-        $data = ['feature_id' => $request->input('feature_id')
-            , 'message' => $request->input('message'),
-            'ref_table_id' => $proposalId];
+        $data = [
+            'feature_id' => $request->input('feature_id'),
+            'message' => $request->input('message'),
+            'ref_table_id' => $proposalId
+        ];
         $this->workflowService->reinitializeWorkflow($data);
+
+        //Generating notification
+        $this->projectProposalService->generatePMSNotification(
+            [
+                'ref_table_id' => $proposalId,
+                'status' => WorkflowStatus::REINITIATED
+            ],
+            'project_invite_submit',
+            $request->input('reviewUrl')
+        );
+        // Notification generation done
+
         Session::flash('message', __('labels.save_success'));
 
         return redirect(route('pms'));
