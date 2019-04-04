@@ -246,13 +246,10 @@ class BookingRequestService
             foreach ($data['guests'] as $value) {
                 if ($value['id']) {
                     // TODO: update old users
-
-                    if (($key = array_search($value['id'], $allGuestIds)) !== false) {
+                    if (($key = array_search($value['id'], $allGuestIds)) !== false)
                         unset($allGuestIds[$key]);
-                    }
 
                     if (array_key_exists('nid_doc', $value)) {
-
                         $guest = $roomBooking->guestInfos()->find($value['id']);
 
                         if ($guest->nid_doc)
@@ -273,11 +270,8 @@ class BookingRequestService
             }
 
             $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos()->find($allGuestIds));
-
         } else {
-
             $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos);
-
         }
     }
 
