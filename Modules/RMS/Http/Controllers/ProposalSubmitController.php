@@ -228,7 +228,6 @@ class ProposalSubmitController extends Controller
 
     public function storeInitiate(Request $request, $researchProposalId)
     {
-
         $response = $this->researchProposalSubmissionService->updateReInitiate($request->all(), $researchProposalId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');

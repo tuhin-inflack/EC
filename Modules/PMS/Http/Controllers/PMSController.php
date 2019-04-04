@@ -4,6 +4,7 @@ namespace Modules\PMS\Http\Controllers;
 
 use App\Constants\WorkflowStatus;
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
+use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\Remark\RemarkService;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\Sharing\ShareRulesService;
@@ -44,11 +45,36 @@ class PMSController extends Controller
      * @var ProjectRequestService
      */
     private $projectRequestService;
+    /**
+     * @var ReviewUrlGenerator
+     */
+    private $reviewUrlGenerator;
 
-    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService,
-                                WorkflowService $workflowService, RemarkService $remarksService, FeatureService $featureService,
-                                ProjectRequestService $projectRequestService, UserService $userService, ShareRulesService $shareRuleService,
-                                ShareConversationService $shareConversationService, EmployeeServices $employeeService)
+    /**
+     * PMSController constructor.
+     * @param DashboardWorkflowService $dashboardService
+     * @param ProjectProposalService $projectProposalService
+     * @param WorkflowService $workflowService
+     * @param RemarkService $remarksService
+     * @param FeatureService $featureService
+     * @param ProjectRequestService $projectRequestService
+     * @param UserService $userService
+     * @param ShareRulesService $shareRuleService
+     * @param ShareConversationService $shareConversationService
+     * @param EmployeeServices $employeeService
+     * @param ReviewUrlGenerator $reviewUrlGenerator
+     */
+    public function __construct(
+        DashboardWorkflowService $dashboardService,
+        ProjectProposalService $projectProposalService,
+        WorkflowService $workflowService,
+        RemarkService $remarksService, FeatureService $featureService,
+        ProjectRequestService $projectRequestService,
+        UserService $userService, ShareRulesService $shareRuleService,
+        ShareConversationService $shareConversationService,
+        EmployeeServices $employeeService,
+        ReviewUrlGenerator $reviewUrlGenerator
+    )
     {
         $this->dashboardService = $dashboardService;
         $this->projectRequestService = $projectRequestService;
@@ -60,6 +86,7 @@ class PMSController extends Controller
         $this->shareRuleService = $shareRuleService;
         $this->shareConversationService = $shareConversationService;
         $this->employeeService = $employeeService;
+        $this->reviewUrlGenerator = $reviewUrlGenerator;
     }
 
     /**
@@ -164,7 +191,7 @@ class PMSController extends Controller
             $wfDetailsId = 0;
         };
 
-        return view('pms::proposal-submitted.review', compact('proposal','reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
+        return view('pms::proposal-submitted.review', compact('proposal', 'reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -235,8 +262,12 @@ class PMSController extends Controller
                 'ref_table_id' => $proposalId,
                 'status' => WorkflowStatus::REINITIATED
             ],
-            'project_invite_submit',
-            $request->input('reviewUrl')
+            'project_proposal_submission',
+            $this->reviewUrlGenerator->getReviewUrl(
+                'project-proposal-submitted-review',
+                $this->featureService->findOne($request->input('feature_id')),
+                $proposal
+            )
         );
         // Notification generation done
 
@@ -284,7 +315,8 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
-        $data = $request->all(); unset($data['status']);
+        $data = $request->all();
+        unset($data['status']);
         $save = $this->shareConversationService->save($request->all());
         Session::flash('message', trans('labels.save_success'));
 

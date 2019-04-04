@@ -25,7 +25,6 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         {!! Form::open(['url' => route('project-proposal-submitted-save-resubmit', $proposal->id), 'class' => 'form project-submission-tab-steps', 'enctype' => 'multipart/form-data']) !!}
-                                        {{ Form::hidden('reviewUrl', Url()->current()) }}
                                         <div class="form-body">
                                             <h4 class="form-section"><i class="la la-briefcase"></i>@lang('pms::project_proposal.project_submit_form')</h4>
                                             <div class="row">

@@ -167,7 +167,6 @@ class ResearchProposalSubmissionService
 
     public function updateReInitiate(array $data, $researchProposalId)
     {
-
         return DB::transaction(function () use ($data, $researchProposalId) {
             $data['status'] = 'PENDING';
             $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
@@ -196,8 +195,20 @@ class ResearchProposalSubmissionService
             ];
 
             $this->workflowService->reinitializeWorkflow($reInitializeData);
-            return new Response(trans('rms::research_proposal.re_initiate_success'));
 
+            //Send Notifications
+            $notificationData = [
+                'ref_table_id' => $researchProposal->id,
+                'message' => Config::get('rms-notification.research_proposal_reinitiated'),
+                'to_users_designation' => Config::get('constants.research_proposal_submission'),
+                'url' => $this->reviewUrlGenerator->getReviewUrl(
+                    'research-proposal-submission-review',
+                    $feature,
+                    $researchProposal
+                ),
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+            return new Response(trans('rms::research_proposal.re_initiate_success'));
         });
     }
 
