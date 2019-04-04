@@ -45,7 +45,7 @@ class ProjectRequestController extends Controller
     {
 
         $requests = $this->projectRequestService->getAll();
-        return view('pms::project-request.index', compact('requests'));
+        return view('pms::project-request.brief.index', compact('requests'));
     }
 
     /**
@@ -59,7 +59,7 @@ class ProjectRequestController extends Controller
         }, function ($employee){
             return $employee->id;
         });
-        return view('pms::project-request.create', compact('employees'));
+        return view('pms::project-request.brief.create', compact('employees'));
     }
 
     /**
@@ -71,7 +71,7 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-request.index');
+        return redirect()->route('project-request.brief.index');
     }
 
     /**
@@ -80,7 +80,7 @@ class ProjectRequestController extends Controller
      */
     public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::project-request.show', compact('projectRequest'));
+        return view('pms::project-request.brief.show', compact('projectRequest'));
     }
 
     /**
@@ -95,7 +95,7 @@ class ProjectRequestController extends Controller
             return $employee->id;
         });
 
-        return view('pms::project-request.edit', compact('projectRequest', 'employees'));
+        return view('pms::project-request.brief.edit', compact('projectRequest', 'employees'));
     }
 
     /**
@@ -107,7 +107,7 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService->updateProjectRequest($request->all(), $projectRequest);
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-request.index');
+        return redirect()->route('project-request.brief.index');
     }
 
     /**
@@ -119,7 +119,7 @@ class ProjectRequestController extends Controller
         $this->projectRequestService->delete($projectRequest);
         Session::flash('success', 'Proposal deleted successfully');
 
-        return redirect()->route('project-request.index');
+        return redirect()->route('project-request.brief.index');
     }
 
 

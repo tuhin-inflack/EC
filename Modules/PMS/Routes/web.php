@@ -127,6 +127,17 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
+    Route::prefix('project-requests-details')->group(function () {
+        Route::get('/', 'ProjectRequestDetailsController@index')->name('project-request-details.index');
+        Route::get('/create', 'ProjectRequestDetailsController@create')->name('project-request-details.create');
+        Route::post('/', 'ProjectRequestDetailsController@store')->name('project-request-details.store');
+        Route::get('{projectRequest}/show', 'ProjectRequestDetailsController@show')->name('project-request-details.show');
+        Route::get('{projectRequest}/edit', 'ProjectRequestDetailsController@edit')->name('project-request-details.edit');
+        Route::put('{projectRequest}', 'ProjectRequestDetailsController@update')->name('project-request-details.update');
+        Route::get('attachment-download/{projectRequest}', 'ProjectRequestDetailsController@requestAttachmentDownload')->name('project-request-details.attachment-download');
+        Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestDetailsController@fileDownload')->name('project-request-details.file-download');
+    });
+
     Route::prefix('project-proposal-submission')->group(function () {
         Route::get('/', 'ProjectProposalController@index')->name('project-proposal-submission.index');
         Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');
@@ -135,12 +146,21 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-proposal-submission.file-download');
     });
 
+    Route::prefix('project-details-proposal-submission')->group(function () {
+        Route::get('/', 'ProjectProposalController@index')->name('project-details-proposal-submission.index');
+        Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-details-proposal-submission.create');
+        Route::post('/', 'ProjectProposalController@store')->name('project-details-proposal-submission.store');
+        Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-details-proposal.attachment-download');
+        Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-details-proposal-submission.file-download');
+    });
+
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
         Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
+        Route::post('/review-bulk/', 'PMSController@reviewUpdate')->name('project-proposal-submitted.review-bulk');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
@@ -149,5 +169,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('/share', 'PMSController@share')->name('project-proposal.share');
         Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'PMSController@getReviewForJointDirect')->name('sending-project-for-review');
         Route::post('posting-review/{shareConversationId?}', 'PMSController@feedbackForJointDirect')->name('project-proposal-submission.feedback');
+        Route::post('reviewer-add-attachment', 'PMSController@addAttachment')->name('project.proposal.reviewer.add.attachment');
     });
 });

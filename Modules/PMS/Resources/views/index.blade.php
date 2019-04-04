@@ -1,6 +1,9 @@
 @extends('pms::layouts.master')
 @section('title', trans('labels.PMS'))
-
+@push('page-css')
+    <link type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/dataTables.checkboxes.css') }}"
+          rel="stylesheet"/>
+@endpush
 @section('content')
     <div class="card">
         <div class="card-header">
@@ -8,7 +11,7 @@
                 <h1>{{trans('labels.PMS')}}</h1>
             </div>
         </div>
-        <form method="post" action="">
+        <form method="post" action="{{route('project-proposal-submitted.review-bulk')}}" id="frm-example">
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
@@ -31,7 +34,7 @@
                                                     <td>{{ $shareConversation->feature->name }}</td>
                                                     <td>{{$shareConversation->message}}</td>
                                                     <td>
-                                                        Proposal: {{ $shareConversation->projectProposal->title }}<br/>
+                                                        Proposal: {{$shareConversation->projectProposal->title}}<br/>
                                                     </td>
 
                                                     <td>
@@ -52,6 +55,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer">
+
                                     <div class="form-group">
                                         <input type="submit" name="share_approve" value="Approve All" class="btn btn-success">
                                         <input type="submit" name="share_reject" value="Reject All" class="btn btn-danger">
@@ -65,17 +69,19 @@
                                     <h5>{{__('labels.pending_items')}}</h5>
                                 </div>
                                 <div class="col-md-12">
-                                    <table class="table table-bordered">
+                                    <table id="example" class="table table-bordered">
                                         <thead>
+                                        <th></th>
                                         <th>{{__('labels.feature_name')}}</th>
                                         <th>{{__('labels.message')}}</th>
                                         <th>{{__('labels.details')}}</th>
-                                        <th>{{__('labels.select')}} <input id="select_all" type="checkbox" name="select_all"></th>
+                                        {{--<th>{{__('labels.select')}} <input id="select_all" type="checkbox" name="select_all"></th>--}}
                                         <th>{{__('labels.check')}}</th>
                                         </thead>
                                         <tbody>
                                         @foreach($pendingTasks->dashboardItems as $item)
                                             <tr>
+                                                <td>{{$item->dynamicValues['id']}}</td>
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
@@ -85,7 +91,7 @@
                                                     <br>
                                                     <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
                                                 </td>
-                                                <td><input type="checkbox" class="wf-item-checkbox" name="pending_select"></td>
+                                                {{--<td><input type="checkbox" class="wf-item-checkbox" name="pending_select[]"></td>--}}
                                                 <td>
                                                     <a href="{{ url($item->checkUrl )}}"
                                                        class="btn btn-primary btn-sm">@lang('labels.details')</a>
@@ -94,12 +100,36 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-                                    <div class="card-footer pull-right">
-                                        <div class="form-group">
-                                            <input type="submit" name="pending_approve" value="Approve Selected" class="btn btn-success">
-                                            <input type="submit" name="pending_reject" value="Reject Selected" class="btn btn-danger">
+
+
+                                    <div class="form" id="approval-item">
+
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <div class="col-sm-12" id="remark" >
+                                                    <label for="remark">{{trans('labels.remarks')}}</label>
+                                                    <textarea name="remark" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12" id="message" >
+                                                    <label for="message">{{trans('labels.message_to_receiver')}}</label>
+                                                    <textarea name="message" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="card-footer">
+
+                                            <div class="form-group">
+                                                <input type="submit" name="pending_approve" value="Approve Selected" class="btn btn-success">
+                                                <input type="submit" name="pending_reject" value="Reject Selected" class="btn btn-danger">
+                                            </div>
                                         </div>
                                     </div>
+
                                 </div>
 
                             </div>
@@ -304,11 +334,88 @@
 
 @push('page-js')
     <script type="text/javascript" src="{{ asset('theme/vendors/js/charts/chart.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/tables/datatable/dataTables.checkboxes.min.js') }}"></script>
+
     <script>
+        $(document).ready(function () {
+            $("#approval-item").hide();
+            $("#remark").hide();
+            $("#message").hide();
+            var table = $('#example').DataTable({
+                'paging': false,
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']],
+
+            });
+            $('#frm-example').on('click', function (e) {
+                if (table.rows('.selected').count() > 0) {
+
+
+                    $("#approval-item").show();
+                    $("#remark").show();
+                    $("#message").show();
+
+                } else {
+                    $("#approval-item").hide();
+                    $("#remark").hide();
+                    $("#message").hide();
+                }
+            });
+
+            $(":checkbox").click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#approval-item").show();
+                    $("#remark").show();
+                    $("#message").show();
+                } else {
+                    $("#approval-item").hide();
+                    $("#remark").hide();
+                    $("#message").hide();
+                }
+
+            });
+            // Handle form submission event
+            $('#frm-example').on('submit', function (e) {
+                var form = this;
+                var rows_selected = table.column(0).checkboxes.selected();
+                $.each(rows_selected, function (index, rowId) {
+                    $(form).append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'id[]')
+                            .val(rowId)
+                    );
+                });
+                $('#example-console-rows').text(rows_selected.join(","));
+                $('#example-console-form').text($(form).serialize());
+                // $('input[name="id\[\]"]', form).remove();
+                // e.preventDefault();
+
+
+
+            });
+
+        });
+
         $("#select_all").change(function ()
         {
             if(this.checked) $(".wf-item-checkbox").attr('checked' ,true); else $(".wf-item-checkbox").attr('checked',false);
         });
+
+        $(".wf-item-checkbox").change(function () {
+                console.log($('.wf-item-checkbox:checked').length);
+            }
+        );
 
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
