@@ -46,7 +46,6 @@ function renderRequesterInfo() {
 
 function renderGuestInfos() {
     let guestInfos = $('.repeater-guest-information').repeaterVal().guests;
-    console.log(guestInfos);
     let guestInfoRows = guestInfos.map(guestInfo => {
         return `<tr>
         <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
