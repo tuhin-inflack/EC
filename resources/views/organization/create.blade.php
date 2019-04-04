@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{ Form::open(['route' => 'organizations.store', 'class' => 'form']) }}
+                            {{ Form::open(['route' => 'pms-organizations.store', 'class' => 'form']) }}
                             <div class="form-body">
                                 <h4 class="form-section"><i
                                             class="ft-grid"></i>

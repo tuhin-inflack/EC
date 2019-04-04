@@ -30,7 +30,6 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('research-workflow-close-reviewer/{workflowMasterId?}/{researchId?}', 'ResearchController@closeWorkflowByReviewer')->name('research-workflow-close-reviewer');
 
 
-
         Route::prefix('{research}')->group(function () {
 
             // research budgeting
@@ -143,7 +142,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
 
     Route::prefix('research-proposal-details')->group(function () {
         Route::prefix('invitations')->group(function () {
-            //Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
+            Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
             Route::get('create/{researchProposalSubmissionId}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
         });
 

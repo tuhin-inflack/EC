@@ -9,6 +9,7 @@ return [
         'TA/DA for Research Investigators',
         'Data tabulation, processing/analysis',
         'Honorarium for Researchers',
+        'Honorarium for Reviewers',
         'Miscellaneous',
         'Other Specific Cost'
     ],
@@ -29,6 +30,7 @@ return [
         [ "name" => "Comments from external reviewer", "description" => "Comments from external reviewer" ],
         [ "name" => "Send to respective researcher", "description" => "Send to respective researcher" ],
         [ "name" => "Accepted final report", "description" => "Accepted final report" ],
-        [ "name" => "Send for publication", "description" => "Send for publication" ]
+        [ "name" => "Send for publication", "description" => "Send for publication" ],
+        [ "name" => "Internal Reviewer", "description" => "Internal Reviewer" ]
     ],
 ];

@@ -30,15 +30,15 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         });
         // training under a project
         Route::prefix('{project}')->group(function () {
-            Route::prefix('training')->group( function() {
-                Route::get('/','ProjectTrainingController@index')->name('project-training.index');
-                Route::get('create','ProjectTrainingController@create')->name('project-training.create');
-                Route::post('store','ProjectTrainingController@store')->name('project-training.store');
-                Route::get('{training}','ProjectTrainingController@show')->name('project-training.show');
+            Route::prefix('training')->group(function () {
+                Route::get('/', 'ProjectTrainingController@index')->name('project-training.index');
+                Route::get('create', 'ProjectTrainingController@create')->name('project-training.create');
+                Route::post('store', 'ProjectTrainingController@store')->name('project-training.store');
+                Route::get('{training}', 'ProjectTrainingController@show')->name('project-training.show');
                 // training members
                 Route::prefix('{training}/members')->group(function () {
                     Route::get('/', 'ProjectTrainingMemberController@index')->name('projectTraining-members.index');
-                    Route::post('store','ProjectTrainingMemberController@store')->name('projectTraining-members.store');
+                    Route::post('store', 'ProjectTrainingMemberController@store')->name('projectTraining-members.store');
                 });
             });
         });
@@ -47,6 +47,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             // project organisations
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
+                Route::post('test', 'OrganizationController@store')->name('pms-organizations.store');
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
                 // organisation members
                 Route::prefix('{organization}/members')->group(function () {
@@ -95,7 +96,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
     Route::prefix('organizations/{organization}')->group(function () {
         // organization members
         Route::prefix('members')->group(function () {
-            $OrganizationMemberController = '\App\Http\Controllers\OrganizationMemberController';
+            $OrganizationMemberController = '\Modules\PMS\Http\Controllers\OrganizationMemberController';
             Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
             Route::post('/', $OrganizationMemberController . '@store')->name('pms-organization-members.store');
             Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('pms-organization-members.edit');
@@ -126,6 +127,17 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestController@fileDownload')->name('project-request.file-download');
     });
 
+    Route::prefix('project-requests-details')->group(function () {
+        Route::get('/', 'ProjectRequestDetailsController@index')->name('project-request-details.index');
+        Route::get('/create', 'ProjectRequestDetailsController@create')->name('project-request-details.create');
+        Route::post('/', 'ProjectRequestDetailsController@store')->name('project-request-details.store');
+        Route::get('{projectRequest}/show', 'ProjectRequestDetailsController@show')->name('project-request-details.show');
+        Route::get('{projectRequest}/edit', 'ProjectRequestDetailsController@edit')->name('project-request-details.edit');
+        Route::put('{projectRequest}', 'ProjectRequestDetailsController@update')->name('project-request-details.update');
+        Route::get('attachment-download/{projectRequest}', 'ProjectRequestDetailsController@requestAttachmentDownload')->name('project-request-details.attachment-download');
+        Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestDetailsController@fileDownload')->name('project-request-details.file-download');
+    });
+
     Route::prefix('project-proposal-submission')->group(function () {
         Route::get('/', 'ProjectProposalController@index')->name('project-proposal-submission.index');
         Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-proposal-submission.create');
@@ -134,12 +146,21 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-proposal-submission.file-download');
     });
 
+    Route::prefix('project-details-proposal-submission')->group(function () {
+        Route::get('/', 'ProjectProposalController@index')->name('project-details-proposal-submission.index');
+        Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-details-proposal-submission.create');
+        Route::post('/', 'ProjectProposalController@store')->name('project-details-proposal-submission.store');
+        Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-details-proposal.attachment-download');
+        Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-details-proposal-submission.file-download');
+    });
+
     Route::prefix('project-proposal-submitted')->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
         Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
+        Route::post('/review-bulk/', 'PMSController@reviewUpdate')->name('project-proposal-submitted.review-bulk');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
         Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');

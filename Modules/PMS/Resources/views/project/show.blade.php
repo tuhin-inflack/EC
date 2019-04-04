@@ -223,6 +223,27 @@
                                     <dd class="col-sm-9">{{ $project->title }}</dd>
                                 </dl>
                                 <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_budget')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->budget))
+                                            {{$project->budget}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_duration')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->duration))
+                                            {{$project->duration}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+                                    </dd>
+                                </dl>
+                                <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.submitted_by')</dt>
                                     <dd class="col-sm-9">{{ $project->projectSubmittedByUser->name }}</dd>
                                 </dl>
@@ -232,7 +253,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
-                                    <dd class="col-sm-9">@lang('rms::research_proposal.' . $project->status)</dd>
+                                    <dd class="col-sm-9">@lang('pms::project_proposal.' . $project->status)</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('member.member')</dt>
@@ -274,7 +295,8 @@
         </script>
     @endif
 
-    <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/codebase/dhtmlxgantt-pro.js') }}"
+            type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/charts/dhtmlx-gantt/export/api.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/charts/dhtmlx-gantt/chart-pro.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>

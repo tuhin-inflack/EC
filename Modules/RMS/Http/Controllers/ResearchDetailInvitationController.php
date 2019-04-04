@@ -13,10 +13,9 @@ class ResearchDetailInvitationController extends Controller
     private $employeeServices;
 
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * ResearchDetailInvitationController constructor.
+     * @param EmployeeServices $employeeServices
      */
-
     public function __construct(EmployeeServices $employeeServices)
     {
         $this->employeeServices = $employeeServices;
@@ -28,8 +27,7 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -41,46 +39,44 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     * @param Request $request
      */
     public function store(Request $request)
     {
     }
 
     /**
-     * Show the specified resource.
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show()
+    public function show($id)
     {
         return view('rms::show');
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @return Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit()
+    public function edit($id)
     {
         return view('rms::edit');
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     * @param Request $request
+     * @param $id
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
+        //
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @return Response
+     * @param $id
      */
-    public function destroy()
+    public function destroy($id)
     {
+        //
     }
 }

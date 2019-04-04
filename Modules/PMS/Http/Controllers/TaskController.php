@@ -16,6 +16,7 @@ class TaskController extends Controller
      */
     private $taskService;
     private $module = 'pms';
+
     /**
      * TaskController constructor.
      * @param TaskService $taskService
@@ -59,12 +60,14 @@ class TaskController extends Controller
     public function edit(Project $project, Task $task)
     {
         $action = route($this->module . '-tasks.update', [$project->id, $task->id]);
-
+        $is_edit = true;
         return view('task.edit')->with([
             'action' => $action,
             'task' => $task,
             'taskable' => $project,
-            'module' => $this->module
+            'module' => $this->module,
+            'is_edit' => $is_edit
+
         ]);
     }
 
