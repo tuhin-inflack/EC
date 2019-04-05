@@ -48,11 +48,11 @@
                     </div>
                     <div class="form-group mb-1 col-sm-12 col-md-12">
                         <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
-                        {!! Form::file('attachments[]', ['class' => 'form-control required' . ($errors->has('attachment') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
+                        {!! Form::file('attachments[]', ['class' => 'form-control required' . ($errors->has('attachments.*') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
 
-                        @if ($errors->has('attachments'))
+                        @if ($errors->has('attachments.*'))
                             <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('attachments') }}</strong>
+                                    <strong>{{ $errors->first('attachments.*') }}</strong>
                                 </span>
                         @endif
                     </div>

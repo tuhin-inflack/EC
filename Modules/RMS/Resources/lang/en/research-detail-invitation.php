@@ -2,7 +2,7 @@
 
 return [
   'show' => [
-      'title' => 'Detail Research Proposal Information'
+      'title' => 'Detail Research Invitation Information'
   ],
   'create' => [
       'title' => 'Create Detail Request',

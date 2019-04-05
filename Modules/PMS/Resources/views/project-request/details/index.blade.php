@@ -34,7 +34,7 @@
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td><a href="{{ route('project-request-details.show', $request->id) }}">{{ $request->title }}</a></td>
                                                 <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
-                                                <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
+                                                <td><a href="{{url('pms/project-requests-details/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
                                                 <td>{{ $request->end_date }}</td>
                                                 <td>
                                                 <span class="dropdown">

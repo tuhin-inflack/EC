@@ -129,13 +129,13 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
 
     Route::prefix('project-requests-details')->group(function () {
         Route::get('/', 'ProjectRequestDetailsController@index')->name('project-request-details.index');
-        Route::get('/create', 'ProjectRequestDetailsController@create')->name('project-request-details.create');
+        Route::get('create/{projectProposal}', 'ProjectRequestDetailsController@create')->name('project-request-details.create');
         Route::post('/', 'ProjectRequestDetailsController@store')->name('project-request-details.store');
-        Route::get('{projectRequest}/show', 'ProjectRequestDetailsController@show')->name('project-request-details.show');
-        Route::get('{projectRequest}/edit', 'ProjectRequestDetailsController@edit')->name('project-request-details.edit');
-        Route::put('{projectRequest}', 'ProjectRequestDetailsController@update')->name('project-request-details.update');
-        Route::get('attachment-download/{projectRequest}', 'ProjectRequestDetailsController@requestAttachmentDownload')->name('project-request-details.attachment-download');
-        Route::get('file-download/{projectRequestAttachment}', 'ProjectRequestDetailsController@fileDownload')->name('project-request-details.file-download');
+        Route::get('{projectRequestDetail}/show', 'ProjectRequestDetailsController@show')->name('project-request-details.show');
+        Route::get('{projectRequestDetail}/edit', 'ProjectRequestDetailsController@edit')->name('project-request-details.edit');
+        Route::put('{projectRequestDetail}', 'ProjectRequestDetailsController@update')->name('project-request-details.update');
+        Route::get('attachment-download/{projectRequestDetail}', 'ProjectRequestDetailsController@attachmentDownload')->name('project-request-details.attachment-download');
+        Route::get('file-download/{attachmentId}', 'ProjectRequestDetailsController@fileDownload')->name('project-request-details.file-download');
     });
 
     Route::prefix('project-proposal-submission')->group(function () {
