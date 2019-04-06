@@ -33,6 +33,7 @@ class ProjectRequestDetailsController extends Controller
      */
     public function create()
     {
+
         return view('pms::project-request.details.create');
     }
 

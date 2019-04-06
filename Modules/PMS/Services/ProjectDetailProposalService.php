@@ -20,16 +20,16 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Config;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
-use Modules\PMS\Repositories\ProjectProposalRepository;
+use Modules\PMS\Repositories\ProjectDetailProposalRepository;
 
-class ProjectProposalService
+
+class ProjectDetailProposalService
 {
     use CrudTrait;
     use FileTrait;
-    private $projectProposalRepository;
+    private $projectDetailProposalRepository;
     private $featureService;
     private $workflowService;
     private $userService;
@@ -41,22 +41,22 @@ class ProjectProposalService
      * @param WorkflowService $workflowService
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository,
+    public function __construct(ProjectDetailProposalRepository $projectDetailProposalRepository,
                                 FeatureService $featureService,
                                 WorkflowService $workflowService,
                                 UserService $userService)
     {
-        $this->projectProposalRepository = $projectProposalRepository;
+        $this->projectDetailProposalRepository = $projectDetailProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
         $this->userService = $userService;
 
-        $this->setActionRepository($projectProposalRepository);
+        $this->setActionRepository($projectDetailProposalRepository);
     }
 
     public function getAll()
     {
-        return $this->projectProposalRepository->findAll();
+        return $this->projectDetailProposalRepository->findAll();
     }
 
     public function store(array $data)
@@ -77,7 +77,7 @@ class ProjectProposalService
                     'file_name' => $fileName
                 ]);
 
-                $proposalSubmission->projectProposalFiles()->save($file);
+                $proposalSubmission->projectDetailProposalFiles()->save($file);
             }
 
             // Initiating Workflow

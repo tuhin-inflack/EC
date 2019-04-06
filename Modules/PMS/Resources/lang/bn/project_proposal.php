@@ -20,7 +20,8 @@ return [
     'received_at' => 'প্রাপ্তির সময়',
     'submit_proposal' => 'নতুন প্রকল্প প্রস্তাব জমা',
     'recipient' => 'প্রাপক',
-    'project_submit_form' => 'প্রস্তাব তৈরি ফর্ম',
+    'project_submit_form' => 'প্রস্তাব সংক্ষেপ তৈরি ফর্ম',
+    'project_details_submit_form' => 'প্রস্তাব বিস্তারিত তৈরি ফর্ম',
     'project_submit' => 'প্রস্তাব তৈরি',
     'create_proposal' => 'প্রস্তাব তৈরি করুন',
     'project_title' => 'প্রকল্প শিরোনাম',
@@ -65,6 +66,7 @@ return [
     'project_invitation_brief' => 'প্রকল্প সংক্ষেপ',
     'project_invitation_details' => 'প্রকল্প বিস্তারিত',
     'project_invitation_details_list' => 'প্রকল্প বিস্তারিত তালিকা',
-
+    'create_project_brief_proposal' => 'প্রকল্প সংক্ষেপ প্রস্তাব অনুরোধ করুন',
+    'create_project_details_proposal' => 'প্রকল্প বিস্তারিত প্রস্তাব অনুরোধ করুন',
 ];
 
