@@ -143,7 +143,7 @@ $(document).ready(function () {
                     $guestInfoRepeater.find('button[data-repeater-create]').hide();
                     // render trainees table
                     $('.trainee-list').html(traineesListFromTraining(data));
-                    $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
+                    traineesInfoListFromTraining(data);
                 })
                 .fail(function () {
                     alert('Failed to get content from server');
@@ -229,15 +229,17 @@ function traineesListFromTraining(trainees) {
     let tableRows = '';
 
     trainees.forEach((trainee, index) => {
+        let splitedName = nameSpliter(trainee.bangla_name);
+
         tableRows += `<tr>
-        <input type="hidden" name="guests[${index}][first_name]" value="${trainee.trainee_first_name}"/>
-        <input type="hidden" name="guests[${index}][last_name]" value="${trainee.trainee_last_name}"/>
+        <input type="hidden" name="guests[${index}][first_name]" value="${splitedName.first_tName}"/>
+        <input type="hidden" name="guests[${index}][last_name]" value="${splitedName.last_tName}"/>
         <input type="hidden" name="guests[${index}][gender]" value="${trainee.trainee_gender.toLowerCase()}"/>
  
         <input type="hidden" name="guests[${index}][relation]" value="trainee"/>
         <input type="hidden" name="guests[${index}][address]" value="Bangladesh"/>
-        <td>${trainee.trainee_first_name}</td>
-        <td>${trainee.trainee_last_name}</td>
+        <td>${splitedName.first_tName}</td>
+        <td>${splitedName.last_tName}</td>
         <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
         <td>${trainee.mobile}</td>
         </tr>`;
@@ -262,14 +264,26 @@ function traineesInfoListFromTraining(trainees) {
     let tbody = '';
 
     trainees.forEach((trainee) => {
+        let splitedName = nameSpliter(trainee.bangla_name);
+        console.log(splitedName);
         tbody += `<tr>
-        <td>${trainee.trainee_first_name} ${trainee.trainee_last_name}</td>
-    
-        <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
-        <td>শিক্ষানবিস</td>
-        <td>বাংলাদেশ</td>
+            <td>${splitedName.first_tName} ${splitedName.last_tName}</td>
+            <td>বাংলাদেশ</td>
+            <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
+            <td>শিক্ষানবিস</td>
+            <td>বাংলাদেশ</td>
         </tr>`;
     });
 
-    return tbody;
+    $('#guests-info-table').find('tbody').html(tbody);
+}
+
+function nameSpliter(fullName) {
+    let splitedFirsttName = fullName.substring(0, fullName.lastIndexOf(" "));
+    let splitedLastName = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.length);
+
+    return {
+        first_tName:  splitedFirsttName,
+        last_tName:  splitedLastName,
+    };
 }

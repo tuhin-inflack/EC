@@ -16,6 +16,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use function Matrix\trace;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
@@ -34,6 +36,7 @@ class PMSController extends Controller
     private $shareRuleService;
     private $shareConversationService;
     private $employeeService;
+    private $projectProposalReviewerAttachmentService;
 
     /**
      * @var ProjectProposalService
@@ -47,7 +50,7 @@ class PMSController extends Controller
     public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService,
                                 WorkflowService $workflowService, RemarkService $remarksService, FeatureService $featureService,
                                 ProjectRequestService $projectRequestService, UserService $userService, ShareRulesService $shareRuleService,
-                                ShareConversationService $shareConversationService, EmployeeServices $employeeService)
+                                ShareConversationService $shareConversationService, EmployeeServices $employeeService, ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService)
     {
         $this->dashboardService = $dashboardService;
         $this->projectRequestService = $projectRequestService;
@@ -59,6 +62,7 @@ class PMSController extends Controller
         $this->shareRuleService = $shareRuleService;
         $this->shareConversationService = $shareConversationService;
         $this->employeeService = $employeeService;
+        $this->projectProposalReviewerAttachmentService = $projectProposalReviewerAttachmentService;
     }
 
     /**
@@ -289,5 +293,12 @@ class PMSController extends Controller
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');
+    }
+
+    public function addAttachment(CreateProposalSubmissionAttachmentRequest $createProposalSubmissionAttachmentRequest)
+    {
+        $this->projectProposalReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
+
+        return redirect()->back();
     }
 }

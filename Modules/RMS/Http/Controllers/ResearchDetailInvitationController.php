@@ -5,76 +5,104 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchDetailInvitation;
+use Modules\RMS\Entities\ResearchDetailInvitationAttachment;
+use Modules\RMS\Entities\ResearchProposalSubmission;
+use Modules\RMS\Http\Requests\CreateResearchDetailInvitationRequest;
+use Modules\RMS\Http\Requests\UpdateResearchDetailInvitationRequest;
+use Modules\RMS\Services\ResearchDetailInvitationService;
 
 class ResearchDetailInvitationController extends Controller
 {
+
+    private $researchDetailInvitationService;
+
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * ResearchDetailInvitationController constructor.
+     * @param EmployeeServices $employeeServices
      */
+    public function __construct(ResearchDetailInvitationService $researchDetailInvitationService)
+    {
+
+        $this->researchDetailInvitationService = $researchDetailInvitationService;
+    }
+
     public function index()
     {
+        return view('rms::research-details.invitation.index');
 
-        return view('rms::index');
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * @param ResearchProposalSubmission $researchProposalSubmission
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(ResearchProposalSubmission $researchProposalSubmission)
     {
-        return view('rms::create');
+        return view('rms::research-proposal-details.invitations.create', compact('researchProposalSubmission'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     * @param CreateResearchDetailInvitationRequest $createResearchDetailInvitaionRequest
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateResearchDetailInvitationRequest $createResearchDetailInvitaionRequest)
     {
-        //
+        $this->researchDetailInvitationService->store($createResearchDetailInvitaionRequest->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('invitations');
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * @param ResearchDetailInvitation $researchDetailInvitation
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::show');
+        return view('rms::research-proposal-details.invitations.show', compact('researchDetailInvitation'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     * @param ResearchDetailInvitation $researchDetailInvitation
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::edit');
+        return view('rms::research-proposal-details.invitations.edit', compact('researchDetailInvitation'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param UpdateResearchDetailInvitationRequest $updateResearchDetailInvitationRequest
+     * @param ResearchDetailInvitation $researchDetailInvitation
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateResearchDetailInvitationRequest $updateResearchDetailInvitationRequest, ResearchDetailInvitation $researchDetailInvitation)
     {
-        //
+        $this->researchDetailInvitationService->updateResearchDetailInvitationRequest($updateResearchDetailInvitationRequest->all(), $researchDetailInvitation);
+        Session::flash('success', trans('labels.success'));
+        return redirect()->route('invitations');
     }
 
     /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
+     * @param $id
      */
     public function destroy($id)
     {
         //
+    }
+
+    public function attachmentDownload(ResearchDetailInvitation $researchDetailInvitation)
+    {
+        return response()->download($this->researchDetailInvitationService->getZipFilePath($researchDetailInvitation));
+    }
+
+    public function fileDownload($attachmentId)
+    {
+        $researchDetailInvitationAttachment =  ResearchDetailInvitationAttachment::findOrFail($attachmentId);
+
+        $basePath = Storage::disk('internal')->path($researchDetailInvitationAttachment->attachments);
+        return response()->download($basePath);
     }
 }

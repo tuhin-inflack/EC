@@ -28,11 +28,18 @@
                               data-i18n="nav.dash.main">@lang('rms::research_proposal.submitted_research_proposal')</span>
                     </a>
                 </li>
-                <li class="{{is_active_route('research-proposal-details/invitations')}}">
+                <li class="{{is_active_route('invitations')}}">
                     <a href="{{route('invitations')}}">
                         <i class="la la-adjust"></i>
                         <span class="menu-title"
                               data-i18n="nav.dash.main">Details invitation</span>
+                    </a>
+                </li>
+                <li class="{{is_active_route('research.list')}}">
+                    <a href="{{route('research.list')}}">
+                        <i class="la la-adjust"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Research Details</span>
                     </a>
                 </li>
             </ul>

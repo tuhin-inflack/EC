@@ -66,7 +66,7 @@ class ResearchController extends Controller
      */
     public function index()
     {
-        $researches = $this->researchService->getAll();
+        $researches = $this->researchService->getResearchesForUser(Auth::user());
         return view('rms::research.index', compact('researches'));
     }
 
