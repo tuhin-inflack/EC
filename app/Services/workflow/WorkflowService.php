@@ -13,6 +13,7 @@ use App\Constants\WorkflowGetBackStatus;
 use App\Constants\WorkflowStatus;
 use App\Entities\workflow\WorkflowDetail;
 use App\Entities\workflow\WorkflowMaster;
+use App\Entities\workflow\WorkflowRuleDetail;
 use App\Entities\workflow\WorkflowRuleMaster;
 use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Repositories\workflow\WorkflowDetailRepository;
@@ -68,7 +69,7 @@ class WorkflowService
         ]);
 
         //Save workflow details
-        $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
+        $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster, $data);
 
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
 
@@ -82,16 +83,17 @@ class WorkflowService
         ]);
     }
 
-    private function getWorkflowDetails(WorkflowMaster $workflowMaster, WorkflowRuleMaster $workflowRuleMaster)
+    private function getWorkflowDetails(WorkflowMaster $workflowMaster, WorkflowRuleMaster $workflowRuleMaster, $data)
     {
         $workflowDetailList = array();
         $notificationOrder = 1;
         $workflowRuleDetailList = $workflowRuleMaster->ruleDetails;
 
         foreach ($workflowRuleDetailList as $ruleDetail) {
+            $designationId = $this->getDesignationByRule($ruleDetail, $data);
             for ($i = 0; $i < $ruleDetail->number_of_responder; $i++) {
                 $workflowDetail = new WorkflowDetail(['workflow_master_id' => $workflowMaster->id, 'rule_detail_id' => $ruleDetail->id,
-                    'designation_id' => $ruleDetail->designation_id, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
+                    'designation_id' => $designationId, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
                     'is_group_notification' => $ruleDetail->is_group_notification, 'status' => $notificationOrder == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED]);
                 array_push($workflowDetailList, $workflowDetail);
                 $notificationOrder++;
@@ -99,6 +101,17 @@ class WorkflowService
         }
 
         return $workflowDetailList;
+    }
+
+    private function getDesignationByRule(WorkflowRuleDetail $ruleDetail, $data) {
+        $designationId = null;
+        if ($ruleDetail->designation_id) {
+            $designationId = $ruleDetail->designation_id;
+        } else if ($ruleDetail->is_group_notification && isset($data['designationTo'])) {
+            $designationId = $data['designationTo'][$ruleDetail->notification_order];
+        }
+
+        return $designationId;
     }
 
     public function getWorkFlowNotification($userId, array $designationIds)
