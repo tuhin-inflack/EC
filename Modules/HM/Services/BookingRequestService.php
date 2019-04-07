@@ -239,26 +239,21 @@ class BookingRequestService
 
     private function updateGuestInfo($roomBooking, $data): void
     {
-        // TODO: Find all Previous Guests info
-
         if (array_key_exists('guests', $data)) {
+
+            $allGuestIds = $roomBooking->guestInfos->pluck("id")->toArray();
 
             foreach ($data['guests'] as $value) {
                 if ($value['id']) {
                     // TODO: update old users
-                    $allGuest = $roomBooking->guestInfos()->all()->toArray();
-
-                    if (in_array($value['id'], $allGuest)){
-
-                    }
+                    if (($key = array_search($value['id'], $allGuestIds)) !== false)
+                        unset($allGuestIds[$key]);
 
                     if (array_key_exists('nid_doc', $value)) {
-
                         $guest = $roomBooking->guestInfos()->find($value['id']);
 
-                        if ($guest->nid_doc) {
+                        if ($guest->nid_doc)
                             Storage::delete($guest->nid_doc);
-                        }
 
                         $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
                     }
@@ -267,24 +262,30 @@ class BookingRequestService
                         'id' => $value['id'],
                     ], $value);
 
-
-
                 } else {
                     // TODO : add new users
                     $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
-                    $roomBooking->guestInfos()->save($value);
+                    $roomBooking->guestInfos()->create($value);
                 }
             }
+
+            $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos()->find($allGuestIds));
         } else {
+            $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos);
+        }
+    }
 
-            foreach ($roomBooking->guestInfos()->all() as $guest) {
-                if ($guest->nid_doc) {
-                    Storage::delete($guest->nid_doc);
-                }
-            }
+    /**
+     * @param $guests
+     */
+    private function deleteGuestWithNidDocStorage($guests): void
+    {
+        foreach ($guests as $guest) {
 
-            $roomBooking->guestInfos()->delete();
+            if ($guest->nid_doc)
+                Storage::delete($guest->nid_doc);
 
+            $guest->delete();
         }
     }
 

@@ -13,7 +13,7 @@
                                 <div class="card-header">
                                     <h4 class="card-title">@lang('pms::project_proposal.create_proposal')</h4>
                                     <a class="heading-elements-toggle"><i
-                                                class="la la-ellipsis-h font-medium-3"></i></a>
+                                            class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -24,7 +24,53 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::proposal-submission.form')
+                                        {!! Form::open(['url' => route('project-proposal-submitted-save-resubmit', $proposal->id), 'class' => 'form project-submission-tab-steps', 'enctype' => 'multipart/form-data']) !!}
+                                        <div class="form-body">
+                                            <h4 class="form-section"><i class="la la-briefcase"></i>@lang('pms::project_proposal.project_submit_form')</h4>
+                                            <div class="row">
+                                                <div class="col-md-8 offset-2">
+                                                    <div class="row">
+                                                        <div class="form-group mb-1 col-sm-12 col-md-12">
+                                                            <label class="required">{{ trans('labels.title') }}</label>
+                                                            <br>
+                                                            <input class="form-control" type="text" value="{{$proposal->title}}" name="title">
+                                                            <input type="hidden" name="feature_id" value="{{$featureId}}">
+                                                            @if ($errors->has('title'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('title') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="form-group mb-1 col-sm-12 col-md-12">
+                                                            <label class="required">{{trans('pms::project_proposal.attachment')}}</label>
+                                                            {!! Form::file('attachments[]', ['class' => 'form-control required' . ($errors->has('attachments') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
+
+                                                            @if ($errors->has('attachments'))
+                                                                <span class="invalid-feedback" role="alert">
+                                                                    <strong>{{ $errors->first('attachments') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-actions text-center">
+                                                <div class="col-md-8 offset-2">
+                                                    <div class="form-group">
+                                                        <label for="message">{{__('labels.message_to_receiver')}}</label>
+                                                        <textarea class="form-control" name="message" id="message"></textarea>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="la la-check-square-o"></i> {{trans('labels.resubmit')}}
+                                                </button>
+                                                <a class="btn btn-warning mr-1" role="button" href="{{route('pms')}}">
+                                                    <i class="ft-x"></i> {{trans('labels.cancel')}}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {!! Form::close() !!}
+
                                     </div>
                                 </div>
                             </div>

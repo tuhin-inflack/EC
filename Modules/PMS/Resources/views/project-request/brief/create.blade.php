@@ -24,7 +24,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project-request.partials.form', ['page' => 'create'])
+                                        @include('pms::project-request.brief.partials.form', ['page' => 'create'])
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,6 @@
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
-
 
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
@@ -106,7 +105,6 @@
             });
 
         });
-
 
     </script>
 @endpush

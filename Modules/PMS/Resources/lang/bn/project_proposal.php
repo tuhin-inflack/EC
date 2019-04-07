@@ -61,7 +61,10 @@ return [
     'project_name' => 'প্রকল্পের নাম',
     'project_budget' => 'বাজেট',
     'project_duration' => 'ব্যাপ্তিকাল',
-    'project_title' => 'ব্যাপ্তিকাল',
+    'project_invitation_brief_list' => 'প্রকল্প সংক্ষেপ তালিকা',
+    'project_invitation_brief' => 'প্রকল্প সংক্ষেপ',
+    'project_invitation_details' => 'প্রকল্প বিস্তারিত',
+    'project_invitation_details_list' => 'প্রকল্প বিস্তারিত তালিকা',
 
 ];
 

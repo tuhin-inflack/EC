@@ -253,7 +253,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
-                                    <dd class="col-sm-9">@lang('rms::research_proposal.' . $project->status)</dd>
+                                    <dd class="col-sm-9">@lang('pms::project_proposal.' . $project->status)</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('member.member')</dt>

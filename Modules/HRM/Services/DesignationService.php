@@ -68,4 +68,9 @@ class DesignationService
 
     }
 
+    public function getDesignation($id)
+    {
+        return $this->findOrFail($id);
+    }
+
 }
