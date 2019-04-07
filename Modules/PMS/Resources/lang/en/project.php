@@ -10,4 +10,5 @@ return [
     'project_training_creation_form' => 'Project Training Creation Form',
     'training_name' => 'Training Name',
     'add' => 'Add',
+    'beneficiary' => 'Beneficiary',
 ];

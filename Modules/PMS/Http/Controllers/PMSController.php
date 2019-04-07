@@ -66,6 +66,7 @@ class PMSController extends Controller
      * @param ShareConversationService $shareConversationService
      * @param EmployeeServices $employeeService
      * @param ReviewUrlGenerator $reviewUrlGenerator
+     * @param ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService
      */
     public function __construct(
         DashboardWorkflowService $dashboardService,
@@ -76,7 +77,8 @@ class PMSController extends Controller
         UserService $userService, ShareRulesService $shareRuleService,
         ShareConversationService $shareConversationService,
         EmployeeServices $employeeService,
-        ReviewUrlGenerator $reviewUrlGenerator
+        ReviewUrlGenerator $reviewUrlGenerator,
+        ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService
     )
     {
         $this->dashboardService = $dashboardService;
@@ -319,7 +321,8 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
-        $data = $request->all(); unset($data['status']);
+        $data = $request->all();
+        unset($data['status']);
         $save = $this->shareConversationService->save($request->all());
         Session::flash('message', trans('labels.save_success'));
 
