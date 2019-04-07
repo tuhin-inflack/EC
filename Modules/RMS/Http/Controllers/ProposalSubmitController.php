@@ -167,7 +167,6 @@ class ProposalSubmitController extends Controller
             $reviewButton = true;
         }
 
-
         if ($workflowRuleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
             $ruleDesignations = $shareRule->rulesDesignation;
@@ -185,6 +184,7 @@ class ProposalSubmitController extends Controller
     {
 
         if ($request->status == WorkflowStatus::REVIEW) {
+            //TODO::Change workflow details status to review
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
         } else {
