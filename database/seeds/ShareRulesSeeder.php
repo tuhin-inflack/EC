@@ -14,8 +14,8 @@ class ShareRulesSeeder extends Seeder
         \DB::table('share_rules')->truncate();
 
         \DB::table('share_rules')->insert([
-                ['name' => 'Research Sharing Rule', 'is_group' =>1],
-                ['name' => 'Project Sharing Rule', 'is_group' =>1],
+                1 => ['name' => 'Research Brief Sharing Rule', 'is_group' => 1],
+                2 => ['name' => 'Project Sharing Rule', 'is_group' => 1],
             ]
         );
     }

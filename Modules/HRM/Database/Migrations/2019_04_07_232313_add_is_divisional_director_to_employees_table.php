@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateShareRuleDesignationsTable extends Migration
+class AddIsDivisionalDirectorToEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class UpdateShareRuleDesignationsTable extends Migration
      */
     public function up()
     {
-        Schema::table('share_rules_designations', function (Blueprint $table) {
-            $table->boolean('is_sharable')->default(false);
-            $table->boolean('can_reject')->default(true);
-            $table->boolean('can_approve')->default(false);
+        Schema::table('employees', function (Blueprint $table) {
+            $table->boolean('is_divisional_director')->default(false)->after('designation_id');
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -26,6 +25,8 @@ class UpdateShareRuleDesignationsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('employees', function (Blueprint $table) {
+            $table->dropIfExists('is_divisional_director');
+        });
     }
 }

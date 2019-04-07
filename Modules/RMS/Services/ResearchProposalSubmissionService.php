@@ -264,6 +264,7 @@ class ResearchProposalSubmissionService
     //send notification while review, approve & short list for apc. called from @ProposalSubmissionController
     public function sendNotification($request)
     {
+
         $loggedInUserDesignationShortName = $this->userService->getLoggedInUser()->employee->designation->short_name;
         $messageBy = ' by ' . $this->userService->getLoggedInUser()->name;
         $notificationData = [
@@ -285,9 +286,10 @@ class ResearchProposalSubmissionService
                 $notificationData['to_users_designation'] = Config::get('constants.research_proposal_approved');
 
             }
+        }else{
+            $notificationData['message'] = $request->message;
         }
         $notificationData['url'] = $request['url'];
-
         event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
     }
 

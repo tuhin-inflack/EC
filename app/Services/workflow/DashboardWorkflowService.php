@@ -32,7 +32,6 @@ class DashboardWorkflowService
     public function getDashboardWorkflowItems($feature): DashboardItemSummary
     {
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
-
         return $itemGenerator->generateItems();
     }
 

@@ -61,13 +61,17 @@ class RMSController extends Controller
      */
     public function index()
     {
+
         $chartData = $this->taskService->getTasksBarChartData();
         $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
         //Research proposal items
+
         $featureName = Config::get('constants.research_proposal_feature_name');
+
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+
 
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //       Research Items
