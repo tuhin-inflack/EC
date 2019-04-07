@@ -5,21 +5,28 @@ namespace Modules\RMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Modules\HRM\Services\EmployeeServices;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchDetailInvitation;
+use Modules\RMS\Entities\ResearchDetailInvitationAttachment;
+use Modules\RMS\Entities\ResearchProposalSubmission;
+use Modules\RMS\Http\Requests\CreateResearchDetailInvitationRequest;
+use Modules\RMS\Http\Requests\UpdateResearchDetailInvitationRequest;
+use Modules\RMS\Services\ResearchDetailInvitationService;
 
 class ResearchDetailInvitationController extends Controller
 {
 
-    private $employeeServices;
+    private $researchDetailInvitationService;
 
     /**
      * ResearchDetailInvitationController constructor.
      * @param EmployeeServices $employeeServices
      */
-    public function __construct(EmployeeServices $employeeServices)
+    public function __construct(ResearchDetailInvitationService $researchDetailInvitationService)
     {
 
-        $this->employeeServices = $employeeServices;
+        $this->researchDetailInvitationService = $researchDetailInvitationService;
     }
 
     public function index()
@@ -29,49 +36,53 @@ class ResearchDetailInvitationController extends Controller
     }
 
     /**
+     * @param ResearchProposalSubmission $researchProposalSubmission
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(ResearchProposalSubmission $researchProposalSubmission)
     {
-        $employees = $this->employeeServices->getEmployeesForDropdown(function ($employee) {
-
-            return $employee->first_name . ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
-        });
-        return view('rms::research-proposal-details.invitations.create', compact('employees'));
+        return view('rms::research-proposal-details.invitations.create', compact('researchProposalSubmission'));
     }
 
     /**
-     * @param Request $request
+     * @param CreateResearchDetailInvitationRequest $createResearchDetailInvitaionRequest
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateResearchDetailInvitationRequest $createResearchDetailInvitaionRequest)
     {
+        $this->researchDetailInvitationService->store($createResearchDetailInvitaionRequest->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('invitations');
     }
 
     /**
-     * @param $id
+     * @param ResearchDetailInvitation $researchDetailInvitation
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::show');
+        return view('rms::research-proposal-details.invitations.show', compact('researchDetailInvitation'));
     }
 
     /**
-     * @param $id
+     * @param ResearchDetailInvitation $researchDetailInvitation
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::edit');
+        return view('rms::research-proposal-details.invitations.edit', compact('researchDetailInvitation'));
     }
 
     /**
-     * @param Request $request
-     * @param $id
+     * @param UpdateResearchDetailInvitationRequest $updateResearchDetailInvitationRequest
+     * @param ResearchDetailInvitation $researchDetailInvitation
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(UpdateResearchDetailInvitationRequest $updateResearchDetailInvitationRequest, ResearchDetailInvitation $researchDetailInvitation)
     {
-        //
+        $this->researchDetailInvitationService->updateResearchDetailInvitationRequest($updateResearchDetailInvitationRequest->all(), $researchDetailInvitation);
+        Session::flash('success', trans('labels.success'));
+        return redirect()->route('invitations');
     }
 
     /**
@@ -80,5 +91,18 @@ class ResearchDetailInvitationController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function attachmentDownload(ResearchDetailInvitation $researchDetailInvitation)
+    {
+        return response()->download($this->researchDetailInvitationService->getZipFilePath($researchDetailInvitation));
+    }
+
+    public function fileDownload($attachmentId)
+    {
+        $researchDetailInvitationAttachment =  ResearchDetailInvitationAttachment::findOrFail($attachmentId);
+
+        $basePath = Storage::disk('internal')->path($researchDetailInvitationAttachment->attachments);
+        return response()->download($basePath);
     }
 }

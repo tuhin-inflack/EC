@@ -148,7 +148,13 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
 
         Route::prefix('invitations')->group(function () {
             Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
-            Route::get('create/{researchProposalSubmissionId}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
+            Route::get('create/{researchProposalSubmission}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
+            Route::post('store', 'ResearchDetailInvitationController@store')->name('research-proposal-details.invitation.store');
+            Route::get('show/{researchDetailInvitation}', 'ResearchDetailInvitationController@show')->name('research-proposal-details.invitation.show');
+            Route::get('edit/{researchDetailInvitation}', 'ResearchDetailInvitationController@edit')->name('research-proposal-details.invitation.edit');
+            Route::put('update/{researchDetailInvitation}', 'ResearchDetailInvitationController@update')->name('research-proposal-details.invitation.update');
+            Route::get('attachment-download/{researchDetailInvitation}', 'ResearchDetailInvitationController@attachmentDownload')->name('research-proposal-details.invitation.attachment-download');
+            Route::get('file-download/{attachmentId}', 'ResearchDetailInvitationController@fileDownload')->name('research-proposal-details.invitation.file-download');
         });
 
 

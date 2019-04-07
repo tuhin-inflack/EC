@@ -240,7 +240,7 @@ class PMSController extends Controller
     {
         $proposal = $this->projectProposalService->findOne($proposalId);
 
-        return view('pms::proposal-submission.resubmit', compact('proposal', 'featureId'));
+        return view('pms::proposal-submission.brief.resubmit', compact('proposal', 'featureId'));
     }
 
     public function storeResubmit($proposalId, Request $request)
@@ -338,7 +338,6 @@ class PMSController extends Controller
 
     public function feedbackForJointDirect(Request $request, $shareConversationId)
     {
-
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
         $data['remarks'] = $request->approval_remark;

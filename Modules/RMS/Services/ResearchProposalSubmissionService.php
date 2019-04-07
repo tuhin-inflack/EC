@@ -5,6 +5,7 @@ namespace Modules\RMS\Services;
 use App\Constants\DesignationShortName;
 use App\Constants\NotificationType;
 use App\Constants\WorkflowStatus;
+use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Notification\ReviewUrlGenerator;
@@ -288,5 +289,25 @@ class ResearchProposalSubmissionService
         $notificationData['url'] = $request['url'];
 
         event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+    }
+
+    public function getResearchProposalForUser(User $user)
+    {
+        if($this->userService->isDirectorGeneral())
+        {
+            return $this->researchProposalSubmissionRepository->findAll();
+
+        }else if($this->userService->isDesignationFacultyMember($user))
+        {
+            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id'=>$user->id]);
+
+        }else if($this->userService->isResearchDivisionUser($user))
+        {
+            return $this->researchProposalSubmissionRepository->findAll();
+
+        }else
+        {
+            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id'=>$user->id]);
+        }
     }
 }

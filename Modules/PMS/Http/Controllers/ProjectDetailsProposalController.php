@@ -5,26 +5,37 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
+use Modules\PMS\Services\ProjectDetailProposalService;
 
 class ProjectDetailsProposalController extends Controller
 {
+    private $projectDetailsProposalService;
+
+    public function __construct(ProjectDetailProposalService $projectDetailProposalService)
+    {
+        $this->projectDetailsProposalService = $projectDetailProposalService;
+    }
     /**
      * Display a listing of the resource.
      * @return Response
      */
+
     public function index()
     {
+        $proposals = $this->projectDetailsProposalService->getAll();
 
-        return view('pms::proposal-submission.details.index');
+        return view('pms::proposal-submission.details.index', compact('proposals'));
     }
 
     /**
      * Show the form for creating a new resource.
      * @return Response
      */
-    public function create()
+    public function create($projectRequestId)
     {
-        return view('pms::create');
+        return view('pms::proposal-submission.details.create', compact('projectRequestId'));
     }
 
     /**
@@ -32,9 +43,11 @@ class ProjectDetailsProposalController extends Controller
      * @param Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProjectProposalRequest $request)
     {
-        //
+        $this->projectDetailsProposalService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('pms');
     }
 
     /**
