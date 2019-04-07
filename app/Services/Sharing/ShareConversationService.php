@@ -52,7 +52,6 @@ class ShareConversationService
 
     public function saveShareConversation($data)
     {
-
         $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
         $workflowMaster = $this->workflowMasterRepository->findOne($data['workflow_master_id']);
 
@@ -69,7 +68,6 @@ class ShareConversationService
                 'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);
         }
         return Response(trans('labels.save_success'));
-
     }
 
     public function getShareConversationByDesignation($designationId)
@@ -84,7 +82,6 @@ class ShareConversationService
 
     public function updateConversation($data, $shareConversationId)
     {
-
         $shareConversation = $this->findOne($shareConversationId);
         $shareConversation->update(['status' => 'CLOSE']);
         $user = $this->userService->findOne($shareConversation->from_user_id);
@@ -95,8 +92,5 @@ class ShareConversationService
             'to_employee_id' => [$user->employee->id],
         ];
         event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
-
-        return true;
-
     }
 }

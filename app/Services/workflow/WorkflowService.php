@@ -140,7 +140,7 @@ class WorkflowService
     private function isPendingWorkFlow($flowDetailsList)
     {
         foreach ($flowDetailsList as $flowDetail) {
-            if ($flowDetail->status == WorkflowStatus::PENDING) {
+            if ($flowDetail->status == WorkflowStatus::PENDING || $flowDetail->status == WorkflowStatus::REVIEW) {
                 return true;
             }
         }
@@ -266,6 +266,20 @@ class WorkflowService
     {
         return $this->workFlowMasterRepository->findBy(['initiator_id' => $userId, 'status' => WorkflowStatus::REJECTED,
             'feature_id' => $featureId]);
+    }
+
+    public function approveWorkflow($workflowMasterId)
+    {
+        $workflowMaster = $this->workFlowMasterRepository->findOne($workflowMasterId);
+        $this->workFlowMasterRepository->update($workflowMaster, ['status' => WorkflowStatus::APPROVED]);
+
+        $workflowDetails = $workflowMaster->workflowDetails;
+        foreach ($workflowDetails as $workflowDetail) {
+            if ($workflowDetail->status != WorkflowStatus::APPROVED) {
+                $workflowDetail->status = WorkflowStatus::APPROVED;
+                $workflowDetail->update();
+            }
+        }
     }
 
     public function closeWorkflow($workflowMasterId)
