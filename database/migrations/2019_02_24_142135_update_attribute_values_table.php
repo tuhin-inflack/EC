@@ -27,7 +27,7 @@ class UpdateAttributeValuesTable extends Migration
     public function down()
     {
         Schema::table('attribute_values', function (Blueprint $table) {
-            $table->dropColumn(['organization_member_id']);
+            $table->dropIfExists(['organization_member_id']);
         });
     }
 }

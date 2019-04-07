@@ -185,7 +185,7 @@ class EmployeesTableSeeder extends Seeder
             9 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, 'mobile_one' => '01711111113'],
             10 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
             11 => ['employee_id' => 'DG1', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 17, 'mobile_one' => '01711111113'],
-            12 => ['employee_id' => 'ADGR', 'first_name' => 'Asst. Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 16, 'mobile_one' => '01711111113'],
+            12 => ['employee_id' => 'ADGR', 'first_name' => 'Asst. Director', 'last_name' => 'General', 'email' => 'adg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 16, 'mobile_one' => '01711111113'],
 
         );
 
@@ -199,7 +199,10 @@ class EmployeesTableSeeder extends Seeder
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
             $user['reference_table_id'] = $count++;
-            \App\Entities\User::create($user);
+            if ($employee['employee_id']!='DG1'){
+                \App\Entities\User::create($user);
+            }
+
 
         }
     }
