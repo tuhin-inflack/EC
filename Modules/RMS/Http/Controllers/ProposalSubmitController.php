@@ -63,7 +63,7 @@ class ProposalSubmitController extends Controller
      */
     public function index()
     {
-        $proposals = $this->researchProposalSubmissionService->getAll();
+        $proposals = $this->researchProposalSubmissionService->getResearchProposalForUser(Auth::user());
         return view('rms::proposal.submission.index', compact('proposals'));
     }
 

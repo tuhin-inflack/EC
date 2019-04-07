@@ -25,7 +25,6 @@ use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
 
-
 class ProjectProposalService
 {
     use CrudTrait;
@@ -37,7 +36,7 @@ class ProjectProposalService
 
     /**
      * ProjectRequestService constructor.
-     * @param ProjectProposalRepository $projectProposalRepository
+     * @param ProjectDetailProposalRepository $projectProposalRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
      */

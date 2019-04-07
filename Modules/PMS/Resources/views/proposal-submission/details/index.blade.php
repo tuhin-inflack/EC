@@ -38,14 +38,8 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
-                                            @php
-                                                $wfMasterId = $proposal->workflowMasters->first()->id;
-                                                $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                $featureId = $proposal->workflowMasters->first()->feature->id;
-                                                $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
-                                            @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
+                                                <a href="">{{ $proposal->title }}</a>
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>

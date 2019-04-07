@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.edit_invitation'))
+@section('title', trans('pms::project-request-detail.edit.title'))
 
 @push('page-css')
     <link rel="stylesheet" type="text/css" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
@@ -12,7 +12,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title" id="basic-layout-form">@lang('pms::project_proposal.edit_invitation')</h4>
+                    <h4 class="card-title" id="basic-layout-form">@lang('pms::project-request-detail.edit.title')</h4>
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        @include('pms::project-request.partials.form', ['page' => 'edit'])
+                        @include('pms::project-request.details.partials.form', ['page' => 'edit'])
                     </div>
                 </div>
             </div>
