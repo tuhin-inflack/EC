@@ -207,6 +207,7 @@
                                                 <th>@lang('organization.organization')</th>
                                                 <th>@lang('member.member')</th>
                                                 <th>@lang('labels.gender')</th>
+                                                <th>@lang('labels.number')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -220,6 +221,7 @@
                                                         <td>{{ $organization->name }}</td>
                                                         <td>{{ $member->name }}</td>
                                                         <td>@lang('labels.' . $member->gender)</td>
+                                                        <td>{{ $member->mobile }}</td>
                                                     </tr>
                                                 @endforeach
                                             @endforeach
