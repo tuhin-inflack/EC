@@ -37,7 +37,6 @@
                                             <div class="media">
                                                 <div class="media-body">
                                                     @foreach($remarks as $remark)
-                                                        {{--{{ dd($remark) }}--}}
                                                         <p class="text-bold-600 mb-0">
                                                             {{ $remark->user->name }}
                                                         </p>
@@ -72,6 +71,7 @@
                     <div class="card-footer">
                         @if($proposal->status != 'APPROVED')
                             {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                            {!! Form::hidden('reviewUrl', url()->current()) !!}
                             <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
                             <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                             <div class="row">
@@ -107,8 +107,8 @@
                         @else
                           <div class="row">
                               <div class="col-md-12 text-center">
-                                  <a href="" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</a>
-                                  <a href="" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')</a>
+                                  <a href="{{ route('project-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</a>
+                                  <a href="{{ route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')</a>
                               </div>
                           </div>
                         @endif

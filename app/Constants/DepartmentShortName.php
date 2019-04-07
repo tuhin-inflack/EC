@@ -12,4 +12,5 @@ namespace App\Constants;
 abstract class DepartmentShortName
 {
     const ProjectDivision = 'PMS';
+    const ResearchDivision = 'RMS';
 }

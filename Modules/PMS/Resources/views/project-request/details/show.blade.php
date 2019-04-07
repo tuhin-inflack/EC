@@ -1,5 +1,5 @@
 @extends('pms::layouts.master')
-@section('title', trans('pms::project_proposal.invitation_details'))
+@section('title', trans('pms::project-request-detail.show.title'))
 @push('page-css')
     <style>
         .card-body{
@@ -17,7 +17,7 @@
             <div class="col-sm-12 col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('pms::project_proposal.invitation_details')</h4>
+                        <h4 class="card-title">@lang('pms::project-request-detail.show.title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
                             <ul class="list-inline mb-0">
@@ -31,47 +31,45 @@
                             <div class="card-text">
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.title')</dt>
-                                    <dd class="col-sm-9">{{ $projectRequest->title }}</dd>
+                                    <dd class="col-sm-9">{{ $projectRequestDetail->title }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.receiver')</dt>
                                     <dd class="col-sm-9">
                                         <ul>
-                                            @foreach($projectRequest->projectRequestReceivers as $receiver)
-                                                <li>{{ $receiver->employeeDetails->first_name }} {{ $receiver->employeeDetails->last_name }}</li>
-                                            @endforeach
+                                            <li>{{ $projectRequestDetail->projectApprovedProposal->proposalSubmittedBy->employee->first_name }} {{ $projectRequestDetail->projectApprovedProposal->proposalSubmittedBy->employee->last_name }}</li>
                                         </ul>
                                     </dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.last_sub_date')</dt>
-                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->end_date)) }}</dd>
+                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequestDetail->end_date)) }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.attachments')</dt>
                                     <dd class="col-sm-9">
                                         <ul>
-                                            @foreach($projectRequest->projectRequestAttachments as $file)
-                                                <li><a href="{{url('pms/project-requests/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
+                                            @foreach($projectRequestDetail->projectRequestDetailAttachments as $file)
+                                                <li><a href="{{url('pms/project-requests-details/file-download/'.$file->id)}}">{{ $file->file_name }}</a></li>
                                             @endforeach
                                         </ul>
                                         <ul>
-                                            <li><b><a href="{{url('pms/project-requests/attachment-download/'.$projectRequest->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b></li>
+                                            <li><b><a href="{{url('pms/project-requests-details/attachment-download/'.$projectRequestDetail->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b></li>
                                         </ul>
                                     </dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.remarks')</dt>
-                                    <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $projectRequest->remarks }}</p></dd>
+                                    <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $projectRequestDetail->remarks }}</p></dd>
                                 </dl>
 
                                 <div class="form-actions text-center">
-                                    @if(\Carbon\Carbon::now()->lessThan($projectRequest->end_date))
-                                        <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
+                                    @if(\Carbon\Carbon::now()->lessThan($projectRequestDetail->end_date))
+                                        <a href="{{ route('project-request-details.edit', $projectRequestDetail->id) }}" class="btn btn-primary mr-1">
                                             <i class="ft-plus white"></i> @lang('labels.edit')
                                         </a>
                                     @endif
-                                    <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
+                                    <a class="btn btn-warning mr-1" role="button" href="{{route('project-request-details.index')}}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
                                 </div>

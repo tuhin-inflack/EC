@@ -20,7 +20,8 @@ return [
     'received_at' => 'Received at',
     'submit_proposal' => 'Submit Proposal',
     'recipient' => 'Recipient',
-    'project_submit_form' => 'Project Proposal Creation Form',
+    'project_submit_form' => 'Project Brief Proposal Creation Form',
+    'project_details_submit_form' => 'Project Details Proposal Creation Form',
     'project_submit' => 'Create Project Proposal',
     'create_proposal' => 'Create Project Proposal',
     'project_title' => 'Project Title',
@@ -65,5 +66,8 @@ return [
     'project_invitation_brief_list' => 'Project Brief Invitation List',
     'project_invitation_details' => 'Project Details',
     'project_invitation_details_list' => 'Project Details Invitation List',
+    'create_project_brief_proposal' => 'Project Brief Proposal Submission',
+    'create_project_details_proposal' => 'Project Details Proposal Submission',
 
+    'project_title' => 'Title',
 ];
