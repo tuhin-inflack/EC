@@ -587,14 +587,14 @@
                 ],
 
                 datasets: [{
-                    label: 'Submitted',
+                    label: '{{ trans("rms::research.planned") }}',
                     data: JSON.parse('{!! json_encode($chartData[0] ) !!}'),
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }, {
 
-                    label: 'Accepted',
+                    label: '{{ trans("rms::research.achieved") }}',
 
                     data: JSON.parse('{!! json_encode($chartData[1] ) !!}'),
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',

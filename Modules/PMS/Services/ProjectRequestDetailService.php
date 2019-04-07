@@ -14,9 +14,8 @@ use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Modules\PMS\Entities\ProjectRequest;
-use Modules\PMS\Entities\ProjectRequestAttachment;
-use Modules\PMS\Entities\ProjectRequestReceiver;
+use Modules\PMS\Entities\ProjectRequestDetail;
+use Modules\PMS\Entities\ProjectRequestDetailAttachment;
 use Modules\PMS\Repositories\ProjectRequestDetailRepository;
 
 class ProjectRequestDetailService
@@ -27,14 +26,13 @@ class ProjectRequestDetailService
     private $projectRequestDetailRepository;
 
     /**
-     * ProjectRequestService constructor.
-     * @param $projectRequestRepository $projectRequestRepository
+     * ProjectRequestDetailService constructor.
+     * @param ProjectRequestDetailRepository $projectRequestDetailRepository
      */
-
     public function __construct(ProjectRequestDetailRepository $projectRequestDetailRepository)
     {
         $this->projectRequestDetailRepository = $projectRequestDetailRepository;
-        $this->setActionRepository($projectRequestDetailRepository);
+        $this->setActionRepository($this->projectRequestDetailRepository);
     }
 
     public function getAll()
@@ -45,70 +43,55 @@ class ProjectRequestDetailService
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
+
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-            $projectRequest = $this->save($data);
 
-            foreach ($data['attachment'] as $file) {
+            $projectRequestDetail = $this->save($data);
+
+            foreach ($data['attachments'] as $file) {
                 $fileName = $file->getClientOriginalName();
-                $path = $this->upload($file, 'project-requests');
+                $path = $this->upload($file, 'project-request-details');
 
-                $file = new ProjectRequestAttachment([
+                $attachment = new ProjectRequestDetailAttachment([
                     'attachments' => $path,
-                    'project_request_id' => $projectRequest->id,
+                    'project_request_detail_id' => $projectRequestDetail->id,
                     'file_name' => $fileName
                 ]);
 
-                $projectRequest->projectRequestAttachments()->save($file);
+                $projectRequestDetail->projectRequestDetailAttachments()->save($attachment);
             }
 
-            foreach ($data['receiver'] as $receiver) {
-                $receiver = new ProjectRequestReceiver([
-                    'receiver' => $receiver,
-                    'project_request_id' => $projectRequest->id
-                ]);
-
-                $projectRequest->projectRequestReceivers()->save($receiver);
-            }
-
-            return $projectRequest;
+            return $projectRequestDetail;
         });
     }
 
 
-    public function updateProjectRequest(array $data, ProjectRequest $projectRequest)
+    public function updateProjectRequestDetail(array $data, ProjectRequestDetail $projectRequestDetail)
     {
-        return DB::transaction(function () use ($data, $projectRequest) {
+        return DB::transaction(function () use ($data, $projectRequestDetail) {
+
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
-            $request = $this->update($projectRequest, $data);
-            foreach ($projectRequest->projectRequestAttachments as $attachment){
-                ProjectRequestAttachment::destroy($attachment->id);
+            $request = $this->update($projectRequestDetail, $data);
+
+            foreach ($projectRequestDetail->projectRequestDetailAttachments as $attachment){
+                ProjectRequestDetailAttachment::destroy($attachment->id);
                 Storage::disk('internal')->delete($attachment->attachments);
             }
 
-            foreach ($data['attachment'] as $file) {
+            foreach ($data['attachments'] as $file) {
                 $fileName = $file->getClientOriginalName();
-                $path = $this->upload($file, 'project-requests');
+                $path = $this->upload($file, 'project-request-details');
 
-                $file = new ProjectRequestAttachment([
+                $attachment = new ProjectRequestDetailAttachment([
                     'attachments' => $path,
-                    'project_request_id' => $projectRequest->id,
+                    'project_request_detail_id' => $projectRequestDetail->id,
                     'file_name' => $fileName
                 ]);
 
-                $projectRequest->projectRequestAttachments()->save($file);
+                $projectRequestDetail->projectRequestDetailAttachments()->save($attachment);
 
             }
 
-            $projectRequest->projectRequestReceivers()->delete();
-
-            foreach ($data['receiver'] as $receiver) {
-                $receiver = new ProjectRequestReceiver([
-                    'receiver' => $receiver,
-                    'project_request_id' => $projectRequest->id
-                ]);
-
-                $projectRequest->projectRequestReceivers()->save($receiver);
-            }
             return $request;
         });
 
@@ -118,34 +101,33 @@ class ProjectRequestDetailService
     {
         $projectRequest->requestForwards()->delete();
 
-        return $this->projectRequestRepository->delete($projectRequest);
+        return $this->projectRequestDetailRepository->delete($projectRequest);
     }
 
     public function requestApprove(ProjectRequest $projectRequest)
     {
-        return $this->projectRequestRepository->approveProjectProposal($projectRequest);
+        return $this->projectRequestDetailRepository->approveProjectProposal($projectRequest);
     }
 
     public function requestReject(ProjectRequest $projectRequest)
     {
-        return $this->projectRequestRepository->rejectProjectProposal($projectRequest);
+        return $this->projectRequestDetailRepository->rejectProjectProposal($projectRequest);
     }
 
     public function storeForward($data)
     {
-        return $this->projectRequestRepository->forwardProjectRequestStore($data);
+        return $this->projectRequestDetailRepository->forwardProjectRequestStore($data);
     }
 
     public function getForwardList()
     {
-        return $this->projectRequestRepository->findAll(null, ['requestForwards']);
+        return $this->projectRequestDetailRepository->findAll(null, ['requestForwards']);
     }
 
-    public function getZipFilePath($projectId)
+    public function getZipFilePath(ProjectRequestDetail $projectRequestDetail)
     {
-        $projectRequest = $this->findOne($projectId);
 
-        $filePaths = $projectRequest->projectRequestAttachments->map(function ($attachment) {
+        $filePaths = $projectRequestDetail->projectRequestDetailAttachments->map(function ($attachment) {
             return Storage::disk('internal')->path($attachment->attachments);
         })->toArray();
 

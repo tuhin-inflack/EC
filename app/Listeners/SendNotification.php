@@ -25,8 +25,9 @@ class SendNotification
     /**
      * Handle the event.
      *
-     * @param  NotificationGeneration  $event
+     * @param  NotificationGeneration $event
      * @return void
+     * @throws \Exception
      */
     public function handle(NotificationGeneration $event)
     {

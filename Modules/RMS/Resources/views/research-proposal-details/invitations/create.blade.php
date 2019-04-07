@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research_proposal.create_request'))
+@section('title', trans('rms::research-detail-invitation.create.title'))
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">{{ trans('rms::research_proposal.create_request')
+                                    <h4 class="card-title">{{ trans('rms::research-detail-invitation.create.title')
                                }}</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('rms::research-request.form', ['page' => 'create'])
+                                        @include('rms::research-proposal-details.invitations.form', ['page' => 'create'])
                                     </div>
                                 </div>
                             </div>

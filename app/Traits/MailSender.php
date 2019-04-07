@@ -19,7 +19,6 @@ use Illuminate\Support\Facades\Log;
  */
 trait MailSender
 {
-
     public function sendEmail($toAddress, Mailable $mailable)
     {
         try {

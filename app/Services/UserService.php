@@ -17,6 +17,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Modules\HRM\Entities\Designation;
 use Modules\HRM\Entities\Employee;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
@@ -167,5 +168,24 @@ class UserService
     public function isProjectDivisionUser(User $user): bool
     {
         return $user->employee->employeeDepartment->department_code == DepartmentShortName::ProjectDivision;
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isDesignationFacultyMember(User $user): bool
+    {
+
+        return $this->designationService->getDesignation($user->employee->designation_id)->short_name == "FM";
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isResearchDivisionUser(User $user): bool
+    {
+        return $user->employee->employeeDepartment->department_code == DepartmentShortName::ResearchDivision;
     }
 }

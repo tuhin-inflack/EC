@@ -5,22 +5,31 @@ namespace Modules\PMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
+use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectRequestDetail;
+use Modules\PMS\Entities\ProjectRequestDetailAttachment;
+use Modules\PMS\Http\Requests\CreateProjectRequestDetailRequest;
+use Modules\PMS\Http\Requests\UpdateProjectRequestDetailRequest;
 use Modules\PMS\Services\ProjectRequestDetailService;
 
 class ProjectRequestDetailsController extends Controller
 {
     private $projectDetailsRequestService;
-    /**
-     * Display a listing of the resource.
-     * @return Response
-     */
 
+    /**
+     * ProjectRequestDetailsController constructor.
+     * @param ProjectRequestDetailService $projectDetailsRequestService
+     */
     public function __construct(ProjectRequestDetailService $projectDetailsRequestService)
     {
         $this->projectDetailsRequestService = $projectDetailsRequestService;
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $requests = $this->projectDetailsRequestService->getAll();
@@ -28,53 +37,57 @@ class ProjectRequestDetailsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     * @return Response
+     * @param ProjectProposal $projectProposal
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(ProjectProposal $projectProposal)
     {
-        return view('pms::project-request.details.create');
+        return view('pms::project-request.details.create', compact('projectProposal'));
     }
 
     /**
-     * Store a newly created resource in storage.
-     * @param Request $request
-     * @return Response
+     * @param CreateProjectRequestDetailRequest $createProjectRequestDetailRequest
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(CreateProjectRequestDetailRequest $createProjectRequestDetailRequest)
     {
-        //
+        $this->projectDetailsRequestService->store($createProjectRequestDetailRequest->all());
+
+        Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->route('project-request-details.index');
     }
 
     /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
+     * @param ProjectRequestDetail $projectRequestDetail
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(ProjectRequestDetail $projectRequest)
+    public function show(ProjectRequestDetail $projectRequestDetail)
     {
-        return view('pms::project-request.details.show', compact('projectRequest'));
+        return view('pms::project-request.details.show', compact('projectRequestDetail'));
     }
 
     /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
+     * @param ProjectRequestDetail $projectRequestDetail
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(ProjectRequestDetail $projectRequestDetail)
     {
-        return view('pms::project-request.details.edit');
+        return view('pms::project-request.details.edit', compact('projectRequestDetail'));
     }
 
     /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param UpdateProjectRequestDetailRequest $updateProjectRequestDetailRequest
+     * @param ProjectRequestDetail $projectRequestDetail
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProjectRequestDetailRequest $updateProjectRequestDetailRequest, ProjectRequestDetail $projectRequestDetail)
     {
-        //
+        $this->projectDetailsRequestService->updateProjectRequestDetail($updateProjectRequestDetailRequest->all(), $projectRequestDetail);
+
+        Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->route('project-request-details.index');
+
     }
 
     /**
@@ -85,5 +98,19 @@ class ProjectRequestDetailsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function attachmentDownload(ProjectRequestDetail $projectRequestDetail)
+    {
+        return response()->download($this->projectDetailsRequestService->getZipFilePath($projectRequestDetail));
+    }
+
+    public function fileDownload($attachmentId)
+    {
+        $projectRequestDetailAttachment = ProjectRequestDetailAttachment::findOrFail($attachmentId);
+
+        $basePath = Storage::disk('internal')->path($projectRequestDetailAttachment->attachments);
+
+        return response()->download($basePath);
     }
 }
