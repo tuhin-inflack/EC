@@ -43,7 +43,7 @@
                                                         <i class="la la-cog"></i>
                                                     </button>
                                                     <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{route('project-proposal-submission.create', $request->id)}}"
+                                                        <a href="{{route('project-details-proposal-submission.create', $request->id)}}"
                                                            class="dropdown-item"><i class="ft-fast-forward"></i>@lang('pms::project_proposal.proposal_submission')</a>
                                                     </span>
                                                 </span>

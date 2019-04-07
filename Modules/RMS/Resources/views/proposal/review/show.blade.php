@@ -80,6 +80,7 @@
                                         {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}
                                         <hr/>
                                         <div class="form-group">
+                                            {{ Form::hidden('url', url()->current()) }}
                                             {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
                                             {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                         </div>

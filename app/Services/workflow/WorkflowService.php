@@ -162,8 +162,15 @@ class WorkflowService
         $workFlowConversation = $this->flowConversationService->findOne($workFlowConversationId);
         $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
         $workflowDetails = $this->workflowDetailRepository->findOne($workFlowConversation->workflow_details_id);
-        $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
-            $workflowDetails->ruleDetails->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
+        $this->updateWorkFlowDetails(
+            $workFlowMaster->workflowDetails,
+            $status,
+            $workflowDetails->ruleDetails->get_back_status,
+            $responderId,
+            $message,
+            $workFlowConversation->workflow_details_id,
+            $remarks
+        );
         if ($this->isFlowCompleted($workFlowMaster->ruleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
             if ($this->isFlowAccepted($workFlowMaster->workflowDetails)) {
                 $workFlowMaster->status = WorkflowStatus::APPROVED;
@@ -175,8 +182,15 @@ class WorkflowService
         $workFlowMaster->update();
     }
 
-    private function updateWorkFlowDetails($flowDetailsList, $responseStatus, $getBackStatus,
-                                           $responderId, $message, $workFlowDetailsId, $remarks)
+    private function updateWorkFlowDetails(
+        $flowDetailsList,
+        $responseStatus,
+        $getBackStatus,
+        $responderId,
+        $message,
+        $workFlowDetailsId,
+        $remarks
+    )
     {
         for ($count = 0; $count < count($flowDetailsList); $count++) {
             $flowDetails = $flowDetailsList[$count];
@@ -223,7 +237,10 @@ class WorkflowService
 
     public function reinitializeWorkflow($data)
     {
-        $workflowMaster = $this->workFlowMasterRepository->findOneBy(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id']]);
+        $workflowMaster = $this->workFlowMasterRepository->findOneBy([
+            'feature_id' => $data['feature_id'],
+            'ref_table_id' => $data['ref_table_id']
+        ]);
 
         $workflowDetails = $workflowMaster->workflowDetails;
 
@@ -236,8 +253,13 @@ class WorkflowService
 
         //Save conversation
         $this->flowConversationService->closeByFlowMaster($workflowMaster->id);
-        $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
-            'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
+        $this->flowConversationRepository->save([
+            'workflow_master_id' => $workflowMaster->id,
+            'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
+            'feature_id' => $data['feature_id'],
+            'message' => $data['message'],
+            'status' => WorkflowConversationStatus::ACTIVE
+        ]);
     }
 
     public function getRejectedItems($userId, $featureId)

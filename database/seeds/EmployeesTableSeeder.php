@@ -181,7 +181,6 @@ class EmployeesTableSeeder extends Seeder
             10 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
             11=> ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, 'mobile_one' => '01711111113'],
             12 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
-            13 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, 'mobile_one' => '01711111113'],
         );
 
         foreach ($employees as $employee) {

@@ -8,6 +8,7 @@ use App\Services\OrganizationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\StoreOrganization;
@@ -34,7 +35,7 @@ class ReceivedProjectProposalController extends Controller
 
     public function index()
     {
-        $proposals = $this->projectProposalService->getAll();
+        $proposals = $this->projectProposalService->getProposalsForUser(Auth::user());
         return view('pms::proposal-submitted.index', compact('proposals'));
     }
 

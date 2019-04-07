@@ -30,5 +30,7 @@ return [
     'Send to respective researcher' => 'নিজ নিজ গবেষক পাঠান',
     'Accepted final report' => 'গ্রহণযোগ্য চূড়ান্ত রিপোর্ট',
     'Send for publication' => 'প্রকাশনার জন্য পাঠান',
+    'planned' => 'পরিকল্পিত',
+    'achieved' => 'অর্জন',
 ];
 

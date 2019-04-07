@@ -147,9 +147,9 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
     });
 
     Route::prefix('project-details-proposal-submission')->group(function () {
-        Route::get('/', 'ProjectProposalController@index')->name('project-details-proposal-submission.index');
-        Route::get('{projectRequest}/create', 'ProjectProposalController@create')->name('project-details-proposal-submission.create');
-        Route::post('/', 'ProjectProposalController@store')->name('project-details-proposal-submission.store');
+        Route::get('/', 'ProjectDetailsProposalController@index')->name('project-details-proposal-submission.index');
+        Route::get('{projectRequest}/create', 'ProjectDetailsProposalController@create')->name('project-details-proposal-submission.create');
+        Route::post('/', 'ProjectDetailsProposalController@store')->name('project-details-proposal-submission.store');
         Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-details-proposal.attachment-download');
         Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-details-proposal-submission.file-download');
     });
