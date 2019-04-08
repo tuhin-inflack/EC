@@ -45,6 +45,34 @@ class ShareRulesDesignationSeeder extends Seeder
 
 //                ['share_rule_id' => 2,  'department_id' =>2,  'department' => 'Project Management System', 'designation_id' => 13, 'designation' => 'Asst. Director Project'],
 //                ['share_rule_id' => 2,  'department_id' =>2,  'department' => 'Project Management System', 'designation_id' => 15, 'designation' => 'Deputy Director Project'],
+
+                // Director Project
+                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 8],
+                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9],
+                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 10],
+                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 11],
+                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 12],
+
+//                ADP
+                ['share_rule_id' => 8, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2],
+                ['share_rule_id' => 8, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9],
+
+//                JDP
+                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2],
+                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 8],
+                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 10],
+
+//                DDP
+                ['share_rule_id' => 10, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2],
+                ['share_rule_id' => 10, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9],
+
+//               ADG
+                ['share_rule_id' => 11, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2],
+                ['share_rule_id' => 11, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 12],
+
+//               DG
+                ['share_rule_id' => 12, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 11],
+                ['share_rule_id' => 12, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2],
             ]
         );
     }

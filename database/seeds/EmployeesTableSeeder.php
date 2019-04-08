@@ -198,6 +198,11 @@ class EmployeesTableSeeder extends Seeder
             13 => ['employee_id' => 'HRM1', 'first_name' => 'Human Resource', 'last_name' => 'Faculty', 'email' => 'hrfm@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 1, "is_divisional_director" => 0, 'mobile_one' => '01711111114'],
             14 => ['employee_id' => 'DIRHR', 'first_name' => 'Director', 'last_name' => 'Human Resource', 'email' => 'dirhr@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 21, "is_divisional_director" => 1, 'mobile_one' => '01723111114'],
 
+            15 => ['employee_id' => 'DIRP', 'first_name' => 'Director', 'last_name' => 'Project', 'email' => 'dirp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 23,  "is_divisional_director" => 1, 'mobile_one' => '01711119113'],
+            16 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
+            16 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
+            18 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
+
         );
 
         foreach ($employees as $employee) {
@@ -213,8 +218,6 @@ class EmployeesTableSeeder extends Seeder
             if ($employee['employee_id']!='DG1'){
                 \App\Entities\User::create($user);
             }
-
-
         }
     }
 }
