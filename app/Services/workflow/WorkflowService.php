@@ -111,7 +111,6 @@ class WorkflowService
         } else if ($ruleDetail->is_group_notification && isset($data['designationTo'])) {
             $designationId = $data['designationTo'][$ruleDetail->notification_order];
         }
-        dd($designationId);
         return $designationId;
     }
 
