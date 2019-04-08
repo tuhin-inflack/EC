@@ -101,7 +101,7 @@
             <thead>
             <tr>
                 <th rowspan="2" width="4%"># SL</th>
-                <th rowspan="2">Fiscal Year</th>
+                <th rowspan="2">@lang('accounts::fiscal-year.title')</th>
                 <th colspan="2">@lang('draft-proposal-budget.monetary_amount')</th>
 
             </tr>
