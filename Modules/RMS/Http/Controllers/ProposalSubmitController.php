@@ -86,6 +86,13 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
+
+        $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+        dd($divisionalDirector);
+        if (is_null($divisionalDirector)) {
+            Session::flash('error', 'Your divisional director is not defined');
+            return redirect()->back();
+        }
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('rms.index');

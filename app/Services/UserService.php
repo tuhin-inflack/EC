@@ -188,4 +188,6 @@ class UserService
     {
         return $user->employee->employeeDepartment->department_code == DepartmentShortName::ResearchDivision;
     }
+
+
 }
