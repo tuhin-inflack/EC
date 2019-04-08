@@ -329,7 +329,7 @@ class PMSController extends Controller
         return redirect(route('pms'));
     }
 
-    public function getReviewForJointDirect($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)
+    public function shareReview($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
         $proposal = $this->projectProposalService->findOne($projectProposalSubmissionId);
         $featureName = config('constants.project_proposal_feature_name');
