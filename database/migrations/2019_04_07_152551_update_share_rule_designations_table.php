@@ -15,7 +15,6 @@ class UpdateShareRuleDesignationsTable extends Migration
     {
         Schema::table('share_rules_designations', function (Blueprint $table) {
             $table->boolean('is_sharable')->default(false);
-            $table->integer('share_rule_id')->nullable();
             $table->boolean('can_reject')->default(true);
             $table->boolean('can_approve')->default(false);
         });
