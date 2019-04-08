@@ -35,4 +35,9 @@ class ShareConversation extends Model
     {
         return $this->belongsTo(WorkflowDetail::class, 'request_ref_id', 'id');
     }
+
+    public function shareRuleDesignation()
+    {
+        return $this->belongsTo(ShareRuleDesignation::class, 'share_rule_designation_id', 'id');
+    }
 }
