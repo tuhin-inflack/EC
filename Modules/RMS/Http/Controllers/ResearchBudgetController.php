@@ -2,12 +2,13 @@
 
 namespace Modules\RMS\Http\Controllers;
 
-use App\Entities\DraftProposalBudget\DraftProposalBudget;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\RMS\Entities\Research;
+use Modules\RMS\Http\Requests\CreateResearchBudgetRequest;
+use Modules\RMS\Http\Requests\UpdateResearchBudgetRequest;
 use Modules\RMS\Services\ResearchBudgetService;
 
 class ResearchBudgetController extends Controller
@@ -45,7 +46,7 @@ class ResearchBudgetController extends Controller
      * @param Research $research
      * @return Response
      */
-    public function store(Request $request, Research $research)
+    public function store(CreateResearchBudgetRequest $request, Research $research)
     {
         $this->researchBudgetService->store($research, $request->all());
         Session::flash('success', trans('labels.save_success'));
@@ -68,7 +69,7 @@ class ResearchBudgetController extends Controller
      * @param Research $research
      * @return array
      */
-    public function update(Request $request, Research $research)
+    public function update(UpdateResearchBudgetRequest $request, Research $research)
     {
         $this->researchBudgetService->updateBudget($research, $request->all());
 

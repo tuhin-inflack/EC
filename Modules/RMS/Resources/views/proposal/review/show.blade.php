@@ -92,15 +92,16 @@
                                                 <div class="help-block">{{ $errors->first('message') }}</div>
                                             @endif
                                         </div>
+
                                         @if(!is_null($ruleDesignations))
                                             <div class="col-md-6">
                                                 <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                                     <label>{{__('labels.share')}}</label>
                                                     <select name="designation_id" class="form-control">
-                                                        <option value=""
-                                                                placeholder=""> {!!  trans('labels.select') !!}</option>
-                                                        @foreach($ruleDesignations as $designation)
-                                                            <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                                        <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
+
+                                                        @foreach($ruleDesignations as $ruleDesignation)
+                                                            <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     @if ($errors->has('designation_id'))
