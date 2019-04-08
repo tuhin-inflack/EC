@@ -103,4 +103,10 @@ class EmployeeServices
 
         return $employeeOptions;
     }
+
+    public function getDivisionalDirectorByDepartmentId($departmentId)
+    {
+        $divisionalDirector = $this->employeeRepository->findBy(['department_id' => $departmentId, 'is_divisional_director' => true])->first();
+        return $divisionalDirector;
+    }
 }

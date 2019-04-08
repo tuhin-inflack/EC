@@ -49,6 +49,7 @@ class ResearchRequestController extends Controller
         $employees =  $this->employeeServices->getEmployeesForDropdown(function ($employee){
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
         });
+        dd($employees);
         return view('rms::research-request.create', compact('employees'));
     }
 
