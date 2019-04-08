@@ -50,7 +50,6 @@ class ResearchRequestController extends Controller
             $designation = !is_null($employee->designation) ? $employee->designation->name : 'No Designation';
             return $employee->first_name. ' ' . $employee->last_name . ' - ' . $designation . ' - ' . $employee->employeeDepartment->name;
         });
-        dd($employees);
         return view('rms::research-request.create', compact('employees'));
     }
 

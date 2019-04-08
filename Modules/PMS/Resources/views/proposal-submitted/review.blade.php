@@ -126,7 +126,7 @@
                                 <label>{{__('labels.share')}}</label>
                                 <select name="designation_id" class="form-control">
                                     @foreach($shareRule->rulesDesignation as $designation)
-                                        <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                        <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
                                     @endforeach
                                 </select>
 

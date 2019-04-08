@@ -76,9 +76,9 @@ class ResearchProposalSubmissionService
         $this->employeeRepository = $employeeRepository;
     }
 
-    public function store(array $data)
+    public function store(array $data, $divisionalDirector)
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data, $divisionalDirector) {
             $data['status'] = 'PENDING';
 
             $proposalSubmission = $this->save($data);
@@ -100,7 +100,6 @@ class ResearchProposalSubmissionService
 
             $featureName = Config::get('constants.research_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
-            $divisionalDirector = $this->employeeRepository->getDivisionalDirectorByDepartmentId(3);
 
             $workflowData = [
                 'feature_id' => $feature->id,
@@ -109,6 +108,7 @@ class ResearchProposalSubmissionService
                 'message' => $data['message'],
                 'designationTo' => [1 => $divisionalDirector->designation_id]
             ];
+//            dd($workflowData);
 
             $this->workflowService->createWorkflow($workflowData);
 
