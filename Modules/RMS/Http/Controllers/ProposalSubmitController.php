@@ -178,7 +178,7 @@ class ProposalSubmitController extends Controller
         } else {
             $ruleDesignations = null;
         }
-//dd($ruleDesignations);
+
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
@@ -188,7 +188,7 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(CreateReviewRequest $request)
     {
-//        dd($request->all());
+        dd($request->all());
         if ($request->status == WorkflowStatus::REVIEW) {
             //TODO::Change workflow details status to review
             $response = $this->shareConversationService->saveShareConversation($request->all());
@@ -207,11 +207,12 @@ class ProposalSubmitController extends Controller
 
     public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
-
+//dd('i am here');
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $featureName = Config::get('constants.research_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
+        dd($remarks);
         return view('rms::proposal.review.review_for_joint_director', compact('research', 'feature',
             'remarks', 'researchProposalSubmissionId', 'shareConversationId'));
     }
