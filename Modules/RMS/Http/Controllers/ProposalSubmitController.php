@@ -86,7 +86,6 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-
         $this->researchProposalSubmissionService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('rms.index');
@@ -167,24 +166,25 @@ class ProposalSubmitController extends Controller
             $reviewButton = true;
         }
 
-
         if ($workflowRuleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
             $ruleDesignations = $shareRule->rulesDesignation;
         } else {
             $ruleDesignations = null;
         }
-
+//dd($ruleDesignations);
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
             'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton', 'researchInvitation'));
 
     }
+
     public function reviewUpdate(CreateReviewRequest $request)
     {
-
+//        dd($request->all());
         if ($request->status == WorkflowStatus::REVIEW) {
+            //TODO::Change workflow details status to review
             $response = $this->shareConversationService->saveShareConversation($request->all());
             Session::flash('message', $response->getContent());
         } else {
@@ -193,7 +193,7 @@ class ProposalSubmitController extends Controller
             $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
             $data = $request->except('_token');
             $this->dashboardWorkflowService->updateDashboardItem($data);
-//        Send Notifications
+            // Send Notifications
             $this->researchProposalSubmissionService->sendNotification($request);
         }
         return redirect('/rms');
@@ -223,7 +223,6 @@ class ProposalSubmitController extends Controller
     }
 
 
-
     public function reInitiate($researchProposalSubmissionId)
     {
         $username = Auth::user()->username;
@@ -235,7 +234,6 @@ class ProposalSubmitController extends Controller
 
     public function storeInitiate(Request $request, $researchProposalId)
     {
-
         $response = $this->researchProposalSubmissionService->updateReInitiate($request->all(), $researchProposalId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');

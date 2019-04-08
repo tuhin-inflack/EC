@@ -6,7 +6,7 @@
 @section('content')
     <section>
         <div class="row">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-12 col-md-8">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">@lang('pms::attribute_planning.enter_planning')</h4>
@@ -82,7 +82,7 @@
             <!-- Calculator Div -->
             {{--https://www.jqueryscript.net/other/Material-Design-Calculator-jQuery.html--}}
            
-            <div class="col-sm-12 col-md-6 ">
+            <div class="col-sm-12 col-md-4 ">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">@lang('pms::attribute_planning.calculator')</h4>
@@ -103,34 +103,34 @@
                                 </div>
                                 <div class="row numberPad">
                                     <div class="col-md-9">
-                                        <div class="row">
+                                        <div class="row-sm-3 ">
                                             <button class="btn clear hvr-back-pulse" id="clear">C</button>
                                             <button class="btn btn-calc hvr-radial-out" id="sqrt">√</button>
                                             <button class="btn btn-calc hvr-radial-out hvr-radial-out" id="square">
                                                 x<sup>2</sup></button>
                                         </div>
-                                        <div class="row">
+                                        <div class="row-sm-3">
                                             <button class="btn btn-calc hvr-radial-out" id="seven">7</button>
                                             <button class="btn btn-calc hvr-radial-out" id="eight">8</button>
                                             <button class="btn btn-calc hvr-radial-out" id="nine">9</button>
                                         </div>
-                                        <div class="row">
+                                        <div class="row-sm-3">
                                             <button class="btn btn-calc hvr-radial-out" id="four">4</button>
                                             <button class="btn btn-calc hvr-radial-out" id="five">5</button>
                                             <button class="btn btn-calc hvr-radial-out" id="six">6</button>
                                         </div>
-                                        <div class="row">
+                                        <div class="row-sm-3">
                                             <button class="btn btn-calc hvr-radial-out" id="one">1</button>
                                             <button class="btn btn-calc hvr-radial-out" id="two">2</button>
                                             <button class="btn btn-calc hvr-radial-out" id="three">3</button>
                                         </div>
-                                        <div class="row">
+                                        <div class="row-sm-3">
                                             <button class="btn btn-calc hvr-radial-out" id="plus_minus">&#177;</button>
                                             <button class="btn btn-calc hvr-radial-out" id="zero">0</button>
                                             <button class="btn btn-calc hvr-radial-out" id="decimal">.</button>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 operationSide">
+                                    <div class="col-sm-12 col-md-3 operationSide">
                                         <button id="divide" class="btn btn-operation hvr-fade">÷</button>
                                         <button id="multiply" class="btn btn-operation hvr-fade">×</button>
                                         <button id="subtract" class="btn btn-operation hvr-fade">−</button>

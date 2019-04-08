@@ -68,5 +68,6 @@ return [
     'project_invitation_details_list' => 'প্রকল্প বিস্তারিত তালিকা',
     'create_project_brief_proposal' => 'প্রকল্প সংক্ষেপ প্রস্তাব অনুরোধ করুন',
     'create_project_details_proposal' => 'প্রকল্প বিস্তারিত প্রস্তাব অনুরোধ করুন',
+    'project_title' => 'ব্যাপ্তিকাল',
 ];
 

@@ -131,7 +131,6 @@ class ResearchController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
@@ -141,7 +140,6 @@ class ResearchController extends Controller
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
-
     }
 
     public function createPublication($researchId)

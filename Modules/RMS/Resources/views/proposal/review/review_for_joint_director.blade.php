@@ -86,8 +86,7 @@
                                     {!! Form::hidden('feature_id', $feature->id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
-                                    <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide
-                                        feedback
+                                    <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide feedback
                                     </button>
                                     {!! Form::close() !!}
                                 </div>

@@ -37,7 +37,6 @@
                                             <div class="media">
                                                 <div class="media-body">
                                                     @foreach($remarks as $remark)
-                                                        {{--{{ dd($remark) }}--}}
                                                         <p class="text-bold-600 mb-0">
                                                             {{ $remark->user->name }}
                                                         </p>
@@ -72,6 +71,7 @@
                     <div class="card-footer">
                         @if($proposal->status != 'APPROVED')
                             {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                            {!! Form::hidden('reviewUrl', url()->current()) !!}
                             <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
                             <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                             <div class="row">

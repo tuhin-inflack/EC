@@ -69,4 +69,5 @@ return [
     'create_project_brief_proposal' => 'Project Brief Proposal Submission',
     'create_project_details_proposal' => 'Project Details Proposal Submission',
 
+    'project_title' => 'Title',
 ];

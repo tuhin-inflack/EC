@@ -9,10 +9,16 @@
 namespace Modules\PMS\Services;
 
 use App\Constants\NotificationType;
+use App\Entities\User;
+use App\Entities\workflow\WorkflowMaster;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
+use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\UserService;
+use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkFlowConversationService;
+use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
@@ -20,7 +26,6 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Config;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
@@ -33,35 +38,61 @@ class ProjectProposalService
     private $featureService;
     private $workflowService;
     private $userService;
+    private $dashboardService;
+    /**
+     * @var WorkflowMasterService
+     */
+    private $workflowMasterService;
+    /**
+     * @var WorkFlowConversationService
+     */
+    private $workFlowConversationService;
+    /**
+     * @var ReviewUrlGenerator
+     */
+    private $reviewUrlGenerator;
 
     /**
      * ProjectRequestService constructor.
      * @param ProjectDetailProposalRepository $projectProposalRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
+     * @param UserService $userService
+     * @param ReviewUrlGenerator $reviewUrlGenerator
      */
 
-    public function __construct(ProjectProposalRepository $projectProposalRepository,
-                                FeatureService $featureService,
-                                WorkflowService $workflowService,
-                                UserService $userService)
+    public function __construct(
+        ProjectProposalRepository $projectProposalRepository,
+        FeatureService $featureService,
+        WorkflowService $workflowService,
+        UserService $userService,
+        ReviewUrlGenerator $reviewUrlGenerator
+    )
     {
         $this->projectProposalRepository = $projectProposalRepository;
-        $this->featureService = $featureService;
         $this->workflowService = $workflowService;
+        $this->featureService = $featureService;
         $this->userService = $userService;
 
         $this->setActionRepository($projectProposalRepository);
+        $this->reviewUrlGenerator = $reviewUrlGenerator;
     }
 
-    public function getAll()
+    /**
+     * @param User $user
+     * @return \App\Repositories\Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     */
+    public function getProposalsForUser(User $user)
     {
-        return $this->projectProposalRepository->findAll();
+        if ($this->userService->isDirectorGeneral() || $this->userService->isProjectDivisionUser($user)) {
+            return $this->findAll();
+        } else {
+            return $this->findBy(['auth_user_id' => $user->id]);
+        }
     }
 
     public function store(array $data)
     {
-
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
 
@@ -93,7 +124,18 @@ class ProjectProposalService
             // Workflow initiate done
 
             //Generating Notification
-            $this->generatePMSNotification(['ref_table_id' =>  $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
+            $this->generatePMSNotification(
+                [
+                    'ref_table_id' => $proposalSubmission->id,
+                    'status' => 'SUBMITTED'
+                ],
+                'project_proposal_submission',
+                $this->reviewUrlGenerator->getReviewUrl(
+                    'project-proposal-submitted-review',
+                    $feature,
+                    $proposalSubmission
+                )
+            );
             // Notification generation done
 
             return $proposalSubmission;
@@ -142,15 +184,17 @@ class ProjectProposalService
         return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
     }
 
-    //Methods for triggering notifications
-    public function generatePMSNotification($notificationData, $event) : void
+    // Methods for triggering notifications
+    public function generatePMSNotification($notificationData, $event, $url): void
     {
-        $activityBy = (array_key_exists('activity_by', $notificationData))? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
+        $projectProposal = $this->findOne($notificationData['ref_table_id']);
+        $activityBy = (array_key_exists('activity_by', $notificationData)) ? $notificationData['activity_by'] : $this->userService->getDesignation(Auth::user()->username);
         $dynamicValues['notificationData'] = [
-            'ref_table_id'=> $notificationData['ref_table_id'],
-            'from_user_id'=> Auth::user()->id,
-            'message'=> 'A project has been '.$notificationData['status'].' by '.$activityBy,
-            'is_read'=> 0,
+            'ref_table_id' => $notificationData['ref_table_id'],
+            'from_user_id' => Auth::user()->id,
+            'message' => $projectProposal->title . ' has been ' . $notificationData['status'] . ' by ' . $activityBy,
+            'is_read' => 0,
+            'url' => $url
         ];
         $dynamicValues['event'] = $event;
         event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));

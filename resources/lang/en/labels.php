@@ -174,4 +174,5 @@ return [
     'for' => 'for',
     'your_registration_is_completed' => 'your registration is completed',
     'thank_you' => 'Thank You',
+    'thanks' => 'Thanks',
 ];

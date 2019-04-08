@@ -26,7 +26,7 @@ class EditDesignationIdToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function(Blueprint $table) {
-            $table->renameColumn('designation_id', 'designation_code');
+//            $table->renameColumn('designation_id', 'designation_code');
         });
     }
 }

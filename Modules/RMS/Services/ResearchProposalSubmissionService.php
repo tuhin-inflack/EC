@@ -8,16 +8,16 @@ use App\Constants\WorkflowStatus;
 use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
+use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\UserService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkFlowConversationService;
+use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
-use Carbon\Carbon;
 use Chumper\Zipper\Facades\Zipper;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -35,24 +35,47 @@ class ResearchProposalSubmissionService
     private $workflowService;
     private $featureService;
     private $userService;
+    /**
+     * @var WorkflowMasterService
+     */
+    private $workflowMasterService;
+    /**
+     * @var WorkFlowConversationService
+     */
+    private $workFlowConversationService;
+    /**
+     * @var ReviewUrlGenerator
+     */
+    private $reviewUrlGenerator;
 
-    public function __construct(ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService,
-                                FeatureService $featureService, UserService $userService)
+    /**
+     * ResearchProposalSubmissionService constructor.
+     * @param ResearchProposalSubmissionRepository $researchProposalSubmissionRepository
+     * @param WorkflowService $workflowService
+     * @param FeatureService $featureService
+     * @param UserService $userService
+     * @param ReviewUrlGenerator $reviewUrlGenerator
+     */
+    public function __construct(
+        ResearchProposalSubmissionRepository $researchProposalSubmissionRepository,
+        WorkflowService $workflowService,
+        FeatureService $featureService,
+        UserService $userService,
+        ReviewUrlGenerator $reviewUrlGenerator
+    )
     {
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
         $this->userService = $userService;
         $this->setActionRepository($researchProposalSubmissionRepository);
+        $this->reviewUrlGenerator = $reviewUrlGenerator;
     }
 
     public function store(array $data)
     {
-
-
         return DB::transaction(function () use ($data) {
             $data['status'] = 'PENDING';
-
 
             $proposalSubmission = $this->save($data);
 
@@ -87,7 +110,11 @@ class ResearchProposalSubmissionService
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => Config::get('rms-notification.research_proposal_submitted'),
                 'to_users_designation' => Config::get('constants.research_proposal_submission'),
-
+                'url' => $this->reviewUrlGenerator->getReviewUrl(
+                    'research-proposal-submission-review',
+                    $feature,
+                    $proposalSubmission
+                ),
             ];
             event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
 
@@ -141,10 +168,8 @@ class ResearchProposalSubmissionService
         return $zipFilePath;
     }
 
-
     public function updateReInitiate(array $data, $researchProposalId)
     {
-
         return DB::transaction(function () use ($data, $researchProposalId) {
             $data['status'] = 'PENDING';
             $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
@@ -173,8 +198,20 @@ class ResearchProposalSubmissionService
             ];
 
             $this->workflowService->reinitializeWorkflow($reInitializeData);
-            return new Response(trans('rms::research_proposal.re_initiate_success'));
 
+            //Send Notifications
+            $notificationData = [
+                'ref_table_id' => $researchProposal->id,
+                'message' => Config::get('rms-notification.research_proposal_reinitiated'),
+                'to_users_designation' => Config::get('constants.research_proposal_submission'),
+                'url' => $this->reviewUrlGenerator->getReviewUrl(
+                    'research-proposal-submission-review',
+                    $feature,
+                    $researchProposal
+                ),
+            ];
+            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+            return new Response(trans('rms::research_proposal.re_initiate_success'));
         });
     }
 
@@ -227,7 +264,6 @@ class ResearchProposalSubmissionService
     //send notification while review, approve & short list for apc. called from @ProposalSubmissionController
     public function sendNotification($request)
     {
-        //dd($request->item_id);
 
         $loggedInUserDesignationShortName = $this->userService->getLoggedInUser()->employee->designation->short_name;
         $messageBy = ' by ' . $this->userService->getLoggedInUser()->name;
@@ -250,9 +286,11 @@ class ResearchProposalSubmissionService
                 $notificationData['to_users_designation'] = Config::get('constants.research_proposal_approved');
 
             }
+        }else{
+            $notificationData['message'] = $request->message;
         }
+        $notificationData['url'] = $request['url'];
         event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
-
     }
 
     public function getResearchProposalForUser(User $user)

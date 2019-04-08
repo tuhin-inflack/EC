@@ -30,4 +30,6 @@ return [
     'Send to respective researcher' => 'Send to respective researcher',
     'Accepted final report' => 'Accepted final report',
     'Send for publication' => 'Send for publication',
+    'planned' => 'Planned',
+    'achieved' => 'Achieved',
 ];

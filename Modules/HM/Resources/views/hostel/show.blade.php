@@ -75,38 +75,85 @@
                                             <td>{{ $room->roomType->bard_emp_rate }}</td>
                                             <td>{{ $room->roomType->special_rate }}</td>
                                             <td>
-                                                <div class="row">
-                                                    <div class="col-md-6">@if($room->status == 'available')
-                                                            {{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}
+                                                {{--<div class="row">--}}
+                                                {{--<div class="col-md-6">@if($room->status == 'available')--}}
+                                                {{--{{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}--}}
+                                                {{--{{ Form::hidden('status', 'not-in-service') }}--}}
+                                                {{--<button class="btn btn-sm btn-warning"--}}
+                                                {{--onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_not-in-service')--}}
+                                                {{--</button>--}}
+                                                {{--{{ Form::close() }}--}}
+                                                {{--@elseif($room->status == 'not-in-service')--}}
+
+                                                {{--{{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}--}}
+                                                {{--{{ Form::hidden('status', 'available') }}--}}
+                                                {{--<button class="btn btn-sm btn-primary"--}}
+                                                {{--onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_available')--}}
+                                                {{--</button>--}}
+                                                {{--{{ Form::close() }}--}}
+                                                {{--@endif</div>--}}
+                                                {{--<div class="col-md-6">{!! Form::open([--}}
+                                                {{--'method'=>'DELETE',--}}
+                                                {{--'route' => [ 'rooms.destroy', $room->id],--}}
+                                                {{--'style' => 'display:inline'--}}
+                                                {{--]) !!}--}}
+                                                {{--{!! Form::button('<i class="ft-trash"></i> ', array(--}}
+                                                {{--'type' => 'submit',--}}
+                                                {{--'class' => 'btn btn-sm btn-danger',--}}
+                                                {{--'title' => __('labels.delete'),--}}
+                                                {{--'onclick'=>'return confirm("' . trans('labels.confirm_delete') . '?")',--}}
+                                                {{--)) !!}--}}
+                                                {{--{!! Form::close() !!}</div>--}}
+                                                {{--</div>--}}
+                                                <span class="dropdown">
+                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
+                                                        aria-haspopup="true"
+                                                        aria-expanded="false" class="btn btn-info dropdown-toggle"><i
+                                                            class="la la-cog"></i></button>
+                                                    <span aria-labelledby="btnSearchDrop2"
+                                                          class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        @if($room->status == 'available')
+                                                            {{ Form::open([
+                                                                'route' => ['rooms.status.update', $room->id],
+                                                                'method' => 'PUT',
+                                                                'style' => 'display: inline'
+                                                            ]) }}
                                                             {{ Form::hidden('status', 'not-in-service') }}
-                                                            <button class="btn btn-sm btn-warning"
-                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_not-in-service')
+                                                            <button class="dropdown-item"
+                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">
+                                                                <i class="ft-alert-circle"></i>
+                                                                @lang('hm::room.status_not-in-service')
                                                             </button>
                                                             {{ Form::close() }}
                                                         @elseif($room->status == 'not-in-service')
-
-                                                            {{ Form::open(['route' => ['rooms.status.update', $room->id],'method' => 'PUT', 'style' => 'display: inline']) }}
+                                                            {{ Form::open([
+                                                                'route' => ['rooms.status.update', $room->id],
+                                                                'method' => 'PUT',
+                                                                'style' => 'display: inline'
+                                                            ]) }}
                                                             {{ Form::hidden('status', 'available') }}
-                                                            <button class="btn btn-sm btn-primary"
-                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">@lang('hm::room.status_available')
+                                                            <button class="dropdown-item"
+                                                                    onclick="return confirm('{{ trans('labels.confirm_action') }}?')">
+                                                                <i class="ft-check"></i>
+                                                                @lang('hm::room.status_available')
                                                             </button>
                                                             {{ Form::close() }}
-                                                        @endif</div>
-                                                    <div class="col-md-6">{!! Form::open([
-                                                'method'=>'DELETE',
-                                                'route' => [ 'rooms.destroy', $room->id],
-                                                'style' => 'display:inline'
-                                                ]) !!}
-                                                        {!! Form::button('<i class="ft-trash"></i> ', array(
-                                                        'type' => 'submit',
-                                                        'class' => 'btn btn-sm btn-danger',
-                                                        'title' => __('labels.delete'),
-                                                        'onclick'=>'return confirm("' . trans('labels.confirm_delete') . '?")',
+                                                        @endif
+                                                        <div class="dropdown-divider"></div>
+                                                        {!! Form::open([
+                                                            'method'=>'DELETE',
+                                                            'route' => [ 'rooms.destroy', $room->id],
+                                                            'style' => 'display:inline'
+                                                        ]) !!}
+                                                        {!! Form::button('<i class="ft-trash"></i>'.trans('labels.delete'), array(
+                                                            'type' => 'submit',
+                                                            'class' => 'dropdown-item',
+                                                            'title' => __('labels.delete'),
+                                                            'onclick' => 'return confirm("' . trans('labels.confirm_delete') . '")',
                                                         )) !!}
-                                                        {!! Form::close() !!}</div>
-                                                </div>
-
-
+                                                        {!! Form::close() !!}
+                                                    </span>
+                                                </span>
                                             </td>
                                         </tr>
                                     @endforeach

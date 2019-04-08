@@ -13,6 +13,7 @@ use App\Constants\WorkflowGetBackStatus;
 use App\Constants\WorkflowStatus;
 use App\Entities\workflow\WorkflowDetail;
 use App\Entities\workflow\WorkflowMaster;
+use App\Entities\workflow\WorkflowRuleDetail;
 use App\Entities\workflow\WorkflowRuleMaster;
 use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Repositories\workflow\WorkflowDetailRepository;
@@ -68,7 +69,7 @@ class WorkflowService
         ]);
 
         //Save workflow details
-        $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster);
+        $workflowDetails = $this->getWorkflowDetails($workflowMaster, $ruleMaster, $data);
 
         $workflowMaster->workflowDetails()->saveMany($workflowDetails);
 
@@ -82,16 +83,17 @@ class WorkflowService
         ]);
     }
 
-    private function getWorkflowDetails(WorkflowMaster $workflowMaster, WorkflowRuleMaster $workflowRuleMaster)
+    private function getWorkflowDetails(WorkflowMaster $workflowMaster, WorkflowRuleMaster $workflowRuleMaster, $data)
     {
         $workflowDetailList = array();
         $notificationOrder = 1;
         $workflowRuleDetailList = $workflowRuleMaster->ruleDetails;
 
         foreach ($workflowRuleDetailList as $ruleDetail) {
+            $designationId = $this->getDesignationByRule($ruleDetail, $data);
             for ($i = 0; $i < $ruleDetail->number_of_responder; $i++) {
                 $workflowDetail = new WorkflowDetail(['workflow_master_id' => $workflowMaster->id, 'rule_detail_id' => $ruleDetail->id,
-                    'designation_id' => $ruleDetail->designation_id, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
+                    'designation_id' => $designationId, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
                     'is_group_notification' => $ruleDetail->is_group_notification, 'status' => $notificationOrder == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED]);
                 array_push($workflowDetailList, $workflowDetail);
                 $notificationOrder++;
@@ -99,6 +101,17 @@ class WorkflowService
         }
 
         return $workflowDetailList;
+    }
+
+    private function getDesignationByRule(WorkflowRuleDetail $ruleDetail, $data) {
+        $designationId = null;
+        if ($ruleDetail->designation_id) {
+            $designationId = $ruleDetail->designation_id;
+        } else if ($ruleDetail->is_group_notification && isset($data['designationTo'])) {
+            $designationId = $data['designationTo'][$ruleDetail->notification_order];
+        }
+
+        return $designationId;
     }
 
     public function getWorkFlowNotification($userId, array $designationIds)
@@ -127,7 +140,7 @@ class WorkflowService
     private function isPendingWorkFlow($flowDetailsList)
     {
         foreach ($flowDetailsList as $flowDetail) {
-            if ($flowDetail->status == WorkflowStatus::PENDING) {
+            if ($flowDetail->status == WorkflowStatus::PENDING || $flowDetail->status == WorkflowStatus::REVIEW) {
                 return true;
             }
         }
@@ -149,8 +162,15 @@ class WorkflowService
         $workFlowConversation = $this->flowConversationService->findOne($workFlowConversationId);
         $workFlowMaster = $this->workFlowMasterRepository->findOne($workFlowId);
         $workflowDetails = $this->workflowDetailRepository->findOne($workFlowConversation->workflow_details_id);
-        $this->updateWorkFlowDetails($workFlowMaster->workflowDetails, $status,
-            $workflowDetails->ruleDetails->get_back_status, $responderId, $message, $workFlowConversation->workflow_details_id, $remarks);
+        $this->updateWorkFlowDetails(
+            $workFlowMaster->workflowDetails,
+            $status,
+            $workflowDetails->ruleDetails->get_back_status,
+            $responderId,
+            $message,
+            $workFlowConversation->workflow_details_id,
+            $remarks
+        );
         if ($this->isFlowCompleted($workFlowMaster->ruleMaster->get_back_status, $workFlowMaster->workflowDetails)) {
             if ($this->isFlowAccepted($workFlowMaster->workflowDetails)) {
                 $workFlowMaster->status = WorkflowStatus::APPROVED;
@@ -162,8 +182,15 @@ class WorkflowService
         $workFlowMaster->update();
     }
 
-    private function updateWorkFlowDetails($flowDetailsList, $responseStatus, $getBackStatus,
-                                           $responderId, $message, $workFlowDetailsId, $remarks)
+    private function updateWorkFlowDetails(
+        $flowDetailsList,
+        $responseStatus,
+        $getBackStatus,
+        $responderId,
+        $message,
+        $workFlowDetailsId,
+        $remarks
+    )
     {
         for ($count = 0; $count < count($flowDetailsList); $count++) {
             $flowDetails = $flowDetailsList[$count];
@@ -210,7 +237,10 @@ class WorkflowService
 
     public function reinitializeWorkflow($data)
     {
-        $workflowMaster = $this->workFlowMasterRepository->findOneBy(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id']]);
+        $workflowMaster = $this->workFlowMasterRepository->findOneBy([
+            'feature_id' => $data['feature_id'],
+            'ref_table_id' => $data['ref_table_id']
+        ]);
 
         $workflowDetails = $workflowMaster->workflowDetails;
 
@@ -223,14 +253,33 @@ class WorkflowService
 
         //Save conversation
         $this->flowConversationService->closeByFlowMaster($workflowMaster->id);
-        $this->flowConversationRepository->save(['workflow_master_id' => $workflowMaster->id, 'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
-            'feature_id' => $data['feature_id'], 'message' => $data['message'], 'status' => WorkflowConversationStatus::ACTIVE]);
+        $this->flowConversationRepository->save([
+            'workflow_master_id' => $workflowMaster->id,
+            'workflow_details_id' => $workflowMaster->workflowDetails[0]->id,
+            'feature_id' => $data['feature_id'],
+            'message' => $data['message'],
+            'status' => WorkflowConversationStatus::ACTIVE
+        ]);
     }
 
     public function getRejectedItems($userId, $featureId)
     {
         return $this->workFlowMasterRepository->findBy(['initiator_id' => $userId, 'status' => WorkflowStatus::REJECTED,
             'feature_id' => $featureId]);
+    }
+
+    public function approveWorkflow($workflowMasterId)
+    {
+        $workflowMaster = $this->workFlowMasterRepository->findOne($workflowMasterId);
+        $this->workFlowMasterRepository->update($workflowMaster, ['status' => WorkflowStatus::APPROVED]);
+
+        $workflowDetails = $workflowMaster->workflowDetails;
+        foreach ($workflowDetails as $workflowDetail) {
+            if ($workflowDetail->status != WorkflowStatus::APPROVED) {
+                $workflowDetail->status = WorkflowStatus::APPROVED;
+                $workflowDetail->update();
+            }
+        }
     }
 
     public function closeWorkflow($workflowMasterId)
@@ -257,7 +306,7 @@ class WorkflowService
         return $this->flowConversationRepository->findOne($id);
     }
 
-    public function getWorkflowMasterByFeatureAndRefTableId($featureId,$refTableId)
+    public function getWorkflowMasterByFeatureAndRefTableId($featureId, $refTableId)
     {
         return $this->workFlowMasterRepository->findBy(['feature_id' => $featureId, 'ref_table_id' => $refTableId]);
     }
