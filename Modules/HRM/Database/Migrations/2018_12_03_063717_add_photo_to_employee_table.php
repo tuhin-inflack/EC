@@ -26,7 +26,7 @@ class AddPhotoToEmployeeTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-	        $table->dropColumn('photo');
+//	        $table->dropColumn('photo');
         });
     }
 }

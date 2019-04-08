@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class EditDesignationIdToEmployeesTable extends Migration
+class AddIsDivisionalDirectorToEmployeesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class EditDesignationIdToEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::table('employees', function(Blueprint $table) {
-            $table->renameColumn('designation_code', 'designation_id');
+        Schema::table('employees', function (Blueprint $table) {
+            $table->boolean('is_divisional_director')->default(false)->after('designation_id');
         });
     }
 
@@ -25,8 +25,8 @@ class EditDesignationIdToEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function(Blueprint $table) {
-//            $table->renameColumn('designation_id', 'designation_code');
+        Schema::table('employees', function (Blueprint $table) {
+            $table->dropIfExists('is_divisional_director');
         });
     }
 }

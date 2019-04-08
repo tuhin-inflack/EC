@@ -17,9 +17,9 @@ class CreateShareRulesDesignationsTable extends Migration
             $table->increments('id');
             $table->integer('share_rule_id');
             $table->integer('department_id');
-            $table->string('department');
+            $table->string('department')->nullable();
             $table->integer('designation_id');
-            $table->string('designation');
+            $table->string('designation')->nullable();
             $table->timestamps();
         });
     }

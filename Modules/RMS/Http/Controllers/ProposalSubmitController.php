@@ -172,7 +172,7 @@ class ProposalSubmitController extends Controller
         } else {
             $ruleDesignations = null;
         }
-
+//dd($ruleDesignations);
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
@@ -182,6 +182,7 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(CreateReviewRequest $request)
     {
+//        dd($request->all());
         if ($request->status == WorkflowStatus::REVIEW) {
             //TODO::Change workflow details status to review
             $response = $this->shareConversationService->saveShareConversation($request->all());
