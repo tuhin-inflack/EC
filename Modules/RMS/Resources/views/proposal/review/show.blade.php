@@ -118,6 +118,7 @@
                                         {!! Form::hidden('department_id', $workflowRuleMaster->department_id) !!}
                                         {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
                                         {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
+                                        {!! Form::hidden('share_rule_id', $workflowRuleDetails->share_rule_id) !!}
                                         {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                         {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
                                         {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}

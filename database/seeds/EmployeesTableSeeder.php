@@ -191,7 +191,7 @@ class EmployeesTableSeeder extends Seeder
             8 => ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
             9 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
             10 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
-            11 => ['employee_id' => 'DG1', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 17, "is_divisional_director" => 0, 'mobile_one' => '01711131113'],
+            11 => ['employee_id' => 'directorgeneral', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 17, "is_divisional_director" => 0, 'mobile_one' => '01711131113'],
             12 => ['employee_id' => 'ADGR', 'first_name' => 'Asst. Director', 'last_name' => 'General', 'email' => 'adg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 16, "is_divisional_director" => 0, 'mobile_one' => '01711211113'],
 
 //            seeding hrm data
@@ -215,7 +215,7 @@ class EmployeesTableSeeder extends Seeder
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
             $user['reference_table_id'] = $count++;
-            if ($employee['employee_id']!='DG1'){
+            if ($employee['employee_id']!='directorgeneral'){
                 \App\Entities\User::create($user);
             }
         }

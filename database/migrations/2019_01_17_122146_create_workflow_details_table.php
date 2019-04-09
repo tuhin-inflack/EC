@@ -23,7 +23,7 @@ class CreateWorkflowDetailsTable extends Migration
             $table->integer('creator_id');
             $table->integer('responder_id')->nullable();
             $table->string('responder_remarks')->nullable();
-            $table->enum('status', ['INITIATED', 'PENDING', 'APPROVED', 'REJECTED', 'CLOSED', 'REINITIATED']);
+            $table->string('status');
             $table->timestamps();
         });
     }
