@@ -47,7 +47,8 @@ class ResearchRequestController extends Controller
     public function create()
     {
         $employees =  $this->employeeServices->getEmployeesForDropdown(function ($employee){
-            return $employee->first_name. ' ' . $employee->last_name . ' - ' . $employee->designation->name . ' - ' . $employee->employeeDepartment->name;
+            $designation = !is_null($employee->designation) ? $employee->designation->name : 'No Designation';
+            return $employee->first_name. ' ' . $employee->last_name . ' - ' . $designation . ' - ' . $employee->employeeDepartment->name;
         });
         return view('rms::research-request.create', compact('employees'));
     }

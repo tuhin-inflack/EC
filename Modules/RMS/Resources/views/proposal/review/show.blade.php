@@ -92,15 +92,16 @@
                                                 <div class="help-block">{{ $errors->first('message') }}</div>
                                             @endif
                                         </div>
+
                                         @if(!is_null($ruleDesignations))
                                             <div class="col-md-6">
                                                 <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                                     <label>{{__('labels.share')}}</label>
                                                     <select name="designation_id" class="form-control">
-                                                        <option value=""
-                                                                placeholder=""> {!!  trans('labels.select') !!}</option>
-                                                        @foreach($ruleDesignations as $designation)
-                                                            <option value="{{$designation->designation_id}}">{{$designation->designation}}</option>
+                                                        <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
+
+                                                        @foreach($ruleDesignations as $ruleDesignation)
+                                                            <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
                                                         @endforeach
                                                     </select>
                                                     @if ($errors->has('designation_id'))
@@ -117,6 +118,7 @@
                                         {!! Form::hidden('department_id', $workflowRuleMaster->department_id) !!}
                                         {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
                                         {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
+                                        {!! Form::hidden('share_rule_id', $workflowRuleDetails->share_rule_id) !!}
                                         {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                         {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
                                         {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}

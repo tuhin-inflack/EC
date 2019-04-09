@@ -86,7 +86,13 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-        $this->researchProposalSubmissionService->store($request->all());
+
+        $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+        if (is_null($divisionalDirector)) {
+            Session::flash('error', 'Your divisional director is not defined');
+            return redirect()->back();
+        }
+        $this->researchProposalSubmissionService->store($request->all(), $divisionalDirector);
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('rms.index');
 
@@ -172,7 +178,7 @@ class ProposalSubmitController extends Controller
         } else {
             $ruleDesignations = null;
         }
-//dd($ruleDesignations);
+
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
@@ -182,11 +188,8 @@ class ProposalSubmitController extends Controller
 
     public function reviewUpdate(CreateReviewRequest $request)
     {
-//        dd($request->all());
         if ($request->status == WorkflowStatus::REVIEW) {
-            //TODO::Change workflow details status to review
-            $response = $this->shareConversationService->saveShareConversation($request->all());
-            Session::flash('message', $response->getContent());
+            $response = $this->shareConversationService->shareFromWorkflow($request->all());
         } else {
 
             $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
@@ -196,26 +199,46 @@ class ProposalSubmitController extends Controller
             // Send Notifications
             $this->researchProposalSubmissionService->sendNotification($request);
         }
+        Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
     }
 
     public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
 
+        $shareConversation = $this->shareConversationService->findOne($shareConversationId);
+        if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
+            $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
+            $ruleDesignations = $shareRule->rulesDesignation;
+        } else {
+            $ruleDesignations = null;
+        }
+
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $featureName = Config::get('constants.research_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
+
         return view('rms::proposal.review.review_for_joint_director', compact('research', 'feature',
-            'remarks', 'researchProposalSubmissionId', 'shareConversationId'));
+            'remarks', 'researchProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
     public function feedbackForJointDirect(Request $request, $shareConversationId)
     {
-
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
-        $this->remarksService->save($data);
+        $currentConv = $this->shareConversationService->findOne($shareConversationId);
+
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $data['request_ref_id'] = $currentConv->request_ref_id;
+            $response = $this->shareConversationService->saveShareConversation($data, $currentConv);
+        }
+
+        if ($request->status == WorkflowStatus::APPROVED) {
+
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+        }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
 
         Session::flash('success', trans('labels.save_success'));
@@ -261,19 +284,19 @@ class ProposalSubmitController extends Controller
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
     }
-
-    public function apcReview($researchProposalSubmissionId)
-    {
-        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
-        return view('rms::proposal.apc-review.show', compact('research'));
-    }
-
-    public function approveApcReview(Request $request, $researchProposalSubmissionId)
-    {
-        $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
-        Session::flash('success', $response->getContent());
-        return redirect()->route('rms.index');
-    }
+//
+//    public function apcReview($researchProposalSubmissionId)
+//    {
+//        $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
+//        return view('rms::proposal.apc-review.show', compact('research'));
+//    }
+//
+//    public function approveApcReview(Request $request, $researchProposalSubmissionId)
+//    {
+//        $response = $this->researchProposalSubmissionService->apcApproved($request->status, $researchProposalSubmissionId);
+//        Session::flash('success', $response->getContent());
+//        return redirect()->route('rms.index');
+//    }
 
     public function addAttachment(CreateProposalSubmissionAttachmentRequest $proposalSubmissionAttachment)
     {

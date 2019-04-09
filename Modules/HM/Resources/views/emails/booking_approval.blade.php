@@ -274,8 +274,9 @@
                                                     {{--<p><span class="text-bold-600"></span></p>--}}
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <table class="table table-striped table-bordered"
-                                                                   style="margin-left: 15px;margin-right: 15px;">
+                                                            <table cellpadding="10" cellspacing="5"
+                                                                   class="table table-striped table-bordered"
+                                                                   style="margin-left: 15px;margin-right: 15px; border: 1px solid;">
                                                                 <thead>
                                                                 <tr>
                                                                     <th style="margin-right: 30px">@lang('labels.serial')</th>
@@ -290,8 +291,8 @@
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                                                        <td style="text-align: center" >{{ $guestInfo->name }}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->age }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->first_name }} {{ $guestInfo->middle_name }} {{ $guestInfo->last_name }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->age ? : '' }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->gender }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->relation }}</td>

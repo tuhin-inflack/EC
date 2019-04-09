@@ -18,9 +18,11 @@ use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Repositories\EmployeeRepository;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchProposalSubmissionRepository;
@@ -47,6 +49,10 @@ class ResearchProposalSubmissionService
      * @var ReviewUrlGenerator
      */
     private $reviewUrlGenerator;
+    /*
+     * @var $
+     */
+    private $employeeRepository;
 
     /**
      * ResearchProposalSubmissionService constructor.
@@ -57,12 +63,9 @@ class ResearchProposalSubmissionService
      * @param ReviewUrlGenerator $reviewUrlGenerator
      */
     public function __construct(
-        ResearchProposalSubmissionRepository $researchProposalSubmissionRepository,
-        WorkflowService $workflowService,
-        FeatureService $featureService,
-        UserService $userService,
-        ReviewUrlGenerator $reviewUrlGenerator
-    )
+        ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService,
+        FeatureService $featureService, UserService $userService, ReviewUrlGenerator $reviewUrlGenerator,
+        EmployeeRepository $employeeRepository)
     {
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
@@ -70,11 +73,12 @@ class ResearchProposalSubmissionService
         $this->userService = $userService;
         $this->setActionRepository($researchProposalSubmissionRepository);
         $this->reviewUrlGenerator = $reviewUrlGenerator;
+        $this->employeeRepository = $employeeRepository;
     }
 
-    public function store(array $data)
+    public function store(array $data, $divisionalDirector)
     {
-        return DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data, $divisionalDirector) {
             $data['status'] = 'PENDING';
 
             $proposalSubmission = $this->save($data);
@@ -96,12 +100,15 @@ class ResearchProposalSubmissionService
 
             $featureName = Config::get('constants.research_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
             $workflowData = [
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'designationTo' => [1 => $divisionalDirector->designation_id]
             ];
+//            dd($workflowData);
 
             $this->workflowService->createWorkflow($workflowData);
 
@@ -117,7 +124,6 @@ class ResearchProposalSubmissionService
                 ),
             ];
             event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
-
 
 
             return $proposalSubmission;
@@ -286,7 +292,7 @@ class ResearchProposalSubmissionService
                 $notificationData['to_users_designation'] = Config::get('constants.research_proposal_approved');
 
             }
-        }else{
+        } else {
             $notificationData['message'] = $request->message;
         }
         $notificationData['url'] = $request['url'];
@@ -295,21 +301,17 @@ class ResearchProposalSubmissionService
 
     public function getResearchProposalForUser(User $user)
     {
-        if($this->userService->isDirectorGeneral())
-        {
+        if ($this->userService->isDirectorGeneral()) {
             return $this->researchProposalSubmissionRepository->findAll();
 
-        }else if($this->userService->isDesignationFacultyMember($user))
-        {
-            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id'=>$user->id]);
+        } else if ($this->userService->isDesignationFacultyMember($user)) {
+            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id' => $user->id]);
 
-        }else if($this->userService->isResearchDivisionUser($user))
-        {
+        } else if ($this->userService->isResearchDivisionUser($user)) {
             return $this->researchProposalSubmissionRepository->findAll();
 
-        }else
-        {
-            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id'=>$user->id]);
+        } else {
+            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id' => $user->id]);
         }
     }
 }
