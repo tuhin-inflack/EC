@@ -61,6 +61,16 @@ $(document).ready(function () {
             return Date.parse(value) >= Date.parse(comparingDate);
         }, 'Must be greater than or equal to {0}.');
 
+    // jQuery.validator.addMethod("CheckRoomValidation",
+    //     function (value, element, params) {
+    //         if (validationStatus) {
+    //             return true
+    //         } else {
+    //             return false;
+    //         }
+    //     }, customErrorMessage);
+
+
     $('.booking-request-tab-steps').validate({
         ignore: 'input[type=hidden]', // ignore hidden fields
         errorClass: 'danger',
@@ -82,6 +92,7 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
+
         rules: {
             end_date: {
                 greaterThanOrEqual: '#start_date'
@@ -89,6 +100,9 @@ $(document).ready(function () {
             first_name: {
                 maxlength: 50
             },
+            // 'room-show': {
+            //     CheckRoomValidation: 0
+            // },
             contact: {
                 minlength: 11,
                 maxlength: 11
@@ -129,7 +143,7 @@ $(document).ready(function () {
                     $guestInfoRepeater.find('button[data-repeater-create]').hide();
                     // render trainees table
                     $('.trainee-list').html(traineesListFromTraining(data));
-                    $('#guests-info-table').find('tbody').html(traineesInfoListFromTraining(data));
+                    traineesInfoListFromTraining(data);
                 })
                 .fail(function () {
                     alert('Failed to get content from server');
@@ -148,7 +162,7 @@ $(document).ready(function () {
 
 function initializeSelectReferee() {
     let $selectReferee = $('#referee-select').select2();
-    
+
     let bookingRequestRefereeId = $selectReferee.val();
 
     if (bookingRequestRefereeId) {
@@ -186,7 +200,7 @@ function getRefereeInformation(employeeId) {
     }
 
     let employee = employees.find(emp => emp.id == employeeId);
-    let designation = designations.find(designation => designation.id == employee.designation_code);
+    let designation = designations.find(designation => designation.id == employee.designation_id);
     let department = departments.find(dept => dept.id == employee.department_id);
 
     $('#referee-name').html(employee.first_name + ' ' + employee.last_name);
@@ -215,15 +229,17 @@ function traineesListFromTraining(trainees) {
     let tableRows = '';
 
     trainees.forEach((trainee, index) => {
+        let splitedName = nameSpliter(trainee.bangla_name);
+
         tableRows += `<tr>
-        <input type="hidden" name="guests[${index}][first_name]" value="${trainee.trainee_first_name}"/>
-        <input type="hidden" name="guests[${index}][last_name]" value="${trainee.trainee_last_name}"/>
+        <input type="hidden" name="guests[${index}][first_name]" value="${splitedName.first_tName}"/>
+        <input type="hidden" name="guests[${index}][last_name]" value="${splitedName.last_tName}"/>
         <input type="hidden" name="guests[${index}][gender]" value="${trainee.trainee_gender.toLowerCase()}"/>
-        <input type="hidden" name="guests[${index}][age]" value="1"/>
+ 
         <input type="hidden" name="guests[${index}][relation]" value="trainee"/>
         <input type="hidden" name="guests[${index}][address]" value="Bangladesh"/>
-        <td>${trainee.trainee_first_name}</td>
-        <td>${trainee.trainee_last_name}</td>
+        <td>${splitedName.first_tName}</td>
+        <td>${splitedName.last_tName}</td>
         <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
         <td>${trainee.mobile}</td>
         </tr>`;
@@ -248,14 +264,26 @@ function traineesInfoListFromTraining(trainees) {
     let tbody = '';
 
     trainees.forEach((trainee) => {
+        let splitedName = nameSpliter(trainee.bangla_name);
+        console.log(splitedName);
         tbody += `<tr>
-        <td>${trainee.trainee_first_name} ${trainee.trainee_last_name}</td>
-        <td></td>
-        <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
-        <td>শিক্ষানবিস</td>
-        <td>বাংলাদেশ</td>
+            <td>${splitedName.first_tName} ${splitedName.last_tName}</td>
+            <td>বাংলাদেশ</td>
+            <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
+            <td>শিক্ষানবিস</td>
+            <td>বাংলাদেশ</td>
         </tr>`;
     });
 
-    return tbody;
+    $('#guests-info-table').find('tbody').html(tbody);
+}
+
+function nameSpliter(fullName) {
+    let splitedFirsttName = fullName.substring(0, fullName.lastIndexOf(" "));
+    let splitedLastName = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.length);
+
+    return {
+        first_tName:  splitedFirsttName,
+        last_tName:  splitedLastName,
+    };
 }

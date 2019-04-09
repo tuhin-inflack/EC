@@ -32,7 +32,7 @@
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
-                                                        class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
                                             </a></li>
                                     @endif
                                 @endcan
@@ -102,14 +102,7 @@
                                             <td>@lang('hm::booking-request.' . $roomBooking->booking_type)</td>
                                         </tr>
                                         @if($type == 'checkin')
-                                            <tr>
-                                                <td>@lang('hm::checkin.hostel_name')</td>
-                                                <td>
-                                                    @foreach($roomBooking->rooms as $room)
-                                                        {{ $room->room->hostel->name }}<br>
-                                                    @endforeach
-                                                </td>
-                                            </tr>
+
                                             <tr>
                                                 <td>@lang('hm::checkin.room_numbers')</td>
                                                 <td>
@@ -188,6 +181,7 @@
                                             <thead>
                                             <tr>
                                                 <th>@lang('labels.serial')</th>
+                                                <th>@lang('hm::booking-request.nationality')</th>
                                                 <th>@lang('labels.name')</th>
                                                 <th>@lang('hm::booking-request.age')</th>
                                                 <th>@lang('hm::booking-request.gender')</th>
@@ -200,8 +194,9 @@
                                             @foreach($roomBooking->guestInfos as $guestInfo)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $guestInfo->nationality }}</td>
                                                     <td>{{ $guestInfo->first_name }} {{ $guestInfo->middle_name }} {{ $guestInfo->last_name }}</td>
-                                                    <td>{{ $guestInfo->age }}</td>
+                                                    <td>{{ $guestInfo->age ? : '' }}</td>
                                                     <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
                                                     <td>{{ $guestInfo->address }}</td>
                                                     <td>{{ trans('hm::booking-request.relation_' . $guestInfo->relation) }}</td>
@@ -290,7 +285,19 @@
                                     </figure>
                                 @endif
                             </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p>
+                                        <span class="text-bold-600">@lang('labels.remarks')</span>
+                                    </p>
+                                    {{ $roomBooking->note }}
+                                </div>
+                            </div>
                         </div>
+
+
 
                         @if($type == 'booking')
                             @include('hm::booking-request.partials.modal.request-forward', ['forwardToUsers' => $forwardToUsers, 'roomBookingId' => $roomBooking->id])
@@ -319,7 +326,7 @@
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
                                     <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
-                                                class="ft-printer"></i> @lang('labels.print')
+                                            class="ft-printer"></i> @lang('labels.print')
                                     </button>
                                 </div>
                             </div>
@@ -352,19 +359,19 @@
                                         @if($roomBooking->status != 'pending')
                                             <button class="btn btn-secondary mr-1" type="button"
                                                     onclick="changeStatus('pending')"><i
-                                                        class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'rejected')
                                             <button class="btn btn-danger mr-1" type="button"
                                                     onclick="changeStatus('rejected')"><i
-                                                        class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'approved')
                                             <button class="btn btn-success mr-1" type="button"
                                                     onclick="changeStatus('approved')"><i
-                                                        class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                         @endif
                                         <button class="btn btn-facebook mr-1 pull-right" type="button"
@@ -380,6 +387,7 @@
                             {{ Form::close() }}
                         @endif
                     </div>
+
                 </div>
             </div>
         </div>

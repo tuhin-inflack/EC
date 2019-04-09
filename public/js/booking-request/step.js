@@ -3,9 +3,8 @@ function setRequesterAsGuest() {
     let middleName = $('input[name=middle_name]').val();
     let lastName = $('input[name=last_name]').val();
     let address = $('textarea[name=address]').val();
-    let gender = $('input[type=radio][name=gender]').val();
+    let gender = $('input[type=radio][name=gender]:checked').val();
     let nid = $('input[name=nid]').val();
-
     let $guestInfoRepeater = $('.repeater-guest-information').show();
     let $addMoreGuestBtn = $guestInfoRepeater.find('button[data-repeater-create]').show();
 
@@ -50,9 +49,9 @@ function renderGuestInfos() {
     let guestInfoRows = guestInfos.map(guestInfo => {
         return `<tr>
         <td>${guestInfo.first_name} ${guestInfo.middle_name} ${guestInfo.last_name}</td>
-        <td>${guestInfo.age}</td>
+        <td>${guestInfo.nationality}</td>
         <td>${guestInfo.gender == 'male' ? male : female}</td>
-        <td>${guestInfo.relation}</td>
+        <td>${guestRelations[guestInfo.relation]}</td>
         <td>${guestInfo.address}</td>
         </tr>`;
     });
@@ -86,6 +85,7 @@ $('.booking-request-tab-steps').steps({
             }
 
             if (pageType == 'checkin') {
+
                 // added by sumon mahmud
                 // capturing data from matrix
                 var selectedRoomTypeNumberFromMatrix = [];
@@ -99,15 +99,35 @@ $('.booking-request-tab-steps').steps({
                 allSelectedRoom.forEach(function (i) {
                     selectedRoomTypeNumberFromMatrix[i] = (selectedRoomTypeNumberFromMatrix[i] || 0) + 1;
                 });
-                // counting the total number of room taken from input
+                // counting the total number of room taken from matrix
                 var totalSelectedRoomFromMatrix = 0;
                 for (var i in selectedRoomTypeNumberFromMatrix) {
                     totalSelectedRoomFromMatrix += selectedRoomTypeNumberFromMatrix[i];
                 }
 
-                // Capturing data from repetitive form
-                var data = $('.repeater-room-infos').repeaterVal('roomInfos');
-                var roomInfoFromInput = data['roomInfos'];
+                var collectingDataFromRepeatForm = $('.repeater-room-infos').repeaterVal('roomInfos').roomInfos.reduce(function (groups, item) {
+                    var val = item['room_type_id'];
+                    groups[val] = groups[val] || [];
+                    groups[val].push(item);
+                    return groups;
+                }, []).filter(el => {
+                    return el;
+                })
+                // console.log(x);
+
+                var roomInfoFromInput = [];
+
+                for (i = 0; i < collectingDataFromRepeatForm.length; i++) {
+                    collection = collectingDataFromRepeatForm[i];
+                    for (j = 0; j < collection.length; j++) {
+                        if (typeof roomInfoFromInput[i] == "undefined") {
+                            roomInfoFromInput[i] = collection[j]
+                        } else {
+                            totalRoom = Number(collection[j]['quantity']) + Number(roomInfoFromInput[i]['quantity']);
+                            roomInfoFromInput[i]['quantity'] = totalRoom;
+                        }
+                    }
+                }
 
                 // counting the total number of room taken from input
                 var totalRoomSelectedFromInput = 0;
@@ -124,6 +144,7 @@ $('.booking-request-tab-steps').steps({
                     $('#validationError').html(maximum_message + " " + totalRoomSelectedFromInput + " " + room);
                     $('#validationError').show();
                 } else {
+
                     for (i = 0; i < roomInfoFromInput.length; i++) {
                         var singleRoom = roomInfoFromInput[i];
                         roomTypeIdFromForm = singleRoom['room_type_id'];
@@ -188,7 +209,9 @@ $('.booking-request-tab-steps').steps({
                 $('.guests-info-div').show();
                 renderGuestInfos();
             } else {
+                $('.guests-info-div').show();
                 // $('.guests-info-div').hide();
+                // $('#guests-info-table').find('tbody').html('');
             }
 
             let isReferencePresent = $('#referee-select').val();

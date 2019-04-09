@@ -91,6 +91,15 @@
             next: '{!! trans('labels.next') !!}',
             previous: '{!! trans('labels.previous') !!}',
         };
+
+        // Relation Localization
+        let guestRelations = {
+            myself: '{!! trans('hm::booking-request.relation_myself') !!}',
+            family: '{!! trans('hm::booking-request.relation_family') !!}',
+            friend: '{!! trans('hm::booking-request.relation_friend') !!}',
+            trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+        };
+
         //  localization
         let male = '{!! trans('labels.male') !!}';
         let female = '{!! trans('labels.female') !!}';
@@ -98,15 +107,17 @@
         let lastNameLabel = '{!! trans('labels.last_name') !!}';
         let genderLabel = '{!! trans('labels.gender') !!}';
         let mobileLabel = '{!! trans('labels.mobile') !!}';
-        // select2 placholder localization
+        // select2 placeholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
-        
+
         // entities variables passed from server
         let roomTypes = JSON.parse('{!! json_encode($roomTypes) !!}');
         let employees = JSON.parse('{!! json_encode($employees) !!}');
         let designations = JSON.parse('{!! json_encode($designations) !!}');
         let departments = JSON.parse('{!! json_encode($departments) !!}');
-        
+        let room_type_names = JSON.parse('{!! json_encode($roomTypes->pluck('name', 'id')) !!}');
+        let pageType = JSON.parse('{!! json_encode($type) !!}');
+
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
     </script>

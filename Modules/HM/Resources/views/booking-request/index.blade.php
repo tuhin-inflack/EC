@@ -58,7 +58,7 @@
                                                     @lang('hm::booking-request.' . $bookingRequest->status)
                                                 </td>
                                                 <td>
-                                                    @can('admin-hm-access')
+                                                    @can('admin-access')
                                                     @if( $bookingRequest->status == 'pending' )
                                                         <a href="{{ route('booking-requests.edit', $bookingRequest->id) }}"
                                                            class="btn btn-sm btn-primary"><i class="ft-edit-2"></i></a>

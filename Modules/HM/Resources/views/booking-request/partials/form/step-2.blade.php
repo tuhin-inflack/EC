@@ -1,6 +1,7 @@
 <h6>{{ trans('hm::booking-request.step_2') }}</h6>
 <fieldset>
-    <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.personal_information') }}</h4>
+    <h4 class="form-section"><i class="la  la-building-o"></i>{{ trans('hm::booking-request.personal_information') }}
+    </h4>
     <div class="row">
         <!-- Start of .col-md-6 -->
         <div class="col-md-6">
@@ -39,7 +40,19 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label class="required">{{ trans('hm::booking-request.contact') }}</label>
-                    {!! Form::text('contact', $page == 'create' ? old('contact') : $roomBooking->requester->contact, ['id' => 'primary-contact-contact-input', 'class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => '11 digit number', 'data-rule-minlength' => 11, 'data-msg-minlength'=>Lang::get('labels.At least 11 characters'), 'data-rule-maxlength' => 11, 'data-msg-maxlength'=>Lang::get('labels.At most 11 characters')]) !!}
+                    {!! Form::text('contact', $page == 'create' ? old('contact') : $roomBooking->requester->contact,
+                    [
+                        'id' => 'primary-contact-contact-input',
+                        'class' => 'form-control required' . ($errors->has('contact') ? ' is-invalid' : ''),
+                        'data-msg-required' => trans('labels.This field is required'),
+                        'placeholder' => '11 digit number',
+                        'data-rule-minlength' => 11,
+                        'data-msg-minlength'=> trans('labels.At least 11 characters'),
+                        'data-rule-maxlength' => 11,
+                        'data-msg-maxlength'=> trans('labels.At most 11 characters'),
+                        'data-rule-number' => 'true',
+                        'data-msg-number' => trans('labels.Please enter a valid number'),
+                    ]) !!}
 
                     @if ($errors->has('contact'))
                         <span class="invalid-feedback" role="alert">
@@ -243,7 +256,8 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->photo)}}" style="width: 80px;height: 80px;margin-top: 10px;" alt="">
+                        <img src="{{ $roomBooking->requester->photo ? asset('/storage/app/'.$roomBooking->requester->photo) : ''}}"
+                             style="width: 80px;height: 80px;margin-top: 10px;" alt="">
                     </div>
                 @endif
             </div>
@@ -260,7 +274,8 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->nid_doc)}}" style="width: 80px;height: 80px;margin-top: 10px" alt="">
+                        <img src="{{ $roomBooking->requester->nid_doc ? asset('/storage/app/'.$roomBooking->requester->nid_doc) : ''}}"
+                             style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif
             </div>
@@ -277,7 +292,8 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->passport_doc)}}" style="width: 80px;height: 80px;margin-top: 10px" alt="">
+                        <img src="{{ $roomBooking->requester->passport_doc ? asset('/storage/app/'.$roomBooking->requester->passport_doc) : ''}}"
+                             style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif
             </div>
