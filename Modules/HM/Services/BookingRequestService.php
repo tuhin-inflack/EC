@@ -79,14 +79,13 @@ class BookingRequestService
 
     public function store(array $data, $type = 'booking')
     {
-
-
         return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['shortcode'] = time();
             $data['status'] = $this->getStatus($type);
             $data['type'] = $type;
+            $data['assigned_to'] = $this->getDefaultAssignedId($data['booking_type']);
 
             $roomBooking = $this->save($data);
 
@@ -301,6 +300,20 @@ class BookingRequestService
         }
     }
 
+    public function getDefaultAssignedId($bookingType)
+    {
+        switch ($bookingType) {
+            case 'general':
+                return 2;
+            case 'training':
+                return 3;
+            case 'venue':
+                return 3;
+            default:
+                return Auth::user()->id;
+        }
+    }
+
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
@@ -436,8 +449,7 @@ class BookingRequestService
      * @param $totalRoomsByRoomType
      * @return mixed
      */
-    private
-    function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
     {
         if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
