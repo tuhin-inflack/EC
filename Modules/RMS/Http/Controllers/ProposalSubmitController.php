@@ -167,9 +167,9 @@ class ProposalSubmitController extends Controller
         $workflowRuleMaster = $workflowRuleDetails->ruleMaster;
 
         if ($workflowRuleDetails->flow_type == 'review') {
-            $reviewButton = false;
+            $approveButton = false;
         } else {
-            $reviewButton = true;
+            $approveButton = true;
         }
 
         if ($workflowRuleDetails->is_shareable) {
@@ -182,7 +182,7 @@ class ProposalSubmitController extends Controller
         if (!is_null($research)) $tasks = $research->tasks; else $tasks = array();
         return view('rms::proposal.review.show', compact('researchProposalSubmissionId', 'research',
             'tasks', 'organizations', 'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
-            'workflowRuleDetails', 'ruleDesignations', 'feature', 'reviewButton', 'researchInvitation'));
+            'workflowRuleDetails', 'ruleDesignations', 'feature', 'approveButton', 'researchInvitation'));
 
     }
 
@@ -192,12 +192,12 @@ class ProposalSubmitController extends Controller
             $response = $this->shareConversationService->shareFromWorkflow($request->all());
         } else {
 
-            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
-            $this->researchProposalSubmissionService->update($research, ['status' => $request->input('status')]);
+//            $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
             $data = $request->except('_token');
             $this->dashboardWorkflowService->updateDashboardItem($data);
             // Send Notifications
             $this->researchProposalSubmissionService->sendNotification($request);
+
         }
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
@@ -225,6 +225,7 @@ class ProposalSubmitController extends Controller
 
     public function feedbackForJointDirect(Request $request, $shareConversationId)
     {
+
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
@@ -235,12 +236,13 @@ class ProposalSubmitController extends Controller
         }
 
         if ($request->status == WorkflowStatus::APPROVED) {
-
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+            $research = $this->researchProposalSubmissionService->findOrFail($request->input('ref_table_id'));
+            $this->researchProposalSubmissionService->update($research, ['status' => 'APPROVED']);
+
         }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
-
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
     }
@@ -283,6 +285,13 @@ class ProposalSubmitController extends Controller
 
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
+    }
+
+    public function researchBulkApproved(Request $request)
+    {
+        $this->researchProposalSubmissionService->researchProposalBulkApproved($request->ids);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
     }
 //
 //    public function apcReview($researchProposalSubmissionId)
