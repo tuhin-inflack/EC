@@ -215,7 +215,7 @@ class EmployeesTableSeeder extends Seeder
             $user['user_type'] = 'Employee';
             $user['mobile'] = $employee['mobile_one'];
             $user['reference_table_id'] = $count++;
-            if ($employee['employee_id']!='DG1'){
+            if ($employee['employee_id']!='directorgeneral'){
                 \App\Entities\User::create($user);
             }
         }

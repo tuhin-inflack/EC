@@ -10,7 +10,9 @@ namespace App\Services\Sharing;
 
 
 use App\Constants\NotificationType;
+use App\Constants\WorkflowConversationStatus;
 use App\Constants\WorkflowStatus;
+use App\Entities\Sharing\ShareConversation;
 use App\Repositories\Sharing\ShareConversationRepository;
 use App\Repositories\Sharing\ShareRuleDesignationRepository;
 use App\Repositories\workflow\FeatureRepository;
@@ -57,20 +59,37 @@ class ShareConversationService
 
     public function shareFromWorkflow($data) {
         $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
+        $workflowConversation->status = WorkflowConversationStatus::CLOSED;
+        $workflowConversation->update();
+        $workflowDetail = $workflowConversation->workFlowDetail;
+        $workflowDetail->status = WorkflowStatus::REVIEW;
+        $workflowDetail->update();
         $data['request_ref_id'] = $workflowConversation->workflow_details_id;
         $data['ref_table_id'] = $data['item_id'];
         return $this->saveShareConversation($data);
     }
 
-    public function saveShareConversation($data)
+    public function saveShareConversation($data, ShareConversation $currentConv = null)
     {
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
 
-        $data['from_user_id'] = Auth::user()->id;
-        $data['status'] = 'ACTIVE';
-        $data['share_rule_designation_id'] = $shareRuleDesignation->id;
-        $this->shareConversationRepository->save($data);
-
+        if ($shareRuleDesignation->is_parent && $currentConv) {
+            $workflowDetail = $currentConv->workflowDetails;
+            $workflowDetail->status = WorkflowStatus::PENDING;
+            $workflowDetail->update();
+            $this->workflowConversationService->save([
+                'workflow_master_id' => $workflowDetail->workflow_master_id,
+                'workflow_details_id' => $workflowDetail->id,
+                'feature_id' => $data['feature_id'],
+                'message' => $data['message'],
+                'status' => WorkflowConversationStatus::ACTIVE
+            ]);
+        } else {
+            $data['from_user_id'] = Auth::user()->id;
+            $data['status'] = 'ACTIVE';
+            $data['share_rule_designation_id'] = $shareRuleDesignation->id;
+            $this->shareConversationRepository->save($data);
+        }
         if (!empty($data['remarks'])) {
             $this->remarkService->save(['feature_id' => $data['feature_id'], 'ref_table_id' => $data['ref_table_id'],
                 'from_user_id' => Auth::user()->id, 'remarks' => $data['remarks']]);

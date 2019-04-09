@@ -207,7 +207,6 @@ class ProposalSubmitController extends Controller
     {
 
         $shareConversation = $this->shareConversationService->findOne($shareConversationId);
-        dd($shareConversation->shareRuleDesignation);
         if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
             $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
             $ruleDesignations = $shareRule->rulesDesignation;
@@ -232,10 +231,14 @@ class ProposalSubmitController extends Controller
 
         if ($request->status == WorkflowStatus::REVIEW) {
             $data['request_ref_id'] = $currentConv->request_ref_id;
-            $response = $this->shareConversationService->saveShareConversation($data);
+            $response = $this->shareConversationService->saveShareConversation($data, $currentConv);
         }
 
-        $this->remarksService->save($data);
+        if ($request->status == WorkflowStatus::APPROVED) {
+
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+        }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
 
         Session::flash('success', trans('labels.save_success'));
