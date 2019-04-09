@@ -14,7 +14,7 @@ class UpdateAttributeValuesTable extends Migration
     public function up()
     {
         Schema::table('attribute_values', function (Blueprint $table) {
-            $table->dropIfExists('planned_value');
+            $table->dropColumn('planned_value');
             $table->unsignedInteger('organization_member_id');
         });
     }
