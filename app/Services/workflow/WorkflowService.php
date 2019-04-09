@@ -90,6 +90,10 @@ class WorkflowService
         $workflowRuleDetailList = $workflowRuleMaster->ruleDetails;
 
         foreach ($workflowRuleDetailList as $ruleDetail) {
+            //Check if any step need to be skipped
+            if ($this->isSkipped($ruleDetail, $data)) {
+                continue;
+            }
             $designationId = $this->getDesignationByRule($ruleDetail, $data);
             for ($i = 0; $i < $ruleDetail->number_of_responder; $i++) {
                 $workflowDetail = new WorkflowDetail(['workflow_master_id' => $workflowMaster->id, 'rule_detail_id' => $ruleDetail->id,
@@ -103,8 +107,8 @@ class WorkflowService
         return $workflowDetailList;
     }
 
-    private function getDesignationByRule(WorkflowRuleDetail $ruleDetail, $data) {
-
+    private function getDesignationByRule(WorkflowRuleDetail $ruleDetail, $data)
+    {
         $designationId = null;
         if ($ruleDetail->designation_id) {
             $designationId = $ruleDetail->designation_id;
@@ -112,6 +116,11 @@ class WorkflowService
             $designationId = $data['designationTo'][$ruleDetail->notification_order];
         }
         return $designationId;
+    }
+
+    private function isSkipped(WorkflowRuleDetail $ruleDetail, $data)
+    {
+        return isset($data['skipped']) && in_array($ruleDetail->notification_order, $data['skipped']);
     }
 
     public function getWorkFlowNotification($userId, array $designationIds)
