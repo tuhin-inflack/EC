@@ -270,9 +270,9 @@
                                                     {{--<p><span class="text-bold-600"></span></p>--}}
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <table border="1" cellpadding="10" cellspacing="5"
+                                                            <table cellpadding="10" cellspacing="5"
                                                                    class="table table-striped table-bordered"
-                                                                   style="margin-left: 15px;margin-right: 15px;">
+                                                                   style="margin-left: 15px;margin-right: 15px; border: 1px solid;">
                                                                 <thead>
                                                                 <tr style="border-bottom: 1px solid grey">
                                                                     <th style="margin-right: 30px">@lang('labels.serial')</th>
@@ -288,7 +288,7 @@
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->age }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->age ? : '' }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.$guestInfo->gender")  }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.relation_$guestInfo->relation")  }}</td>
