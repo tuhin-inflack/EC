@@ -274,7 +274,10 @@
             <div class="row">
                 <div class="form-group col-md-6">
                     <label>{{ trans('hm::booking-request.nid_copy') }}</label>
-                    {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
+                    {!! Form::file('nid_doc', [
+                        'class' => 'form-control' . ($errors->has('nid_doc') ? ' is-invalid' : ''),
+                        'accept' => '.png, .jpg, .jpeg',
+                    ]) !!}
 
                     @if ($errors->has('nid_doc'))
                         <span class="invalid-feedback" role="alert">
@@ -285,7 +288,7 @@
                 @if($page == 'edit')
                     <div class="col-md-6">
                         <img src="{{ $roomBooking->requester->nid_doc ? asset('/storage/app/'.$roomBooking->requester->nid_doc) : ''}}"
-                             style="width: 80px;height: 80px;margin-top: 10px" alt="">
+                             style="width: 80px; height: 80px; margin-top: 10px" alt="">
                     </div>
                 @endif
             </div>
