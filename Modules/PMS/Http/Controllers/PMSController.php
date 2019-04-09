@@ -2,7 +2,9 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Constants\WorkflowStatus;
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
+use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\Remark\RemarkService;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\Sharing\ShareRulesService;
@@ -16,6 +18,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use function Matrix\trace;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
 use Illuminate\Support\Facades\Session;
@@ -34,6 +38,7 @@ class PMSController extends Controller
     private $shareRuleService;
     private $shareConversationService;
     private $employeeService;
+    private $projectProposalReviewerAttachmentService;
 
     /**
      * @var ProjectProposalService
@@ -43,11 +48,38 @@ class PMSController extends Controller
      * @var ProjectRequestService
      */
     private $projectRequestService;
+    /**
+     * @var ReviewUrlGenerator
+     */
+    private $reviewUrlGenerator;
 
-    public function __construct(DashboardWorkflowService $dashboardService, ProjectProposalService $projectProposalService,
-                                WorkflowService $workflowService, RemarkService $remarksService, FeatureService $featureService,
-                                ProjectRequestService $projectRequestService, UserService $userService, ShareRulesService $shareRuleService,
-                                ShareConversationService $shareConversationService, EmployeeServices $employeeService)
+    /**
+     * PMSController constructor.
+     * @param DashboardWorkflowService $dashboardService
+     * @param ProjectProposalService $projectProposalService
+     * @param WorkflowService $workflowService
+     * @param RemarkService $remarksService
+     * @param FeatureService $featureService
+     * @param ProjectRequestService $projectRequestService
+     * @param UserService $userService
+     * @param ShareRulesService $shareRuleService
+     * @param ShareConversationService $shareConversationService
+     * @param EmployeeServices $employeeService
+     * @param ReviewUrlGenerator $reviewUrlGenerator
+     * @param ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService
+     */
+    public function __construct(
+        DashboardWorkflowService $dashboardService,
+        ProjectProposalService $projectProposalService,
+        WorkflowService $workflowService,
+        RemarkService $remarksService, FeatureService $featureService,
+        ProjectRequestService $projectRequestService,
+        UserService $userService, ShareRulesService $shareRuleService,
+        ShareConversationService $shareConversationService,
+        EmployeeServices $employeeService,
+        ReviewUrlGenerator $reviewUrlGenerator,
+        ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService
+    )
     {
         $this->dashboardService = $dashboardService;
         $this->projectRequestService = $projectRequestService;
@@ -59,6 +91,8 @@ class PMSController extends Controller
         $this->shareRuleService = $shareRuleService;
         $this->shareConversationService = $shareConversationService;
         $this->employeeService = $employeeService;
+        $this->projectProposalReviewerAttachmentService = $projectProposalReviewerAttachmentService;
+        $this->reviewUrlGenerator = $reviewUrlGenerator;
     }
 
     /**
@@ -74,10 +108,9 @@ class PMSController extends Controller
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
         $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
         $loggedUserDesignation = $this->userService->getDesignation(Auth::user()->username);
+        $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
 
-        $user = Auth::user();
-        $employee = $this->employeeService->findOne($user->reference_table_id);
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
 
         if ($loggedUserDesignation == "Project Director")
             $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
@@ -164,14 +197,21 @@ class PMSController extends Controller
             $wfDetailsId = 0;
         };
 
-        return view('pms::proposal-submitted.review', compact('proposal','reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
+        return view('pms::proposal-submitted.review', compact('proposal', 'reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
     {
         //Generating notification
         $event = ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
-        $this->projectProposalService->generatePMSNotification(['ref_table_id' => $proposalId, 'status' => $request->input('status')], $event);
+        $this->projectProposalService->generatePMSNotification(
+            [
+                'ref_table_id' => $proposalId,
+                'status' => $request->input('status')
+            ],
+            $event,
+            $request->input('reviewUrl')
+        );
         // Notification generation done
 
         if ($request->input('status') == 'CLOSED') {
@@ -192,7 +232,6 @@ class PMSController extends Controller
                 'item_id' => $proposalId,
             );
             $this->dashboardService->updateDashboardItem($data);
-
             Session::flash('message', __('labels.update_success'));
 
             return redirect(route('pms'));
@@ -203,7 +242,7 @@ class PMSController extends Controller
     {
         $proposal = $this->projectProposalService->findOne($proposalId);
 
-        return view('pms::proposal-submission.resubmit', compact('proposal', 'featureId'));
+        return view('pms::proposal-submission.brief.resubmit', compact('proposal', 'featureId'));
     }
 
     public function storeResubmit($proposalId, Request $request)
@@ -216,10 +255,28 @@ class PMSController extends Controller
         $this->projectProposalService->update($proposal, $updateData);
 
         // Reinitialising Workflow
-        $data = ['feature_id' => $request->input('feature_id')
-            , 'message' => $request->input('message'),
-            'ref_table_id' => $proposalId];
+        $data = [
+            'feature_id' => $request->input('feature_id'),
+            'message' => $request->input('message'),
+            'ref_table_id' => $proposalId
+        ];
         $this->workflowService->reinitializeWorkflow($data);
+
+        //Generating notification
+        $this->projectProposalService->generatePMSNotification(
+            [
+                'ref_table_id' => $proposalId,
+                'status' => WorkflowStatus::REINITIATED
+            ],
+            'project_proposal_submission',
+            $this->reviewUrlGenerator->getReviewUrl(
+                'project-proposal-submitted-review',
+                $this->featureService->findOne($request->input('feature_id')),
+                $proposal
+            )
+        );
+        // Notification generation done
+
         Session::flash('message', __('labels.save_success'));
 
         return redirect(route('pms'));
@@ -264,11 +321,12 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
+        $data = $request->all();
+        unset($data['status']);
         $save = $this->shareConversationService->save($request->all());
         Session::flash('message', trans('labels.save_success'));
 
         return redirect(route('pms'));
-
     }
 
     public function getReviewForJointDirect($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)
@@ -283,7 +341,6 @@ class PMSController extends Controller
 
     public function feedbackForJointDirect(Request $request, $shareConversationId)
     {
-
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
         $data['remarks'] = $request->approval_remark;
@@ -292,5 +349,12 @@ class PMSController extends Controller
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');
+    }
+
+    public function addAttachment(CreateProposalSubmissionAttachmentRequest $createProposalSubmissionAttachmentRequest)
+    {
+        $this->projectProposalReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
+
+        return redirect()->back();
     }
 }

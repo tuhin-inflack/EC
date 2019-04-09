@@ -49,9 +49,9 @@
 @endpush
 
 @push('page-js')
-    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
-    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js') }}"></script>
 
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
@@ -90,7 +90,13 @@
         let current_lang = '{!!  Lang::locale()  !!}';
         // end by sumon
 
-
+        // Relation Localization
+        let guestRelations = {
+            myself: '{!! trans('hm::booking-request.relation_myself') !!}',
+            family: '{!! trans('hm::booking-request.relation_family') !!}',
+            friend: '{!! trans('hm::booking-request.relation_friend') !!}',
+            trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+        };
 
         // select2 placeholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
@@ -113,5 +119,6 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
+
 @endpush
         

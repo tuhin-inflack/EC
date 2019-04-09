@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Controllers;
 
 use App\Constants\DesignationShortName;
+use App\Entities\Sharing\ShareConversation;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\TaskService;
 use App\Services\workflow\DashboardWorkflowService;
@@ -60,22 +61,27 @@ class RMSController extends Controller
      */
     public function index()
     {
+
         $chartData = $this->taskService->getTasksBarChartData();
         $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
         //Research proposal items
+
         $featureName = Config::get('constants.research_proposal_feature_name');
+
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+
+
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //       Research Items
         $researchFeatureName = Config::get('rms.research_feature_name');
-        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+//        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
 
 
         $user = Auth::user();
         $employee = $this->employeeService->findOne($user->reference_table_id);
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
+//        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 //        dd($shareConversations[0]->researchProposal);
         if (is_null($employee)) {
             $researchPendingTasks = [];
@@ -84,6 +90,8 @@ class RMSController extends Controller
         } else {
             $researchPendingTasks = [];
         }
+
+        $shareConversations = (is_null($employee)) ? null : $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',

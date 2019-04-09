@@ -8,7 +8,9 @@
 
 namespace Modules\RMS\Services;
 
+use App\Entities\User;
 use App\Services\TaskService;
+use App\Services\UserService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
@@ -47,7 +49,7 @@ class ResearchService
 
     private $researchPublicationAttachmentRepository;
 
-
+    private $userService;
     /**
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
@@ -57,7 +59,7 @@ class ResearchService
      */
 
     public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService,
-                                ResearchPublicationRepository $researchPublicationRepository)
+                                ResearchPublicationRepository $researchPublicationRepository, UserService $userService)
 
     {
         $this->researchRepository = $researchRepository;
@@ -65,6 +67,7 @@ class ResearchService
         $this->setActionRepository($researchRepository);
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
+        $this->userService = $userService;
     }
 
     public function store(array $data)
@@ -91,7 +94,7 @@ class ResearchService
 
 
         //Save workflow
-        $featureName = Config::get('rms.research_feature_name');;
+        $featureName = Config::get('rms.research_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $workflowData = [
             'feature_id' => $feature->id,
@@ -110,6 +113,7 @@ class ResearchService
 
         $publicationData = ['research_id' => $data['research_id'], 'description' => $data['description']];
         $publication = $this->researchPublicationRepository->findOne($publicationId);
+
         $status = $publication->update($publicationData);
 
         if (isset($data['fileRepeater'])) {
@@ -159,6 +163,7 @@ class ResearchService
     {
         $featureName = Config::get('rms.research_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
+
         $reInitializeData = [
             'feature_id' => $feature->id,
             'ref_table_id' => $researchId,
@@ -198,4 +203,24 @@ class ResearchService
 //        $publication = $this->researchPublicationRepository->findOne($publicationId);
 //
 //    }
+
+    public function getResearchesForUser(User $user)
+    {
+        if($this->userService->isDirectorGeneral())
+        {
+            return $this->researchRepository->findAll();
+
+        }else if($this->userService->isDesignationFacultyMember($user))
+        {
+            return $this->researchRepository->findBy(['submitted_by'=>$user->id]);
+
+        }else if($this->userService->isResearchDivisionUser($user))
+        {
+            return $this->researchRepository->findAll();
+
+        }else
+        {
+            return $this->researchRepository->findBy(['submitted_by'=>$user->id]);
+        }
+    }
 }

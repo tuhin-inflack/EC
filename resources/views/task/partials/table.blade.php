@@ -29,6 +29,13 @@
                 </thead>
                 <tbody>
                 @foreach($taskable->tasks as $task)
+
+                    @if(in_designation('FM'))
+                        @if(in_array($task->name, [ 'Sending external reviewer', 'Comments from external reviewer', 'Send to respective researcher', 'Accepted final report', 'Send for publication' ] ))
+                            @continue
+                        @endif
+                    @endif
+
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>

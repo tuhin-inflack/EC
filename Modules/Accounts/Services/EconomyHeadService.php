@@ -10,6 +10,7 @@ namespace Modules\Accounts\Services;
 
 
 use App\Traits\CrudTrait;
+use Closure;
 use Illuminate\Support\Facades\Lang;
 use Modules\Accounts\Repositories\EconomyHeadRepository;
 
@@ -33,12 +34,12 @@ class EconomyHeadService
      * <h3>Economy Heads</h3>
      * <p>Custom Implementation of concatenation</p>
      *
-     * @param Null | Callable $implementedValue Anonymous Implementation of Value
-     * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @param Closure $implementedValue Anonymous Implementation of Value
+     * @param Closure $implementedKey Anonymous Implementation Key index
      * @param bool $emptyOption
      * @return array
      */
-    public function getEconomyHeadsForDropdown($implementedValue = null, $implementedKey = null, $emptyOption = false)
+    public function getEconomyHeadsForDropdown(Closure $implementedValue = null, Closure $implementedKey = null, $emptyOption = false)
     {
         $economyHeads = $this->actionRepository->findAll();
 

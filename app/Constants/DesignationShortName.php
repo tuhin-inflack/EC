@@ -14,5 +14,11 @@ abstract class DesignationShortName
     const FM = 'FM';
     const FD = 'FD';
     const RD = 'RD';
-
+    const PD = 'PD';
+    const ADG = 'ADG';
+    const ADR = 'ADR';
+    const DG = 'DG';
+    const DR = 'DR';
+    const DDR = 'DDR';
+    const JD = 'JD';
 }

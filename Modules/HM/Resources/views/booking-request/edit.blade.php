@@ -2,6 +2,7 @@
 @section('title', $type=='checkin' ? trans('hm::booking-request.check_in'): trans('hm::booking-request.title'))
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -50,15 +51,16 @@
 
 
 @push('page-js')
-    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js')  }}"></script>
     <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js')  }}"></script>
 
     <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
     <script>
+
         /*
         *  Creation of js variables from php variables to be used in page.js and step.js
         * */
@@ -75,6 +77,7 @@
         let lastNameLabel = '{!! trans('labels.last_name') !!}';
         let genderLabel = '{!! trans('labels.gender') !!}';
         let mobileLabel = '{!! trans('labels.mobile') !!}';
+
         // added by sumon
         let minimum = '{!! trans('hm::checkin.minimum') !!}';
         let maximum = '{!! trans('hm::checkin.maximum') !!}';
@@ -89,6 +92,14 @@
         let current_lang = '{!!  Lang::locale()  !!}';
         let testabc = 'yes this is testing';
         // end by sumon
+
+        // Relation Localization
+        let guestRelations = {
+            myself: '{!! trans('hm::booking-request.relation_myself') !!}',
+            family: '{!! trans('hm::booking-request.relation_family') !!}',
+            friend: '{!! trans('hm::booking-request.relation_friend') !!}',
+            trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+        };
 
         // select2 placholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';

@@ -2,42 +2,43 @@
 @section('title', trans('pms::project_proposal.project_details'))
 
 @section('content')
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
-    <div class="content-header row">
-        <div class="content-header-left col-md-6 col-12">
-            <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
-                        <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
-                    </a>
-                    <a class="btn btn-outline-info round" href="{{ route('project-training.index', $project->id) }}">
-                        <i class="ft-plus"></i> @lang('pms::project.add_training')
-                    </a>
+    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
+        <div class="content-header row">
+            <div class="content-header-left col-md-6 col-12">
+                <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
+                            <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
+                        </a>
+                        <a class="btn btn-outline-info round"
+                           href="{{ route('project-training.index', $project->id) }}">
+                            <i class="ft-plus"></i> @lang('pms::project.add_training')
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content-header-right col-md-6 col-12">
+            <div class="content-header-right col-md-6 col-12">
 
+            </div>
         </div>
-    </div>
     @endif
     <br>
 
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_DIRECTOR_PROJECT'))
-        <!-- Basic tabs start -->
-        <section>
-            <div class="row match-height">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs">
+    <!-- Basic tabs start -->
+    <section>
+        <div class="row match-height">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <ul class="nav nav-tabs">
+                                @if(Auth::user()->hasAnyRole(['ROLE_PROJECT_DIRECTOR', 'ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_PROJECT']))
                                     <li class="nav-item">
                                         <a class="nav-link active" id="base-tab1" data-toggle="tab" aria-controls="tab1"
                                            href="#tab1"
                                            aria-expanded="true">@lang('pms::project_proposal.organization_report')</a>
                                     </li>
-                                    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+                                    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
                                         <li class="nav-item">
                                             <a class="nav-link" id="base-tab2" data-toggle="tab" aria-controls="tab2"
                                                href="#tab2"
@@ -49,98 +50,104 @@
                                                aria-expanded="false">@lang('pms::project_proposal.planning')</a>
                                         </li>
                                     @endif
-                                </ul>
-                                <div class="tab-content px-1 pt-1">
-
-                                    <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
-                                         aria-labelledby="base-tab1">
-                                        <section>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <label for="">@lang('attribute.attribute')</label>
-                                                    {{ Form::select('attribute_id', $project->attributes->pluck('name', 'id'), null, ['class' => 'form-control']) }}
-                                                    @include('../../../attribute.partials.graph')
-                                                </div>
+                                @endif
+                                @if(in_designation('PD', 'FM'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="base-tab4" data-toggle="tab" aria-controls="tab3"
+                                           href="#tab4"
+                                           aria-expanded="false">@lang('pms::project.beneficiary')</a>
+                                    </li>
+                                @endif
+                            </ul>
+                            <div class="tab-content px-1 pt-1">
+                                <div role="tabpanel" class="tab-pane active" id="tab1" aria-expanded="true"
+                                     aria-labelledby="base-tab1">
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <label for="">@lang('attribute.attribute')</label>
+                                                {{ Form::select('attribute_id', $project->attributes->pluck('name', 'id'), null, ['class' => 'form-control']) }}
+                                                @include('../../../attribute.partials.graph')
                                             </div>
-                                        </section>
-
-                                        <section>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="card">
-                                                        <div class="card-header"><h4
-                                                                    class="card-title">@lang('attribute.attribute_tabular_view')</h4>
-                                                        </div>
-                                                        <div class="card-content">
-                                                            <div class="card-body">
-                                                                <div class="table-resposive">
-                                                                    <table class="table table-bordered table-striped">
-                                                                        <thead>
+                                        </div>
+                                    </section>
+                                    <section>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card">
+                                                    <div class="card-header"><h4
+                                                                class="card-title">@lang('attribute.attribute_tabular_view')</h4>
+                                                    </div>
+                                                    <div class="card-content">
+                                                        <div class="card-body">
+                                                            <div class="table-resposive">
+                                                                <table class="table table-bordered table-striped">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th>@lang('labels.serial')</th>
+                                                                        <th>@lang('attribute.attribute')</th>
+                                                                        <th>@lang('attribute.planned_value')</th>
+                                                                        <th>@lang('attribute.achieved_value')</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    @foreach($project->attributes as $attribute)
                                                                         <tr>
-                                                                            <th>@lang('labels.serial')</th>
-                                                                            <th>@lang('attribute.attribute')</th>
-                                                                            <th>@lang('attribute.planned_value')</th>
-                                                                            <th>@lang('attribute.achieved_value')</th>
+                                                                            <td>{{ $loop->iteration }}</td>
+                                                                            <td>{{ $attribute->name }}</td>
+                                                                            <td>{{ $attribute->plannings->sum('planned_value') }}</td>
+                                                                            <td>{{ $attribute->values->sum('achieved_value') }}</td>
                                                                         </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        @foreach($project->attributes as $attribute)
-                                                                            <tr>
-                                                                                <td>{{ $loop->iteration }}</td>
-                                                                                <td>{{ $attribute->name }}</td>
-                                                                                <td>{{ $attribute->plannings->sum('planned_value') }}</td>
-                                                                                <td>{{ $attribute->values->sum('achieved_value') }}</td>
-                                                                            </tr>
-                                                                        @endforeach
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </section>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true">
-                                        @include('../../../organization.table', [
-                                        'organizable' => $project,
-                                        'url' => route('pms-organizations.create', $project->id),
-                                        'organizationShowRoute' => function ($organizableId, $organizationId) {
-                                            return route('pms-organizations.show', [$organizableId, $organizationId]);
-                                        }
-                                    ])
-                                        <hr>
-                                        <div class="table-responsive">
-                                            <div class="pull-left">
-                                                <h4 class="card-title">@lang('attribute.attribute_list')</h4>
-                                            </div>
-                                            <div class="pull-right">
-                                                <a href="{{ route('attribute-plannings.create', $project->id) }}"
-                                                   class="btn btn-sm btn-primary"><i
-                                                            class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')
-                                                </a>
-                                                <a href="{{ route('attributes.create', $project->id) }}"
-                                                   class="btn btn-sm btn-primary"><i
-                                                            class="ft-plus"></i> @lang('attribute.create_attribute')</a>
-                                            </div>
-                                            <br><br>
-                                            <table class="table table-bordered table-striped alt-pagination">
-                                                <thead>
+                                        </div>
+                                    </section>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="tab2" aria-expanded="true">
+                                    @include('../../../organization.table', [
+                                    'organizable' => $project,
+                                    'url' => route('pms-organizations.create', $project->id),
+                                    'organizationShowRoute' => function ($organizableId, $organizationId) {
+                                        return route('pms-organizations.show', [$organizableId, $organizationId]);
+                                    }
+                                ])
+                                    <hr>
+                                    <div class="table-responsive">
+                                        <div class="pull-left">
+                                            <h4 class="card-title">@lang('attribute.attribute_list')</h4>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="{{ route('attribute-plannings.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('pms::attribute_planning.enter_planning')
+                                            </a>
+                                            <a href="{{ route('attributes.create', $project->id) }}"
+                                               class="btn btn-sm btn-primary"><i
+                                                        class="ft-plus"></i> @lang('attribute.create_attribute')</a>
+                                        </div>
+                                        <br><br>
+                                        <table class="table table-bordered table-striped alt-pagination">
+                                            <thead>
+                                            <tr>
+                                                <th>@lang('labels.serial')</th>
+                                                <th>@lang('attribute.attribute')</th>
+                                                <th>@lang('attribute.current_balance')</th>
+                                                <th>@lang('labels.action')</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($project->attributes as $attribute)
                                                 <tr>
-                                                    <th>@lang('labels.serial')</th>
-                                                    <th>@lang('attribute.attribute')</th>
-                                                    <th>@lang('attribute.current_balance')</th>
-                                                    <th>@lang('labels.action')</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                @foreach($project->attributes as $attribute)
-                                                    <tr>
-                                                        <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $attribute->name }}</td>
-                                                        <td>{{ $attribute->values->sum('achieved_value') }}</td>
-                                                        <td class="text-center">
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $attribute->name }}</td>
+                                                    <td>{{ $attribute->values->sum('achieved_value') }}</td>
+                                                    <td class="text-center">
                                             <span class="dropdown">
                                             <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                     aria-haspopup="true"
@@ -159,37 +166,67 @@
                                                             class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                               </span>
                                             </span>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                                </tbody>
-                                            </table>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
+                                    <div class="row match-height">
+                                        <div class="col-md-12">
+                                            @include('../../../task.partials.gantt-chart')
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="tab3" aria-expanded="true">
-                                        <div class="row match-height">
-                                            <div class="col-md-12">
-                                                @include('../../../task.partials.gantt-chart')
-                                            </div>
+
+                                    <section class="row">
+                                        <div class="col-md-12">
+                                            @include('../../../task.partials.table', [
+                                                'taskable' => $project,
+                                                'module' => 'pms'
+                                            ])
                                         </div>
+                                    </section>
 
-                                        <section class="row">
-                                            <div class="col-md-12">
-                                                @include('../../../task.partials.table', [
-                                                    'taskable' => $project,
-                                                    'module' => 'pms'
-                                                ])
-                                            </div>
-                                        </section>
-
-                                        <section class="row">
-                                            <div class="col-md-12">
-                                                @include('../../../monthly-update.partials.table', [
-                                                    'monthlyUpdatable' => $project,
-                                                    'module' => 'pms'
-                                                ])
-                                            </div>
-                                        </section>
+                                    <section class="row">
+                                        <div class="col-md-12">
+                                            @include('../../../monthly-update.partials.table', [
+                                                'monthlyUpdatable' => $project,
+                                                'module' => 'pms'
+                                            ])
+                                        </div>
+                                    </section>
+                                </div>
+                                <div id="tab4" class="tab-pane" role="tabpanel" aria-expanded="true">
+                                    <div class="table-responsive">
+                                        <table class="table table table-bordered table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th>@lang('labels.serial')</th>
+                                                <th>@lang('organization.organization')</th>
+                                                <th>@lang('member.member')</th>
+                                                <th>@lang('labels.gender')</th>
+                                                <th>@lang('labels.number')</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @php
+                                                $sl = 1;
+                                            @endphp
+                                            @foreach($project->organizations as $organization)
+                                                @foreach($organization->members as $member)
+                                                    <tr>
+                                                        <td>{{ $sl++ }}</td>
+                                                        <td>{{ $organization->name }}</td>
+                                                        <td>{{ $member->name }}</td>
+                                                        <td>@lang('labels.' . $member->gender)</td>
+                                                        <td>{{ $member->mobile }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
@@ -197,9 +234,9 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Basic badge Input end -->
-    @endif
+        </div>
+    </section>
+    <!-- Basic badge Input end -->
 
     <section>
         <div class="row match-height">
@@ -223,6 +260,27 @@
                                     <dd class="col-sm-9">{{ $project->title }}</dd>
                                 </dl>
                                 <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_budget')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->budget))
+                                            {{$project->budget}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+
+                                    </dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('pms::project_proposal.project_duration')</dt>
+                                    <dd class="col-sm-9">
+                                        @if(isset($project->duration))
+                                            {{$project->duration}}
+                                        @else
+                                            <p class="text-warning">Not Added</p>
+                                        @endif
+                                    </dd>
+                                </dl>
+                                <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.submitted_by')</dt>
                                     <dd class="col-sm-9">{{ $project->projectSubmittedByUser->name }}</dd>
                                 </dl>
@@ -232,7 +290,12 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
-                                    <dd class="col-sm-9">@lang('rms::research_proposal.' . $project->status)</dd>
+                                    <dd class="col-sm-9">@lang('pms::project_proposal.' . $project->status)</dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-sm-3">@lang('member.member')</dt>
+                                    <dd class="col-sm-9">{{ $femaleMembersCount }} @lang('labels.female')
+                                        , {{ $maleMembersCount }} @lang('labels.male')</dd>
                                 </dl>
                             </div>
                         </div>
@@ -260,7 +323,7 @@
 @endpush
 
 @push('page-js')
-    @if(Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+    @if(Auth::user()->hasRole('ROLE_PROJECT_DIRECTOR'))
         <script>
             let nodeName = "GanttChartDIV";
             let chartData = {

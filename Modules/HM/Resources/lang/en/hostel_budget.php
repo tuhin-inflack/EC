@@ -20,6 +20,6 @@ return [
     'section_list' => 'Section List',
     'section_form' => 'Section Add Form',
     'section_edit_form_title' => 'Section Edit FOrm',
-
+    'add_details_about_budget' => 'Add budget details'
 
 ];

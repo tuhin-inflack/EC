@@ -65,7 +65,11 @@ class DesignationService
     public function getDesignationByShortCode(array $shortCode)
     {
        return $this->designationRepository->getDesignationsByShortCode($shortCode);
+    }
 
+    public function getDesignation($id)
+    {
+        return $this->findOrFail($id);
     }
 
 }

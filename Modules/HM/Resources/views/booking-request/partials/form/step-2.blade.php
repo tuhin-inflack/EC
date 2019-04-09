@@ -133,7 +133,17 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.nid') }}</label>
-                    {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => '10 digit number']) !!}
+                    {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid,
+                    [
+                        'class' => 'form-control' . ($errors->has('nid') ? ' is-invalid' : ''),
+                        'placeholder' => '14 digit number',
+                        'data-rule-minlength' => 10,
+                        'data-msg-minlength'=> trans('labels.At least 10 characters'),
+                        'data-rule-maxlength' => 14,
+                        'data-msg-maxlength'=> trans('labels.At most 14 characters'),
+                        'data-rule-number' => 'true',
+                        'data-msg-number' => trans('labels.Please enter a valid number'),
+                    ]) !!}
 
                     @if ($errors->has('nid'))
                         <span class="invalid-feedback" role="alert">
@@ -256,7 +266,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->photo)}}"
+                        <img src="{{ $roomBooking->requester->photo ? asset('/storage/app/'.$roomBooking->requester->photo) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px;" alt="">
                     </div>
                 @endif
@@ -274,7 +284,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->nid_doc)}}"
+                        <img src="{{ $roomBooking->requester->nid_doc ? asset('/storage/app/'.$roomBooking->requester->nid_doc) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif
@@ -292,7 +302,7 @@
                 </div>
                 @if($page == 'edit')
                     <div class="col-md-6">
-                        <img src="{{asset('/storage/app/'.$roomBooking->requester->passport_doc)}}"
+                        <img src="{{ $roomBooking->requester->passport_doc ? asset('/storage/app/'.$roomBooking->requester->passport_doc) : ''}}"
                              style="width: 80px;height: 80px;margin-top: 10px" alt="">
                     </div>
                 @endif

@@ -36,26 +36,27 @@
                     {{--file repeater--}}
                     <div class="form-group mb-1 col-sm-12 col-md-12 file-repeater">
                         <div data-repeater-list="fileRepeater">
+
                             @if(isset($research->publication->attachments))
                                 @foreach($research->publication->attachments as $attachment)
-                                        <div data-repeater-item>
-                                            <input type="hidden" name="oldFiles[]" value=""/>
-                                            <div class="row mb-1">
-                                                <div class="col-9 col-xl-10">
-                                                    <li class="list-group-item">
-                                                        <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}"
-                                                           class="badge bg-info white"
-                                                           title="{{ $attachment->name }}">{{ $attachment->name  }}
-                                                        </a><br>
-                                                    </li>
-                                                </div>
-                                                <div class="col-2 col-xl-1">
-                                                    <button type="button" data-repeater-delete=""
-                                                            class="btn btn-icon btn-danger mr-1">
-                                                        <i class="ft-x"></i></button>
-                                                </div>
+                                    <div>
+                                        <input type="hidden" name="oldFiles[]" value=""/>
+                                        <div class="row mb-1">
+                                            <div class="col-9 col-xl-10">
+                                                <li class="list-group-item">
+                                                    <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}"
+                                                       class="badge bg-info white"
+                                                       title="{{ $attachment->name }}">{{ $attachment->name  }}
+                                                    </a><br>
+                                                </li>
+                                            </div>
+                                            <div class="col-2 col-xl-1">
+                                                <button type="button" data-repeater-delete=""
+                                                        class="btn btn-icon btn-danger mr-1">
+                                                    <i class="ft-x"></i></button>
                                             </div>
                                         </div>
+                                    </div>
                                 @endforeach
                             @endif
                             <div data-repeater-item>

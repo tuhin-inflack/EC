@@ -46,10 +46,10 @@
                 {!! Form::radio('booking_type', 'general', $page == 'create' ? old('booking_type') == 'general' : ($roomBooking->booking_type == 'general'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                 <label>@lang('hm::booking-request.general')</label>
             </div>
-            <div class="skin skin-flat">
-                {!! Form::radio('booking_type', 'venue', $page == 'create' ? old('booking_type') == 'venue' : ($roomBooking->booking_type == 'venue'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
-                <label>@lang('hm::booking-request.venue')</label>
-            </div>
+            {{--<div class="skin skin-flat">--}}
+                {{--{!! Form::radio('booking_type', 'venue', $page == 'create' ? old('booking_type') == 'venue' : ($roomBooking->booking_type == 'venue'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}--}}
+                {{--<label>@lang('hm::booking-request.venue')</label>--}}
+            {{--</div>--}}
             <div class="skin skin-flat">
                 {!! Form::radio('booking_type', 'training', $page == 'create' ? old('booking_type') == 'training' : ($roomBooking->booking_type == 'training'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                 <label>@lang('hm::booking-request.training')</label>
@@ -130,8 +130,8 @@
 
                                 @if ($errors->has('roomInfos.' . $loop->index . '.rate'))
                                     <span class="invalid-feedback" role="alert">
-                                                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
-                                                                    </span>
+                                        <strong>{{ $errors->first('roomInfos.' . $loop->index . '.rate') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -169,9 +169,8 @@
                             </div>
 
                             <div class="form-group col-sm-12 col-md-1 text-center mt-2">
-                                <button type="button" class="btn btn-outline-danger"
-                                        data-repeater-delete=""><i
-                                            class="ft-x"></i>
+                                <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                    <i class="ft-x"></i>
                                 </button>
                             </div>
                         </div>
@@ -200,10 +199,8 @@
                                     <span class="select-error"></span>
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
-                                    <button type="button"
-                                            class="btn btn-outline-danger"
-                                            data-repeater-delete=""><i
-                                                class="ft-x"></i>
+                                    <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                        <i class="ft-x"></i>
                                     </button>
                                 </div>
                             </div>

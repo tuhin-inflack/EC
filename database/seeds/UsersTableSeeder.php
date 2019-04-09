@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
                 'username' => 'directorgeneral',
                 'user_type' => 'Admin',
                 'mobile' => '01710000000',
-                'reference_table_id' => NULL,
+                'reference_table_id' => 12,
                 'status' => 'Active',
                 'deleted_at' => NULL,
                 'last_password_change' => '2019-02-07 21:28:52',

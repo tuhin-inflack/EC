@@ -11,6 +11,7 @@ namespace Modules\HRM\Services;
 use App\Http\Responses\DataResponse;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
+use Closure;
 use Modules\HRM\Repositories\EmployeeRepository;
 
 class EmployeeServices
@@ -80,11 +81,11 @@ class EmployeeServices
      * <h3>Employee Dropdown</h3>
      * <p>Custom Implementation of concatenation</p>
      *
-     * @param Null | Callable $implementedValue Anonymous Implementation of Value
-     * @param Null | Callable $implementedKey Anonymous Implementation Key index
+     * @param Closure $implementedValue Anonymous Implementation of Value
+     * @param Closure $implementedKey Anonymous Implementation Key index
      * @return array
      */
-    public function getEmployeesForDropdown($implementedValue = null, $implementedKey = null)
+    public function getEmployeesForDropdown(Closure $implementedValue = null, Closure $implementedKey = null)
     {
         $employees = $this->employeeRepository->findAll();
 
@@ -101,5 +102,11 @@ class EmployeeServices
         }
 
         return $employeeOptions;
+    }
+
+    public function getDivisionalDirectorByDepartmentId($departmentId)
+    {
+        $divisionalDirector = $this->employeeRepository->findBy(['department_id' => $departmentId, 'is_divisional_director' => true])->first();
+        return $divisionalDirector;
     }
 }

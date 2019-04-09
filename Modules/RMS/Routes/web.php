@@ -30,7 +30,6 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('research-workflow-close-reviewer/{workflowMasterId?}/{researchId?}', 'ResearchController@closeWorkflowByReviewer')->name('research-workflow-close-reviewer');
 
 
-
         Route::prefix('{research}')->group(function () {
 
             // research budgeting
@@ -112,7 +111,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
+        //Routes for workflow
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
         Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
         Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
@@ -122,6 +122,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
         Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getReviewForJointDirect')->name('research-proposal-submission.review');
         Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@feedbackForJointDirect')->name('research-proposal-submission.feedback');
+
+        Route::post('reviewer-add-attachment', 'ProposalSubmitController@addAttachment')->name('research.proposal.reviewer.add.attachment');
 
 
     });
@@ -136,5 +138,25 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{researchRequestAttachment}', 'InvitedResearchProposalController@fileDownload')->name('invited-research-proposal.file-download');
         Route::get('{researchRequest}/request-date-extend', 'InvitedResearchProposalController@requestDateExtend')->name('invited-research-proposal.request-date-extend');
         Route::post('/', 'InvitedResearchProposalController@storeDateExtendRequest')->name('invited-research-proposal.store-date-extend-request');
+    });
+
+    Route::prefix('research-proposal-details')->group(function () {
+        Route::get('/', 'ResearchProposalDetailController@index')->name('research.list');
+
+        Route::get('/create/{briefId?}', 'ResearchProposalDetailController@create')->name('details.create');
+        Route::post('/store', 'ResearchProposalDetailController@store')->name('research-details.store');
+
+        Route::prefix('invitations')->group(function () {
+            Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');
+            Route::get('create/{researchProposalSubmission}', 'ResearchDetailInvitationController@create')->name('research-proposal-details.invitation.create');
+            Route::post('store', 'ResearchDetailInvitationController@store')->name('research-proposal-details.invitation.store');
+            Route::get('show/{researchDetailInvitation}', 'ResearchDetailInvitationController@show')->name('research-proposal-details.invitation.show');
+            Route::get('edit/{researchDetailInvitation}', 'ResearchDetailInvitationController@edit')->name('research-proposal-details.invitation.edit');
+            Route::put('update/{researchDetailInvitation}', 'ResearchDetailInvitationController@update')->name('research-proposal-details.invitation.update');
+            Route::get('attachment-download/{researchDetailInvitation}', 'ResearchDetailInvitationController@attachmentDownload')->name('research-proposal-details.invitation.attachment-download');
+            Route::get('file-download/{attachmentId}', 'ResearchDetailInvitationController@fileDownload')->name('research-proposal-details.invitation.file-download');
+        });
+
+
     });
 });

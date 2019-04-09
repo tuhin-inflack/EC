@@ -9,6 +9,7 @@
 namespace Modules\HM\Services;
 
 
+use App\Services\RoleService;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
+use phpDocumentor\Reflection\Types\Object_;
 
 class BookingRequestService
 {
@@ -40,6 +42,7 @@ class BookingRequestService
     private $roomBookingRequesterRepository;
     private $bookingRequesteForwardRepository;
     private $roomService;
+    private $roleService;
     /**
      * @var RoomTypeService
      */
@@ -60,7 +63,8 @@ class BookingRequestService
         RoomBookingRequesterRepository $roomBookingRequesterRepository,
         BookingRequestForwardRepository $bookingRequesteForwardRepository,
         RoomTypeService $roomTypeService,
-        RoomService $roomService
+        RoomService $roomService,
+        RoleService $roleService
     )
     {
         $this->roomBookingRepository = $roomBookingRepository;
@@ -69,11 +73,14 @@ class BookingRequestService
         $this->bookingRequesteForwardRepository = $bookingRequesteForwardRepository;
         $this->roomTypeService = $roomTypeService;
         $this->roomService = $roomService;
+        $this->roleService = $roleService;
         $this->setActionRepository($roomBookingRepository);
     }
 
     public function store(array $data, $type = 'booking')
     {
+
+
         return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
@@ -96,9 +103,13 @@ class BookingRequestService
                 $this->saveRoomNumbers($roomBooking, $data['room_numbers']);
             }
             if ($roomBooking && !empty($data['email'])) {
-                Mail::to($data['email'])
-                    ->send(new BookingRequestMail($roomBooking));
+                Mail::to($data['email'])->send(new BookingRequestMail($roomBooking));
+                $usersForEmailNotification = $this->roleService->getUserEmailByRoles();
+                foreach ($usersForEmailNotification as $email) {
+                    Mail::to($email)->send(new BookingRequestMail($roomBooking));
+                }
             }
+
             return $roomBooking;
         });
     }
@@ -160,10 +171,12 @@ class BookingRequestService
     private function saveGuestInfos($data, $roomBooking): void
     {
         if (array_key_exists('guests', $data)) {
-            $roomBooking->guestInfos()->saveMany(collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
-                return new BookingGuestInfo($guest);
-            }));
+            $roomBooking->guestInfos()->saveMany(
+                collect($data['guests'])->map(function ($guest) use ($roomBooking) {
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    return new BookingGuestInfo($guest);
+                })
+            );
         }
     }
 
@@ -218,25 +231,62 @@ class BookingRequestService
 
             $roomBooking->requester->update($data);
 
-            if (array_key_exists('guests', $data)) {
-                foreach ($data['guests'] as $value) {
-                    if (array_key_exists('nid_doc', $value)) {
-                        $guest = $roomBooking->guestInfos()->find($value['id']);
-                        if ($guest->nid_doc) {
-                            Storage::delete($guest->nid_doc);
-                        }
-                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
-                    }
-                    $roomBooking->guestInfos()->updateOrCreate([
-                        'id' => $value['id'],
-                    ], $value);
-                }
-            } else {
-                $roomBooking->guestInfos()->delete();
-            }
+            $this->updateGuestInfo($roomBooking, $data);
 
             return $roomBooking;
         });
+    }
+
+    private function updateGuestInfo($roomBooking, $data): void
+    {
+        if (array_key_exists('guests', $data)) {
+
+            $allGuestIds = $roomBooking->guestInfos->pluck("id")->toArray();
+
+            foreach ($data['guests'] as $value) {
+                if ($value['id']) {
+                    // TODO: update old users
+                    if (($key = array_search($value['id'], $allGuestIds)) !== false)
+                        unset($allGuestIds[$key]);
+
+                    if (array_key_exists('nid_doc', $value)) {
+                        $guest = $roomBooking->guestInfos()->find($value['id']);
+
+                        if ($guest->nid_doc)
+                            Storage::delete($guest->nid_doc);
+
+                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
+                    }
+
+                    $roomBooking->guestInfos()->updateOrCreate([
+                        'id' => $value['id'],
+                    ], $value);
+
+                } else {
+                    // TODO : add new users
+                    $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $roomBooking->guestInfos()->create($value);
+                }
+            }
+
+            $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos()->find($allGuestIds));
+        } else {
+            $this->deleteGuestWithNidDocStorage($roomBooking->guestInfos);
+        }
+    }
+
+    /**
+     * @param $guests
+     */
+    private function deleteGuestWithNidDocStorage($guests): void
+    {
+        foreach ($guests as $guest) {
+
+            if ($guest->nid_doc)
+                Storage::delete($guest->nid_doc);
+
+            $guest->delete();
+        }
     }
 
     public function getStatus($type)
@@ -273,41 +323,33 @@ class BookingRequestService
 
     public function forwardBookingRequest(RoomBooking $roomBooking, array $data)
     {
-        $data['room_booking_id'] = $roomBooking->id;
-        $data['forwarded_to'] = $data['forwardTo'];
-        $data['forwarded_by'] = Auth::user()->id;
-
-        return $this->bookingRequesteForwardRepository->save($data);
+        return $this->bookingRequesteForwardRepository->getModel()->updateOrCreate(
+            ['room_booking_id' => $roomBooking->id],
+            ['forwarded_to' => $data['forwardTo'], 'forwarded_by' => Auth::user()->id]
+        );
     }
 
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
         $ids = $ids ?: $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
-
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 
     public function getBookingRequestIdsWithForwardedByBookingTypes(array $searchCriteria)
     {
-        $bookingRequestIds = $this->actionRepository->getModel()->select('id')
-            ->where('type', 'booking')
-            ->whereIn('booking_type', $searchCriteria)->get()->toArray();
+        $bookingRequestIds = $this->actionRepository->getModel()->where('type', 'booking')
+            ->whereIn('booking_type', $searchCriteria)->get()->pluck('id')->toArray();
 
-        $bookingRequestIds = array_column($bookingRequestIds, 'id');
+        $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()
+            ->where('forwarded_to', Auth::user()->id)->get()->pluck('room_booking_id')->toArray();
 
-        $forwardedBookingRequestIds = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
-            ->where('forwarded_to', Auth::user()->id)->get()->toArray();
+        $forwardedBookingRequestIdsByUsers = $this->bookingRequesteForwardRepository->getModel()
+            ->where('forwarded_by', Auth::user()->id)->get()->pluck('room_booking_id')->toArray();
 
-        $forwardedBookingRequestIds = array_column($forwardedBookingRequestIds, 'room_booking_id');
-
-        $mergedBookingRequests = array_merge($bookingRequestIds, $forwardedBookingRequestIds);
-
-        $forwardedBookingRequestIdsByUser = $this->bookingRequesteForwardRepository->getModel()->select('room_booking_id')
-            ->where('forwarded_by', Auth::user()->id)->get()->toArray();
-
-        $forwardedBookingRequestIdsByUsers = array_column($forwardedBookingRequestIdsByUser, 'room_booking_id');
-
-        return array_diff($mergedBookingRequests, $forwardedBookingRequestIdsByUsers);
+        return array_diff(
+            array_merge($bookingRequestIds, $forwardedBookingRequestIds),
+            $forwardedBookingRequestIdsByUsers
+        );
     }
 
     /**
@@ -394,7 +436,8 @@ class BookingRequestService
      * @param $totalRoomsByRoomType
      * @return mixed
      */
-    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    private
+    function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
     {
         if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];

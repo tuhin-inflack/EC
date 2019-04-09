@@ -66,7 +66,7 @@ class ResearchController extends Controller
      */
     public function index()
     {
-        $researches = $this->researchService->getAll();
+        $researches = $this->researchService->getResearchesForUser(Auth::user());
         return view('rms::research.index', compact('researches'));
     }
 
@@ -109,13 +109,6 @@ class ResearchController extends Controller
     public function show(Research $research)
     {
         $ganttChart = $this->taskService->getTasksGanttChartData($research->tasks);
-        foreach ($ganttChart as $key => $data) {
-            $ganttChart[$key]['start_date'] = Carbon::parse($ganttChart[$key]['start_date'])->subDays(1)->format('Y-m-d');
-            $ganttChart[$key]['duration'] = Carbon::parse($ganttChart[$key]['deadline'])->diffInDays(Carbon::parse($ganttChart[$key]['start_date'])) - 1;
-        }
-
-//        return$ganttChart;
-
         return view('rms::research.show', compact('research', 'ganttChart'));
     }
 
@@ -138,7 +131,6 @@ class ResearchController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
@@ -148,7 +140,6 @@ class ResearchController extends Controller
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
-
     }
 
     public function createPublication($researchId)

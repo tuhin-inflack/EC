@@ -10,19 +10,36 @@
                 <li class="{{ is_active_route('research.index') }}">
                     <a href="{{ route('research.index') }}">
                         <i class="la la-briefcase"></i>
-                        <span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.all_research')}}</span>
+                        <span class="menu-title"
+                              data-i18n="nav.navbars.main">{{trans('rms::research_proposal.all_research')}}</span>
                     </a>
                 </li>
                 <li class="{{is_active_route('research-request.index')}}">
                     <a href="{{route('research-request.index')}}">
                         <i class="la la-list"></i>
-                        <span class="menu-title" data-i18n="nav.navbars.main">{{trans('rms::research_proposal.invitation')}}</span>
+                        <span class="menu-title"
+                              data-i18n="nav.navbars.main">{{trans('rms::research_proposal.invitation')}}</span>
                     </a>
                 </li>
                 <li class="{{is_active_route('research-proposal-submission.index')}}">
                     <a href="{{route('research-proposal-submission.index')}}">
                         <i class="la la-list"></i>
-                        <span class="menu-title" data-i18n="nav.dash.main">@lang('rms::research_proposal.submitted_research_proposal')</span>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">@lang('rms::research_proposal.submitted_research_proposal')</span>
+                    </a>
+                </li>
+                <li class="{{is_active_route('invitations')}}">
+                    <a href="{{route('invitations')}}">
+                        <i class="la la-adjust"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Details invitation</span>
+                    </a>
+                </li>
+                <li class="{{is_active_route('research.list')}}">
+                    <a href="{{route('research.list')}}">
+                        <i class="la la-adjust"></i>
+                        <span class="menu-title"
+                              data-i18n="nav.dash.main">Research Details</span>
                     </a>
                 </li>
             </ul>

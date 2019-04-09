@@ -20,7 +20,7 @@
                     <div class="card-content collapse show">
                         <div class="card-body">
                             {!! Form::open(['route' => 'hostel-budgets.store', 'class' => 'form budgetCreateForm',' novalidate']) !!}
-                            @include('hm::hostel-budget.create-form.budget_create_form')
+                            @include('hm::hostel-budget.form.budget_create_form')
                             {!! Form::close() !!}
 
                         </div>
@@ -40,10 +40,7 @@
 
 
         $(document).ready(function () {
-
-
             $('.item-select').select2({
-//                    placeholder: 'Select item',
                 tags: true,
                 delimiter: ',',
                 tokenSeparators: [',', ' ', '`'],
@@ -53,7 +50,6 @@
                 show: function () {
                     $(this).find('.select2-container').remove();
                     $(this).find('select').select2({
-//                            placeholder: 'Select item',
                         tags: true,
                     });
                     $(this).slideDown();
@@ -61,10 +57,19 @@
             });
 
             $('.addMoreBudgetSection').click(function () {
-                 $('input,select,textarea').jqBootstrapValidation('destroy');
+                $('input,select,textarea').jqBootstrapValidation('destroy');
                 $('input,select,textarea').jqBootstrapValidation();
 
             });
+
+            $('.submit').on('click', function () {
+                var numberOfBudget = $('.repeater_hostel_budget').has('div[data-repeater-item]').length;
+                if (numberOfBudget==0){
+                    alert("{!! trans('hm::hostel_budget.add_details_about_budget') !!}");
+                    return false;
+                }
+            });
+
 
         });
 

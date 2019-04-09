@@ -10,6 +10,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Http\Requests\CreateProjectBudgetRequest;
+use Modules\PMS\Http\Requests\UpdateProjectBudgetRequest;
 
 class ProjectBudgetController extends Controller
 {
@@ -40,13 +42,7 @@ class ProjectBudgetController extends Controller
      */
     public function exportExcel(Project $project, $tableType){
         $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
-        $viewName = '';
-
-        if ($tableType == 'annexure-4'){
-            $viewName = 'pms::project.budget.partials.annexure-4';
-        } else if ($tableType == 'annexure-5'){
-            $viewName = 'pms::project.budget.partials.annexure-5';
-        }
+        $viewName = 'pms::project.budget.partials.' . $tableType;
 
         return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
     }
@@ -65,11 +61,11 @@ class ProjectBudgetController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @param CreateProjectBudgetRequest $request
      * @param Project $project
-     * @param  Request $request
      * @return Response
      */
-    public function store(Request $request, Project $project)
+    public function store(CreateProjectBudgetRequest $request, Project $project)
     {
         $this->draftProposalBudgetService->store($project, $request->all());
 
@@ -93,12 +89,12 @@ class ProjectBudgetController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateProjectBudgetRequest $request
      * @param Project $project
      * @param DraftProposalBudget $draftProposalBudget
      * @return array
      */
-    public function update(Request $request, Project $project, DraftProposalBudget $draftProposalBudget)
+    public function update(UpdateProjectBudgetRequest $request, Project $project, DraftProposalBudget $draftProposalBudget)
     {
         $this->draftProposalBudgetService->updateBudget($request->all(), $draftProposalBudget);
 

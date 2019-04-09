@@ -3,6 +3,7 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\Attribute;
+use App\Entities\Organization\Organization;
 use App\Services\AttributeService;
 use App\Services\DivisionService;
 use App\Services\TaskService;
@@ -68,7 +69,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = $this->projectService->getAll();
+        $projects = $this->projectService->getProjectsForUser(Auth::user());
+
         return view('pms::project.index', compact('projects'));
     }
 
@@ -105,8 +107,19 @@ class ProjectController extends Controller
      */
     public function show(Project $project, Attribute $attribute)
     {
+        $maleMembersCount = $this->projectService->getTotalMembersByGender($project, 'male');
+        $femaleMembersCount = $this->projectService->getTotalMembersByGender($project, 'female');
+
         $ganttChart = $this->taskService->getTasksGanttChartData($project->tasks);
         $divisions = $this->divisionService->findAll();
-        return view('pms::project.show', compact('project', 'ganttChart', 'divisions', 'attribute'));
+        return view('pms::project.show', compact(
+                'project',
+                'ganttChart',
+                'divisions',
+                'attribute',
+                'maleMembersCount',
+                'femaleMembersCount'
+            )
+        );
     }
 }

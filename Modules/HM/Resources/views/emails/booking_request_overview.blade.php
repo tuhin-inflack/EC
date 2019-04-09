@@ -142,7 +142,7 @@
                                                                     <td class="width-150"
                                                                         style="margin-right: 20px">@lang('hm::booking-request.request_id')</td>
                                                                     <td class="width-300">
-                                                                        : {{ $roomBooking->shortcode }}</td>
+                                                                        : {{ isset($roomBooking->shortcode) ? $roomBooking->shortcode : '' }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.requested_on')</td>
@@ -183,7 +183,8 @@
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.booking_type')</td>
                                                                     <td>:
-                                                                        :  {{ trans("hm::booking-request.$roomBooking->booking_type")}}&nbsp;&nbsp;
+                                                                        : {{ trans("hm::booking-request.$roomBooking->booking_type")}}
+                                                                        &nbsp;&nbsp;
                                                                     </td>
 
                                                                 </tr>
@@ -232,20 +233,25 @@
                                                             <table class="table table-responsive table-bordered mb-0">
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td class="width-150" style="margin-right: 20px">@lang('hm::booking-request.bard_reference')</td>
-                                                                    <td class="width-300">: {{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
+                                                                    <td class="width-150"
+                                                                        style="margin-right: 20px">@lang('hm::booking-request.bard_reference')</td>
+                                                                    <td class="width-300">
+                                                                        : {{ $roomBooking->referee ? $roomBooking->referee->getName() : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.designation')</td>
-                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
+                                                                    <td>
+                                                                        : {{ $roomBooking->referee ? $roomBooking->referee->designation->name : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.department')</td>
-                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
+                                                                    <td>
+                                                                        : {{ $roomBooking->referee ? $roomBooking->referee->employeeDepartment->name : null }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.contact')</td>
-                                                                    <td>: {{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
+                                                                    <td>
+                                                                        : {{ $roomBooking->referee ? $roomBooking->referee->getContact() : null }}</td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>
@@ -264,8 +270,9 @@
                                                     {{--<p><span class="text-bold-600"></span></p>--}}
                                                     <div class="row">
                                                         <div class="col-md-6">
-                                                            <table border="1" cellpadding="10" cellspacing="5" class="table table-striped table-bordered"
-                                                                   style="margin-left: 15px;margin-right: 15px;">
+                                                            <table cellpadding="10" cellspacing="5"
+                                                                   class="table table-striped table-bordered"
+                                                                   style="margin-left: 15px;margin-right: 15px; border: 1px solid;">
                                                                 <thead>
                                                                 <tr style="border-bottom: 1px solid grey">
                                                                     <th style="margin-right: 30px">@lang('labels.serial')</th>
@@ -280,8 +287,8 @@
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                                                        <td style="text-align: center" >{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->age }}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->age ? : '' }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.$guestInfo->gender")  }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.relation_$guestInfo->relation")  }}</td>

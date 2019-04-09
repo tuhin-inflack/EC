@@ -40,12 +40,11 @@ class ProjectProposalController extends Controller
      */
     public function index()
     {
-        $proposals = $this->projectProposalService->getAll();
-
+        $proposals = $this->projectProposalService->getProposalsForUser(Auth::user());
         $featureName = config('constants.project_proposal_feature_name');
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
 
-        return view('pms::proposal-submission.index', compact('proposals', 'pendingTasks'));
+        return view('pms::proposal-submission.brief.index', compact('proposals', 'pendingTasks'));
     }
 
     /**
@@ -56,7 +55,7 @@ class ProjectProposalController extends Controller
     public function create(ProjectRequest $projectRequest)
     {
         $auth_user_id = Auth::user()->id;
-        return view('pms::proposal-submission.create', compact('projectRequest', 'auth_user_id'));
+        return view('pms::proposal-submission.brief.create', compact('projectRequest', 'auth_user_id'));
     }
 
     /**
