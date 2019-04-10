@@ -115,7 +115,7 @@ class BookingRequestController extends Controller
      */
     public function create()
     {
-        $roomTypes = $this->roomTypeService->findAll();
+        $roomTypes = $this->roomTypeService->getRoomTypesThatHasRooms();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeesForDropdown();
@@ -172,7 +172,7 @@ class BookingRequestController extends Controller
         $requester = $roomBooking->requester;
         $referee = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
-        $roomTypes = $this->roomTypeService->findAll();
+        $roomTypes = $this->roomTypeService->getRoomTypesThatHasRooms();
         $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeesForDropdown();
