@@ -110,14 +110,13 @@ class ShareConversationService
     {
         $shareConversation = $this->findOne($shareConversationId);
         $shareConversation->update(['status' => 'CLOSE']);
-        $user = $this->userService->findOne($shareConversation->from_user_id);
+        //$user = $this->userService->findOne($shareConversation->from_user_id);
 
-
-        $notificationData = [
-            'ref_table_id' => $data['ref_table_id'],
-            'message' => 'Research proposal feedback given',
-            'to_employee_id' => [$user->employee->id],
-        ];
-        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+//        $notificationData = [
+//            'ref_table_id' => $data['ref_table_id'],
+//            'message' => 'Research proposal feedback given',
+//            'to_employee_id' => [$user->employee->id],
+//        ];
+//        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
     }
 }

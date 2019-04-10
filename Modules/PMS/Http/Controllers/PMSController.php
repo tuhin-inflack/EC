@@ -182,12 +182,6 @@ class PMSController extends Controller
         $remarks = $this->remarksService->findBy(['feature_id' => $feature_id, 'ref_table_id' => $proposal->id]);
         $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
 
-        if ($ruleDetails->flow_type == 'review') {
-            $reviewButton = false;
-        } else {
-            $reviewButton = true;
-        }
-
         if ($ruleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($ruleDetails->share_rule_id);
             $wfConversation = $this->workflowService->getWorkflowConversationById($wfConvId);
@@ -197,7 +191,7 @@ class PMSController extends Controller
             $wfDetailsId = 0;
         };
 
-        return view('pms::proposal-submitted.review', compact('proposal', 'reviewButton', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
+        return view('pms::proposal-submitted.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -220,7 +214,7 @@ class PMSController extends Controller
             return redirect(route('project-proposal-submitted-close', $request->input('wf_master')));
         } else {
             $proposal = $this->projectProposalService->findOrFail($proposalId);
-            $this->projectProposalService->update($proposal, ['status' => $request->input('status')]);
+            //$this->projectProposalService->update($proposal, ['status' => $request->input('status')]);
             $feature_name = config('constants.project_proposal_feature_name');
             $data = array(
                 'feature' => $feature_name,
@@ -270,7 +264,7 @@ class PMSController extends Controller
             ],
             'project_proposal_submission',
             $this->reviewUrlGenerator->getReviewUrl(
-                'project-proposal-submitted-review',
+                'project-proposal-submitted-review.review',
                 $this->featureService->findOne($request->input('feature_id')),
                 $proposal
             )
@@ -321,9 +315,10 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
+
         $data = $request->all();
         unset($data['status']);
-        $save = $this->shareConversationService->save($request->all());
+        $this->shareConversationService->shareFromWorkflow($data);
         Session::flash('message', trans('labels.save_success'));
 
         return redirect(route('pms'));
@@ -331,21 +326,45 @@ class PMSController extends Controller
 
     public function shareReview($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
+        $shareConversation = $this->shareConversationService->findOne($shareConversationId);
+        if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
+            $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
+            $ruleDesignations = $shareRule->rulesDesignation;
+        } else {
+            $ruleDesignations = null;
+        }
         $proposal = $this->projectProposalService->findOne($projectProposalSubmissionId);
         $featureName = config('constants.project_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $projectProposalSubmissionId]);
-        return view('pms::proposal-submitted.review_for_joint_director', compact('proposal', 'feature',
-            'remarks', 'projectProposalSubmissionId', 'shareConversationId'));
+        //$shareRuleDesignation = $this->shareConversationService;
+
+        return view('pms::proposal-submitted.review.shareable-review', compact('proposal', 'feature',
+            'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
-    public function feedbackForJointDirect(Request $request, $shareConversationId)
+    public function shareFeedback(Request $request, $shareConversationId)
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
+        $currentConv = $this->shareConversationService->findOne($shareConversationId);
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $data['request_ref_id'] = $currentConv->request_ref_id;
+            $response = $this->shareConversationService->saveShareConversation($data, $currentConv);
+        }
+        elseif ($request->status == WorkflowStatus::APPROVED){
+
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+        }
+        elseif ($request->status == WorkflowStatus::REJECTED){
+
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
+        }
         $data['remarks'] = $request->approval_remark;
-        $this->remarksService->save($data);
         $this->shareConversationService->updateConversation($data, $shareConversationId);
+        $this->remarksService->save($data);
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');

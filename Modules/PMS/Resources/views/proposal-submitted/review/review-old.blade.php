@@ -63,7 +63,7 @@
                                         <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
                                     </li>
                                 </ul>
-                                @include('pms::proposal-submitted.reviewer-add-attachments')
+                                @include('pms::proposal-submitted.review.reviewer-add-attachments')
                             </div>
                         </div>
                     </div>
