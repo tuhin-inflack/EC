@@ -12,6 +12,7 @@ namespace Modules\HM\Services;
 use App\Services\RoleService;
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -369,7 +370,7 @@ class BookingRequestService
      * @param $approvedBookingCheckinRecords
      * @return \Illuminate\Support\Collection
      */
-    private function getBookedRooms($approvedBookingCheckinRecords): \Illuminate\Support\Collection
+    private function getBookedRooms(Collection $approvedBookingCheckinRecords): \Illuminate\Support\Collection
     {
         $collectionOfBookedRooms = collect();
         $approvedBookingCheckinRecords->each(function ($booking) use ($collectionOfBookedRooms) {
@@ -387,16 +388,16 @@ class BookingRequestService
     }
 
     /**
-     * @param $rooms
      * @return mixed
      */
     private function getTotalRoomsByRoomType()
     {
-        $rooms = $this->roomService->findAll();
+        $roomTypes = $this->roomTypeService->findAll();
 
-        $totalRoomsByRoomType = $rooms->groupBy('room_type_id')->map(function ($rooms) {
-            return $rooms->count();
-        });
+        $totalRoomsByRoomType = $roomTypes->map(function ($roomType) {
+            return [$roomType->id => $roomType->rooms->count()];
+        })->flatten()->toArray();
+
         return $totalRoomsByRoomType;
     }
 
