@@ -25,6 +25,7 @@ use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Http\Requests\CreateReviewRequest;
 use Modules\RMS\Services\ResearchProposalReviewerAttachmentService;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
+use Monolog\Handler\IFTTTHandler;
 
 
 class ProposalSubmitController extends Controller
@@ -203,7 +204,7 @@ class ProposalSubmitController extends Controller
         return redirect('/rms');
     }
 
-    public function getReviewForJointDirect($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
+    public function getResearchFeedbackForm($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
 
         $shareConversation = $this->shareConversationService->findOne($shareConversationId);
@@ -223,7 +224,7 @@ class ProposalSubmitController extends Controller
             'remarks', 'researchProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
-    public function feedbackForJointDirect(Request $request, $shareConversationId)
+    public function postResearchFeedback(Request $request, $shareConversationId)
     {
 
         $data = $request->all();
@@ -287,9 +288,13 @@ class ProposalSubmitController extends Controller
         return redirect()->route('rms.index');
     }
 
-    public function researchBulkApproved(Request $request)
+    public function researchBulkAction(Request $request)
     {
-        $this->researchProposalSubmissionService->researchProposalBulkApproved($request->ids);
+        if ($request->action_type == WorkflowStatus::APPROVED) {
+            $this->researchProposalSubmissionService->researchProposalBulkApproved($request->ids);
+        } elseif ($request->action_type == WorkflowStatus::REJECTED) {
+           $this->researchProposalSubmissionService->researchProposalBulkReject($request->ids);
+        }
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
     }

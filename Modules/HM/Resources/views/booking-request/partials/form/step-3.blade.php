@@ -161,7 +161,15 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.age') }}</label>
                                     <br>
-                                    {!! Form::number('age', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                    {!! Form::number('age', null, [
+                                        'class' => 'form-control required',
+                                        'placeholder' => 'e.g. 18',
+                                        'data-msg-required' => Lang::get('labels.This field is required'),
+                                        'min' => 1,
+                                        'data-msg-min'=> trans('labels.At least 1 characters'),
+                                        'max' => 100,
+                                        'data-msg-max'=> trans('labels.At most 100 characters'),
+                                    ]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
