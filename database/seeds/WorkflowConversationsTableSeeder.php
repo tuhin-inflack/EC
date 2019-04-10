@@ -14,9 +14,8 @@ class WorkflowConversationsTableSeeder extends Seeder
     {
         
 
-//        \DB::table('workflow_conversations')->delete();
+        \DB::table('workflow_conversations')->delete();
         
-//        \DB::table('workflow_conversations')->insert(array ());
         
         
     }

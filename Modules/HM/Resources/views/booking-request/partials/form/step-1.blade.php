@@ -159,7 +159,14 @@
                                 <label class="required"
                                        for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                 <br>
-                                {!! Form::number('quantity', null, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1, 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                {!! Form::number('quantity', null, [
+                                    'class' => 'form-control required', 'placeholder' => 'e.g. 2',
+                                    'data-msg-required' => trans('labels.This field is required'),
+                                    'min' => 1,
+                                    'data-msg-min'=> trans('labels.At least 1 characters'),
+                                    'max' => 100,
+                                    'data-msg-max'=> trans('labels.At most 100 characters'),
+                                ]) !!}
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.rate') }}</label>

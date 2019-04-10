@@ -200,7 +200,12 @@
                                                     <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
                                                     <td>{{ $guestInfo->address }}</td>
                                                     <td>{{ trans('hm::booking-request.relation_' . $guestInfo->relation) }}</td>
-                                                    <td>{{ $guestInfo->nid_no }}</td>
+                                                    <td>
+                                                        {{ $guestInfo->nid_no ? : 'not given' }}
+                                                        <a href="{{$guestInfo->nid_doc ? asset('/storage/app/'.$guestInfo->nid_doc) : 'javascript:;'}}">
+                                                            <i class="la la-file-o"></i>
+                                                        </a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>

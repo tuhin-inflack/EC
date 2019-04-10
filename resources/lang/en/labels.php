@@ -116,6 +116,7 @@ return [
     'image' => 'Image',
     'Picture field is required' => 'Picture field is required',
     'Select Training' => 'Select Training',
+    'At least 1 characters' => 'At least 1 characters',
     'At least 10 characters' => 'At least 10 characters',
     'At least 11 characters' => 'At least 11 characters',
     'At least 50 characters' => 'At least 50 characters',

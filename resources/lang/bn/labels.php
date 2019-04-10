@@ -117,6 +117,7 @@ return [
     'image' => 'ছবি',
     'Picture field is required' => 'অবশ্যই ছবি আপলোড করতে হবে',
     'Select Training' => 'প্রশিক্ষণ নির্বাচন করুন',
+    'At least 1 characters' => 'অন্তত ১ অক্ষর',
     'At least 10 characters' => 'অন্তত ১০ অক্ষর',
     'At least 11 characters' => 'অন্তত ১১ অক্ষর',
     'At least 50 characters' => 'অন্তত ৫০ অক্ষর',
