@@ -36,7 +36,7 @@ class ShareRulesDesignationSeeder extends Seeder
                 ['share_rule_id' => 5, 'department_id' => 1, 'designation_id' => 19, 'is_sharable' => true, 'sharable_id' => 4, 'can_approve' => false, 'is_parent' => false],
 
 //               DG
-                ['share_rule_id' => 6, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 1, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 6, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 1, 'can_approve' => false, 'is_parent' => true],
                 ['share_rule_id' => 6, 'department_id' => 1, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 7, 'can_approve' => false, 'is_parent' => false],
 
 //               ADG

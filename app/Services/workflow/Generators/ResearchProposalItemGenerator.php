@@ -60,7 +60,6 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
 
         foreach ($workflows as $key => $workflow) {
-
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $proposal = $this->proposalSubmissionService->findOne($workflowMaster->ref_table_id);
