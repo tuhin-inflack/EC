@@ -48,7 +48,7 @@ class InverseSeed extends Command
 
         foreach ($tableNamesContainer as $index => $tableNames) {
             foreach ($tableNames as $tableName) {
-                array_push($tableNamesArray, $tableName);
+                $tableName != "migrations" ? array_push($tableNamesArray, $tableName) : false;
             }
         }
 

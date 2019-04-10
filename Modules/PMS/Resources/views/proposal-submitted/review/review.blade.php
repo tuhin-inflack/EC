@@ -85,7 +85,9 @@
                                     <label>{{__('labels.share')}}</label>
                                     <select name="designation_id" class="form-control">
                                         @foreach($shareRule->rulesDesignation as $designation)
-                                            <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                            @if($designation->designation_id != $authDesignation)
+                                                <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 
