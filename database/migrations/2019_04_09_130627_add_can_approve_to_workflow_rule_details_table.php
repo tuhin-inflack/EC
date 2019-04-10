@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateAttributeValuesTable extends Migration
+class AddCanApproveToWorkflowRuleDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class UpdateAttributeValuesTable extends Migration
      */
     public function up()
     {
-        Schema::table('attribute_values', function (Blueprint $table) {
-            $table->dropColumn('planned_value');
-            $table->unsignedInteger('organization_member_id');
+        Schema::table('workflow_rule_details', function (Blueprint $table) {
+            $table->boolean('can_approve')->default(false)->after('share_rule_id');
         });
     }
 
@@ -26,8 +25,8 @@ class UpdateAttributeValuesTable extends Migration
      */
     public function down()
     {
-        Schema::table('attribute_values', function (Blueprint $table) {
-            $table->dropIfExists(['organization_member_id']);
+        Schema::table('workflow_rule_details', function (Blueprint $table) {
+            $table->dropColumn('can_approve');
         });
     }
 }
