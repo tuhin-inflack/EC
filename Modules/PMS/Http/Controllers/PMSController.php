@@ -190,8 +190,9 @@ class PMSController extends Controller
             $shareRule = [];
             $wfDetailsId = 0;
         };
+        $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
-        return view('pms::proposal-submitted.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId'));
+        return view('pms::proposal-submitted.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -338,9 +339,10 @@ class PMSController extends Controller
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $projectProposalSubmissionId]);
         //$shareRuleDesignation = $this->shareConversationService;
+        $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
         return view('pms::proposal-submitted.review.shareable-review', compact('proposal', 'feature',
-            'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
+            'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation', 'authDesignation'));
     }
 
     public function shareFeedback(Request $request, $shareConversationId)
@@ -350,12 +352,13 @@ class PMSController extends Controller
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
         if ($request->status == WorkflowStatus::REVIEW) {
             $data['request_ref_id'] = $currentConv->request_ref_id;
-            $response = $this->shareConversationService->saveShareConversation($data, $currentConv);
+            $this->shareConversationService->saveShareConversation($data, $currentConv);
         }
         elseif ($request->status == WorkflowStatus::APPROVED){
-
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+            $this->projectProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'APPROVED']);
+
         }
         elseif ($request->status == WorkflowStatus::REJECTED){
 

@@ -363,7 +363,6 @@ class ResearchProposalSubmissionService
 
     private function isProposalSubmitFromResearchDept()
     {
-        //TODO: Set skipped id for research department from configuration
-        return Auth::user()->employee->department_id == 1;
+        return $this->userService->isResearchDivisionUser(Auth::user());
     }
 }
