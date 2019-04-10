@@ -113,12 +113,17 @@
                                     {!! Form::hidden('share_rule_id', $shareConversation->shareRuleDesignation->share_rule_id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Share
+                                    </button>
                                     @if($shareConversation->shareRuleDesignation->can_approve==true)
                                         {!! Form::button(' <i class="ft-check"></i> Approve', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif
-                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Share
-                                    </button>
+                                    @if($shareConversation->shareRuleDesignation->can_reject)
+                                        <a href="{{ route('workflow-close-reviewer', [2, $researchProposalSubmissionId]) }}"
+                                           class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    @endif
                                     {!! Form::close() !!}
+
                                 </div>
 
                             </div>

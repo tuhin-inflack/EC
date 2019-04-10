@@ -175,7 +175,7 @@ class ProposalSubmitController extends Controller
 
         if ($workflowRuleDetails->is_shareable) {
             $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
-            $ruleDesignations = $shareRule->rulesDesignation;
+            $ruleDesignations = $shareRule->rulesDesignation->where('designation_id', '!=', Auth::user()->employee->designation_id);
         } else {
             $ruleDesignations = null;
         }
@@ -214,7 +214,6 @@ class ProposalSubmitController extends Controller
         } else {
             $ruleDesignations = null;
         }
-
         $research = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $featureName = Config::get('constants.research_proposal_feature_name');
         $feature = $this->featureService->findBy(['name' => $featureName])->first();
@@ -293,7 +292,7 @@ class ProposalSubmitController extends Controller
         if ($request->action_type == WorkflowStatus::APPROVED) {
             $this->researchProposalSubmissionService->researchProposalBulkApproved($request->ids);
         } elseif ($request->action_type == WorkflowStatus::REJECTED) {
-           $this->researchProposalSubmissionService->researchProposalBulkReject($request->ids);
+            $this->researchProposalSubmissionService->researchProposalBulkReject($request->ids);
         }
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
