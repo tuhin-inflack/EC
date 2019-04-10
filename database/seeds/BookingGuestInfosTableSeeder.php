@@ -33,6 +33,7 @@ class BookingGuestInfosTableSeeder extends Seeder
                 'created_at' => '2019-02-07 21:30:06',
                 'updated_at' => '2019-02-07 21:30:06',
                 'status' => 'booked',
+                'nationality' => 'বাঙালি',
             ),
             1 => 
             array (
@@ -50,6 +51,7 @@ class BookingGuestInfosTableSeeder extends Seeder
                 'created_at' => '2019-02-07 21:30:06',
                 'updated_at' => '2019-02-07 21:30:06',
                 'status' => 'booked',
+                'nationality' => 'বাঙালি',
             ),
             2 => 
             array (
@@ -67,6 +69,7 @@ class BookingGuestInfosTableSeeder extends Seeder
                 'created_at' => '2019-02-07 21:30:06',
                 'updated_at' => '2019-02-07 21:30:06',
                 'status' => 'booked',
+                'nationality' => 'বাঙালি',
             ),
             3 => 
             array (
@@ -84,6 +87,7 @@ class BookingGuestInfosTableSeeder extends Seeder
                 'created_at' => '2019-02-07 21:30:06',
                 'updated_at' => '2019-02-07 21:30:06',
                 'status' => 'booked',
+                'nationality' => 'বাঙালি',
             ),
         ));
         

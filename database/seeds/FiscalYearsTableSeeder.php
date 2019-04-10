@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class RemarksTableSeeder extends Seeder
+class FiscalYearsTableSeeder extends Seeder
 {
 
     /**
@@ -14,7 +14,7 @@ class RemarksTableSeeder extends Seeder
     {
         
 
-        \DB::table('remarks')->delete();
+        \DB::table('fiscal_years')->delete();
         
         
         

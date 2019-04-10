@@ -569,6 +569,360 @@ class MigrationsTableSeeder extends Seeder
                 'migration' => '2019_01_31_200559_add_column_in_project_proposals_table',
                 'batch' => 1,
             ),
+            92 => 
+            array (
+                'id' => 93,
+                'migration' => '2019_02_10_150602_create_draft_proposal_budgets_table',
+                'batch' => 1,
+            ),
+            93 => 
+            array (
+                'id' => 94,
+                'migration' => '2019_02_10_171015_create_draft_proposal_budget_fiscal_values_table',
+                'batch' => 1,
+            ),
+            94 => 
+            array (
+                'id' => 95,
+                'migration' => '2019_02_10_193948_edit_designation_id_to_employees_table',
+                'batch' => 1,
+            ),
+            95 => 
+            array (
+                'id' => 96,
+                'migration' => '2019_02_13_122335_add_nationality_to_room_booking_guest_infos_table',
+                'batch' => 1,
+            ),
+            96 => 
+            array (
+                'id' => 97,
+                'migration' => '2019_02_17_163322_create_divisions_table',
+                'batch' => 1,
+            ),
+            97 => 
+            array (
+                'id' => 98,
+                'migration' => '2019_02_17_164000_create_districts_table',
+                'batch' => 1,
+            ),
+            98 => 
+            array (
+                'id' => 99,
+                'migration' => '2019_02_17_164127_create_thanas_table',
+                'batch' => 1,
+            ),
+            99 => 
+            array (
+                'id' => 100,
+                'migration' => '2019_02_17_164636_create_unions_table',
+                'batch' => 1,
+            ),
+            100 => 
+            array (
+                'id' => 101,
+                'migration' => '2019_02_20_121439_add_addresses_columns_to_organiations_table',
+                'batch' => 1,
+            ),
+            101 => 
+            array (
+                'id' => 102,
+                'migration' => '2019_02_24_141051_update_attributes_table',
+                'batch' => 1,
+            ),
+            102 => 
+            array (
+                'id' => 103,
+                'migration' => '2019_02_24_142135_update_attribute_values_table',
+                'batch' => 1,
+            ),
+            103 => 
+            array (
+                'id' => 104,
+                'migration' => '2019_02_24_150236_delete_status_field_to_research_table',
+                'batch' => 1,
+            ),
+            104 => 
+            array (
+                'id' => 105,
+                'migration' => '2019_02_24_150659_add_status_fields_to_research_table',
+                'batch' => 1,
+            ),
+            105 => 
+            array (
+                'id' => 106,
+                'migration' => '2019_02_25_160754_create_research_publications_table',
+                'batch' => 1,
+            ),
+            106 => 
+            array (
+                'id' => 107,
+                'migration' => '2019_02_25_161456_create_research_publication_attachments_table',
+                'batch' => 1,
+            ),
+            107 => 
+            array (
+                'id' => 108,
+                'migration' => '2019_02_25_182053_create_attribute_plannings_table',
+                'batch' => 1,
+            ),
+            108 => 
+            array (
+                'id' => 109,
+                'migration' => '2019_03_02_170543_create_economy_heads_table',
+                'batch' => 1,
+            ),
+            109 => 
+            array (
+                'id' => 110,
+                'migration' => '2019_03_03_110040_add_get_back_status_btn_label_back_to_rule_workflow_rule_details_table',
+                'batch' => 1,
+            ),
+            110 => 
+            array (
+                'id' => 111,
+                'migration' => '2019_03_03_175457_create_share_conversations_table',
+                'batch' => 1,
+            ),
+            111 => 
+            array (
+                'id' => 112,
+                'migration' => '2019_03_03_175530_create_share_rules_table',
+                'batch' => 1,
+            ),
+            112 => 
+            array (
+                'id' => 113,
+                'migration' => '2019_03_03_180649_create_share_rules_designations_table',
+                'batch' => 1,
+            ),
+            113 => 
+            array (
+                'id' => 114,
+                'migration' => '2019_03_03_191559_create_project_training_table',
+                'batch' => 1,
+            ),
+            114 => 
+            array (
+                'id' => 115,
+                'migration' => '2019_03_03_192209_create_research_budgets_table',
+                'batch' => 1,
+            ),
+            115 => 
+            array (
+                'id' => 116,
+                'migration' => '2019_03_06_160537_create_project_training_members_table',
+                'batch' => 1,
+            ),
+            116 => 
+            array (
+                'id' => 117,
+                'migration' => '2019_03_07_174336_edit_message_type_to_workflow_conversations_table',
+                'batch' => 1,
+            ),
+            117 => 
+            array (
+                'id' => 118,
+                'migration' => '2019_03_07_175311_add_message_field_to_workflow_conversations_table',
+                'batch' => 1,
+            ),
+            118 => 
+            array (
+                'id' => 119,
+                'migration' => '2019_03_10_151016_create_fiscal_years_table',
+                'batch' => 1,
+            ),
+            119 => 
+            array (
+                'id' => 120,
+                'migration' => '2019_03_14_180529_create_registered_trainee_generalInfos_table',
+                'batch' => 1,
+            ),
+            120 => 
+            array (
+                'id' => 121,
+                'migration' => '2019_03_14_184819_create_registered_trainee_service_table',
+                'batch' => 1,
+            ),
+            121 => 
+            array (
+                'id' => 122,
+                'migration' => '2019_03_14_190954_create_registered_trainee_emergency_table',
+                'batch' => 1,
+            ),
+            122 => 
+            array (
+                'id' => 123,
+                'migration' => '2019_03_18_131634_create_registered_trainee_education_table',
+                'batch' => 1,
+            ),
+            123 => 
+            array (
+                'id' => 124,
+                'migration' => '2019_03_18_155128_add_columns_to_trainees_table',
+                'batch' => 1,
+            ),
+            124 => 
+            array (
+                'id' => 125,
+                'migration' => '2019_03_18_162314_update_trainees_table',
+                'batch' => 1,
+            ),
+            125 => 
+            array (
+                'id' => 126,
+                'migration' => '2019_03_19_161725_create_trainee_diseases_table',
+                'batch' => 1,
+            ),
+            126 => 
+            array (
+                'id' => 127,
+                'migration' => '2019_03_21_102834_update_registered_trainee_emergency_table',
+                'batch' => 1,
+            ),
+            127 => 
+            array (
+                'id' => 128,
+                'migration' => '2019_03_24_124216_add_default_value_to_hostel_budget_titles_table',
+                'batch' => 1,
+            ),
+            128 => 
+            array (
+                'id' => 129,
+                'migration' => '2019_03_28_142227_create_registered_trainee_physicalInfos_table',
+                'batch' => 1,
+            ),
+            129 => 
+            array (
+                'id' => 130,
+                'migration' => '2019_03_30_194712_add_duration_and_budget_to_project_table',
+                'batch' => 1,
+            ),
+            130 => 
+            array (
+                'id' => 131,
+                'migration' => '2019_03_31_125341_update_registered_trainee_physicalInfos_table',
+                'batch' => 1,
+            ),
+            131 => 
+            array (
+                'id' => 132,
+                'migration' => '2019_04_01_123332_add_age_field_to_organization_member',
+                'batch' => 1,
+            ),
+            132 => 
+            array (
+                'id' => 133,
+                'migration' => '2019_04_01_153625_create_registered_trainee_healthExam_table',
+                'batch' => 1,
+            ),
+            133 => 
+            array (
+                'id' => 134,
+                'migration' => '2019_04_03_154506_create_research_detail_submissions_table',
+                'batch' => 1,
+            ),
+            134 => 
+            array (
+                'id' => 135,
+                'migration' => '2019_04_03_161913_create_research_detail_submission_attachments',
+                'batch' => 1,
+            ),
+            135 => 
+            array (
+                'id' => 136,
+                'migration' => '2019_04_03_172933_create_project_request_details_table',
+                'batch' => 1,
+            ),
+            136 => 
+            array (
+                'id' => 137,
+                'migration' => '2019_04_04_130935_create_research_detail_invitations_table',
+                'batch' => 1,
+            ),
+            137 => 
+            array (
+                'id' => 138,
+                'migration' => '2019_04_04_131026_create_research_detail_invitation_attachments_table',
+                'batch' => 1,
+            ),
+            138 => 
+            array (
+                'id' => 139,
+                'migration' => '2019_04_04_131834_create_research_detail_invitation_receivers_table',
+                'batch' => 1,
+            ),
+            139 => 
+            array (
+                'id' => 140,
+                'migration' => '2019_04_04_160016_create_project_detail_proposals_table',
+                'batch' => 1,
+            ),
+            140 => 
+            array (
+                'id' => 141,
+                'migration' => '2019_04_04_183727_create_project_detail_proposal_attachments_table',
+                'batch' => 1,
+            ),
+            141 => 
+            array (
+                'id' => 142,
+                'migration' => '2019_04_05_014004_update_research_detail_invitations_table',
+                'batch' => 1,
+            ),
+            142 => 
+            array (
+                'id' => 143,
+                'migration' => '2019_04_05_072351_drop_research_detail_invitation_receivers_table',
+                'batch' => 1,
+            ),
+            143 => 
+            array (
+                'id' => 144,
+                'migration' => '2019_04_05_080951_update_project_request_details_table',
+                'batch' => 1,
+            ),
+            144 => 
+            array (
+                'id' => 145,
+                'migration' => '2019_04_05_081742_create_project_request_detail_attachments_table',
+                'batch' => 1,
+            ),
+            145 => 
+            array (
+                'id' => 146,
+                'migration' => '2019_04_07_152551_update_share_rule_designations_table',
+                'batch' => 1,
+            ),
+            146 => 
+            array (
+                'id' => 147,
+                'migration' => '2019_04_07_173654_update_share_rule_conversation_table',
+                'batch' => 1,
+            ),
+            147 => 
+            array (
+                'id' => 148,
+                'migration' => '2019_04_07_232313_add_is_divisional_director_to_employees_table',
+                'batch' => 1,
+            ),
+            148 => 
+            array (
+                'id' => 149,
+                'migration' => '2019_04_08_174903_nullable_department_id_to_share_conversations_table',
+                'batch' => 1,
+            ),
+            149 => 
+            array (
+                'id' => 150,
+                'migration' => '2019_04_09_113212_add_is_parent_to_share_rules_designations',
+                'batch' => 1,
+            ),
+            150 => 
+            array (
+                'id' => 151,
+                'migration' => '2019_04_09_130627_add_can_approve_to_workflow_rule_details_table',
+                'batch' => 1,
+            ),
         ));
         
         
