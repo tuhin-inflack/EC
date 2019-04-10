@@ -78,7 +78,6 @@
         let genderLabel = '{!! trans('labels.gender') !!}';
         let mobileLabel = '{!! trans('labels.mobile') !!}';
 
-        // added by sumon
         let minimum = '{!! trans('hm::checkin.minimum') !!}';
         let maximum = '{!! trans('hm::checkin.maximum') !!}';
         let minimum_message = '{!! trans('hm::checkin.minimum_message') !!}';
@@ -91,7 +90,6 @@
         let the = '{!! trans('hm::checkin.the') !!}';
         let current_lang = '{!!  Lang::locale()  !!}';
         let testabc = 'yes this is testing';
-        // end by sumon
 
         // Relation Localization
         let guestRelations = {
