@@ -44,7 +44,7 @@ class ShareRulesTableSeeder extends Seeder
             3 => 
             array (
                 'id' => 4,
-                'name' => 'JDP can share with DR, ADR, DDR',
+                'name' => 'JDR can share with DR, ADR, DDR',
                 'is_group' => 1,
                 'created_at' => NULL,
                 'updated_at' => NULL,

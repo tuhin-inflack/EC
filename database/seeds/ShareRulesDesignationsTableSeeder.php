@@ -366,12 +366,28 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'is_sharable' => 1,
                 'sharable_id' => 12,
                 'can_reject' => 1,
-                'can_approve' => 0,
+                'can_approve' => 1,
                 'is_parent' => 0,
             ),
             22 => 
             array (
                 'id' => 23,
+                'share_rule_id' => 2,
+                'department_id' => 2,
+                'department' => NULL,
+                'designation_id' => 23,
+                'designation' => NULL,
+                'created_at' => NULL,
+                'updated_at' => NULL,
+                'is_sharable' => 1,
+                'sharable_id' => 2,
+                'can_reject' => 1,
+                'can_approve' => 0,
+                'is_parent' => 1,
+            ),
+            23 => 
+            array (
+                'id' => 24,
                 'share_rule_id' => 8,
                 'department_id' => 2,
                 'department' => NULL,
@@ -383,11 +399,11 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'sharable_id' => 2,
                 'can_reject' => 1,
                 'can_approve' => 0,
-                'is_parent' => 0,
+                'is_parent' => 1,
             ),
-            23 => 
+            24 => 
             array (
-                'id' => 24,
+                'id' => 25,
                 'share_rule_id' => 8,
                 'department_id' => 2,
                 'department' => NULL,
@@ -401,9 +417,9 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'can_approve' => 0,
                 'is_parent' => 0,
             ),
-            24 => 
+            25 => 
             array (
-                'id' => 25,
+                'id' => 26,
                 'share_rule_id' => 9,
                 'department_id' => 2,
                 'department' => NULL,
@@ -415,11 +431,11 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'sharable_id' => 2,
                 'can_reject' => 1,
                 'can_approve' => 0,
-                'is_parent' => 0,
+                'is_parent' => 1,
             ),
-            25 => 
+            26 => 
             array (
-                'id' => 26,
+                'id' => 27,
                 'share_rule_id' => 9,
                 'department_id' => 2,
                 'department' => NULL,
@@ -433,9 +449,9 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'can_approve' => 0,
                 'is_parent' => 0,
             ),
-            26 => 
+            27 => 
             array (
-                'id' => 27,
+                'id' => 28,
                 'share_rule_id' => 9,
                 'department_id' => 2,
                 'department' => NULL,
@@ -449,9 +465,9 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'can_approve' => 0,
                 'is_parent' => 0,
             ),
-            27 => 
+            28 => 
             array (
-                'id' => 28,
+                'id' => 29,
                 'share_rule_id' => 10,
                 'department_id' => 2,
                 'department' => NULL,
@@ -463,11 +479,11 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'sharable_id' => 2,
                 'can_reject' => 1,
                 'can_approve' => 0,
-                'is_parent' => 0,
+                'is_parent' => 1,
             ),
-            28 => 
+            29 => 
             array (
-                'id' => 29,
+                'id' => 30,
                 'share_rule_id' => 10,
                 'department_id' => 2,
                 'department' => NULL,
@@ -481,9 +497,9 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'can_approve' => 0,
                 'is_parent' => 0,
             ),
-            29 => 
+            30 => 
             array (
-                'id' => 30,
+                'id' => 31,
                 'share_rule_id' => 11,
                 'department_id' => 2,
                 'department' => NULL,
@@ -495,11 +511,11 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'sharable_id' => 2,
                 'can_reject' => 1,
                 'can_approve' => 0,
-                'is_parent' => 0,
+                'is_parent' => 1,
             ),
-            30 => 
+            31 => 
             array (
-                'id' => 31,
+                'id' => 32,
                 'share_rule_id' => 11,
                 'department_id' => 2,
                 'department' => NULL,
@@ -510,12 +526,12 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'is_sharable' => 1,
                 'sharable_id' => 12,
                 'can_reject' => 1,
-                'can_approve' => 0,
+                'can_approve' => 1,
                 'is_parent' => 0,
             ),
-            31 => 
+            32 => 
             array (
-                'id' => 32,
+                'id' => 33,
                 'share_rule_id' => 12,
                 'department_id' => 2,
                 'department' => NULL,
@@ -529,9 +545,9 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'can_approve' => 0,
                 'is_parent' => 0,
             ),
-            32 => 
+            33 => 
             array (
-                'id' => 33,
+                'id' => 34,
                 'share_rule_id' => 12,
                 'department_id' => 2,
                 'department' => NULL,
@@ -543,7 +559,7 @@ class ShareRulesDesignationsTableSeeder extends Seeder
                 'sharable_id' => 2,
                 'can_reject' => 1,
                 'can_approve' => 0,
-                'is_parent' => 0,
+                'is_parent' => 1,
             ),
         ));
         
