@@ -10,11 +10,12 @@
                 <div class="card-body">
 
                     <h2>Share Conversation</h2>
-                    <form id="frm-example" action="{{ route('research.bulk.approved') }}" method="post" name="test">
+                    <form id="frm-example" action="{{ route('research.bulk.action') }}" method="post" name="test">
                         @csrf
-                        <table id="example" class="table table-bordered">
+                        <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
                             <thead>
-                            <th></th>
+                            @if($bulkActionForApprove)
+                                <th></th>@endif
                             <th>@lang('labels.feature')</th>
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
@@ -24,7 +25,8 @@
 
                             @foreach($shareConversations as $shareConversation)
                                 <tr>
-                                    <td>{{  $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>
+                                    @if($bulkActionForApprove)
+                                        <td>{{  $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
                                     <td>{{ $shareConversation->feature->name }}</td>
                                     <td>{{$shareConversation->message}}</td>
                                     <td>
@@ -42,8 +44,18 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <hr/>
-                        <button type="submit" class="btn" name="Approve">Approve</button>
+
+                        <div class="form" id="approvalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <input type="submit" name="action_type" value="APPROVED" class="btn btn-success">
+                                        <input type="submit" name="action_type" value="REJECTED" class="btn btn-danger">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -482,11 +494,9 @@
     <script>
 
         // testing new one
-
         $(document).ready(function () {
-            $("#remark").hide();
-            $("#message").hide();
-            var table = $('#example').DataTable({
+
+            var table = $('#bulkApprove').DataTable({
                 'columnDefs': [
                     {
                         'targets': 0,
@@ -501,28 +511,7 @@
                 'order': [[1, 'asc']],
 
             });
-            $('#frm-example').on('click', function (e) {
-                if (table.rows('.selected').count() > 0) {
 
-                    $("#remark").show();
-                    $("#message").show();
-
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-            });
-
-            $(":checkbox").click(function (event) {
-                if ($(this).is(":checked")) {
-                    $("#remark").show();
-                    $("#message").show();
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-
-            });
             // Handle form submission event
             $('#frm-example').on('submit', function (e) {
                 var form = this;
@@ -535,14 +524,31 @@
                             .val(rowId)
                     );
                 });
-                $('#example-console-rows').text(rows_selected.join(","));
-                $('#example-console-form').text($(form).serialize());
+                // $('#example-console-rows').text(rows_selected.join(","));
+                // $('#example-console-form').text($(form).serialize());
                 // $('input[name="id\[\]"]', form).remove();
                 // e.preventDefault();
             });
+            $('#approvalReject').hide();
+            $('#frm-example').on('click', function (e) {
+                if (table.rows('.selected').count() > 0) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+            });
+
+            $(":checkbox").click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+
+            });
+
 
         });
-
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',
