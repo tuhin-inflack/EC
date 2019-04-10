@@ -90,7 +90,9 @@
                                         <label>@lang('pms::approved-proposal.share_to')</label>
                                         <select name="designation_id" class="form-control">
                                             @foreach($ruleDesignations as $designation)
-                                                <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                                @if($designation->designation_id != $authDesignation)
+                                                    <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                                @endif
                                             @endforeach
                                         </select>
 
@@ -114,10 +116,10 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
                                         @if($shareConversation->shareRuleDesignation->can_approve==true)
-                                            <button value="APPROVE" name="status">{{trans(('labels.approve'))}}</button>
+                                            <button value="APPROVED" name="status" type="submit" class="btn btn-success">{{trans(('labels.approve'))}}</button>
                                         @endif
+                                            <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
                                         @if($shareConversation->shareRuleDesignation->can_reject)
                                             <button type="submit" value="REJECTED" name="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</button>
                                         @endif
