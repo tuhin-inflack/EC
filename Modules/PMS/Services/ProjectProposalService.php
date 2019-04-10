@@ -26,9 +26,11 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
+use Illuminate\Support\Facades\Session;
 
 class ProjectProposalService
 {
@@ -39,6 +41,7 @@ class ProjectProposalService
     private $workflowService;
     private $userService;
     private $dashboardService;
+    private $employeeService;
     /**
      * @var WorkflowMasterService
      */
@@ -66,13 +69,15 @@ class ProjectProposalService
         FeatureService $featureService,
         WorkflowService $workflowService,
         UserService $userService,
-        ReviewUrlGenerator $reviewUrlGenerator
+        ReviewUrlGenerator $reviewUrlGenerator,
+        EmployeeServices $employeeService
     )
     {
         $this->projectProposalRepository = $projectProposalRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
         $this->userService = $userService;
+        $this->employeeService = $employeeService;
 
         $this->setActionRepository($projectProposalRepository);
         $this->reviewUrlGenerator = $reviewUrlGenerator;
@@ -112,6 +117,11 @@ class ProjectProposalService
             }
 
             // Initiating Workflow
+            $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+            if(is_null($divisionalDirector)) {
+                Session::flash('error', 'Divisional Director is not defined for your department');
+                return redirect()->back();
+            }
             $featureName = config('constants.project_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
             $workflowData = [
@@ -119,6 +129,7 @@ class ProjectProposalService
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'designationTo' => ['1'=> $divisionalDirector->designation_id] ,
             ];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done

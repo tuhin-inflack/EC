@@ -67,7 +67,7 @@ class PublicBookingRequestController extends Controller
 
     public function create()
     {
-        $roomTypes = $this->roomTypeService->findAll();
+        $roomTypes = $this->roomTypeService->getRoomTypesThatHasRooms();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeesForDropdown();

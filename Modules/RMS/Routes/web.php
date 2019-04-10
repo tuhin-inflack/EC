@@ -120,10 +120,11 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}', 'ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
         Route::get('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@apcReview')->name('apc-review');
         Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
-        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getReviewForJointDirect')->name('research-proposal-submission.review');
-        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@feedbackForJointDirect')->name('research-proposal-submission.feedback');
+        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getResearchFeedbackForm')->name('research-proposal-submission.review');
+        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@postResearchFeedback')->name('research-proposal-submission.feedback');
 
         Route::post('reviewer-add-attachment', 'ProposalSubmitController@addAttachment')->name('research.proposal.reviewer.add.attachment');
+        Route::post('bulk-approve', 'ProposalSubmitController@researchBulkAction')->name('research.bulk.action');
 
 
     });

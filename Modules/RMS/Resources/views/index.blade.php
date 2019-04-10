@@ -10,33 +10,53 @@
                 <div class="card-body">
 
                     <h2>Share Conversation</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.message')</th>
-                        <th>@lang('labels.details')</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($shareConversations as $shareConversation)
-                            <tr>
-                                <td>{{ $shareConversation->feature->name }}</td>
-                                <td>{{$shareConversation->message}}</td>
-                                <td>
-                                    Research proposal: {{ $shareConversation->researchProposal->title }}<br/>
-                                </td>
+                    <form id="frm-example" action="{{ route('research.bulk.action') }}" method="post" name="test">
+                        @csrf
+                        <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
+                            <thead>
+                            @if($bulkActionForApprove)
+                                <th></th>@endif
+                            <th>@lang('labels.feature')</th>
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+                            </thead>
+                            <tbody>
 
-                                <td>
-                                    <a class="btn btn-primary btn-sm"
-                                       href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+                            @foreach($shareConversations as $shareConversation)
+                                <tr>
+                                    @if($bulkActionForApprove)
+                                        <td>{{  $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                    <td>{{ $shareConversation->feature->name }}</td>
+                                    <td>{{$shareConversation->message}}</td>
+                                    <td>
+                                        Research proposal: {{ $shareConversation->researchProposal->title }}<br/>
+                                    </td>
 
-                                    {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
-                                    {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm"
+                                           href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
 
+                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="form" id="approvalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <input type="submit" name="action_type" value="APPROVED" class="btn btn-success">
+                                        <input type="submit" name="action_type" value="REJECTED" class="btn btn-danger">
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </section>
@@ -78,104 +98,76 @@
             </div>
         </section>
     @endif
-    @if(!empty($researchPendingTasks->dashboardItems))
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
-                    <h4>@lang('rms::research.research_pending_items')</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.feature')</th>
-                        <th>@lang('labels.message')</th>
-                        <th>@lang('labels.details')</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($researchPendingTasks->dashboardItems as $item)
+    {{--@if(!empty($researchPendingTasks->dashboardItems))--}}
+    {{--<section id="pending-tasks">--}}
+    {{--<div class="card">--}}
+    {{--<div class="card-body">--}}
+    {{--<h4>@lang('rms::research.research_pending_items')</h4>--}}
+    {{--<table class="table table-bordered">--}}
+    {{--<thead>--}}
 
-                            <tr>
-                                <td>{{$item->featureName}}</td>
-                                <td>{{ $item->message }}</td>
+    {{--<th>@lang('labels.feature')</th>--}}
+    {{--<th>@lang('labels.message')</th>--}}
+    {{--<th>@lang('labels.details')</th>--}}
+    {{--<th>@lang('labels.action')</th>--}}
+    {{--</thead>--}}
+    {{--<tbody>--}}
+    {{--@foreach($researchPendingTasks->dashboardItems as $item)--}}
 
-                                <td>
-                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
-                                </td>
-                                <td><a href="{{url($item->checkUrl)}}"
-                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+    {{--<tr>--}}
+    {{--<td>{{$item->featureName}}</td>--}}
+    {{--<td>{{ $item->message }}</td>--}}
 
-                </div>
-            </div>
-        </section>
-    @endif
+    {{--<td>--}}
+    {{--Research Title: {{ $item->dynamicValues['research_title'] }}<br/>--}}
+    {{--</td>--}}
+    {{--<td><a href="{{url($item->checkUrl)}}"--}}
+    {{--class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>--}}
+    {{--</tr>--}}
+    {{--@endforeach--}}
+    {{--</tbody>--}}
+    {{--</table>--}}
+
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</section>--}}
+    {{--@endif--}}
+    {{--research proposal dashboard item--}}
     @if(!empty($pendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
                     <h4>@lang('rms::research.research_proposal_pending_items')</h4>
 
-                    <form id="frm-example" action="{{ route('test1') }}" method="post" name="test">
-                        @csrf
-                        <table id="example" class="table table-hover table-striped table-bordered">
-                            <thead>
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+
+                            <th>@lang('labels.feature')</th>
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($pendingTasks->dashboardItems as $item)
                             <tr>
-                                <th></th>
-                                <th>@lang('labels.feature')</th>
-                                <th>@lang('labels.message')</th>
-                                <th>@lang('labels.details')</th>
-                                <th>@lang('labels.action')</th>
+                                {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
+                                <td>{{$item->featureName}}</td>
+                                <td>{{$item->message}}</td>
+                                <td>
+                                    Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                </td>
+                                <td><a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
 
                             </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($pendingTasks->dashboardItems as $item)
-                                <tr>
-                                    <td>{{ $item->dynamicValues['id'] }}</td>
-                                    <td>{{$item->featureName}}</td>
-                                    <td>{{$item->message}}</td>
-                                    <td>
-                                        Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
-                                        Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
-                                    </td>
-                                    <td><a href="{{url($item->checkUrl)}}"
-                                           class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
-
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {{--{!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}--}}
-                        <hr/>
-
-
-                        <div class="form-group" id="remark">
-                            {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                            {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,
-                             'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                            <div class="help-block"></div>
-                        </div>
-                        <div class="form-group {{ $errors->has('message') ? 'error' : '' }}" id="message">
-                            {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                            {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2,
-                            'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                            {{--{!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}--}}
-                            <div class="help-block"></div>
-                            @if ($errors->has('message'))
-                                <div class="help-block">{{ $errors->first('message') }}</div>
-                            @endif
-                        </div>
-                        {{--<hr>--}}
-
-                        <p><b>Selected rows data:</b></p>
-                        <pre id="example-console-rows"></pre>
-
-                        <p><b>Form data as submitted to the server:</b></p>
-                        <pre id="example-console-form"></pre>
-                        <button type="submit" class="btn" name="Approve">Approve</button>
-                    </form>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{--{!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}--}}
 
 
                 </div>
@@ -502,11 +494,9 @@
     <script>
 
         // testing new one
-
         $(document).ready(function () {
-            $("#remark").hide();
-            $("#message").hide();
-            var table = $('#example').DataTable({
+
+            var table = $('#bulkApprove').DataTable({
                 'columnDefs': [
                     {
                         'targets': 0,
@@ -521,28 +511,7 @@
                 'order': [[1, 'asc']],
 
             });
-            $('#frm-example').on('click', function (e) {
-                if (table.rows('.selected').count() > 0) {
 
-                    $("#remark").show();
-                    $("#message").show();
-
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-            });
-
-            $(":checkbox").click(function (event) {
-                if ($(this).is(":checked")) {
-                    $("#remark").show();
-                    $("#message").show();
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-
-            });
             // Handle form submission event
             $('#frm-example').on('submit', function (e) {
                 var form = this;
@@ -551,18 +520,35 @@
                     $(form).append(
                         $('<input>')
                             .attr('type', 'hidden')
-                            .attr('name', 'id[]')
+                            .attr('name', 'ids[]')
                             .val(rowId)
                     );
                 });
-                $('#example-console-rows').text(rows_selected.join(","));
-                $('#example-console-form').text($(form).serialize());
+                // $('#example-console-rows').text(rows_selected.join(","));
+                // $('#example-console-form').text($(form).serialize());
                 // $('input[name="id\[\]"]', form).remove();
                 // e.preventDefault();
             });
+            $('#approvalReject').hide();
+            $('#frm-example').on('click', function (e) {
+                if (table.rows('.selected').count() > 0) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+            });
+
+            $(":checkbox").click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+
+            });
+
 
         });
-
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',

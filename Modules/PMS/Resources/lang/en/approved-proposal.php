@@ -8,5 +8,7 @@ return [
         'cancel' => [
             'title' => 'Cancel'
         ]
-    ]
+    ],
+    'share_to' => 'Who to Send to',
+    'share_btn' => 'Send for Review'
 ];
