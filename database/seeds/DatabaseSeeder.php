@@ -108,7 +108,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoomsTableSeeder::class);
         $this->call(ShareConversationsTableSeeder::class);
         $this->call(ShareRulesTableSeeder::class);
-        $this->call(ShareRulesDesignationsTableSeeder::class);
         $this->call(TaskAttachmentsTableSeeder::class);
         $this->call(TaskCommentsTableSeeder::class);
         $this->call(TasksTableSeeder::class);
