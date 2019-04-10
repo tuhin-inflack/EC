@@ -116,16 +116,15 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
-            11 =>
-                array(
-                    'id' => 12,
-                    'name' => 'Senior HR Executive',
-                    'short_name' => NULL,
-                    'department_id' => NULL,
-                    'created_at' => '2019-02-07 21:30:06',
-                    'updated_at' => '2019-02-07 21:30:06',
-                    'deleted_at' => NULL,
-                ),
+            11 => array(
+                'id' => 12,
+                'name' => 'Senior HR Executive',
+                'short_name' => NULL,
+                'department_id' => NULL,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
             12 => array(
                 'id' => 13,
                 'name' => 'Asst. Director Project',
@@ -153,7 +152,6 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
-
             15 => array(
                 'id' => 16,
                 'name' => 'Asst Director General',
@@ -167,7 +165,7 @@ class DesignationsTableSeeder extends Seeder
                 'id' => 17,
                 'name' => 'Director General',
                 'short_name' => 'DG',
-                'department_id' => 2,
+                'department_id' => 9,
                 'created_at' => '2019-02-07 21:30:06',
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
@@ -181,7 +179,6 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
-
             18 => array(
                 'id' => 19,
                 'name' => 'Joint Director Research',
@@ -236,8 +233,33 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
+            24 => array(
+                'id' => 25,
+                'name' => 'Hostel Manager',
+                'short_name' => 'HM',
+                'department_id' => 8,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
+            25 => array(
+                'id' => 26,
+                'name' => 'Director Admin',
+                'short_name' => 'DA',
+                'department_id' => 9,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
+            26 => array(
+                'id' => 27,
+                'name' => 'Director Training',
+                'short_name' => 'DT',
+                'department_id' => 7,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
         ));
-
-
     }
 }
