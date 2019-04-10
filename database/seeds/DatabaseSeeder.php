@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FeaturesTableSeeder::class);
         $this->call(NotificationTypesTableSeeder::class);
         $this->call(ShareRulesSeeder::class);
-        $this->call(UsersTableSeeder::class);
         $this->call(WorkflowRuleMastersTableSeeder::class);
         $this->call(WorkflowRuleDetailsTableSeeder::class);
         $this->call(ShareRulesDesignationSeeder::class);
@@ -30,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoomsTableSeeder::class);
         $this->call(RoomTypesTableSeeder::class);
         $this->call(HostelsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
     }
 }
