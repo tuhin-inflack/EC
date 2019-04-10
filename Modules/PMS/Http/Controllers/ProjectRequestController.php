@@ -71,7 +71,7 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-request.brief.index');
+        return redirect()->route('project-request.index');
     }
 
     /**

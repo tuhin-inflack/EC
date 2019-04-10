@@ -14,10 +14,10 @@ class EmployeesTableSeeder extends Seeder
     {
 
 
-        \DB::table('employees')->delete();
+        \DB::table('employees')->truncate();
 
         $employees = array(
-            0 =>
+            1 =>
                 array(
                     'id' => 1,
                     'employee_id' => 'FM10',
@@ -38,7 +38,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            1 =>
+            2 =>
                 array(
                     'id' => 2,
                     'employee_id' => 'FD11',
@@ -59,7 +59,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            2 =>
+            3 =>
                 array(
                     'id' => 3,
                     'employee_id' => 'RD12',
@@ -80,7 +80,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            3 =>
+            4 =>
                 array(
                     'id' => 4,
                     'employee_id' => 'PD1',
@@ -101,7 +101,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => NULL,
                     'deleted_at' => NULL,
                 ),
-            4 =>
+            5 =>
                 array(
                     'id' => 5,
                     'employee_id' => '10001',
@@ -122,7 +122,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => '2019-02-07 21:30:06',
                     'deleted_at' => NULL,
                 ),
-            5 =>
+            6 =>
                 array(
                     'id' => 6,
                     'employee_id' => '20001',
@@ -143,7 +143,7 @@ class EmployeesTableSeeder extends Seeder
                     'updated_at' => '2019-02-07 21:30:06',
                     'deleted_at' => NULL,
                 ),
-            6 =>
+            7 =>
                 array(
                     'id' => 7,
                     'employee_id' => '30001',
@@ -187,21 +187,21 @@ class EmployeesTableSeeder extends Seeder
 //            9 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, 'mobile_one' => '01711111113'],
 //            10 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, 'mobile_one' => '01711111113'],
 
-            7 => ['employee_id' => 'DIRR', 'first_name' => 'Director', 'last_name' => 'Research', 'email' => 'dirr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 22,  "is_divisional_director" => 1, 'mobile_one' => '01711119113'],
-            8 => ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
-            9 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
-            10 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
-            11 => ['employee_id' => 'directorgeneral', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 17, "is_divisional_director" => 0, 'mobile_one' => '01711131113'],
-            12 => ['employee_id' => 'ADGR', 'first_name' => 'Asst. Director', 'last_name' => 'General', 'email' => 'adg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 16, "is_divisional_director" => 0, 'mobile_one' => '01711211113'],
+            8 => ['employee_id' => 'DIRR', 'first_name' => 'Director', 'last_name' => 'Research', 'email' => 'dirr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 22,  "is_divisional_director" => 1, 'mobile_one' => '01711119113'],
+            9 => ['employee_id' => 'ADR', 'first_name' => 'Asst. Director', 'last_name' => 'Research', 'email' => 'adr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 18, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
+            10 => ['employee_id' => 'JDR', 'first_name' => 'Joint Director', 'last_name' => 'Research', 'email' => 'jdr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 19, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
+            11 => ['employee_id' => 'DDR', 'first_name' => 'Deputy Director', 'last_name' => 'Research', 'email' => 'ddr@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 20, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
+            12 => ['employee_id' => 'directorgeneral', 'first_name' => 'Director', 'last_name' => 'General', 'email' => 'dg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 17, "is_divisional_director" => 0, 'mobile_one' => '01711131113'],
+            13 => ['employee_id' => 'ADGR', 'first_name' => 'Asst. Director', 'last_name' => 'General', 'email' => 'adg@gmail.com', 'gender' => 'Male', 'department_id' => 1, 'designation_id' => 16, "is_divisional_director" => 0, 'mobile_one' => '01711211113'],
 
 //            seeding hrm data
-            13 => ['employee_id' => 'HRM1', 'first_name' => 'Human Resource', 'last_name' => 'Faculty', 'email' => 'hrfm@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 1, "is_divisional_director" => 0, 'mobile_one' => '01711111114'],
-            14 => ['employee_id' => 'DIRHR', 'first_name' => 'Director', 'last_name' => 'Human Resource', 'email' => 'dirhr@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 21, "is_divisional_director" => 1, 'mobile_one' => '01723111114'],
+            14 => ['employee_id' => 'HRM1', 'first_name' => 'Human Resource', 'last_name' => 'Faculty', 'email' => 'hrfm@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 1, "is_divisional_director" => 0, 'mobile_one' => '01711111114'],
+            15 => ['employee_id' => 'DIRHR', 'first_name' => 'Director', 'last_name' => 'Human Resource', 'email' => 'dirhr@gmail.com', 'gender' => 'Male', 'department_id' => 5, 'designation_id' => 21, "is_divisional_director" => 1, 'mobile_one' => '01723111114'],
 
-            15 => ['employee_id' => 'DIRP', 'first_name' => 'Director', 'last_name' => 'Project', 'email' => 'dirp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 23,  "is_divisional_director" => 1, 'mobile_one' => '01711119113'],
-            16 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
-            16 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
-            18 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
+            16 => ['employee_id' => 'DIRP', 'first_name' => 'Director', 'last_name' => 'Project', 'email' => 'dirp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 23,  "is_divisional_director" => 1, 'mobile_one' => '01711119113'],
+            17 => ['employee_id' => 'ADP', 'first_name' => 'Asst. Director', 'last_name' => 'Project', 'email' => 'adp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 13, "is_divisional_director" => 0, 'mobile_one' => '01711161113'],
+            18 => ['employee_id' => 'JDP', 'first_name' => 'Joint Director', 'last_name' => 'Project', 'email' => 'jdp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 14, "is_divisional_director" => 0, 'mobile_one' => '01711111213'],
+            19 => ['employee_id' => 'DDP', 'first_name' => 'Deputy Director', 'last_name' => 'Project', 'email' => 'ddp@gmail.com', 'gender' => 'Male', 'department_id' => 2, 'designation_id' => 15, "is_divisional_director" => 0, 'mobile_one' => '01721111113'],
 
         );
 
