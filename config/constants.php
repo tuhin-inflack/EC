@@ -36,12 +36,12 @@ return [
     'faculty_director' => 'DM',
     'research_director' => 'RD',
     'initiator' => 'initiator',
-    'research_invite_submit' => ['RD'],
+    'research_invite_submit' => ['DIRR'],
     'research_proposal_submission' => ['FD'],
     'research_proposal_send_back' => ['FD', 'initiator'],
-    'research_proposal_approved' => ['initiator', 'RD', 'FD'],
-    'research_short_listed' => ['initiator', 'RD', 'FD'],
-    'research_approved_apc' => ['initiator', 'RD', 'FD'],
+    'research_proposal_approved' => ['initiator', 'DIRR', 'FD'],
+    'research_short_listed' => ['initiator', 'DIRR', 'FD'],
+    'research_approved_apc' => ['initiator', 'DIRR', 'FD'],
 
     // PMS: Keys with recipient list for notification
     'project_invite_submit' => ['PD', 'TaggedPerson'],

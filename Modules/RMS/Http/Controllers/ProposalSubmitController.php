@@ -152,7 +152,7 @@ class ProposalSubmitController extends Controller
         return response()->download($basePath);
     }
 
-    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+    public function review($researchProposalSubmissionId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId, $viewOnly = 0)
 
     {
 
@@ -206,7 +206,6 @@ class ProposalSubmitController extends Controller
 
     public function getResearchFeedbackForm($researchProposalSubmissionId, $workflowMasterId, $shareConversationId)
     {
-
         $shareConversation = $this->shareConversationService->findOne($shareConversationId);
         if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
             $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
@@ -220,7 +219,7 @@ class ProposalSubmitController extends Controller
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalSubmissionId]);
 
         return view('rms::proposal.review.review_for_joint_director', compact('research', 'feature',
-            'remarks', 'researchProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
+            'remarks', 'researchProposalSubmissionId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
     public function postResearchFeedback(Request $request, $shareConversationId)
@@ -277,12 +276,16 @@ class ProposalSubmitController extends Controller
 
     }
 
-    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId)
+    public function closeWorkflowByReviewer($workflowMasterId, $researchProposalSubmissionId, $shareConversationId = null)
     {
+
         $proposal = $this->researchProposalSubmissionService->findOne($researchProposalSubmissionId);
         $proposal->update(['status' => 'REJECTED']);
         $response = $this->researchProposalSubmissionService->closeWorkflow($workflowMasterId);
 
+        if (!is_null($shareConversationId)) {
+            $this->shareConversationService->updateConversation([], $shareConversationId);
+        }
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
     }

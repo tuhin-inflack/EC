@@ -18,7 +18,7 @@
                     <a href="{{route('research-request.index')}}">
                         <i class="la la-list"></i>
                         <span class="menu-title"
-                              data-i18n="nav.navbars.main">{{trans('rms::research_proposal.invitation')}}</span>
+                              data-i18n="nav.navbars.main">{{trans('rms::research_proposal.brief_invitation')}}</span>
                     </a>
                 </li>
                 <li class="{{is_active_route('research-proposal-submission.index')}}">
