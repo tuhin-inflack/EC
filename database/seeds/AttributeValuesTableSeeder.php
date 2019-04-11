@@ -14,7 +14,7 @@ class AttributeValuesTableSeeder extends Seeder
     {
         
 
-//        \DB::table('attribute_values')->delete();
+        \DB::table('attribute_values')->delete();
         
         
         

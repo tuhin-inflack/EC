@@ -71,8 +71,6 @@ class RMSController extends Controller
         $featureName = Config::get('constants.research_proposal_feature_name');
 
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-
-
         $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //       Research Items
         $researchFeatureName = Config::get('rms.research_feature_name');
@@ -83,19 +81,19 @@ class RMSController extends Controller
         $employee = $this->employeeService->findOne($user->reference_table_id);
 //        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
 //        dd($shareConversations[0]->researchProposal);
-        if (is_null($employee)) {
-            $researchPendingTasks = [];
-        } elseif ($employee->designation->short_name == DesignationShortName::RD) {
-            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
-        } else {
-            $researchPendingTasks = [];
-        }
+//        if (is_null($employee)) {
+//            $researchPendingTasks = [];
+//        } elseif ($employee->designation->short_name == DesignationShortName::RD) {
+//            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
+//        } else {
+//            $researchPendingTasks = [];
+//        }
 
         $shareConversations = (is_null($employee)) ? null : $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
-
+        $bulkActionForApprove = in_array($employee->designation->short_name, [DesignationShortName::DG]);
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations'));
+            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations', 'bulkActionForApprove'));
     }
 
     /**

@@ -102,6 +102,3 @@ Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.f
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
-Route::post('test1', function (Request $request) {
-    dd($request->all());
-})->name('test1');

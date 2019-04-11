@@ -87,22 +87,13 @@ class BookingRequestController extends Controller
     {
         $bookingRequests = [];
 
-        switch (1){
-            case $this->userService->isDirectorGeneral():
-                // show only forwarded requests
-                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
-                break;
-            case $this->userService->isDirectorAdmin():
-                // show all General requests with forwarded ones
-                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['general']);
-                break;
-            case $this->userService->isDirectorTraining():
-                // show all Training and Venue requests with forwarded ones
-                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['training', 'venue']);
-                break;
-            default:
-                $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
-                break;
+        if ($this->userService->isDirectorGeneral() ||
+            $this->userService->isDirectorAdmin() ||
+            $this->userService->isDirectorTraining() )
+        {
+            $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
+        } else {
+            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
         }
 
 
@@ -115,7 +106,7 @@ class BookingRequestController extends Controller
      */
     public function create()
     {
-        $roomTypes = $this->roomTypeService->findAll();
+        $roomTypes = $this->roomTypeService->getRoomTypesThatHasRooms();
         $departments = $this->departmentService->findAll();
         $employees = $this->employeeServices->findAll();
         $employeeOptions = $this->employeeServices->getEmployeesForDropdown();
@@ -172,7 +163,7 @@ class BookingRequestController extends Controller
         $requester = $roomBooking->requester;
         $referee = $roomBooking->referee;
         $roomInfos = $roomBooking->roomInfos;
-        $roomTypes = $this->roomTypeService->findAll();
+        $roomTypes = $this->roomTypeService->getRoomTypesThatHasRooms();
         $departments = $this->departmentService->findAll();
         $guestInfos = $roomBooking->guestInfos;
         $employeeOptions = $this->employeeServices->getEmployeesForDropdown();

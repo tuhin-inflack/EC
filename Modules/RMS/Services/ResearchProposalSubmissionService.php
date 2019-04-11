@@ -9,6 +9,7 @@ use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Notification\ReviewUrlGenerator;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\FeatureService;
 use App\Services\workflow\WorkFlowConversationService;
@@ -54,6 +55,8 @@ class ResearchProposalSubmissionService
      */
     private $employeeRepository;
 
+    private $shareConversationService;
+
     /**
      * ResearchProposalSubmissionService constructor.
      * @param ResearchProposalSubmissionRepository $researchProposalSubmissionRepository
@@ -65,7 +68,7 @@ class ResearchProposalSubmissionService
     public function __construct(
         ResearchProposalSubmissionRepository $researchProposalSubmissionRepository, WorkflowService $workflowService,
         FeatureService $featureService, UserService $userService, ReviewUrlGenerator $reviewUrlGenerator,
-        EmployeeRepository $employeeRepository)
+        EmployeeRepository $employeeRepository, WorkflowMasterService $workflowMasterService, ShareConversationService $shareConversationService)
     {
         $this->researchProposalSubmissionRepository = $researchProposalSubmissionRepository;
         $this->workflowService = $workflowService;
@@ -74,6 +77,8 @@ class ResearchProposalSubmissionService
         $this->setActionRepository($researchProposalSubmissionRepository);
         $this->reviewUrlGenerator = $reviewUrlGenerator;
         $this->employeeRepository = $employeeRepository;
+        $this->workflowMasterService = $workflowMasterService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     public function store(array $data, $divisionalDirector)
@@ -108,8 +113,9 @@ class ResearchProposalSubmissionService
                 'message' => $data['message'],
                 'designationTo' => [1 => $divisionalDirector->designation_id]
             ];
-//            dd($workflowData);
-
+            if ($this->isProposalSubmitFromResearchDept()) {
+                $workflowData['skipped'] = [1];
+            }
             $this->workflowService->createWorkflow($workflowData);
 
             //Send Notifications
@@ -313,5 +319,50 @@ class ResearchProposalSubmissionService
         } else {
             return $this->researchProposalSubmissionRepository->findBy(['auth_user_id' => $user->id]);
         }
+    }
+
+    public function researchProposalBulkApproved($shareAndProposalIds)
+    {
+
+        foreach ($shareAndProposalIds as $shareAndProposalId) {
+            $shareConversationId = explode('-', $shareAndProposalId)[0];
+            $researchProposalId = explode('-', $shareAndProposalId)[1];
+
+            $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
+            //approving workflow
+            $this->workflowService->approveWorkflow($workflowMaster->id);
+            //closing share conversation
+            $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalId], $shareConversationId);
+
+            //update main item
+            $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
+            $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
+
+        }
+    }
+
+    public function researchProposalBulkReject($shareAndProposalIds)
+    {
+
+        foreach ($shareAndProposalIds as $shareAndProposalId) {
+            $shareConversationId = explode('-', $shareAndProposalId)[0];
+            $researchProposalId = explode('-', $shareAndProposalId)[1];
+
+            //closing workflow
+            $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
+            $this->workflowService->closeWorkflow($workflowMaster->id);
+
+            //closing share conversation
+            $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalId], $shareConversationId);
+
+            //update main item
+            $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
+            $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
+        }
+    }
+
+    private function isProposalSubmitFromResearchDept()
+    {
+        return $this->userService->isResearchDivisionUser(Auth::user());
     }
 }

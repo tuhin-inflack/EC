@@ -27,11 +27,13 @@
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <label class="black">@lang('rms::research_proposal.invitation_title'): </label>
+                                            <label class="black">@lang('rms::research_proposal.invitation_title')
+                                                : </label>
                                             <p class="card-text">{{ $researchInvitation->title }}</p>
                                             <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
-                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date')
+                                                : </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
                                             <label class="black">@lang('rms::research_proposal.last_sub_date'): </label>
                                             <p> {{ date('d/m/y', strtotime($researchInvitation->end_date)) }} </p>
@@ -73,77 +75,80 @@
                                             <b><a href="{{url('rms/research-proposal-submission/attachment-download/'.$research->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
+                                    @if(Request()->viewOnly != 1)
                                     @include('rms::proposal.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
-
-                                    <div class="col-md-12">
-                                        {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}
-                                        <hr/>
-                                        <div class="form-group">
-                                            {{ Form::hidden('url', url()->current()) }}
-                                            {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                                            {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
-                                        </div>
-                                        <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
-                                            {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                            {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                                            <div class="help-block"></div>
-                                            @if ($errors->has('message'))
-                                                <div class="help-block">{{ $errors->first('message') }}</div>
-                                            @endif
-                                        </div>
-
-                                        @if(!is_null($ruleDesignations))
-                                            <div class="col-md-6">
-                                                <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
-                                                    <label>{{__('labels.share')}}</label>
-                                                    <select name="designation_id" class="form-control">
-                                                        <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
-
-                                                        @foreach($ruleDesignations as $ruleDesignation)
-                                                            <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    @if ($errors->has('designation_id'))
-                                                        <div class="help-block">{{ trans('labels.This field is required') }}</div>
-                                                    @endif
-
-                                                </div>
-                                            </div>
+                                @if(Request()->viewOnly != 1)
+                                <div class="col-md-12">
+                                    {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}
+                                    <hr/>
+                                    <div class="form-group">
+                                        {{ Form::hidden('url', url()->current()) }}
+                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                    </div>
+                                    <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
+                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        <div class="help-block"></div>
+                                        @if ($errors->has('message'))
+                                            <div class="help-block">{{ $errors->first('message') }}</div>
                                         @endif
-
-                                        {!! Form::hidden('feature', $featureName) !!}
-                                        {!! Form::hidden('feature_id', $feature->id) !!}
-                                        {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
-                                        {!! Form::hidden('department_id', $workflowRuleMaster->department_id) !!}
-                                        {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
-                                        {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
-                                        {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
-                                        {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
-                                        {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
-                                        @if(!is_null($ruleDesignations))
-                                            <button type="submit" name="status" value="REVIEW" class="btn btn-primary"
-                                                    id="sendForReview">Send
-                                                for review
-                                            </button>
-                                        @endif
-                                        {!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                        @if($reviewButton)
-                                            {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
-                                        @endif
-                                        {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId]) }}"
-                                           class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
-
-                                        {!! Form::close() !!}
                                     </div>
 
-                                    {{--<div class="col-md-12 text-center">--}}
-                                        {{--<a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>--}}
-                                        {{--<a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>--}}
-                                    {{--</div>--}}
-                               {{----}}
+                                    @if(!is_null($ruleDesignations))
+                                        <div class="col-md-6">
+                                            <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
+                                                <label>{{__('labels.share')}}</label>
+                                                <select name="designation_id" class="form-control">
+                                                    <option value=""
+                                                            placeholder=""> {!!  trans('labels.select') !!}</option>
 
+                                                    @foreach($ruleDesignations as $ruleDesignation)
+                                                        <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('designation_id'))
+                                                    <div class="help-block">{{ trans('labels.This field is required') }}</div>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endif
+
+                                    {!! Form::hidden('feature', $featureName) !!}
+                                    {!! Form::hidden('feature_id', $feature->id) !!}
+                                    {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
+                                    {!! Form::hidden('department_id', $workflowRuleMaster->department_id) !!}
+                                    {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
+                                    {!! Form::hidden('item_id', $researchProposalSubmissionId) !!}
+                                    {!! Form::hidden('share_rule_id', $workflowRuleDetails->share_rule_id) !!}
+                                    {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
+                                    {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
+                                    {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
+                                    @if(!is_null($ruleDesignations))
+                                        <button type="submit" name="status" value="REVIEW" class="btn btn-primary"
+                                                id="sendForReview">Share
+                                        </button>
+                                    @endif
+                                    @if($approveButton)
+                                        {!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                    @endif
+                                    {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
+                                    {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
+                                    <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId]) }}"
+                                       class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+
+                                    {!! Form::close() !!}
+                                </div>
+                                @endif
+                                @if($research->status == 'APPROVED')
+                                    <div class="col-md-12 text-center">
+                                        <a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>
+                                        <a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

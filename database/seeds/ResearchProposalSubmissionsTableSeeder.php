@@ -14,11 +14,8 @@ class ResearchProposalSubmissionsTableSeeder extends Seeder
     {
         
 
-//        \DB::table('research_proposal_submissions')->delete();
-//
-//        \DB::table('research_proposal_submissions')->insert(array (
-//
-//        ));
+        \DB::table('research_proposal_submissions')->delete();
+        
         
         
     }

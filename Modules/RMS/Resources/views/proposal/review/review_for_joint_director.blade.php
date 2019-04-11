@@ -80,15 +80,50 @@
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
                                         <div class="help-block"></div>
                                     </div>
+                                    <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
+                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        <div class="help-block"></div>
+                                        @if ($errors->has('message'))
+                                            <div class="help-block">{{ $errors->first('message') }}</div>
+                                        @endif
+                                    </div>
+                                    @if(!is_null($ruleDesignations))
+                                        <div class="col-md-6">
+                                            <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
+                                                <label>{{__('labels.share')}}</label>
+                                                <select name="designation_id" class="form-control">
+                                                    <option value=""
+                                                            placeholder=""> {!!  trans('labels.select') !!}</option>
 
+                                                    @foreach($ruleDesignations as $ruleDesignation)
+                                                        <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('designation_id'))
+                                                    <div class="help-block">{{ trans('labels.This field is required') }}</div>
+                                                @endif
+
+                                            </div>
+                                        </div>
+                                    @endif
 
                                     {!! Form::hidden('feature', $feature->name) !!}
                                     {!! Form::hidden('feature_id', $feature->id) !!}
+                                    {!! Form::hidden('share_rule_id', $shareConversation->shareRuleDesignation->share_rule_id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
-                                    <button type="submit" name="status" value="FEEDBACK" class="btn btn-primary">Provide feedback
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Share
                                     </button>
+                                    @if($shareConversation->shareRuleDesignation->can_approve==true)
+                                        {!! Form::button(' <i class="ft-check"></i> Approve', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                    @endif
+                                    @if($shareConversation->shareRuleDesignation->can_reject)
+                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId, $shareConversationId]) }}"
+                                           class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    @endif
                                     {!! Form::close() !!}
+
                                 </div>
 
                             </div>

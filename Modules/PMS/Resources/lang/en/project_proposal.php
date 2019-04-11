@@ -61,7 +61,7 @@ return [
     'edit_request_form' => 'Project Request Edit Form',
     'project_name' => 'Project Name',
     'project_budget' => 'Budget',
-    'project_duration' => 'Duration',
+    'project_duration' => 'Duration (years)',
     'project_invitation_brief' => 'Project Brief',
     'project_invitation_brief_list' => 'Project Brief Invitation List',
     'project_invitation_details' => 'Project Details',

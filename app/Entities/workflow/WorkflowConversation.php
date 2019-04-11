@@ -21,4 +21,9 @@ class WorkflowConversation extends Model
     {
         return $this->belongsTo(WorkflowMaster::class, 'workflow_master_id', 'id');
     }
+
+    public function workFlowDetail()
+    {
+        return $this->belongsTo(WorkflowDetail::class, 'workflow_details_id', 'id');
+    }
 }

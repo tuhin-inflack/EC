@@ -1,6 +1,8 @@
 $(document).ready(function () {
     initializeSelectReferee();
 
+    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+
     // datepicker
     $('#start_date').pickadate({
         min: new Date()
