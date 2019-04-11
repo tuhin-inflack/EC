@@ -87,7 +87,7 @@ class TaskService
         $chartData = [];
         foreach ($tasks as $task) {
 
-            if ($task->expected_start_time && $task->expected_end_time) {
+            if ($task->expected_start_time && $task->expected_end_time && $task->actual_start_time) {
 
                 $manipulatedTaskData = $this->getManipulatedTaskData($task);
                 array_push($chartData, array(
