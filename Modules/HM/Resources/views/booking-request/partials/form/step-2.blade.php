@@ -136,11 +136,11 @@
                     {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid,
                     [
                         'class' => 'form-control' . ($errors->has('nid') ? ' is-invalid' : ''),
-                        'placeholder' => '14 digit number',
+                        'placeholder' => 'Nid number',
                         'data-rule-minlength' => 10,
                         'data-msg-minlength'=> trans('labels.At least 10 characters'),
-                        'data-rule-maxlength' => 14,
-                        'data-msg-maxlength'=> trans('labels.At most 14 characters'),
+                        'data-rule-maxlength' => 20,
+                        'data-msg-maxlength'=> trans('labels.At most 20 characters'),
                         'data-rule-number' => 'true',
                         'data-msg-number' => trans('labels.Please enter a valid number'),
                     ]) !!}

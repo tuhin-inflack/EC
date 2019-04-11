@@ -326,7 +326,11 @@ class BookingRequestService
     {
         return $this->bookingRequesteForwardRepository->getModel()->updateOrCreate(
             ['room_booking_id' => $roomBooking->id],
-            ['forwarded_to' => $data['forwardTo'], 'forwarded_by' => Auth::user()->id]
+            [
+                'forwarded_to' => $data['forwardTo'],
+                'forwarded_by' => Auth::user()->id,
+                'comment' => $data['comment']
+            ]
         );
     }
 
