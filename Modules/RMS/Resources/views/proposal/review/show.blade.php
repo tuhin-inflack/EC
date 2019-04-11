@@ -75,9 +75,11 @@
                                             <b><a href="{{url('rms/research-proposal-submission/attachment-download/'.$research->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
+                                    @if(Request()->viewOnly != 1)
                                     @include('rms::proposal.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
-
+                                @if(Request()->viewOnly != 1)
                                 <div class="col-md-12">
                                     {!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}
                                     <hr/>
@@ -140,13 +142,13 @@
 
                                     {!! Form::close() !!}
                                 </div>
-
-                                {{--<div class="col-md-12 text-center">--}}
-                                {{--<a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>--}}
-                                {{--<a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>--}}
-                                {{--</div>--}}
-                                {{----}}
-
+                                @endif
+                                @if($research->status == 'APPROVED')
+                                    <div class="col-md-12 text-center">
+                                        <a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>
+                                        <a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 
