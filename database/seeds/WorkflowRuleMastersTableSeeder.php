@@ -50,6 +50,18 @@ class WorkflowRuleMastersTableSeeder extends Seeder
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
+
+            3 =>
+                array (
+                    'id' => 4,
+                    'feature_id' => 4,
+                    'department_id' => 2,
+                    'name' => 'Project Details Proposal',
+                    'rule' => 'Initiator to DD->DP->(ADP,JDP,DDP)->DG (Send Back/Approved/Review)',
+                    'get_back_status' => 'previous',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
         ));
         
         

@@ -41,6 +41,14 @@ class FeaturesTableSeeder extends Seeder
                 'updated_at' => NULL,
                 'deleted_at' => NULL,
             ),
+            3 =>
+                array (
+                    'id' => 4,
+                    'name' => 'Project Details Proposal',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                    'deleted_at' => NULL,
+                ),
         ));
         
         
