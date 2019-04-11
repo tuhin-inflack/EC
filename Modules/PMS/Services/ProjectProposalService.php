@@ -213,7 +213,7 @@ class ProjectProposalService
             $shareConvId = $idArray[0];
             $proposalId = $idArray[1];
             $wfMaster = $this->workflowMasterService->findBy(['ref_table_id' => $proposalId])[0];
-            $this->workflowService->approveWorkflow($wfMaster->id);
+            if($data['status'] == 'APPROVED') $this->workflowService->approveWorkflow($wfMaster->id); elseif($data['status'] == 'REJECTED') $this->workflowService->closeWorkflow($wfMaster->id);
             $this->shareConversationService->updateConversation(['ref_table_id' => $proposalId], $shareConvId);
 
             //$this->remarkService->save(['feature_id' => $wfMaster->feature_id, 'ref_table_id' => $proposalId, 'from_user_designation' => $this->userService->getDesignationId(Auth::user()->username)]);

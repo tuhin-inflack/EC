@@ -31,14 +31,16 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>a</td>
-                                        <td>b</td>
-                                        <td>c</td>
-                                        <td>d</td>
-                                        <td>e</td>
-                                        <td>
+                                    @foreach($detailsInvitations as $invitation)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $invitation->title }}</td>
+                                            <td>{{ $invitation->remarks }}</td>
+                                            <td><a href="#">@lang('labels.attachments')</a></td>
+
+                                            <td>{{ $invitation->end_date }}</td>
+                                            <td>{{ $invitation->created_at }}</td>
+                                            <td>
                                                 <span class="dropdown">
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false"
@@ -47,12 +49,13 @@
                                                     </button>
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('details.create', [1]) }}"
+                                                        <a href="{{ route('details.create', [$invitation->id]) }}"
                                                            class="dropdown-item"><i class="ft-alert-octagon"></i>Submit details</a>
                                                     </span>
                                                 </span>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

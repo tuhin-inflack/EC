@@ -55,7 +55,7 @@ return [
     'nid_no' => 'NID No',
     'nid_copy' => 'NID Copy',
     'passport_copy' => 'Passport Copy',
-    'guest_information' => 'Passport Copy',
+    'guest_information' => 'Guest Information',
     'age' => 'Age',
     'relation' => 'Relation',
     'bard_reference' => 'BARD Reference',

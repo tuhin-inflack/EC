@@ -7,7 +7,7 @@ use Modules\HRM\Entities\Employee;
 
 class RoomBooking extends Model
 {
-    protected $fillable = ['shortcode', 'start_date', 'end_date', 'actual_end_date', 'booking_type', 'status', 'note', 'employee_id', 'type', 'training_id', 'comment'];
+    protected $fillable = ['shortcode', 'start_date', 'end_date', 'actual_end_date', 'booking_type', 'status', 'note', 'employee_id', 'type', 'training_id', 'comment', 'assigned_to'];
 
     public function requester()
     {
@@ -52,5 +52,10 @@ class RoomBooking extends Model
     public function payments()
     {
         return $this->hasMany(CheckinPayment::class, 'checkin_id', 'id');
+    }
+
+    public function forward()
+    {
+        return $this->hasOne(BookingRequestForward::class, 'room_booking_id', 'id');
     }
 }

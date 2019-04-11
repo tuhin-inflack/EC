@@ -7,7 +7,7 @@
  */
 
 return [
-    'check_in_number' => 'সংখ্যা চেক করুন',
+    'check_in_number' => 'চেকইন আইডি',
     'booking_id' => 'বুকিং আইডি',
     'estimated_check_out_time' => 'আনুমানিক চেক আউট সময়',
     'estimated_no_of_day' => 'আনুমানিক # দিন',

@@ -79,13 +79,13 @@
                 </div>
             </div>
         </div>
-        {{--<div class="col-md-7">--}}
-            {{--<div class="form-group mb-1 col-sm-12 col-md-12">--}}
-                {{--<label class="required"--}}
-                       {{--for="rooms">@lang('labels.comment')</label>--}}
-                {{--<br>--}}
-                {{--{!! Form::textarea('comment', $page == 'create' ? old('comment') : $roomBooking->comment, ['class' => 'form-control', 'rows' => '3']) !!}--}}
-            {{--</div>--}}
-        {{--</div>--}}
+        <div class="col-md-7">
+            <div class="form-group mb-1 col-sm-12 col-md-12">
+                <label class="required"
+                       for="rooms">@lang('labels.comment')</label>
+                <br>
+                {!! Form::textarea('comment', $page == 'create' ? old('comment') : $roomBooking->comment, ['class' => 'form-control', 'rows' => '3']) !!}
+            </div>
+        </div>
     </div>
 </fieldset>
