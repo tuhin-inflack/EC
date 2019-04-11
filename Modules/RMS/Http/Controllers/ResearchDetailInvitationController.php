@@ -31,7 +31,8 @@ class ResearchDetailInvitationController extends Controller
 
     public function index()
     {
-        return view('rms::research-details.invitation.index');
+        $detailsInvitations = $this->researchDetailInvitationService->findAll();
+        return view('rms::research-details.invitation.index', compact('detailsInvitations'));
 
     }
 
@@ -41,7 +42,7 @@ class ResearchDetailInvitationController extends Controller
      */
     public function create(ResearchProposalSubmission $researchProposalSubmission)
     {
-        return view('rms::research-proposal-details.invitations.create', compact('researchProposalSubmission'));
+        return view('rms::research-details.invitation.create', compact('researchProposalSubmission'));
     }
 
     /**
@@ -61,7 +62,7 @@ class ResearchDetailInvitationController extends Controller
      */
     public function show(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::research-proposal-details.invitations.show', compact('researchDetailInvitation'));
+        return view('rms::research-details.invitation.show', compact('researchDetailInvitation'));
     }
 
     /**
@@ -70,7 +71,7 @@ class ResearchDetailInvitationController extends Controller
      */
     public function edit(ResearchDetailInvitation $researchDetailInvitation)
     {
-        return view('rms::research-proposal-details.invitations.edit', compact('researchDetailInvitation'));
+        return view('rms::research-details.invitation.edit', compact('researchDetailInvitation'));
     }
 
     /**
@@ -100,7 +101,7 @@ class ResearchDetailInvitationController extends Controller
 
     public function fileDownload($attachmentId)
     {
-        $researchDetailInvitationAttachment =  ResearchDetailInvitationAttachment::findOrFail($attachmentId);
+        $researchDetailInvitationAttachment = ResearchDetailInvitationAttachment::findOrFail($attachmentId);
 
         $basePath = Storage::disk('internal')->path($researchDetailInvitationAttachment->attachments);
         return response()->download($basePath);
