@@ -53,6 +53,8 @@
                     </li>
                 </ul>
             </li>
+
+            <!-- Inventory -->
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-building"></i>
@@ -79,6 +81,33 @@
                     </li>
                 </ul>
             </li>
+            <!-- //Inventory -->
+
+            <!-- Fixed Asset -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::fixed-asset.title')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('inventory.list') }}">
+                        <a href="{{ route('inventory.list') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.list_menu_title')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('inventory.add') }}">
+                        <a href="{{ route('inventory.add') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.add_menu_title')</span>
+                        </a>
+                    </li>
+
+
+                </ul>
+            </li>
+            <!-- //Fixed Asset -->
+
         </ul>
     </div>
 </div>
