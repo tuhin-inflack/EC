@@ -90,10 +90,10 @@ class RMSController extends Controller
 //        }
 
         $shareConversations = (is_null($employee)) ? null : $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
-
+        $bulkActionForApprove = in_array($employee->designation->short_name, [DesignationShortName::DG]);
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations'));
+            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations', 'bulkActionForApprove'));
     }
 
     /**

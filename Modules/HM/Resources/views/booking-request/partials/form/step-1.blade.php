@@ -9,10 +9,23 @@
             <div class="form-group">
                 <div class="input-group">
                     @if($type == 'checkin')
-                        {{ Form::text('start_date', date('j F, Y'), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', 'disabled']) }}
+                        {{ Form::text('start_date', date('j F, Y'), [
+                            'id' => 'start_date',
+                            'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''),
+                            'placeholder' => 'Pick start date',
+                            'required' => 'required',
+                            'disabled'
+                        ]) }}
                         {{ Form::hidden('start_date', date('j F, Y')) }}
                     @else
-                        {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y', strtotime($roomBooking->start_date)), ['id' => 'start_date', 'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick start date', 'required' => 'required', $page == 'edit' ? 'data-rule-greaterThanOrEqual="' . date('j F, Y') .'"' : null]) }}
+                        {{ Form::text('start_date', $page == 'create' ? date('j F, Y') : date('j F, Y', strtotime($roomBooking->start_date)), [
+                            'id' => 'start_date',
+                            'class' => 'form-control required' . ($errors->has('start_date') ? ' is-invalid' : ''),
+                            'placeholder' => 'Pick start date',
+                            'required' => 'required',
+                            $page == 'edit' ? 'data-rule-greaterThanOrEqual="' . date('j F, Y') .'"' : null,
+                            $page == 'edit' ? 'data-msg-greaterThanOrEqual="' . trans('labels.Must be greater than or equal to', ['attribute' => date('j F, Y')]) .'"' : null,
+                        ]) }}
                     @endif
                     @if ($errors->has('start_date'))
                         <span class="invalid-feedback" role="alert">
@@ -26,8 +39,12 @@
             <label class="required">{{ trans('hm::booking-request.end_date') }}</label>
             <div class="form-group">
                 <div class="input-group">
-                    {{ Form::text('end_date', $page == 'create' ? (new DateTime())->add(new DateInterval("P1D"))
-                                     ->format('j F, Y') : date('j F, Y',strtotime($roomBooking->end_date)), ['id' => 'end_date', 'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''), 'placeholder' => 'Pick end date']) }}
+                    {{ Form::text('end_date', $page == 'create' ? (new DateTime())->add(new DateInterval("P1D"))->format('j F, Y') : date('j F, Y',strtotime($roomBooking->end_date)), [
+                         'id' => 'end_date',
+                         'class' => 'form-control required' . ($errors->has('end_date') ? ' is-invalid' : ''),
+                         'placeholder' => 'Pick end date',
+                         'data-msg-greaterThanOrEqual="' . trans('labels.Must be greater than or equal to', ['attribute' => trans('hm::booking-request.start_date')]) .'"',
+                     ]) }}
 
                     @if ($errors->has('end_date'))
                         <span class="invalid-feedback" role="alert">
@@ -159,7 +176,14 @@
                                 <label class="required"
                                        for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
                                 <br>
-                                {!! Form::number('quantity', null, ['class' => 'form-control required', 'placeholder' => 'e.g. 2', 'min' => 1, 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                {!! Form::number('quantity', null, [
+                                    'class' => 'form-control required', 'placeholder' => 'e.g. 2',
+                                    'data-msg-required' => trans('labels.This field is required'),
+                                    'min' => 1,
+                                    'data-msg-min'=> trans('labels.At least 1 characters'),
+                                    'max' => 100,
+                                    'data-msg-max'=> trans('labels.At most 100 characters'),
+                                ]) !!}
                             </div>
                             <div class="form-group mb-1 col-sm-12 col-md-3">
                                 <label class="required">{{ trans('hm::booking-request.rate') }}</label>

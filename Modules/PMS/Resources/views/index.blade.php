@@ -12,56 +12,69 @@
             </div>
         </div>
         <form method="post" action="{{route('project-proposal-submitted.review-bulk')}}" id="frm-example">
+            @csrf
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
                         @if(!is_null($shareConversations))
-                            <section id="shareConversation">
-                                <div class="card">
-                                    <div class="card-body">
+                            <div class="card-body">
+                                <h5>{{__('labels.pending_items')}}</h5>
+                                <table id="example" class="table table-bordered">
+                                    <thead>
+                                    @if($bulkAction)<th></th>@endif
+                                    <th>@lang('labels.feature')</th>
+                                    <th>@lang('labels.message')</th>
+                                    <th>@lang('labels.details')</th>
+                                    <th>@lang('labels.action')</th>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($shareConversations as $shareConversation)
+                                        <tr>
+                                            @if($bulkAction)<td>{{$shareConversation->id.'-'.$shareConversation->ref_table_id}}</td>@endif
+                                            <td>{{ $shareConversation->feature->name }}</td>
+                                            <td>{{$shareConversation->message}}</td>
+                                            <td>
+                                                Proposal: {{$shareConversation->projectProposal->title}}<br/>
+                                            </td>
 
-                                        <h2>Share Conversation</h2>
-                                        <table class="table table-bordered">
-                                            <thead>
-                                            <th>@lang('labels.feature')</th>
-                                            <th>@lang('labels.message')</th>
-                                            <th>@lang('labels.details')</th>
-                                            <th>@lang('labels.action')</th>
-                                            </thead>
-                                            <tbody>
-                                            @foreach($shareConversations as $shareConversation)
-                                                <tr>
-                                                    <td>{{ $shareConversation->feature->name }}</td>
-                                                    <td>{{$shareConversation->message}}</td>
-                                                    <td>
-                                                        Proposal: {{$shareConversation->projectProposal->title}}<br/>
-                                                    </td>
-
-                                                    <td>
-                                                        <a class="btn btn-primary btn-sm"
-                                                           href="{{ route('sending-project-for-review',
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="{{ route('sending-project-for-review',
                                                            [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">
-                                                            Details
-                                                        </a>
-
-                                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
-                                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
-
+                                                    Details
+                                                </a>
+                                                {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                                {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                            @if($bulkAction)
+                                <div class="form" id="approval-item">
+                                    {{--<div class="card-body">--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<div class="col-sm-12" id="remark" >--}}
+                                                {{--<label for="remark">{{trans('labels.remarks')}}</label>--}}
+                                                {{--<textarea name="remark" class="form-control"></textarea>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="form-group">--}}
+                                            {{--<div class="col-sm-12" id="message" >--}}
+                                                {{--<label for="message">{{trans('labels.message_to_receiver')}}</label>--}}
+                                                {{--<textarea name="message" class="form-control"></textarea>--}}
+                                            {{--</div>--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                    <div class="card-footer">
+                                        <div class="form-group">
+                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">Approve Selecte</button>
+                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">Reject Selected</button>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="card-footer">
+                            @endif
 
-                                    <div class="form-group">
-                                        <input type="submit" name="share_approve" value="Approve All" class="btn btn-success">
-                                        <input type="submit" name="share_reject" value="Reject All" class="btn btn-danger">
-                                    </div>
-                                </div>
-                            </section>
                         @endif
                         @if(!empty($pendingTasks->dashboardItems))
                             <div class="row">
@@ -69,9 +82,8 @@
                                     <h5>{{__('labels.pending_items')}}</h5>
                                 </div>
                                 <div class="col-md-12">
-                                    <table id="example" class="table table-bordered">
+                                    <table class="table table-bordered">
                                         <thead>
-                                        <th></th>
                                         <th>{{__('labels.feature_name')}}</th>
                                         <th>{{__('labels.message')}}</th>
                                         <th>{{__('labels.details')}}</th>
@@ -81,7 +93,6 @@
                                         <tbody>
                                         @foreach($pendingTasks->dashboardItems as $item)
                                             <tr>
-                                                <td>{{$item->dynamicValues['id']}}</td>
                                                 <td>{{$item->featureName}}</td>
                                                 <td>{{$item->message}}</td>
                                                 <td>
@@ -100,38 +111,7 @@
                                         @endforeach
                                         </tbody>
                                     </table>
-
-
-                                    <div class="form" id="approval-item">
-
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <div class="col-sm-12" id="remark" >
-                                                    <label for="remark">{{trans('labels.remarks')}}</label>
-                                                    <textarea name="remark" class="form-control"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-12" id="message" >
-                                                    <label for="message">{{trans('labels.message_to_receiver')}}</label>
-                                                    <textarea name="message" class="form-control"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-
-                                        <div class="card-footer">
-
-                                            <div class="form-group">
-                                                <input type="submit" name="pending_approve" value="Approve Selected" class="btn btn-success">
-                                                <input type="submit" name="pending_reject" value="Reject Selected" class="btn btn-danger">
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
-
                             </div>
                         @endif
 
@@ -216,7 +196,6 @@
         </form>
     </div>
 
-    </section>
     {{--<section>
         <div class="row">
             <div class="col-12">
