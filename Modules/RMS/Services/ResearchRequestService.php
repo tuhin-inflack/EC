@@ -67,7 +67,7 @@ class ResearchRequestService
 
             $notificationData = [
                 'ref_table_id' => $researchRequest->id,
-                'message' => Config::get('rms-notification.research_invite_submitted'). ' by '. Auth::user()->name,
+                'message' => Config::get('rms-notification.research_invite_submitted') . ' by ' . Auth::user()->name,
                 'to_users_designation' => Config::get('constants.research_invite_submit'),
                 'to_employee_id' => $data['to']
 
@@ -90,7 +90,7 @@ class ResearchRequestService
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'PENDING';
             $request = $this->update($researchRequest, $data);
-            foreach ($researchRequest->researchRequestAttachments as $attachment){
+            foreach ($researchRequest->researchRequestAttachments as $attachment) {
                 ResearchRequestAttachment::destroy($attachment->id);
                 Storage::disk('internal')->delete($attachment->attachments);
             }
@@ -123,7 +123,7 @@ class ResearchRequestService
 
         $fileName = time() . '.zip';
 
-        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
 
         Zipper::make($zipFilePath)->add($filePaths)->close();
 

@@ -14,6 +14,8 @@ use App\Entities\workflow\WorkflowMaster;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Notification\ReviewUrlGenerator;
+use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
@@ -26,9 +28,11 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
+use Illuminate\Support\Facades\Session;
 
 class ProjectProposalService
 {
@@ -39,6 +43,9 @@ class ProjectProposalService
     private $workflowService;
     private $userService;
     private $dashboardService;
+    private $employeeService;
+    private $shareConversationService;
+    private $remarkService;
     /**
      * @var WorkflowMasterService
      */
@@ -66,13 +73,21 @@ class ProjectProposalService
         FeatureService $featureService,
         WorkflowService $workflowService,
         UserService $userService,
-        ReviewUrlGenerator $reviewUrlGenerator
+        ReviewUrlGenerator $reviewUrlGenerator,
+        EmployeeServices $employeeService,
+        ShareConversationService $shareConversationService,
+        RemarkService $remarkService,
+        WorkflowMasterService $workflowMasterService
     )
     {
         $this->projectProposalRepository = $projectProposalRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
         $this->userService = $userService;
+        $this->employeeService = $employeeService;
+        $this->shareConversationService = $shareConversationService;
+        $this->remarkService = $remarkService;
+        $this->workflowMasterService = $workflowMasterService;
 
         $this->setActionRepository($projectProposalRepository);
         $this->reviewUrlGenerator = $reviewUrlGenerator;
@@ -112,6 +127,11 @@ class ProjectProposalService
             }
 
             // Initiating Workflow
+            $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+            if(is_null($divisionalDirector)) {
+                Session::flash('error', 'Divisional Director is not defined for your department');
+                return redirect()->back();
+            }
             $featureName = config('constants.project_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
             $workflowData = [
@@ -119,6 +139,7 @@ class ProjectProposalService
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'designationTo' => ['1'=> $divisionalDirector->designation_id] ,
             ];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
@@ -182,6 +203,24 @@ class ProjectProposalService
     public function getProjectProposalBySubmissionDate()
     {
         return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
+    }
+
+    public function bulkReviewFeedbackUpdate($data)
+    {
+        foreach ($data['id'] as $approval)
+        {
+            $idArray = explode('-',$approval);
+            $shareConvId = $idArray[0];
+            $proposalId = $idArray[1];
+            $wfMaster = $this->workflowMasterService->findBy(['ref_table_id' => $proposalId])[0];
+            if($data['status'] == 'APPROVED') $this->workflowService->approveWorkflow($wfMaster->id); elseif($data['status'] == 'REJECTED') $this->workflowService->closeWorkflow($wfMaster->id);
+            $this->shareConversationService->updateConversation(['ref_table_id' => $proposalId], $shareConvId);
+
+            //$this->remarkService->save(['feature_id' => $wfMaster->feature_id, 'ref_table_id' => $proposalId, 'from_user_designation' => $this->userService->getDesignationId(Auth::user()->username)]);
+
+            $item = $this->findOne($proposalId);
+            $item->update(['status' => $data['status']]);
+        }
     }
 
     // Methods for triggering notifications

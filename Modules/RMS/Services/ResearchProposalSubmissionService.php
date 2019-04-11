@@ -113,8 +113,9 @@ class ResearchProposalSubmissionService
                 'message' => $data['message'],
                 'designationTo' => [1 => $divisionalDirector->designation_id]
             ];
-//            dd($workflowData);
-
+            if ($this->isProposalSubmitFromResearchDept()) {
+                $workflowData['skipped'] = [1];
+            }
             $this->workflowService->createWorkflow($workflowData);
 
             //Send Notifications
@@ -326,16 +327,42 @@ class ResearchProposalSubmissionService
         foreach ($shareAndProposalIds as $shareAndProposalId) {
             $shareConversationId = explode('-', $shareAndProposalId)[0];
             $researchProposalId = explode('-', $shareAndProposalId)[1];
-//            dd($researchProposalId);
+
             $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
             //approving workflow
             $this->workflowService->approveWorkflow($workflowMaster->id);
             //closing share conversation
             $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalId], $shareConversationId);
+
             //update main item
             $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
             $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
 
         }
+    }
+
+    public function researchProposalBulkReject($shareAndProposalIds)
+    {
+
+        foreach ($shareAndProposalIds as $shareAndProposalId) {
+            $shareConversationId = explode('-', $shareAndProposalId)[0];
+            $researchProposalId = explode('-', $shareAndProposalId)[1];
+
+            //closing workflow
+            $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
+            $this->workflowService->closeWorkflow($workflowMaster->id);
+
+            //closing share conversation
+            $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalId], $shareConversationId);
+
+            //update main item
+            $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
+            $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
+        }
+    }
+
+    private function isProposalSubmitFromResearchDept()
+    {
+        return $this->userService->isResearchDivisionUser(Auth::user());
     }
 }
