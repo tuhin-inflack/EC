@@ -113,10 +113,12 @@
                                    href="{{ route('check-in.show',  $checkin->id) }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
+                                @if(($checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') ) != 0 )
                                 <a class="btn btn-success mr-1" role="button"
                                    href="{{ route('check-in-payments.create', $checkin->id) }}">
                                     <i class="ft-credit-card"></i> @lang('hm::checkin.make_payment')
                                 </a>
+                                @endif
                                 <button class="btn btn-primary" type="button" id="PrintCommand"><i class="ft ft-printer"></i> @lang('labels.print')</button>
                             </div>
                         </div>
