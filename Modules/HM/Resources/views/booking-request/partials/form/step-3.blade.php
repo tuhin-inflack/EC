@@ -279,7 +279,7 @@
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.nid')</label>
                                             <br>
-                                            {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 20, 'data-msg-minlength' => Lang::get('labels.At least 20 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
+                                            {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => Lang::get('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => Lang::get('labels.At most 20 characters')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-4">
                                             <label>@lang('hm::booking-request.address') <span
