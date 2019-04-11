@@ -38,7 +38,6 @@
                                                             {{--@if($page == 'create')--}}
                                                             {!! Form::hidden('research_detail_invitation_id', $researchDetailInvitationId) !!}
                                                             {{--@endif--}}
-
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
                                                                 <label class="required">{{ trans('labels.name') }}</label>
                                                                 <br>

@@ -46,7 +46,7 @@ return [
     'delete_success' => 'আইটেম সফলভাবে মুছে ফেলা হয়েছে',
     'confirm_delete' => 'নিশ্চিত বাতিল?',
     'status' => 'অবস্থা',
-    'created_at' => 'সৃষ্টি সময়',
+    'created_at' => 'তৈরীর সময়',
     'dashboard' => 'ড্যাশবোর্ড',
     'history' => 'ইতিহাস',
     'number' => 'নাম্বার',

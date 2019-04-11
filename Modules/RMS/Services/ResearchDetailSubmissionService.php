@@ -56,6 +56,7 @@ class ResearchDetailSubmissionService
                 $researchDetailSubmission->researchDetailSubmissionAttachment()->save($file);
             }
 
+
 //            //Save workflow
 //
 //            $featureName = Config::get('constants.research_proposal_feature_name');

@@ -76,7 +76,7 @@
     <div class="col-md-6">
         <div class="form-group">
             {!! Form::label('special_rate', __('hm::roomtype.special_rate'), ['class' => 'form-label']) !!}
-            {!! Form::number('special_rate', $page == 'create' ? old('special_rate') : $roomType->sperial_rate,
+            {!! Form::number('special_rate', $page == 'create' ? old('special_rate') : $roomType->special_rate,
              ['class' => 'form-control'.($errors->has('special_rate') ? ' is-invalid' : '')]) !!}
             <div class="help-block"></div>
             @if ($errors->has('special_rate'))

@@ -55,7 +55,7 @@
 
                 <div class="form-actions text-center">
                     <button type="submit" class="btn btn-primary">
-                        <i class="la la-check-square-o"></i> {{ trans('hm::hostel_budget.approve') }}
+                        <i class="la la-check-square-o"></i> {{ trans('hm::hostel_budget.save') }}
                     </button>
                     <a class="btn btn-warning mr-1" role="button" href="{{ route('hostel-budgets.index') }}">
                         <i class="ft-x"></i> {{trans('labels.cancel')}}
