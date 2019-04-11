@@ -46,7 +46,7 @@
                                     <div class="form-group">
                                         {!! Form::label('total_floor',  __('hm::hostel.total_floor'), ['class' => 'form-label required']) !!}
                                         {!! Form::number('total_floor', $hostel->total_floor, ["class" => "form-control". ($errors->has('total_floor') ? ' is-invalid' : ''), "required",
-                                         "placeholder" => "e.g 5", 'data-validation-required-message'=>'Please enter total floor']) !!}
+                                         "placeholder" => "e.g 5", 'data-validation-required-message'=>'Please enter total floor', 'min=1']) !!}
                                         <div class="help-block"></div>
                                         @if ($errors->has('total_floor'))
                                             <span class="invalid-feedback">{{ $errors->first('total_floor') }}</span>
