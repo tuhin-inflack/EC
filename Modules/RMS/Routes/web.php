@@ -98,7 +98,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('attachment-download/{researchRequest}', 'ResearchRequestController@requestAttachmentDownload')->name('research-request.attachment-download');
         Route::get('file-download/{researchRequestAttachment}', 'ResearchRequestController@fileDownload')->name('research-request.file-download');
         Route::get('{researchRequest}/show', 'ResearchRequestController@show')->name('research-request.show');
-        Route::get('{researchRequest}/edit', 'ResearchRequestController@edit')->name('research-request.edit');
+        Route::get('{researchRequest}/edit', 'Rese
+        archRequestController@edit')->name('research-request.edit');
         Route::put('{researchRequest}', 'ResearchRequestController@update')->name('research-request.update');
     });
 
@@ -112,7 +113,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
         //Routes for workflow
-        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
+        Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/{viewOnly?}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
         Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
         Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
