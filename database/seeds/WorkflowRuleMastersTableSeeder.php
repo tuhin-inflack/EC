@@ -55,6 +55,17 @@ class WorkflowRuleMastersTableSeeder extends Seeder
                 array (
                     'id' => 4,
                     'feature_id' => 4,
+                    'department_id' => 1,
+                    'name' => 'Research Details Proposal',
+                    'rule' => 'Initiator to DD->DR->(ADR,JDR,DDR)->DG (Send Back/Approved/Review)',
+                    'get_back_status' => 'previous',
+                    'created_at' => NULL,
+                    'updated_at' => NULL,
+                ),
+            4 =>
+                array (
+                    'id' => 5,
+                    'feature_id' => 5,
                     'department_id' => 2,
                     'name' => 'Project Details Proposal',
                     'rule' => 'Initiator to DD->DP->(ADP,JDP,DDP)->DG (Send Back/Approved/Review)',

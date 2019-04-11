@@ -28,6 +28,21 @@ class ShareRulesSeeder extends Seeder
                 10 => ['name' => 'DDP can share with JDP and PD', 'is_group' => 1],
                 11 => ['name' => 'ADG can share with PD and DG', 'is_group' => 1],
                 12 => ['name' => 'DG can share with ADG and PD', 'is_group' => 1],
+
+                13 => ['name' => 'Research Details Sharing Rule - Director research will share with, ADR, JD, DDR, DG and ADG', 'is_group' => 1],
+                14 => ['name' => 'Project Detail Sharing Rule, Director project with ADP, JD, DDR, DG and ADG', 'is_group' => 1],
+
+                15 => ['name' => 'ADR will share with DR and JDP', 'is_group' => 1],
+                16 => ['name' => 'JDR can share with DR, ADR, DDR', 'is_group' => 1],
+                17 => ['name' => 'DDR can share with JDP and DR', 'is_group' => 1],
+                18 => ['name' => 'DG can share with DR and ADG', 'is_group' => 1],
+                19 => ['name' => 'ADG can share with DG and DR', 'is_group' => 1],
+
+                20 => ['name' => 'ADP will share with PD and JDP', 'is_group' => 1],
+                21 => ['name' => 'JDP can share with PD, ADP, DDP', 'is_group' => 1],
+                22 => ['name' => 'DDP can share with JDP and PD', 'is_group' => 1],
+                23 => ['name' => 'ADG can share with PD and DG', 'is_group' => 1],
+                24 => ['name' => 'DG can share with ADG and PD', 'is_group' => 1],
             ]
         );
     }
