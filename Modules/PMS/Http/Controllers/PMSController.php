@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Constants\DesignationShortName;
 use App\Constants\WorkflowStatus;
 use App\Repositories\workflow\WorkflowRuleDetailRepository;
 use App\Services\Notification\ReviewUrlGenerator;
@@ -116,9 +117,15 @@ class PMSController extends Controller
             $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
         else
             $reviewedTasks = [];
+        if(Auth::user()->user_type == 'Employee')
+        {
+            $employee = $this->employeeService->findOne(Auth::user()->reference_table_id);
+            $bulkAction = in_array($employee->designation->short_name, [DesignationShortName::DG]);
+        }
+        else $bulkAction = false;
 
         return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'chartData', 'invitations',
-            'proposals', 'reviewedTasks', 'shareConversations'));
+            'proposals', 'reviewedTasks', 'shareConversations', 'bulkAction'));
     }
 
     /**
@@ -370,6 +377,14 @@ class PMSController extends Controller
         $this->remarksService->save($data);
 
         Session::flash('success', trans('labels.save_success'));
+        return redirect('/pms');
+    }
+
+    public function reviewBulk(Request $request)
+    {
+        $this->projectProposalService->bulkReviewFeedbackUpdate($request->all());
+        Session::flash('message', trans('labels.save_success'));
+
         return redirect('/pms');
     }
 
