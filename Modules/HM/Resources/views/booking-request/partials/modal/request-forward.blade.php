@@ -15,11 +15,15 @@
                         <label class="required">@lang('labels.select') @lang('labels.user')</label>
                         {!! Form::select('forwardTo', $forwardToUsers, null, ['class' => 'form-control required user-select'] ) !!}
                     </div>
+                    <div class="form-group mb-0 col-md-12">
+                        <label class="required">@lang('labels.forward') @lang('labels.remarks')</label>
+                        {!! Form::textarea('comment', null, ['class' => 'form-control required', 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 3]) !!}
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">@lang('labels.forward')</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('labels.cancel')</button>
+                <button type="submit" class="btn btn-success">@lang('labels.forward')</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">@lang('labels.cancel')</button>
             </div>
             {{ Form::close() }}
         </div>

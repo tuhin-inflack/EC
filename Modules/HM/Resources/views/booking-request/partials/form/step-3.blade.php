@@ -105,7 +105,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid') }}</label>
                                     <br>
-                                    {!! Form::text('nid_no', isset($oldInput['nid_no']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number', 'data-rule-minlength' => 10, 'data-msg-minlength' => Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
+                                    {!! Form::text('nid_no', isset($oldInput['nid_no']) ? : '', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_no') ? ' is-invalid' : ''), 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => trans('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => trans('labels.At most 20 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nid_no'))
                                         <span class="invalid-feedback" role="alert">
@@ -116,7 +116,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     <label class="required">{{ trans('hm::booking-request.address') }}</label>
                                     <br>
-                                    {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => Lang::get('labels.At most 300 characters')]) !!}
+                                    {!! Form::textarea('address', $oldInput['address'], ['class' => 'form-control required' . ($errors->has('guests.' . $loop->index . '.address') ? ' is-invalid' : ''), 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => trans('labels.At most 300 characters')]) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.address'))
                                         <span class="invalid-feedback" role="alert">
@@ -196,12 +196,13 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid') }}</label>
                                     <br>
-                                    {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 10, 'data-msg-minlength' => Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength' => Lang::get('labels.At most 10 characters')]) !!}
+                                    {!! Form::text('nid_no', null, [
+                                    'class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => trans('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => trans('labels.At most 20 characters')]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     <label class="required">{{ trans('hm::booking-request.address') }}</label>
                                     <br>
-                                    {!! Form::textarea('address', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => Lang::get('labels.At most 300 characters')]) !!}
+                                    {!! Form::textarea('address', null, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => trans('labels.At most 300 characters')]) !!}
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                     <button type="button"
@@ -228,42 +229,42 @@
                                             <label class="required">@lang('hm::booking-request.first_name')</label>
                                             <br>
                                             {!! Form::hidden('id', $guestInfo->id) !!}
-                                            {!! Form::text('first_name', $guestInfo->first_name, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                            {!! Form::text('first_name', $guestInfo->first_name, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.middle_name')</label>
                                             <br>
-                                            {!! Form::text('middle_name', $guestInfo->middle_name, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                            {!! Form::text('middle_name', $guestInfo->middle_name, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label class="required">@lang('hm::booking-request.last_name')</label>
                                             <br>
-                                            {!! Form::text('last_name', $guestInfo->last_name, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                            {!! Form::text('last_name', $guestInfo->last_name, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label class="required">@lang('hm::booking-request.age')</label>
                                             <br>
-                                            {!! Form::number('age', $guestInfo->age, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                            {!! Form::number('age', $guestInfo->age, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.nationality') <span
                                                         class="danger">*</span></label>
                                             <br>
 
-                                            {!! Form::text('nationality',  $guestInfo->nationality, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                            {!! Form::text('nationality',  $guestInfo->nationality, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.gender') <span
                                                         class="danger">*</span></label>
                                             <br>
 
-                                            {!! Form::select('gender',  [null => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                            {!! Form::select('gender',  [null => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], $guestInfo->gender, ['id' => 'guest-gender-select', 'class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.relation') <span
                                                         class="danger">*</span></label>
                                             <br>
-                                            {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                            {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], $guestInfo->relation, ['class' => 'form-control relation-select required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                         </div>
                                     </div>
                                     <div class="row">
@@ -279,13 +280,13 @@
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.nid')</label>
                                             <br>
-                                            {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => Lang::get('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => Lang::get('labels.At most 20 characters')]) !!}
+                                            {!! Form::text('nid_no', $guestInfo->nid_no, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => trans('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => trans('labels.At most 20 characters')]) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-4">
                                             <label>@lang('hm::booking-request.address') <span
                                                         class="danger">*</span></label>
                                             <br>
-                                            {!! Form::textarea('address', $guestInfo->address, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => Lang::get('labels.At most 300 characters')]) !!}
+                                            {!! Form::textarea('address', $guestInfo->address, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => trans('labels.At most 300 characters')]) !!}
                                         </div>
                                         <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                             <button type="button"
@@ -307,37 +308,37 @@
                                         <label class="required">@lang('hm::booking-request.first_name')</label>
                                         <br>
                                         {!! Form::hidden('id', null) !!}
-                                        {!! Form::text('first_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                        {!! Form::text('first_name', null, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>@lang('hm::booking-request.middle_name')</label>
                                         <br>
-                                        {!! Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                        {!! Form::text('middle_name', null, ['class' => 'form-control', 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">@lang('hm::booking-request.last_name')</label>
                                         <br>
-                                        {!! Form::text('last_name', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => Lang::get('labels.At most 50 characters')]) !!}
+                                        {!! Form::text('last_name', null, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'John Doe', 'data-rule-maxlength' => 50, 'data-msg-maxlength' => trans('labels.At most 50 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.age') }}</label>
                                         <br>
-                                        {!! Form::number('age', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
+                                        {!! Form::number('age', null, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'min' => '1', 'placeholder' => 'e.g. 18']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.nationality') }}</label>
                                         <br>
-                                        {!! Form::text('nationality', null, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                        {!! Form::text('nationality', null, ['placeholder' => trans('hm::booking-request.nationality'), 'class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.gender') }}</label>
                                         <br>
-                                        {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                        {!! Form::select('gender', ['' => '', 'male' => trans('hm::booking-request.male'), 'female' => trans('hm::booking-request.female')], null, ['class' => 'form-control guest-gender-select required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label class="required">{{ trans('hm::booking-request.relation') }}</label>
                                         <br>
-                                        {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                        {!! Form::select('relation', ['' => '', 'myself' => trans('hm::booking-request.relation_myself'), 'family' => trans('hm::booking-request.relation_family'), 'friend' => trans('hm::booking-request.relation_friend'), 'coworker' => trans('hm::booking-request.relation_coworker')], null, ['class' => 'form-control relation-select required', 'data-msg-required' => trans('labels.This field is required')]) !!}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -349,12 +350,12 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>{{ trans('hm::booking-request.nid') }}</label>
                                         <br>
-                                        {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number']) !!}
+                                        {!! Form::text('nid_no', null, ['class' => 'form-control', 'placeholder' => 'Nid number', 'data-rule-minlength' => 1, 'data-msg-minlength' => trans('labels.At least 1 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength' => trans('labels.At most 20 characters')]) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-4">
                                         <label class="required">{{ trans('hm::booking-request.address') }}</label>
                                         <br>
-                                        {!! Form::textarea('address', null, ['class' => 'form-control required', 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => 'At most 300 characters']) !!}
+                                        {!! Form::textarea('address', null, ['class' => 'form-control required', 'data-msg-required' => trans('labels.This field is required'), 'placeholder' => 'address', 'cols' => 30, 'rows' => 5, 'data-rule-maxlength' => 300, 'data-msg-maxlength' => 'At most 300 characters']) !!}
                                     </div>
                                     <div class="form-group col-sm-12 col-md-2 text-center mt-2">
                                         <button type="button"
@@ -386,7 +387,7 @@
             <div class="form-group">
                 <div class="row col-md-12">
                     <label class="">{{ trans('hm::booking-request.department') }}</label>
-                    {!! Form::select('employee_id', $employeeOptions, $page == 'create' ? old('employee_id') : $roomBooking->employee_id, ['class' => 'form-control ', 'id' => 'referee-select' . ($errors->has('employee_id') ? ' is-invalid' : ''), 'placeholder' => Lang::get('hm::booking-request.select_refferer'), 'onchange' => 'getRefereeInformation(value)']) !!}
+                    {!! Form::select('employee_id', $employeeOptions, $page == 'create' ? old('employee_id') : $roomBooking->employee_id, ['class' => 'form-control ', 'id' => 'referee-select' . ($errors->has('employee_id') ? ' is-invalid' : ''), 'placeholder' => trans('hm::booking-request.select_refferer'), 'onchange' => 'getRefereeInformation(value)']) !!}
 
                     @if ($errors->has('employee_id'))
                         <span class="invalid-feedback" role="alert">

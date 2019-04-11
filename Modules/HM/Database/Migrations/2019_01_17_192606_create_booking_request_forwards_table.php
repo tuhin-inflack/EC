@@ -18,6 +18,7 @@ class CreateBookingRequestForwardsTable extends Migration
             $table->unsignedInteger('room_booking_id');
             $table->unsignedInteger('forwarded_to');
             $table->unsignedInteger('forwarded_by');
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
