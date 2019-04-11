@@ -121,34 +121,33 @@ class ShareRulesDesignationSeeder extends Seeder
                  * Project Proposal Detail sharing rules
                  */
                 // Director Project
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 8 ,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9, 'can_reject' => false,'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 10,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 11,'can_reject' => true, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 12,'can_reject' => true, 'can_approve' => true, 'is_parent' => false],
-                ['share_rule_id' => 2, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
-
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 20 ,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 21, 'can_reject' => false,'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 22,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 23,'can_reject' => true, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 24,'can_reject' => true, 'can_approve' => true, 'is_parent' => false],
+                ['share_rule_id' => 14, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
 
 //                ADP
-                ['share_rule_id' => 8, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
-                ['share_rule_id' => 8, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 20, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 20, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 21,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
 //                JDP
-                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
-                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 8,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 9, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 10,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 21, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 21, 'department_id' => 2, 'designation_id' => 13, 'is_sharable' => true, 'sharable_id' => 20,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 21, 'department_id' => 2, 'designation_id' => 15, 'is_sharable' => true, 'sharable_id' => 22,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
 //                DDP
-                ['share_rule_id' => 10, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
-                ['share_rule_id' => 10, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 9,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 22, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 22, 'department_id' => 2, 'designation_id' => 14, 'is_sharable' => true, 'sharable_id' => 21,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
 //               ADG
-                ['share_rule_id' => 11, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
-                ['share_rule_id' => 11, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 12,'can_reject' => true, 'can_approve' => true, 'is_parent' => false],
+                ['share_rule_id' => 23, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 23, 'department_id' => 2, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 24,'can_reject' => true, 'can_approve' => true, 'is_parent' => false],
 
 //               DG
-                ['share_rule_id' => 12, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 11,'can_reject' => true, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 12, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 2,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 24, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 23,'can_reject' => true, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 24, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
             ]
         );
     }
