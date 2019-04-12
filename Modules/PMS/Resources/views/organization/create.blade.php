@@ -104,7 +104,7 @@
                                             <div class="form-group ">
                                                 {{ Form::label('mobile', trans('labels.mobile')) }}
                                                 <br/>
-                                                {{ Form::text('mobile',  null,    ['id'=> 'mobile', 'class' => ' form-control', 'placeholder' => 'Enter organization mobile']) }}
+                                                {{ Form::text('mobile',  null,    ['id'=> 'mobile', 'class' => ' form-control', 'placeholder' => 'Enter organization mobile',  'maxlength' => 11, 'data-msg-maxlength'=> trans('labels.At most 11 characters')]) }}
                                                 <div class="help-block"></div>
                                             </div>
                                         </div>

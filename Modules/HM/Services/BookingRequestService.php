@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Services\RoleService;
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ use phpDocumentor\Reflection\Types\Object_;
 class BookingRequestService
 {
     use CrudTrait;
+    use FileTrait;
     /**
      * @var RoomBookingRepository
      */
@@ -133,9 +135,9 @@ class BookingRequestService
     {
         $roomBookingRequester = new RoomBookingRequester($data);
 
-        $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+        $photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $this->upload($data['nid_doc'], 'booking-requests') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
 
         $roomBookingRequester->photo = $photoPath;
         $roomBookingRequester->nid_doc = $nidDocPath;
