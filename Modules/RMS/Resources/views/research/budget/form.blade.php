@@ -31,8 +31,10 @@
                                 'class' => 'form-control required',
                                 'placeholder' => 'e.g. 100',
                                 'data-msg-required' => trans('labels.This field is required'),
-                                'min' => '0',
+                                'min' => 0,
                                 'data-msg-min'=> trans('labels.Must be greater than or equal to', ['attribute' => '0']),
+                                'data-rule-maxlength' => 14,
+                                'data-msg-maxlength'=> trans('labels.At most 14 characters'),
                                 'data-rule-number' => 'true',
                                 'data-msg-number' => trans('labels.Please enter a valid number'),
                                 ])
@@ -55,6 +57,8 @@
                                 'data-msg-required' => trans('labels.This field is required'),
                                 'min' => '0',
                                 'data-msg-min'=> trans('labels.Must be greater than or equal to', ['attribute' => '0']),
+                                'data-rule-maxlength' => '14',
+                                'data-msg-maxlength'=> trans('labels.At most 14 characters'),
                                 'data-rule-number' => 'true',
                                 'data-msg-number' => trans('labels.Please enter a valid number'),
                                 ])

@@ -88,7 +88,6 @@ class BookingRequestService
             $data['shortcode'] = time();
             $data['status'] = $this->getStatus($type);
             $data['type'] = $type;
-            $data['assigned_to'] = $this->getDefaultAssignedId($data['booking_type']);
 
             $roomBooking = $this->save($data);
 
@@ -304,20 +303,6 @@ class BookingRequestService
         }
     }
 
-    public function getDefaultAssignedId($bookingType)
-    {
-        switch ($bookingType) {
-            case 'general':
-                return 2;
-            case 'training':
-                return 3;
-            case 'venue':
-                return 3;
-            default:
-                return Auth::user()->id;
-        }
-    }
-
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
@@ -467,3 +452,4 @@ class BookingRequestService
         return $availableRooms;
     }
 }
+
