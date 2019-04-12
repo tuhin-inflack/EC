@@ -9,6 +9,7 @@ return [
     'edit_attribute' => 'Edit Attribute',
     'attribute_edit_form' => 'Attribute Edit Form',
     'attribute_list' => 'Attribute List',
+    'indiacator_list' => 'Indiacator List',
     'attribute_value_list' => 'Attribute Value List',
     'attribute_name' => 'Attribute Name',
     'attribute_value_input' => 'Attribute Value Input',
