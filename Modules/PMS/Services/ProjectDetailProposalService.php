@@ -81,14 +81,16 @@ class ProjectDetailProposalService
             }
 
             // Initiating Workflow
-            $featureName = config('constants.project_proposal_feature_name');
+            $featureName = config('constants.project_details_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
+            dd($featureName);
             $workflowData = [
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
             ];
+            if($this->userService->isProjectDivisionUser(Auth::user())) $workflowData['skipped'] = [1];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 

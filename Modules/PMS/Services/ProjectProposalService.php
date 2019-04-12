@@ -141,6 +141,7 @@ class ProjectProposalService
                 'message' => $data['message'],
                 'designationTo' => ['1'=> $divisionalDirector->designation_id] ,
             ];
+            if($this->userService->isProjectDivisionUser(Auth::user())) $workflowData['skipped'] = [1];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 
