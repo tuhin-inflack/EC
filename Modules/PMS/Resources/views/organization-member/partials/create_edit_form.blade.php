@@ -74,12 +74,13 @@
 
         {{ Form::hidden('organization_id', isset($organization->id) ? $organization->id : null) }}
         {{ Form::hidden('id', isset($member->id)  ? $member->id : null ) }}
+        {{ Form::hidden('project_id', $project->id) }}
     </div>
     <div class="row">
         <div class="form-actions col-md-12 ">
             <div class="pull-right">
                 {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['id' => 'submitOrganization', 'type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                <a href="{{ URL::previous() }}">
+                <a href="{{ route('pms-organizations.show', [$project->id, $organization->id]) }}">
                     <button type="button" class="btn btn-warning mr-1">
                         <i class="la la-times"></i> @lang('labels.cancel')
                     </button>
