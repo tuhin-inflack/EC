@@ -3,6 +3,7 @@
 namespace Modules\HM\Http\Controllers;
 
 use App\Services\UserService;
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -21,6 +22,7 @@ use Nwidart\Modules\Facades\Module;
 
 class BookingRequestController extends Controller
 {
+    use FileTrait;
     /**
      * @var RoomTypeService
      */
@@ -149,7 +151,7 @@ class BookingRequestController extends Controller
     {
         $forwardToUsers = $this->userService->getAdminExceptLoggedInUserRole();
         $type = 'booking';
-        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers'));
+        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers', 'file'));
     }
 
     /**

@@ -220,12 +220,13 @@
                                 @if ($roomBooking->requester->photo)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->photo) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->photo) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
@@ -244,12 +245,12 @@
                                 @if ($roomBooking->requester->nid_doc)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->nid_doc) }}"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->nid_doc) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
@@ -268,12 +269,12 @@
                                 @if ($roomBooking->requester->passport_doc)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->passport_doc) }}"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->passport_doc) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
