@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Services\RoleService;
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ use phpDocumentor\Reflection\Types\Object_;
 class BookingRequestService
 {
     use CrudTrait;
+    use FileTrait;
     /**
      * @var RoomBookingRepository
      */
@@ -86,7 +88,6 @@ class BookingRequestService
             $data['shortcode'] = time();
             $data['status'] = $this->getStatus($type);
             $data['type'] = $type;
-            $data['assigned_to'] = $this->getDefaultAssignedId($data['booking_type']);
 
             $roomBooking = $this->save($data);
 
@@ -134,9 +135,9 @@ class BookingRequestService
     {
         $roomBookingRequester = new RoomBookingRequester($data);
 
-        $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+        $photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $this->upload($data['nid_doc'], 'booking-requests') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
 
         $roomBookingRequester->photo = $photoPath;
         $roomBookingRequester->nid_doc = $nidDocPath;
@@ -170,10 +171,11 @@ class BookingRequestService
      */
     private function saveGuestInfos($data, $roomBooking): void
     {
+        /*$photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;*/
         if (array_key_exists('guests', $data)) {
             $roomBooking->guestInfos()->saveMany(
                 collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $this->upload($guest['nid_doc'], 'booking-requests') : null;
                     return new BookingGuestInfo($guest);
                 })
             );
@@ -301,20 +303,6 @@ class BookingRequestService
         }
     }
 
-    public function getDefaultAssignedId($bookingType)
-    {
-        switch ($bookingType) {
-            case 'general':
-                return 2;
-            case 'training':
-                return 3;
-            case 'venue':
-                return 3;
-            default:
-                return Auth::user()->id;
-        }
-    }
-
     public function getBookingGuestInfo($roomBookingId, $status)
     {
         return $this->bookingGuestInfoRepository->pluckByBookingIdAndStatus($roomBookingId, $status);
@@ -339,13 +327,17 @@ class BookingRequestService
     {
         return $this->bookingRequesteForwardRepository->getModel()->updateOrCreate(
             ['room_booking_id' => $roomBooking->id],
-            ['forwarded_to' => $data['forwardTo'], 'forwarded_by' => Auth::user()->id]
+            [
+                'forwarded_to' => $data['forwardTo'],
+                'forwarded_by' => Auth::user()->id,
+                'comment' => $data['comment']
+            ]
         );
     }
 
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
-        $ids = $ids ?: $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
+        $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 
@@ -460,3 +452,4 @@ class BookingRequestService
         return $availableRooms;
     }
 }
+

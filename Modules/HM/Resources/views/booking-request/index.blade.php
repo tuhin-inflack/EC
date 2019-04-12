@@ -31,7 +31,7 @@
                                     <table class="booking-request-table table table-bordered table-striped">
                                         <thead>
                                         <tr>
-                                            <th>@lang('labels.serial')</th>
+                                            <th>@lang('labels.id')</th>
                                             <th>@lang('hm::booking-request.booked_by')</th>
                                             <th>@lang('hm::booking-request.check_in_date')</th>
                                             <th>@lang('hm::booking-request.check_out_date')</th>

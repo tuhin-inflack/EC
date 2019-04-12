@@ -4,7 +4,7 @@
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
         <div class="heading-elements">
             <ul class="list-inline mb-0">
-                <li><a href="{{ route('pms-organization-members.create', $organization->id) }}"
+                <li><a href="{{ route('pms-organization-members.create', [$organization->id, $project->id]) }}"
                        class="btn btn-sm btn-primary"><i
                                 class="ft-plus"></i> @lang('member.add_member')</a></li>
                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -31,11 +31,11 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $member->name }}</td>
-                        <td>{{ $member->gender }}</td>
+                        <td>@lang('labels.' . $member->gender)</td>
                         <td>{{ $member->mobile }}</td>
                         <td>{{ $member->address }}</td>
                         <td>{{ $member->nid }}</td>
-                        <td>{{ $member->age ?? 'Null' }}</td>
+                        <td>{{ $member->age }}</td>
                         <td class="text-center">
                             <span class="dropdown">
                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

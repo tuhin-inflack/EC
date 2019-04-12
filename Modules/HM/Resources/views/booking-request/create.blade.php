@@ -93,6 +93,7 @@
             family: '{!! trans('hm::booking-request.relation_family') !!}',
             friend: '{!! trans('hm::booking-request.relation_friend') !!}',
             trainee: '{!! trans('hm::booking-request.relation_trainee') !!}',
+            coworker: '{!! trans('hm::booking-request.relation_coworker') !!}',
         };
 
         // select2 placeholder localization

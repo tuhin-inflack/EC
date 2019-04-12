@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\App;
 
 abstract class DashboardItemGeneratorFactory
 {
-    public static function getDashboardItemGenerator($feature) : BaseDashboardItemGenerator
+    public static function getDashboardItemGenerator($feature): BaseDashboardItemGenerator
     {
 
         switch ($feature) {
@@ -25,8 +25,11 @@ abstract class DashboardItemGeneratorFactory
                 return app()->make('App\Services\workflow\Generators\ProjectProposalItemGenerator');
             case 'Research Workflow':
                 return app()->make('App\Services\workflow\Generators\ResearchItemGenerator');
+
             case 'Project Details Proposal':
                 return app()->make('App\Services\workflow\Generators\ProjectDetailProposalItemGenerator');
+            case 'Research Details Proposal':
+                return app()->make('App\Services\workflow\Generators\ResearchProposalDetailItemGenerator');
         }
     }
 }

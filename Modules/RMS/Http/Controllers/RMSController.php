@@ -61,39 +61,42 @@ class RMSController extends Controller
      */
     public function index()
     {
-
+        $PendingItem = [];
+        $user = Auth::user();
+//        dd($user->employee);
+        $employee = $this->employeeService->findOne($user->reference_table_id);
         $chartData = $this->taskService->getTasksBarChartData();
         $tasks = $this->taskService->getAllResearchTasks();
         $invitations = $this->researchRequestService->getResearchInvitationByDeadline();
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
-        //Research proposal items
 
-        $featureName = Config::get('constants.research_proposal_feature_name');
+        //------Research proposal dashboard items--------
+//        $featureName = Config::get('constants.research_proposal_feature_name');
+//        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+//        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+//        array_push($PendingItem, $pendingTasks->dashboardItems);
 
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
-//       Research Items
-        $researchFeatureName = Config::get('rms.research_feature_name');
+        //-------Research paper workflow Items-----------
+//        $researchFeatureName = Config::get('rms.research_feature_name');
+//        $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
 //        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+//        array_push($PendingItem, $researchPendingTasks->dashboardItems);
+
+        //--------Research Detail workflow item----------
+        $researchDetailFeatureName = config('rms.research_proposal_detail_feature');
+        $researchDetailPendingItems = $this->dashboardService->getDashboardWorkflowItems($researchDetailFeatureName);
+        $researchDetailRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchDetailFeatureName);
+        //=======not needed the following commented code. Will remove it soon
 
 
-        $user = Auth::user();
-        $employee = $this->employeeService->findOne($user->reference_table_id);
-//        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
-//        dd($shareConversations[0]->researchProposal);
-//        if (is_null($employee)) {
-//            $researchPendingTasks = [];
-//        } elseif ($employee->designation->short_name == DesignationShortName::RD) {
-//            $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
-//        } else {
-//            $researchPendingTasks = [];
-//        }
-
+        //-------Share conversation items-------
+//        dd($employee);
         $shareConversations = (is_null($employee)) ? null : $this->shareConversationService->getShareConversationByDesignation($employee->designation_id);
         $bulkActionForApprove = in_array($employee->designation->short_name, [DesignationShortName::DG]);
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
-            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations', 'bulkActionForApprove'));
+            'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations',
+            'bulkActionForApprove', 'researchDetailPendingItems', 'researchDetailRejectedItems'));
     }
 
     /**

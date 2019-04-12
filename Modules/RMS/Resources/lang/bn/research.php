@@ -4,7 +4,7 @@ return [
     'title' => 'গবেষণা',
     'research_monitoring_tabular_view' => 'গবেষণা পর্যবেক্ষণ ট্যাবুলার দেখুন',
     'research_pending_items' => 'গবেষণা পেন্ডিং আইটেম',
-    'research_proposal_pending_items' => 'গবেষণা প্রস্তাব পেন্ডিং আইটেম',
+    'research_proposal_pending_items' => 'গবেষণা সংক্ষিপ্ত প্রস্তাব পেন্ডিং আইটেম',
     'research_publication' => 'গবেষণা প্রকাশনা',
     'research_publication_create' => 'গবেষণা প্রকাশনা তৈরি',
     'research_publication_form' => 'গবেষণা প্রকাশনা ফর্ম',

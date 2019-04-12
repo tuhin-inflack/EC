@@ -7,6 +7,7 @@ use App\Entities\workflow\WorkflowDetail;
 use Illuminate\Database\Eloquent\Model;
 use Modules\HRM\Entities\Designation;
 use Modules\PMS\Entities\ProjectProposal;
+use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 
 class ShareConversation extends Model
@@ -39,5 +40,11 @@ class ShareConversation extends Model
     public function shareRuleDesignation()
     {
         return $this->belongsTo(ShareRuleDesignation::class, 'share_rule_designation_id', 'id');
+    }
+
+    public function researchDetail()
+    {
+        return $this->belongsTo(ResearchDetailSubmission::class, 'ref_table_id', 'id');
+
     }
 }

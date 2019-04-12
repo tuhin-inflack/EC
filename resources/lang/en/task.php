@@ -5,8 +5,8 @@ return [
     'task_list' => 'Task List',
     'task_gantt_chart' => 'Task Gantt Chart',
     'task' => 'Task',
-    'start_time' => 'Start Time',
-    'end_time' => 'End Time',
+    'start_time' => 'Actual Start Time',
+    'end_time' => 'Actual End Time',
     'start' => 'Start',
     'stop' => 'Stop',
 ];

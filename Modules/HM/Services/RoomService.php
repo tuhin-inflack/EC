@@ -11,6 +11,7 @@ namespace Modules\HM\Services;
 
 use App\Traits\CrudTrait;
 use Illuminate\Validation\ValidationException;
+use Modules\HM\Entities\Hostel;
 use Modules\HM\Entities\Room;
 use Modules\HM\Repositories\RoomRepository;
 
@@ -180,5 +181,12 @@ class RoomService
     public function updateStatus(Room $room, $status)
     {
         return $this->roomRepository->update($room, ['status' => $status]);
+    }
+
+    public function getAvailableRoomsOfHostel(Hostel $hostel)
+    {
+        return $hostel->rooms->filter(function ($room) {
+            return $room->status == 'available';
+        });
     }
 }

@@ -35,23 +35,21 @@ class OrganizationMemberController extends Controller
     }
 
 
-    public function create(Organization $organization)
+    public function create(Project $project, Organization $organization)
     {
-
         $module = explode('/', Request()->route()->getPrefix())[0];
-        return view('pms::organization-member.create', compact('organization', 'module'));
+        return view('pms::organization-member.create', compact('organization', 'module', 'project'));
     }
 
     public function store(StoreUpdateOrgMemberRequest $request, Organization $organization)
     {
-
         if ($this->organizationMemberService->save($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
             Session::flash('error', trans('labels.save_fail'));
         }
+        return redirect()->route('pms-organizations.show', [$request->project_id, $organization->id]);
 
-        return redirect()->back();
     }
 
     public function show(Project $project, Organization $organization, OrganizationMember $member)

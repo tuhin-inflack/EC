@@ -31,13 +31,16 @@ class DashboardWorkflowService
 
     public function getDashboardWorkflowItems($feature): DashboardItemSummary
     {
+
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
         return $itemGenerator->generateItems();
     }
 
     public function getDashboardRejectedWorkflowItems($feature): DashboardItemSummary
     {
+
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
+//        dd($itemGenerator);
         return $itemGenerator->generateRejectedItems();
     }
 

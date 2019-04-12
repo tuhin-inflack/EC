@@ -16,6 +16,7 @@ return [
     'approve_cancel_card_title' => 'হোস্টেল বাজেট অনুমোদন / বাতিল',
     'approve_form_title' => 'বাজেট অনুমোদন ফর্ম',
     'approve' => 'অনুমোদন',
+    'save' => 'সংরক্ষণ করুন',
 
     'section_list' => 'সেকশন তালিকা',
     'section_form' => 'সেকশন ফর্ম',

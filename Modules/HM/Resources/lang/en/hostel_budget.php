@@ -16,6 +16,7 @@ return [
     'approve_cancel_card_title' => 'Approve/Cancel',
     'approve_form_title' => 'Budget Approve Form',
     'approve' => 'Approve',
+    'save' => 'Save',
 
     'section_list' => 'Section List',
     'section_form' => 'Section Add Form',
