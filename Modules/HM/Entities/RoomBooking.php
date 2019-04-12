@@ -53,4 +53,9 @@ class RoomBooking extends Model
     {
         return $this->hasMany(CheckinPayment::class, 'checkin_id', 'id');
     }
+
+    public function forward()
+    {
+        return $this->hasOne(BookingRequestForward::class, 'room_booking_id', 'id');
+    }
 }

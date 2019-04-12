@@ -35,7 +35,7 @@
                         <td>{{ $member->mobile }}</td>
                         <td>{{ $member->address }}</td>
                         <td>{{ $member->nid }}</td>
-                        <td>{{ $member->age ?? 'Null' }}</td>
+                        <td>{{ $member->age }}</td>
                         <td class="text-center">
                             <span class="dropdown">
                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

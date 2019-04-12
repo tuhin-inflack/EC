@@ -287,7 +287,7 @@
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->middle_name. " " .$guestInfo->last_name}}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->age ? : '' }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.$guestInfo->gender")  }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>

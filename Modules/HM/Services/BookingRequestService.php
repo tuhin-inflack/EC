@@ -339,13 +339,17 @@ class BookingRequestService
     {
         return $this->bookingRequesteForwardRepository->getModel()->updateOrCreate(
             ['room_booking_id' => $roomBooking->id],
-            ['forwarded_to' => $data['forwardTo'], 'forwarded_by' => Auth::user()->id]
+            [
+                'forwarded_to' => $data['forwardTo'],
+                'forwarded_by' => Auth::user()->id,
+                'comment' => $data['comment']
+            ]
         );
     }
 
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
-        $ids = $ids ?: $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
+        $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 

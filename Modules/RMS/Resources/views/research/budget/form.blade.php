@@ -26,7 +26,18 @@
                             {{ $budget }}
                             <input type="hidden" name="activity[]" value="{{$budget}}">
                         </th>
-                        <td><input type="number" name="estimated_cost[]" min="0" class="form-control" value="0" required></td>
+                        <td>
+                            {!! Form::number('estimated_cost['. ($loop->iteration - 1).']', 0, [
+                                'class' => 'form-control required',
+                                'placeholder' => 'e.g. 100',
+                                'data-msg-required' => trans('labels.This field is required'),
+                                'min' => '0',
+                                'data-msg-min'=> trans('labels.Must be greater than or equal to', ['attribute' => '0']),
+                                'data-rule-number' => 'true',
+                                'data-msg-number' => trans('labels.Please enter a valid number'),
+                                ])
+                             !!}
+                        </td>
                     </tr>
                 @endforeach
             @elseif($page === 'edit')
@@ -37,7 +48,18 @@
                             {{ $budget->activity }}
                             <input type="hidden" name="activity[]" value="{{ $budget->activity }}">
                         </th>
-                        <td><input type="number" name="estimated_cost[]" min="0" class="form-control" value="{{ $budget->estimated_cost }}" required></td>
+                        <td>
+                            {!! Form::number('estimated_cost['. ($loop->iteration - 1).']', $budget->estimated_cost, [
+                                'class' => 'form-control required',
+                                'placeholder' => 'e.g. 100',
+                                'data-msg-required' => trans('labels.This field is required'),
+                                'min' => '0',
+                                'data-msg-min'=> trans('labels.Must be greater than or equal to', ['attribute' => '0']),
+                                'data-rule-number' => 'true',
+                                'data-msg-number' => trans('labels.Please enter a valid number'),
+                                ])
+                             !!}
+                        </td>
                     </tr>
                 @endforeach
             @endif

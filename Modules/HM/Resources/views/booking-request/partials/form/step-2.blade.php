@@ -121,7 +121,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label>{{ trans('hm::booking-request.passport_no') }}</label>
-                    {!! Form::text('passport_no', $page == 'create' ? old('passport_no') : $roomBooking->requester->passport_no, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number', 'data-rule-minlength' => 10, 'data-msg-minlength'=>Lang::get('labels.At least 10 characters'), 'data-rule-maxlength' => 10, 'data-msg-maxlength'=>Lang::get('labels.At most 10 characters')]) !!}
+                    {!! Form::text('passport_no', $page == 'create' ? old('passport_no') : $roomBooking->requester->passport_no, ['class' => 'form-control' . ($errors->has('passport_no') ? ' is-invalid' : ''), 'placeholder' => 'passport number', 'data-rule-minlength' => 8, 'data-msg-minlength'=>Lang::get('labels.At least 8 characters'), 'data-rule-maxlength' => 20, 'data-msg-maxlength'=>Lang::get('labels.At most 20 characters')]) !!}
 
                     @if ($errors->has('passport_no'))
                         <span class="invalid-feedback" role="alert">
@@ -136,11 +136,11 @@
                     {!! Form::text('nid', $page == 'create' ? old('nid') : $roomBooking->requester->nid,
                     [
                         'class' => 'form-control' . ($errors->has('nid') ? ' is-invalid' : ''),
-                        'placeholder' => '14 digit number',
+                        'placeholder' => 'Nid number',
                         'data-rule-minlength' => 10,
                         'data-msg-minlength'=> trans('labels.At least 10 characters'),
-                        'data-rule-maxlength' => 14,
-                        'data-msg-maxlength'=> trans('labels.At most 14 characters'),
+                        'data-rule-maxlength' => 20,
+                        'data-msg-maxlength'=> trans('labels.At most 20 characters'),
                         'data-rule-number' => 'true',
                         'data-msg-number' => trans('labels.Please enter a valid number'),
                     ]) !!}

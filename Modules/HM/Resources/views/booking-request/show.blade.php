@@ -293,16 +293,20 @@
 
                             <br>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <p>
-                                        <span class="text-bold-600">@lang('labels.remarks')</span>
-                                    </p>
+                                <div class="col-md-4">
+                                    <p><span class="text-bold-600">@lang('labels.remarks')</span></p>
+                                    {{ $roomBooking->comment }}
+                                </div>
+                                <div class="col-md-4">
+                                    <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
                                     {{ $roomBooking->note }}
+                                </div>
+                                <div class="col-md-4">
+                                    <p><span class="text-bold-600">@lang('labels.forward') @lang('labels.remarks')</span></p>
+                                    {{ $roomBooking->forward ? $roomBooking->forward->comment : '' }}
                                 </div>
                             </div>
                         </div>
-
-
 
                         @if($type == 'booking')
                             @include('hm::booking-request.partials.modal.request-forward', ['forwardToUsers' => $forwardToUsers, 'roomBookingId' => $roomBooking->id])
