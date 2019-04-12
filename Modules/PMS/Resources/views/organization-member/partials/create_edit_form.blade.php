@@ -54,6 +54,7 @@
                         'id'=>'',
                         'class' => 'form-control',
                         'min' => 0,
+                        'max' => 99,
                         'oninput' => "validity.valid||(value='');",
                         'placeholder' => trans('pms::member.member_age') ]) }}
                     <div class="help-block"></div>
