@@ -71,22 +71,21 @@ class RMSController extends Controller
         $proposals = $this->researchProposalSubmissionService->getResearchProposalBySubmissionDate();
 
         //------Research proposal dashboard items--------
-        $featureName = Config::get('constants.research_proposal_feature_name');
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
+//        $featureName = Config::get('constants.research_proposal_feature_name');
+//        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
+//        $rejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
 //        array_push($PendingItem, $pendingTasks->dashboardItems);
 
         //-------Research paper workflow Items-----------
-        $researchFeatureName = Config::get('rms.research_feature_name');
-        $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
-        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
+//        $researchFeatureName = Config::get('rms.research_feature_name');
+//        $researchPendingTasks = $this->dashboardService->getDashboardWorkflowItems($researchFeatureName);
+//        $researchRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchFeatureName);
 //        array_push($PendingItem, $researchPendingTasks->dashboardItems);
 
         //--------Research Detail workflow item----------
         $researchDetailFeatureName = config('rms.research_proposal_detail_feature');
         $researchDetailPendingItems = $this->dashboardService->getDashboardWorkflowItems($researchDetailFeatureName);
-        $researchDetailRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
-
+        $researchDetailRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchDetailFeatureName);
         //=======not needed the following commented code. Will remove it soon
 
 
@@ -97,7 +96,7 @@ class RMSController extends Controller
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
             'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations',
-            'bulkActionForApprove', 'researchDetailPendingItems'));
+            'bulkActionForApprove', 'researchDetailPendingItems', 'researchDetailRejectedItems'));
     }
 
     /**

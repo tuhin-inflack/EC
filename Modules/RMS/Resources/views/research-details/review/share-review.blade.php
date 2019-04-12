@@ -73,7 +73,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-md-12">
-                                    {!! Form::open(['route' => [ 'research-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
+                                    {!! Form::open(['route' => [ 'research-detail.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
                                     <hr/>
                                     <div class="form-group">
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}

@@ -132,11 +132,9 @@ class ResearchProposalDetailController extends Controller
     {
 
         if ($request->status == WorkflowStatus::REVIEW) {
-//            dd($request->all());
             $response = $this->shareConversationService->shareFromWorkflow($request->all());
         } else {
-
-            //        $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+//            $research = $this->researchDetailSubmissionService->findOrFail($request->input('item_id'));
             $data = $request->except('_token');
             $this->dashboardWorkflowService->updateDashboardItem($data);
             // Send Notifications
@@ -147,7 +145,7 @@ class ResearchProposalDetailController extends Controller
         return redirect('/rms');
     }
 
-    public function getResearchFeedbackForm($researchProposalDetailId, $workflowMasterId, $shareConversationId)
+    public function getResearchDetailFeedbackForm($researchProposalDetailId, $workflowMasterId, $shareConversationId)
     {
         $shareConversation = $this->shareConversationService->findOne($shareConversationId);
 
@@ -164,6 +162,45 @@ class ResearchProposalDetailController extends Controller
         $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalDetailId]);
         return view('rms::research-details.review.share-review', compact('researchDetail', 'feature',
             'remarks', 'researchProposalDetailId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
+    }
+
+    public function postResearchDetailFeedback(Request $request, $shareConversationId)
+    {
+        $data = $request->all();
+        $data['from_user_id'] = Auth::user()->id;
+        $currentConv = $this->shareConversationService->findOne($shareConversationId);
+
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $data['request_ref_id'] = $currentConv->request_ref_id;
+            $response = $this->shareConversationService->saveShareConversation($data, $currentConv);
+        }
+
+        if ($request->status == WorkflowStatus::APPROVED) {
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+            $researchDetail = $this->researchDetailSubmissionService->findOrFail($request->input('ref_table_id'));
+            $this->researchDetailSubmissionService->update($researchDetail, ['status' => 'APPROVED']);
+
+        }
+        $this->shareConversationService->updateConversation($data, $shareConversationId);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
+    }
+
+    public function reInitiate($researchDetailSubmissionId)
+    {
+        $username = Auth::user()->username;
+        $name = Auth::user()->name;
+        $auth_user_id = Auth::user()->id;
+        $researchDetail = $this->researchDetailSubmissionService->findOne($researchDetailSubmissionId);
+        return view('rms::research-details.reinitiate.research-detail-re-initiate', compact('researchDetail', 'name', 'auth_user_id'));
+    }
+
+    public function storeInitiate(Request $request, $researchDetaillId)
+    {
+        $response = $this->researchDetailSubmissionService->updateReInitiate($request->all(), $researchDetaillId);
+        Session::flash('success', $response->getContent());
+        return redirect()->route('rms.index');
     }
 
 }

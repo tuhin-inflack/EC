@@ -29,7 +29,7 @@ class ShareRulesDesignationSeeder extends Seeder
                 ['share_rule_id' => 3, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 1,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
                 ['share_rule_id' => 3, 'department_id' => 1, 'designation_id' => 19, 'is_sharable' => true, 'sharable_id' => 4,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
-//                JD
+//                JDR
                 ['share_rule_id' => 4, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 1,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
                 ['share_rule_id' => 4, 'department_id' => 1, 'designation_id' => 18, 'is_sharable' => true, 'sharable_id' => 3,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
                 ['share_rule_id' => 4, 'department_id' => 1, 'designation_id' => 20, 'is_sharable' => true, 'sharable_id' => 5,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
@@ -62,10 +62,10 @@ class ShareRulesDesignationSeeder extends Seeder
                 ['share_rule_id' => 15, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 13,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
                 ['share_rule_id' => 15, 'department_id' => 1, 'designation_id' => 19, 'is_sharable' => true, 'sharable_id' => 16,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
-//                JD
+//                JDR
                 ['share_rule_id' => 16, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 13,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
                 ['share_rule_id' => 16, 'department_id' => 1, 'designation_id' => 18, 'is_sharable' => true, 'sharable_id' => 15,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
-                ['share_rule_id' => 4, 'department_id' => 1, 'designation_id' => 20, 'is_sharable' => true, 'sharable_id' => 17,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 16, 'department_id' => 1, 'designation_id' => 20, 'is_sharable' => true, 'sharable_id' => 17,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
 
 //                DDR
                 ['share_rule_id' => 17, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 16,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],

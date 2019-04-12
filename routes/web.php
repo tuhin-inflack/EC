@@ -100,3 +100,6 @@ Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.f
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
+Route::post('bulk-approve', 'ResearchBulkActionController@researchBulkAction')->name('research.bulk.action');
+
+

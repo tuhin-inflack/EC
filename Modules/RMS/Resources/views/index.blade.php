@@ -28,19 +28,19 @@
                                 {{--{{ dd($shareConversation) }}--}}
                                 <tr>
                                     @if($bulkActionForApprove)
-                                        <td>{{  $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                        <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
                                     <td>{{ $shareConversation->feature->name }}</td>
                                     <td>{{$shareConversation->message}}</td>
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
                                             if ($shareConversation->feature->name == config('rms.research_proposal_detail_feature')){
-                                           // working for research detail proposal
-                                               $title = 'Research Detail Title '. $shareConversation->researchDetail->title;
+                                            // working for research detail proposal
+                                               $title = 'Research Detail Title : '. $shareConversation->researchDetail->title;
                                                $reviewUrl = 'research-detail.review';
                                             }else{
                                             // working for research proposal (brief)
-                                                $title = 'Research Brief Title '. $shareConversation->researchProposal->title;
+                                                $title = 'Research Brief Title : '. $shareConversation->researchProposal->title;
                                                $reviewUrl = 'research-proposal-submission.review';
                                             }
 
@@ -208,6 +208,49 @@
             </div>
         </section>
     @endif
+
+    {{---------------Research Detail Rejected items from workflow ------------------}}
+    @if(!empty($researchDetailRejectedItems->dashboardItems))
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>@lang('labels.rejected_items')</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($researchDetailRejectedItems->dashboardItems as $item)
+
+                            <tr>
+                                <td>{{$item->featureName}}</td>
+                                <td>{{$item->message}}</td>
+                                <td>
+                                    Research Detail title : {{ $item->dynamicValues['detail_title'] }}<br/>
+                                    Research Invitation title : {{ $item->dynamicValues['remarks'] }}
+
+                                </td>
+
+                                <td>
+                                    <a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
+                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                       class="btn btn-danger btn-sm">@lang('labels.closed')</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
+
 
     {{--research paper rejected workflow dashboard items--}}
     @if(!empty($researchRejectedItems->dashboardItems))
@@ -588,7 +631,7 @@
                     $(form).append(
                         $('<input>')
                             .attr('type', 'hidden')
-                            .attr('name', 'ids[]')
+                            .attr('name', 'items[]')
                             .val(rowId)
                     );
                 });

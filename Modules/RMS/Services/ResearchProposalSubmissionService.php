@@ -321,12 +321,10 @@ class ResearchProposalSubmissionService
         }
     }
 
-    public function researchProposalBulkApproved($shareAndProposalIds)
+    public function researchProposalApproved($shareAndProposalIds)
     {
-
-        foreach ($shareAndProposalIds as $shareAndProposalId) {
-            $shareConversationId = explode('-', $shareAndProposalId)[0];
-            $researchProposalId = explode('-', $shareAndProposalId)[1];
+            $shareConversationId = explode('-', $shareAndProposalIds)[0];
+            $researchProposalId = explode('-', $shareAndProposalIds)[1];
 
             $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
             //approving workflow
@@ -337,16 +335,12 @@ class ResearchProposalSubmissionService
             //update main item
             $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
             $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
-
-        }
     }
 
-    public function researchProposalBulkReject($shareAndProposalIds)
+    public function researchProposalReject($shareAndProposalIds)
     {
-
-        foreach ($shareAndProposalIds as $shareAndProposalId) {
-            $shareConversationId = explode('-', $shareAndProposalId)[0];
-            $researchProposalId = explode('-', $shareAndProposalId)[1];
+            $shareConversationId = explode('-', $shareAndProposalIds)[0];
+            $researchProposalId = explode('-', $shareAndProposalIds)[1];
 
             //closing workflow
             $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
@@ -357,8 +351,7 @@ class ResearchProposalSubmissionService
 
             //update main item
             $researchProposal = $this->researchProposalSubmissionRepository->findOne($researchProposalId);
-            $researchProposal->update(['status' => WorkflowStatus::APPROVED]);
-        }
+            $researchProposal->update(['status' => WorkflowStatus::REJECTED]);
     }
 
     private function isProposalSubmitFromResearchDept()

@@ -13,6 +13,7 @@ use App\Entities\User;
 use Illuminate\Database\Eloquent\Model;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\RMS\Entities\Research;
+use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 
 class WorkflowMaster extends Model
@@ -53,6 +54,10 @@ class WorkflowMaster extends Model
     public function research()
     {
         return $this->belongsTo(Research::class, 'ref_table_id', 'id');
+    }
+    public function researchDetail()
+    {
+        return $this->belongsTo(ResearchDetailSubmission::class, 'ref_table_id', 'id');
     }
 
     public function projectProposalSubmission()
