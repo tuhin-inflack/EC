@@ -34,10 +34,12 @@
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
-                                            if ($shareConversation->feature->name ==config('rms.research_proposal_detail_feature')){
+                                            if ($shareConversation->feature->name == config('rms.research_proposal_detail_feature')){
+                                           // working for research detail proposal
                                                $title = 'Research Detail Title '. $shareConversation->researchDetail->title;
                                                $reviewUrl = 'research-detail.review';
                                             }else{
+                                            // working for research proposal (brief)
                                                 $title = 'Research Brief Title '. $shareConversation->researchProposal->title;
                                                $reviewUrl = 'research-proposal-submission.review';
                                             }

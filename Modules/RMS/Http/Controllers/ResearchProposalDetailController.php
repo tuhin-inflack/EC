@@ -92,7 +92,6 @@ class ResearchProposalDetailController extends Controller
     }
 
     public function review($researchProposalDetailId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
-
     {
 
         $researchDetail = $this->researchDetailSubmissionService->findOne($researchProposalDetailId);
@@ -146,6 +145,25 @@ class ResearchProposalDetailController extends Controller
         }
         Session::flash('success', trans('labels.save_success'));
         return redirect('/rms');
+    }
+
+    public function getResearchFeedbackForm($researchProposalDetailId, $workflowMasterId, $shareConversationId)
+    {
+        $shareConversation = $this->shareConversationService->findOne($shareConversationId);
+
+        if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
+            $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
+            $ruleDesignations = $shareRule->rulesDesignation;
+        } else {
+            $ruleDesignations = null;
+        }
+
+        $researchDetail = $this->researchDetailSubmissionService->findOne($researchProposalDetailId);
+        $featureName = config('rms.research_proposal_detail_feature');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalDetailId]);
+        return view('rms::research-details.review.share-review', compact('researchDetail', 'feature',
+            'remarks', 'researchProposalDetailId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
 }
