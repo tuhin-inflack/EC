@@ -31,7 +31,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $member->name }}</td>
-                        <td>{{ $member->gender }}</td>
+                        <td>@lang('labels.' . $member->gender)</td>
                         <td>{{ $member->mobile }}</td>
                         <td>{{ $member->address }}</td>
                         <td>{{ $member->nid }}</td>
