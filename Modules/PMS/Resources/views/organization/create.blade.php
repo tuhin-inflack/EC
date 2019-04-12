@@ -28,7 +28,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{ Form::open(['route' => 'organizations.store', 'class' => 'form' ]) }}
+                            {{ Form::open(['route' => 'organizations.store', 'class' => 'form']) }}
                             <div class="form-body">
                                 <h4 class="form-section"><i
                                             class="ft-grid"></i>
@@ -123,11 +123,13 @@
                                         <div class="form-group ">
                                             <div class="form-group ">
                                                 <label for="division_id">@lang('division.division')</label>
-                                                <select class="form-control select2" readonly id="division_id"
-                                                        name="division_id" required>
-                                                    <option value="">@lang('labels.select')</option>
-                                                </select>
-                                                <div class="help-block"></div>
+                                                {{ Form::text(null, null, [
+                                                    'id' => 'division_display',
+                                                    'class' => 'form-control',
+                                                    'readonly' => true,
+                                                    'placeholder' => trans('division.division')
+                                                ]) }}
+                                                <input type="hidden" name="division_id" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -136,11 +138,13 @@
                                             <div class="form-group ">
                                                 <div class="form-group ">
                                                     <label for="district_id">@lang('district.district')</label>
-                                                    <select class="form-control select2" id="district_id" readonly
-                                                            name="district_id" required>
-                                                        <option value="">@lang('labels.select')</option>
-                                                    </select>
-                                                    <div class="help-block"></div>
+                                                    {{ Form::text(null, null, [
+                                                        'id' => 'district_display',
+                                                        'class' => 'form-control',
+                                                        'readonly' => true,
+                                                        'placeholder' => trans('district.district')
+                                                    ]) }}
+                                                    <input type="hidden" name="district_id" value="">
                                                 </div>
                                             </div>
                                         </div>
@@ -149,11 +153,13 @@
                                         <div class="form-group ">
                                             <div class="form-group ">
                                                 <label for="thana_id">@lang('thana.thana')</label>
-                                                <select class="form-control select2" readonly id="thana_id"
-                                                        name="thana_id" required>
-                                                    <option value="">@lang('labels.select')</option>
-                                                </select>
-                                                <div class="help-block"></div>
+                                                {{ Form::text(null, null, [
+                                                        'id' => 'thana_display',
+                                                        'class' => 'form-control',
+                                                        'readonly' => true,
+                                                        'placeholder' => trans('thana.thana')
+                                                    ]) }}
+                                                <input type="hidden" name="thana_id" value="">
                                             </div>
                                         </div>
                                     </div>
@@ -173,6 +179,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
 
                                 <div class="row">
                                     <div class="form-actions col-md-12 ">
@@ -200,7 +216,8 @@
     {{--<script src="{{ asset('js/address/cascade-dropdown.js') }}"></script>--}}
     <script>
         function setInputDisableOption(status) {
-            $('#union_id, #name, #email, #mobile, #address').attr('disabled', status);
+            $('input[name=division_id], input[name=district_id], input[name=thana_id],' +
+                '#union_id, #name, #email, #mobile, #address').attr('disabled', status);
         }
 
         $(document).ready(function () {
@@ -218,11 +235,13 @@
                     $(".addNewOrganization").show();
                     $(".addOrganizationInput").focus();
                 } else if (organizationSelectValue == "") {
-                    // setInputDisableOption(true);
+                    $('form[class=form]')[0].reset();
+                    $('input[name=division_id], input[name=district_id], input[name=thana_id]').val('');
+                    setInputDisableOption(true);
                     $('input,select,textarea').jqBootstrapValidation();
                     $(".addNewOrganization").hide();
                 } else {
-                    // setInputDisableOption(true);
+                    setInputDisableOption(true);
                     $('input,select,textarea').jqBootstrapValidation('destroy');
                     $(".addNewOrganization").hide();
                 }
@@ -230,16 +249,28 @@
 
             $('#union_id').on('change', function (e) {
                 var union_id = $('#union_id').val();
-                $.get("{{ url('union') }}" + '/' + union_id, function (response, status) {
-                    if (status === 'success') {
-                        $('#division_id').append('<option selected  readonly="readonly" value="' +
-                            response[1].id + '">' + response[1].name + '</option>');
-                        $('#district_id').append('<option selected  readonly="readonly" value="' +
-                            response[2].id + '">' + response[2].name + '</option>');
-                        $('#thana_id').append('<option selected readonly="readonly"  value="' +
-                            response[3].id + '">' + response[3].name + '</option>');
-                    }
-                });
+
+                if (union_id) {
+                    $.get("{{ url('union') }}" + '/' + union_id, function (response, status) {
+                        if (status === 'success') {
+                            $('#division_display').val(response[1].name);
+                            $('#district_display').val(response[2].name);
+                            $('#thana_display').val(response[3].name);
+
+                            $('input[name=division_id]').val(response[1].id);
+                            $('input[name=district_id]').val(response[2].id);
+                            $('input[name=thana_id]').val(response[3].id);
+                        }
+                    });
+                } else {
+                    $('#division_display').val('');
+                    $('#district_display').val('');
+                    $('#thana_display').val('');
+
+                    $('input[name=division_id]').val('');
+                    $('input[name=district_id]').val('');
+                    $('input[name=thana_id]').val('');
+                }
             });
         });
     </script>
