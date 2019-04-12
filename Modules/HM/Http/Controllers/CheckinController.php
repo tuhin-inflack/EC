@@ -120,8 +120,9 @@ class CheckinController extends Controller
         $roomDetails = [];
         $hostels = $this->hostelService->getAll();
 
-        foreach ($hostels as $hostel){
-            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+        foreach ($hostels as $hostel) {
+            $availableRooms = $this->roomService->getAvailableRoomsOfHostel($hostel);
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($availableRooms);
         }
 
         return view($viewName, compact(
