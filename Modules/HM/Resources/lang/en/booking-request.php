@@ -100,4 +100,5 @@ return [
     'approval_reject_mail' => 'Your booking request has been Rejected. Please check out the booking information below',
     'recipient_addressing' => 'Dear',
     'bengali' => 'Bengali',
+    'not_given' => 'Not Given',
 ];

@@ -17,7 +17,7 @@ class CreateResearchBudgetsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('research_id');
             $table->string('activity');
-            $table->double('estimated_cost', 10, 2);
+            $table->double('estimated_cost', 14, 2);
             $table->timestamps();
         });
     }
