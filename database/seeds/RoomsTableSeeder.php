@@ -26,7 +26,7 @@ class RoomsTableSeeder extends Seeder
                 'floor' => 1,
                 'created_at' => '2019-02-07 21:30:05',
                 'updated_at' => '2019-02-07 21:30:06',
-                'status' => 'unavailable',
+                'status' => 'available',
             ),
             1 => 
             array (
@@ -37,7 +37,7 @@ class RoomsTableSeeder extends Seeder
                 'floor' => 1,
                 'created_at' => '2019-02-07 21:30:05',
                 'updated_at' => '2019-02-07 21:30:06',
-                'status' => 'unavailable',
+                'status' => 'available',
             ),
             2 => 
             array (

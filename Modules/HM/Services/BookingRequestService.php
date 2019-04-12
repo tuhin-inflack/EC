@@ -351,7 +351,7 @@ class BookingRequestService
 
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
-        $ids = $ids ?: $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
+        $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 

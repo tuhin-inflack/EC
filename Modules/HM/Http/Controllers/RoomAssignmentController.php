@@ -55,7 +55,8 @@ class RoomAssignmentController extends Controller
         $hostels = $this->hostelService->getHostelByWithRooms($hostelIds, $roomIds);
 
         foreach ($hostels as $hostel) {
-            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+            $availableRooms = $this->roomService->getAvailableRoomsOfHostel($hostel);
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($availableRooms);
         }
 
         $selectedHostelId = $request['selectedHostelId'];

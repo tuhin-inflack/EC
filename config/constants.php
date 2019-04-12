@@ -28,6 +28,7 @@ return [
     'research' => 'research',
 
 //    USE IN PMS & RMS
+
     'research_proposal_feature_name' => 'Research Proposal',
     'project_proposal_feature_name' => 'Project Proposal',
     'project_details_proposal_feature_name' => 'Project Details Proposal',

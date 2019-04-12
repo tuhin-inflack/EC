@@ -138,7 +138,7 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         NotificationInfo $data,
         NotificationType $notificationType,
         array $user,
-        ResearchProposalSubmission $researchProposal
+        $researchProposal
     ): void
     {
         if ($notificationType->is_email_notification) {
