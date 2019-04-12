@@ -3,6 +3,7 @@
 namespace Modules\HM\Http\Controllers;
 
 use App\Services\UserService;
+use App\Traits\FileTrait;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -21,6 +22,7 @@ use Nwidart\Modules\Facades\Module;
 
 class BookingRequestController extends Controller
 {
+    use FileTrait;
     /**
      * @var RoomTypeService
      */
@@ -87,13 +89,22 @@ class BookingRequestController extends Controller
     {
         $bookingRequests = [];
 
-        if ($this->userService->isDirectorGeneral() ||
-            $this->userService->isDirectorAdmin() ||
-            $this->userService->isDirectorTraining() )
-        {
-            $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
-        } else {
-            $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+        switch (1){
+            case $this->userService->isDirectorGeneral():
+                // show only forwarded requests
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds();
+                break;
+            case $this->userService->isDirectorAdmin():
+                // show all General requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['general']);
+                break;
+            case $this->userService->isDirectorTraining():
+                // show all Training and Venue requests with forwarded ones
+                $bookingRequests = $this->bookingRequestService->getBookingRequestWithInIds(['training', 'venue']);
+                break;
+            default:
+                $bookingRequests = $this->bookingRequestService->findBy(['type' => 'booking']);
+                break;
         }
 
 
@@ -149,7 +160,7 @@ class BookingRequestController extends Controller
     {
         $forwardToUsers = $this->userService->getAdminExceptLoggedInUserRole();
         $type = 'booking';
-        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers'));
+        return view('hm::booking-request.show', compact('roomBooking', 'type', 'forwardToUsers', 'file'));
     }
 
     /**

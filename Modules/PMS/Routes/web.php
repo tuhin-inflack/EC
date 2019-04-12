@@ -47,10 +47,11 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             // project organisations
             Route::prefix('organizations')->group(function () {
                 Route::get('create', 'OrganizationController@create')->name('pms-organizations.create');
-                Route::post('test', 'OrganizationController@store')->name('pms-organizations.store');
                 Route::get('{organization}', 'OrganizationController@show')->name('pms-organizations.show');
                 // organisation members
                 Route::prefix('{organization}/members')->group(function () {
+                    $OrganizationMemberController = '\Modules\PMS\Http\Controllers\OrganizationMemberController';
+                    Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
                     Route::get('{member}', 'OrganizationMemberController@show')->name('organization-members.show');
                     // member attribute
                     Route::prefix('{member}')->group(function () {
@@ -97,7 +98,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         // organization members
         Route::prefix('members')->group(function () {
             $OrganizationMemberController = '\Modules\PMS\Http\Controllers\OrganizationMemberController';
-            Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
+//            Route::get('create', $OrganizationMemberController . '@create')->name('pms-organization-members.create');
             Route::post('/', $OrganizationMemberController . '@store')->name('pms-organization-members.store');
             Route::get('{member}/edit', $OrganizationMemberController . '@edit')->name('pms-organization-members.edit');
             Route::put('{member}', $OrganizationMemberController . '@update')->name('pms-organization-members.update');

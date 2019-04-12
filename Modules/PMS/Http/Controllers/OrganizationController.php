@@ -60,7 +60,6 @@ class OrganizationController extends Controller
     }
     public function show(Project $project, Organization $organization)
     {
-
         if (!$project->organizations->where('id', $organization->id)->count()) {
             abort(404);
         }
