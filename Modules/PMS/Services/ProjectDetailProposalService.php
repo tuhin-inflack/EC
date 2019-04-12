@@ -20,6 +20,7 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectDetailProposalRepository;
@@ -33,6 +34,7 @@ class ProjectDetailProposalService
     private $featureService;
     private $workflowService;
     private $userService;
+    private $employeeService;
 
     /**
      * ProjectRequestService constructor.
@@ -44,12 +46,14 @@ class ProjectDetailProposalService
     public function __construct(ProjectDetailProposalRepository $projectDetailProposalRepository,
                                 FeatureService $featureService,
                                 WorkflowService $workflowService,
-                                UserService $userService)
+                                UserService $userService,
+                                EmployeeServices $employeeService)
     {
         $this->projectDetailProposalRepository = $projectDetailProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->employeeService = $employeeService;
 
         $this->setActionRepository($projectDetailProposalRepository);
     }
@@ -81,21 +85,28 @@ class ProjectDetailProposalService
             }
 
             // Initiating Workflow
+            $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+            if(is_null($divisionalDirector)) {
+                Session::flash('error', 'Divisional Director is not defined for your department');
+                return redirect()->back();
+            }
+
             $featureName = config('constants.project_details_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
-            dd($featureName);
             $workflowData = [
                 'feature_id' => $feature->id,
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'designationTo' => ['1'=> $divisionalDirector->designation_id] ,
             ];
+
             if($this->userService->isProjectDivisionUser(Auth::user())) $workflowData['skipped'] = [1];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 
             //Generating Notification
-            $this->generatePMSNotification(['ref_table_id' =>  $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
+            //$this->generatePMSNotification(['ref_table_id' =>  $proposalSubmission->id, 'status' => 'SUBMITTED'], 'project_proposal_submission');
             // Notification generation done
 
             return $proposalSubmission;
