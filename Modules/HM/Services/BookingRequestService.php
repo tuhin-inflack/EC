@@ -172,10 +172,11 @@ class BookingRequestService
      */
     private function saveGuestInfos($data, $roomBooking): void
     {
+        /*$photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;*/
         if (array_key_exists('guests', $data)) {
             $roomBooking->guestInfos()->saveMany(
                 collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $this->upload($guest['nid_doc'], 'booking-requests') : null;
                     return new BookingGuestInfo($guest);
                 })
             );

@@ -188,6 +188,7 @@
                                                 <th>@lang('hm::booking-request.address')</th>
                                                 <th>@lang('hm::booking-request.relation')</th>
                                                 <th>@lang('hm::booking-request.nid_no')</th>
+                                                <th>@lang('hm::booking-request.nid_copy')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -201,10 +202,20 @@
                                                     <td>{{ $guestInfo->address }}</td>
                                                     <td>{{ trans('hm::booking-request.relation_' . $guestInfo->relation) }}</td>
                                                     <td>
-                                                        {{ $guestInfo->nid_no ? : 'not given' }}
-                                                        <a href="{{$guestInfo->nid_doc ? asset('/storage/app/'.$guestInfo->nid_doc) : 'javascript:;'}}">
-                                                            <i class="la la-file-o"></i>
-                                                        </a>
+                                                        @if($guestInfo->nid_no)
+                                                            {{ $guestInfo->nid_no }}
+                                                        @else
+                                                            <p>@lang('hm::booking-request.not_given')</p>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($guestInfo->nid_doc)
+                                                            <a href="{{ url("/file/get?filePath=" .  $guestInfo->nid_doc) }}" target="_blank">
+                                                                <i class="la la-file-o"></i>
+                                                            </a>
+                                                        @else
+                                                            <p>@lang('hm::booking-request.not_given')</p>
+                                                        @endif
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -246,6 +257,7 @@
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
                                         <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->nid_doc) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
@@ -270,6 +282,7 @@
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
                                         <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->passport_doc) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
