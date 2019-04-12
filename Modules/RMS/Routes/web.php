@@ -144,9 +144,21 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
 
     Route::prefix('research-proposal-details')->group(function () {
         Route::get('/', 'ResearchProposalDetailController@index')->name('research.list');
-
         Route::get('/create/{briefId?}', 'ResearchProposalDetailController@create')->name('details.create');
         Route::post('/store', 'ResearchProposalDetailController@store')->name('research-details.store');
+        Route::get('review/{researchDetailId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/', 'ResearchProposalDetailController@review');
+
+        Route::post('/reviewUpdate', 'ResearchProposalDetailController@reviewUpdate')->name('research-detail-submission.reviewUpdate');
+        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProposalSubmitController@getResearchFeedbackForm')->name('research-detail.review');
+
+//        Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
+//        Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
+//        Route::get('workflow-close/{workflowMasterId?}/{researchProposalId?}', 'ProposalSubmitController@closeWorkflowByOwner')->name('workflow-close');
+//        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}/{shareConversationId?}', 'ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
+//        Route::get('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@apcReview')->name('apc-review');
+//        Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
+//        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@postResearchFeedback')->name('research-proposal-submission.feedback');
+
 
         Route::prefix('invitations')->group(function () {
             Route::get('/', 'ResearchDetailInvitationController@index')->name('invitations');

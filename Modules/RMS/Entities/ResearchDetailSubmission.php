@@ -18,11 +18,17 @@ class ResearchDetailSubmission extends Model
 
     public function researchDetailInvitation()
     {
+        return $this->belongsTo(ResearchDetailInvitation::class, 'research_detail_invitation_id', 'id');
 
     }
 
     public function user()
     {
         return $this->belongsTo(User::class, 'auth_user_id', 'id');
+    }
+
+    public function distinctResearchDetailAttachments()
+    {
+        return $this->hasMany(ResearchDetailSubmissionAttachment::class, 'research_detail_submission_id', 'id')->orderBy('created_at', 'desc');
     }
 }

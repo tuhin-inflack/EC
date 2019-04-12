@@ -58,6 +58,7 @@ class ShareConversationService
     }
 
     public function shareFromWorkflow($data) {
+//        dd($data);
         $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
         $workflowConversation->status = WorkflowConversationStatus::CLOSED;
         $workflowConversation->update();
@@ -71,6 +72,7 @@ class ShareConversationService
 
     public function saveShareConversation($data, ShareConversation $currentConv = null)
     {
+//        dd($data);
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
 
         if ($shareRuleDesignation->is_parent && $currentConv) {

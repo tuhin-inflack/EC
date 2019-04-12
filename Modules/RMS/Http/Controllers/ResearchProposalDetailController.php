@@ -2,10 +2,20 @@
 
 namespace Modules\RMS\Http\Controllers;
 
+use App\Constants\WorkflowStatus;
+use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
+use App\Services\Sharing\ShareRulesService;
+use App\Services\workflow\DashboardWorkflowService;
+use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Services\EmployeeServices;
+use Modules\RMS\Http\Requests\UpdateReviewDetail;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
 use mysql_xdevapi\CrudOperationBindable;
 
@@ -21,10 +31,27 @@ class ResearchProposalDetailController extends Controller
      * ResearchProposalDetailController constructor.
      * @param ResearchDetailSubmissionService $researchDetailSubmissionService
      */
+    private $employeeService;
+    private $featureService;
+    private $remarksService;
+    private $workflowService;
+    private $shareRuleService;
+    private $shareConversationService;
+    private $dashboardWorkflowService;
 
-    public function __construct(ResearchDetailSubmissionService $researchDetailSubmissionService)
+    public function __construct(ResearchDetailSubmissionService $researchDetailSubmissionService,
+                                EmployeeServices $employeeService, FeatureService $featureService, RemarkService $remarkService,
+                                WorkflowService $workflowService, ShareRulesService $shareRulesService,
+                                ShareConversationService $shareConversationService, DashboardWorkflowService $dashboardWorkflowService)
     {
+        $this->employeeService = $employeeService;
+        $this->featureService = $featureService;
         $this->researchDetailSubmissionService = $researchDetailSubmissionService;
+        $this->remarksService = $remarkService;
+        $this->workflowService = $workflowService;
+        $this->shareRuleService = $shareRulesService;
+        $this->shareConversationService = $shareConversationService;
+        $this->dashboardWorkflowService = $dashboardWorkflowService;
     }
 
     /**
@@ -54,49 +81,71 @@ class ResearchProposalDetailController extends Controller
      */
     public function store(Request $request)
     {
-        $this->researchDetailSubmissionService->storeResearchDetails($request->all());
+        $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+        if (is_null($divisionalDirector)) {
+            Session::flash('error', 'Your divisional director is not defined');
+            return redirect()->back();
+        }
+        $this->researchDetailSubmissionService->storeResearchDetails($request->all(), $divisionalDirector);
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('research.list');
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
+    public function review($researchProposalDetailId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+
     {
-        return view('rms::show');
+
+        $researchDetail = $this->researchDetailSubmissionService->findOne($researchProposalDetailId);
+
+        $researchDetailInvitation = $researchDetail->researchDetailInvitation;
+
+//        $organizations = $researchDetail->organizations;
+        $featureName = config('rms.research_proposal_detail_feature');;
+
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchProposalDetailId]);
+
+        $workflowRuleDetails = $this->workflowService->getRuleDetailsByRuleId($workflowRuleDetailsId);
+
+        $workflowRuleMaster = $workflowRuleDetails->ruleMaster;
+
+        if ($workflowRuleDetails->flow_type == 'review') {
+            $approveButton = false;
+        } else {
+            $approveButton = true;
+        }
+
+        if ($workflowRuleDetails->is_shareable) {
+            $shareRule = $this->shareRuleService->findOne($workflowRuleDetails->share_rule_id);
+            $ruleDesignations = $shareRule->rulesDesignation->where('designation_id', '!=', Auth::user()->employee->designation_id);
+        } else {
+            $ruleDesignations = null;
+        }
+
+        return view('rms::research-details.review.show', compact('researchProposalDetailId', 'researchDetail',
+            'featureName', 'workflowMasterId', 'workflowConversationId', 'remarks', 'workflowRuleMaster',
+            'workflowRuleDetails', 'ruleDesignations', 'feature', 'approveButton', 'researchDetailInvitation'));
+
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function edit($id)
+
+    public function reviewUpdate(UpdateReviewDetail $request)
     {
-        return view('rms::edit');
+
+        if ($request->status == WorkflowStatus::REVIEW) {
+//            dd($request->all());
+            $response = $this->shareConversationService->shareFromWorkflow($request->all());
+        } else {
+
+            //        $research = $this->researchProposalSubmissionService->findOrFail($request->input('item_id'));
+            $data = $request->except('_token');
+            $this->dashboardWorkflowService->updateDashboardItem($data);
+            // Send Notifications
+//            $this->researchProposalSubmissionService->sendNotification($request);
+
+        }
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
