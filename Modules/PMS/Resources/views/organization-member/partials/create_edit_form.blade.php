@@ -50,7 +50,12 @@
             <div class="form-group ">
                 <div class="form-group ">
                     {{ Form::label('age', trans('pms::member.member_age')) }}
-                    {{ Form::number('age',  isset($member) ? $member->age : null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => \Illuminate\Support\Facades\Lang::get('pms::member.member_age') ]) }}
+                    {{ Form::number('age',  isset($member) ? $member->age : null,    [
+                        'id'=>'',
+                        'class' => 'form-control',
+                        'min' => 0,
+                        'oninput' => "validity.valid||(value='');",
+                        'placeholder' => trans('pms::member.member_age') ]) }}
                     <div class="help-block"></div>
                 </div>
             </div>
