@@ -119,7 +119,7 @@
                                         {!! Form::button(' <i class="ft-check"></i> Approve', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif
                                     @if($shareConversation->shareRuleDesignation->can_reject)
-                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalDetailId, $shareConversationId]) }}"
+                                        <a href="{{ route('workflow-detail-close-reviewer', [$workflowMasterId, $researchProposalDetailId, $shareConversationId]) }}"
                                            class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
                                     @endif
                                     {!! Form::close() !!}

@@ -36,8 +36,10 @@
                                          $statusAr = [
                                                 'APPROVED' => 'bg-success',
                                                 'REJECTED' => 'bg-danger',
+                                                'CLOSED' => 'bg-danger',
                                                 'PENDING' => 'bg-warning',
                                                 'REVIEWED' => 'bg-info',
+
                                             ];
                                     @endphp
                                     @if(count($researchDetails)>0)

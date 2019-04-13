@@ -203,4 +203,29 @@ class ResearchProposalDetailController extends Controller
         return redirect()->route('rms.index');
     }
 
+    public function closeWorkflowByInitiator($workflowMasterId, $researchDetailId)
+    {
+        $proposal = $this->researchDetailSubmissionService->findOne($researchDetailId);
+        $proposal->update(['status' => 'CLOSED']);
+        $this->workflowService->closeWorkflow($workflowMasterId);
+
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
+
+    }
+
+    public function closeWorkflowByReviewer($workflowMasterId, $researchDetailId, $shareConversationId = null)
+    {
+
+        $researchDetail = $this->researchDetailSubmissionService->findOne($researchDetailId);
+        $researchDetail->update(['status' => 'REJECTED']);
+        $this->workflowService->closeWorkflow($workflowMasterId);
+
+        if (!is_null($shareConversationId)) {
+            $this->shareConversationService->updateConversation([], $shareConversationId);
+        }
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
+    }
+
 }

@@ -136,7 +136,7 @@
                                         @endif
                                         {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
                                         {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalDetailId]) }}"
+                                        <a href="{{ route('workflow-detail-close-reviewer', [$workflowMasterId, $researchProposalDetailId]) }}"
                                            class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
 
                                         {!! Form::close() !!}
