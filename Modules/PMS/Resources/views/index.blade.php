@@ -29,18 +29,16 @@
                                     </thead>
                                     <tbody>
                                     @foreach($shareConversations as $shareConversation)
+
                                         <tr>
-                                            @if($bulkAction)<td>{{$shareConversation->id.'-'.$shareConversation->ref_table_id}}</td>@endif
-                                            <td>{{ $shareConversation->feature->name }}</td>
-                                            <td>{{$shareConversation->message}}</td>
-                                            <td>
-                                                Proposal: {{$shareConversation->projectProposal->title}}<br/>
-                                            </td>
+                                            @if($bulkAction)<td>{{$shareConversation['id'].'-'.$shareConversation['ref_table_id']}}</td>@endif
+                                            <td>{{ $shareConversation['feature_name'] }}</td>
+                                            <td>{{$shareConversation['message']}}</td>
+                                            <td>Proposal: {{$shareConversation['proposal_title']}}</td>
 
                                             <td>
-                                                <a class="btn btn-primary btn-sm" href="{{ route('sending-project-for-review',
-                                                           [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">
-                                                    Details
+                                                <a class="btn btn-primary btn-sm" href="{{ url($shareConversation['review_url']) }}">
+                                                    @lang('labels.details')
                                                 </a>
                                                 {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
                                                 {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}

@@ -110,10 +110,8 @@ class PMSController extends Controller
         $invitations = $this->projectRequestService->getProjectInvitationByDeadline();
         $proposals = $this->projectProposalService->getProjectProposalBySubmissionDate();
         $pendingTasks = $this->pmsService->getPendingTasks();
-        $rejectedTasks = $this->pmsService->getRejctedTasks();
-        $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
-
+        $rejectedTasks = $this->pmsService->getRejectedTasks();
+        $shareConversations = $this->pmsService->getShareConversations();
         if(Auth::user()->user_type == 'Employee')
         {
             $employee = $this->employeeService->findOne(Auth::user()->reference_table_id);
@@ -196,7 +194,7 @@ class PMSController extends Controller
         };
         $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
-        return view('pms::proposal-submitted.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
+        return view('pms::proposal-submitted.brief.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -345,7 +343,7 @@ class PMSController extends Controller
         //$shareRuleDesignation = $this->shareConversationService;
         $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
-        return view('pms::proposal-submitted.review.shareable-review', compact('proposal', 'feature',
+        return view('pms::proposal-submitted.brief.review.shareable-review', compact('proposal', 'feature',
             'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation', 'authDesignation'));
     }
 
