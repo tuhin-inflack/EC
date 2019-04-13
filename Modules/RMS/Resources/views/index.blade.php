@@ -215,7 +215,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h2>@lang('labels.rejected_items')</h2>
+                    <h2>Research Detail Getting back Items</h2>
                     <table class="table table-bordered">
                         <thead>
                         <th>@lang('labels.feature')</th>
@@ -238,7 +238,7 @@
                                 <td>
                                     <a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
-                                    <a href="{{ route('workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                    <a href="{{ route('detail-workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
                                        class="btn btn-danger btn-sm">@lang('labels.closed')</a>
                                 </td>
                             </tr>

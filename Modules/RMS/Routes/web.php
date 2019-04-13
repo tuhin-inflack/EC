@@ -150,8 +150,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::post('sending-for-review/{shareConversationId?}', 'ResearchProposalDetailController@postResearchDetailFeedback')->name('research-detail.feedback');
         Route::get('re-initiate/{researchDetailSubmissionId?}/', 'ResearchProposalDetailController@reInitiate');
         Route::post('store-re-initiate/{researchDetailId?}/', 'ResearchProposalDetailController@storeInitiate')->name('store-detail-re-initiate');
-//        Route::get('workflow-close/{workflowMasterId?}/{researchProposalId?}', 'ProposalSubmitController@closeWorkflowByOwner')->name('workflow-close');
-//        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}/{shareConversationId?}', 'ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
+        Route::get('workflow-close/{workflowMasterId?}/{researchDetailId?}', 'ResearchProposalDetailController@closeWorkflowByInitiator')->name('detail-workflow-close');
+        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchDetailId?}/{shareConversationId?}', 'ResearchProposalDetailController@closeWorkflowByReviewer')->name('workflow-detail-close-reviewer');
 //        Route::get('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@apcReview')->name('apc-review');
 //        Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
 //        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@postResearchFeedback')->name('research-proposal-submission.feedback');
