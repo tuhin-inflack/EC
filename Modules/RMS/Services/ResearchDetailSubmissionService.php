@@ -22,6 +22,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchDetailSubmissionRepository;
 use Prophecy\Doubler\Generator\TypeHintReference;
@@ -202,5 +203,21 @@ class ResearchDetailSubmissionService
 //            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
             return new Response(trans('rms::research_proposal.re_initiate_success'));
         });
+    }
+
+    public function getZipFilePath(ResearchDetailSubmission $researchDetailSubmission)
+    {
+
+        $filePaths = $researchDetailSubmission->researchDetailSubmissionAttachment()->map(function($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
     }
 }

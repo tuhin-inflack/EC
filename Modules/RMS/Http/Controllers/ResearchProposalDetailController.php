@@ -14,7 +14,10 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\RMS\Entities\ResearchDetailSubmission;
+use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Http\Requests\UpdateReviewDetail;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
 use mysql_xdevapi\CrudOperationBindable;
@@ -196,9 +199,9 @@ class ResearchProposalDetailController extends Controller
         return view('rms::research-details.reinitiate.research-detail-re-initiate', compact('researchDetail', 'name', 'auth_user_id'));
     }
 
-    public function storeInitiate(Request $request, $researchDetaillId)
+    public function storeInitiate(Request $request, $researchDetailId)
     {
-        $response = $this->researchDetailSubmissionService->updateReInitiate($request->all(), $researchDetaillId);
+        $response = $this->researchDetailSubmissionService->updateReInitiate($request->all(), $researchDetailId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
     }
@@ -228,4 +231,17 @@ class ResearchProposalDetailController extends Controller
         return redirect('/rms');
     }
 
+    public function attachmentDownload(ResearchDetailSubmission $researchDetailSubmission)
+    {
+        return response()->download($this->researchDetailSubmissionService->getZipFilePath($researchDetailSubmission));
+    }
+
+    public function fileDownload($attachmentId)
+    {
+
+        $researchDetailSubmission = ResearchDetailSubmissionAttachment::findOrFail($attachmentId);
+
+        $basePath = Storage::disk('internal')->path($researchDetailSubmission->attachments);
+        return response()->download($basePath);
+    }
 }

@@ -49,7 +49,8 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $researchDetail->title }}</td>
                                                 <td>{{ $researchDetail->user->name }}</td>
-                                                <td>Attachments</td>
+                                                <td><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('labels.attachments')</a></td>
+
                                                 <td>{{ $researchDetail->created_at }}</td>
                                                 <td>
                                                     <span class="badge {{ $statusAr[$researchDetail->status] }}">@lang('labels.status_' . strtolower($researchDetail->status))</span>
