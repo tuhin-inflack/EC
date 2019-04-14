@@ -12,7 +12,7 @@
                         </a>
                         <a class="btn btn-outline-info round"
                            href="{{ route('project-training.index', $project->id) }}">
-                            <i class="ft-plus"></i> @lang('pms::project.add_training')
+                            <i class="ft-plus"></i> @lang('pms::project.training_list')
                         </a>
                     </div>
                 </div>

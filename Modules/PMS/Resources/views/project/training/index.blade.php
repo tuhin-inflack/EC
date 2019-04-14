@@ -23,7 +23,7 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
-                                        <th scope="col">@lang('labels.title')</th>
+                                        <th scope="col">@lang('labels.name')</th>
                                         <th scope="col">{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>

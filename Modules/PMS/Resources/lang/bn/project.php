@@ -6,6 +6,7 @@ return [
     'add_training' => 'প্রশিক্ষণ যোগ করুন',
     'project_training' => 'প্রকল্প প্রশিক্ষণ',
     'project_training_list' => 'প্রকল্প প্রশিক্ষণ তালিকা',
+    'training_list' => 'প্রশিক্ষণ তালিকা',
     'project_training_creation' => 'প্রকল্প প্রশিক্ষণ তৈরি',
     'project_training_creation_form' => 'প্রকল্প প্রশিক্ষণ তৈরি ফর্ম',
     'training_name' => 'প্রশিক্ষণ নাম',
