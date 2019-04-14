@@ -3,6 +3,7 @@
 namespace Modules\RMS\Services;
 
 use App\Constants\NotificationType;
+use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Traits\CrudTrait;
@@ -132,6 +133,19 @@ class ResearchRequestService
 
     public function getResearchInvitationByDeadline()
     {
-        return ResearchRequest::orderBy('end_date', 'DESC')->limit(5)->get();
+        return ResearchRequest::orderBy('end_date', 'DESC')
+            ->limit(5)
+            ->get()
+            ->filter(function ($researchRequest) {
+                return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray()));
+            });
+    }
+
+    public function getInvitationsReceivedByUser()
+    {
+        return $this->researchRequestRepository->findAll()
+            ->filter(function ($researchRequest) {
+               return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray()));
+            });
     }
 }

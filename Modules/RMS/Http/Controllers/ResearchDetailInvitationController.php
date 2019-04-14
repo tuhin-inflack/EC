@@ -31,7 +31,7 @@ class ResearchDetailInvitationController extends Controller
 
     public function index()
     {
-        $detailsInvitations = $this->researchDetailInvitationService->findAll();
+        $detailsInvitations = $this->researchDetailInvitationService->getDetailInvitationReceivedByUser();
         return view('rms::research-details.invitation.index', compact('detailsInvitations'));
 
     }
