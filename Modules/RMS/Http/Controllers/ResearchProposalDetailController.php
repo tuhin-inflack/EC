@@ -28,7 +28,7 @@ class ResearchProposalDetailController extends Controller
     /**
      * @var ResearchDetailSubmissionService
      */
-    protected $researchDetailSubmissionService;
+    private $researchDetailSubmissionService;
 
     /**
      * ResearchProposalDetailController constructor.

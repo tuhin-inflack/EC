@@ -18,10 +18,12 @@ use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchDetailSubmissionRepository;
@@ -207,8 +209,7 @@ class ResearchDetailSubmissionService
 
     public function getZipFilePath(ResearchDetailSubmission $researchDetailSubmission)
     {
-
-        $filePaths = $researchDetailSubmission->researchDetailSubmissionAttachment()->map(function($attachment) {
+        $filePaths = $researchDetailSubmission->researchDetailSubmissionAttachment->map(function($attachment) {
             return Storage::disk('internal')->path($attachment->attachments);
         })->toArray();
 

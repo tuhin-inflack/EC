@@ -154,7 +154,9 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ResearchProposalDetailController@index')->name('research.list');
         Route::get('/create/{briefId?}', 'ResearchProposalDetailController@create')->name('details.create');
         Route::post('/store', 'ResearchProposalDetailController@store')->name('research-details.store');
-        Route::get('attachment-download/{ResearchDetailSubmission}', 'ResearchProposalDetailController@attachmentDownload');
+        Route::get('attachment-download/{researchDetailSubmission}', 'ResearchProposalDetailController@attachmentDownload');
+//        Route::get('attachment-download/{researchDetailInvitation}', 'ResearchDetailInvitationController@attachmentDownload')->name('research-proposal-details.invitation.attachment-download');
+
         Route::get('file-download/{attachmentId}', 'ResearchProposalDetailController@fileDownload');
 
         //       workflow for research proposal details

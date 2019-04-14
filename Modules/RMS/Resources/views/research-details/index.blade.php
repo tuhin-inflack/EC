@@ -49,6 +49,7 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $researchDetail->title }}</td>
                                                 <td>{{ $researchDetail->user->name }}</td>
+                                                {{--<td><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('labels.attachments')</a></td>--}}
                                                 <td><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('labels.attachments')</a></td>
 
                                                 <td>{{ $researchDetail->created_at }}</td>
