@@ -10,6 +10,9 @@
                         <h4 class="card-title">@lang('member.member_list')</h4>
 
                         <div class="heading-elements">
+                            <a href="{{ route('project.show', $project->id) }}" class="btn btn-primary btn-sm">
+                                <i class="ft-link"></i> @lang('organization.organization_list')
+                            </a>
                             <a href="{{ route('projectTraining-members.index', [$project->id, $training->id]) }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white"></i> @lang('member.add_member')
                             </a>
