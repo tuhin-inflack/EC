@@ -16,29 +16,33 @@ use App\Repositories\workflow\WorkflowConversationRepository;
 use App\Services\UserService;
 use App\Services\workflow\WorkFlowConversationService;
 use App\Services\workflow\WorkflowService;
+use Modules\PMS\Services\ProjectDetailProposalService;
 use Modules\PMS\Services\ProjectProposalService;
 use App\Constants\WorkflowStatus;
 
-class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
+class ProjectDetailProposalItemGenerator extends BaseDashboardItemGenerator
 {
     private $workflowService;
     private $userService;
     private $projectProposalService;
     private $featureRepository;
     private $flowConversationService;
+    private $projectDetailProposalService;
 
 
     public function __construct(WorkflowService $workflowService,
                                 UserService $userService,
                                 ProjectProposalService $projectProposalService,
                                 FeatureRepository $featureRepository,
-                                WorkFlowConversationService $flowConversationService)
+                                WorkFlowConversationService $flowConversationService,
+                                ProjectDetailProposalService $projectDetailProposalService)
     {
         $this->workflowService = $workflowService;
         $this->userService = $userService;
         $this->projectProposalService = $projectProposalService;
         $this->featureRepository = $featureRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->projectDetailProposalService = $projectDetailProposalService;
     }
 
     public function generateItems(): DashboardItemSummary
@@ -48,13 +52,13 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $designationId = $this->userService->getDesignationId($user->username);
 
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_details_proposal_feature_name')]);
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $workflowRuleDetails = $workflow->ruleDetails;
-            $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
+            $proposal = $this->projectDetailProposalService->findOne($workflowMaster->ref_table_id);
             $projectData = [
                 'id' => $workflow->id,
                 'feature_name' => $feature->name,
@@ -68,7 +72,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetails->id ]));
+            $dashboardItem->setCheckUrl(route('project-details-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetails->id ]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
@@ -98,7 +102,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         foreach ($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
             $workflowRuleDetails = $workflowMaster->ruleDetails;
-            $proposal = $this->projectProposalService->findOne($workflowMaster->ref_table_id);
+            $proposal = $this->projectDetailProposalService->findOne($workflowMaster->ref_table_id);
             $projectData = [
                 'feature_name' => $feature->name,
                 'project_title' => $proposal->title,

@@ -13,11 +13,16 @@ class ProjectDetailProposal extends Model
 
     public function projectDetailProposalFiles()
     {
-        return $this->hasMany(ProjectDetailProposalAttachment::class, 'proposal_id', 'id');
+        return $this->hasMany(ProjectDetailProposalAttachment::class, 'project_request_id', 'id');
     }
 
     public function proposalSubmittedBy()
     {
         return $this->belongsTo(User::class, 'auth_user_id', 'id');
+    }
+
+    public function request()
+    {
+        return $this->belongsTo(ProjectRequestDetail::class, 'project_request_id', 'id');
     }
 }
