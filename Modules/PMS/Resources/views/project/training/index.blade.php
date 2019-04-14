@@ -39,7 +39,7 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                    <a href="{{route('project-training.show', [$project->id, $training->id])}}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href=""
                                                        class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
