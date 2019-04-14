@@ -111,7 +111,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::put('{researchProposalSubmission}', 'ProposalSubmitController@update')->name('research-proposal-submission.update');
         Route::get('attachment-download/{researchProposalSubmission}', 'ProposalSubmitController@submissionAttachmentDownload')->name('research-proposal-submission.attachment-download');
         Route::get('file-download/{researchSubmissionAttachment}', 'ProposalSubmitController@fileDownload')->name('research-proposal-submission.file-download');
-        //Routes for workflow
+        //Routes for workflow research brief
         Route::get('review/{researchProposalSubmissionId?}/{featureName?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/{viewOnly?}', 'ProposalSubmitController@review')->name('research-proposal-submission-review');
         Route::post('/reviewUpdate', 'ProposalSubmitController@reviewUpdate')->name('research-proposal-submission.reviewUpdate');
         Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
@@ -124,8 +124,6 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@postResearchFeedback')->name('research-proposal-submission.feedback');
 
         Route::post('reviewer-add-attachment', 'ProposalSubmitController@addAttachment')->name('research.proposal.reviewer.add.attachment');
-        Route::post('bulk-approve', 'ProposalSubmitController@researchBulkAction')->name('research.bulk.action');
-
 
     });
 
@@ -148,12 +146,12 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('review/{researchDetailId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/', 'ResearchProposalDetailController@review');
 
         Route::post('/reviewUpdate', 'ResearchProposalDetailController@reviewUpdate')->name('research-detail-submission.reviewUpdate');
-        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ResearchProposalDetailController@getResearchFeedbackForm')->name('research-detail.review');
-
-//        Route::get('re-initiate/{researchProposalSubmissionId?}/', 'ProposalSubmitController@reInitiate');
-//        Route::post('store-re-initiate/{researchProposalId?}/', 'ProposalSubmitController@storeInitiate')->name('store-re-initiate');
-//        Route::get('workflow-close/{workflowMasterId?}/{researchProposalId?}', 'ProposalSubmitController@closeWorkflowByOwner')->name('workflow-close');
-//        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchProposalId?}/{shareConversationId?}', 'ProposalSubmitController@closeWorkflowByReviewer')->name('workflow-close-reviewer');
+        Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ResearchProposalDetailController@getResearchDetailFeedbackForm')->name('research-detail.review');
+        Route::post('sending-for-review/{shareConversationId?}', 'ResearchProposalDetailController@postResearchDetailFeedback')->name('research-detail.feedback');
+        Route::get('re-initiate/{researchDetailSubmissionId?}/', 'ResearchProposalDetailController@reInitiate');
+        Route::post('store-re-initiate/{researchDetailId?}/', 'ResearchProposalDetailController@storeInitiate')->name('store-detail-re-initiate');
+        Route::get('workflow-close/{workflowMasterId?}/{researchDetailId?}', 'ResearchProposalDetailController@closeWorkflowByInitiator')->name('detail-workflow-close');
+        Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchDetailId?}/{shareConversationId?}', 'ResearchProposalDetailController@closeWorkflowByReviewer')->name('workflow-detail-close-reviewer');
 //        Route::get('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@apcReview')->name('apc-review');
 //        Route::post('apc-review/{researchProposalSubmissionId?}', 'ProposalSubmitController@approveApcReview')->name('approve-apc-review');
 //        Route::post('sending-for-review/{shareConversationId?}', 'ProposalSubmitController@postResearchFeedback')->name('research-proposal-submission.feedback');
@@ -173,3 +171,4 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
 
     });
 });
+

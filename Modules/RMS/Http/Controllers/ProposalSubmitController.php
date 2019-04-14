@@ -290,16 +290,7 @@ class ProposalSubmitController extends Controller
         return redirect()->route('rms.index');
     }
 
-    public function researchBulkAction(Request $request)
-    {
-        if ($request->action_type == WorkflowStatus::APPROVED) {
-            $this->researchProposalSubmissionService->researchProposalBulkApproved($request->ids);
-        } elseif ($request->action_type == WorkflowStatus::REJECTED) {
-            $this->researchProposalSubmissionService->researchProposalBulkReject($request->ids);
-        }
-        Session::flash('success', trans('labels.save_success'));
-        return redirect('/rms');
-    }
+
 //
 //    public function apcReview($researchProposalSubmissionId)
 //    {

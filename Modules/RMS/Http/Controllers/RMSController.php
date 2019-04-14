@@ -85,8 +85,7 @@ class RMSController extends Controller
         //--------Research Detail workflow item----------
         $researchDetailFeatureName = config('rms.research_proposal_detail_feature');
         $researchDetailPendingItems = $this->dashboardService->getDashboardWorkflowItems($researchDetailFeatureName);
-        $researchDetailRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
-
+        $researchDetailRejectedItems = $this->dashboardService->getDashboardRejectedWorkflowItems($researchDetailFeatureName);
         //=======not needed the following commented code. Will remove it soon
 
 
@@ -97,7 +96,7 @@ class RMSController extends Controller
 
         return view('rms::index', compact('pendingTasks', 'chartData', 'invitations', 'proposals',
             'rejectedItems', 'tasks', 'researchPendingTasks', 'researchRejectedItems', 'shareConversations',
-            'bulkActionForApprove', 'researchDetailPendingItems'));
+            'bulkActionForApprove', 'researchDetailPendingItems', 'researchDetailRejectedItems'));
     }
 
     /**

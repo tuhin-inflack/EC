@@ -172,4 +172,22 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('posting-review/{shareConversationId?}', 'PMSController@shareFeedback')->name('project-proposal-submission.feedback');
         Route::post('reviewer-add-attachment', 'PMSController@addAttachment')->name('project.proposal.reviewer.add.attachment');
     });
+
+    Route::prefix('project-details-proposal-submitted')->group(function () {
+        Route::get('/', 'ReceivedProjectProposalController@index')->name('project-details-proposal-submitted.index');
+        Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-details-proposal-submitted.view');
+        //Routes for project detail proposal workflow
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'ProjectDetailsProposalController@review')->name('project-details-proposal-submitted-review');
+        Route::post('/review/{proposalId}', 'ProjectDetailsProposalController@reviewUpdate')->name('project-details-proposal-submitted-review-update');
+        Route::post('/review-bulk/', 'PMSController@reviewBulk')->name('project-proposal-submitted.review-bulk');
+        Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
+        Route::post('/resubmit/{proposalId}', 'PMSController@storeResubmit')->name('project-proposal-submitted-save-resubmit');
+        Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
+        Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
+        Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
+        Route::post('/share', 'PMSController@share')->name('project-proposal.share');
+        Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProjectDetailsProposalController@shareReview')->name('sending-project-detail-for-review');
+        Route::post('posting-review/{shareConversationId?}', 'ProjectDetailsProposalController@shareFeedback')->name('project-detail-proposal-submission.feedback');
+        Route::post('reviewer-add-attachment', 'PMSController@addAttachment')->name('project.proposal.reviewer.add.attachment');
+    });
 });

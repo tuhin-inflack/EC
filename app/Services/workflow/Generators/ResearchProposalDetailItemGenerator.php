@@ -102,24 +102,21 @@ class ResearchProposalDetailItemGenerator extends BaseDashboardItemGenerator
     {
 
     }
-
     public function generateRejectedItems(): DashboardItemSummary
     {
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
-
-//        $feature = $this->featureRepository->findOneBy(['name' => config('rms.research_feature_name')]);
+//        $feature = $this->featureRepository->findOneBy(['name' => config('constants.research_proposal_feature_name')]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $this->feature->id);
-
         foreach ($workflows as $key => $workflowMaster) {
-
             $dashboardItem = new DashboardItem();
-            $researchData = [
-                'research_title' => $workflowMaster->research->title,
+            $researchDetailData = [
+                'detail_title' => $workflowMaster->researchDetail->title,
+                'research_title' => $workflowMaster->researchDetail->researchDetailInvitation->title,
+                'remarks' => $workflowMaster->researchDetail->researchDetailInvitation->remarks,
                 'id' => $workflowMaster->ref_table_id,
             ];
-
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
             $dashboardItem->setFeatureItemId($this->feature->id);
             $dashboardItem->setFeatureName($this->feature->name);
@@ -130,7 +127,7 @@ class ResearchProposalDetailItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
 
-            $dashboardItem->setDynamicValues($researchData);
+            $dashboardItem->setDynamicValues($researchDetailData);
             //$dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $workflowMaster->ref_table_id]));
             array_push($dashboardItems, $dashboardItem);
         }
@@ -138,5 +135,6 @@ class ResearchProposalDetailItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary->setDashboardItems($dashboardItems);
         return $dashboardItemSummary;
     }
+
 
 }

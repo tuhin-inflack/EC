@@ -9,16 +9,22 @@
 namespace Modules\RMS\Services;
 
 
+use App\Constants\WorkflowStatus;
+use App\Entities\workflow\WorkflowMaster;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchDetailSubmissionRepository;
+use Prophecy\Doubler\Generator\TypeHintReference;
 
 class ResearchDetailSubmissionService
 {
@@ -35,6 +41,8 @@ class ResearchDetailSubmissionService
     private $featureService;
     private $workflowService;
     private $userService;
+    private $workflowMasterService;
+    private $shareConversationService;
 
     /**
      * ResearchDetailSubmissionService constructor.
@@ -42,12 +50,15 @@ class ResearchDetailSubmissionService
      */
 
     public function __construct(ResearchDetailSubmissionRepository $researchDetailSubmissionRepository, FeatureService $featureService,
-                                WorkflowService $workflowService, UserService $userService)
+                                WorkflowService $workflowService, UserService $userService,
+                                WorkflowMasterService $workflowMasterService, ShareConversationService $shareConversationService)
     {
         $this->researchDetailSubmissionRepository = $researchDetailSubmissionRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->workflowMasterService = $workflowMasterService;
+        $this->shareConversationService = $shareConversationService;
         $this->setActionRepository($this->researchDetailSubmissionRepository);
     }
 
@@ -108,5 +119,88 @@ class ResearchDetailSubmissionService
     private function isProposalSubmitFromResearchDept()
     {
         return $this->userService->isResearchDivisionUser(Auth::user());
+    }
+
+    public function researchDetailApproved($shareAndProposalDetailId)
+    {
+
+//        foreach ($shareAndProposalDetailIds as $shareAndProposalId) {
+            $shareConversationId = explode('-', $shareAndProposalDetailId)[0];
+            $researchProposalDetailId = explode('-', $shareAndProposalDetailId)[1];
+            $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalDetailId])->first();
+            //approving workflow
+            $this->workflowService->approveWorkflow($workflowMaster->id);
+            //closing share conversation
+            $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalDetailId], $shareConversationId);
+
+            //update main item
+            $researchDetail = $this->researchDetailSubmissionRepository->findOne($researchProposalDetailId);
+            $researchDetail->update(['status' => WorkflowStatus::APPROVED]);
+
+//        }
+    }
+
+    public function researchDetailReject($shareAndProposalIds)
+    {
+            $shareConversationId = explode('-', $shareAndProposalIds)[0];
+            $researchProposalId = explode('-', $shareAndProposalIds)[1];
+
+            //closing workflow
+            $workflowMaster = $this->workflowMasterService->findBy(['ref_table_id' => $researchProposalId])->first();
+            $this->workflowService->closeWorkflow($workflowMaster->id);
+
+            //closing share conversation
+            $this->shareConversationService->updateConversation(['ref_table_id' => $researchProposalId], $shareConversationId);
+
+            //update main item
+            $researchProposal = $this->researchDetailSubmissionRepository->findOne($researchProposalId);
+            $researchProposal->update(['status' => WorkflowStatus::REJECTED]);
+    }
+
+    public function updateReInitiate(array $data, $researchDetailId)
+    {
+        return DB::transaction(function () use ($data, $researchDetailId) {
+            $data['status'] = 'PENDING';
+            $researchDetail = $this->researchDetailSubmissionRepository->findOne($researchDetailId);
+            $proposalSubmission = $researchDetail->update($data);
+
+            foreach ($data['attachments'] as $file) {
+
+                $fileName = $file->getClientOriginalName();
+                $path = $this->upload($file, 'research-submissions');
+
+                $file = new ResearchDetailSubmissionAttachment([
+                    'attachments' => $path,
+                    'research_detail_submission_id' => $researchDetailId,
+                    'file_name' => $fileName
+                ]);
+
+                $researchDetail->researchDetailSubmissionAttachment()->save($file);
+            }
+            $DetailFeatureName = config('rms.research_proposal_detail_feature');
+            $feature = $this->featureService->findBy(['name' => $DetailFeatureName])->first();
+
+            $reInitializeData = [
+                'feature_id' => $feature->id,
+                'ref_table_id' => $researchDetailId,
+                'message' => $data['message'],
+            ];
+
+            $this->workflowService->reinitializeWorkflow($reInitializeData);
+
+            //Send Notifications
+//            $notificationData = [
+//                'ref_table_id' => $researchDetail->id,
+//                'message' => Config::get('rms-notification.research_proposal_reinitiated'),
+//                'to_users_designation' => Config::get('constants.research_proposal_submission'),
+//                'url' => $this->reviewUrlGenerator->getReviewUrl(
+//                    'research-proposal-details/review',
+//                    $feature,
+//                    $researchDetail
+//                ),
+//            ];
+//            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+            return new Response(trans('rms::research_proposal.re_initiate_success'));
+        });
     }
 }

@@ -62,7 +62,11 @@
             $('#expected_end_time').pickadate('picker').set('min', new Date($(this).val()));
         });
 
-        $('#expected_start_time, #expected_end_time, #actual_end_time').pickadate({
+        $('#actual_start_time').change(function () {
+            $('#actual_end_time').pickadate('picker').set('min', new Date($(this).val()));
+        });
+
+        $('#expected_start_time, #expected_end_time, #actual_start_time, #actual_end_time').pickadate({
             format: 'yyyy-mm-dd',
         });
 

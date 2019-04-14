@@ -38,7 +38,9 @@ class DashboardWorkflowService
 
     public function getDashboardRejectedWorkflowItems($feature): DashboardItemSummary
     {
+
         $itemGenerator = DashboardItemGeneratorFactory::getDashboardItemGenerator($feature);
+//        dd($itemGenerator);
         return $itemGenerator->generateRejectedItems();
     }
 

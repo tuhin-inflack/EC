@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use function Matrix\trace;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\PMS\Services\PMSService;
 use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
 use Modules\PMS\Services\ProjectProposalService;
 use Modules\PMS\Services\ProjectRequestService;
@@ -40,6 +41,7 @@ class PMSController extends Controller
     private $shareConversationService;
     private $employeeService;
     private $projectProposalReviewerAttachmentService;
+    private $pmsService;
 
     /**
      * @var ProjectProposalService
@@ -79,7 +81,8 @@ class PMSController extends Controller
         ShareConversationService $shareConversationService,
         EmployeeServices $employeeService,
         ReviewUrlGenerator $reviewUrlGenerator,
-        ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService
+        ProjectProposalReviewerAttachmentService $projectProposalReviewerAttachmentService,
+        PMSService $pmsService
     )
     {
         $this->dashboardService = $dashboardService;
@@ -94,6 +97,7 @@ class PMSController extends Controller
         $this->employeeService = $employeeService;
         $this->projectProposalReviewerAttachmentService = $projectProposalReviewerAttachmentService;
         $this->reviewUrlGenerator = $reviewUrlGenerator;
+        $this->pmsService = $pmsService;
     }
 
     /**
@@ -105,18 +109,9 @@ class PMSController extends Controller
         $chartData = $this->projectProposalService->getProjectProposalByStatus();
         $invitations = $this->projectRequestService->getProjectInvitationByDeadline();
         $proposals = $this->projectProposalService->getProjectProposalBySubmissionDate();
-        $featureName = config('constants.project_proposal_feature_name');
-        $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
-        $rejectedTasks = $this->dashboardService->getDashboardRejectedWorkflowItems($featureName);
-        $loggedUserDesignation = $this->userService->getDesignation(Auth::user()->username);
-        $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
-
-        $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
-
-        if ($loggedUserDesignation == "Project Director")
-            $reviewedTasks = $this->projectProposalService->findBy(['status' => 'REVIEWED']);
-        else
-            $reviewedTasks = [];
+        $pendingTasks = $this->pmsService->getPendingTasks();
+        $rejectedTasks = $this->pmsService->getRejectedTasks();
+        $shareConversations = $this->pmsService->getShareConversations();
         if(Auth::user()->user_type == 'Employee')
         {
             $employee = $this->employeeService->findOne(Auth::user()->reference_table_id);
@@ -125,7 +120,7 @@ class PMSController extends Controller
         else $bulkAction = false;
 
         return view('pms::index', compact('pendingTasks', 'rejectedTasks', 'chartData', 'invitations',
-            'proposals', 'reviewedTasks', 'shareConversations', 'bulkAction'));
+            'proposals', 'shareConversations', 'bulkAction'));
     }
 
     /**
@@ -199,7 +194,7 @@ class PMSController extends Controller
         };
         $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
-        return view('pms::proposal-submitted.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
+        return view('pms::proposal-submitted.brief.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
     }
 
     public function reviewUpdate($proposalId, Request $request)
@@ -348,7 +343,7 @@ class PMSController extends Controller
         //$shareRuleDesignation = $this->shareConversationService;
         $authDesignation = $this->userService->getDesignationId(Auth::user()->username);
 
-        return view('pms::proposal-submitted.review.shareable-review', compact('proposal', 'feature',
+        return view('pms::proposal-submitted.brief.review.shareable-review', compact('proposal', 'feature',
             'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation', 'authDesignation'));
     }
 
