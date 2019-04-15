@@ -1,6 +1,6 @@
 <?php
 return [
-    'detail_invitation' => 'বিস্তারিত আমন্ত্রণ',
+    'detail_invitation' => 'গবেষণার বিস্তারিত আমন্ত্রণ',
     'research_detail_invitation_list' => 'গবেষণার বিস্তারিত আমন্ত্রনের তালিকা',
     'submit_detail' => 'গবেষণার বিস্তারিত জমা দিন',
     'research_detail_submission_form' => 'গবেষণার বিস্তারিত জমা ফর্ম',
