@@ -285,11 +285,9 @@
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
-                    <h4>@lang('rms::research.research_pending_items')</h4>
+                    <h4>@lang('rms::research.research__paper_pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
-
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -298,7 +296,6 @@
                         @foreach($researchPendingTasks->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{ $item->message }}</td>
 
                                 <td>
