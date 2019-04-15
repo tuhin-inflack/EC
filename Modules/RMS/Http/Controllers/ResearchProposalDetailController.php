@@ -135,7 +135,6 @@ class ResearchProposalDetailController extends Controller
 
     }
 
-
     public function reviewUpdate(UpdateReviewDetail $request)
     {
 

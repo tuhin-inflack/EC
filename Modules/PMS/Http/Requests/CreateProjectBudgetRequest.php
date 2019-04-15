@@ -13,13 +13,16 @@ class CreateProjectBudgetRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'economy_code_id' => 'required',
+        if (in_array($this->attributes->get('section_type'), ['physical_contingency', 'price_contingency'])) {
+            $rules['economy_code_id'] = 'required';
+        }
+
+        $rules = [
             'section_type' => 'required',
 //            'unit' => 'required',
 //            'unit_rate' => 'required',
 //            'quantity' => 'required',
-            'total_expense' => 'required',
+//            'total_expense' => 'required',
 //            'total_expense_percentage' => 'required',
             'gov_source' => 'required',
             'own_financing_source' => 'required',
@@ -28,6 +31,9 @@ class CreateProjectBudgetRequest extends FormRequest
 //            'monetary_amount.*' => '',
 //            'monetary_percentage.*' => '',
         ];
+
+        return $rules;
+
     }
 
     /**
