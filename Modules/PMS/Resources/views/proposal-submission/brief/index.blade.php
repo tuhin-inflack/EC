@@ -45,7 +45,7 @@
                                                 $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
                                             @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId, 'viewOnly'=>1]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>

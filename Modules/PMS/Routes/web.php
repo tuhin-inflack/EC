@@ -159,7 +159,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-proposal-submitted.view');
         //Routes for workflow
-        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'PMSController@review')->name('project-proposal-submitted-review');
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}/{viewOnly?}', 'PMSController@review')->name('project-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'PMSController@reviewUpdate')->name('project-proposal-submitted-review-update');
         Route::post('/review-bulk/', 'PMSController@reviewBulk')->name('project-proposal-submitted.review-bulk');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
@@ -177,7 +177,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/', 'ReceivedProjectProposalController@index')->name('project-details-proposal-submitted.index');
         Route::get('/{id?}', 'ReceivedProjectProposalController@show')->name('project-details-proposal-submitted.view');
         //Routes for project detail proposal workflow
-        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}', 'ProjectDetailsProposalController@review')->name('project-details-proposal-submitted-review');
+        Route::get('/review/{proposalId}/{wfMasterId}/{wfConvId}/{featureId}/{ruleDetailsId}/{viewOnly?}', 'ProjectDetailsProposalController@review')->name('project-details-proposal-submitted-review');
         Route::post('/review/{proposalId}', 'ProjectDetailsProposalController@reviewUpdate')->name('project-details-proposal-submitted-review-update');
         Route::post('/review-bulk/', 'PMSController@reviewBulk')->name('project-proposal-submitted.review-bulk');
         Route::get('/resubmit/{proposalId}/{featureId}', 'PMSController@resubmit')->name('project-proposal-submitted-resubmit');
@@ -188,6 +188,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('/share', 'PMSController@share')->name('project-proposal.share');
         Route::get('sending-project-for-review/{projectProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ProjectDetailsProposalController@shareReview')->name('sending-project-detail-for-review');
         Route::post('posting-review/{shareConversationId?}', 'ProjectDetailsProposalController@shareFeedback')->name('project-detail-proposal-submission.feedback');
-        Route::post('reviewer-add-attachment', 'PMSController@addAttachment')->name('project.proposal.reviewer.add.attachment');
+        Route::post('reviewer-add-attachment', 'ProjectDetailsProposalController@addAttachment')->name('project.proposal.detail.reviewer.add.attachment');
     });
 });

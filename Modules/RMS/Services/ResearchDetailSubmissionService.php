@@ -18,10 +18,14 @@ use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
+use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Repositories\ResearchDetailSubmissionRepository;
 use Prophecy\Doubler\Generator\TypeHintReference;
@@ -202,5 +206,33 @@ class ResearchDetailSubmissionService
 //            event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
             return new Response(trans('rms::research_proposal.re_initiate_success'));
         });
+    }
+
+    public function getZipFilePath(ResearchDetailSubmission $researchDetailSubmission)
+    {
+        $filePaths = $researchDetailSubmission->researchDetailSubmissionAttachment->map(function($attachment) {
+            return Storage::disk('internal')->path($attachment->attachments);
+        })->toArray();
+
+        $fileName = time() . '.zip';
+
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+
+        Zipper::make($zipFilePath)->add($filePaths)->close();
+
+        return $zipFilePath;
+    }
+
+    public function getResearchDetailProposalForUser(User $user)
+    {
+        return $this->researchDetailSubmissionRepository->findAll()
+            ->filter(function ($researchDetailProposal) use ($user){
+
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "RMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($user->employee->designation->short_name == "FM"
+                        && $researchDetailProposal->auth_user_id == $user->id);
+            });
     }
 }

@@ -36,7 +36,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $invitation->title }}</td>
                                             <td>{{ $invitation->remarks }}</td>
-                                            <td><a href="#">@lang('labels.attachments')</a></td>
+                                            <td><a href="{{url('rms/research-proposal-details/invitations/attachment-download/'.$invitation->id)}}">@lang('labels.attachments')</a></td>
+
 
                                             <td>{{ $invitation->end_date }}</td>
                                             <td>{{ $invitation->created_at }}</td>

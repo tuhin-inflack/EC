@@ -146,7 +146,11 @@
                                 @if($research->status == 'APPROVED')
                                     <div class="col-md-12 text-center">
                                         <a href="{{ route('research-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('rms::approved-proposal.links.cancel.title')</a>
-                                        <a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')</a>
+                                        @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                                            <a href="{{ route('research-proposal-details.invitation.create', ['researchProposalSubmissionId' => $research->id]) }}" class="btn btn-primary mr-sm-1">
+                                                <i class="ft-file-plus white"></i> @lang('rms::approved-proposal.links.ask_for_details.title')
+                                            </a>
+                                        @endif
                                     </div>
                                 @endif
                             </div>
