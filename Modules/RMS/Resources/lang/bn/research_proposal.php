@@ -62,7 +62,7 @@ return [
     'status_rejected' => 'প্রত্যাখ্যাত',
     'approved' => 'অনুমোদিত',
     'rejected' => 'প্রত্যাখ্যাত',
-    'closed' => 'সমাপ্ত',
+    'closed' => 'বাতিলকৃত',
     'reinitiated' => 'আবার প্রক্রিয়াধীন',
     'research_details' => 'গবেষণা সম্পর্কিত বিস্তারিত',
     'research_request_details' => 'আমন্ত্রণ সম্পর্কিত বিস্তারিত',

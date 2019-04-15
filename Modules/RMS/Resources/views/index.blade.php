@@ -23,9 +23,8 @@
                             <th>@lang('labels.action')</th>
                             </thead>
                             <tbody>
-
+                            {{--                            {{ dd($shareConversations) }}--}}
                             @foreach($shareConversations as $shareConversation)
-                                {{--{{ dd($shareConversation) }}--}}
                                 <tr>
                                     @if($bulkActionForApprove)
                                         <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
@@ -34,18 +33,25 @@
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
-                                            if ($shareConversation->feature->name == config('rms.research_proposal_detail_feature')){
+                                            if ($shareConversation->feature_id==4){
                                             // working for research detail proposal
-                                               $title = 'Research Detail Title : '. $shareConversation->researchDetail->title;
+                                               $invitation_title =  'Invitation Title : '. $shareConversation->researchDetail->researchDetailInvitation->title;
+                                               $title = 'Research Title : '. $shareConversation->researchDetail->title;
+                                               $submittedBy = 'Initiator Name: '. $shareConversation->researchDetail->user->name;
                                                $reviewUrl = 'research-detail.review';
-                                            }else{
-                                            // working for research proposal (brief)
-                                                $title = 'Research Brief Title : '. $shareConversation->researchProposal->title;
+                                            }elseif($shareConversation->feature_id==1){
+                                                // working for research proposal (brief)
+                                                $invitation_title = 'Invitation Title : '.$shareConversation->researchProposal->requester->title;
+                                                $title = 'Research Title : '. $shareConversation->researchProposal->title;
+                                                $submittedBy = 'Initiator Name: '. $shareConversation->researchProposal->submittedBy->name;
                                                $reviewUrl = 'research-proposal-submission.review';
                                             }
 
                                         @endphp
-                                        {{ $title }}<br/>
+                                        {{ $invitation_title }}</br>
+                                        {{  $title }}<br/>
+                                        {{ $submittedBy }}
+                                        <br/>
                                     </td>
 
                                     <td>
@@ -65,8 +71,10 @@
                             <div class="card-footer">
                                 <div class="form-group">
                                     @if($bulkActionForApprove)
-                                        <button type="submit" name="action_type" value="APPROVED" class="btn btn-success">@lang('rms::research_details.approved')</button>
-                                        <button type="submit" name="action_type" value="REJECTED" class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
                                     @endif
                                 </div>
                             </div>
@@ -285,11 +293,9 @@
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
-                    <h4>@lang('rms::research.research_pending_items')</h4>
+                    <h4>@lang('rms::research.research__paper_pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
-
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -298,7 +304,6 @@
                         @foreach($researchPendingTasks->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{ $item->message }}</td>
 
                                 <td>
