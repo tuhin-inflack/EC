@@ -128,7 +128,7 @@
                                         {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
                                         @if(!is_null($ruleDesignations))
                                             <button type="submit" name="status" value="REVIEW" class="btn btn-primary"
-                                                    id="sendForReview">Share
+                                                    id="sendForReview">@lang('labels.share')
                                             </button>
                                         @endif
                                         @if($approveButton)
