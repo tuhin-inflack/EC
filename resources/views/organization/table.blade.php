@@ -3,7 +3,7 @@
         <h4 class="card-title">@lang('organization.organization_list')</h4>
     </div>
     <div class="pull-right">
-        <a href="{{ $url }}" class="btn btn-sm btn-primary">@lang('organization.add_organization')</a>
+        <a href="{{ $url }}" class="btn btn-sm btn-primary"><i class="ft ft-plus"></i> @lang('organization.add_organization')</a>
     </div>
     <br><br>
     <table class="table table-striped table-bordered organization-table">
