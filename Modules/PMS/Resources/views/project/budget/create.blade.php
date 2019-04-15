@@ -44,6 +44,8 @@
 
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 
+            toggleComponents(($('.section-type-select').val() === "price_contingency" || ($('.section-type-select').val() === "physical_contingency")));
+
             $('.economy-code-select, .section-type-select').select2({
                 placeholder: selectPlaceholder
             });

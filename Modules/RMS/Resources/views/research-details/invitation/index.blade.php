@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'Research details invitation list')
+@section('title',  trans('rms::research_details.research_detail_invitation_list') )
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Research details invitation list</h4>
+                        <h4 class="card-title">@lang('rms::research_details.research_detail_invitation_list')</h4>
                         {{--<div class="heading-elements">--}}
                         {{--<a href="" class="btn btn-primary btn-sm"><i--}}
                         {{--class="ft-plus white"></i> </a>--}}
@@ -36,7 +36,8 @@
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $invitation->title }}</td>
                                             <td>{{ $invitation->remarks }}</td>
-                                            <td><a href="#">@lang('labels.attachments')</a></td>
+                                            <td><a href="{{url('rms/research-proposal-details/invitations/attachment-download/'.$invitation->id)}}">@lang('labels.attachments')</a></td>
+
 
                                             <td>{{ $invitation->end_date }}</td>
                                             <td>{{ $invitation->created_at }}</td>
@@ -50,7 +51,7 @@
                                                     <span aria-labelledby="btnSearchDrop2"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ route('details.create', [$invitation->id]) }}"
-                                                           class="dropdown-item"><i class="ft-alert-octagon"></i>Submit details</a>
+                                                           class="dropdown-item"><i class="ft-alert-octagon"></i>@lang('rms::research_details.submit_detail')</a>
                                                     </span>
                                                 </span>
                                             </td>

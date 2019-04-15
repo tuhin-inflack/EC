@@ -14,9 +14,14 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\RMS\Entities\ResearchDetailSubmission;
+use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
+use Modules\RMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
 use Modules\RMS\Http\Requests\UpdateReviewDetail;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
+use Modules\RMS\Services\ResearchProposalDetailReviewerAttachmentService;
 use mysql_xdevapi\CrudOperationBindable;
 
 class ResearchProposalDetailController extends Controller
@@ -25,7 +30,7 @@ class ResearchProposalDetailController extends Controller
     /**
      * @var ResearchDetailSubmissionService
      */
-    protected $researchDetailSubmissionService;
+    private $researchDetailSubmissionService;
 
     /**
      * ResearchProposalDetailController constructor.
@@ -38,11 +43,13 @@ class ResearchProposalDetailController extends Controller
     private $shareRuleService;
     private $shareConversationService;
     private $dashboardWorkflowService;
+    private $researchProposalDetailReviewerAttachmentService;
 
     public function __construct(ResearchDetailSubmissionService $researchDetailSubmissionService,
                                 EmployeeServices $employeeService, FeatureService $featureService, RemarkService $remarkService,
                                 WorkflowService $workflowService, ShareRulesService $shareRulesService,
-                                ShareConversationService $shareConversationService, DashboardWorkflowService $dashboardWorkflowService)
+                                ShareConversationService $shareConversationService, DashboardWorkflowService $dashboardWorkflowService,
+                                ResearchProposalDetailReviewerAttachmentService $researchProposalDetailReviewerAttachmentService)
     {
         $this->employeeService = $employeeService;
         $this->featureService = $featureService;
@@ -52,6 +59,7 @@ class ResearchProposalDetailController extends Controller
         $this->shareRuleService = $shareRulesService;
         $this->shareConversationService = $shareConversationService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
+        $this->researchProposalDetailReviewerAttachmentService = $researchProposalDetailReviewerAttachmentService;
     }
 
     /**
@@ -60,7 +68,7 @@ class ResearchProposalDetailController extends Controller
      */
     public function index()
     {
-        $researchDetails = $this->researchDetailSubmissionService->findAll();
+        $researchDetails = $this->researchDetailSubmissionService->getResearchDetailProposalForUser(Auth::user());
         return view('rms::research-details.index', compact('researchDetails'));
     }
 
@@ -91,7 +99,7 @@ class ResearchProposalDetailController extends Controller
         return redirect()->route('research.list');
     }
 
-    public function review($researchProposalDetailId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId)
+    public function review($researchProposalDetailId, $featureName, $workflowMasterId, $workflowConversationId, $workflowRuleDetailsId, $viewOny = 0)
     {
 
         $researchDetail = $this->researchDetailSubmissionService->findOne($researchProposalDetailId);
@@ -126,7 +134,6 @@ class ResearchProposalDetailController extends Controller
             'workflowRuleDetails', 'ruleDesignations', 'feature', 'approveButton', 'researchDetailInvitation'));
 
     }
-
 
     public function reviewUpdate(UpdateReviewDetail $request)
     {
@@ -196,9 +203,9 @@ class ResearchProposalDetailController extends Controller
         return view('rms::research-details.reinitiate.research-detail-re-initiate', compact('researchDetail', 'name', 'auth_user_id'));
     }
 
-    public function storeInitiate(Request $request, $researchDetaillId)
+    public function storeInitiate(Request $request, $researchDetailId)
     {
-        $response = $this->researchDetailSubmissionService->updateReInitiate($request->all(), $researchDetaillId);
+        $response = $this->researchDetailSubmissionService->updateReInitiate($request->all(), $researchDetailId);
         Session::flash('success', $response->getContent());
         return redirect()->route('rms.index');
     }
@@ -228,4 +235,24 @@ class ResearchProposalDetailController extends Controller
         return redirect('/rms');
     }
 
+    public function attachmentDownload(ResearchDetailSubmission $researchDetailSubmission)
+    {
+        return response()->download($this->researchDetailSubmissionService->getZipFilePath($researchDetailSubmission));
+    }
+
+    public function fileDownload($attachmentId)
+    {
+
+        $researchDetailSubmission = ResearchDetailSubmissionAttachment::findOrFail($attachmentId);
+
+        $basePath = Storage::disk('internal')->path($researchDetailSubmission->attachments);
+        return response()->download($basePath);
+    }
+
+    public function addAttachment(CreateProposalSubmissionAttachmentRequest $createProposalSubmissionAttachmentRequest)
+    {
+        $this->researchProposalDetailReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
+
+        return redirect()->back();
+    }
 }

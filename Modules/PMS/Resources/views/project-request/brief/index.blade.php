@@ -10,8 +10,11 @@
                         <h4 class="card-title">@lang('pms::project_proposal.project_invitation_brief_list')</h4>
 
                         <div class="heading-elements">
-                            <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> @lang('pms::project_proposal.new_proposal_request')</a>
+                            @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                                <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm">
+                                    <i class="ft-plus white"></i> @lang('pms::project_proposal.new_proposal_request')
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-content collapse show">

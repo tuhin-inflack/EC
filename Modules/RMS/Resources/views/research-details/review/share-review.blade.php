@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <ul>
-                                        @foreach($researchDetail->distinctResearchDetailAttachments as $file)
+                                        @foreach($researchDetail->distinctResearchDetailAttachments->unique('file_name') as $file)
                                             <li>
                                                 <a href="{{url('rms/research-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
                                             </li>
@@ -71,6 +71,9 @@
                                             <b><a href="{{url('rms/research-proposal-submission/attachment-download/'.$researchDetail->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
+                                    @if(Request()->viewOnly != 1)
+                                        @include('rms::research-details.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
                                 <div class="col-md-12">
                                     {!! Form::open(['route' => [ 'research-detail.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}

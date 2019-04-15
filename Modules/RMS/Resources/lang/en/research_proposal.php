@@ -74,4 +74,5 @@ return [
     'planned' => 'Planned',
     'achieved' => 'Achieved',
     'invitation_title' => 'Brief Invitation Title',
+    'research_brief_get_back_items' => 'Research brief getting back items'
 ];

@@ -65,18 +65,18 @@
                                     <ul>
                                         @foreach($researchDetail->distinctResearchDetailAttachments->unique('file_name') as $file)
                                             <li>
-                                                <a href="{{url('rms/research-detail-submissions/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
+                                                <a href="{{url('rms/research-proposal-details/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
                                             </li>
                                         @endforeach
                                     </ul>
                                     <ul>
                                         <li>
-                                            <b><a href="{{url('rms/research-detail-submissions/attachment-download/'.$researchDetail->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
+                                            <b><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
-                                    {{--@if(Request()->viewOnly != 1)--}}
-                                        {{--@include('rms::proposal.review.reviewer-add-attachments')--}}
-                                    {{--@endif--}}
+                                    @if(Request()->viewOnly != 1)
+                                        @include('rms::research-details.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
                                 @if(Request()->viewOnly != 1)
                                     <div class="col-md-12">

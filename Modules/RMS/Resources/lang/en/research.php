@@ -32,4 +32,6 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
+    'research_detail_send_back_item' => 'Get back from Director Research',
+    'research_paper_pending_item' => 'Research paper pending item',
 ];
