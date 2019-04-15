@@ -145,13 +145,12 @@
         {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
 
-                <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
+        <option value="{{ trans('rms::research_proposal.pending') }}"> {{ trans('rms::research_proposal.pending') }}</option>
         <option value="{{ trans('rms::research_proposal.status_approved') }}">{{ trans('rms::research_proposal.status_approved') }}</option>
         <option value="{{ trans('rms::research_proposal.status_rejected') }}">{{ trans('rms::research_proposal.status_rejected') }}</option>
         </select>
         {{ trans('labels.records') }}
-                </label>
-`);
+                </label>`);
 
             $('#filter-select').on('change', function () {
                 table.draw();
