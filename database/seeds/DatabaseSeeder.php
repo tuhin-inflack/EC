@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HostelsTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(RoleUserTableSeeder::class);
+        $this->call(HostelBudgetTitlesTableSeeder::class);
     }
 }
