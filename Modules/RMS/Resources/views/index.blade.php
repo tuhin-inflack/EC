@@ -23,7 +23,7 @@
                             <th>@lang('labels.action')</th>
                             </thead>
                             <tbody>
-{{--{{ dd($shareConversations) }}--}}
+                            {{--                            {{ dd($shareConversations) }}--}}
                             @foreach($shareConversations as $shareConversation)
                                 <tr>
                                     @if($bulkActionForApprove)
@@ -33,18 +33,24 @@
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
-                                            if ($shareConversation->feature->name == config('rms.research_proposal_detail_feature')){
+                                            if ($shareConversation->feature_id==4){
                                             // working for research detail proposal
-                                               $title = 'Research Detail Title : '. $shareConversation->researchDetail->title;
+                                               $invitation_title =  'Invitation Title : '. $shareConversation->researchDetail->researchDetailInvitation->title;
+                                               $title = 'Research Title : '. $shareConversation->researchDetail->title;
+                                               $submittedBy = 'Initiator Name: '. $shareConversation->researchDetail->user->name;
                                                $reviewUrl = 'research-detail.review';
-                                            }else{
-                                            // working for research proposal (brief)
-                                                $title = 'Research Brief Title : '. $shareConversation->researchProposal->title;
+                                            }elseif($shareConversation->feature_id==1){
+                                                // working for research proposal (brief)
+                                                $invitation_title = 'Invitation Title : '.$shareConversation->researchProposal->requester->title;
+                                                $title = 'Research Title : '. $shareConversation->researchProposal->title;
+                                                $submittedBy = 'Initiator Name: '. $shareConversation->researchProposal->submittedBy->name;
                                                $reviewUrl = 'research-proposal-submission.review';
                                             }
 
                                         @endphp
-                                        {{ $title }}
+                                        {{ $invitation_title }}</br>
+                                        {{  $title }}<br/>
+                                        {{ $submittedBy }}
                                         <br/>
                                     </td>
 
@@ -65,8 +71,10 @@
                             <div class="card-footer">
                                 <div class="form-group">
                                     @if($bulkActionForApprove)
-                                        <button type="submit" name="action_type" value="APPROVED" class="btn btn-success">@lang('rms::research_details.approved')</button>
-                                        <button type="submit" name="action_type" value="REJECTED" class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
                                     @endif
                                 </div>
                             </div>
