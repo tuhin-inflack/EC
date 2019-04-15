@@ -1,6 +1,6 @@
 <div class="row">
-    {!! Form::open(['route'=> 'project.proposal.reviewer.add.attachment', 'class' => 'form', 'novalidate', 'enctype' => 'multipart/form-data']) !!}
-    {!! Form::hidden('project_proposal_submission_id', $proposal->id) !!}
+    {!! Form::open(['route'=> 'project.proposal.detail.reviewer.add.attachment', 'class' => 'form', 'novalidate', 'enctype' => 'multipart/form-data']) !!}
+    {!! Form::hidden('project_detail_submission_id', $proposal->id) !!}
     <div class="col-12 offset-sm-1">
         {{ Form::label('attachments', trans('pms::reviewer-add-attachments.title')) }}
         {{ Form::file('attachments[]', ['class' => 'form-control' . ($errors->has('attachments.*') ? ' is-invalid ' : '') . ' required', 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) }}

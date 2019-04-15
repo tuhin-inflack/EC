@@ -145,5 +145,13 @@ class ProjectRequestDetailService
         return ProjectRequest::orderBy('end_date', 'DESC')->limit(5)->get();
     }
 
+    public function getInvitationReceivedByUser()
+    {
+        return $this->projectRequestDetailRepository->findAll()
+            ->filter(function($projectRequestDetail) {
+                return (auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id);
+            });
+    }
+
 
 }

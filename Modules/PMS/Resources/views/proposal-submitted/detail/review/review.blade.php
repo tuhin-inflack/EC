@@ -50,21 +50,23 @@
                                     @endif
                                 </div>
                             </div>
-                            {{--<div class="col-md-6">--}}
-                                {{--<ul>--}}
-                                    {{--@foreach($proposal->distinctProjectProposalFiles->unique('file_name') as $file)--}}
-                                        {{--<li>--}}
-                                            {{--<a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>--}}
-                                        {{--</li>--}}
-                                    {{--@endforeach--}}
-                                {{--</ul>--}}
-                                {{--<ul>--}}
-                                    {{--<li>--}}
-                                        {{--<b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                                {{--@include('pms::proposal-submitted.review.reviewer-add-attachments')--}}
-                            {{--</div>--}}
+                            <div class="col-md-6">
+                                <ul>
+                                    @foreach($proposal->distinctProjectDetailProposalFiles->unique('file_name') as $file)
+                                        <li>
+                                            <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
+                                    </li>
+                                </ul>
+                                @if(Request()->viewOnly != 1)
+                                    @include('pms::proposal-submitted.detail.review.reviewer-add-attachments')
+                                @endif
+                            </div>
                         </div>
                     </div>
 

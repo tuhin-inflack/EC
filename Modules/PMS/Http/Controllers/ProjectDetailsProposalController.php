@@ -16,7 +16,10 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
+use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
 use Modules\PMS\Services\ProjectDetailProposalService;
+use Modules\PMS\Services\ProjectProposalDetailReviewerAttachmentService;
+use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
 
 class ProjectDetailsProposalController extends Controller
 {
@@ -28,6 +31,7 @@ class ProjectDetailsProposalController extends Controller
     private $dashboardService;
     private $shareConversationService;
     private $featureService;
+    private $projectProposalDetailReviewerAttachmentService;
 
 
     public function __construct(ProjectDetailProposalService $projectDetailProposalService,
@@ -37,7 +41,8 @@ class ProjectDetailsProposalController extends Controller
                                 UserService $userService,
                                 DashboardWorkflowService $dashboardService,
                                 ShareConversationService $shareConversationService,
-                                FeatureService $featureService)
+                                FeatureService $featureService,
+                                ProjectProposalDetailReviewerAttachmentService $projectProposalDetailReviewerAttachmentService)
     {
         $this->projectDetailsProposalService = $projectDetailProposalService;
         $this->remarkService = $remarkService;
@@ -47,6 +52,7 @@ class ProjectDetailsProposalController extends Controller
         $this->dashboardService = $dashboardService;
         $this->shareConversationService = $shareConversationService;
         $this->featureService = $featureService;
+        $this->projectProposalDetailReviewerAttachmentService = $projectProposalDetailReviewerAttachmentService;
     }
     /**
      * Display a listing of the resource.
@@ -55,7 +61,7 @@ class ProjectDetailsProposalController extends Controller
 
     public function index()
     {
-        $proposals = $this->projectDetailsProposalService->getAll();
+        $proposals = $this->projectDetailsProposalService->getProposalsForUser(Auth::user());
 
         return view('pms::proposal-submission.details.index', compact('proposals'));
     }
@@ -125,7 +131,7 @@ class ProjectDetailsProposalController extends Controller
     /*
      * Functions related to Project Detail Proposal workflow
      */
-    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id, $ruleDetailsId)
+    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id, $ruleDetailsId, $viewOnly = 0)
     {
         $proposal = $this->projectDetailsProposalService->findOrFail($proposalId);
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' => $wfConvId];
@@ -229,6 +235,13 @@ class ProjectDetailsProposalController extends Controller
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');
+    }
+
+    public function addAttachment(CreateProposalSubmissionAttachmentRequest $createProposalSubmissionAttachmentRequest)
+    {
+        $this->projectProposalDetailReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
+
+        return redirect()->back();
     }
 
 }

@@ -177,7 +177,7 @@ class PMSController extends Controller
     }
 
     // Methods implemented for integrating workflow
-    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id, $ruleDetailsId)
+    public function review($proposalId, $wfMasterId, $wfConvId, $feature_id, $ruleDetailsId, $viewOnly = 0)
     {
         $proposal = $this->projectProposalService->findOrFail($proposalId);
         $wfData = ['wfMasterId' => $wfMasterId, 'wfConvId' => $wfConvId];
