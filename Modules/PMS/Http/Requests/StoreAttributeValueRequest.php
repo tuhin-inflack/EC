@@ -28,7 +28,7 @@ class StoreAttributeValueRequest extends FormRequest
                     $attribute = Attribute::find($request->get('attribute_id'));
 
                     if ($this->isNotShareAttribute($attribute)) {
-                        $attribute->values->sum('achieved_value') >= $value ?: $fail($input . ' cannot be greater than current balance');
+                        $attribute->values->sum('achieved_value') >= $value ?: $fail(trans('labels.achieved value cannot be greater than current balance'));
                     }
                 }
             ]
