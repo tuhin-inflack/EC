@@ -23,9 +23,8 @@
                             <th>@lang('labels.action')</th>
                             </thead>
                             <tbody>
-
+{{--{{ dd($shareConversations) }}--}}
                             @foreach($shareConversations as $shareConversation)
-                                {{--{{ dd($shareConversation) }}--}}
                                 <tr>
                                     @if($bulkActionForApprove)
                                         <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
@@ -45,7 +44,8 @@
                                             }
 
                                         @endphp
-                                        {{ $title }}<br/>
+                                        {{ $title }}
+                                        <br/>
                                     </td>
 
                                     <td>
