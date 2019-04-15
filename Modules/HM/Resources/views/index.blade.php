@@ -72,6 +72,17 @@
     <script src="{{ asset('theme/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
 
+        // Label localization
+        let available = "{{ trans('hm::hostel.available') }}";
+        let partiallyAvailable = "{{ trans('hm::hostel.partially_available') }}";
+        let booked = "{{ trans('hm::hostel.booked') }}";
+
+        let chartDatasetData = [
+            {{$allRoomsCountBasedOnStatus['available']}}, // '#28D094'
+            //  {{-- $allRoomsCountBasedOnStatus['partially_available'] --}}, // '#00A5A8'
+            {{$allRoomsCountBasedOnStatus['booked']}}, // '#ffd162'
+            {{--{{$allRoomsCountBasedOnStatus['not_in_service']}}--}} // '#FF4558'
+        ];
 
         var pieSimpleChart; // Pie Chart orbject
 
@@ -91,16 +102,11 @@
 
             // Chart Data
             var chartData = {
-                labels: ["{{ __('hm::hostel.available') }}", "{{ __('hm::hostel.partially_available')  }}", "{{ __('hm::hostel.booked') }}"], // Not in Services
+                labels: [ available, booked],
                 datasets: [{
                     label: "Hostel",
-                    data: [
-                        {{$allRoomsCountBasedOnStatus['available']}},
-                        {{$allRoomsCountBasedOnStatus['partially_available']}},
-                        {{$allRoomsCountBasedOnStatus['booked']}},
-                        {{--{{$allRoomsCountBasedOnStatus['not_in_service']}}--}}
-                    ],
-                    backgroundColor: ['#28D094', '#00A5A8', '#ffd162'], // '#FF4558'
+                    data: chartDatasetData,
+                    backgroundColor: ['#28D094', '#ffd162']
                 }]
             };
 

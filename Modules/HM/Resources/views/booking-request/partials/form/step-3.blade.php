@@ -94,7 +94,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid_copy') }}</label>
                                     <br>
-                                    {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_doc') ? ' is-invalid' : '')]) !!}
+                                    {!! Form::file('nid_doc', ['class' => 'form-control' . ($errors->has('guests.' . $loop->index . '.nid_doc') ? ' is-invalid' : ''), 'accept' => '.png, .jpg, .jpeg']) !!}
 
                                     @if ($errors->has('guests.' . $loop->index . '.nid_doc'))
                                         <span class="invalid-feedback" role="alert">
@@ -191,7 +191,7 @@
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid_copy') }}</label>
                                     <br>
-                                    {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                    {!! Form::file('nid_doc', ['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg']) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">
                                     <label>{{ trans('hm::booking-request.nid') }}</label>
@@ -271,7 +271,7 @@
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <label>@lang('hm::booking-request.nid_copy')</label>
                                             <br>
-                                            {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                            {!! Form::file('nid_doc', ['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg']) !!}
                                         </div>
                                         <div class="form-group mb-1 col-sm-12 col-md-3">
                                             <img src="{{$guestInfo->nid_doc ? asset('/storage/app/'.$guestInfo->nid_doc) : ''}}"
@@ -345,7 +345,7 @@
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>{{ trans('hm::booking-request.nid_copy') }}</label>
                                         <br>
-                                        {!! Form::file('nid_doc', ['class' => 'form-control']) !!}
+                                        {!! Form::file('nid_doc', ['class' => 'form-control', 'accept' => '.png, .jpg, .jpeg']) !!}
                                     </div>
                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                         <label>{{ trans('hm::booking-request.nid') }}</label>
