@@ -1,12 +1,9 @@
 <?php
 namespace Modules\PMS\Services;
 
-use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
-use App\Services\workflow\FeatureService;
-use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,7 +50,7 @@ class PMSService
     }
 
     /*
-     * Method to fetch pending share conversations for the auth users for all features
+     * Method to fetch pending share conversations for the auth users from all features
      */
     public function getShareConversations()
     {

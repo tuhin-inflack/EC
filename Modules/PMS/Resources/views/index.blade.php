@@ -66,8 +66,8 @@
                                     {{--</div>--}}
                                     <div class="card-footer">
                                         <div class="form-group">
-                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">Approve Selecte</button>
-                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">Reject Selected</button>
+                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">@lang('labels.approve')</button>
+                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">@lang('labels.reject')</button>
                                         </div>
                                     </div>
                                 </div>
