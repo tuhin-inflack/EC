@@ -47,7 +47,7 @@
                                     <a href="{{ route('organization-members.show', [$project->id, $organization->id, $member->id]) }}"
                                        class="dropdown-item"><i
                                                 class="ft-eye"></i> {{trans('labels.details')}}</a>
-                                    <a href="{{ route('pms-organization-members.edit', [$organization->id, $member->id]) }}"
+                                    <a href="{{ route('pms-organization-members.edit', [$project->id, $organization->id, $member->id]) }}"
                                        class="dropdown-item"><i
                                                 class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                 </span>
