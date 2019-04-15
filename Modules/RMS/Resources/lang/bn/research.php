@@ -5,6 +5,7 @@ return [
     'research_monitoring_tabular_view' => 'গবেষণা পর্যবেক্ষণ ট্যাবুলার দেখুন',
     'research_pending_items' => 'গবেষণা পেন্ডিং আইটেম',
     'research_proposal_pending_items' => 'গবেষণা সংক্ষিপ্ত প্রস্তাব পেন্ডিং আইটেম',
+    'research_proposal_rejected_items' => 'গবেষণা সংক্ষিপ্ত প্রস্তাব পেন্ডিং আইটেম',
     'research_publication' => 'গবেষণা প্রকাশনা',
     'research_publication_create' => 'গবেষণা প্রকাশনা তৈরি',
     'research_publication_form' => 'গবেষণা প্রকাশনা ফর্ম',
@@ -32,5 +33,7 @@ return [
     'Send for publication' => 'প্রকাশনার জন্য পাঠান',
     'planned' => 'পরিকল্পিত',
     'achieved' => 'অর্জন',
+    'research_back_from_director_research' => 'ডিরেক্টর রিসার্চ ফেরত আসা আইটেম',
+    'research_paper_pending_item' => 'রিসার্চ পেপার পেন্ডিং আইটেম',
 ];
 

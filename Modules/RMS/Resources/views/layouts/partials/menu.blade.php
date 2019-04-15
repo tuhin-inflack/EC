@@ -32,14 +32,14 @@
                     <a href="{{route('invitations')}}">
                         <i class="la la-adjust"></i>
                         <span class="menu-title"
-                              data-i18n="nav.dash.main">Details invitation</span>
+                              data-i18n="nav.dash.main">@lang('rms::research_details.detail_invitation')</span>
                     </a>
                 </li>
                 <li class="{{is_active_route('research.list')}}">
                     <a href="{{route('research.list')}}">
-                        <i class="la la-adjust"></i>
+                        <i class="la la-bookmark"></i>
                         <span class="menu-title"
-                              data-i18n="nav.dash.main">Research Details</span>
+                              data-i18n="nav.dash.main">@lang('rms::research_details.research_detail')</span>
                     </a>
                 </li>
             </ul>
