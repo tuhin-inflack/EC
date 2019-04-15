@@ -12,4 +12,5 @@ return [
     'training_name' => 'প্রশিক্ষণ নাম',
     'add' => 'যোগ করুন',
     'beneficiary' => 'লাভবান',
+    'previous' => 'পূর্ববর্তী',
 ];
