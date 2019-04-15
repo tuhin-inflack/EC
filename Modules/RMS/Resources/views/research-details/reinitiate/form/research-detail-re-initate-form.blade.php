@@ -1,7 +1,7 @@
 {!! Form::open(['route' =>  ['store-detail-re-initiate', $researchDetail->id], 'class' => 'research-submission-tab-steps wizard-circle', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i> Research Detail Re-initiate form</h4>
+                class="la la-briefcase"></i> @lang('rms::research_details.research_detail_re_initiate_form')</h4>
 
     <div class="row">
         <div class="col-md-8 offset-2">

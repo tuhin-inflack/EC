@@ -77,5 +77,7 @@ return [
     'planned' => 'পরিকল্পিত',
     'achieved' => 'অর্জিত',
     'invitation_title' => 'আমন্ত্রণ শিরোনাম',
+    'research_brief_get_back_items' => 'গবেষণার সংক্ষিপ্ত ফেরত আসা আইটেম',
+
 ];
 

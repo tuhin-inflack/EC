@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'Research details list')
+@section('title', trans('rms::research_details.research_detail_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Research details list</h4>
+                        <h4 class="card-title">@lang('rms::research_details.research_detail_list')</h4>
                         {{--<div class="heading-elements">--}}
                         {{--<a href="" class="btn btn-primary btn-sm"><i--}}
                         {{--class="ft-plus white"></i> </a>--}}
