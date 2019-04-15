@@ -116,6 +116,15 @@ $(document).ready(function () {
                 minlength: 10,
                 maxlength: 10
             },
+            photo: {
+                extension: 'png|jpg|jpeg'
+            },
+            nid_doc: {
+                extension: 'png|jpg|jpeg'
+            },
+            passport_doc: {
+                extension: 'png|jpg|jpeg'
+            }
         },
     });
 
