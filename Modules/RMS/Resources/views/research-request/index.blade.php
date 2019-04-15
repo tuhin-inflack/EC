@@ -9,9 +9,11 @@
                     <div class="card-header">
                         <h4 class="card-title">{{ trans('rms::research_proposal.invitation_list') }}</h4>
                         <div class="heading-elements">
-                            <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> {{ trans('rms::research_proposal.new_proposal_request') }}</a>
-
+                            @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                                <a href="{{route('research-request.create')}}" class="btn btn-primary btn-sm">
+                                    <i class="ft-plus white"></i> {{ trans('rms::research_proposal.new_proposal_request') }}
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-content collapse show">

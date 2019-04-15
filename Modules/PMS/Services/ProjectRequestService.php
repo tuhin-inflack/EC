@@ -161,7 +161,21 @@ class ProjectRequestService
 
     public function getProjectInvitationByDeadline()
     {
-        return ProjectRequest::orderBy('end_date', 'DESC')->limit(5)->get();
+        return ProjectRequest::orderBy('end_date', 'DESC')
+            ->limit(5)
+            ->get()
+            ->filter(function ($projectRequest) {
+
+                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray()));
+            });
+    }
+
+    public function getInvitationReceivedByUser()
+    {
+        return $this->projectRequestRepository->findAll()
+            ->filter(function($projectRequest) {
+                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray()));
+            });
     }
 
 

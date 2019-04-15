@@ -74,9 +74,9 @@
                                             <b><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
-                                    {{--@if(Request()->viewOnly != 1)--}}
-                                        {{--@include('rms::proposal.review.reviewer-add-attachments')--}}
-                                    {{--@endif--}}
+                                    @if(Request()->viewOnly != 1)
+                                        @include('rms::research-details.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
                                 @if(Request()->viewOnly != 1)
                                     <div class="col-md-12">

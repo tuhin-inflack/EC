@@ -50,26 +50,28 @@
                                     @endif
                                 </div>
                             </div>
-                            {{--<div class="col-md-6">--}}
-                                {{--<ul>--}}
-                                    {{--@foreach($proposal->distinctProjectProposalFiles->unique('file_name') as $file)--}}
-                                        {{--<li>--}}
-                                            {{--<a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>--}}
-                                        {{--</li>--}}
-                                    {{--@endforeach--}}
-                                {{--</ul>--}}
-                                {{--<ul>--}}
-                                    {{--<li>--}}
-                                        {{--<b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>--}}
-                                    {{--</li>--}}
-                                {{--</ul>--}}
-                                {{--@include('pms::proposal-submitted.review.reviewer-add-attachments')--}}
-                            {{--</div>--}}
+                            <div class="col-md-6">
+                                <ul>
+                                    @foreach($proposal->distinctProjectProposalFiles->unique('file_name') as $file)
+                                        <li>
+                                            <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
+                                    </li>
+                                </ul>
+                                @if(Request()->viewOnly != 1)
+                                    @include('pms::proposal-submitted.brief.review.reviewer-add-attachments')
+                                @endif
+                            </div>
                         </div>
                     </div>
 
                     <div class="card-footer">
-                        @if($ruleDetails->is_shareable && $proposal->status != 'APPROVED')
+                        @if($ruleDetails->is_shareable && $proposal->status != 'APPROVED' && Request()->viewOnly != 1)
                             {!! Form::open(['url'=> route('project-proposal.share'), 'novalidate', 'class' => 'form', 'method' => 'post']) !!}
                             <div class="col-md-6">
                                 <input name="feature_id" type="hidden" value="{{$feature_id}}">
@@ -114,7 +116,7 @@
                             {!! Form::close() !!}
                         @endif
 
-                        @if($proposal->status != 'APPROVED' && $ruleDetails->flow_type == 'approval')
+                        @if($proposal->status != 'APPROVED' && $ruleDetails->flow_type == 'approval' && Request()->viewOnly != 1)
 
                             {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
                             {!! Form::hidden('reviewUrl', url()->current()) !!}
@@ -150,7 +152,11 @@
                             {!! Form::close() !!}
                         @endif
                         @if($proposal->status == 'APPROVED')
-                            <a href="{{route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1"><i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')</a>
+                            @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                                    <a href="{{route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1">
+                                        <i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')
+                                    </a>
+                            @endif
                         @endif
                     </div>
                 </div>

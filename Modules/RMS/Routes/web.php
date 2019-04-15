@@ -160,7 +160,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('file-download/{attachmentId}', 'ResearchProposalDetailController@fileDownload');
 
         //       workflow for research proposal details
-        Route::get('review/{researchDetailId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/', 'ResearchProposalDetailController@review');
+        Route::get('review/{researchDetailId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}/{workflowRuleDetailsId?}/{viewOnly?}', 'ResearchProposalDetailController@review');
         Route::post('/reviewUpdate', 'ResearchProposalDetailController@reviewUpdate')->name('research-detail-submission.reviewUpdate');
         Route::get('sending-for-review/{researchProposalSubmissionId?}/{workflowMasterId?}/{shareConversationId?}', 'ResearchProposalDetailController@getResearchDetailFeedbackForm')->name('research-detail.review');
         Route::post('sending-for-review/{shareConversationId?}', 'ResearchProposalDetailController@postResearchDetailFeedback')->name('research-detail.feedback');
@@ -168,6 +168,8 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::post('store-re-initiate/{researchDetailId?}/', 'ResearchProposalDetailController@storeInitiate')->name('store-detail-re-initiate');
         Route::get('workflow-close/{workflowMasterId?}/{researchDetailId?}', 'ResearchProposalDetailController@closeWorkflowByInitiator')->name('detail-workflow-close');
         Route::get('workflow-close-reviewer/{workflowMasterId?}/{researchDetailId?}/{shareConversationId?}', 'ResearchProposalDetailController@closeWorkflowByReviewer')->name('workflow-detail-close-reviewer');
+
+        Route::post('reviewer-add-attachment', 'ResearchProposalDetailController@addAttachment')->name('research.detail.proposal.reviewer.add.attachment');
 
     });
 });

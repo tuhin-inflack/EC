@@ -99,11 +99,15 @@ class ProjectProposalService
      */
     public function getProposalsForUser(User $user)
     {
-        if ($this->userService->isDirectorGeneral() || $this->userService->isProjectDivisionUser($user)) {
-            return $this->findAll();
-        } else {
-            return $this->findBy(['auth_user_id' => $user->id]);
-        }
+        return $this->projectProposalRepository->findAll()
+            ->filter(function($projectProposal) use ($user){
+
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "PMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($user->employee->designation->short_name == "FM"
+                        && $projectProposal->auth_user_id == $user->id);
+            });
     }
 
     public function store(array $data)
@@ -203,7 +207,18 @@ class ProjectProposalService
 
     public function getProjectProposalBySubmissionDate()
     {
-        return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
+        return ProjectProposal::orderBy('id', 'DESC')
+            ->limit(5)
+            ->get()
+            ->filter(function($projectProposal) {
+
+                return auth()->user()->employee->designation->short_name == "DG"
+                    || (auth()->user()->employee->employeeDepartment->department_code == "PMS"
+                        && auth()->user()->employee->designation->short_name != "FM")
+                    || (auth()->user()->employee->designation->short_name == "FM"
+                        && $projectProposal->auth_user_id == auth()->user()->id);
+            });
+
     }
 
     public function bulkReviewFeedbackUpdate($data)

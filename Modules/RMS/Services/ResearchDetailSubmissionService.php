@@ -19,6 +19,7 @@ use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
 use Chumper\Zipper\Facades\Zipper;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
@@ -220,5 +221,18 @@ class ResearchDetailSubmissionService
         Zipper::make($zipFilePath)->add($filePaths)->close();
 
         return $zipFilePath;
+    }
+
+    public function getResearchDetailProposalForUser(User $user)
+    {
+        return $this->researchDetailSubmissionRepository->findAll()
+            ->filter(function ($researchDetailProposal) use ($user){
+
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "RMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($user->employee->designation->short_name == "FM"
+                        && $researchDetailProposal->auth_user_id == $user->id);
+            });
     }
 }

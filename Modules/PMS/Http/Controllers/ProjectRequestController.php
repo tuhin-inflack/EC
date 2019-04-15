@@ -44,7 +44,7 @@ class ProjectRequestController extends Controller
     public function index()
     {
 
-        $requests = $this->projectRequestService->getAll();
+        $requests = $this->projectRequestService->getInvitationReceivedByUser();
         return view('pms::project-request.brief.index', compact('requests'));
     }
 

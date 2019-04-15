@@ -9,6 +9,7 @@
 namespace Modules\PMS\Services;
 
 use App\Constants\NotificationType;
+use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\UserService;
@@ -21,6 +22,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\HRM\Services\EmployeeServices;
+use Modules\PMS\Entities\ProjectDetailProposalAttachment;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectDetailProposalRepository;
@@ -75,8 +77,8 @@ class ProjectDetailProposalService
                 $fileName = $file->getClientOriginalName();
                 $path = $this->upload($file, 'project-submissions');
 
-                $file = new ProjectProposalFile([
-                    'proposal_id' => $proposalSubmission->id,
+                $file = new ProjectDetailProposalAttachment([
+                    'project_request_id' => $proposalSubmission->id,
                     'attachments' => $path,
                     'file_name' => $fileName
                 ]);
@@ -167,5 +169,18 @@ class ProjectDetailProposalService
         ];
         $dynamicValues['event'] = $event;
         event(new NotificationGeneration(new NotificationInfo(NotificationType::PROJECT_PROPOSAL_SUBMISSION, $dynamicValues)));
+    }
+
+    public function getProposalsForUser(User $user)
+    {
+        return $this->projectDetailProposalRepository->findAll()
+            ->filter(function($projectProposal) use ($user){
+
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "PMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($user->employee->designation->short_name == "FM"
+                        && $projectProposal->auth_user_id == $user->id);
+            });
     }
 }

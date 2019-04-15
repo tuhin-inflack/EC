@@ -36,7 +36,7 @@ class ResearchRequestController extends Controller
      */
     public function index()
     {
-        $research_requests = $this->researchRequestService->getAll();
+        $research_requests = $this->researchRequestService->getInvitationsReceivedByUser();
         return view('rms::research-request.index', compact('research_requests'));
     }
 

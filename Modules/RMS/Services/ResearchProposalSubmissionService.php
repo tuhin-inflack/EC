@@ -245,7 +245,18 @@ class ResearchProposalSubmissionService
 
     public function getResearchProposalBySubmissionDate()
     {
-        return ResearchProposalSubmission::orderBy('id', 'DESC')->limit(5)->get();
+        return ResearchProposalSubmission::orderBy('id', 'DESC')
+            ->limit(5)
+            ->get()
+            ->filter(function ($researchProposal) {
+
+                return auth()->user()->employee->designation->short_name == "DG"
+                    || (auth()->user()->employee->employeeDepartment->department_code == "RMS"
+                        && auth()->user()->employee->designation->short_name != "FM")
+                    || (auth()->user()->employee->designation->short_name == "FM"
+                        && $researchProposal->auth_user_id == auth()->user()->id);
+
+            });
     }
 
     public function apcApproved($status, $researchProposalSubmissionId)
@@ -307,18 +318,15 @@ class ResearchProposalSubmissionService
 
     public function getResearchProposalForUser(User $user)
     {
-        if ($this->userService->isDirectorGeneral()) {
-            return $this->researchProposalSubmissionRepository->findAll();
+        return $this->researchProposalSubmissionRepository->findAll()
+            ->filter(function ($researchProposal) use ($user) {
 
-        } else if ($this->userService->isDesignationFacultyMember($user)) {
-            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id' => $user->id]);
-
-        } else if ($this->userService->isResearchDivisionUser($user)) {
-            return $this->researchProposalSubmissionRepository->findAll();
-
-        } else {
-            return $this->researchProposalSubmissionRepository->findBy(['auth_user_id' => $user->id]);
-        }
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "RMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($user->employee->designation->short_name == "FM"
+                        && $researchProposal->auth_user_id == $user->id);
+            });
     }
 
     public function researchProposalApproved($shareAndProposalIds)
