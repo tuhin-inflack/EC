@@ -5,7 +5,7 @@
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
     {{--Research Brief  share conversation items --}}
-    @if(!is_null($shareConversations['research_brief_share']))
+    @if(isset($shareConversations['research_brief_share']))
         <section id="shareConversation">
             <div class="card">
                 <div class="card-body">
@@ -17,7 +17,6 @@
                             <thead>
                             @if($bulkActionForApprove)
                                 <th></th>@endif
-                            <th>@lang('labels.feature')</th>
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
@@ -28,7 +27,6 @@
                                     <tr>
                                         @if($bulkActionForApprove)
                                             <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
-                                        <td>{{ $shareConversation->feature->name }}</td>
                                         <td>{{$shareConversation->message}}</td>
                                         <td>
                                             {{--                                      dd($shareConversation->feature->name);--}}
@@ -79,7 +77,7 @@
     @endif
 
     {{--Research  Detail share conversation items --}}
-    @if(!is_null($shareConversations['research_detail_share']))
+    @if(isset($shareConversations['research_detail_share']))
         <section id="shareConversation">
             <div class="card">
                 <div class="card-body">
@@ -102,7 +100,6 @@
                                     <tr>
                                         @if($bulkActionForApprove)
                                          <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
-                                        <td>{{ $shareConversation->feature->name }}</td>
                                         <td>{{$shareConversation->message}}</td>
                                         <td>
                                             {{--                                      dd($shareConversation->feature->name);--}}
