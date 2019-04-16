@@ -29,7 +29,7 @@
                                     <tbody>
                                     @foreach($shareConversations as $shareConversation)
                                         <tr>
-                                            @if($bulkAction)<td>{{$shareConversation['id'].'-'.$shareConversation['ref_table_id']}}</td>@endif
+                                            @if($bulkAction)<td>{{$shareConversation['id'].'-'.$shareConversation['ref_table_id'].'-'.$shareConversation['feature_id']}}</td>@endif
                                             <td>{{ $shareConversation['feature_name'] }}</td>
                                             <td>{{$shareConversation['message']}}</td>
                                             <td>Proposal Title: {{$shareConversation['proposal_title']}}<br>

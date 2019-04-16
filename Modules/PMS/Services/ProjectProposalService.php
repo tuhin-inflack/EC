@@ -221,24 +221,6 @@ class ProjectProposalService
 
     }
 
-    public function bulkReviewFeedbackUpdate($data)
-    {
-        foreach ($data['id'] as $approval)
-        {
-            $idArray = explode('-',$approval);
-            $shareConvId = $idArray[0];
-            $proposalId = $idArray[1];
-            $wfMaster = $this->workflowMasterService->findBy(['ref_table_id' => $proposalId])[0];
-            if($data['status'] == 'APPROVED') $this->workflowService->approveWorkflow($wfMaster->id); elseif($data['status'] == 'REJECTED') $this->workflowService->closeWorkflow($wfMaster->id);
-            $this->shareConversationService->updateConversation(['ref_table_id' => $proposalId], $shareConvId);
-
-            //$this->remarkService->save(['feature_id' => $wfMaster->feature_id, 'ref_table_id' => $proposalId, 'from_user_designation' => $this->userService->getDesignationId(Auth::user()->username)]);
-
-            $item = $this->findOne($proposalId);
-            $item->update(['status' => $data['status']]);
-        }
-    }
-
     // Methods for triggering notifications
     public function generatePMSNotification($notificationData, $event, $url): void
     {

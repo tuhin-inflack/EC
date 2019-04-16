@@ -97,7 +97,7 @@
                                         </div>
 
                                         @if(!is_null($ruleDesignations))
-                                            <div class="col-md-6">
+                                            <div class="">
                                                 <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                                     <label>{{__('labels.share')}}</label>
                                                     <select name="designation_id" class="form-control">

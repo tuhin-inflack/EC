@@ -50,7 +50,6 @@ class BookingRequestStatusController extends Controller
 
     public function approve(UpdateBookingRequestStatusRequest $request, RoomBooking $roomBooking)
     {
-
         if ($this->bookingRequestService->approveBookingRequest($roomBooking, $request->all())) {
             if (isset($roomBooking->requester->email)) {
                 Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));

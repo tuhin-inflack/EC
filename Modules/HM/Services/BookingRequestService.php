@@ -380,9 +380,11 @@ class BookingRequestService
     {
         $roomTypes = $this->roomTypeService->findAll();
 
-        $totalRoomsByRoomType = $roomTypes->map(function ($roomType) {
-            return [$roomType->id => $roomType->rooms->count()];
-        })->flatten()->toArray();
+        $totalRoomsByRoomType = [];
+
+        $roomTypes->each(function ($roomType) use (&$totalRoomsByRoomType) {
+            $totalRoomsByRoomType[$roomType->id] = $roomType->rooms->count();
+        });
 
         return $totalRoomsByRoomType;
     }
@@ -438,7 +440,8 @@ class BookingRequestService
      */
     private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
     {
-        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
+        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray()) &&
+            array_key_exists($roomTypeId, $totalRoomsByRoomType)) {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
         } else {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId];
