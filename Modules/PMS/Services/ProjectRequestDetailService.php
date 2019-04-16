@@ -149,7 +149,8 @@ class ProjectRequestDetailService
     {
         return $this->projectRequestDetailRepository->findAll()
             ->filter(function($projectRequestDetail) {
-                return (auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id);
+                return (auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id
+                    && !$projectRequestDetail->proposals->count());
             });
     }
 

@@ -20,6 +20,16 @@
                         </span>
                         @endif
                     </div>
+                    <div class="form-group mb-1 col-sm-12 col-md-12">
+                        <label class="required">@lang('rms::research.select_detail_proposal')</label>
+                        <br>
+                        {{ Form::select('research_detail_submission_id', $proposals, null, ['class' => 'select2 form-control required'.($errors->has('research_detail_submission_id') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) }}
+                        @if ($errors->has('research_detail_submission_id'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('research_detail_submission_id') }}</strong>
+                        </span>
+                        @endif
+                    </div>
                 </div>
             </fieldset>
         </div>

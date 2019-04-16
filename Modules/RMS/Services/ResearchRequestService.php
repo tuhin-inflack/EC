@@ -137,7 +137,8 @@ class ResearchRequestService
             ->limit(5)
             ->get()
             ->filter(function ($researchRequest) {
-                return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray()));
+                return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                    && !$researchRequest->researchProposals->count());
             });
     }
 
@@ -145,7 +146,8 @@ class ResearchRequestService
     {
         return $this->researchRequestRepository->findAll()
             ->filter(function ($researchRequest) {
-               return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray()));
+               return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                   && !$researchRequest->researchProposals->count());
             });
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Research extends Model
 {
     protected  $table = 'research';
-    protected $fillable = ['title', 'submitted_by', 'status'];
+    protected $fillable = ['title', 'submitted_by', 'status', 'research_detail_submission_id'];
 
     public function organizations()
     {

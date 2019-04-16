@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ResearchDetailSubmission extends Model
 {
     protected $table = 'research_detail_submissions';
-    protected $fillable = ['research_detail_invitation_id', 'auth_user_id', 'title', 'status'];
+    protected $fillable = ['research_detail_invitation_id', 'auth_user_id', 'title', 'status', 'research_id'];
 
 
     public function researchDetailSubmissionAttachment()

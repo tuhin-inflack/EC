@@ -166,7 +166,8 @@ class ProjectRequestService
             ->get()
             ->filter(function ($projectRequest) {
 
-                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray()));
+                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
+                    && !$projectRequest->proposals->count());
             });
     }
 
@@ -174,7 +175,8 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->findAll()
             ->filter(function($projectRequest) {
-                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray()));
+                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
+                    && !$projectRequest->proposals->count());
             });
     }
 

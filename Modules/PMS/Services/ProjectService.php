@@ -30,22 +30,26 @@ class ProjectService
      */
     private $userService;
 
+    private $projectDetailProposalService;
+
     /**
      * ProjectService constructor.
      * @param ProjectRepository $projectRepository
      * @param UserService $userService
      */
-    public function __construct(ProjectRepository $projectRepository, UserService $userService)
+    public function __construct(ProjectRepository $projectRepository, UserService $userService, ProjectDetailProposalService $projectDetailProposalService)
     {
         $this->projectRepository = $projectRepository;
         $this->setActionRepository($projectRepository);
         $this->userService = $userService;
+        $this->projectDetailProposalService = $projectDetailProposalService;
     }
 
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
             $project = $this->save($data);
+            $this->projectDetailProposalService->update($this->projectDetailProposalService->findOrFail($data['project_detail_proposal_id']), ['project_id' => $project->id]);
 
             $project->attributes()->saveMany([
                 new Attribute([
