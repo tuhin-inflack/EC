@@ -52,8 +52,8 @@
                                 <div class="form" id="approval-item">
                                     <div class="card-footer">
                                         <div class="form-group">
-                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">@lang('labels.approve')</button>
-                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">@lang('labels.reject')</button>
+                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">@lang('pms::project.approve_selected')</button>
+                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">@lang('pms::project.reject_selected')</button>
                                         </div>
                                     </div>
                                 </div>

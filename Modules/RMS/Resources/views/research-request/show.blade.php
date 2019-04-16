@@ -65,11 +65,11 @@
                                 <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p></dd>
                             </dl>
                             <div class="form-actions text-center">
-
+                                @if(!Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
                                 <a href="{{ route('research-request.edit', $researchRequest->id) }}" class="btn btn-primary mr-1">
                                     <i class="ft-plus white"></i> @lang('labels.edit')
                                 </a>
-
+                                @endif
 
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
                                     <i class="ft-x"></i> @lang('labels.cancel')

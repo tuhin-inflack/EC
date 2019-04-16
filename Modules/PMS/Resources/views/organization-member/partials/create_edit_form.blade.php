@@ -1,6 +1,6 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('member.member_adding_form') </h4>
-    <h3>{{ $mode }}   <strong>({{ $organization->name }})</strong></h3>
+    <h3>{{ $mode }} <strong>({{ $organization->name }})</strong></h3>
     <div class="row " style="">
         <div class="col-md-6 ">
             <div class="form-group ">
@@ -18,7 +18,14 @@
             <div class="form-group ">
                 <div class="form-group {{ $errors->has('mobile') ? ' error' : '' }}">
                     {{ Form::label('mobile', trans('labels.mobile')) }}
-                    {{ Form::text('mobile',  isset($member) ? $member->mobile : null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter mobile no','data-validation-required-message'=>trans('labels.This field is required')]) }}
+                    {{ Form::text('mobile',  isset($member) ? $member->mobile : null,    [
+                        'id'=>'',
+                        'class' =>
+                        ' form-control',
+                        'placeholder' => 'Enter mobile no',
+                        'data-validation-required-message'=>trans('labels.This field is required'),
+                        'required' => true
+                    ]) }}
                     <div class="help-block"></div>
                     @if ($errors->has('mobile'))
                         <div class="help-block">  {{ trans('labels.This field is required') }}</div>

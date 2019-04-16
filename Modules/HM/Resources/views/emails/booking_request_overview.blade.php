@@ -188,14 +188,16 @@
                                                                     </td>
 
                                                                 </tr>
-                                                                <tr>
-                                                                    <td style="margin-right: 20px">@lang('hm::booking-request.check_in')</td>
-                                                                    <td>: {{  $roomBooking->start_date }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="margin-right: 20px">@lang('hm::booking-request.check_out')</td>
-                                                                    <td>: {{ $roomBooking->end_date }}</td>
-                                                                </tr>
+                                                                @if ($roomBooking->type == 'checkin')
+                                                                    <tr>
+                                                                        <td style="margin-right: 20px">@lang('hm::booking-request.check_in')</td>
+                                                                        <td>: {{  $roomBooking->start_date }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="margin-right: 20px">@lang('hm::booking-request.check_out')</td>
+                                                                        <td>: {{ $roomBooking->end_date }}</td>
+                                                                    </tr>
+                                                                @endif
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.no_of_guests')</td>
                                                                     <td>: {{ $roomBooking->guestInfos->count() }}</td>
