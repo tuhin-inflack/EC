@@ -16,7 +16,7 @@
                         <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
                             <thead>
                             @if($bulkActionForApprove)
-                                <th></th>@endif
+                                <th style="width: 20px;"></th>@endif
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
@@ -88,7 +88,7 @@
                         <table id="{{ ($bulkActionForApprove) ? 'researchDetailBulk' : '' }}" class="table table-bordered">
                             <thead>
                             @if($bulkActionForApprove)
-                                <th></th>@endif
+                                <th style="width: 20px"></th>@endif
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
