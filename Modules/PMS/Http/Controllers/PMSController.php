@@ -268,7 +268,7 @@ class PMSController extends Controller
             ],
             'project_proposal_submission',
             $this->reviewUrlGenerator->getReviewUrl(
-                'project-proposal-submitted-review.review',
+                'project-proposal-submitted-review',
                 $this->featureService->findOne($request->input('feature_id')),
                 $proposal
             )
