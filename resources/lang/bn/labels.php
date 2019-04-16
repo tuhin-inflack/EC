@@ -183,4 +183,5 @@ return [
     'thank_you' => 'ধন্যবাদ',
     'thanks' => 'ধন্যবাদ',
     'achieved value cannot be greater than current balance' => 'অর্জিত মান বর্তমান হিসাব চেয়ে বড় হতে পারে না',
+    'invalid file type' => 'অবৈধ ফাইল টাইপ',
 ];

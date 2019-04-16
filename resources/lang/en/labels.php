@@ -183,4 +183,5 @@ return [
     'thank_you' => 'Thank You',
     'thanks' => 'Thanks',
     'achieved value cannot be greater than current balance' => 'Achieved value cannot be greater than current balance',
+    'invalid file type' => 'অবৈধ ফাইল টাইপ',
 ];
