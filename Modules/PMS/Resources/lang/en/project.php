@@ -13,4 +13,6 @@ return [
     'add' => 'Add',
     'beneficiary' => 'Beneficiary',
     'previous' => 'Previous',
+    'approve_selected' => 'Approve Selected',
+    'reject_selected' => 'Reject Selected',
 ];

@@ -13,4 +13,6 @@ return [
     'add' => 'যোগ করুন',
     'beneficiary' => 'লাভবান',
     'previous' => 'পূর্ববর্তী',
+    'approve_selected' => 'নির্বাচিত অনুমোদন',
+    'reject_selected' => 'নির্বাচিত প্রত্যাখ্যান',
 ];
