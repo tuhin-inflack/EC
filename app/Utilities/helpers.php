@@ -14,8 +14,12 @@ if (! function_exists('in_designation')) {
     function in_designation()
     {
         $haystack = func_get_args();
-        $needle = Auth::user()->employee->designation->short_name;
-        $result = in_array($needle, $haystack) ? 1 : 0;
+        $result = 0;
+
+        if (Auth::user()->user_type == 'Employee'){
+            $needle = Auth::user()->employee->designation->short_name;
+            $result = in_array($needle, $haystack) ? 1 : 0;
+        }
 
         return $result;
     }

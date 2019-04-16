@@ -4,7 +4,7 @@
         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
         <div class="heading-elements">
             <ul class="list-inline mb-0">
-                <li><a href="{{ route('pms-organization-members.create', [$organization->id, $project->id]) }}"
+                <li><a href="{{ route('pms-organization-members.create', [$project->id, $organization->id]) }}"
                        class="btn btn-sm btn-primary"><i
                                 class="ft-plus"></i> @lang('member.add_member')</a></li>
                 <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -47,7 +47,7 @@
                                     <a href="{{ route('organization-members.show', [$project->id, $organization->id, $member->id]) }}"
                                        class="dropdown-item"><i
                                                 class="ft-eye"></i> {{trans('labels.details')}}</a>
-                                    <a href="{{ route('pms-organization-members.edit', [$organization->id, $member->id]) }}"
+                                    <a href="{{ route('pms-organization-members.edit', [$project->id, $organization->id, $member->id]) }}"
                                        class="dropdown-item"><i
                                                 class="ft-edit-2"></i> {{trans('labels.edit')}}</a>
                                 </span>

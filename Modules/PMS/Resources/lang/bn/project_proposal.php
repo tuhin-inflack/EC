@@ -53,7 +53,7 @@ return [
     'status_rejected' => 'প্রত্যাখ্যাত',
     'project_details' => 'প্রকল্প সম্পর্কিত বিস্তারিত',
     'receiver' => 'গ্রাহক',
-    'download_all_attachments' => 'সকল সংযুক্তি',
+    'download_all_attachments' => 'সকল সংযুক্তি ডাউনলোড করুন',
     'project_proposal_status_graph' => 'প্রকল্প প্রস্তাব অবস্থা লেখচিত্র',
     'project_request_by_last_submission_date' => 'চলমান আমন্ত্রণ',
     'project_proposal_by_submitted_date' => 'জমা তারিখ দ্বারা প্রকল্প প্রস্তাব তালিকা',

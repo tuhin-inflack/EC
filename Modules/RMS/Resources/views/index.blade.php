@@ -10,7 +10,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h2>Share Conversation</h2>
+                    <h2>@lang('rms::research_details.research_brief_and_detail_pending_item')</h2>
                     <form id="frm-example" action="{{ route('research.bulk.action') }}" method="post" name="test">
                         @csrf
                         <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
@@ -23,9 +23,8 @@
                             <th>@lang('labels.action')</th>
                             </thead>
                             <tbody>
-
+                            {{--                            {{ dd($shareConversations) }}--}}
                             @foreach($shareConversations as $shareConversation)
-                                {{--{{ dd($shareConversation) }}--}}
                                 <tr>
                                     @if($bulkActionForApprove)
                                         <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
@@ -34,24 +33,31 @@
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
-                                            if ($shareConversation->feature->name == config('rms.research_proposal_detail_feature')){
+                                            if ($shareConversation->feature_id==4){
                                             // working for research detail proposal
-                                               $title = 'Research Detail Title : '. $shareConversation->researchDetail->title;
+                                               $invitation_title =  'Invitation Title : '. $shareConversation->researchDetail->researchDetailInvitation->title;
+                                               $title = 'Research Title : '. $shareConversation->researchDetail->title;
+                                               $submittedBy = 'Initiator Name: '. $shareConversation->researchDetail->user->name;
                                                $reviewUrl = 'research-detail.review';
-                                            }else{
-                                            // working for research proposal (brief)
-                                                $title = 'Research Brief Title : '. $shareConversation->researchProposal->title;
+                                            }elseif($shareConversation->feature_id==1){
+                                                // working for research proposal (brief)
+                                                $invitation_title = 'Invitation Title : '.$shareConversation->researchProposal->requester->title;
+                                                $title = 'Research Title : '. $shareConversation->researchProposal->title;
+                                                $submittedBy = 'Initiator Name: '. $shareConversation->researchProposal->submittedBy->name;
                                                $reviewUrl = 'research-proposal-submission.review';
                                             }
 
                                         @endphp
-                                        {{ $title }}<br/>
+                                        {{ $invitation_title }}</br>
+                                        {{  $title }}<br/>
+                                        {{ $submittedBy }}
+                                        <br/>
                                     </td>
 
                                     <td>
 
                                         <a class="btn btn-primary btn-sm"
-                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
 
                                         {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
                                         {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
@@ -65,9 +71,10 @@
                             <div class="card-footer">
                                 <div class="form-group">
                                     @if($bulkActionForApprove)
-                                        <input type="submit" name="action_type" value="APPROVED"
-                                               class="btn btn-success">
-                                        <input type="submit" name="action_type" value="REJECTED" class="btn btn-danger">
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
                                     @endif
                                 </div>
                             </div>
@@ -89,8 +96,6 @@
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                         <tr>
-
-                            <th>@lang('labels.feature')</th>
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
@@ -101,7 +106,6 @@
                         @foreach($pendingTasks->dashboardItems as $item)
                             <tr>
                                 {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
-                                <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
@@ -121,16 +125,15 @@
         </section>
     @endif
 
-    {{--Research proposal brief rejected items--}}
+    {{--Research proposal brief rejected/getback items--}}
     @if(!empty($rejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
 
-                    <h2>@lang('labels.rejected_items')</h2>
+                    <h2>@lang('rms::research_proposal.research_brief_get_back_items')</h2>
                     <table class="table table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -139,7 +142,6 @@
                         @foreach($rejectedItems->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Research proposal title : {{ $item->dynamicValues['proposal_title'] }}<br/>
@@ -169,13 +171,11 @@
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
-                    <h4>Research Detail Pending Item</h4>
+                    <h4>@lang('rms::research_details.research_detail_pending_item')</h4>
 
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                         <tr>
-
-                            <th>@lang('labels.feature')</th>
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
@@ -187,7 +187,6 @@
                             {{--{{ dd($item) }}--}}
                             <tr>
                                 {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
-                                <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Research Detail Title : {{ $item->dynamicValues['title'] }}<br/>
@@ -209,16 +208,15 @@
         </section>
     @endif
 
-    {{---------------Research Detail Rejected items from workflow ------------------}}
+    {{---------------Research Detail Rejected/sendback items from workflow ------------------}}
     @if(!empty($researchDetailRejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
 
-                    <h2>Research Detail Getting back Items</h2>
+                    <h2>@lang('rms::research_details.research_detail_send_back_item')</h2>
                     <table class="table table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -227,7 +225,6 @@
                         @foreach($researchDetailRejectedItems->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Research Detail title : {{ $item->dynamicValues['detail_title'] }}<br/>
@@ -258,7 +255,7 @@
             <div class="card">
                 <div class="card-body">
 
-                    <h2>Research reviewed by Research director</h2>
+                    <h2>@lang('rms::research.research_back_from_director_research')</h2>
                     <table class="table table-bordered">
                         <thead>
                         <th>@lang('labels.feature')</th>
@@ -296,11 +293,9 @@
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
-                    <h4>@lang('rms::research.research_pending_items')</h4>
+                    <h4>@lang('rms::research.research__paper_pending_items')</h4>
                     <table class="table table-bordered">
                         <thead>
-
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -309,7 +304,6 @@
                         @foreach($researchPendingTasks->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{ $item->message }}</td>
 
                                 <td>
@@ -577,7 +571,7 @@
                                             <td>
                                                 <a href="#">{{ $proposal->title }}</a>
                                             </td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ date('d/m/y h:i:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
                                         </tr>
                                     @endforeach

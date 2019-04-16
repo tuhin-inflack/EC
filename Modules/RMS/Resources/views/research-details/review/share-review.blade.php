@@ -85,10 +85,10 @@
                                     </div>
                                     <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
                                         <div class="help-block"></div>
                                         @if ($errors->has('message'))
-                                            <div class="help-block">{{ $errors->first('message') }}</div>
+                                            <div class="help-block">{{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                     @if(!is_null($ruleDesignations))
@@ -116,8 +116,7 @@
                                     {!! Form::hidden('share_rule_id', $shareConversation->shareRuleDesignation->share_rule_id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalDetailId) !!}
-                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Share
-                                    </button>
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">@lang('labels.share')</button>
                                     @if($shareConversation->shareRuleDesignation->can_approve==true)
                                         {!! Form::button(' <i class="ft-check"></i> Approve', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif

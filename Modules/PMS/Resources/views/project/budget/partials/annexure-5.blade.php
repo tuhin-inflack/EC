@@ -29,7 +29,7 @@
             @php
                 $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
-                $totalOwnFinancingSource += $budget->own_financing;
+                $totalOwnFinancingSource += $budget->own_financing_source;
                 $totalOtherSource += $budget->other_source;
             @endphp
             <tr>
@@ -88,7 +88,7 @@
             @php
                 $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
-                $totalOwnFinancingSource += $budget->own_financing;
+                $totalOwnFinancingSource += $budget->own_financing_source;
                 $totalOtherSource += $budget->other_source;
             @endphp
             <tr>
@@ -147,7 +147,7 @@
             @php
                 $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
-                $totalOwnFinancingSource += $budget->own_financing;
+                $totalOwnFinancingSource += $budget->own_financing_source;
                 $totalOtherSource += $budget->other_source;
             @endphp
             <tr>
@@ -176,7 +176,7 @@
             @php
                 $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
-                $totalOwnFinancingSource += $budget->own_financing;
+                $totalOwnFinancingSource += $budget->own_financing_source;
                 $totalOtherSource += $budget->other_source;
             @endphp
             <tr>

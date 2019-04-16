@@ -57,11 +57,14 @@ $(document).ready(function () {
         });
 
     // validation
-    jQuery.validator.addMethod("greaterThanOrEqual",
+    jQuery.validator.addMethod(
+        "greaterThanOrEqual",
         function (value, element, params) {
             let comparingDate = params == '#start_date' ? $(params).val() : params;
             return Date.parse(value) >= Date.parse(comparingDate);
-        }, 'Must be greater than or equal to {0}.');
+        },
+        'Must be greater than or equal to {0}.'
+    );
 
     // jQuery.validator.addMethod("CheckRoomValidation",
     //     function (value, element, params) {
@@ -94,7 +97,6 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
-
         rules: {
             end_date: {
                 greaterThanOrEqual: '#start_date'
@@ -116,6 +118,15 @@ $(document).ready(function () {
                 minlength: 10,
                 maxlength: 10
             },
+            photo: {
+                extension: 'png|jpg|jpeg'
+            },
+            nid_doc: {
+                extension: 'png|jpg|jpeg'
+            },
+            passport_doc: {
+                extension: 'png|jpg|jpeg'
+            }
         },
     });
 

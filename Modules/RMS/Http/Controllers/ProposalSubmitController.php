@@ -23,6 +23,7 @@ use Modules\RMS\Entities\ResearchRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionRequest;
 use Modules\RMS\Http\Requests\CreateReviewRequest;
+use Modules\RMS\Http\Requests\PostResearchBriefFeedbackRequest;
 use Modules\RMS\Services\ResearchProposalReviewerAttachmentService;
 use Modules\RMS\Services\ResearchProposalSubmissionService;
 use Monolog\Handler\IFTTTHandler;
@@ -222,7 +223,7 @@ class ProposalSubmitController extends Controller
             'remarks', 'researchProposalSubmissionId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
-    public function postResearchFeedback(Request $request, $shareConversationId)
+    public function postResearchFeedback(PostResearchBriefFeedbackRequest $request, $shareConversationId)
     {
 
         $data = $request->all();

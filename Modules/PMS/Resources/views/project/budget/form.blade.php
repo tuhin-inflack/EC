@@ -112,12 +112,12 @@
             </thead>
             <tbody id="fiscal-values">
             @if($page === 'create')
-                @for($i = 1; $i <= 5; $i++)
+                @for($i = 0; $i <= 4; $i++)
                     <tr>
-                        <td>{{$i}}</td>
-                        <td><input type="text" name="fiscal_year[]" class="form-control"></td>
-                        <td><input type="number" name="monetary_amount[]" min="1" class="form-control"></td>
-                        <td><input type="number" name="monetary_percentage[]" min="1" class="form-control"></td>
+                        <td>{{ $i + 1 }}</td>
+                        <td><input type="text" name="fiscal_year[{{ $i }}]" class="form-control"></td>
+                        <td><input type="number" name="monetary_amount[{{ $i }}]" min="1" class="form-control"></td>
+                        <td><input type="number" name="monetary_percentage[{{ $i }}]" min="1" class="form-control"></td>
                     </tr>
                 @endfor
             @elseif($page === 'edit')
@@ -125,22 +125,23 @@
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td>
-                            <input type="text" name="fiscal_year[]" class="form-control"
+                            <input type="text" name="fiscal_year[{{$i}}]" class="form-control"
                                    value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_amount[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_amount[{{$i}}]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_percentage[]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_percentage[{{$i}}]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_percentage : null }}">
                         </td>
                     </tr>
                 @endfor
             @endif
             </tbody>
+            <input type="hidden" name="check_distributed_fiscalyear" value="0">
         </table>
     </div>
     <div class="col-md-4">
@@ -177,6 +178,7 @@
                 <span class="invalid-feedback">{{ $errors->first('other_source') }}</span>
             @endif
         </div>
+        <input type="hidden" name="check_distributed_collection" value="0">
     </div>
 </div>
 <div class="form-actions text-center">

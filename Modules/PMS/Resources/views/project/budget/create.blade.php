@@ -40,9 +40,13 @@
         // select2 placeholder localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
 
+        let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
+
         $(document).ready(function () {
 
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+
+            toggleComponents(($('.section-type-select').val() === "price_contingency" || ($('.section-type-select').val() === "physical_contingency")));
 
             $('.economy-code-select, .section-type-select').select2({
                 placeholder: selectPlaceholder
@@ -56,16 +60,36 @@
                 toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
             });
 
-            // $(`input[name=gov_source], input[name=own_financing_source], input[name=other_source]`).keydown(function (e) {
-            //     console.log($('input[name=gov_source]').val());
-            //     console.log($('input[name=own_financing_source]').val());
-            //     console.log($('input[name=other_source]').val());
-            // });
-
         });
 
+        jQuery.validator.addMethod(
+            "checksum",
+            function (value, element, params) {
+                let sum = 0;
+                params.forEach(function (el) {
+                    sum += parseFloat($(el).val());
+                });
+                return parseFloat(value) === sum;
+            },
+            checksumMessage
+        );
+
+        // jQuery.validator.addMethod(
+        //     "checkfiscalsum",
+        //     function (value, element, params) {
+        //         let tbody = $(params);
+        //         let sum = 0
+        //         tbody.find('tr').each(function (el) {
+        //             el
+        //         });
+        //
+        //         return parseFloat(value) === sum;
+        //     },
+        //     checksumMessage
+        // );
+
         let validator = $('.project-budget-form').validate({
-            ignore: 'input[type=hidden]', // ignore hidden fields
+            ignore: [],//'input[type=hidden]', // ignore hidden fields
             errorClass: 'danger',
             successClass: 'success',
             highlight: function (element, errorClass) {
@@ -87,6 +111,19 @@
                     error.insertAfter(element);
                 }
             },
+            rules: {
+                check_distributed_collection: {
+                    checksum: ['input[name=gov_source]', 'input[name=own_financing_source]', 'input[name=other_source]']
+                },
+                // check_distributed_fiscalyear: {
+                //     checkfiscalsum: '#fiscal-values'
+                // }
+            },
+            submitHandler: function(form, event) {
+                $(form).find('input[name=check_distributed_collection]').remove();
+                $(form).find('input[name=check_distributed_fiscalyear]').remove();
+                form.submit();
+            }
         });
 
         function toggleComponents(bool) {
@@ -108,12 +145,11 @@
         function calculateTotalExpense() {
             var unitRate = $('input[name=unit_rate]').val();
             var quantity = $('input[name=quantity]').val();
-            console.log(unitRate);
-            console.log(quantity);
-            var totalExpense = Number(unitRate) * Number(quantity);
-            console.log(totalExpense);
 
-            $('input[name=total_expense]').val(totalExpense);
+            var totalExpense = Number(unitRate) * Number(quantity);
+
+            $('input[name=total_expense], input[name=check_distributed_collection], input[name=check_distributed_fiscalyear]')
+                .val(totalExpense);
         }
 
     </script>

@@ -140,7 +140,8 @@ class ResearchDetailInvitationService
     {
         return $this->researchDetailInvitationRepository->findAll()
             ->filter(function ($researchDetailInvitaion) {
-               return (auth()->user()->id == $researchDetailInvitaion->researchApprovedProposal->auth_user_id);
+               return (auth()->user()->id == $researchDetailInvitaion->researchApprovedProposal->auth_user_id
+                   && !$researchDetailInvitaion->proposals->count());
             });
     }
 }
