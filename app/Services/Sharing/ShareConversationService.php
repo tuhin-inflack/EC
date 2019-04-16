@@ -57,7 +57,8 @@ class ShareConversationService
         $this->setActionRepository($this->shareConversationRepository);
     }
 
-    public function shareFromWorkflow($data) {
+    public function shareFromWorkflow($data)
+    {
 //        dd($data);
         $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
         $workflowConversation->status = WorkflowConversationStatus::CLOSED;
@@ -101,11 +102,17 @@ class ShareConversationService
     public function getShareConversationByDesignation($designationId)
     {
         $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
-        if (count($shareConversations) > 0) {
-            return $shareConversations;
-        } else {
-            return null;
+        $shareConversationData = [];
+        foreach ($shareConversations as $conversation) {
+                //      1 ==  Research proposal / brief
+            if ($conversation->feature_id == 1) {
+                $shareConversationData['research_brief_share'][] = $conversation;
+                //      4 == Research detail
+            } elseif ($conversation->feature_id == 4) {
+                $shareConversationData['research_detail_share'][] = $conversation;
+            }
         }
+        return $shareConversationData;
     }
 
     public function updateConversation($data, $shareConversationId)
