@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('pms::project_proposal.submitted_proposal_list')}}</h4>
+                        <h4 class="card-title">{{trans('pms::project_proposal.submitted_proposal_details_list')}}</h4>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
