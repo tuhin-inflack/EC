@@ -5,7 +5,7 @@ return [
     'research_detail_info' => 'গবেষণার বিস্তারিত তথ্য',
     'title' => 'গবেষণা',
     'research_monitoring_tabular_view' => 'গবেষণা পর্যবেক্ষণ ট্যাবুলার দেখুন',
-    'research_pending_items' => 'গবেষণার পেন্ডিং আইটেম',
+    'research__paper_pending_items' => 'গবেষণার পেপার  পেন্ডিং আইটেম',
     'research_proposal_pending_items' => 'গবেষণার সংক্ষিপ্ত প্রস্তাব পেন্ডিং আইটেম',
     'research_proposal_rejected_items' => 'গবেষণার সংক্ষিপ্ত প্রস্তাব পেন্ডিং আইটেম',
     'research_publication' => 'গবেষণার প্রকাশনা',

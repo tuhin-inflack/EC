@@ -129,11 +129,11 @@
                                     {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
                                     @if(!is_null($ruleDesignations))
                                         <button type="submit" name="status" value="REVIEW" class="btn btn-primary"
-                                                id="sendForReview">Share
+                                                id="sendForReview">@lang('labels.share')
                                         </button>
                                     @endif
                                     @if($approveButton)
-                                        {!! Form::button(' <i class="ft-check"></i> '.$workflowRuleDetails->proceed_btn_label, ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                        {!! Form::button(' <i class="ft-check"></i> '.  trans('labels.status_approved') , ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif
                                     {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
                                     {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}

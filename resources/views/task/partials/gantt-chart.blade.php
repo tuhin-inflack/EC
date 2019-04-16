@@ -17,6 +17,8 @@
                     <input value="Export to PNG" class="btn btn-outline-primary btn-sm" type="button" onclick='exportGantt("png")'>
                     <input value="Export to PDF" class="btn btn-outline-warning btn-sm" type="button" onclick='exportGantt("pdf")'>
 
+                    <span class="badge float-right" style="background-color: #3db9d3; border: 1px solid #3db9d3"> Actual </span>
+                    <span class="badge float-right" style="background-color: #ffd180; border: 1px solid rgb(255, 153, 0)"> Estimated </span>
                     {{--<input value="Hours" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("hours")'>--}}
                     {{--<input value="Day" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("day")'>--}}
                     {{--<input value="Week" class="btn btn-outline-danger btn-sm float-right" type="button" onclick='zoomTasks("week")'>--}}

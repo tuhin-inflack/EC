@@ -52,4 +52,12 @@ trait FileTrait
         return Storage::disk($this->disk)->download($filePath, 'file-name', $headers);
     }
 
+    /**
+     * @param filePath full file path including folder name and file name with extension relative to base path
+     * @return bool
+     */
+    protected function deleteFile($filePath)
+    {
+        return Storage::disk($this->disk)->delete($filePath);
+    }
 }
