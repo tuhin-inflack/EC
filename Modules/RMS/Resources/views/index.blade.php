@@ -4,70 +4,133 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
-    {{--Research Brief & Detail share conversation items --}}
-    @if(!is_null($shareConversations))
+    {{--Research Brief  share conversation items --}}
+    @if(isset($shareConversations['research_brief_share']))
         <section id="shareConversation">
             <div class="card">
                 <div class="card-body">
 
-                    <h2>@lang('rms::research_details.research_brief_and_detail_pending_item')</h2>
-                    <form id="frm-example" action="{{ route('research.bulk.action') }}" method="post" name="test">
+                    <h2>@lang('rms::research.research_proposal_pending_items')</h2>
+                    <form id="research_bulk_action_form" action="{{ route('research.bulk.action') }}" method="post" name="test">
                         @csrf
                         <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
                             <thead>
                             @if($bulkActionForApprove)
-                                <th></th>@endif
-                            <th>@lang('labels.feature')</th>
+                                <th style="width: 20px;"></th>@endif
                             <th>@lang('labels.message')</th>
                             <th>@lang('labels.details')</th>
                             <th>@lang('labels.action')</th>
                             </thead>
                             <tbody>
                             {{--                            {{ dd($shareConversations) }}--}}
-                            @foreach($shareConversations as $shareConversation)
-                                <tr>
-                                    @if($bulkActionForApprove)
-                                        <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
-                                    <td>{{ $shareConversation->feature->name }}</td>
-                                    <td>{{$shareConversation->message}}</td>
-                                    <td>
-                                        {{--                                      dd($shareConversation->feature->name);--}}
-                                        @php
-                                            if ($shareConversation->feature_id==4){
-                                            // working for research detail proposal
-                                               $invitation_title =  'Invitation Title : '. $shareConversation->researchDetail->researchDetailInvitation->title;
-                                               $title = 'Research Title : '. $shareConversation->researchDetail->title;
-                                               $submittedBy = 'Initiator Name: '. $shareConversation->researchDetail->user->name;
-                                               $reviewUrl = 'research-detail.review';
-                                            }elseif($shareConversation->feature_id==1){
-                                                // working for research proposal (brief)
-                                                $invitation_title = 'Invitation Title : '.$shareConversation->researchProposal->requester->title;
-                                                $title = 'Research Title : '. $shareConversation->researchProposal->title;
-                                                $submittedBy = 'Initiator Name: '. $shareConversation->researchProposal->submittedBy->name;
-                                               $reviewUrl = 'research-proposal-submission.review';
-                                            }
+                            @foreach($shareConversations['research_brief_share'] as $shareConversation)
+                                    <tr>
+                                        @if($bulkActionForApprove)
+                                            <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                        <td>{{$shareConversation->message}}</td>
+                                        <td>
+                                            {{--                                      dd($shareConversation->feature->name);--}}
+                                            @php
+                                            // working for research proposal (brief)
+                                                $invitation_title =  isset($shareConversation->researchProposal->requester->title) ? $shareConversation->researchProposal->requester->title : '';
+                                                $title =  isset($shareConversation->researchProposal->title) ? $shareConversation->researchProposal->title : '';
+                                                $submittedBy = isset($shareConversation->researchProposal->submittedBy->name) ? $shareConversation->researchProposal->submittedBy->name : '';
+                                                $reviewUrl = 'research-proposal-submission.review';
 
-                                        @endphp
-                                        {{ $invitation_title }}</br>
-                                        {{  $title }}<br/>
-                                        {{ $submittedBy }}
-                                        <br/>
-                                    </td>
+                                            @endphp
+                                            Invitation Title :   {{ $invitation_title }}</br>
+                                            Research Title :  {{  $title }}<br/>
+                                            Initiator Name: {{ $submittedBy }}
+                                            <br/>
+                                        </td>
 
-                                    <td>
+                                        <td>
 
-                                        <a class="btn btn-primary btn-sm"
-                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
+                                            <a class="btn btn-primary btn-sm"
+                                               href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
 
-                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
-                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
-                                    </td>
-                                </tr>
+                                            {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                            {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                        </td>
+                                    </tr>
                             @endforeach
                             </tbody>
                         </table>
 
                         <div class="form" id="approvalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{--Research  Detail share conversation items --}}
+    @if(isset($shareConversations['research_detail_share']))
+        <section id="shareConversation">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>@lang('rms::research_details.research_detail_pending_item')</h2>
+                    <form id="research_detail_bulk_action_form" action="{{ route('research.bulk.action') }}" method="post" name="test">
+                        @csrf
+                        <table id="{{ ($bulkActionForApprove) ? 'researchDetailBulk' : '' }}" class="table table-bordered">
+                            <thead>
+                            @if($bulkActionForApprove)
+                                <th style="width: 20px"></th>@endif
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+                            </thead>
+                            <tbody>
+                            {{--                            {{ dd($shareConversations) }}--}}
+                            {{--4 = Research detail feature id--}}
+                            @foreach($shareConversations['research_detail_share'] as $shareConversation)
+                                    <tr>
+                                        @if($bulkActionForApprove)
+                                         <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                        <td>{{$shareConversation->message}}</td>
+                                        <td>
+                                            {{--                                      dd($shareConversation->feature->name);--}}
+                                            @php
+                                            // working for research detail proposal
+                                               $invitation_title =  isset($shareConversation->researchDetail->researchDetailInvitation->title) ? $shareConversation->researchDetail->researchDetailInvitation->title : '';
+                                               $title =  isset($shareConversation->researchDetail->title) ? $shareConversation->researchDetail->title : '';
+                                               $submittedBy =  isset($shareConversation->researchDetail->user->name) ? $shareConversation->researchDetail->user->name : '';
+                                               $reviewUrl = 'research-detail.review';
+
+                                            @endphp
+                                            Invitation Title :  {{ $invitation_title }}</br>
+                                            Research Title : {{  $title }}<br/>
+                                            Initiator Name:  {{ $submittedBy }}
+                                            <br/>
+                                        </td>
+
+                                        <td>
+
+                                            <a class="btn btn-primary btn-sm"
+                                               href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
+
+                                            {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                            {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                        </td>
+                                    </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="form" id="DetailApprovalReject">
                             <div class="card-footer">
                                 <div class="form-group">
                                     @if($bulkActionForApprove)
@@ -601,6 +664,7 @@
         // testing new one
         $(document).ready(function () {
 
+            // bulk action for research brief
             var table = $('#bulkApprove').DataTable({
                 'columnDefs': [
                     {
@@ -616,9 +680,8 @@
                 'order': [[1, 'asc']],
 
             });
-
             // Handle form submission event
-            $('#frm-example').on('submit', function (e) {
+            $('#research_bulk_action_form').on('submit', function (e) {
                 var form = this;
                 var rows_selected = table.column(0).checkboxes.selected();
                 $.each(rows_selected, function (index, rowId) {
@@ -629,13 +692,9 @@
                             .val(rowId)
                     );
                 });
-                // $('#example-console-rows').text(rows_selected.join(","));
-                // $('#example-console-form').text($(form).serialize());
-                // $('input[name="id\[\]"]', form).remove();
-                // e.preventDefault();
             });
             $('#approvalReject').hide();
-            $('#frm-example').on('click', function (e) {
+            $('#research_bulk_action_form').on('click', function (e) {
                 if (table.rows('.selected').count() > 0) {
                     $("#approvalReject").show();
                 } else {
@@ -643,7 +702,7 @@
                 }
             });
 
-            $(":checkbox").click(function (event) {
+            $("#research_bulk_action_form:checkbox").click(function (event) {
                 if ($(this).is(":checked")) {
                     $("#approvalReject").show();
                 } else {
@@ -652,8 +711,54 @@
 
             });
 
+// bulk action for research details
+            var detailTable = $('#researchDetailBulk').DataTable({
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi'
+                },
+                'order': [[1, 'asc']],
 
+            });
+            // Handle form submission event
+            $('#research_detail_bulk_action_form').on('submit', function (e) {
+                var DetailForm = this;
+                var DetailRows_selected = detailTable.column(0).checkboxes.selected();
+                $.each(DetailRows_selected, function (index, rowId) {
+                    $(DetailForm).append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'items[]')
+                            .val(rowId)
+                    );
+                });
+            });
+            $('#DetailApprovalReject').hide();
+            $('#research_detail_bulk_action_form').on('click', function (e) {
+                if (detailTable.rows('.selected').count() > 0) {
+                    $("#DetailApprovalReject").show();
+                } else {
+                    $("#DetailApprovalReject").hide();
+                }
+            });
+
+            $("#research_detail_bulk_action_form:checkbox").click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#DetailApprovalReject").show();
+                } else {
+                    $("#DetailApprovalReject").hide();
+                }
+
+            });
         });
+        // end bulk action
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',

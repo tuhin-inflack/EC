@@ -111,7 +111,7 @@ class ProjectDetailProposalItemGenerator extends BaseDashboardItemGenerator
             ];
 
             $workflowConversation = $this->flowConversationService->getActiveConversationByWorkFlow($workflowMaster->id);
-            dd($workflowConversation, $workflowMaster->id);
+            //dd($workflowConversation, $workflowMaster->id);
 
             $dashboardItem->setFeatureItemId($feature->id);
             $dashboardItem->setFeatureName($feature->name);
