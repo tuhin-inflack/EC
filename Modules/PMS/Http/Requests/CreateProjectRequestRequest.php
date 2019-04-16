@@ -3,6 +3,7 @@
 namespace Modules\PMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CreateProjectRequestRequest extends FormRequest
 {
@@ -11,14 +12,22 @@ class CreateProjectRequestRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'end_date' => 'date_format:"j F, Y"|required',
             'title' => 'required|max:100',
             'remarks' => 'nullable|max:5000',
             'receiver' => 'required',
-            'attachment.*' => 'required|mimes:jpeg,png,jpg,gif,svg,doc,pdf,docx,csv,xlsx,xls'
+            'attachment.*' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    $fileExt = $request->file($attribute)->getClientOriginalExtension();
+                    if (!in_array($fileExt, ['jpeg', 'png', 'jpg', 'gif', 'svg', 'doc', 'pdf', 'docx', 'csv', 'xls', 'xlsx'])) {
+                        $fail($attribute . ' ' . trans('labels.invalid file type'));
+                    }
+                },
+            ]
         ];
     }
 

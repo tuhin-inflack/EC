@@ -21,7 +21,7 @@ abstract class DashboardItemGeneratorFactory
         switch ($feature) {
             case 'Research Proposal':
                 return app()->make('App\Services\workflow\Generators\ResearchProposalItemGenerator');
-            case 'Project Proposal':
+            case 'Project Brief Proposal':
                 return app()->make('App\Services\workflow\Generators\ProjectProposalItemGenerator');
             case 'Research Workflow':
                 return app()->make('App\Services\workflow\Generators\ResearchItemGenerator');

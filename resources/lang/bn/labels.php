@@ -89,6 +89,7 @@ return [
     'status_pending' => 'প্রক্রিয়াধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'status_closed' => 'বাতিলকৃত',
     'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
     'BARD ERP' => 'বার্ড ইআরপি',
@@ -184,4 +185,5 @@ return [
     'thanks' => 'ধন্যবাদ',
     'achieved value cannot be greater than current balance' => 'অর্জিত মান বর্তমান হিসাব চেয়ে বড় হতে পারে না',
     'summation of above fields must be equal to total amount' => 'উপরের ক্ষেত্রের সমষ্টি মোট পরিমাণ সমান হতে হবে',
+    'invalid file type' => 'অবৈধ ফাইল টাইপ',
 ];

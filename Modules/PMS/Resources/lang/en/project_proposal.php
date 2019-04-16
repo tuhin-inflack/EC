@@ -68,6 +68,8 @@ return [
     'project_invitation_details_list' => 'Project Details Invitation List',
     'create_project_brief_proposal' => 'Project Brief Proposal Submission',
     'create_project_details_proposal' => 'Project Details Proposal Submission',
-
-    'project_title' => 'Title',
+    'Project Details Proposal' => 'Project Details Proposal',
+    'Project Brief Proposal' => 'Project Brief Proposal',
+    'send_for_review' => 'Send For Review',
+    'send_back' => 'Send Back'
 ];

@@ -30,7 +30,7 @@ return [
 //    USE IN PMS & RMS
 
     'research_proposal_feature_name' => 'Research Proposal',
-    'project_proposal_feature_name' => 'Project Proposal',
+    'project_proposal_feature_name' => 'Project Brief Proposal',
     'project_details_proposal_feature_name' => 'Project Details Proposal',
 
     //Employee Designations short code
@@ -47,7 +47,7 @@ return [
 
     // PMS: Keys with recipient list for notification
     'project_invite_submit' => ['PD', 'TaggedPerson'],
-    'project_proposal_submission' => ['PD'],
+    'project_proposal_submission' => ['DIRP', 'TaggedPerson'],
     'project_proposal_review' => ['PD', 'initiator'],
     'project_proposal_send_back' => ['initiator'],
     'project_proposal_apc_approved' => ['initiator', 'PD', 'FD'],
