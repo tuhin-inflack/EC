@@ -58,7 +58,7 @@ return [
     'status_rejected' => 'Rejected',
     'approved' => 'Approved',
     'rejected' => 'Rejected',
-    'closed' => 'Closed',
+    'closed' => 'Rejected',
     'reinitiated' => 'Re-initiated',
     'research_details' => 'Research Details',
     'research_request_details' => 'Research Proposal Request Details',
@@ -74,4 +74,5 @@ return [
     'planned' => 'Planned',
     'achieved' => 'Achieved',
     'invitation_title' => 'Brief Invitation Title',
+    'research_brief_get_back_items' => 'Research brief getting back items'
 ];

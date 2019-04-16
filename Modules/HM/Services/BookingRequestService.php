@@ -135,9 +135,7 @@ class BookingRequestService
     {
         $roomBookingRequester = new RoomBookingRequester($data);
 
-        $photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;
-        $nidDocPath = array_key_exists('nid_doc', $data) ? $this->upload($data['nid_doc'], 'booking-requests') : null;
-        $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
+        list($photoPath, $nidDocPath, $passportDocPath) = $this->storeRequesterFiles($data);
 
         $roomBookingRequester->photo = $photoPath;
         $roomBookingRequester->nid_doc = $nidDocPath;
@@ -206,30 +204,17 @@ class BookingRequestService
                 ]);
             }
 
-
             if (isset($data['deleted-roominfos'])) {
                 BookingRoomInfo::destroy($data['deleted-roominfos']);
             }
 
+            $this->removeOldFileAttachments(
+                ['photo', 'nid_doc', 'passport_doc'],
+                $data,
+                $roomBooking->requester->toArray()
+            );
 
-            if (array_key_exists('photo', $data)) {
-                Storage::delete($roomBooking->requester->photo);
-                $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['photo'] = $photoPath;
-            }
-
-            if (array_key_exists('nid_doc', $data)) {
-                Storage::delete($roomBooking->requester->nid_doc);
-                $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['nid_doc'] = $nidDocPath;
-            }
-
-            if (array_key_exists('passport_doc', $data)) {
-                Storage::delete($roomBooking->requester->passport_doc);
-                $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['passport_doc'] = $passportDocPath;
-            }
-
+            list($data['photo'], $data['nid_doc'], $data['passport_doc']) = $this->storeRequesterFiles($data);
 
             $roomBooking->requester->update($data);
 
@@ -237,6 +222,15 @@ class BookingRequestService
 
             return $roomBooking;
         });
+    }
+
+    private function removeOldFileAttachments(array $keys, array $requestData, array $bookingRequester)
+    {
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $requestData) && $bookingRequester[$key]) {
+                $this->deleteFile($bookingRequester[$key]);
+            }
+        }
     }
 
     private function updateGuestInfo($roomBooking, $data): void
@@ -337,7 +331,7 @@ class BookingRequestService
 
     public function getBookingRequestWithInIds(array $searchCriteria = [], array $ids = [])
     {
-        $ids = $ids ? : $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
+        $ids = $ids ?: $this->getBookingRequestIdsWithForwardedByBookingTypes($searchCriteria);
         return $this->actionRepository->getModel()->whereIn('id', $ids)->get();
     }
 
@@ -450,6 +444,19 @@ class BookingRequestService
             $availableRooms = $totalRoomsByRoomType[$roomTypeId];
         }
         return $availableRooms;
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    private function storeRequesterFiles($data): array
+    {
+        $photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $this->upload($data['nid_doc'], 'booking-requests') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
+
+        return array($photoPath, $nidDocPath, $passportDocPath);
     }
 }
 

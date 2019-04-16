@@ -28,7 +28,7 @@ class StoreAttributeValueRequest extends FormRequest
                     $attribute = Attribute::find($request->get('attribute_id'));
 
                     if ($this->isNotShareAttribute($attribute)) {
-                        $attribute->values->sum('achieved_value') >= $value ?: $fail($input . ' cannot be greater than current balance');
+                        $attribute->values->sum('achieved_value') >= $value ?: $fail(trans('labels.achieved value cannot be greater than current balance'));
                     }
                 }
             ]
@@ -47,11 +47,12 @@ class StoreAttributeValueRequest extends FormRequest
     }
 
     /**
-     * @param $attribute
+     * @param Attribute $attribute
+     * @param Request $request
      * @return bool
      */
-    function isNotShareAttribute($attribute): bool
+    function isNotShareAndWithdrawTransaction(Attribute $attribute, Request $request): bool
     {
-        return $attribute->name != 'Share';
+        return $attribute->name != 'Share' && $request->get('transaction_type') == 'withdraw';
     }
 }

@@ -68,11 +68,10 @@ class OrganizationMemberController extends Controller
         );
     }
 
-    public function edit(Organization $organization, OrganizationMember $member)
+    public function edit(Project $project, Organization $organization, OrganizationMember $member)
     {
-
         $module = explode('/', Request()->route()->getPrefix())[0];
-        return view('pms::organization-member.edit', compact('organization', 'member', 'module'));
+        return view('pms::organization-member.edit', compact('project', 'organization', 'member', 'module'));
     }
 
     public function update(StoreUpdateOrgMemberRequest $request, Organization $organization, OrganizationMember $member)

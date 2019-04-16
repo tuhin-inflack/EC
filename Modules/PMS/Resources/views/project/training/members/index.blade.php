@@ -10,6 +10,7 @@
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
+                            <li><a href="{{ route('project-training.show',[$project->id, $training->id]) }}" class="btn btn-primary btn-sm"><i class="ft-link"></i> @lang('pms::project.previous')</a></li>
                             <li><button class="btn btn-primary btn-sm submit-btn"><i class="ft-plus white"></i> @lang('pms::project.add')</button></li>
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
@@ -105,9 +106,9 @@
             });
 
             $('.submit-btn').on('click', function () {
-                console.log(selectedMembers);
+                // console.log(selectedMembers);
                 $('input[name="members"]').val(selectedMembers);
-                console.log($('input[name="members"]').val());
+                // console.log($('input[name="members"]').val());
                 $('#form').submit();
             });
         });

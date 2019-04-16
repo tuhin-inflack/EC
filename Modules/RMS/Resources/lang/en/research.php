@@ -2,8 +2,11 @@
 
 return [
     'title' => 'Research',
+    'research_brief_info' => 'Research brief info',
+    'research_detail_info' => 'Research detail info',
     'research_monitoring_tabular_view' => 'Research Monitoring Tabular View',
     'research_pending_items' => 'Research pending items',
+    'research__paper_pending_items' => 'Research paper pending items',
     'research_proposal_pending_items' => 'Research brief pending items',
     'research_publication' => 'Research Publication',
     'research_publication_create' => 'Create Research Publication',
@@ -32,5 +35,4 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
-    'select_detail_proposal' => 'Select Research Proposal'
 ];

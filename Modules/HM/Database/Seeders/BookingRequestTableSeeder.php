@@ -98,7 +98,6 @@ class BookingRequestTableSeeder extends Seeder
                     "employee_id" => 1,
                     "type" =>"booking",
                     "comment" => "No Comment !!",
-                    "assigned_to" => 2
                 ],
                 'room_booking_requesters' => [
                     "first_name" => "Hasib",
@@ -119,7 +118,6 @@ class BookingRequestTableSeeder extends Seeder
                     "employee_id" => 2,
                     "type" =>"booking",
                     "comment" => "No Comment !!",
-                    "assigned_to" => 2
                 ],
                 'room_booking_requesters' => [
                     "first_name" => "Sahib",
