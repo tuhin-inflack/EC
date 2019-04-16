@@ -360,7 +360,11 @@
                         @else
                             {{ Form::open(['method' => 'put', 'id' => 'booking-request-status-form']) }}
                             <div class="card-body">
-                                @if (Auth::user()->hasRole('ROLE_DIRECTOR_ADMIN'))
+                                @if (Auth::user()->hasAnyRole([
+                                    'ROLE_DIRECTOR_GENERAL',
+                                    'ROLE_DIRECTOR_ADMIN',
+                                    'ROLE_DIRECTOR_TRAINING',
+                                ]))
                                     <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span>
                                     </p>
                                     <div class="row">
