@@ -67,9 +67,11 @@
 
                                 <div class="form-actions text-center">
                                     @if(\Carbon\Carbon::now()->lessThan($projectRequest->end_date))
-                                        <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
-                                            <i class="ft-plus white"></i> @lang('labels.edit')
-                                        </a>
+                                        @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                                            <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
+                                                <i class="ft-plus white"></i> @lang('labels.edit')
+                                            </a>
+                                        @endif
                                     @endif
                                     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
