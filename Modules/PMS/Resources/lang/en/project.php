@@ -12,4 +12,5 @@ return [
     'training_name' => 'Training Name',
     'add' => 'Add',
     'beneficiary' => 'Beneficiary',
+    'select_detail_proposal' => 'Select Project Proposal'
 ];

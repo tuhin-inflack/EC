@@ -32,5 +32,6 @@ return [
     'Send for publication' => 'প্রকাশনার জন্য পাঠান',
     'planned' => 'পরিকল্পিত',
     'achieved' => 'অর্জন',
+    'select_detail_proposal' => 'গবেষণা প্রস্তাব নির্বাচন করুন'
 ];
 

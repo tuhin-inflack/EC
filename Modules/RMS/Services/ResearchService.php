@@ -50,6 +50,8 @@ class ResearchService
     private $researchPublicationAttachmentRepository;
 
     private $userService;
+
+    private $researchDetailSubmissionService;
     /**
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
@@ -59,7 +61,8 @@ class ResearchService
      */
 
     public function __construct(ResearchRepository $researchRepository, FeatureService $featureService, WorkflowService $workflowService,
-                                ResearchPublicationRepository $researchPublicationRepository, UserService $userService)
+                                ResearchPublicationRepository $researchPublicationRepository, UserService $userService,
+                                ResearchDetailSubmissionService $researchDetailSubmissionService)
 
     {
         $this->researchRepository = $researchRepository;
@@ -68,6 +71,7 @@ class ResearchService
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
         $this->userService = $userService;
+        $this->researchDetailSubmissionService = $researchDetailSubmissionService;
     }
 
     public function store(array $data)
@@ -75,6 +79,7 @@ class ResearchService
         return DB::transaction(function () use ($data) {
 
             $research = $this->researchRepository->save($data);
+            $this->researchDetailSubmissionService->update($this->researchDetailSubmissionService->findOrFail($data['research_detail_submission_id']), ['research_id' => $research->id]);
 
             return $research;
         });

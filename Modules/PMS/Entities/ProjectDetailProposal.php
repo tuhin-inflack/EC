@@ -9,7 +9,7 @@ class ProjectDetailProposal extends Model
 {
     protected $table = 'project_detail_proposals';
 
-    protected $fillable = ['project_request_id', 'auth_user_id', 'title', 'status'];
+    protected $fillable = ['project_request_id', 'auth_user_id', 'title', 'status', 'project_id'];
 
     public function projectDetailProposalFiles()
     {

@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Entities\Project;
 use Modules\PMS\Http\Requests\CreateProjectRequest;
+use Modules\PMS\Repositories\ProjectDetailProposalRepository;
+use Modules\PMS\Services\ProjectDetailProposalService;
 use Modules\PMS\Services\ProjectService;
 
 class ProjectController extends Controller
@@ -42,6 +44,11 @@ class ProjectController extends Controller
     private $attributeService;
 
     /**
+     * @var ProjectDetailProposalService
+     */
+    private $projectDetailProposalService;
+
+    /**
      * ProjectController constructor.
      * @param UserService $userService
      * @param ProjectService $projectService
@@ -53,7 +60,8 @@ class ProjectController extends Controller
         ProjectService $projectService,
         TaskService $taskService,
         DivisionService $divisionService,
-        AttributeService $attributeService
+        AttributeService $attributeService,
+        ProjectDetailProposalService $projectDetailProposalService
     )
     {
         $this->userService = $userService;
@@ -61,6 +69,7 @@ class ProjectController extends Controller
         $this->taskService = $taskService;
         $this->divisionService = $divisionService;
         $this->attributeService = $attributeService;
+        $this->projectDetailProposalService = $projectDetailProposalService;
     }
 
     /**
@@ -85,7 +94,8 @@ class ProjectController extends Controller
         $auth_user_id = Auth::user()->id;
         $departmentName = $this->userService->getDepartmentName($username);
         $designation = $this->userService->getDesignation($username);
-        return view('pms::project.create', compact('auth_user_id', 'name', 'designation', 'departmentName'));
+        $proposals = $this->projectDetailProposalService->getRemainingApprovedDetailProposal();
+        return view('pms::project.create', compact('auth_user_id', 'name', 'designation', 'departmentName', 'proposals'));
     }
 
     /**

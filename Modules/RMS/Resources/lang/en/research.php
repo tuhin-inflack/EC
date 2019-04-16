@@ -32,4 +32,5 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
+    'select_detail_proposal' => 'Select Research Proposal'
 ];

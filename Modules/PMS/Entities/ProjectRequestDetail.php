@@ -18,4 +18,9 @@ class ProjectRequestDetail extends Model
     {
         return $this->hasOne(ProjectProposal::class, 'id', 'project_proposal_id');
     }
+
+    public function proposals()
+    {
+        return $this->hasMany(ProjectDetailProposal::class, 'project_request_id', 'id');
+    }
 }

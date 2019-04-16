@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $table = 'projects';
-    protected $fillable = ['title', 'duration', 'budget', 'submitted_by', 'status'];
+    protected $fillable = ['title', 'duration', 'budget', 'submitted_by', 'status', 'project_detail_proposal_id'];
 
     public function organizations()
     {

@@ -16,7 +16,8 @@ class CreateProjectRequest extends FormRequest
         return [
             'title' => 'required|max:100',
             'budget' => 'required',
-            'duration' => 'required'
+            'duration' => 'required',
+            'project_detail_proposal_id' => 'required'
         ];
     }
 
