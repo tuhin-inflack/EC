@@ -183,4 +183,21 @@ class ProjectDetailProposalService
                         && $projectProposal->auth_user_id == $user->id);
             });
     }
+
+    public function getRemainingApprovedDetailProposal()
+    {
+        $this->proposals = [];
+
+        $this->projectDetailProposalRepository->findAll()
+            ->filter(function ($projectDetailProposal) {
+                return $projectDetailProposal->status == 'APPROVED'
+                    && $projectDetailProposal->project_id == null;
+            })
+            ->map(function ($projectDetailProposal) {
+
+                $this->proposals[$projectDetailProposal->id] = $projectDetailProposal->title;
+            });
+
+        return $this->proposals;
+    }
 }

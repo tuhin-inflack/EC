@@ -88,6 +88,7 @@ return [
     'status_pending' => 'In Process',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
+    'status_closed' => 'Rejected',
     'complete' => 'Finish',
     'no_doc_available' => 'No Document Available',
     'BARD ERP' => 'BARD ERP',
@@ -183,5 +184,6 @@ return [
     'thank_you' => 'Thank You',
     'thanks' => 'Thanks',
     'achieved value cannot be greater than current balance' => 'Achieved value cannot be greater than current balance',
+    'summation of above fields must be equal to total amount' => 'Summation of above fields must be equal to total amount',
     'invalid file type' => 'অবৈধ ফাইল টাইপ',
 ];

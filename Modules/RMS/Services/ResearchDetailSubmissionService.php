@@ -235,4 +235,21 @@ class ResearchDetailSubmissionService
                         && $researchDetailProposal->auth_user_id == $user->id);
             });
     }
+
+    public function getRemainingApprovedDetailProposal()
+    {
+        $this->proposals = [];
+
+        $this->researchDetailSubmissionRepository->findAll()
+            ->filter(function ($researchDetailSubmission) {
+                return $researchDetailSubmission->status == 'APPROVED'
+                    && $researchDetailSubmission->research_id == null;
+            })
+            ->map(function ($researchDetailSubmission) {
+
+                $this->proposals[$researchDetailSubmission->id] = $researchDetailSubmission->title;
+            });
+
+        return $this->proposals;
+    }
 }

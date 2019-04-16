@@ -3,20 +3,26 @@
 namespace Modules\RMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
-class CreateResearchRequest extends FormRequest
+class PostResearchBriefFeedbackRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'research_detail_submission_id' => 'required',
-            'title' => 'required|max:100'
-        ];
+        $validation = [];
+
+        if ($request->status == 'REVIEW') {
+            $validation['designation_id'] = 'required';
+            $validation['message'] = 'required|max:255';
+        }
+
+        return $validation;
+
     }
 
     /**
