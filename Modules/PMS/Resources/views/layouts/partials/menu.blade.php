@@ -10,40 +10,40 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#"><i class="la la-list"></i><span class="menu-title" data-i18n="nav.templates.main">{{trans('pms::project_proposal.invitation')}}</span></a>
+                    <a href="#"><i class="la la-list"></i><span class="menu-title" data-i18n="nav.templates.main">{{trans('pms::project_proposal.project_invitation_brief')}}</span></a>
                     <ul class="menu-content">
                         <li class="{{ is_active_route('project-request.index')}}">
                             <a href="{{route('project-request.index')}}">
                                 <i class="la la-list"></i>
                                 <span class="menu-title"
-                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_invitation_brief')}}</span>
+                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.invitation')}}</span>
                             </a>
                         </li>
-                        <li class="{{ is_active_route('project-request-details.index')}}">
-                            <a href="{{  route('project-request-details.index') }}">
-                                <i class="la la-list-alt"></i>
+                        <li class="{{ is_active_route('project-proposal-submission.index')}}">
+                            <a href="{{route('project-proposal-submission.index')}}">
+                                <i class="la la-list"></i>
                                 <span class="menu-title"
-                                      data-i18n="nav.dash.main">{{ trans('pms::project_proposal.project_invitation_details') }}</span>
+                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.submitted_proposal')}}</span>
                             </a>
                         </li>
                     </ul>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#"><i class="la la-list"></i><span class="menu-title" data-i18n="nav.templates.main">{{trans('pms::project_proposal.submitted_proposal')}}</span></a>
+                    <a href="#"><i class="la la-list"></i><span class="menu-title" data-i18n="nav.templates.main">{{ trans('pms::project_proposal.project_invitation_details') }}</span></a>
                     <ul class="menu-content">
-                        <li class="{{ is_active_route('project-proposal-submission.index')}}">
-                            <a href="{{route('project-proposal-submission.index')}}">
-                                <i class="la la-list"></i>
+                        <li class="{{ is_active_route('project-request-details.index')}}">
+                            <a href="{{  route('project-request-details.index') }}">
+                                <i class="la la-list-alt"></i>
                                 <span class="menu-title"
-                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.project_invitation_brief')}}</span>
+                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.invitation')}}</span>
                             </a>
                         </li>
                         <li class="{{ is_active_route('project-details-proposal-submission.index')}}">
                             <a href="{{  route('project-details-proposal-submission.index') }}">
                                 <i class="la la-list-alt"></i>
                                 <span class="menu-title"
-                                      data-i18n="nav.dash.main">{{ trans('pms::project_proposal.project_invitation_details') }}</span>
+                                      data-i18n="nav.dash.main">{{trans('pms::project_proposal.submitted_proposal')}}</span>
                             </a>
                         </li>
                     </ul>

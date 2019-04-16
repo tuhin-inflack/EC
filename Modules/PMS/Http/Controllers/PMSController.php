@@ -378,7 +378,7 @@ class PMSController extends Controller
 
     public function reviewBulk(Request $request)
     {
-        $this->projectProposalService->bulkReviewFeedbackUpdate($request->all());
+        $this->pmsService->bulkReviewFeedbackUpdate($request->all());
         Session::flash('message', trans('labels.save_success'));
 
         return redirect('/pms');
