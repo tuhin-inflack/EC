@@ -165,6 +165,7 @@ class ProjectDetailsProposalController extends Controller
 //        );
         // Notification generation done
 
+        if($request->input('status') == 'SHARE') return $this->share($request);   // Sending to share method if user shares an item instead of approval
         if ($request->input('status') == 'CLOSED') {
             $proposal = $this->projectDetailsProposalService->findOrFail($proposalId);
             $this->projectDetailsProposalService->update($proposal, ['status' => 'REJECTED']);
@@ -178,8 +179,8 @@ class ProjectDetailsProposalController extends Controller
                 'workflow_master_id' => $request->input('wf_master'),
                 'workflow_conversation_id' => $request->input('wf_conv'),
                 'status' => $request->input('status'),
-                'message' => $request->input('message_to_receiver'),
-                'remarks' => $request->input('approval_remark'),
+                'message' => $request->input('message'),
+                'remarks' => $request->input('remarks'),
                 'item_id' => $proposalId,
             );
             $this->dashboardService->updateDashboardItem($data);
@@ -187,6 +188,16 @@ class ProjectDetailsProposalController extends Controller
 
             return redirect(route('pms'));
         }
+    }
+
+    public function share(Request $request)
+    {
+        $data = $request->all();
+        unset($data['status']);
+        $this->shareConversationService->shareFromWorkflow($data);
+        Session::flash('message', trans('labels.save_success'));
+
+        return redirect(route('pms'));
     }
 
     public function shareReview($projectProposalSubmissionId, $workflowMasterId, $shareConversationId)
@@ -242,6 +253,50 @@ class ProjectDetailsProposalController extends Controller
         $this->projectProposalDetailReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
 
         return redirect()->back();
+    }
+
+    public function resubmit($proposalId, $featureId)
+    {
+        $proposal = $this->projectDetailsProposalService->findOne($proposalId);
+
+        return view('pms::proposal-submission.details.resubmit', compact('proposal', 'featureId'));
+    }
+
+    public function storeResubmit($proposalId, Request $request)
+    {
+        $proposal = $this->projectDetailsProposalService->findOrFail($proposalId);
+        $updateData = [
+            'status' => 'PENDING',
+            'title' => $request->input('title')
+        ];
+        $this->projectDetailsProposalService->update($proposal, $updateData);
+
+        // Reinitialising Workflow
+        $data = [
+            'feature_id' => $request->input('feature_id'),
+            'message' => $request->input('message'),
+            'ref_table_id' => $proposalId
+        ];
+        $this->workflowService->reinitializeWorkflow($data);
+
+        //Generating notification
+        $this->projectDetailsProposalService->generatePMSNotification(
+            [
+                'ref_table_id' => $proposalId,
+                'status' => WorkflowStatus::REINITIATED
+            ],
+            'project_proposal_submission',
+            $this->reviewUrlGenerator->getReviewUrl(
+                'project-proposal-submitted-review.review',
+                $this->featureService->findOne($request->input('feature_id')),
+                $proposal
+            )
+        );
+        // Notification generation done
+
+        Session::flash('message', __('labels.save_success'));
+
+        return redirect(route('pms'));
     }
 
 }

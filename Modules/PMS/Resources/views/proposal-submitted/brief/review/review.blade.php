@@ -37,12 +37,13 @@
                                             <div class="media">
                                                 <div class="media-body">
                                                     @foreach($remarks as $remark)
+                                                        <hr/>
                                                         <p class="text-bold-600 mb-0">
                                                             {{ $remark->user->name }}
                                                         </p>
                                                         <p class="small m-0 comment-time">{{date("j F, Y, g:i a",strtotime($remark->created_at))}}</p>
                                                         <p class="m-0 comment-text">{{$remark->remarks}}</p>
-                                                        <hr/>
+
                                                     @endforeach
                                                 </div>
                                             </div>
@@ -71,8 +72,11 @@
                     </div>
 
                     <div class="card-footer">
-                        @if($ruleDetails->is_shareable && $proposal->status != 'APPROVED' && Request()->viewOnly != 1)
-                            {!! Form::open(['url'=> route('project-proposal.share'), 'novalidate', 'class' => 'form', 'method' => 'post']) !!}
+                        @if($proposal->status == 'PENDING' && Request()->viewOnly != 1)
+                            {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
+                            {!! Form::hidden('reviewUrl', url()->current()) !!}
+                            <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
+                            <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
                             <div class="col-md-6">
                                 <input name="feature_id" type="hidden" value="{{$feature_id}}">
                                 <input name="ref_table_id" type="hidden" value="{{$proposal->id}}">
@@ -83,79 +87,61 @@
                                 <input name="department_id" type="hidden" value="2">
                                 <input name="status" type="hidden" value="ACTIVE">
                                 <input name="from_user_id" type="hidden" value="{{Auth::user()->id}}">
-                                <div class="form-group">
-                                    <label>{{__('labels.share')}}</label>
-                                    <select name="designation_id" class="form-control">
-                                        @foreach($shareRule->rulesDesignation as $designation)
-                                            @if($designation->designation_id != $authDesignation)
-                                                <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
-                                            @endif
-                                        @endforeach
-                                    </select>
-
-                                </div>
+                                @if($ruleDetails->is_shareable)
+                                    <div class="form-group">
+                                        <label>{{__('labels.share')}}</label>
+                                        <select name="designation_id" class="form-control">
+                                            @foreach($shareRule->rulesDesignation as $designation)
+                                                @if($designation->designation_id != $authDesignation)
+                                                    <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                                 {{--<div class="form-group">--}}
                                 {{--{{__('labels.message_to_receiver')}}--}}
                                 {{--<textarea name="message" class="form-control"></textarea>--}}
                                 {{--</div>--}}
-                                <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
-                                    {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                    {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                                    <div class="help-block"></div>
-                                    @if ($errors->has('message'))
-                                        <div class="help-block">{{ $errors->first('message') }}</div>
-                                    @endif
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>{{__('labels.remarks')}}</label>
+                                            <textarea class="form-control" name="remarks"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>{{__('labels.message_to_receiver')}}</label>
+                                            <textarea class="form-control" name="message"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <button type="submit" name="submit" value="SHARE" class="btn btn-info">Send for Review
-                                    </button>
-                                    <a href="{{route('project-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</a>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            @if($ruleDetails->flow_type == 'approval')
+                                                <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i class="ft-check"></i>@lang('labels.approve')</button>
+                                            @endif
+                                            @if($ruleDetails->is_shareable)
+                                                <button type="submit" name="status" value="SHARE" class="btn btn-info">@lang('pms::project_proposal.send_for_review')</button>
+                                            @endif
+                                            <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i>@lang('pms::project_proposal.send_back')</button>
+                                            <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                        </div>
+                                    </div>
                                 </div>
+                                {{--<div class="form-group">--}}
+                                    {{--<a href="{{route('project-proposal-submission.index') }}" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</a>--}}
+                                {{--</div>--}}
                             </div>
                             {!! Form::close() !!}
                         @endif
 
-                        @if($proposal->status != 'APPROVED' && $ruleDetails->flow_type == 'approval' && Request()->viewOnly != 1)
-
-                            {!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}
-                            {!! Form::hidden('reviewUrl', url()->current()) !!}
-                            <input type="hidden" name="wf_master" value="{{$wfData['wfMasterId']}}">
-                            <input type="hidden" name="wf_conv" value="{{$wfData['wfConvId']}}">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>{{__('labels.remarks')}}</label>
-                                        <textarea class="form-control" name="approval_remark"></textarea>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>{{__('labels.message_to_receiver')}}</label>
-                                        <textarea class="form-control" name="message_to_receiver"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-success" name="status" value="APPROVED"><i
-                                                    class="ft-check"></i> {{$ruleDetails->proceed_btn_label}}</button>
-
-
-                                        <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i
-                                                    class="ft-skip-back"></i> {{$ruleDetails->back_btn_label}}
-                                        </button>
-                                        <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i
-                                                    class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
-                                    </div>
-                                </div>
-                            </div>
-                            {!! Form::close() !!}
-                        @endif
                         @if($proposal->status == 'APPROVED')
                             @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
-                                    <a href="{{route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1">
-                                        <i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')
-                                    </a>
+                                <a href="{{route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1">
+                                    <i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')
+                                </a>
                             @endif
                         @endif
                     </div>

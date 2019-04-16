@@ -15,7 +15,7 @@ return [
     'new_proposal_request' => 'নতুন আমন্ত্রণ',
     'attached_file' => 'সংযুক্ত ফাইল',
     'requested_project_project' => 'প্রকল্প প্রস্তাব অনুরোধ',
-    'invitation' => 'আমন্ত্রণ',
+    'invitation' => 'প্রকল্প আমন্ত্রণ',
     'invited_project_project_list' => 'আমন্ত্রিত প্রকল্প প্রস্তাব অনুরোধ তালিকা',
     'received_at' => 'প্রাপ্তির সময়',
     'submit_proposal' => 'নতুন প্রকল্প প্রস্তাব জমা',
@@ -26,7 +26,7 @@ return [
     'create_proposal' => 'প্রস্তাব তৈরি করুন',
     'project_title' => 'প্রকল্প শিরোনাম',
     'proposal_submission' => 'প্রস্তাব জমা',
-    'submitted_proposal' => 'জমাকৃত',
+    'submitted_proposal' => 'জমাকৃত প্রকল্প',
     'submitted_proposal_list' => 'জমাকৃত তালিকা',
     'received_proposal' => 'গৃহীত প্রকল্প প্রস্তাব',
     'received_proposal_list' => 'গৃহীত প্রকল্প প্রস্তাব তালিকা',
@@ -68,6 +68,10 @@ return [
     'project_invitation_details_list' => 'প্রকল্প বিস্তারিত তালিকা',
     'create_project_brief_proposal' => 'প্রকল্প সংক্ষেপ প্রস্তাব অনুরোধ করুন',
     'create_project_details_proposal' => 'প্রকল্প বিস্তারিত প্রস্তাব অনুরোধ করুন',
-    'project_title' => 'ব্যাপ্তিকাল',
+    'Project Details Proposal' => 'বিস্তারিত প্রকল্পের আমন্ত্রণ',
+    'Project Proposal' => 'প্রকল্প সংক্ষেপ আমন্ত্রণ',
+    'send_for_review' => 'পাঠিয়ে দিন',
+    'send_back' => 'ফেরত পাঠান'
+
 ];
 
