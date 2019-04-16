@@ -47,7 +47,6 @@ return [
 
     // PMS: Keys with recipient list for notification
     'project_invite_submit' => ['PD', 'TaggedPerson'],
-    'project_proposal_submission' => ['PD'],
     'project_proposal_review' => ['PD', 'initiator'],
     'project_proposal_send_back' => ['initiator'],
     'project_proposal_apc_approved' => ['initiator', 'PD', 'FD'],

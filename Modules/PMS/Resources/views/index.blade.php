@@ -1,8 +1,7 @@
 @extends('pms::layouts.master')
 @section('title', trans('labels.PMS'))
 @push('page-css')
-    <link type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/dataTables.checkboxes.css') }}"
-          rel="stylesheet"/>
+    <link type="text/css" href="{{ asset('theme/vendors/css/tables/datatable/dataTables.checkboxes.css') }}" rel="stylesheet"/>
 @endpush
 @section('content')
     <div class="card">
@@ -11,7 +10,7 @@
                 <h1>{{trans('labels.PMS')}}</h1>
             </div>
         </div>
-        <form method="post" action="{{route('project-proposal-submitted.review-bulk')}}" id="frm-example">
+        <form method="post" action="{{route('project-proposal-submitted.review-bulk')}}"  id="frm-example">
             @csrf
             <div class="card-body">
                 <div class="row">
@@ -19,7 +18,7 @@
                         @if(!is_null($shareConversations))
                             <div class="card-body">
                                 <h5>{{__('labels.pending_items')}}</h5>
-                                <table id="example" class="table table-bordered">
+                                <table @if($bulkAction)id="example" @endif class="table table-bordered">
                                     <thead>
                                     @if($bulkAction)<th></th>@endif
                                     <th>@lang('labels.feature')</th>
@@ -29,13 +28,14 @@
                                     </thead>
                                     <tbody>
                                     @foreach($shareConversations as $shareConversation)
-
                                         <tr>
                                             @if($bulkAction)<td>{{$shareConversation['id'].'-'.$shareConversation['ref_table_id']}}</td>@endif
                                             <td>{{ $shareConversation['feature_name'] }}</td>
                                             <td>{{$shareConversation['message']}}</td>
-                                            <td>Proposal: {{$shareConversation['proposal_title']}}</td>
-
+                                            <td>Proposal Title: {{$shareConversation['proposal_title']}}<br>
+                                                Project Title: {{$shareConversation['project_title']}}<br>
+                                                Requested By: {{$shareConversation['project_submitted_by']}}
+                                            </td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm" href="{{ url($shareConversation['review_url']) }}">
                                                     @lang('labels.details')
@@ -50,24 +50,10 @@
                             </div>
                             @if($bulkAction)
                                 <div class="form" id="approval-item">
-                                    {{--<div class="card-body">--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<div class="col-sm-12" id="remark" >--}}
-                                    {{--<label for="remark">{{trans('labels.remarks')}}</label>--}}
-                                    {{--<textarea name="remark" class="form-control"></textarea>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="form-group">--}}
-                                    {{--<div class="col-sm-12" id="message" >--}}
-                                    {{--<label for="message">{{trans('labels.message_to_receiver')}}</label>--}}
-                                    {{--<textarea name="message" class="form-control"></textarea>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
                                     <div class="card-footer">
                                         <div class="form-group">
-                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">Approve Selecte</button>
-                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">Reject Selected</button>
+                                            <button  type="submit" name="status" value="APPROVED" class="btn btn-success">@lang('labels.approve')</button>
+                                            <button type="submit" name="status" value="REJECTED" class="btn btn-danger">@lang('labels.reject')</button>
                                         </div>
                                     </div>
                                 </div>
@@ -78,12 +64,11 @@
                             @if(!empty($pendingTask->dashboardItems))
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5>{{__('labels.pending_items')}}</h5>
+                                        <h5>{{trans('pms::project_proposal.'.$pendingTask->dashboardItems[0]->featureName)." ".trans('labels.pending_items')}}</h5>
                                     </div>
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
                                             <thead>
-                                            <th>{{__('labels.feature_name')}}</th>
                                             <th>{{__('labels.message')}}</th>
                                             <th>{{__('labels.details')}}</th>
                                             {{--<th>{{__('labels.select')}} <input id="select_all" type="checkbox" name="select_all"></th>--}}
@@ -92,7 +77,6 @@
                                             <tbody>
                                             @foreach($pendingTask->dashboardItems as $item)
                                                 <tr>
-                                                    <td>{{$item->featureName}}</td>
                                                     <td>{{$item->message}}</td>
                                                     <td>
                                                         <span class="label">Proposal Title</span>: {{$item->dynamicValues['project_title']}}
