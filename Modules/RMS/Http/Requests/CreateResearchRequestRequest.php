@@ -3,6 +3,7 @@
 namespace Modules\RMS\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class CreateResearchRequestRequest extends FormRequest
 {
@@ -11,14 +12,22 @@ class CreateResearchRequestRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'end_date' => 'date_format:"j F, Y"|required',
             'title' => 'required|max:100',
             'remarks' => 'nullable|max:5000',
             'to' => 'required',
-            'attachment.*' => 'required|mimes:doc,pdf,docx,csv,xlsx,xls|max:3072'
+            'attachment.*' => [
+                'required',
+                function ($attribute, $value, $fail) use ($request) {
+                    $fileExt = $request->file($attribute)->getClientOriginalExtension();
+                    if (!in_array($fileExt, ['jpeg', 'png', 'jpg', 'gif', 'svg', 'doc', 'pdf', 'docx', 'csv', 'xls', 'xlsx'])) {
+                        $fail($attribute . ' ' . trans('labels.invalid file type'));
+                    }
+                },
+            ]
         ];
     }
 
