@@ -571,7 +571,7 @@
                                             <td>
                                                 <a href="#">{{ $proposal->title }}</a>
                                             </td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ date('d/m/y h:i:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
                                         </tr>
                                     @endforeach

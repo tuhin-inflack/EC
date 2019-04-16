@@ -89,6 +89,7 @@ return [
     'status_pending' => 'প্রক্রিয়াধীন',
     'status_approved' => 'অনুমোদিত',
     'status_rejected' => 'প্রত্যাখ্যাত',
+    'status_closed' => 'বাতিলকৃত',
     'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
     'BARD ERP' => 'বার্ড ইআরপি',
