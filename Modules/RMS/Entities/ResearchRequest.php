@@ -21,6 +21,6 @@ class ResearchRequest extends Model
 
     public function researchProposals()
     {
-        return $this->belongsTo(ResearchProposalSubmission::class, 'research_request_id', 'id');
+        return $this->hasMany(ResearchProposalSubmission::class, 'research_request_id', 'id');
     }
 }

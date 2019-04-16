@@ -15,4 +15,5 @@ return [
     'previous' => 'Previous',
     'approve_selected' => 'Approve Selected',
     'reject_selected' => 'Reject Selected',
+    'select_detail_proposal' => 'Select Project Proposal'
 ];

@@ -20,6 +20,15 @@
                         </span>
                         @endif
                         <br>
+                        <label class="required">@lang('pms::project.select_detail_proposal')</label>
+                        <br>
+                        {{ Form::select('project_detail_proposal_id', $proposals, null, ['class' => 'select2 form-control required'.($errors->has('project_detail_proposal_id') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required')]) }}
+                        @if ($errors->has('project_detail_proposal_id'))
+                            <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('project_detail_proposal_id') }}</strong>
+                        </span>
+                        @endif
+                        <br>
                         <!-- Budget-->
                         <label class="required">@lang('pms::project_proposal.project_budget')</label>
                         <br>

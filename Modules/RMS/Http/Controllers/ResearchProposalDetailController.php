@@ -19,6 +19,7 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchDetailSubmissionAttachment;
 use Modules\RMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\RMS\Http\Requests\PostResearchBriefFeedbackRequest;
 use Modules\RMS\Http\Requests\UpdateReviewDetail;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
 use Modules\RMS\Services\ResearchProposalDetailReviewerAttachmentService;
@@ -171,7 +172,7 @@ class ResearchProposalDetailController extends Controller
             'remarks', 'researchProposalDetailId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
     }
 
-    public function postResearchDetailFeedback(Request $request, $shareConversationId)
+    public function postResearchDetailFeedback(PostResearchBriefFeedbackRequest $request, $shareConversationId)
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;

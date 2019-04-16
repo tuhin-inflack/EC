@@ -29,7 +29,7 @@ class StoreBookingRequest extends FormRequest
             'address' => 'required|max:300',
             'email' => 'nullable|email',
             'nid' => 'nullable|size:10',
-            'passport_no' => 'nullable|size:10',
+            'passport_no' => 'nullable|min:8|max:20',
             'passport_doc' => 'nullable|mimes:jpeg,bmp,png|max:3072',
             'organization' => 'nullable|max:50',
             'designation' => 'nullable|max:50',

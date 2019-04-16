@@ -1,12 +1,9 @@
 <?php
 namespace Modules\PMS\Services;
 
-use App\Services\Notification\ReviewUrlGenerator;
 use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
-use App\Services\workflow\FeatureService;
-use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,12 +50,13 @@ class PMSService
     }
 
     /*
-     * Method to fetch pending share conversations for the auth users for all features
+     * Method to fetch pending share conversations for the auth users from all features
      */
     public function getShareConversations()
     {
         $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
         $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
+
         if(!is_null($shareConversations)){
             foreach ($shareConversations as $shareConversation)
             {
@@ -70,11 +68,15 @@ class PMSService
                 if($shareConversation->feature->name == config('constants.project_proposal_feature_name'))
                 {
                     $data['proposal_title'] = $shareConversation->projectProposal->title;
+                    $data['project_title'] = $shareConversation->projectProposal->request->title;
+                    $data['project_submitted_by'] = $shareConversation->projectProposal->proposalSubmittedBy->name;
                     $data['review_url'] =route('sending-project-for-review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]);
                 }
                 elseif($shareConversation->feature->name == config('constants.project_details_proposal_feature_name'))
                 {
                     $data['proposal_title'] = $shareConversation->projectDetailProposal->title;
+                    $data['project_title'] = $shareConversation->projectDetailProposal->request->title;
+                    $data['project_submitted_by'] = $shareConversation->projectDetailProposal->proposalSubmittedBy->name;
                     $data['review_url'] =route('sending-project-detail-for-review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]);
                 }
                 else

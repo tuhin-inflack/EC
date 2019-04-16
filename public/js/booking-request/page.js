@@ -66,16 +66,6 @@ $(document).ready(function () {
         'Must be greater than or equal to {0}.'
     );
 
-    // jQuery.validator.addMethod("CheckRoomValidation",
-    //     function (value, element, params) {
-    //         if (validationStatus) {
-    //             return true
-    //         } else {
-    //             return false;
-    //         }
-    //     }, customErrorMessage);
-
-
     $('.booking-request-tab-steps').validate({
         ignore: 'input[type=hidden]', // ignore hidden fields
         errorClass: 'danger',
@@ -118,15 +108,6 @@ $(document).ready(function () {
                 minlength: 10,
                 maxlength: 10
             },
-            photo: {
-                extension: 'png|jpg|jpeg'
-            },
-            nid_doc: {
-                extension: 'png|jpg|jpeg'
-            },
-            passport_doc: {
-                extension: 'png|jpg|jpeg'
-            }
         },
     });
 

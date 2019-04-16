@@ -12,6 +12,7 @@ return [
     'training_name' => 'প্রশিক্ষণ নাম',
     'add' => 'যোগ করুন',
     'beneficiary' => 'লাভবান',
+    'select_detail_proposal' => 'প্রকল্প প্রস্তাব নির্বাচন করুন',
     'previous' => 'পূর্ববর্তী',
     'approve_selected' => 'নির্বাচিত অনুমোদন',
     'reject_selected' => 'নির্বাচিত প্রত্যাখ্যান',

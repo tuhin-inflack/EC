@@ -5,6 +5,7 @@ return [
     'research_brief_info' => 'Research brief info',
     'research_detail_info' => 'Research detail info',
     'research_monitoring_tabular_view' => 'Research Monitoring Tabular View',
+    'research_pending_items' => 'Research pending items',
     'research__paper_pending_items' => 'Research paper pending items',
     'research_proposal_pending_items' => 'Research brief pending items',
     'research_publication' => 'Research Publication',
@@ -34,6 +35,4 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
-    'research_detail_send_back_item' => 'Get back from Director Research',
-    'research_paper_pending_item' => 'Research paper pending item',
 ];
