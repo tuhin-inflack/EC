@@ -210,6 +210,7 @@ class PMSController extends Controller
             $request->input('reviewUrl')
         );
         // Notification generation done
+        if($request->input('status') == 'SHARE') return $this->share($request);
 
         if ($request->input('status') == 'CLOSED') {
             $proposal = $this->projectProposalService->findOrFail($proposalId);
@@ -224,8 +225,8 @@ class PMSController extends Controller
                 'workflow_master_id' => $request->input('wf_master'),
                 'workflow_conversation_id' => $request->input('wf_conv'),
                 'status' => $request->input('status'),
-                'message' => $request->input('message_to_receiver'),
-                'remarks' => $request->input('approval_remark'),
+                'message' => $request->input('message'),
+                'remarks' => $request->input('remarks'),
                 'item_id' => $proposalId,
             );
             $this->dashboardService->updateDashboardItem($data);
