@@ -26,6 +26,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
     private $projectProposalService;
     private $featureRepository;
     private $flowConversationService;
+    private $featureName;
 
 
     public function __construct(WorkflowService $workflowService,
@@ -39,6 +40,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $this->projectProposalService = $projectProposalService;
         $this->featureRepository = $featureRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->featureName = config('constants.project_proposal_feature_name');
     }
 
     public function generateItems(): DashboardItemSummary
@@ -48,7 +50,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $designationId = $this->userService->getDesignationId($user->username);
 
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => $this->featureName]);
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
@@ -93,7 +95,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => $this->featureName]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
         foreach ($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
