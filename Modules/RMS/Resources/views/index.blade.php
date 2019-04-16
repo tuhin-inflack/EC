@@ -553,7 +553,7 @@
         </section>
     @endif
 
-    <section>
+    {{--<section>
         <div class="row">
             <div class="col-6">
                 <div class="card">
@@ -625,12 +625,12 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            {{--@php--}}
-                                            {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
-                                            {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
-                                            {{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}
-                                            {{--$featureName = 'Research Proposal';--}}
-                                            {{--@endphp--}}
+                                            --}}{{--@php--}}{{--
+                                            --}}{{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}{{--
+                                            --}}{{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}{{--
+                                            --}}{{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}{{--
+                                            --}}{{--$featureName = 'Research Proposal';--}}{{--
+                                            --}}{{--@endphp--}}{{--
                                             <td>
                                                 <a href="#">{{ $proposal->title }}</a>
                                             </td>
@@ -646,7 +646,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
 @stop
 
 @push('page-css')
