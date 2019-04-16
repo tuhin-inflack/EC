@@ -74,7 +74,7 @@ class PMSService
     {
         $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
         $shareConversations = $this->shareConversationService->getShareConversationByDesignation($loggedUserDesignationId);
-
+        $allShareConvs = null;
         if(!is_null($shareConversations)){
             foreach ($shareConversations as $shareConversation)
             {
@@ -104,8 +104,6 @@ class PMSService
                 $allShareConvs[] = $data;
             }
         }
-        else
-            $allShareConvs = null;
 
         return $allShareConvs;
     }
