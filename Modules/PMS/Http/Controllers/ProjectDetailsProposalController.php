@@ -287,7 +287,7 @@ class ProjectDetailsProposalController extends Controller
             ],
             'project_proposal_submission',
             $this->reviewUrlGenerator->getReviewUrl(
-                'project-proposal-submitted-review.review',
+                'project-details-proposal-submitted-review',
                 $this->featureService->findOne($request->input('feature_id')),
                 $proposal
             )

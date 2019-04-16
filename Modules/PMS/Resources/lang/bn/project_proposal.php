@@ -69,7 +69,7 @@ return [
     'create_project_brief_proposal' => 'প্রকল্প সংক্ষেপ প্রস্তাব অনুরোধ করুন',
     'create_project_details_proposal' => 'প্রকল্প বিস্তারিত প্রস্তাব অনুরোধ করুন',
     'Project Details Proposal' => 'বিস্তারিত প্রকল্পের আমন্ত্রণ',
-    'Project Proposal' => 'প্রকল্প সংক্ষেপ আমন্ত্রণ',
+    'Project Brief Proposal' => 'প্রকল্প সংক্ষেপ আমন্ত্রণ',
     'send_for_review' => 'পাঠিয়ে দিন',
     'send_back' => 'ফেরত পাঠান'
 
