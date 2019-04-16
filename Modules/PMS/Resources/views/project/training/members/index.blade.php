@@ -106,9 +106,9 @@
             });
 
             $('.submit-btn').on('click', function () {
-                console.log(selectedMembers);
+                // console.log(selectedMembers);
                 $('input[name="members"]').val(selectedMembers);
-                console.log($('input[name="members"]').val());
+                // console.log($('input[name="members"]').val());
                 $('#form').submit();
             });
         });
