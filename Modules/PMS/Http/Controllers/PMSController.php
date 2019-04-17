@@ -320,7 +320,6 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
-
         $data = $request->all();
         unset($data['status']);
         $this->shareConversationService->shareFromWorkflow($data);
@@ -353,6 +352,7 @@ class PMSController extends Controller
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
+        dd($data);
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
         if ($request->status == WorkflowStatus::REVIEW) {
             $data['request_ref_id'] = $currentConv->request_ref_id;
