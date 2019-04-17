@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use function Matrix\trace;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\PMS\Http\Requests\ReviewRequest;
 use Modules\PMS\Services\PMSService;
 use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
 use Modules\PMS\Services\ProjectProposalService;
@@ -197,7 +198,7 @@ class PMSController extends Controller
         return view('pms::proposal-submitted.brief.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
     }
 
-    public function reviewUpdate($proposalId, Request $request)
+    public function reviewUpdate($proposalId, ReviewRequest $request)
     {
         //Generating notification
         $event = ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
@@ -319,7 +320,6 @@ class PMSController extends Controller
         //$event =  ($request->input('designation') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
         //$this->projectProposalService->generatePMSNotification(['ref_table_id' =>  $proposalId, 'status' => $request->input('status')], $event);
         // Notification generation done
-
         $data = $request->all();
         unset($data['status']);
         $this->shareConversationService->shareFromWorkflow($data);
@@ -348,10 +348,11 @@ class PMSController extends Controller
             'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation', 'authDesignation'));
     }
 
-    public function shareFeedback(Request $request, $shareConversationId)
+    public function shareFeedback(ReviewRequest $request, $shareConversationId)
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
+        dd($data);
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
         if ($request->status == WorkflowStatus::REVIEW) {
             $data['request_ref_id'] = $currentConv->request_ref_id;
@@ -368,7 +369,6 @@ class PMSController extends Controller
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
         }
-        $data['remarks'] = $request->approval_remark;
         $this->shareConversationService->updateConversation($data, $shareConversationId);
         $this->remarksService->save($data);
 

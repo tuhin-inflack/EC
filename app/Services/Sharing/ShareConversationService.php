@@ -128,4 +128,12 @@ class ShareConversationService
 //        ];
 //        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
     }
+
+    // Generic method to get share conversation by designation ID
+    public function getShareConversationByDesignationId($designationId)
+    {
+        $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
+
+        return $shareConversations;
+    }
 }
