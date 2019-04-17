@@ -107,7 +107,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{__('labels.remarks')}}</label>
-                                            <textarea class="form-control" name="remarks"></textarea>
+                                            <textarea class="form-control" name="remarks" required></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label>{{__('labels.message_to_receiver')}}</label>

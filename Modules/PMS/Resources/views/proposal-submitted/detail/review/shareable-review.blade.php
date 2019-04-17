@@ -103,8 +103,8 @@
                                     {{--</div>--}}
 
                                     <div class="form-group">
-                                        {!! Form::label('approval_remark', trans('labels.remarks'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('approval_remark', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
                                         <div class="help-block"></div>
                                     </div>
                                     <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">

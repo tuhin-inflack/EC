@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Modules\PMS\Http\Requests\CreateProjectProposalRequest;
 use Modules\PMS\Http\Requests\CreateProposalSubmissionAttachmentRequest;
+use Modules\PMS\Http\Requests\ReviewRequest;
 use Modules\PMS\Services\ProjectDetailProposalService;
 use Modules\PMS\Services\ProjectProposalDetailReviewerAttachmentService;
 use Modules\PMS\Services\ProjectProposalReviewerAttachmentService;
@@ -151,7 +152,7 @@ class ProjectDetailsProposalController extends Controller
         return view('pms::proposal-submitted.detail.review.review', compact('proposal', 'pendingTasks', 'wfData', 'remarks', 'ruleDetails', 'shareRule', 'feature_id', 'wfDetailsId', 'authDesignation'));
     }
 
-    public function reviewUpdate($proposalId, Request $request)
+    public function reviewUpdate($proposalId, ReviewRequest $request)
     {
         //Generating notification
 //        $event = ($request->input('status') == 'REJECTED') ? 'project_proposal_send_back' : 'project_proposal_review';
@@ -220,7 +221,7 @@ class ProjectDetailsProposalController extends Controller
             'remarks', 'projectProposalSubmissionId', 'shareConversationId', 'ruleDesignations', 'shareConversation', 'authDesignation'));
     }
 
-    public function shareFeedback(Request $request, $shareConversationId)
+    public function shareFeedback(ReviewRequest $request, $shareConversationId)
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
@@ -240,7 +241,6 @@ class ProjectDetailsProposalController extends Controller
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
         }
-        $data['remarks'] = $request->approval_remark;
         $this->shareConversationService->updateConversation($data, $shareConversationId);
         $this->remarkService->save($data);
 
