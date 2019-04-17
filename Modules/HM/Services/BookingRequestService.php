@@ -380,9 +380,11 @@ class BookingRequestService
     {
         $roomTypes = $this->roomTypeService->findAll();
 
-        $totalRoomsByRoomType = $roomTypes->map(function ($roomType) {
-            return [$roomType->id => $roomType->rooms->count()];
-        })->flatten()->toArray();
+        $totalRoomsByRoomType = [];
+
+        $roomTypes->each(function ($roomType) use (&$totalRoomsByRoomType) {
+            $totalRoomsByRoomType[$roomType->id] = $roomType->rooms->count();
+        });
 
         return $totalRoomsByRoomType;
     }
