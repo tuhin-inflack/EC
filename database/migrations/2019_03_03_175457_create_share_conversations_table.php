@@ -23,7 +23,7 @@ class CreateShareConversationsTable extends Migration
             $table->integer('designation_id');
             $table->integer('to_user_id')->nullable();
             $table->integer('from_user_id');
-            $table->string('message')->nullable();
+            $table->string('message');
             $table->string('status')->default('ACTIVE');
 
             $table->timestamps();
