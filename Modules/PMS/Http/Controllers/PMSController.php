@@ -352,7 +352,6 @@ class PMSController extends Controller
     {
         $data = $request->all();
         $data['from_user_id'] = Auth::user()->id;
-        dd($data);
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
         if ($request->status == WorkflowStatus::REVIEW) {
             $data['request_ref_id'] = $currentConv->request_ref_id;
