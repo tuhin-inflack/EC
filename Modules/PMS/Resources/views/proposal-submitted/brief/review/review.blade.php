@@ -107,7 +107,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{__('labels.remarks')}}</label>
-                                            <textarea class="form-control" name="remarks" required></textarea>
+                                            <textarea class="form-control" name="remarks" required data-validation-required-message="{{trans('labels.This field is required')}}"></textarea>
+                                            <div class="help-block"></div>
+                                            @if ($errors->has('remarks'))
+                                                <div class="help-block red">{{ $errors->first('remarks') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label>{{__('labels.message_to_receiver')}}</label>
