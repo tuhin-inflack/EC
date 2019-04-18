@@ -26,7 +26,7 @@ class UpdateShareConversationsTable extends Migration
     public function down()
     {
         Schema::table('share_conversations', function (Blueprint $table) {
-            $table->string('message')->nullable(flase)->change();
+            $table->string('message')->nullable(false)->change();
         });
     }
 }
