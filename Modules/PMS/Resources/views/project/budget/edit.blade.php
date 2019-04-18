@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.form', ['page' => 'edit'])
+                                        @include('pms::project.budget.partials.form', ['page' => 'edit'])
                                     </div>
                                 </div>
                             </div>
@@ -76,19 +76,29 @@
             checksumMessage
         );
 
-        // jQuery.validator.addMethod(
-        //     "checkfiscalsum",
-        //     function (value, element, params) {
-        //         let tbody = $(params);
-        //         let sum = 0
-        //         tbody.find('tr').each(function (el) {
-        //             el
-        //         });
-        //
-        //         return parseFloat(value) === sum;
-        //     },
-        //     checksumMessage
-        // );
+        jQuery.validator.addMethod(
+            "checkFiscalSum",
+            function (value, element, params) {
+                let total = parseFloat(value);
+                let sum = 0;
+
+                $(params).find('tr').each(function (index, value) {
+                    let monetaryAmount = parseFloat($(this).find('input[name^=monetary_amount]').val());
+                    let monetaryPercentage = parseFloat($(this).find('input[name^=monetary_percentage]').val());
+
+                    if(Number.isNaN(monetaryAmount) && Number.isNaN(monetaryPercentage)){
+                        return true;
+                    } else if (Number.isNaN(monetaryAmount)){
+                        sum += (total*(monetaryPercentage/100));
+                    } else if (Number.isNaN(monetaryPercentage)){
+                        sum += (monetaryAmount * 100000);
+                    }
+                });
+
+                return total === sum;
+            },
+            checksumMessage
+        );
 
         var validator = $('.project-budget-form').validate({
             ignore: [],//'input[type=hidden]', // ignore hidden fields
@@ -117,9 +127,9 @@
                 check_distributed_collection: {
                     checksum: ['input[name=gov_source]', 'input[name=own_financing_source]', 'input[name=other_source]']
                 },
-                // check_distributed_fiscalyear: {
-                //     checkfiscalsum: '#fiscal-values'
-                // }
+                check_distributed_fiscalyear: {
+                    checkFiscalSum: '#fiscal-values',
+                }
             },
             submitHandler: function(form, event) {
                 $(form).find('input[name=check_distributed_collection]').remove();

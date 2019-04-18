@@ -116,8 +116,8 @@
                     <tr>
                         <td>{{ $i + 1 }}</td>
                         <td><input type="text" name="fiscal_year[{{ $i }}]" class="form-control"></td>
-                        <td><input type="number" name="monetary_amount[{{ $i }}]" min="1" class="form-control"></td>
-                        <td><input type="number" name="monetary_percentage[{{ $i }}]" min="1" class="form-control"></td>
+                        <td><input type="number" name="monetary_amount[{{ $i }}]" min="0" class="form-control"></td>
+                        <td><input type="number" name="monetary_percentage[{{ $i }}]" min="0" class="form-control"></td>
                     </tr>
                 @endfor
             @elseif($page === 'edit')
@@ -130,19 +130,19 @@
                                    $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_amount[{{$i}}]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_amount[{{$i}}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_percentage[{{$i}}]" min="1" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_percentage[{{$i}}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_percentage : null }}">
                         </td>
                     </tr>
                 @endfor
             @endif
             </tbody>
-            <input type="hidden" name="check_distributed_fiscalyear" value="0">
         </table>
+        <input type="hidden" name="check_distributed_fiscalyear" value="0">
     </div>
     <div class="col-md-4">
         <div class="form-group">
