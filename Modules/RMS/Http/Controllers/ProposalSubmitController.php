@@ -88,7 +88,6 @@ class ProposalSubmitController extends Controller
      */
     public function store(CreateProposalSubmissionRequest $request)
     {
-        dd('test');
 
         $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
         if (is_null($divisionalDirector)) {
