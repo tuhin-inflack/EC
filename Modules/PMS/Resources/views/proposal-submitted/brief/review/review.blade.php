@@ -130,7 +130,7 @@
                                                 <button type="submit" name="status" value="SHARE" class="btn btn-info">@lang('pms::project_proposal.send_for_review')</button>
                                             @endif
                                             <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i>@lang('pms::project_proposal.send_back')</button>
-                                            <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                            <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> @lang('labels.reject')</button>
                                         </div>
                                     </div>
                                 </div>

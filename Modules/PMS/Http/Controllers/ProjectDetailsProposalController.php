@@ -240,6 +240,7 @@ class ProjectDetailsProposalController extends Controller
 
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
+            $this->projectDetailsProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'REJECTED']);
         }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
         $this->remarkService->save($data);
