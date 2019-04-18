@@ -169,12 +169,16 @@
                         </thead>
                         <tbody>
                         @foreach($pendingTasks->dashboardItems as $item)
+
                             <tr>
                                 {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
                                 <td>{{$item->message}}</td>
                                 <td>
-                                    Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Invitation Title : {{ $item->dynamicValues['research_title'] }}<br/>
                                     Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                    Initiator Name : {{ $item->dynamicValues['initiator_name'] }}<br/>
+
+                                    <br/>
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
@@ -254,7 +258,10 @@
                                 {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
                                 <td>{{$item->message}}</td>
                                 <td>
-                                    Research Detail Title : {{ $item->dynamicValues['title'] }}<br/>
+                                    Invitation Title: {{ $item->dynamicValues['invitation_title'] }}<br/>
+                                    Research Title : {{ $item->dynamicValues['title'] }}<br/>
+                                    Initiator Name : {{ $item->dynamicValues['initiator_name'] }}
+
                                 </td>
                                 <td>
                                     <a href="{{url($item->checkUrl)}}"
