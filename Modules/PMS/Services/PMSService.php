@@ -75,7 +75,7 @@ class PMSService
         $loggedUserDesignationId = $this->userService->getDesignationId(Auth::user()->username);
         $shareConversations = $this->shareConversationService->getShareConversationByDesignationId($loggedUserDesignationId);
         $allShareConvs = null;
-        if(!is_null($shareConversations)){
+        if(!is_null($shareConversations) && count($shareConversations)){
             foreach ($shareConversations as $shareConversation)
             {
                 $data['id'] = $shareConversation->id;
@@ -99,7 +99,12 @@ class PMSService
                     $data['review_url'] =route('sending-project-detail-for-review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]);
                 }
                 else
-                    $data['proposal_title'] = 'N/A';
+                {
+                    $data['proposal_title'] = "";
+                    $data['project_title'] = "";
+                    $data['project_submitted_by'] = "";
+                    $data['review_url'] = "";
+                }
 
                 $allShareConvs[] = $data;
             }
