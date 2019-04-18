@@ -50,7 +50,7 @@
                                             <td>
                                                 <a href="{{url('rms/research-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
                                             </td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ date('d/m/y h:i:a', strtotime($proposal->created_at)) }}</td>
                                             <td>
                                                 <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
                                             </td>
