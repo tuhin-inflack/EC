@@ -16,8 +16,8 @@
                     </div>
                 </div>
                 <div class="card-content collapse show">
-                    {{--{!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}--}}
-                    {!! Form::open(['route' => [ 'project-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['url'=> route('project-proposal-submission.feedback',$shareConversationId), 'novalidate', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                    {{--{!! Form::open(['route' => [ 'project-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data']) !!}--}}
 
                     <div class="card-body">
                         <div class="row">
@@ -103,13 +103,16 @@
                                     {{--</div>--}}
 
                                     <div class="form-group">
-                                        {!! Form::label('approval_remark', trans('labels.remarks'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('approval_remark', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
                                         <div class="help-block"></div>
+                                        @if ($errors->has('remarks'))
+                                            <div class="help-block red">{{ $errors->first('remarks') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '']) !!}
                                         <div class="help-block"></div>
                                         @if ($errors->has('message'))
                                             <div class="help-block">{{ $errors->first('message') }}</div>
@@ -119,7 +122,7 @@
                                         @if($shareConversation->shareRuleDesignation->can_approve==true)
                                             <button value="APPROVED" name="status" type="submit" class="btn btn-success">{{trans(('labels.approve'))}}</button>
                                         @endif
-                                            <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
+                                        <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
                                         @if($shareConversation->shareRuleDesignation->can_reject)
                                             <button type="submit" value="REJECTED" name="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</button>
                                         @endif
