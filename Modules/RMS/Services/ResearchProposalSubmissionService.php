@@ -253,9 +253,7 @@ class ResearchProposalSubmissionService
                 return auth()->user()->employee->designation->short_name == "DG"
                     || (auth()->user()->employee->employeeDepartment->department_code == "RMS"
                         && auth()->user()->employee->designation->short_name != "FM")
-                    || (auth()->user()->employee->designation->short_name == "FM"
-                        && $researchProposal->auth_user_id == auth()->user()->id);
-
+                    || ($researchProposal->auth_user_id == auth()->user()->id);
             });
     }
 
@@ -324,8 +322,7 @@ class ResearchProposalSubmissionService
                 return $user->employee->designation->short_name == "DG"
                     || ($user->employee->employeeDepartment->department_code == "RMS"
                         && $user->employee->designation->short_name != "FM")
-                    || ($user->employee->designation->short_name == "FM"
-                        && $researchProposal->auth_user_id == $user->id);
+                    || ($researchProposal->auth_user_id == $user->id);
             });
     }
 

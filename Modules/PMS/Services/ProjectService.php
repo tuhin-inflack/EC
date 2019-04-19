@@ -8,11 +8,11 @@
 
 namespace Modules\PMS\Services;
 
+use App\Entities\User;
 use App\Entities\Attribute;
 use App\Entities\Organization\Organization;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\Project;
 use Modules\PMS\Repositories\ProjectRepository;
@@ -72,10 +72,12 @@ class ProjectService
 
     public function getProjectsForUser(User $user)
     {
-        if ($this->userService->isProjectDivisionUser($user) || $this->userService->isDirectorGeneral()) {
-            return $this->findAll();
-        } else {
-            return $this->findBy(['submitted_by' => $user->id]);
+        if ($this->userService->isDirectorGeneral()) {
+            return $this->projectRepository->findAll();
+        } else if($this->userService->isProjectDivisionUser($user)) {
+            return $this->projectRepository->findAll();
+        }else {
+            return $this->projectRepository->findBy(['submitted_by' => $user->id]);
         }
     }
 

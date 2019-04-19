@@ -24,4 +24,10 @@ class ResearchDetailInvitation extends Model
         return $this->hasMany(ResearchDetailSubmission::class, 'research_detail_invitation_id', 'id');
     }
 
+    public function proposalsUnderReviewOrApproved()
+    {
+        return $this->hasMany(ResearchDetailSubmission::class, 'research_detail_invitation_id', 'id')
+            ->whereIn('status', ['APPROVED', 'PENDING']);
+    }
+
 }

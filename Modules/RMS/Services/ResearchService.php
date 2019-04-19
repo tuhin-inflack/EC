@@ -215,10 +215,6 @@ class ResearchService
         {
             return $this->researchRepository->findAll();
 
-        }else if($this->userService->isDesignationFacultyMember($user))
-        {
-            return $this->researchRepository->findBy(['submitted_by'=>$user->id]);
-
         }else if($this->userService->isResearchDivisionUser($user))
         {
             return $this->researchRepository->findAll();
