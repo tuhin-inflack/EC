@@ -247,11 +247,14 @@ class PMSController extends Controller
     public function storeResubmit($proposalId, Request $request)
     {
         $proposal = $this->projectProposalService->findOrFail($proposalId);
+
         $updateData = [
             'status' => 'PENDING',
-            'title' => $request->input('title')
+            'title' => $request->input('title'),
+            'attachments' => $request->file('attachments')
         ];
-        $this->projectProposalService->update($proposal, $updateData);
+
+        $this->projectProposalService->updateProposal($proposal, $updateData);
 
         // Reinitialising Workflow
         $data = [
@@ -367,6 +370,7 @@ class PMSController extends Controller
 
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
+            $this->projectProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'REJECTED']);
         }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
         $this->remarksService->save($data);

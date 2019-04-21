@@ -66,7 +66,7 @@
                                 </dl>
 
                                 <div class="form-actions text-center">
-                                    @if(\Carbon\Carbon::now()->lessThan($projectRequest->end_date))
+                                    @if(\Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($projectRequest->end_date)))
                                         @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
                                             <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
                                                 <i class="ft-plus white"></i> @lang('labels.edit')

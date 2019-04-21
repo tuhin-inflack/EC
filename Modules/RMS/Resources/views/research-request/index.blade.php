@@ -47,10 +47,12 @@
                                                             aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
-                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    @if(can_submit_brief_research_proposal($research_request))
+                                                        <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{route('research-proposal-submission.create',$research_request->id)}}"
                                                            class="dropdown-item"><i class="ft-fast-forward"></i>@lang('rms::research_proposal.research_proposal_submission')</a>
                                                     </span>
+                                                    @endif
                                                 </span>
                                             </td>
                                         </tr>

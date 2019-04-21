@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Modules\HM\Http\Requests\StoreBookingRequest;
+use Modules\HM\Http\Requests\StoreUpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
@@ -86,7 +85,7 @@ class PublicBookingRequestController extends Controller
         ));
     }
 
-    public function store(StoreBookingRequest $request)
+    public function store(StoreUpdateBookingRequest $request)
     {
         $this->bookingRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
