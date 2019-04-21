@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-content collapse show">
                     {{--{!! Form::open(['url'=> route('project-proposal-submitted-review-update', $proposal->id), 'novalidate', 'class' => 'form']) !!}--}}
-                    {!! Form::open(['route' => [ 'project-detail-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data']) !!}
+                    {!! Form::open(['route' => [ 'project-detail-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
 
                     <div class="card-body">
                         <div class="row">
@@ -106,10 +106,13 @@
                                         {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
                                         {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
                                         <div class="help-block"></div>
+                                        @if ($errors->has('remarks'))
+                                            <div class="help-block red">{{ $errors->first('remarks') }}</div>
+                                        @endif
                                     </div>
                                     <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '']) !!}
                                         <div class="help-block"></div>
                                         @if ($errors->has('message'))
                                             <div class="help-block">{{ $errors->first('message') }}</div>
