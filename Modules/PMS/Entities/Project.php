@@ -54,4 +54,9 @@ class Project extends Model
     {
         return $this->hasMany(ProjectTraining::class);
     }
+
+    public function proposal()
+    {
+        return $this->belongsTo(ProjectDetailProposal::class, 'project_detail_proposal_id', 'id');
+    }
 }

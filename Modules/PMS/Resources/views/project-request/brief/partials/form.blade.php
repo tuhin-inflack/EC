@@ -71,7 +71,9 @@
     </div>
 </div>
 <div class="form-actions text-center">
-    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+    @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+        {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+    @endif
 
     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
         <i class="ft-x"></i> {{trans('labels.cancel')}}

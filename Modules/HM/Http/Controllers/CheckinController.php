@@ -2,13 +2,11 @@
 
 namespace Modules\HM\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
-use Modules\HM\Http\Requests\StoreBookingRequest;
-use Modules\HM\Http\Requests\UpdateBookingRequest;
+use Modules\HM\Http\Requests\StoreUpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\HostelService;
 use Modules\HM\Services\RoomService;
@@ -141,7 +139,7 @@ class CheckinController extends Controller
         );
     }
 
-    public function store(StoreBookingRequest $request, $roomBookingId = null)
+    public function store(StoreUpdateBookingRequest $request, $roomBookingId = null)
     {
         $data = $request->all();
         if ($roomBookingId)
@@ -219,11 +217,11 @@ class CheckinController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateBookingRequest $request
+     * @param StoreUpdateBookingRequest $request
      * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
+    public function update(StoreUpdateBookingRequest $request, RoomBooking $roomBooking)
     {
         $checkin = $this->bookingRequestService->update($request->all(), $roomBooking);
         Session::flash('update', trans('labels.update_success'));

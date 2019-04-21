@@ -48,11 +48,13 @@
                                                             class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
-                                                    <span aria-labelledby="btnSearchDrop2"
-                                                          class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    @if(can_submit_detail_research_proposal($invitation))
+                                                        <span aria-labelledby="btnSearchDrop2"
+                                                              class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ route('details.create', [$invitation->id]) }}"
                                                            class="dropdown-item"><i class="ft-alert-octagon"></i>@lang('rms::research_details.submit_detail')</a>
                                                     </span>
+                                                    @endif
                                                 </span>
                                             </td>
                                         </tr>

@@ -149,8 +149,10 @@ class ProjectRequestDetailService
     {
         return $this->projectRequestDetailRepository->findAll()
             ->filter(function($projectRequestDetail) {
-                return (auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id
-                    && !$projectRequestDetail->proposals->count());
+                return ((auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id
+                        || auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                    && !$projectRequestDetail->proposalsUnderReviewOrApproved->count()
+                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequestDetail->end_date)));
             });
     }
 
