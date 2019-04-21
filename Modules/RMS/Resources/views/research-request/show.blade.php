@@ -65,7 +65,7 @@
                                 <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p></dd>
                             </dl>
                             <div class="form-actions text-center">
-                                @if(!Auth::user()->hasAnyRole('ROLE_PROJECT_DIRECTOR'))
+                                @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
                                 <a href="{{ route('research-request.edit', $researchRequest->id) }}" class="btn btn-primary mr-1">
                                     <i class="ft-plus white"></i> @lang('labels.edit')
                                 </a>
