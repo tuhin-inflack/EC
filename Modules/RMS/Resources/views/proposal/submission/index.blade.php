@@ -31,6 +31,7 @@
                                             'REJECTED' => 'bg-danger',
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
+                                            'CLOSED' => 'bg-danger',
                                         ];
 
                                     @endphp
