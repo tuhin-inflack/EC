@@ -41,7 +41,6 @@
                                             @php
                                                 $wfMasterId = $proposal->workflowMasters->first()->id;
                                                 $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                $featureId = $proposal->workflowMasters->first()->feature->id;
                                                 $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
                                             @endphp
                                             <td>
