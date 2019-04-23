@@ -24,30 +24,34 @@ class ProjectProposalController extends Controller
 {
     private $projectProposalService;
     private $dashboardService;
+    /**
+     * @var FeatureService
+     */
     private $featureService;
 
     /**
      * ProjectProposalController constructor.
      * @param ProjectProposalService $projectProposalService
+     * @param DashboardWorkflowService $dashboardService
+     * @param FeatureService $featureService
      */
-    public function __construct(ProjectProposalService $projectProposalService,
-                                DashboardWorkflowService $dashboardService,
-                                FeatureService $featureService)
+    public function __construct(ProjectProposalService $projectProposalService, DashboardWorkflowService $dashboardService, FeatureService $featureService)
     {
         $this->projectProposalService = $projectProposalService;
         $this->dashboardService = $dashboardService;
+        /** @var FeatureService $featureService */
         $this->featureService = $featureService;
     }
 
     /**
      * Display a listing of the resource.
-     * @return Response;k
+     * @return Response
      */
     public function index()
     {
         $proposals = $this->projectProposalService->getProposalsForUser(Auth::user());
         $featureName = config('constants.project_proposal_feature_name');
-        $feature = $this->featureService->findBy(['name' => $featureName]);
+        $feature = $this->featureService->findBy(['name'=> $featureName]);
         $featureId = $feature[0]->id;
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
 
