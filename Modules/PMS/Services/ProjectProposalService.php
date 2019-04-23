@@ -105,8 +105,7 @@ class ProjectProposalService
                 return $user->employee->designation->short_name == "DG"
                     || ($user->employee->employeeDepartment->department_code == "PMS"
                         && $user->employee->designation->short_name != "FM")
-                    || ($user->employee->designation->short_name == "FM"
-                        && $projectProposal->auth_user_id == $user->id);
+                    || ($projectProposal->auth_user_id == $user->id);
             });
     }
 
@@ -168,6 +167,24 @@ class ProjectProposalService
         });
     }
 
+    public function updateProposal(ProjectProposal $proposal, $data = [])
+    {
+        foreach ($data['attachments'] as $file) {
+            $fileName = $file->getClientOriginalName();
+            $path = $this->upload($file, 'project-submissions');
+
+            $file = new ProjectProposalFile([
+                'proposal_id' => $proposal->id,
+                'attachments' => $path,
+                'file_name' => $fileName
+            ]);
+
+            $proposal->projectProposalFiles()->save($file);
+        }
+
+        return $this->update($proposal, $data);
+    }
+
     public function getProposalById($id)
     {
         $proposal = $this->findOne($id);
@@ -215,8 +232,7 @@ class ProjectProposalService
                 return auth()->user()->employee->designation->short_name == "DG"
                     || (auth()->user()->employee->employeeDepartment->department_code == "PMS"
                         && auth()->user()->employee->designation->short_name != "FM")
-                    || (auth()->user()->employee->designation->short_name == "FM"
-                        && $projectProposal->auth_user_id == auth()->user()->id);
+                    || ($projectProposal->auth_user_id == auth()->user()->id);
             });
 
     }

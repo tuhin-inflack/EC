@@ -162,12 +162,14 @@ class ProjectRequestService
     public function getProjectInvitationByDeadline()
     {
         return ProjectRequest::orderBy('end_date', 'DESC')
+            ->where('end_date', '>=', Carbon::today())
             ->limit(5)
             ->get()
             ->filter(function ($projectRequest) {
 
-                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
-                    && !$projectRequest->proposals->count());
+                return ((in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
+                        || auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                    && !$projectRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count());
             });
     }
 
@@ -175,8 +177,10 @@ class ProjectRequestService
     {
         return $this->projectRequestRepository->findAll()
             ->filter(function($projectRequest) {
-                return (in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
-                    && !$projectRequest->proposals->count());
+                return ((in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
+                        || auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                    && !$projectRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count()
+                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequest->end_date)));
             });
     }
 

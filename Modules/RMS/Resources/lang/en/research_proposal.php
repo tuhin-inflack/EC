@@ -58,7 +58,7 @@ return [
     'status_rejected' => 'Rejected',
     'approved' => 'Approved',
     'rejected' => 'Rejected',
-    'closed' => 'Rejected',
+    'closed' => 'Closed',
     'reinitiated' => 'Re-initiated',
     'research_details' => 'Research Details',
     'research_request_details' => 'Research Proposal Request Details',

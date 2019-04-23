@@ -69,7 +69,8 @@ class ResearchProposalItemGenerator extends BaseDashboardItemGenerator
                 'research_title' => $proposal->requester->title,
                 'remarks' => $proposal->remarks,
                 'id' => $proposal->id,
-                'workflow_rule_details_id' => $workflowRuleDetails->id
+                'workflow_rule_details_id' => $workflowRuleDetails->id,
+                'initiator_name' => $proposal->submittedBy->name,
             ];
 
             $workflowConversation = $workflow->workflowConversations[0];

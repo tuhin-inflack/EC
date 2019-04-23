@@ -134,11 +134,13 @@ class ResearchRequestService
     public function getResearchInvitationByDeadline()
     {
         return ResearchRequest::orderBy('end_date', 'DESC')
+            ->where('end_date', '>=', Carbon::today())
             ->limit(5)
             ->get()
             ->filter(function ($researchRequest) {
-                return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
-                    && !$researchRequest->researchProposals->count());
+                return ((in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                        || auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                    && !$researchRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count());
             });
     }
 
@@ -146,8 +148,10 @@ class ResearchRequestService
     {
         return $this->researchRequestRepository->findAll()
             ->filter(function ($researchRequest) {
-               return (in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
-                   && !$researchRequest->researchProposals->count());
+               return ((in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                       || auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                   && !$researchRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count()
+                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchRequest->end_date)));
             });
     }
 }

@@ -94,19 +94,12 @@ $(document).ready(function () {
             first_name: {
                 maxlength: 50
             },
-            // 'room-show': {
-            //     CheckRoomValidation: 0
-            // },
             contact: {
                 minlength: 11,
                 maxlength: 11
             },
             address: {
                 maxlength: 300
-            },
-            nid: {
-                minlength: 10,
-                maxlength: 10
             },
         },
     });
