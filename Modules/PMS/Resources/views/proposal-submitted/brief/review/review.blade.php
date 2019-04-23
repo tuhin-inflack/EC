@@ -107,7 +107,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label>{{__('labels.remarks')}}</label>
-                                            <textarea class="form-control" name="remarks" required></textarea>
+                                            <textarea class="form-control" name="remarks" required data-validation-required-message="{{trans('labels.This field is required')}}"></textarea>
+                                            <div class="help-block"></div>
+                                            @if ($errors->has('remarks'))
+                                                <div class="help-block red">{{ $errors->first('remarks') }}</div>
+                                            @endif
                                         </div>
                                         <div class="form-group">
                                             <label>{{__('labels.message_to_receiver')}}</label>
@@ -126,7 +130,7 @@
                                                 <button type="submit" name="status" value="SHARE" class="btn btn-info">@lang('pms::project_proposal.send_for_review')</button>
                                             @endif
                                             <button type="submit" class="btn btn-info" name="status" value="REJECTED"><i class="ft-skip-back"></i>@lang('pms::project_proposal.send_back')</button>
-                                            <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> {{$ruleDetails->reject_btn_label}}</button>
+                                            <button type="submit" class="btn btn-danger" name="status" value="CLOSED"><i class="ft-x"></i> @lang('labels.reject')</button>
                                         </div>
                                     </div>
                                 </div>

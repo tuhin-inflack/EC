@@ -179,8 +179,7 @@ class ProjectDetailProposalService
                 return $user->employee->designation->short_name == "DG"
                     || ($user->employee->employeeDepartment->department_code == "PMS"
                         && $user->employee->designation->short_name != "FM")
-                    || ($user->employee->designation->short_name == "FM"
-                        && $projectProposal->auth_user_id == $user->id);
+                    || ($projectProposal->auth_user_id == $user->id);
             });
     }
 
@@ -191,7 +190,8 @@ class ProjectDetailProposalService
         $this->projectDetailProposalRepository->findAll()
             ->filter(function ($projectDetailProposal) {
                 return $projectDetailProposal->status == 'APPROVED'
-                    && $projectDetailProposal->project_id == null;
+                    && $projectDetailProposal->project_id == null
+                    && $projectDetailProposal->submitted_by == auth()->user()->id;
             })
             ->map(function ($projectDetailProposal) {
 

@@ -66,7 +66,7 @@
                 {{--</div>--}}
 
                 <div class="form-actions text-center">
-                    @if(auth()->user()->employee->employeeDepartment->department_code == "ADMIN" && auth()->user()->employee->designation->short_name == "DA")
+                    @if(auth()->user()->hasAnyRole(['ROLE_DIRECTOR_ADMIN']))
                         <button type="submit" class="btn btn-primary">
                             <i class="la la-check-square-o"></i> {{ trans('hm::hostel_budget.approve') }}
                         </button>

@@ -70,7 +70,9 @@ class ResearchProposalDetailItemGenerator extends BaseDashboardItemGenerator
             $researchDetail = $this->researchDetailSubmissionService->findOne($workflowMaster->ref_table_id);
             $workflowRuleDetails = $workflow->ruleDetails;
             $researchData = [
+                'invitation_title' => $researchDetail->researchDetailInvitation->title,
                 'title' => $researchDetail->title,
+                'initiator_name' => $researchDetail->user->name,
                 'remarks' => $researchDetail->remarks,
                 'id' => $researchDetail->id,
             ];

@@ -43,4 +43,9 @@ class Research extends Model
     {
         return $this->hasOne(Publication::class);
     }
+
+    public function proposal()
+    {
+        return $this->belongsTo(ResearchDetailSubmission::class, 'research_detail_submission_id', 'id');
+    }
 }

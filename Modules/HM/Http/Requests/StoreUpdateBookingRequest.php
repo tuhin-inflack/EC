@@ -4,7 +4,7 @@ namespace Modules\HM\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreBookingRequest extends FormRequest
+class StoreUpdateBookingRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -39,13 +39,10 @@ class StoreBookingRequest extends FormRequest
             'nid_doc' => 'nullable|mimes:jpeg,bmp,png|max:3072',
             'guests' => 'nullable',
             'guests.*.first_name' => 'max:50|required',
-//            'guests.*.middle_name' => 'max:50|nullable',
             'guests.*.last_name' => 'max:50|required',
-//            'guests.*.age' => 'numeric|min:1|required',
             'guests.*.gender' => 'in:male,female|required',
             'guests.*.relation' => 'max:50|required',
             'guests.*.nid_doc' => 'nullable|mimes:jpeg,bmp,png|max:3072',
-//            'guests.*.nid_no' => 'nullable|size:10',
             'guests.*.address' => 'max:300|required',
             'employee_id' => 'nullable|exists:employees,id'
         ];

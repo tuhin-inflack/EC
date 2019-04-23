@@ -24,9 +24,47 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+
+    @php
+        $economyHeadCode = 0; $changeStage = 0;
+    @endphp
+
+    @foreach($projectBudgets as $budget)
         @if($budget->section_type === 'revenue')
+
+            @if($changeStage == 0)
+                @php
+                    $changeStage = 1;
+                    $economyHeadCode = intval($budget->economyCode->economyHead->code);
+                @endphp
+            @endif
+
+            @if($economyHeadCode != $budget->economyCode->economyHead->code)
+
+                <tr>
+                    <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+                    @for($l = 1; $l <= 8; $l++)
+                        <td></td>
+                    @endfor
+                </tr>
+                <tr>
+                    @php
+                        $revenueHead = $data->economyHeadWiseRevenueData[$economyHeadCode];
+                    @endphp
+                    <th colspan="3">{{ $economyHeadCode }}</th>
+                    <td></td>
+                    <td>{{ $revenueHead->unitRate }}</td>
+                    <td>{{ $revenueHead->quantity }}</td>
+                    <td>{{ $revenueHead->govSource }}</td>
+                    <td>{{ $revenueHead->ownFinancingSource }}</td>
+                    <td>{{ $revenueHead->otherSource }}</td>
+                    <td>{{ $revenueHead->totalExpense }}</td>
+                    <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
+                </tr>
+            @endif
+
             @php
+                $economyHeadCode = $budget->economyCode->economyHead->code;
                 $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
                 $totalOwnFinancingSource += $budget->own_financing_source;
@@ -45,17 +83,22 @@
                 <td>{{ $budget->total_expense }}</td>
                 <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
             </tr>
+
         @endif
     @endforeach
-    <tr>
-        <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
-        @for($l = 1; $l <= 8; $l++)
-            <td></td>
-        @endfor
-    </tr>
-    @foreach($data->economyHeadWiseRevenueData as $economyHeadCode => $revenueHead)
+
+    @if( $economyHeadCode !== 0 )
         <tr>
-            <td colspan="3">{{ $economyHeadCode }}</td>
+            <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+            @for($l = 1; $l <= 8; $l++)
+                <td></td>
+            @endfor
+        </tr>
+        <tr>
+            @php
+                $revenueHead = $data->economyHeadWiseRevenueData[$economyHeadCode];
+            @endphp
+            <th colspan="3">{{ $economyHeadCode }}</th>
             <td></td>
             <td>{{ $revenueHead->unitRate }}</td>
             <td>{{ $revenueHead->quantity }}</td>
@@ -65,7 +108,8 @@
             <td>{{ $revenueHead->totalExpense }}</td>
             <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
         </tr>
-    @endforeach
+    @endif
+
     <tr>
         <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
         <td></td>
@@ -83,17 +127,54 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+
+    @php
+        $economyHeadCode = 0; $changeStage = 0;
+    @endphp
+
+    @foreach($projectBudgets as $budget)
         @if($budget->section_type === 'capital')
+            @if($changeStage == 0)
+                @php
+                    $changeStage = 1;
+                    $economyHeadCode = intval($budget->economyCode->economyHead->code);
+                @endphp
+            @endif
+
+            @if($economyHeadCode != $budget->economyCode->economyHead->code)
+
+                <tr>
+                    <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+                    @for($l = 1; $l <= 8; $l++)
+                        <td></td>
+                    @endfor
+                </tr>
+                <tr>
+                    @php
+                        $revenueHead = $data->economyHeadWiseCapitalData[$economyHeadCode];
+                    @endphp
+                    <th colspan="3">{{ $economyHeadCode }}</th>
+                    <td></td>
+                    <td>{{ $revenueHead->unitRate }}</td>
+                    <td>{{ $revenueHead->quantity }}</td>
+                    <td>{{ $revenueHead->govSource }}</td>
+                    <td>{{ $revenueHead->ownFinancingSource }}</td>
+                    <td>{{ $revenueHead->otherSource }}</td>
+                    <td>{{ $revenueHead->totalExpense }}</td>
+                    <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
+                </tr>
+            @endif
+
             @php
+                $economyHeadCode = $budget->economyCode->economyHead->code;
                 $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense;
                 $totalGovSource += $budget->gov_source;
                 $totalOwnFinancingSource += $budget->own_financing_source;
                 $totalOtherSource += $budget->other_source;
             @endphp
             <tr>
-                <td>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->economyHead->code }}</td>
+                <td>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->bangla_name }}</td>
                 <td>{{ $budget->unit }}</td>
                 <td>{{ $budget->unit_rate }}</td>
@@ -106,15 +187,19 @@
             </tr>
         @endif
     @endforeach
-    <tr>
-        <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
-        @for($l = 1; $l <= 8; $l++)
-            <td></td>
-        @endfor
-    </tr>
-    @foreach($data->economyHeadWiseCapitalData as $economyHeadCode => $revenueHead)
+
+    @if( $economyHeadCode !== 0 )
         <tr>
-            <td colspan="3">{{ $economyHeadCode }}</td>
+            <th colspan="3">@lang('draft-proposal-budget.economy_code') @lang('labels.wise') @lang('labels.sub_total') : </th>
+            @for($l = 1; $l <= 8; $l++)
+                <td></td>
+            @endfor
+        </tr>
+        <tr>
+            @php
+                $revenueHead = $data->economyHeadWiseCapitalData[$economyHeadCode];
+            @endphp
+            <th colspan="3">{{ $economyHeadCode }}</th>
             <td></td>
             <td>{{ $revenueHead->unitRate }}</td>
             <td>{{ $revenueHead->quantity }}</td>
@@ -124,7 +209,8 @@
             <td>{{ $revenueHead->totalExpense }}</td>
             <td>{{ number_format( (float) $revenueHead->totalExpense / $data->grandTotalExpense, 3, '.', '') }}</td>
         </tr>
-    @endforeach
+    @endif
+
     <tr>
         <th colspan="3">@lang('labels.sub_total') (@lang('draft-proposal-budget.capital')) : </th>
         <td></td>
