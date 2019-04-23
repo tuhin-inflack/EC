@@ -23,4 +23,11 @@ class ResearchRequest extends Model
     {
         return $this->hasMany(ResearchProposalSubmission::class, 'research_request_id', 'id');
     }
+
+    public function proposalsSubmittedByInvitedUserUnderReviewOrApproved()
+    {
+        return $this->hasMany(ResearchProposalSubmission::class, 'research_request_id', 'id')
+            ->where('auth_user_id', auth()->user()->id)
+            ->whereIn('status', ['APPROVED', 'PENDING']);
+    }
 }

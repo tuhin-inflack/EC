@@ -48,8 +48,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/css/plugins/file-uploaders/dropzone.css') }}">
     <!-- End File uploader dropzone CSS -->
 
-
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
 
     <!-- Select2 -->
     <style>

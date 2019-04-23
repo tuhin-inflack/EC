@@ -4,21 +4,17 @@ namespace Modules\HM\Http\Controllers;
 
 use App\Services\UserService;
 use App\Traits\FileTrait;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomBooking;
-use Modules\HM\Http\Requests\StoreBookingRequest;
-use Modules\HM\Http\Requests\UpdateBookingRequest;
+use Modules\HM\Http\Requests\StoreUpdateBookingRequest;
 use Modules\HM\Services\BookingRequestService;
 use Modules\HM\Services\RoomTypeService;
 use Modules\HRM\Services\DepartmentService;
 use Modules\HRM\Services\DesignationService;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\TMS\Services\TrainingsService;
-use Nwidart\Modules\Facades\Module;
 
 class BookingRequestController extends Controller
 {
@@ -141,10 +137,10 @@ class BookingRequestController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreBookingRequest $request
+     * @param StoreUpdateBookingRequest $request
      * @return Response
      */
-    public function store(StoreBookingRequest $request)
+    public function store(StoreUpdateBookingRequest $request)
     {
         $this->bookingRequestService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
@@ -202,11 +198,11 @@ class BookingRequestController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateBookingRequest $request
+     * @param StoreUpdateBookingRequest $request
      * @param RoomBooking $roomBooking
      * @return Response
      */
-    public function update(UpdateBookingRequest $request, RoomBooking $roomBooking)
+    public function update(StoreUpdateBookingRequest $request, RoomBooking $roomBooking)
     {
         $this->bookingRequestService->updateRequest($request->all(), $roomBooking);
         Session::flash('success', trans('labels.update_success'));

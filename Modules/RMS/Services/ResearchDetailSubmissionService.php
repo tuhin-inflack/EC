@@ -231,8 +231,7 @@ class ResearchDetailSubmissionService
                 return $user->employee->designation->short_name == "DG"
                     || ($user->employee->employeeDepartment->department_code == "RMS"
                         && $user->employee->designation->short_name != "FM")
-                    || ($user->employee->designation->short_name == "FM"
-                        && $researchDetailProposal->auth_user_id == $user->id);
+                    || ($researchDetailProposal->auth_user_id == $user->id);
             });
     }
 
@@ -243,7 +242,8 @@ class ResearchDetailSubmissionService
         $this->researchDetailSubmissionRepository->findAll()
             ->filter(function ($researchDetailSubmission) {
                 return $researchDetailSubmission->status == 'APPROVED'
-                    && $researchDetailSubmission->research_id == null;
+                    && $researchDetailSubmission->research_id == null
+                    && $researchDetailSubmission->auth_user_id == auth()->user()->id;
             })
             ->map(function ($researchDetailSubmission) {
 

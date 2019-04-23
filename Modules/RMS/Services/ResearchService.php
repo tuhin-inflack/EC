@@ -52,6 +52,7 @@ class ResearchService
     private $userService;
 
     private $researchDetailSubmissionService;
+
     /**
      * ResearchService constructor.
      * @param ResearchRepository $researchRepository
@@ -118,11 +119,9 @@ class ResearchService
 
         $publicationData = ['research_id' => $data['research_id'], 'description' => $data['description']];
         $publication = $this->researchPublicationRepository->findOne($publicationId);
-
         $status = $publication->update($publicationData);
 
         if (isset($data['fileRepeater'])) {
-
             $this->deleteOldAttachment($data, $publication);
             $this->storeNewAttachment($data, $publication);
         } else {
@@ -144,7 +143,7 @@ class ResearchService
                 }
             }
             return true;
-        }else{
+        } else {
             $publication->attachments()->whereResearchPublicationId($publication->id)->delete();
         }
 
@@ -211,21 +210,14 @@ class ResearchService
 
     public function getResearchesForUser(User $user)
     {
-        if($this->userService->isDirectorGeneral())
-        {
+        if ($this->userService->isDirectorGeneral()) {
             return $this->researchRepository->findAll();
 
-        }else if($this->userService->isDesignationFacultyMember($user))
-        {
-            return $this->researchRepository->findBy(['submitted_by'=>$user->id]);
-
-        }else if($this->userService->isResearchDivisionUser($user))
-        {
+        } else if ($this->userService->isResearchDivisionUser($user)) {
             return $this->researchRepository->findAll();
 
-        }else
-        {
-            return $this->researchRepository->findBy(['submitted_by'=>$user->id]);
+        } else {
+            return $this->researchRepository->findBy(['submitted_by' => $user->id]);
         }
     }
 }

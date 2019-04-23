@@ -342,6 +342,8 @@
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Publication info: {{  $item->dynamicValues['publication_description'] }}<br/>
+                                    Submitted by : {{  $item->dynamicValues['submitted_by'] }}
                                 </td>
 
                                 <td>
@@ -380,6 +382,8 @@
 
                                 <td>
                                     Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Publication info: {{  $item->dynamicValues['publication_description'] }}<br/>
+                                    Submitted by : {{  $item->dynamicValues['submitted_by'] }}
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
