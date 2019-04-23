@@ -6,8 +6,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HM\Entities\RoomType;
-use Modules\HM\Http\Requests\CreateRoomTypeRequest;
-use Modules\HM\Http\Requests\UpdateRoomTypeRequest;
+use Modules\HM\Http\Requests\StoreUpdateRoomTypeRequest;
 use Modules\HM\Services\RoomTypeService;
 
 class RoomTypeController extends Controller
@@ -45,10 +44,10 @@ class RoomTypeController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param CreateRoomTypeRequest $request
+     * @param StoreUpdateRoomTypeRequest $request
      * @return Response
      */
-    public function store(CreateRoomTypeRequest $request)
+    public function store(StoreUpdateRoomTypeRequest $request)
     {
         $this->roomTypeService->save($request->all());
         Session::flash('success', trans('labels.save_success'));
@@ -77,11 +76,11 @@ class RoomTypeController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param UpdateRoomTypeRequest $request
+     * @param StoreUpdateRoomTypeRequest $request
      * @param RoomType $roomType
      * @return Response
      */
-    public function update(UpdateRoomTypeRequest $request, RoomType $roomType)
+    public function update(StoreUpdateRoomTypeRequest $request, RoomType $roomType)
     {
         $this->roomTypeService->update($roomType, $request->all());
         Session::flash('success', trans('labels.update_success'));
