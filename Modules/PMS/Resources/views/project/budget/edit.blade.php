@@ -72,8 +72,6 @@
                 params.forEach(function (el) {
                     sum += parseFloat($(el).val());
                 });
-                console.log(sum);
-                console.log(parseFloat(value));
                 return parseFloat(value) === sum;
             },
             checksumMessage

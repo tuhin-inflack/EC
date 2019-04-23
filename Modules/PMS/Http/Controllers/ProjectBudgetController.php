@@ -33,12 +33,6 @@ class ProjectBudgetController extends Controller
     {
         $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
         $projectBudgets = $this->draftProposalBudgetService->getEconmonyCodeWiseSortedBudgets($project);
-
-//        dump($project->budgets()->orderBy('economy_code_id', 'asc')->get());
-//        dump($project->budgets);
-//        die();
-
-
         return view('pms::project.budget.index', compact('project', 'data', 'projectBudgets'));
     }
 
