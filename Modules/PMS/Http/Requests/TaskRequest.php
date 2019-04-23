@@ -18,14 +18,14 @@ class TaskRequest extends FormRequest
         $rules = [
             'name' => 'required',
             'expected_start_time' => 'required|date|date_format:Y-m-d',
-            'expected_end_time' => 'required|date|date_format:Y-m-d',
+            'expected_end_time' => 'required|date|date_format:Y-m-d|after_or_equal:expected_start_time',
             'actual_start_time' => 'nullable|date|date_format:Y-m-d',
             'description' => 'required'
         ];
 
         if ($request->input('actual_end_time')) {
             $rules['actual_start_time'] = str_replace('nullable', 'required', $rules['actual_start_time']);
-            $rules['actual_end_time'] = 'date|date_format:Y-m-d';
+            $rules['actual_end_time'] = 'date|date_format:Y-m-d|after_or_equal:actual_start_time';
         }
 
         return $rules;
