@@ -72,7 +72,7 @@
             @endphp
             <tr>
                 <td>{{ $budget->economyCode->economyHead->code }}</td>
-                <td>{{ $budget->economyCode->id }} {{ $budget->economyCode->code }}</td>
+                <td>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->bangla_name }}</td>
                 <td>{{ $budget->unit }}</td>
                 <td>{{ $budget->unit_rate }}</td>
@@ -174,7 +174,7 @@
             @endphp
             <tr>
                 <td>{{ $budget->economyCode->economyHead->code }}</td>
-                <td>{{ $budget->economyCode->id }} {{ $budget->economyCode->code }}</td>
+                <td>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->bangla_name }}</td>
                 <td>{{ $budget->unit }}</td>
                 <td>{{ $budget->unit_rate }}</td>
