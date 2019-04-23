@@ -47,6 +47,7 @@
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
 
             toggleComponents(($('.section-type-select').val() === "price_contingency" || ($('.section-type-select').val() === "physical_contingency")));
+            calcutateTotalExpense();
 
             $('.economy-code-select, .section-type-select').select2({
                 placeholder: selectPlaceholder
@@ -71,6 +72,8 @@
                 params.forEach(function (el) {
                     sum += parseFloat($(el).val());
                 });
+                console.log(sum);
+                console.log(parseFloat(value));
                 return parseFloat(value) === sum;
             },
             checksumMessage

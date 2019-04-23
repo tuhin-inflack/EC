@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label']) !!} <span class="danger">*</span>
+            {!! Form::label('section_type', trans('draft-proposal-budget.section_type') , ['class' => 'form-label required']) !!}
             {!! Form::select('section_type', $sectionTypes, $page === 'create' ? null : $draftProposalBudget->section_type, ['class'=>'form-control section-type-select required']) !!}
 
             <div class="help-block"></div>
@@ -20,8 +20,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            {!! Form::label('economy_code_id', trans('accounts::economy-code.title'), ['class' => 'form-label']) !!}
-            <span class="danger">*</span>
+            {!! Form::label('economy_code_id', trans('accounts::economy-code.title'), ['class' => 'form-label required']) !!}
             {!! Form::select('economy_code_id',$economyCodeOptions, $page === 'create' ? null : $draftProposalBudget->economy_code_id, ['class'=>'form-control economy-code-select required']) !!}
 
             <div class="help-block"></div>
@@ -34,7 +33,7 @@
 <div class="row">
     <div class="col-md-2">
         <div class="form-group">
-            {!! Form::label('unit', trans('labels.unit'), ['class' => 'form-label required']) !!} <span class="danger">*</span>
+            {!! Form::label('unit', trans('labels.unit'), ['class' => 'form-label required']) !!}
             {!! Form::text('unit', $page === 'create' ? old('unit') : $draftProposalBudget->unit, ['class' => 'form-control'.($errors->has('unit') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit')])]) !!}
 
@@ -46,8 +45,7 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            {!! Form::label('unit_rate', trans('labels.unit_rate'), ['class' => 'form-label required']) !!} <span
-                    class="danger">*</span>
+            {!! Form::label('unit_rate', trans('labels.unit_rate'), ['class' => 'form-label required']) !!}
             {!! Form::number('unit_rate', $page === 'create' ? old('unit_rate') : $draftProposalBudget->unit_rate, ['class' => 'form-control'.($errors->has('unit_rate') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.unit_rate')])]) !!}
 
@@ -59,8 +57,7 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            {!! Form::label('quantity', trans('labels.quantity'), ['class' => 'form-label required']) !!} <span
-                    class="danger">*</span>
+            {!! Form::label('quantity', trans('labels.quantity'), ['class' => 'form-label required']) !!}
             {!! Form::number('quantity', $page === 'create' ? old('quantity') : $draftProposalBudget->quantity, ['class' => 'form-control'.($errors->has('quantity') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.quantity')])]) !!}
             <div class="help-block"></div>
@@ -72,7 +69,6 @@
     <div class="col-md-2">
         <div class="form-group">
             {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
             {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''),
             'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total').' '.trans('labels.expense')])]) !!}
 
@@ -147,7 +143,6 @@
     <div class="col-md-4">
         <div class="form-group">
             {!! Form::label('gov_source', trans('draft-proposal-budget.gov').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
             {!! Form::number('gov_source', $page === 'create' ? old('gov_source') : $draftProposalBudget->gov_source, ['class' => 'form-control'.($errors->has('gov_source') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.gov')])]) !!}
 
@@ -158,7 +153,6 @@
         </div>
         <div class="form-group">
             {!! Form::label('own_financing_source', trans('draft-proposal-budget.own_financing').' ('.trans('draft-proposal-budget.foreign_currency').')', ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
             {!! Form::number('own_financing_source', $page === 'create' ? old('own_financing_source') : $draftProposalBudget->own_financing_source, ['class' => 'form-control'.($errors->has('own_financing_source') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=> trans('validation.required', ['attribute' => trans('draft-proposal-budget.own_financing')])]) !!}
 
@@ -169,7 +163,6 @@
         </div>
         <div class="form-group">
             {!! Form::label('other_source', trans('draft-proposal-budget.other'), ['class' => 'form-label required']) !!}
-            <span class="danger">*</span>
             {!! Form::number('other_source', $page === 'create' ? old('other_source') : $draftProposalBudget->other_source, ['class' => 'form-control'.($errors->has('other_source') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('draft-proposal-budget.other')])]) !!}
 
