@@ -131,7 +131,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{ From::close() }}
+                        {{ Form::close() }}
                         @endif
 
                         @if($proposal->status == 'APPROVED')
