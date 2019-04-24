@@ -450,13 +450,13 @@
                                         <tbody>
 
 
-                                        @foreach($tasks as $task)
+                                        {{--@foreach($tasks as $task)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>@lang('rms::research.' .$task->name)</td>
                                                 <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach--}}
 
                                         @if(count($tasks))
 
@@ -470,7 +470,7 @@
                                         @else
 
                                             <tr>
-                                                <td colspan="3" class="text-center">No started task is found</td>
+                                                <td colspan="3" class="text-center">@lang('rms::research.No started task is found')</td>
                                             </tr>
                                         @endif
 
