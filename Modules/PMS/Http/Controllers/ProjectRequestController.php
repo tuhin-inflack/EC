@@ -107,7 +107,7 @@ class ProjectRequestController extends Controller
     {
         $this->projectRequestService->updateProjectRequest($request->all(), $projectRequest);
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('project-request.brief.index');
+        return redirect()->route('project-request.index');
     }
 
     /**
@@ -119,7 +119,7 @@ class ProjectRequestController extends Controller
         $this->projectRequestService->delete($projectRequest);
         Session::flash('success', 'Proposal deleted successfully');
 
-        return redirect()->route('project-request.brief.index');
+        return redirect()->route('project-request.index');
     }
 
 
