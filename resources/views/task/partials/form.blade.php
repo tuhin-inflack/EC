@@ -58,12 +58,12 @@
                         'data-validation-required-message' => trans('validation.required', ['attribute' => trans('pms::task.expected_end_date')]),
                         'required'
                     ]) }}
+                    <div class="help-block"></div>
+                    @if ($errors->has('expected_end_time'))
+                        <span class="invalid-feedback"
+                              role="alert"><strong>{{ $errors->first('expected_end_time') }}</strong></span>
+                    @endif
                 </div>
-                <div class="help-block"></div>
-                @if ($errors->has('expected_end_time'))
-                    <span class="invalid-feedback"
-                          role="alert"><strong>{{ $errors->first('expected_end_time') }}</strong></span>
-                @endif
             </div>
         </div>
     </div>
@@ -97,12 +97,12 @@
                             'id' => 'actual_end_time',
                             'class' => 'form-control required' . ($errors->has('actual_end_time') ? ' is-invalid' : ''),
                         ]) }}
+                        <div class="help-block"></div>
+                        @if ($errors->has('actual_end_time'))
+                            <span class="invalid-feedback"
+                                  role="alert"><strong>{{ $errors->first('actual_end_time') }}</strong></span>
+                        @endif
                     </div>
-                    <div class="help-block"></div>
-                    @if ($errors->has('actual_end_time'))
-                        <span class="invalid-feedback"
-                              role="alert"><strong>{{ $errors->first('actual_end_time') }}</strong></span>
-                    @endif
                 </div>
             </div>
         </div>
