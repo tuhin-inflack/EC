@@ -140,7 +140,7 @@ $(document).ready(function () {
 
     try {
         if (typeof roomInfos != undefined) {
-            dynamicallySelectRateForRooms();
+            dynamicallySelectRateForRooms(JSON.parse(roomInfos));
         }
     } catch (e) {
         console.debug(e)
@@ -197,7 +197,7 @@ function getRefereeInformation(employeeId) {
     $('#bard-referee-div').show();
 }
 
-function dynamicallySelectRateForRooms() {
+function dynamicallySelectRateForRooms(roomInfos) {
     $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
         let roomInfo = roomInfos[index];
         let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
@@ -208,7 +208,8 @@ function dynamicallySelectRateForRooms() {
         <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
         <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
         // set value of select
-        $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
+        let roomRateValue = roomInfo.hasOwnProperty('rate_type') ? `${roomInfo.rate_type}_${roomInfo.rate}` : `${roomInfo.rate}`;
+        $(selectElement).val(roomRateValue).trigger('change');
     });
 }
 
