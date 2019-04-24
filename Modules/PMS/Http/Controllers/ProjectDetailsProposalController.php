@@ -257,6 +257,14 @@ class ProjectDetailsProposalController extends Controller
         return redirect()->back();
     }
 
+    public function close($wfMasterId)
+    {
+        $this->projectDetailsProposalService->closeProjectDetailProposalWorkflow($wfMasterId);
+        Session::flash('message', __('labels.update_success'));
+
+        return redirect(route('pms'));
+    }
+
     public function resubmit($proposalId, $featureId)
     {
         $proposal = $this->projectDetailsProposalService->findOne($proposalId);

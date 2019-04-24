@@ -88,7 +88,7 @@ return [
     'status_pending' => 'In Process',
     'status_approved' => 'Approved',
     'status_rejected' => 'Rejected',
-    'status_closed' => 'Rejected',
+    'status_closed' => 'Closed',
     'complete' => 'Finish',
     'no_doc_available' => 'No Document Available',
     'BARD ERP' => 'BARD ERP',

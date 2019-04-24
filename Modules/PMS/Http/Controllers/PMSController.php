@@ -286,7 +286,7 @@ class PMSController extends Controller
 
     public function close($wfMasterId)
     {
-        $this->workflowService->closeWorkflow($wfMasterId);
+        $this->pmsService->closeProjectBriefProposalWorkflow($wfMasterId);
         Session::flash('message', __('labels.update_success'));
 
         return redirect(route('pms'));
