@@ -9,7 +9,7 @@ return [
     'edit_attribute' => 'ইনডিকেটর সম্পাদনা করুন',
     'attribute_edit_form' => 'ইনডিকেটর সম্পাদনা ফর্ম',
     'attribute_list' => 'ইনডিকেটর তালিকা',
-    'indiacator_list' => 'ইনডিকেটর তালিকা',
+    'indicator_list' => 'ইনডিকেটর তালিকা',
     'attribute_value_list' => 'ইনডিকেটর মান তালিকা',
     'attribute_name' => 'ইনডিকেটর তালিকা',
     'attribute_value_input' => 'ইনডিকেটর মান ইনপুট',

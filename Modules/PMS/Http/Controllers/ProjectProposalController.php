@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Controllers;
 
+use App\Services\workflow\FeatureService;
 use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -23,15 +24,23 @@ class ProjectProposalController extends Controller
 {
     private $projectProposalService;
     private $dashboardService;
+    /**
+     * @var FeatureService
+     */
+    private $featureService;
 
     /**
      * ProjectProposalController constructor.
      * @param ProjectProposalService $projectProposalService
+     * @param DashboardWorkflowService $dashboardService
+     * @param FeatureService $featureService
      */
-    public function __construct(ProjectProposalService $projectProposalService, DashboardWorkflowService $dashboardService)
+    public function __construct(ProjectProposalService $projectProposalService, DashboardWorkflowService $dashboardService, FeatureService $featureService)
     {
         $this->projectProposalService = $projectProposalService;
         $this->dashboardService = $dashboardService;
+        /** @var FeatureService $featureService */
+        $this->featureService = $featureService;
     }
 
     /**
@@ -42,9 +51,11 @@ class ProjectProposalController extends Controller
     {
         $proposals = $this->projectProposalService->getProposalsForUser(Auth::user());
         $featureName = config('constants.project_proposal_feature_name');
+        $feature = $this->featureService->findBy(['name'=> $featureName]);
+        $featureId = $feature[0]->id;
         $pendingTasks = $this->dashboardService->getDashboardWorkflowItems($featureName);
 
-        return view('pms::proposal-submission.brief.index', compact('proposals', 'pendingTasks'));
+        return view('pms::proposal-submission.brief.index', compact('proposals', 'pendingTasks', 'featureId'));
     }
 
     /**

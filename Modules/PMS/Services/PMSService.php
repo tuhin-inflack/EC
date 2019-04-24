@@ -99,7 +99,7 @@ class PMSService
                     $data['review_url'] =route('sending-project-detail-for-review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]);
                 }
                 else
-                    $data['proposal_title'] = 'N/A';
+                    continue;
 
                 $allShareConvs[] = $data;
             }

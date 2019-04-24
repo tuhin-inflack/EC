@@ -184,6 +184,6 @@ return [
     'thank_you' => 'ধন্যবাদ',
     'thanks' => 'ধন্যবাদ',
     'achieved value cannot be greater than current balance' => 'অর্জিত মান বর্তমান হিসাব চেয়ে বড় হতে পারে না',
-    'summation of above fields must be equal to total amount' => 'উপরের ক্ষেত্রের সমষ্টি মোট পরিমাণ সমান হতে হবে',
+    'summation of above fields must be equal to total amount' => 'উপরের ক্ষেত্রের সমষ্টি মোট পরিমাণের সমান হতে হবে',
     'invalid file type' => 'অবৈধ ফাইল টাইপ',
 ];

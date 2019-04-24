@@ -61,7 +61,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td><a href="{{route( 'training.show' ,$trainee->training_id)}}">{{$trainee->training->training_id}}</a></td>
-                                            <td><a href="{{route( 'trainee.show' ,$trainee['id'])}}">{{$trainee['bangla_name']}}</a></td>
+                                            <td><a href="{{route( 'trainee.show' ,$trainee['id'])}}">{{$trainee['trainee_first_name'].' '.$trainee['trainee_last_name']}}</a></td>
                                             <td>{{trans('labels.'.strtolower($trainee['trainee_gender']))}}</td>
                                             <td>{{$trainee['mobile']}}</td>
                                             <td>{{$trainee['email']}}</td>

@@ -16,6 +16,7 @@ use App\Traits\ExcelExportTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
 use stdClass;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 
 class DraftProposalBudgetService
@@ -50,17 +51,14 @@ class DraftProposalBudgetService
         ];
     }
 
-    /**
-     * @param $budgetable
-     * @return array
-     */
-    public function prepareBudgetView($budgetable)
+    public function getEconomyCodeWiseSortedBudgets($budgetable){
+        return $budgetable->budgets()->orderBy('economy_code_id', 'asc')->get();
+    }
+
+    public function getTotalExpenseOfRevenueAndCapital($budgetable)
     {
-        $totalExpense = 0;
         $revenueExpense = 0;
         $capitalExpense = 0;
-        $physicalContingencyExpense = 0;
-        $priceContingencyExpense = 0;
 
         foreach ($budgetable->budgets as $budget)
         {
@@ -76,14 +74,28 @@ class DraftProposalBudgetService
 
         $totalExpense = $revenueExpense + $capitalExpense;
 
+        return compact('totalExpense', 'revenueExpense', 'capitalExpense');
+    }
+
+    /**
+     * @param $budgetable
+     * @return array
+     */
+    public function prepareDataForBudgetView($budgetable)
+    {
+        $physicalContingencyExpense = 0;
+        $priceContingencyExpense = 0;
+
+        list($totalExpense, $revenueExpense, $capitalExpense) = array_values($this->getTotalExpenseOfRevenueAndCapital($budgetable));
+
         foreach ($budgetable->budgets as $budget)
         {
             switch ($budget->section_type){
                 case 'physical_contingency':
-                    $physicalContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    $physicalContingencyExpense = ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
                     break;
                 case 'price_contingency':
-                    $priceContingencyExpense = $budget->total_expense ? : ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
+                    $priceContingencyExpense = ( $totalExpense * $budget->total_expense_percentage ) / 100 ;
                     break;
             }
         }
@@ -139,7 +151,7 @@ class DraftProposalBudgetService
      * @param $data
      * @param $viewName
      * @param null $fileName
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return BinaryFileResponse
      */
     public function exportExcel($data, $viewName, $fileName = null)
     {
@@ -194,6 +206,7 @@ class DraftProposalBudgetService
                         'budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
+                        'monetary_percentage' => $data['monetary_percentage'][$key],
                     ]);
                 }
 

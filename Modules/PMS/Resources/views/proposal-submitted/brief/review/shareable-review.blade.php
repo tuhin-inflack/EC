@@ -16,9 +16,6 @@
                     </div>
                 </div>
                 <div class="card-content collapse show">
-                    {!! Form::open(['url'=> route('project-proposal-submission.feedback',$shareConversationId), 'novalidate', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
-                    {{--{!! Form::open(['route' => [ 'project-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data']) !!}--}}
-
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -54,7 +51,7 @@
                             </div>
                             <div class="col-md-6">
                                 <ul>
-                                    @foreach($proposal->projectProposalFiles as $file)
+                                    @foreach($proposal->distinctProjectProposalFiles->unique('file_name') as $file)
                                         <li>
                                             <a href="{{url('pms/project-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
                                         </li>
@@ -65,73 +62,86 @@
                                         <b><a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('pms::project_proposal.download_all_attachments')</a></b>
                                     </li>
                                 </ul>
+                                @if(Request()->viewOnly != 1)
+                                    @include('pms::proposal-submitted.brief.review.reviewer-add-attachments')
+                                @endif
                             </div>
                         </div>
                     </div>
 
-                    @if($proposal->status!= 'APPROVED')
-                        <div class="card-footer">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    {{--<div class="form-group">--}}
-                                    {{--<label>{{__('labels.remarks')}}</label>--}}
-                                    {{--<textarea class="form-control" name="approval_remark"></textarea>--}}
-                                    {{--</div>--}}
 
-                                    <input name="feature_id" type="hidden" value="{{$feature->id}}">
-                                    <input name="ref_table_id" type="hidden" value="{{$proposal->id}}">
-                                    <input name="item_id" type="hidden" value="{{$proposal->id}}">
+                    <div class="card-footer">
+                        @if($proposal->status == 'PENDING' && Request()->viewOnly != 1)
+                        {!! Form::open(['url'=> route('project-proposal-submission.feedback',$shareConversationId), 'novalidate', 'class' => 'form', 'enctype' => 'multipart/form-data']) !!}
+                        <div class="row">
+                            <div class="col-md-6">
+                                {{--<div class="form-group">--}}
+                                {{--<label>{{__('labels.remarks')}}</label>--}}
+                                {{--<textarea class="form-control" name="approval_remark"></textarea>--}}
+                                {{--</div>--}}
 
-                                    <input name="share_rule_id" type="hidden" value="{{$shareConversation->shareRuleDesignation->share_rule_id}}">
-                                    <input name="request_ref_id" type="hidden" value="{{$shareConversation->request_ref_id}}">
-                                    <input name="department_id" type="hidden" value="2">
+                                <input name="feature_id" type="hidden" value="{{$feature->id}}">
+                                <input name="ref_table_id" type="hidden" value="{{$proposal->id}}">
+                                <input name="item_id" type="hidden" value="{{$proposal->id}}">
 
-                                    <div class="form-group">
-                                        <label>@lang('pms::approved-proposal.share_to')</label>
-                                        <select name="designation_id" class="form-control">
-                                            @foreach($ruleDesignations as $designation)
-                                                @if($designation->designation_id != $authDesignation)
-                                                    <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
+                                <input name="share_rule_id" type="hidden" value="{{$shareConversation->shareRuleDesignation->share_rule_id}}">
+                                <input name="request_ref_id" type="hidden" value="{{$shareConversation->request_ref_id}}">
+                                <input name="department_id" type="hidden" value="2">
 
-                                    </div>
-                                    {{--<div class="form-group">--}}
-                                    {{--{{__('labels.message_to_receiver')}}--}}
-                                    {{--<textarea name="message" class="form-control"></textarea>--}}
-                                    {{--</div>--}}
+                                <div class="form-group">
+                                    <label>@lang('pms::approved-proposal.share_to')</label>
+                                    <select name="designation_id" class="form-control">
+                                        @foreach($ruleDesignations as $designation)
+                                            @if($designation->designation_id != $authDesignation)
+                                                <option value="{{$designation->designation_id}}">{{$designation->getDesignation->name}}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
 
-                                    <div class="form-group">
-                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                                        <div class="help-block"></div>
-                                        @if ($errors->has('remarks'))
-                                            <div class="help-block red">{{ $errors->first('remarks') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
-                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '']) !!}
-                                        <div class="help-block"></div>
-                                        @if ($errors->has('message'))
-                                            <div class="help-block">{{ $errors->first('message') }}</div>
-                                        @endif
-                                    </div>
-                                    <div class="form-group">
-                                        @if($shareConversation->shareRuleDesignation->can_approve==true)
-                                            <button value="APPROVED" name="status" type="submit" class="btn btn-success">{{trans(('labels.approve'))}}</button>
-                                        @endif
-                                        <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
-                                        @if($shareConversation->shareRuleDesignation->can_reject)
-                                            <button type="submit" value="REJECTED" name="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</button>
-                                        @endif
-                                    </div>
+                                </div>
+                                {{--<div class="form-group">--}}
+                                {{--{{__('labels.message_to_receiver')}}--}}
+                                {{--<textarea name="message" class="form-control"></textarea>--}}
+                                {{--</div>--}}
+
+                                <div class="form-group">
+                                    {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                    {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                    <div class="help-block"></div>
+                                    @if ($errors->has('remarks'))
+                                        <div class="help-block red">{{ $errors->first('remarks') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
+                                    {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                    {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '']) !!}
+                                    <div class="help-block"></div>
+                                    @if ($errors->has('message'))
+                                        <div class="help-block">{{ $errors->first('message') }}</div>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    @if($shareConversation->shareRuleDesignation->can_approve==true)
+                                        <button value="APPROVED" name="status" type="submit" class="btn btn-success">{{trans(('labels.approve'))}}</button>
+                                    @endif
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
+                                    @if($shareConversation->shareRuleDesignation->can_reject)
+                                        <button type="submit" value="REJECTED" name="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</button>
+                                    @endif
                                 </div>
                             </div>
                         </div>
-                    @endif
-                    {!! Form::close() !!}
+                        {{ Form::close() }}
+                        @endif
+
+                        @if($proposal->status == 'APPROVED')
+                            @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                                <a href="{{route('project-request-details.create', ['projectProposal'=>$proposal->id]) }}" class="btn btn-primary mr-sm-1">
+                                    <i class="ft-file-plus white"></i> @lang('pms::approved-proposal.links.ask_for_details.title')
+                                </a>
+                            @endif
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>

@@ -31,8 +31,14 @@ class ProjectBudgetController extends Controller
      */
     public function index(Project $project)
     {
-        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
-        return view('pms::project.budget.index', compact('project', 'data'));
+        $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
+        $projectBudgets = $this->draftProposalBudgetService->getEconomyCodeWiseSortedBudgets($project);
+        return view('pms::project.budget.index', compact('project', 'data', 'projectBudgets'));
+    }
+
+    public function getBudgetExpense(Project $project)
+    {
+        return $this->draftProposalBudgetService->getTotalExpenseOfRevenueAndCapital($project);
     }
 
     /**
@@ -41,9 +47,8 @@ class ProjectBudgetController extends Controller
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function exportExcel(Project $project, $tableType){
-        $data = (object) $this->draftProposalBudgetService->prepareBudgetView($project);
+        $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
         $viewName = 'pms::project.budget.partials.' . $tableType;
-
         return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
     }
 
@@ -67,7 +72,6 @@ class ProjectBudgetController extends Controller
      */
     public function store(CreateProjectBudgetRequest $request, Project $project)
     {
-        dd($request->all());
         $this->draftProposalBudgetService->store($project, $request->all());
 
         Session::flash('success', trans('labels.save_success'));

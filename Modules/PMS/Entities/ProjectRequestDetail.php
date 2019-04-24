@@ -23,4 +23,10 @@ class ProjectRequestDetail extends Model
     {
         return $this->hasMany(ProjectDetailProposal::class, 'project_request_id', 'id');
     }
+
+    public function proposalsUnderReviewOrApproved()
+    {
+        return $this->hasMany(ProjectDetailProposal::class, 'project_request_id', 'id')
+            ->whereIn('status', ['APPROVED', 'PENDING']);
+    }
 }

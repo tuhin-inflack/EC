@@ -16,6 +16,7 @@ class ReviewRequest extends FormRequest
         return [
             'remarks' => 'required',
             'status' => 'required',
+            'message' => 'max:300'
         ];
     }
 

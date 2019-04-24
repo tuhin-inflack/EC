@@ -120,7 +120,7 @@
                                     <hr>
                                     <div class="table-responsive">
                                         <div class="pull-left">
-                                            <h4 class="card-title">@lang('attribute.indiacator_list')</h4>
+                                            <h4 class="card-title">@lang('attribute.indicator_list')</h4>
                                         </div>
                                         <div class="pull-right">
                                             <a href="{{ route('attribute-plannings.create', $project->id) }}"

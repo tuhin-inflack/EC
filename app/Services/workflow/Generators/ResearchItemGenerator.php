@@ -51,9 +51,10 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $proposal = $this->researchService->findOne($workflowMaster->ref_table_id);
-
             $researchData = [
                 'research_title' => $proposal->title,
+                'publication_description' => $proposal->publication->description,
+                'submitted_by' => $proposal->researchSubmittedByUser->name,
                 'remarks' => $proposal->remarks,
                 'id' => $proposal->id,
             ];
@@ -70,7 +71,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
             $dashboardItem->setDynamicValues($researchData);
-            $dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id,'ref_table_id' => $proposal->id]));
+            $dashboardItem->setRemarks($this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $proposal->id]));
             array_push($dashboardItems, $dashboardItem);
         }
 
@@ -94,10 +95,11 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
 
         foreach ($workflows as $key => $workflowMaster) {
-
             $dashboardItem = new DashboardItem();
             $researchData = [
                 'research_title' => $workflowMaster->research->title,
+                'publication_description' => $workflowMaster->research->publication->description,
+                'submitted_by' => $workflowMaster->research->researchSubmittedByUser->name,
                 'id' => $workflowMaster->ref_table_id,
             ];
 
