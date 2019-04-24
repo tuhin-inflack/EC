@@ -214,8 +214,6 @@ $('.booking-request-tab-steps').steps({
                 renderGuestInfos();
             } else {
                 $('.guests-info-div').show();
-                // $('.guests-info-div').hide();
-                // $('#guests-info-table').find('tbody').html('');
             }
 
             let isReferencePresent = $('#referee-select').val();
