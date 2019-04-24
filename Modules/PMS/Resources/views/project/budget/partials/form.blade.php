@@ -56,7 +56,7 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div class="form-group">
+        <div class="form-group toggle-content-form">
             {!! Form::label('quantity', trans('labels.quantity'), ['class' => 'form-label required']) !!}
             {!! Form::number('quantity', $page === 'create' ? old('quantity') : $draftProposalBudget->quantity, ['class' => 'form-control'.($errors->has('quantity') ? ' is-invalid' : ''), 'required',
             'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.quantity')])]) !!}
@@ -65,9 +65,14 @@
                 <span class="invalid-feedback">{{ $errors->first('quantity') }}</span>
             @endif
         </div>
+        <div class="form-group toggle-content-text" style="display: none">
+            <label class="form-label">@lang('labels.total') @lang('draft-proposal-budget.revenue') @lang('labels.and') @lang('draft-proposal-budget.capital')</label>
+            <br>
+            <label class="form-control total-capital-revenue"></label>
+        </div>
     </div>
     <div class="col-md-2">
-        <div class="form-group">
+        <div class="form-group toggle-content-form">
             {!! Form::label('total_expense', trans('labels.total').' '.trans('labels.expense'), ['class' => 'form-label required']) !!}
             {!! Form::number('total_expense', $page === 'create' ? old('total_expense') : $draftProposalBudget->total_expense, ['class' => 'form-control'.($errors->has('total_expense') ? ' is-invalid' : ''),
             'readonly', 'data-validation-required-message'=>trans('validation.required', ['attribute' => trans('labels.total').' '.trans('labels.expense')])]) !!}
@@ -76,6 +81,11 @@
             @if ($errors->has('total_expense'))
                 <span class="invalid-feedback">{{ $errors->first('total_expense') }}</span>
             @endif
+        </div>
+        <div class="form-group toggle-content-text" style="display: none">
+            <label class="form-label">@lang('labels.total') @lang('labels.amount')</label>
+            <br>
+            <label class="form-control total-expense-based-percentage">0</label>
         </div>
     </div>
     <div class="col-md-2">
