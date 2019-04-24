@@ -362,6 +362,7 @@ class PMSController extends Controller
         }
         elseif ($request->status == WorkflowStatus::APPROVED){
             $workflowDetail = $currentConv->workflowDetails;
+            $this->remarksService->save($data);
             $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
             $this->projectProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'APPROVED']);
 
@@ -369,11 +370,11 @@ class PMSController extends Controller
         elseif ($request->status == WorkflowStatus::REJECTED){
 
             $workflowDetail = $currentConv->workflowDetails;
+            $this->remarksService->save($data);
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
             $this->projectProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'REJECTED']);
         }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
-        $this->remarksService->save($data);
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');
