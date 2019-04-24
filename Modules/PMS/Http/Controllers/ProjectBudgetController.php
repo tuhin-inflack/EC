@@ -31,9 +31,14 @@ class ProjectBudgetController extends Controller
      */
     public function index(Project $project)
     {
-        $data = (object) $this->draftProposalBudgetService->prepareDataForBudget($project);
-        $projectBudgets = $this->draftProposalBudgetService->getEconmonyCodeWiseSortedBudgets($project);
+        $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
+        $projectBudgets = $this->draftProposalBudgetService->getEconomyCodeWiseSortedBudgets($project);
         return view('pms::project.budget.index', compact('project', 'data', 'projectBudgets'));
+    }
+
+    public function getBudgetExpense(Project $project)
+    {
+        return $this->draftProposalBudgetService->getTotalExpenseOfRevenueAndCapital($project);
     }
 
     /**
@@ -42,9 +47,8 @@ class ProjectBudgetController extends Controller
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function exportExcel(Project $project, $tableType){
-        $data = (object) $this->draftProposalBudgetService->prepareDataForBudget($project);
+        $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
         $viewName = 'pms::project.budget.partials.' . $tableType;
-
         return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
     }
 
