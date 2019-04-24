@@ -195,7 +195,7 @@ class ProjectDetailProposalService
             ->filter(function ($projectDetailProposal) {
                 return $projectDetailProposal->status == 'APPROVED'
                     && $projectDetailProposal->project_id == null
-                    && $projectDetailProposal->submitted_by == auth()->user()->id;
+                    && $projectDetailProposal->auth_user_id == auth()->user()->id;
             })
             ->map(function ($projectDetailProposal) {
 

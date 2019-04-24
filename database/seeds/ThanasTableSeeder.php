@@ -21,7 +21,7 @@ class ThanasTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'district_id' => 1,
-                'name' => 'Raozan',
+                'name' => 'আদর্শ সদর',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

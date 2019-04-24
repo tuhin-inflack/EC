@@ -35,4 +35,5 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
+    'No started task is found' => 'No started task is found',
 ];
