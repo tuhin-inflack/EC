@@ -131,6 +131,8 @@ return [
     'At most 50 characters' => 'At most 50 characters',
     'At most 100 characters' => 'At most 100 characters',
     'At most 5000 characters' => 'At most 5000 characters',
+    'Field can\'t be geater than 1' => 'Field can\'t be geater than 1',
+    'Field can\'t be geater than 100' => 'Field can\'t be geater than 100',
     'Please enter a valid number' => 'Please enter a valid number',
     'Please enter a valid email address' => 'Please enter a valid email address',
     'Must be greater than or equal to' => 'Must be greater than or equal to :attribute',
