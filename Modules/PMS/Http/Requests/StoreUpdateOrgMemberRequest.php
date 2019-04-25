@@ -18,6 +18,7 @@ class StoreUpdateOrgMemberRequest extends FormRequest
             'name' => 'required',
             'mobile' => 'required',
             'gender' => 'required',
+            'nid'   => 'nullable|max:20|min:10'
         ];
     }
 
