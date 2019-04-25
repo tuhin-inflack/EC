@@ -126,7 +126,8 @@
                                     @endif
                                     <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>
                                     @if($shareConversation->shareRuleDesignation->can_reject)
-                                        <button type="submit" value="REJECTED" name="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('pms::approved-proposal.links.cancel.title')</button>
+                                        <button type="submit" value="REJECTED" nProjectDetailProposalItemGenerator.php
+                                                ame="status" class="btn btn-warning"><i class="ft-x white"></i> @lang('labels.reject')</button>
                                     @endif
                                 </div>
                             </div>
