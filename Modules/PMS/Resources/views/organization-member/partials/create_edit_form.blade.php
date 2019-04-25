@@ -73,24 +73,22 @@
 
         <div class="col-md-6 ">
             <div class="form-group ">
-                <div class="form-group {{ $errors->has('nid') ? 'error' : '' }}">
-                    {{ Form::label('nid', trans('labels.nid_number')) }}
-                    {{ Form::text('nid',  isset($member) ? $member->nid : null,    [
-                        'id'=>'',
-                        'class' => ' form-control',
-                        'placeholder' => 'Enter NID number',
-                        'data-rule-minlength' => 10,
-                        'data-msg-minlength'=> trans('labels.At least 10 characters'),
-                        'data-rule-maxlength' => 20,
-                        'data-msg-maxlength'=> trans('labels.At most 20 characters'),
-                        'data-rule-number' => 'true',
-                        'data-msg-number' => trans('labels.Please enter a valid number'),
-                        ]) }}
-                    <div class="help-block"></div>
-                    @if ($errors->has('nid'))
-                        <div class="help-block">  {{ trans('labels.This field is required') }}</div>
-                    @endif
-                </div>
+                {{ Form::label('nid', trans('labels.nid_number')) }}
+                {{ Form::text('nid',  isset($member) ? $member->nid : null,    [
+                    'id'=>'',
+                    'class' => ' form-control' . ($errors->has('nid') ? ' is-invalid' : ''),
+                    'placeholder' => 'Enter NID number',
+                    'data-rule-minlength' => 10,
+                    'data-msg-minlength'=> trans('labels.At least 10 characters'),
+                    'data-rule-maxlength' => 20,
+                    'data-msg-maxlength'=> trans('labels.At most 20 characters'),
+                    'data-rule-number' => 'true',
+                    'data-msg-number' => trans('labels.Please enter a valid number'),
+                    ]) }}
+                <div class="help-block"></div>
+                @if ($errors->has('nid'))
+                    <div class="help-block">  {{ trans('labels.This field is required') }}</div>
+                @endif
             </div>
         </div>
 
