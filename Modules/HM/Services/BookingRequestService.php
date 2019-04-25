@@ -138,9 +138,9 @@ class BookingRequestService
 
         list($photoPath, $nidDocPath, $passportDocPath) = $this->storeRequesterFiles($data);
 
-        $roomBookingRequester->photo = !is_null($photoPath) ? $photoPath : (!is_null($oldRoomBooking) && !is_null($oldRoomBooking->requester->photo) ? $oldRoomBooking->requester->photo : null);
-        $roomBookingRequester->nid_doc = !is_null($nidDocPath) ? $nidDocPath : (!is_null($oldRoomBooking) && !is_null($oldRoomBooking->requester->nid_doc) ? $oldRoomBooking->requester->nid_doc : null);
-        $roomBookingRequester->passport_doc = !is_null($passportDocPath) ? $passportDocPath : (!is_null($oldRoomBooking) && !is_null($oldRoomBooking->requester->passport_doc) ? $oldRoomBooking->requester->passport_doc : null);
+        $roomBookingRequester->photo = !is_null($photoPath) ? $photoPath : $this->hasOldFile($oldRoomBooking, 'photo') ? $oldRoomBooking->requester->photo : null;
+        $roomBookingRequester->nid_doc = !is_null($nidDocPath) ? $nidDocPath : $this->hasOldFile($oldRoomBooking, 'nid_doc') ? $oldRoomBooking->requester->nid_doc : null;
+        $roomBookingRequester->passport_doc = !is_null($passportDocPath) ? $passportDocPath : $this->hasOldFile($oldRoomBooking, 'passport_doc') ? $oldRoomBooking->requester->passport_doc : null;
 
         $roomBooking->requester()->save($roomBookingRequester);
     }
@@ -545,6 +545,17 @@ class BookingRequestService
     private function uploadGuestNidDoc($file, $path)
     {
         return $this->upload($file, $path);
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @param null $attribute
+     * @return bool
+     */
+    private function hasOldFile(RoomBooking $roomBooking, $attribute = null): bool
+    {
+        return (!is_null($roomBooking)
+            && !is_null($roomBooking->requester->$attribute));
     }
 }
 
