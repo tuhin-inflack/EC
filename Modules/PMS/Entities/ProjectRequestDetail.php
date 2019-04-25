@@ -9,6 +9,11 @@ class ProjectRequestDetail extends Model
     protected $table = 'project_request_details';
     protected $fillable = ['project_proposal_id', 'title','end_date','remarks'];
 
+    /**
+     * @var array
+     */
+    protected $dates = ['end_date'];
+
     public function projectRequestDetailAttachments()
     {
         return $this->hasMany(ProjectRequestDetailAttachment::class, 'project_request_detail_id', 'id');
