@@ -28,12 +28,12 @@
 
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     {{ Form::label('hostel_budget_title_id', trans('hm::hostel_budget.section') ,  ['class' => 'form-label required'])}}
-                                    {{ Form::select('hostel_budget_section_id', $budgetSections, $budget->hostel_budget_section_id, [ 'placeholder' =>'Select budget section',   'class' => 'item-select   form-control ', 'required' => 'required', 'data-validation-required-message'=>'Please select budget section']) }}
-
+                                    {{ Form::select('hostel_budget_section_id', $budgetSections, $budget->hostel_budget_section_id, [ 'placeholder' =>'Select budget section',   'class' => 'item-select   form-control ', 'required' => 'required', 'data-validation-required-message'=> trans('labels.This field is required')]) }}
+                                    <div class="help-block"></div>
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_amount', $budget->budget_amount, ['placeholder' => '','required' => 'required', 'class' => 'form-control']) }}
+                                    {{ Form::number('budget_amount', $budget->budget_amount, ['placeholder' => '','required' => 'required', 'class' => 'form-control', 'data-validation-required-message'=> trans('labels.Please enter a valid number'), 'min'=>"0",]) }}
                                     <div class="help-block"></div>
                                 </div>
 

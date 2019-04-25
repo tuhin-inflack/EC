@@ -60,15 +60,11 @@
                                     {{--selectize-select--}}
                                     {{ Form::select('hostel_budget_section_id', $budgetSections, null, ['placeholder' =>'Select budget section',   'class' => 'item-select   form-control ', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
-
-
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
                                     {{ Form::number('budget_amount', null, ['class' => 'form-control',  'required', 'data-validation-required-message'=> trans('labels.Please enter a valid number'), 'min'=>"0",]) }}
                                     <div class="help-block"></div>
-
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2" id="cd">
                                     <button type="button" class="btn btn-outline-danger"
