@@ -1,4 +1,3 @@
-{{ print_r($errors) }}
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('member.member_adding_form') </h4>
     <h3>{{ $mode }} <strong>({{ $organization->name }})</strong></h3>
