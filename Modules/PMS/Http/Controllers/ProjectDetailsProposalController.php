@@ -234,6 +234,7 @@ class ProjectDetailsProposalController extends Controller
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
             $this->projectDetailsProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'APPROVED']);
+            $this->remarkService->save($data);
 
         }
         elseif ($request->status == WorkflowStatus::REJECTED){
@@ -241,9 +242,9 @@ class ProjectDetailsProposalController extends Controller
             $workflowDetail = $currentConv->workflowDetails;
             $this->workflowService->closeWorkflow($workflowDetail->workflow_master_id);
             $this->projectDetailsProposalService->findOrFail($data['ref_table_id'])->update(['status'=> 'REJECTED']);
+            $this->remarkService->save($data);
         }
         $this->shareConversationService->updateConversation($data, $shareConversationId);
-        $this->remarkService->save($data);
 
         Session::flash('success', trans('labels.save_success'));
         return redirect('/pms');
@@ -254,6 +255,14 @@ class ProjectDetailsProposalController extends Controller
         $this->projectProposalDetailReviewerAttachmentService->store($createProposalSubmissionAttachmentRequest->all());
 
         return redirect()->back();
+    }
+
+    public function close($wfMasterId)
+    {
+        $this->projectDetailsProposalService->closeProjectDetailProposalWorkflow($wfMasterId);
+        Session::flash('message', __('labels.update_success'));
+
+        return redirect(route('pms'));
     }
 
     public function resubmit($proposalId, $featureId)

@@ -14,6 +14,7 @@ use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\UserService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowMasterService;
 use App\Services\workflow\WorkflowService;
 use App\Traits\CrudTrait;
 use App\Traits\FileTrait;
@@ -37,6 +38,7 @@ class ProjectDetailProposalService
     private $workflowService;
     private $userService;
     private $employeeService;
+    private $workflowMasterService;
 
     /**
      * ProjectRequestService constructor.
@@ -49,13 +51,15 @@ class ProjectDetailProposalService
                                 FeatureService $featureService,
                                 WorkflowService $workflowService,
                                 UserService $userService,
-                                EmployeeServices $employeeService)
+                                EmployeeServices $employeeService,
+                                WorkflowMasterService $workflowMasterService)
     {
         $this->projectDetailProposalRepository = $projectDetailProposalRepository;
         $this->featureService = $featureService;
         $this->workflowService = $workflowService;
         $this->userService = $userService;
         $this->employeeService = $employeeService;
+        $this->workflowMasterService = $workflowMasterService;
 
         $this->setActionRepository($projectDetailProposalRepository);
     }
@@ -191,7 +195,7 @@ class ProjectDetailProposalService
             ->filter(function ($projectDetailProposal) {
                 return $projectDetailProposal->status == 'APPROVED'
                     && $projectDetailProposal->project_id == null
-                    && $projectDetailProposal->submitted_by == auth()->user()->id;
+                    && $projectDetailProposal->auth_user_id == auth()->user()->id;
             })
             ->map(function ($projectDetailProposal) {
 
@@ -199,5 +203,14 @@ class ProjectDetailProposalService
             });
 
         return $this->proposals;
+    }
+
+    public function closeProjectDetailProposalWorkflow($wfMasterId)
+    {
+        $this->workflowService->closeWorkflow($wfMasterId);
+        $wfMaster = $this->workflowMasterService->findOne($wfMasterId);
+
+        $projectProposal = $this->projectDetailProposalRepository->findOrFail($wfMaster->ref_table_id);
+        $projectProposal->update(['status' => 'CLOSED']);
     }
 }

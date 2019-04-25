@@ -113,12 +113,12 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($feature->name);
 
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url (done)
             $dashboardItem->setCheckUrl(route('project-proposal-submitted-resubmit', ['proposalId' =>  $workflowMaster->ref_table_id, 'feature_id' => $feature->id]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
+            $dashboardItem->setCloseUrl(route('project-proposal-submitted-close', ['wfMasterId'=> $workflowMaster->id]));
+
             $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }

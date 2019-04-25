@@ -32,6 +32,8 @@
                                             'REJECTED' => 'bg-danger',
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
+                                            'CLOSED' => 'bg-danger',
+
                                         );
                                     @endphp
 
@@ -100,6 +102,7 @@
                     {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
                     <option value="{{ trans('pms::project_proposal.pending') }}">{{ trans('pms::project_proposal.pending') }}</option>
+                    <option value="{{ trans('pms::project_proposal.closed') }}">{{ trans('pms::project_proposal.closed') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_approved') }}">{{ trans('pms::project_proposal.status_approved') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_rejected') }}">{{ trans('pms::project_proposal.status_rejected') }}</option>
                         </select>
