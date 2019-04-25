@@ -2,6 +2,7 @@
 
 namespace Modules\HM\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
@@ -15,60 +16,16 @@ class CheckinBillController extends Controller
      */
     public function index(RoomBooking $roomBooking)
     {
-        /*return $roomBooking->guestInfos;*/
-        return view('hm::check-in.bill.index')->with(['checkin' => $roomBooking]);
-    }
+        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
+        $endDate = $roomBooking->actual_end_date
+            ? Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date)
+            : Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('hm::create');
-    }
+        $duration = $startDate->diffInDays($endDate);
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('hm::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('hm::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return view('hm::check-in.bill.index')->with([
+            'checkin' => $roomBooking,
+            'duration' => $duration
+        ]);
     }
 }
