@@ -32,6 +32,7 @@
                                             'REJECTED' => 'bg-danger',
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
+                                            'CLOSED' => 'bg-danger',
                                         );
                                     @endphp
 
@@ -41,7 +42,6 @@
                                             @php
                                                 $wfMasterId = $proposal->workflowMasters->first()->id;
                                                 $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                $featureId = $proposal->workflowMasters->first()->feature->id;
                                                 $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
                                             @endphp
                                             <td>
@@ -106,6 +106,7 @@
                     {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
                     <option value="{{ trans('pms::project_proposal.pending') }}">{{ trans('pms::project_proposal.pending') }}</option>
+                    <option value="{{ trans('pms::project_proposal.closed') }}">{{ trans('pms::project_proposal.closed') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_approved') }}">{{ trans('pms::project_proposal.status_approved') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_rejected') }}">{{ trans('pms::project_proposal.status_rejected') }}</option>
                         </select>

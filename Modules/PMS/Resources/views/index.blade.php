@@ -103,7 +103,7 @@
                             @if(!empty($rejectedTask->dashboardItems))
                                 <div class="row">
                                     <div class="col-md-8">
-                                        <h5>{{__('labels.rejected_items')}}</h5>
+                                        <h5>{{trans('pms::project_proposal.'.$rejectedTask->dashboardItems[0]->featureName).' '.__('labels.rejected_items')}}</h5>
                                     </div>
                                     <div class="col-md-12">
                                         <table class="table table-bordered">
@@ -129,7 +129,7 @@
                                                         <a class="btn btn-primary btn-sm"
                                                            href="{{url($item->checkUrl)}}">{{__('labels.resubmit')}}</a>
                                                         <a class="btn btn-danger btn-sm"
-                                                           href="{{route('project-proposal-submitted-close', $item->workFlowMasterId)}}"
+                                                           href="{{url($item->closeUrl)}}"
                                                            title="Close the item forever">{{__('labels.closed')}}</a>
                                                     </td>
                                                 </tr>

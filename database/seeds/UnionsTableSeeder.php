@@ -21,7 +21,7 @@ class UnionsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'thana_id' => 1,
-                'name' => 'Test Union',
+                'name' => 'দুর্গাপুর',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

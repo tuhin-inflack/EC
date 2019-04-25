@@ -21,7 +21,7 @@ class DistrictsTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'division_id' => 1,
-                'name' => 'Chottogram',
+                'name' => 'কুমিল্লা',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

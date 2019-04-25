@@ -72,5 +72,6 @@ return [
     'Project Details Proposal' => 'Project Details Proposal',
     'Project Brief Proposal' => 'Project Brief Proposal',
     'send_for_review' => 'Send For Review',
-    'send_back' => 'Send Back'
+    'send_back' => 'Send Back',
+    'closed' => 'Closed'
 ];
