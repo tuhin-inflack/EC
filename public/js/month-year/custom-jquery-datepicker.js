@@ -7,6 +7,7 @@ function monthYearDatePicker (selector) {
             var iMonth = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
             var iYear = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
             $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
+            console.log('selected date on close: ' +  $(this).val());
         },
         beforeShow: function () {
             if ((selDate = $(this).val()).length > 0) {
@@ -15,6 +16,10 @@ function monthYearDatePicker (selector) {
                 $(this).datepicker('option', 'defaultDate', new Date(iYear, iMonth, 1));
                 $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
             }
+        },
+        onChangeMonthYear: function () {
+            $(this).datepicker('hide');
         }
+
     });
 }
