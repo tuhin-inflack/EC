@@ -2,6 +2,7 @@
 
 namespace Modules\PMS\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,7 @@ class TaskRequest extends FormRequest
             'name' => 'required',
             'expected_start_time' => 'required|date|date_format:Y-m-d',
             'expected_end_time' => 'required|date|date_format:Y-m-d|after_or_equal:expected_start_time',
-            'actual_start_time' => 'nullable|date|date_format:Y-m-d',
+            'actual_start_time' => 'nullable|date|date_format:Y-m-d|before_or_equal:' . Carbon::now()->format('Y-m-d'),
             'description' => 'required'
         ];
 
