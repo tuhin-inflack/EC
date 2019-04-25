@@ -72,7 +72,8 @@ return [
     'Project Details Proposal' => 'বিস্তারিত প্রকল্পের আমন্ত্রণ',
     'Project Brief Proposal' => 'প্রকল্প সংক্ষেপ আমন্ত্রণ',
     'send_for_review' => 'পাঠিয়ে দিন',
-    'send_back' => 'ফেরত পাঠান'
+    'send_back' => 'ফেরত পাঠান',
+    'closed' => 'বাতিলকৃত'
 
 ];
 

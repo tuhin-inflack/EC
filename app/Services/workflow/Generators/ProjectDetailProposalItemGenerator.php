@@ -121,7 +121,8 @@ class ProjectDetailProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
+            $dashboardItem->setCloseUrl(route('project-details-proposal-submitted-close', ['wfMasterId'=> $workflowMaster->id]));
+
             $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }

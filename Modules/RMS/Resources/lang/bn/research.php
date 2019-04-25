@@ -37,6 +37,7 @@ return [
     'achieved' => 'অর্জন',
     'research_back_from_director_research' => 'ডিরেক্টর রিসার্চ ফেরত আসা আইটেম',
     'research_paper_pending_item' => 'রিসার্চ পেপার পেন্ডিং আইটেম',
-    'select_detail_proposal' => 'গবেষণা প্রস্তাব নির্বাচন করুন'
+    'select_detail_proposal' => 'গবেষণা প্রস্তাব নির্বাচন করুন',
+    'No started task is found' => 'কোন কৃত কাজ পাওয়া যায়নি',
 ];
 

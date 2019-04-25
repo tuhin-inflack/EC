@@ -20,7 +20,7 @@ class DivisionsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'name' => 'Chottogram',
+                'name' => 'চট্টগ্রাম',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

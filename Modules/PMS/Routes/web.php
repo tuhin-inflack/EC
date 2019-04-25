@@ -182,7 +182,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('/review-bulk/', 'PMSController@reviewBulk')->name('project-proposal-submitted.review-bulk');
         Route::get('/resubmit/{proposalId}/{featureId}', 'ProjectDetailsProposalController@resubmit')->name('project-detail-proposal-submitted-resubmit');
         Route::post('/resubmit/{proposalId}', 'ProjectDetailsProposalController@storeResubmit')->name('project-detail-proposal-submitted-save-resubmit');
-        Route::get('/close/{wfMasterId}', 'PMSController@close')->name('project-proposal-submitted-close');
+        Route::get('/close/{wfMasterId}', 'ProjectDetailsProposalController@close')->name('project-details-proposal-submitted-close');
         Route::get('/approve/{proposalId}', 'PMSController@approve')->name('project-proposal-submitted-approve');
         Route::post('/approve/{proposalId}', 'PMSController@storeApprove')->name('project-proposal-submitted-store-approve');
         Route::post('/share', 'PMSController@share')->name('project-proposal.share');

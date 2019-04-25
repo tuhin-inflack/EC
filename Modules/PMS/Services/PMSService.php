@@ -129,4 +129,13 @@ class PMSService
             $item->update(['status' => $data['status']]);
         }
     }
+
+    public function closeProjectBriefProposalWorkflow($wfMasterId)
+    {
+        $this->workflowService->closeWorkflow($wfMasterId);
+        $wfMaster = $this->workflowMasterService->findOne($wfMasterId);
+
+        $projectProposal = $this->projectBriefProposalService->findOrFail($wfMaster->ref_table_id);
+        $projectProposal->update(['status' => 'CLOSED']);
+    }
 }
