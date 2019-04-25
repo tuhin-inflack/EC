@@ -170,9 +170,7 @@ class BookingRequestService
      */
     private function saveGuestInfos($data, $roomBooking): void
     {
-        /*$photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;*/
-
-        /* Save guests from old booking request into new booking - type checking */
+        /* Save guests info for booking/checkin */
 
         if (array_key_exists('guests', $data)) {
             $roomBooking->guestInfos()->saveMany(
