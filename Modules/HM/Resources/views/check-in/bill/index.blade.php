@@ -47,7 +47,7 @@
                                                     <div class="col-md-4">
                                                         <strong>@lang('hm::booking-request.end_date'): </strong><span
                                                                 id="end_date_display">
-                                                            {{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</span>
+                                                            {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,7 +80,7 @@
                                                                         <td>{{ $roomInfo->roomType->name }}</td>
                                                                         <td>{{ $roomInfo->quantity }}</td>
                                                                         <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}
-                                                                            To {{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
+                                                                            To {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</td>
                                                                         <td>
                                                                             @if($roomInfo->rate_type == 'govt')
                                                                                 {{ trans('hm::roomtype.govt_type') }}

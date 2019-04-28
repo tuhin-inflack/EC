@@ -17,7 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\BookingCheckin;
@@ -30,7 +29,6 @@ use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
-use phpDocumentor\Reflection\Types\Object_;
 
 class BookingRequestService
 {
@@ -460,6 +458,18 @@ class BookingRequestService
         $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
 
         return array($photoPath, $nidDocPath, $passportDocPath);
+    }
+
+    public function getCheckedInDuration(RoomBooking $roomBooking)
+    {
+        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
+        $endDate = $roomBooking->actual_end_date
+            ? Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date)
+            : Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+
+        $duration = $startDate->diffInDays($endDate);
+
+        return $duration ?: 1;
     }
 }
 

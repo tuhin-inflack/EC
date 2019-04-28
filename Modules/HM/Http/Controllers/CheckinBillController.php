@@ -7,25 +7,42 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\HM\Entities\RoomBooking;
+use Modules\HM\Services\BookingRequestService;
+use Modules\HM\Services\CheckinService;
 
 class CheckinBillController extends Controller
 {
     /**
+     * @var BookingRequestService
+     */
+    private $bookingRequestService;
+
+    /**
+     * CheckinBillController constructor.
+     * @param BookingRequestService $bookingRequestService
+     */
+    public function __construct(BookingRequestService $bookingRequestService)
+    {
+        $this->bookingRequestService = $bookingRequestService;
+    }
+
+    /**
      * Display a listing of the resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
     public function index(RoomBooking $roomBooking)
     {
-        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
-        $endDate = $roomBooking->actual_end_date
-            ? Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date)
-            : Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+        $duration = $this->bookingRequestService->getCheckedInDuration($roomBooking);
 
-        $duration = $startDate->diffInDays($endDate);
+        $endDate = $roomBooking->actual_end_date
+            ? $roomBooking->actual_end_date
+            : $roomBooking->end_date;
 
         return view('hm::check-in.bill.index')->with([
             'checkin' => $roomBooking,
-            'duration' => $duration
+            'duration' => $duration,
+            'endDate' => $endDate,
         ]);
     }
 }
