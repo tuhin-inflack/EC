@@ -139,8 +139,8 @@
                         'placeholder' => 'Nid number',
                         'data-rule-minlength' => 10,
                         'data-msg-minlength'=> trans('labels.At least 10 characters'),
-                        'data-rule-maxlength' => 20,
-                        'data-msg-maxlength'=> trans('labels.At most 20 characters'),
+                        'data-rule-maxlength' => 10,
+                        'data-msg-maxlength'=> trans('labels.At most 10 characters'),
                         'data-rule-number' => 'true',
                         'data-msg-number' => trans('labels.Please enter a valid number'),
                     ]) !!}
