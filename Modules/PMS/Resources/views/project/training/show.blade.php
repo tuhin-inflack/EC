@@ -39,7 +39,7 @@
                                     @foreach($members as $member)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td><a href="">{{ $member->memberDetails->name }}</a></td>
+                                            <td><a href="{{ route('organization-members.show', [$project->id, $member->memberDetails->organization_id, $member->member_id]) }}">{{ $member->memberDetails->name }}</a></td>
                                             <td>{{ $member->memberDetails->gender }}</td>
                                             <td>{{ $member->memberDetails->mobile }}</td>
                                             <td>{{ $member->memberDetails->address }}</td>
@@ -51,7 +51,7 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href=""
+                                                    <a href="{{ route('organization-members.show', [$project->id, $member->memberDetails->organization_id, $member->member_id]) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
                                                     <a href=""
                                                        class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
