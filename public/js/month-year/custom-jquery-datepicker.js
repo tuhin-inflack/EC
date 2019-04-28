@@ -15,6 +15,10 @@ function monthYearDatePicker (selector) {
                 $(this).datepicker('option', 'defaultDate', new Date(iYear, iMonth, 1));
                 $(this).datepicker('setDate', new Date(iYear, iMonth, 1));
             }
+        },
+        onChangeMonthYear: function () {
+            $(this).datepicker('hide');
         }
+
     });
 }

@@ -9,6 +9,11 @@ class ResearchDetailInvitation extends Model
     protected $table = 'research_detail_invitations';
     protected $fillable = ['research_proposal_submission_id', 'title', 'end_date', 'remarks'];
 
+    /**
+     * @var array
+     */
+    protected $dates = ['end_date'];
+
     public function researchDetailInvitationAttachments()
     {
         return $this->hasMany(ResearchDetailInvitationAttachment::class, 'research_detail_invitation_id', 'id');

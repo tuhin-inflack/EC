@@ -151,7 +151,7 @@ class ResearchRequestService
                return ((in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
                        || auth()->user()->employee->employeeDepartment->department_code == "RMS")
                    && !$researchRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count()
-                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchRequest->end_date)));
+                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchRequest->end_date->format('Y-m-d'))));
             });
     }
 }

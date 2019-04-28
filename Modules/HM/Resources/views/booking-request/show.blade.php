@@ -117,12 +117,27 @@
                                             </tr>
                                         @endif
                                         <tr>
-                                            <td>@lang('hm::booking-request.check_in')</td>
+                                            @if($type == 'checkin')
+                                                <td>@lang('hm::booking-request.check_in')</td>
+                                            @else
+                                                <td>@lang('hm::booking-request.start_date')</td>
+                                            @endif
                                             <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->start_date)->format('d/m/Y') }}</td>
                                         </tr>
                                         <tr>
-                                            <td>@lang('hm::booking-request.check_out')</td>
-                                            <td>{{ \Carbon\Carbon::createFromFormat('Y-m-d', $roomBooking->end_date)->format('d/m/Y') }}</td>
+                                            @if($type == 'checkin')
+                                                <td>@lang('hm::booking-request.check_out')</td>
+                                                <td>
+                                                    {{ $roomBooking->actual_end_date
+                                                    ? \Carbon\Carbon::parse($roomBooking->actual_end_date)->format('d/m/Y')
+                                                    : null }}
+                                                </td>
+                                            @else
+                                                <td>@lang('hm::booking-request.end_date')</td>
+                                                <td>
+                                                    {{ \Carbon\Carbon::parse($roomBooking->end_date)->format('d/m/Y') }}
+                                                </td>
+                                            @endif
                                         </tr>
                                         <tr>
                                             <td>@lang('hm::booking-request.no_of_guests')</td>
