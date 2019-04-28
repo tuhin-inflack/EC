@@ -37,7 +37,8 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        return view('ims::warehouse.index');
+        $warehouses = $this->warehouseService->getAllWarehouses();
+        return view('ims::warehouse.index', compact('warehouses'));
     }
 
     /**
@@ -57,7 +58,6 @@ class WarehouseController extends Controller
      */
     public function store(CreateWarehouseRequest $request)
     {
-//        return $request->all();
         $this->warehouseService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('inventory.warehouse.list');

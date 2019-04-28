@@ -37,4 +37,9 @@ class WarehouseService
         });
     }
 
+    public function getAllWarehouses()
+    {
+        return $this->warehouseRepository->findAll();
+    }
+
 }
