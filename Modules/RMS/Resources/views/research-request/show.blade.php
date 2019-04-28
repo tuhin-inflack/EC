@@ -45,7 +45,7 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3">@lang('rms::research_proposal.last_sub_date')</dt>
-                                <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($researchRequest->created_at)) }}</dd>
+                                <dd class="col-sm-9">{{ date('d/m/Y', strtotime($researchRequest->end_date)) }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3">@lang('labels.attachments')</dt>
@@ -65,7 +65,7 @@
                                 <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p></dd>
                             </dl>
                             <div class="form-actions text-center">
-                                @if(Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse($researchRequest->end_date)))
+                                @if(Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($researchRequest->end_date->format('Y-m-d'))))
                                     @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
                                         <a href="{{ route('research-request.edit', $researchRequest->id) }}" class="btn btn-primary mr-1">
                                             <i class="ft-plus white"></i> @lang('labels.edit')

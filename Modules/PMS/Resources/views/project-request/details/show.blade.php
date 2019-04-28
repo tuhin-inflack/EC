@@ -43,7 +43,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.last_sub_date')</dt>
-                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequestDetail->end_date)) }}</dd>
+                                    <dd class="col-sm-9">{{ date('d/m/Y', strtotime($projectRequestDetail->end_date)) }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.attachments')</dt>
@@ -62,9 +62,8 @@
                                     <dt class="col-sm-3">@lang('labels.remarks')</dt>
                                     <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $projectRequestDetail->remarks }}</p></dd>
                                 </dl>
-
                                 <div class="form-actions text-center">
-                                    @if(\Carbon\Carbon::now()->lessThan(Carbon\Carbon::parse($projectRequestDetail->end_date)))
+                                    @if(\Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($projectRequestDetail->end_date->format('Y-m-d'))))
                                         @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
                                             <a href="{{ route('project-request-details.edit', $projectRequestDetail->id) }}" class="btn btn-primary mr-1">
                                                 <i class="ft-plus white"></i> @lang('labels.edit')
