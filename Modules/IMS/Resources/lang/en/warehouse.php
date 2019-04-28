@@ -5,4 +5,6 @@ return [
     'list_page_title' => 'Warehouse List',
     'create_menu_title' => 'Add New Warehouse',
     'create_page_title' => 'Add New Warehouse',
+    'warehouse_details' => 'Warehouse Details',
+    'department' => 'Department',
 ];

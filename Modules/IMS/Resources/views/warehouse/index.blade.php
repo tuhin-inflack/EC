@@ -46,7 +46,7 @@
                                                     <i class="la la-cog"></i>
                                                 </button>
                                                 <span aria-labelledby="imsWarehouseList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                    <a href="{{ route('inventory.warehouse.show', $warehouse->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                     <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                     <div class="dropdown-divider"></div>
 

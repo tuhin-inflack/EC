@@ -5,4 +5,6 @@ return [
     'list_page_title' => 'কোষাগার তালিকা',
     'create_menu_title' => 'নতুন কোষাগার সংযোজন',
     'create_page_title' => 'নতুন কোষাগার সংযোজন',
+    'warehouse_details' => 'কোষাগার বিবরণ',
+    'department' => 'বিভাগ',
 ];

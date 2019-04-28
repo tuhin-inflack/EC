@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Entities\Department;
 use Modules\HRM\Services\DepartmentService;
+use Modules\IMS\Entities\Warehouse;
 use Modules\IMS\Http\Requests\CreateWarehouseRequest;
 use Modules\IMS\Services\WarehouseService;
 
@@ -67,9 +68,9 @@ class WarehouseController extends Controller
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Warehouse $warehouse)
     {
-        return view('ims::show');
+        return view('ims::warehouse.show', compact('warehouse'));
     }
 
     /**
