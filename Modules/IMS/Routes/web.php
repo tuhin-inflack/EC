@@ -24,6 +24,7 @@ Route::prefix('ims')->group(function() {
     Route::prefix('warehouse')->group(function() {
         Route::get('list', 'Warehouse\WarehouseController@index')->name('inventory.warehouse.list');
         Route::get('add', 'Warehouse\WarehouseController@create')->name('inventory.warehouse.create');
+        Route::post('/', 'Warehouse\WarehouseController@store')->name('inventory.warehouse.store');
     });
 
     Route::prefix('inventory')->group(function() {
