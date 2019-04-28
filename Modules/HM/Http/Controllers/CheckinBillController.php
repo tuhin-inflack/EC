@@ -35,9 +35,7 @@ class CheckinBillController extends Controller
     {
         $duration = $this->bookingRequestService->getCheckedInDuration($roomBooking);
 
-        $endDate = $roomBooking->actual_end_date
-            ? $roomBooking->actual_end_date
-            : $roomBooking->end_date;
+        $endDate = $this->bookingRequestService->getCheckedInEndDate($roomBooking);
 
         return view('hm::check-in.bill.index')->with([
             'checkin' => $roomBooking,

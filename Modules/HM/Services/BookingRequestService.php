@@ -507,8 +507,7 @@ class BookingRequestService
     {
         $removableAttachments = [];
 
-        foreach ($keys as $key)
-        {
+        foreach ($keys as $key) {
             array_key_exists($key, $data) ? $removableAttachments[] = $key : false;
         }
 
@@ -557,13 +556,30 @@ class BookingRequestService
     public function getCheckedInDuration(RoomBooking $roomBooking)
     {
         $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
-        $endDate = $roomBooking->actual_end_date
-            ? Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date)
-            : Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+
+        $endDate = $this->getCheckedInEndDate($roomBooking);
 
         $duration = $startDate->diffInDays($endDate);
 
         return $duration ?: 1;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @return Carbon
+     */
+    public function getCheckedInEndDate(RoomBooking $roomBooking)
+    {
+        if ($roomBooking->actual_end_date) {
+            $actualEndDate = Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date);
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+
+            $endDate = $endDate->greaterThanOrEqualTo($actualEndDate) ? $endDate : $actualEndDate;
+        } else {
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+        }
+
+        return $endDate;
     }
 }
 
