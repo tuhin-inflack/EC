@@ -23,12 +23,12 @@ class StoreAttributeValueRequest extends FormRequest
             'achieved_value' => [
                 'required',
                 'numeric',
-                'min:0',
+                'min:1',
                 function ($input, $value, $fail) use ($request) {
-                    $attribute = Attribute::find($request->get('attribute_id'));
-
-                    if ($this->isNotShareAndWithdrawTransaction($attribute, $request)) {
-                        $attribute->values->sum('achieved_value') >= $value ?: $fail(trans('labels.achieved value cannot be greater than current balance'));
+                    if ($request->get('transaction_type') == 'withdraw') {
+                        $this->attribute->values()
+                            ->where('organization_member_id', $this->member->id)
+                            ->sum('achieved_value') >= $value ?: $fail(trans('labels.achieved value cannot be greater than current balance'));
                     }
                 }
             ]
@@ -44,15 +44,5 @@ class StoreAttributeValueRequest extends FormRequest
     public function authorize()
     {
         return true;
-    }
-
-    /**
-     * @param Attribute $attribute
-     * @param Request $request
-     * @return bool
-     */
-    function isNotShareAndWithdrawTransaction(Attribute $attribute, Request $request): bool
-    {
-        return $attribute->name != 'Share' && $request->get('transaction_type') == 'withdraw';
     }
 }
