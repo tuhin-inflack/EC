@@ -13,7 +13,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label class="form-label required">{{ trans('labels.date') }}</label>
-                {{ Form::text('date', isset($monthlyUpdate) ? \Carbon\Carbon::parse($monthlyUpdate->date)->format('F Y') : null, [
+                {{ Form::text('date', isset($monthlyUpdate) ? \Carbon\Carbon::parse($monthlyUpdate->date)->format('F Y') : \Carbon\Carbon::today()->format('F Y'), [
                     'class' => 'form-control required' . ($errors->has('date') ? ' is-invalid' : ''),
                     'autocomplete' => 'off',
                     'required'
