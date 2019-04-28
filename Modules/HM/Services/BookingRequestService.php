@@ -133,13 +133,14 @@ class BookingRequestService
      */
     private function saveRequesterInfo($data, $roomBooking): void
     {
+        $oldRoomBooking = $this->pullOldRoomBooking($data);
         $roomBookingRequester = new RoomBookingRequester($data);
 
         list($photoPath, $nidDocPath, $passportDocPath) = $this->storeRequesterFiles($data);
 
-        $roomBookingRequester->photo = $photoPath;
-        $roomBookingRequester->nid_doc = $nidDocPath;
-        $roomBookingRequester->passport_doc = $passportDocPath;
+        $roomBookingRequester->photo = !is_null($photoPath) ? $photoPath : $this->hasOldFile($oldRoomBooking, 'photo') ? $oldRoomBooking->requester->photo : null;
+        $roomBookingRequester->nid_doc = !is_null($nidDocPath) ? $nidDocPath : $this->hasOldFile($oldRoomBooking, 'nid_doc') ? $oldRoomBooking->requester->nid_doc : null;
+        $roomBookingRequester->passport_doc = !is_null($passportDocPath) ? $passportDocPath : $this->hasOldFile($oldRoomBooking, 'passport_doc') ? $oldRoomBooking->requester->passport_doc : null;
 
         $roomBooking->requester()->save($roomBookingRequester);
     }
@@ -169,11 +170,12 @@ class BookingRequestService
      */
     private function saveGuestInfos($data, $roomBooking): void
     {
-        /*$photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;*/
+        /* Save guests info for booking/checkin */
+
         if (array_key_exists('guests', $data)) {
             $roomBooking->guestInfos()->saveMany(
                 collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $this->upload($guest['nid_doc'], 'booking-requests') : null;
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $this->upload($guest['nid_doc'], 'booking-requests') : $this->pullGuestNidDoc($guest);
                     return new BookingGuestInfo($guest);
                 })
             );
@@ -209,12 +211,20 @@ class BookingRequestService
             }
 
             $this->removeOldFileAttachments(
-                ['photo', 'nid_doc', 'passport_doc'],
+                $this->removableAttachments($data, ['photo', 'nid_doc', 'passport_doc']),
                 $data,
                 $roomBooking->requester->toArray()
             );
 
             list($data['photo'], $data['nid_doc'], $data['passport_doc']) = $this->storeRequesterFiles($data);
+
+
+            list($data['photo'], $data['nid_doc'], $data['passport_doc']) = $this->replaceRequesterInfo(array_filter($data, function ($key) {
+
+                return in_array($key, ['photo', 'nid_doc', 'passport_doc']);
+
+            }, ARRAY_FILTER_USE_KEY), $roomBooking);
+
 
             $roomBooking->requester->update($data);
 
@@ -241,17 +251,20 @@ class BookingRequestService
 
             foreach ($data['guests'] as $value) {
                 if ($value['id']) {
-                    // TODO: update old users
                     if (($key = array_search($value['id'], $allGuestIds)) !== false)
                         unset($allGuestIds[$key]);
 
                     if (array_key_exists('nid_doc', $value)) {
                         $guest = $roomBooking->guestInfos()->find($value['id']);
 
-                        if ($guest->nid_doc)
+                        if ($guest->nid_doc) {
                             Storage::delete($guest->nid_doc);
+                        }
 
-                        $value['nid_doc'] = $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests');
+                        $value['nid_doc'] = $this->uploadGuestNidDoc(
+                            $value['nid_doc'],
+                            'booking-requests/' . $roomBooking->shortcode . '/guests'
+                        );
                     }
 
                     $roomBooking->guestInfos()->updateOrCreate([
@@ -259,8 +272,12 @@ class BookingRequestService
                     ], $value);
 
                 } else {
-                    // TODO : add new users
-                    $value['nid_doc'] = array_key_exists('nid_doc', $value) ? $value['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $value['nid_doc'] = array_key_exists('nid_doc', $value)
+                        ? $this->uploadGuestNidDoc(
+                            $value['nid_doc'],
+                            'booking-requests/' . $roomBooking->shortcode . '/guests'
+                        )
+                        : null;
                     $roomBooking->guestInfos()->create($value);
                 }
             }
@@ -278,8 +295,9 @@ class BookingRequestService
     {
         foreach ($guests as $guest) {
 
-            if ($guest->nid_doc)
+            if ($guest->nid_doc) {
                 Storage::delete($guest->nid_doc);
+            }
 
             $guest->delete();
         }
@@ -460,6 +478,82 @@ class BookingRequestService
         $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
 
         return array($photoPath, $nidDocPath, $passportDocPath);
+    }
+
+    /**
+     * @param $guest
+     * @return null
+     */
+    private function pullGuestNidDoc($guest)
+    {
+        $guest = isset($guest['id']) ? BookingGuestInfo::findOrFail($guest['id']) : null;
+
+        return !is_null($guest) ? $guest->nid_doc : null;
+    }
+
+    /**
+     * @param $data
+     * @return null
+     */
+    private function pullOldRoomBooking($data)
+    {
+        return isset($data['booking_id']) ? RoomBooking::findOrfail($data['booking_id']) : null;
+    }
+
+    /**
+     * @param $data
+     * @param $keys
+     * @return array
+     */
+    private function removableAttachments($data, $keys): array
+    {
+        $removableAttachments = [];
+
+        foreach ($keys as $key)
+        {
+            array_key_exists($key, $data) ? $removableAttachments[] = $key : false;
+        }
+
+        return $removableAttachments;
+    }
+
+    /**
+     * @param $data
+     * @param RoomBooking $roomBooking
+     * @return array
+     */
+    private function replaceRequesterInfo($data, RoomBooking $roomBooking)
+    {
+        $results = [];
+
+        foreach ($data as $key => $value) {
+
+            $results[] = ($value == null ? $roomBooking->requester->$key : $value);
+        }
+
+        return $results;
+
+    }
+
+    /**
+     * @param $file
+     * @param $path
+     * @return \App\Traits\file
+     */
+    private function uploadGuestNidDoc($file, $path)
+    {
+        return $this->upload($file, $path);
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @param null $attribute
+     * @return bool
+     */
+    private function hasOldFile(RoomBooking $roomBooking, $attribute = null): bool
+    {
+        return (!is_null($roomBooking)
+            && !is_null($roomBooking->requester->$attribute));
     }
 }
 
