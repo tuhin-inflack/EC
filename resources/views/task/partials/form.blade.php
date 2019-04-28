@@ -74,7 +74,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="actual_end_time required"
-                           class="form-label required">{{trans('pms::task.start_date')}}</label>
+                           class="form-label">{{trans('pms::task.start_date')}}</label>
                     <div class="input-group">
                         {{ Form::text('actual_start_time', isset($task) ? $task->actual_start_time : null, [
                             'id' => 'actual_start_time',
@@ -91,7 +91,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="actual_end_time required"
-                           class="form-label required">{{trans('pms::task.end_date')}}</label>
+                           class="form-label">{{trans('pms::task.end_date')}}</label>
                     <div class="input-group">
                         {{ Form::text('actual_end_time', isset($task) ? $task->actual_end_time : null, [
                             'id' => 'actual_end_time',
@@ -113,7 +113,7 @@
     <div class="col-md-12">
         <div class="form-group">
             <label for="description"
-                   class="form-label">{{trans('pms::task.task_description')}}</label>
+                   class="form-label required">{{trans('pms::task.task_description')}}</label>
             <textarea name="description" id="description"
                       class="form-control {{ $errors->has('description') ? ' is-invalid' : '' }}">{{ isset($task) ? $task->description : null }}</textarea>
 
@@ -130,7 +130,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <label for="attachments"
-                   class="form-label required">{{trans('labels.attachments')}}</label>
+                   class="form-label">{{trans('labels.attachments')}}</label>
             @if(isset($task))
                 <div class="delete-attachments">
                     <ul class="list-inline">
