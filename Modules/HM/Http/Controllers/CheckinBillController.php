@@ -2,73 +2,45 @@
 
 namespace Modules\HM\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\HM\Entities\RoomBooking;
+use Modules\HM\Services\BookingRequestService;
+use Modules\HM\Services\CheckinService;
 
 class CheckinBillController extends Controller
 {
     /**
+     * @var BookingRequestService
+     */
+    private $bookingRequestService;
+
+    /**
+     * CheckinBillController constructor.
+     * @param BookingRequestService $bookingRequestService
+     */
+    public function __construct(BookingRequestService $bookingRequestService)
+    {
+        $this->bookingRequestService = $bookingRequestService;
+    }
+
+    /**
      * Display a listing of the resource.
+     * @param RoomBooking $roomBooking
      * @return Response
      */
     public function index(RoomBooking $roomBooking)
     {
-        /*return $roomBooking->guestInfos;*/
-        return view('hm::check-in.bill.index')->with(['checkin' => $roomBooking]);
-    }
+        $duration = $this->bookingRequestService->getCheckedInDuration($roomBooking);
 
-    /**
-     * Show the form for creating a new resource.
-     * @return Response
-     */
-    public function create()
-    {
-        return view('hm::create');
-    }
+        $endDate = $this->bookingRequestService->getCheckedInEndDate($roomBooking);
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Show the specified resource.
-     * @return Response
-     */
-    public function show()
-    {
-        return view('hm::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     * @return Response
-     */
-    public function edit()
-    {
-        return view('hm::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
-     */
-    public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
-    {
+        return view('hm::check-in.bill.index')->with([
+            'checkin' => $roomBooking,
+            'duration' => $duration,
+            'endDate' => $endDate,
+        ]);
     }
 }

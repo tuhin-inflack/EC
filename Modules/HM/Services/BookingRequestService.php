@@ -17,7 +17,6 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Modules\HM\Emails\BookingRequestMail;
 use Modules\HM\Entities\BookingCheckin;
@@ -30,7 +29,6 @@ use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\BookingRequestForwardRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
 use Modules\HM\Repositories\RoomBookingRequesterRepository;
-use phpDocumentor\Reflection\Types\Object_;
 
 class BookingRequestService
 {
@@ -509,8 +507,7 @@ class BookingRequestService
     {
         $removableAttachments = [];
 
-        foreach ($keys as $key)
-        {
+        foreach ($keys as $key) {
             array_key_exists($key, $data) ? $removableAttachments[] = $key : false;
         }
 
@@ -554,6 +551,35 @@ class BookingRequestService
     {
         return (!is_null($roomBooking)
             && !is_null($roomBooking->requester->$attribute));
+    }
+
+    public function getCheckedInDuration(RoomBooking $roomBooking)
+    {
+        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
+
+        $endDate = $this->getCheckedInEndDate($roomBooking);
+
+        $duration = $startDate->diffInDays($endDate);
+
+        return $duration ?: 1;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @return Carbon
+     */
+    public function getCheckedInEndDate(RoomBooking $roomBooking)
+    {
+        if ($roomBooking->actual_end_date) {
+            $actualEndDate = Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date);
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+
+            $endDate = $endDate->greaterThanOrEqualTo($actualEndDate) ? $endDate : $actualEndDate;
+        } else {
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+        }
+
+        return $endDate;
     }
 }
 
