@@ -14,7 +14,7 @@ class CreateWarehouseRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => 'date_format:"Y-m-d"',
+            'date' => 'date_format:"j F, Y"',
         ];
     }
 

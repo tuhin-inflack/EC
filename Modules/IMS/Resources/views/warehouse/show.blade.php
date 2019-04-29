@@ -32,6 +32,15 @@
                                 <dd class="col-sm-9">{{ date('j F,Y', strtotime($warehouse->date)) }}</dd>
                             </dl>
                         </div>
+                        <div class="form-actions text-center">
+                                <a href="{{ route('inventory.warehouse.edit', $warehouse->id) }}" class="btn btn-primary mr-1">
+                                    <i class="ft-plus white"></i> @lang('labels.edit')
+                                </a>
+
+                            <a class="btn btn-warning mr-1" role="button" href="{{ route('inventory.warehouse.list') }}">
+                                <i class="ft-x"></i> @lang('labels.cancel')
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

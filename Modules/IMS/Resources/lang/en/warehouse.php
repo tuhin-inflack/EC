@@ -7,4 +7,5 @@ return [
     'create_page_title' => 'Add New Warehouse',
     'warehouse_details' => 'Warehouse Details',
     'department' => 'Department',
+    'edit_page_title' => 'Update Warehouse',
 ];

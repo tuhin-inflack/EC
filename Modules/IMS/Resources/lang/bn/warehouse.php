@@ -7,4 +7,5 @@ return [
     'create_page_title' => 'নতুন কোষাগার সংযোজন',
     'warehouse_details' => 'কোষাগার বিবরণ',
     'department' => 'বিভাগ',
+    'edit_page_title' => 'কোষাগার সম্পাদনা',
 ];

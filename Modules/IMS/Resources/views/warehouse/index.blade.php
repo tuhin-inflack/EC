@@ -38,7 +38,7 @@
                                     @foreach($warehouses as $warehouse)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $warehouse->name }}</td>
+                                            <td><a href="{{ route('inventory.warehouse.show', $warehouse->id) }}">{{ $warehouse->name }}</a></td>
                                             <td>{{ $warehouse->departments->name }}</td>
                                             <td>
                                             <span class="dropdown">
@@ -47,7 +47,7 @@
                                                 </button>
                                                 <span aria-labelledby="imsWarehouseList" class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href="{{ route('inventory.warehouse.show', $warehouse->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                    <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                    <a href="{{ route('inventory.warehouse.edit', $warehouse->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                     <div class="dropdown-divider"></div>
 
                                                     {!!

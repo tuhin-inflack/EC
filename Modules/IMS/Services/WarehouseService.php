@@ -10,7 +10,9 @@ namespace Modules\IMS\Services;
 
 
 use App\Traits\CrudTrait;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Modules\IMS\Entities\Warehouse;
 use Modules\IMS\Repositories\WarehouseRepository;
 
 class WarehouseService
@@ -30,9 +32,8 @@ class WarehouseService
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
-
+            $data['date'] = Carbon::createFromFormat("j F, Y", $data['date']);
             $warehouse = $this->warehouseRepository->save($data);
-
             return $warehouse;
         });
     }
@@ -40,6 +41,14 @@ class WarehouseService
     public function getAllWarehouses()
     {
         return $this->warehouseRepository->findAll();
+    }
+
+    public function updateWarehouse(Warehouse $warehouse, array $data)
+    {
+        return DB::transaction(function () use ($warehouse, $data){
+            $data['date'] = Carbon::createFromFormat("j F, Y", $data['date']);
+            return $warehouse->update($data);
+        });
     }
 
 }

@@ -26,6 +26,8 @@ Route::prefix('ims')->group(function() {
         Route::get('add', 'Warehouse\WarehouseController@create')->name('inventory.warehouse.create');
         Route::post('/', 'Warehouse\WarehouseController@store')->name('inventory.warehouse.store');
         Route::get('{warehouse}', 'Warehouse\WarehouseController@show')->name('inventory.warehouse.show');
+        Route::get('{warehouse}/edit','Warehouse\WarehouseController@edit')->name('inventory.warehouse.edit');
+        Route::put('{warehouse}/update','Warehouse\WarehouseController@update')->name('inventory.warehouse.update');
     });
 
     Route::prefix('inventory')->group(function() {

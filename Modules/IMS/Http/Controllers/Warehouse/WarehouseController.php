@@ -77,9 +77,10 @@ class WarehouseController extends Controller
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(Warehouse $warehouse)
     {
-        return view('ims::edit');
+        $departments = $this->departmentService->getDepartmentsForDropdown();
+        return view('ims::warehouse.edit', compact('warehouse','departments'));
     }
 
     /**
@@ -87,8 +88,11 @@ class WarehouseController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Warehouse $warehouse)
     {
+        $this->warehouseService->updateWarehouse($warehouse, $request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory.warehouse.list');
     }
 
     /**
