@@ -35,6 +35,7 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
+    'research_back_from_director_research' => 'List of research papers come back from Director Research',
     'select_detail_proposal' => 'Select research proposal',
     'No started task is found' => 'No started task is found',
 ];
