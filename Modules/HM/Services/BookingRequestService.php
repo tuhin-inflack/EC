@@ -547,7 +547,7 @@ class BookingRequestService
      * @param null $attribute
      * @return bool
      */
-    private function hasOldFile(RoomBooking $roomBooking, $attribute = null): bool
+    private function hasOldFile($roomBooking = null, $attribute = null): bool
     {
         return (!is_null($roomBooking)
             && !is_null($roomBooking->requester->$attribute));
