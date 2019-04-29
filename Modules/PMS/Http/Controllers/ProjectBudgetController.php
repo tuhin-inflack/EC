@@ -48,8 +48,9 @@ class ProjectBudgetController extends Controller
      */
     public function exportExcel(Project $project, $tableType){
         $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
+        $projectBudgets = $this->draftProposalBudgetService->getEconomyCodeWiseSortedBudgets($project);
         $viewName = 'pms::project.budget.partials.' . $tableType;
-        return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
+        return $this->draftProposalBudgetService->exportExcel(compact('project', 'data', 'projectBudgets'), $viewName, $project->title .'-' .$tableType);
     }
 
     /**
