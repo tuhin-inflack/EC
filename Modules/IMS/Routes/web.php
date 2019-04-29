@@ -32,4 +32,11 @@ Route::prefix('ims')->group(function() {
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
     });
 
+    //fixed-asset route
+    Route::prefix('fixed-asset')->group(function() {
+        Route::get('/', 'FixedAsset\FixedAssetController@index')->name('fixed-asset.list');
+        Route::get('/add', 'FixedAsset\FixedAssetController@create')->name('fixed-asset.add');
+        Route::post('/add', 'FixedAsset\FixedAssetController@store')->name('fixed-asset.add');
+    });
+
 });
