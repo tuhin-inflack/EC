@@ -5,8 +5,8 @@
         <div class="col-md-5">
             <div class="form-group">
                 <div class="form-group {{ $errors->has('hostel_budget_title_id') ? ' error' : '' }}">
-                  <h3>{{ $budgetWithTitles->name }}</h3>
-{{--                    {{ Form::select('hostel_budget_title_id', $budgetTitles, isset($budgetWithTitles->id) ? $budgetWithTitles->id : null, ['disabled', 'class' => 'form-control', 'placeholder' => 'Select Budget Year', 'required' => 'required', 'data-validation-required-message'=>'Please select budget title']) }}--}}
+                    <h3>{{ $budgetWithTitles->name }}</h3>
+                    {{--                    {{ Form::select('hostel_budget_title_id', $budgetTitles, isset($budgetWithTitles->id) ? $budgetWithTitles->id : null, ['disabled', 'class' => 'form-control', 'placeholder' => 'Select Budget Year', 'required' => 'required', 'data-validation-required-message'=>'Please select budget title']) }}--}}
                     {{ Form::hidden('hostel_budget_title_id', isset($budgetWithTitles->id) ? $budgetWithTitles->id : null ) }}
                     <div class="help-block"></div>
                     @if ($errors->has('hostel_budget_title_id'))
@@ -39,15 +39,16 @@
                                     {{ Form::hidden('budget_amount', $budget->budget_amount) }}
                                 </div>
 
-
-                                <div class="form-group mb-1 col-sm-12 col-md-4">
-                                    {{ Form::label('budget_amount', trans('hm::hostel_budget.approve_amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_approved_amount', $budget->budget_amount, ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>'Please enter budget amount']) }}
-                                    <div class="help-block"></div>
-                                    @if ($errors->has('budget_approved_amount'))
-                                        <div class="help-block">  {{ $errors->first('budget_approved_amount') }}</div>
-                                    @endif
-                                </div>
+                                @if(auth()->user()->hasAnyRole(['ROLE_DIRECTOR_ADMIN']))
+                                    <div class="form-group mb-1 col-sm-12 col-md-4">
+                                        {{ Form::label('budget_amount', trans('hm::hostel_budget.approve_amount'), ['class' => 'required']) }}
+                                        {{ Form::number('budget_approved_amount', $budget->budget_amount, ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>'Please enter budget amount']) }}
+                                        <div class="help-block"></div>
+                                        @if ($errors->has('budget_approved_amount'))
+                                            <div class="help-block">  {{ $errors->first('budget_approved_amount') }}</div>
+                                        @endif
+                                    </div>
+                                @endif
 
                             </div>
                             <hr>
