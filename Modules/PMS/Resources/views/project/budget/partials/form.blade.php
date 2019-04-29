@@ -141,11 +141,11 @@
                                    $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_amount[]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_amount[{{ $i }}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
                         </td>
                         <td>
-                            <input type="number" name="monetary_percentage[{{$i}}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
+                            <input type="number" name="monetary_percentage[{{ $i }}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
                                    $draftProposalBudget->budgetFiscalValue[$i]->monetary_percentage : null }}">
                         </td>
                     </tr>
