@@ -149,6 +149,14 @@ Route::prefix('hrm')->group(function () {
             'job-circular' => 'JobCircularController'
         ]
     );
+
+    // Routes for Photocopy Management
+    Route::prefix('photocopy')->group(function () {
+        Route::get('/list', 'PhotocopyManagementController@index')->name('photocopy-management.list');
+        Route::get('/show/{requestId}', 'PhotocopyManagementController@show')->name('photocopy-management.show');
+        Route::get('/create', 'PhotocopyManagementController@create')->name('employee-punishment.create');
+        Route::post('/create', 'PhotocopyManagementController@store')->name('employee-punishment.store');
+    });
 });
 
 //} );
