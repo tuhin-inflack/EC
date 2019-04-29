@@ -13,7 +13,7 @@
                                 <div class="card-header">
                                     <h4 class="card-title">@lang('rms::research.research_publication_create')</h4>
                                     <a class="heading-elements-toggle"><i
-                                            class="la la-ellipsis-h font-medium-3"></i></a>
+                                                class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
                                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
@@ -28,7 +28,7 @@
 
                                         <div class="form-body">
                                             <h4 class="form-section"><i
-                                                    class="la la-briefcase"></i> {{trans('rms::research.research_publication_form')}}</h4>
+                                                        class="la la-briefcase"></i> {{trans('rms::research.research_publication_form')}}</h4>
 
                                             <div class="row">
                                                 <div class="col-md-8 offset-2">
@@ -85,28 +85,25 @@
                                                         </div>
                                                     </fieldset>
                                                 </div>
-
                                             </div>
                                         </div>
-                                        <div class="form-actions ">
+                                        <div class="card-footer">
                                             <div class="col-md-8 offset-2">
-                                                <fieldset>
-                                                    <div class="form row">
-
-                                                        <div class="form-group mb-1 col-sm-12 col-md-12">
-                                                            <label class="">{{ trans('labels.message_to_receiver') }}</label>
-                                                            <br>
-                                                            {!! Form::textarea('message', null, ['class' => 'form-control',  'placeholder' => 'Message','rows'=>3]) !!}
-                                                        </div>
-
+                                                <div class="form row">
+                                                    <div class="form-group">
+                                                        <label class="">{{ trans('labels.message_to_receiver') }}</label>
+                                                        <br>
+                                                        {!! Form::textarea('message', null, ['class' => 'form-control',  'placeholder' => 'Message','rows'=>3]) !!}
                                                     </div>
-                                                </fieldset>
-                                            </div>
-                                            {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+                                                    <div class="form-group">
+                                                        {!! Form::button('<i class="la la-save"></i> '.trans('labels.submit') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
 
-                                            <a class="btn btn-warning mr-1" role="button" href="{{route('research.index')}}">
-                                                <i class="ft-x"></i> {{trans('labels.cancel')}}
-                                            </a>
+                                                        <a class="btn btn-warning" role="button" href="{{route('research.index')}}">
+                                                            <i class="la la-close"></i> {{trans('labels.cancel')}}
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         {!! Form::close() !!}
 

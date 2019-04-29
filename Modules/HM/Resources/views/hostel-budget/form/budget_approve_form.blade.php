@@ -66,9 +66,11 @@
                 {{--</div>--}}
 
                 <div class="form-actions text-center">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="la la-check-square-o"></i> {{ trans('hm::hostel_budget.approve') }}
-                    </button>
+                    @if(auth()->user()->hasAnyRole(['ROLE_DIRECTOR_ADMIN']))
+                        <button type="submit" class="btn btn-primary">
+                            <i class="la la-check-square-o"></i> {{ trans('hm::hostel_budget.approve') }}
+                        </button>
+                    @endif
                     <a class="btn btn-warning mr-1" role="button" href="{{ route('hostel-budgets.index') }}">
                         <i class="ft-x"></i> {{trans('labels.cancel')}}
                     </a>

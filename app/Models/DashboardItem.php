@@ -21,6 +21,7 @@ class DashboardItem
     public $reInitiationUrl;
     public $message;
     public $remarks;
+    public $closeUrl;
 
     /**
      * @return mixed
@@ -181,5 +182,21 @@ class DashboardItem
     public function setRemarks($remarks): void
     {
         $this->remarks = $remarks;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCloseUrl()
+    {
+        return $this->closeUrl;
+    }
+
+    /**
+     * @param mixed $closeUrl
+     */
+    public function setCloseUrl($closeUrl): void
+    {
+        $this->closeUrl = $closeUrl;
     }
 }

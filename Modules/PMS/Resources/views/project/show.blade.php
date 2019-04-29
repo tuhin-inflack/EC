@@ -12,7 +12,7 @@
                         </a>
                         <a class="btn btn-outline-info round"
                            href="{{ route('project-training.index', $project->id) }}">
-                            <i class="ft-plus"></i> @lang('pms::project.add_training')
+                            <i class="ft-plus"></i> @lang('pms::project.training_list')
                         </a>
                     </div>
                 </div>
@@ -120,7 +120,7 @@
                                     <hr>
                                     <div class="table-responsive">
                                         <div class="pull-left">
-                                            <h4 class="card-title">@lang('attribute.attribute_list')</h4>
+                                            <h4 class="card-title">@lang('attribute.indicator_list')</h4>
                                         </div>
                                         <div class="pull-right">
                                             <a href="{{ route('attribute-plannings.create', $project->id) }}"

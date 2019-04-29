@@ -32,7 +32,7 @@ class ProjectRequestDetailsController extends Controller
      */
     public function index()
     {
-        $requests = $this->projectDetailsRequestService->getAll();
+        $requests = $this->projectDetailsRequestService->getInvitationReceivedByUser();
         return view('pms::project-request.details.index', compact('requests'));
     }
 

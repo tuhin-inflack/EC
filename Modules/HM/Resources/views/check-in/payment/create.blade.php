@@ -19,7 +19,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            {{ Form::open(['route' => ['check-in-payments.store', $checkin->id], 'method' => 'POST']) }}
+                            {{ Form::open(['route' => ['check-in-payments.store', $checkin->id], 'class' => 'bill-pay-form', 'method' => 'POST']) }}
                             <div class="row">
                                 <div class="col-md-6">
                                     <table class="table table-bordered">
@@ -46,10 +46,13 @@
                                     </table>
                                 </div>
                                 <div class="col-md-6">
+                                    @php
+                                        $totalAmont = $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount');
+                                    @endphp
                                     <table class="table table-bordered">
                                         <tr>
                                             <td width="40%">@lang('labels.total')</td>
-                                            <td id="total-amount">{{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') }}</td>
+                                            <td id="total-amount">{{ $totalAmont }}</td>
                                         </tr>
                                         <tr>
                                             <td>@lang('labels.due')</td>
@@ -58,7 +61,11 @@
                                         <tr>
                                             <td>@lang('labels.amount')</td>
                                             <td>
-                                                {{ Form::number('amount', old('amount') ? old('amount') : null, ['class' => 'form-control required', 'min' => 0]) }}
+                                                {{ Form::number('amount', old('amount') ? old('amount') : null, [
+                                                        'class' => 'form-control required', 'min' => 0, 'max' => $totalAmont,
+                                                        'data-msg-required' => trans('labels.This field is required'),
+                                                    ])
+                                                }}
                                                 @if($errors->has('amount'))
                                                     <span class="danger">{{ $errors->first('amount') }}</span>
                                                 @endif
@@ -67,8 +74,21 @@
                                         <tr>
                                             <td>@lang('labels.method')</td>
                                             <td>
-                                                {{ Form::select('type', ['cash' => trans('hm::checkin.cash'), 'card' => trans('hm::checkin.card'), 'check' => trans('hm::checkin.check')], old('type') ? old('type') : null, array('class' => 'required form-control' . ($errors->has('payment_method') ? ' is-invalid' : '') )) }}
-                                                {{ Form::text('check_number', old('check_number') ? old('check_number') : null, ['placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control required', 'style' => 'display: none']) }}
+                                                {{ Form::select('type',
+                                                    ['cash' => trans('hm::checkin.cash'), 'card' => trans('hm::checkin.card'), 'check' => trans('hm::checkin.check')],
+                                                    old('type') ? old('type') : null,
+                                                    array('class' => 'form-control required' . ($errors->has('payment_method') ? ' is-invalid' : '') ))
+                                                }}
+
+                                                {{ Form::text('check_number',
+                                                    old('check_number') ? old('check_number') : null,
+                                                    [
+                                                        'placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control', 'style' => 'display: none',
+                                                        'data-msg-required' => trans('labels.This field is required'),
+                                                        'data-rule-minlength' => 11,
+                                                        'data-msg-minlength'=> trans('labels.At least 11 characters'),
+                                                    ])
+                                                }}
 
                                                 @if($errors->has('check_number'))
                                                     <span class="danger">{{ $errors->first('check_number') }}</span>
@@ -101,8 +121,12 @@
 @endsection
 
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+
             var totalAmount = Number($('#total-amount').text());
             var dueAmount = Number(totalAmount - this.value);
             $('.due-amount').html(dueAmount);
@@ -118,7 +142,13 @@
              ================================================= */
             $('input[name=amount]').keyup(function (e) {
                 var totalAmount = Number($('#total-amount').text());
-                var dueAmount = Number(totalAmount - this.value);
+                var dueAmount = totalAmount;
+                if (this.value <= totalAmount) {
+                    dueAmount = Number(totalAmount - this.value);
+                } else {
+                    dueAmount = 0;
+                    this.value = totalAmount;
+                }
 
                 $('.due-amount').html(dueAmount);
             });
@@ -138,6 +168,20 @@
                 }
             });
         });
+
+        $('.bill-pay-form').validate({
+            ignore: 'input[type=hidden]', // ignore hidden fields
+            errorClass: 'danger',
+            successClass: 'success',
+            rules: {
+                check_number: {
+                    required: function (element) {
+                        return ($('select[name="type"]').val() == 'check') ? true : false;
+                    }
+                },
+            },
+        });
+
     </script>
 
 @endpush

@@ -65,12 +65,10 @@ Route::middleware(['auth'])->group(function () {
     // unions
     Route::get('thanas/{thana}/unions', function (\App\Entities\Thana $thana) {
         return $thana->unions;
-
     });
     // single union detail
     Route::get('/union/{union}', function (\App\Entities\Union $union) {
         return array($union, $union->thana->district->division, $union->thana->district, $union->thana);
-
     });
 });
 
@@ -102,6 +100,6 @@ Route::get('/test/url/{fileName}', 'AttachmentController@fileUrl')->name('test.f
 
 Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
-Route::post('test1', function (Request $request) {
-    dd($request->all());
-})->name('test1');
+Route::post('bulk-approve', 'ResearchBulkActionController@researchBulkAction')->name('research.bulk.action');
+
+

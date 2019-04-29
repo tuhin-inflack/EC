@@ -18,7 +18,6 @@ class ShareRuleDesignationRepository extends AbstractBaseRepository
 
     public function getShareRuleDesignationByRuleAndDesignation($shareRuleId, $designationId)
     {
-
         $shareRuleDesignation = ShareRuleDesignation::whereShareRuleId($shareRuleId)->whereDesignationId($designationId)->first();
         return $shareRuleDesignation;
     }

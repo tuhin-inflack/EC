@@ -21,7 +21,6 @@
                                         <th scope="col">@lang('rms::research_proposal.attached_file')</th>
                                         <th scope="col">@lang('rms::research_proposal.submission_date')</th>
                                         <th scope="col">@lang('labels.status')</th>
-                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -31,6 +30,7 @@
                                             'REJECTED' => 'bg-danger',
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
+                                            'CLOSED' => 'bg-danger',
                                         ];
 
                                     @endphp
@@ -44,29 +44,15 @@
                                                 $featureName = 'Research Proposal';
                                             @endphp
                                             <td>
-                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('research-proposal-submission-review', [$proposal->id, $featureName, $wfMasterId, $wfConvId, $wfRuleDetailsId, 'viewOnly' => 1]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>{{ isset($proposal->submittedBy->name) ? $proposal->submittedBy->name : '' }}</td>
                                             <td>
                                                 <a href="{{url('rms/research-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
                                             </td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ date('d/m/y h:i:a', strtotime($proposal->created_at)) }}</td>
                                             <td>
                                                 <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
-                                            </td>
-                                            <td>
-                                            <span class="dropdown">
-                                                <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                        aria-haspopup="true" aria-expanded="false"
-                                                        class="btn btn-info dropdown-toggle">
-                                                    <i class="la la-cog"></i>
-                                                </button>
-                                                <span aria-labelledby="btnSearchDrop2"
-                                                      class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="" class="dropdown-item"><i
-                                                                class="ft-plus"></i>@lang('pms::project_proposal.add_organization')</a>
-                                                </span>
-                                            </span>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -96,7 +82,7 @@
         $(document).ready(function () {
             let table = $('.proposal-submission-table').DataTable({
                 "columnDefs": [
-                    {"orderable": false, "targets": 6}
+                    {"orderable": false, "targets": 5}
                 ],
                 "language": {
                     "search": "{{ trans('labels.search') }}",

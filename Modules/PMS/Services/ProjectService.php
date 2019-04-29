@@ -8,11 +8,11 @@
 
 namespace Modules\PMS\Services;
 
+use App\Entities\User;
 use App\Entities\Attribute;
 use App\Entities\Organization\Organization;
 use App\Services\UserService;
 use App\Traits\CrudTrait;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\DB;
 use Modules\PMS\Entities\Project;
 use Modules\PMS\Repositories\ProjectRepository;
@@ -30,22 +30,26 @@ class ProjectService
      */
     private $userService;
 
+    private $projectDetailProposalService;
+
     /**
      * ProjectService constructor.
      * @param ProjectRepository $projectRepository
      * @param UserService $userService
      */
-    public function __construct(ProjectRepository $projectRepository, UserService $userService)
+    public function __construct(ProjectRepository $projectRepository, UserService $userService, ProjectDetailProposalService $projectDetailProposalService)
     {
         $this->projectRepository = $projectRepository;
         $this->setActionRepository($projectRepository);
         $this->userService = $userService;
+        $this->projectDetailProposalService = $projectDetailProposalService;
     }
 
     public function store(array $data)
     {
         return DB::transaction(function () use ($data) {
             $project = $this->save($data);
+            $this->projectDetailProposalService->update($this->projectDetailProposalService->findOrFail($data['project_detail_proposal_id']), ['project_id' => $project->id]);
 
             $project->attributes()->saveMany([
                 new Attribute([
@@ -68,10 +72,12 @@ class ProjectService
 
     public function getProjectsForUser(User $user)
     {
-        if ($this->userService->isProjectDivisionUser($user) || $this->userService->isDirectorGeneral()) {
-            return $this->findAll();
-        } else {
-            return $this->findBy(['submitted_by' => $user->id]);
+        if ($this->userService->isDirectorGeneral()) {
+            return $this->projectRepository->findAll();
+        } else if($this->userService->isProjectDivisionUser($user)) {
+            return $this->projectRepository->findAll();
+        }else {
+            return $this->projectRepository->findBy(['submitted_by' => $user->id]);
         }
     }
 

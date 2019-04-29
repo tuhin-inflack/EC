@@ -1,6 +1,6 @@
 <div class="form-body">
     <h4 class="form-section"><i class="ft-grid"></i> @lang('member.member_adding_form') </h4>
-    <h3>{{ $mode }}   <strong>({{ $organization->name }})</strong></h3>
+    <h3>{{ $mode }} <strong>({{ $organization->name }})</strong></h3>
     <div class="row " style="">
         <div class="col-md-6 ">
             <div class="form-group ">
@@ -18,7 +18,14 @@
             <div class="form-group ">
                 <div class="form-group {{ $errors->has('mobile') ? ' error' : '' }}">
                     {{ Form::label('mobile', trans('labels.mobile')) }}
-                    {{ Form::text('mobile',  isset($member) ? $member->mobile : null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => 'Enter mobile no','data-validation-required-message'=>trans('labels.This field is required')]) }}
+                    {{ Form::text('mobile',  isset($member) ? $member->mobile : null,    [
+                        'id'=>'',
+                        'class' =>
+                        ' form-control',
+                        'placeholder' => 'Enter mobile no',
+                        'data-validation-required-message'=>trans('labels.This field is required'),
+                        'required' => true
+                    ]) }}
                     <div class="help-block"></div>
                     @if ($errors->has('mobile'))
                         <div class="help-block">  {{ trans('labels.This field is required') }}</div>
@@ -50,7 +57,13 @@
             <div class="form-group ">
                 <div class="form-group ">
                     {{ Form::label('age', trans('pms::member.member_age')) }}
-                    {{ Form::number('age',  isset($member) ? $member->age : null,    ['id'=>'', 'class' => ' form-control', 'placeholder' => \Illuminate\Support\Facades\Lang::get('pms::member.member_age') ]) }}
+                    {{ Form::number('age',  isset($member) ? $member->age : null,    [
+                        'id'=>'',
+                        'class' => 'form-control',
+                        'min' => 0,
+                        'max' => 99,
+                        'oninput' => "validity.valid||(value='');",
+                        'placeholder' => trans('pms::member.member_age') ]) }}
                     <div class="help-block"></div>
                 </div>
             </div>
@@ -68,12 +81,13 @@
 
         {{ Form::hidden('organization_id', isset($organization->id) ? $organization->id : null) }}
         {{ Form::hidden('id', isset($member->id)  ? $member->id : null ) }}
+        {{ Form::hidden('project_id', $project->id) }}
     </div>
     <div class="row">
         <div class="form-actions col-md-12 ">
             <div class="pull-right">
                 {{ Form::button('<i class="la la-check-square-o"></i>'.trans('labels.save'), ['id' => 'submitOrganization', 'type' => 'submit', 'class' => 'btn btn-primary'] )  }}
-                <a href="{{ URL::previous() }}">
+                <a href="{{ route('pms-organizations.show', [$project->id, $organization->id]) }}">
                     <button type="button" class="btn btn-warning mr-1">
                         <i class="la la-times"></i> @lang('labels.cancel')
                     </button>

@@ -18,4 +18,16 @@ class ProjectRequest extends Model
     {
         return $this->hasMany(ProjectRequestReceiver::class, 'project_request_id', 'id');
     }
+
+    public function proposals()
+    {
+        return $this->hasMany(ProjectProposal::class, 'project_request_id', 'id');
+    }
+
+    public function proposalsSubmittedByInvitedUserUnderReviewOrApproved()
+    {
+        return $this->hasMany(ProjectProposal::class, 'project_request_id', 'id')
+            ->where('auth_user_id', auth()->user()->id)
+            ->whereIn('status', ['APPROVED', 'PENDING']);
+    }
 }

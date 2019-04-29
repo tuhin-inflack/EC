@@ -125,8 +125,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'room_numbers' => [
+            'max' => 'রুম সংখ্যা 4 অক্ষর বেশী হতে পারে না',
         ],
     ],
 

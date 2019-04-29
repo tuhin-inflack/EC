@@ -38,11 +38,11 @@
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.expected_start_date') }}</th>
-                                <td>{{ \Carbon\Carbon::parse($task->expected_start_time)->format('d/m/Y') }}</td>
+                                <td>{{ $task->expected_start_time ? \Carbon\Carbon::parse($task->expected_start_time)->format('d/m/Y') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.expected_end_date') }}</th>
-                                <td>{{ \Carbon\Carbon::parse($task->expected_end_time)->format('d/m/Y') }}</td>
+                                <td>{{ $task->expected_end_time ? \Carbon\Carbon::parse($task->expected_end_time)->format('d/m/Y') : '-' }}</td>
                             </tr>
                             <tr>
                                 <th>{{ trans('pms::task.start_date') }}</th>
@@ -86,7 +86,7 @@
                             <a href="{{ route($module . '-tasks.edit', [$taskable->id, $task->id]) }}" class="btn btn-primary"><i
                                         class="ft-edit-2"></i> {{ trans('labels.edit') }}</a>
 
-                            <a class="btn btn-warning mr-1" role="button" href="{{ URL::previous() }}">
+                            <a class="btn btn-warning mr-1" role="button" href="{{ route('research.show', $taskable->id) }}">
                                 <i class="ft-x"></i> {{trans('labels.back_page')}}
                             </a>
                         </div>

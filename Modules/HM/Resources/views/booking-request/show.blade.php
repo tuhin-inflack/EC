@@ -32,7 +32,7 @@
                                     @if($roomBooking->status == 'pending')
                                         <li><a href="{{ route('booking-requests.edit', $roomBooking->id) }}"
                                                class="btn btn-primary btn-sm"><i
-                                                    class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
+                                                        class="ft-edit-2 white"></i> {{ trans('hm::booking-request.edit_it') }}
                                             </a></li>
                                     @endif
                                 @endcan
@@ -188,6 +188,7 @@
                                                 <th>@lang('hm::booking-request.address')</th>
                                                 <th>@lang('hm::booking-request.relation')</th>
                                                 <th>@lang('hm::booking-request.nid_no')</th>
+                                                <th>@lang('hm::booking-request.nid_copy')</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -200,7 +201,23 @@
                                                     <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
                                                     <td>{{ $guestInfo->address }}</td>
                                                     <td>{{ trans('hm::booking-request.relation_' . $guestInfo->relation) }}</td>
-                                                    <td>{{ $guestInfo->nid_no }}</td>
+                                                    <td>
+                                                        @if($guestInfo->nid_no)
+                                                            {{ $guestInfo->nid_no }}
+                                                        @else
+                                                            <p>@lang('hm::booking-request.not_given')</p>
+                                                        @endif
+                                                    </td>
+                                                    <td>
+                                                        @if($guestInfo->nid_doc)
+                                                            <a href="{{ url("/file/get?filePath=" .  $guestInfo->nid_doc) }}"
+                                                               target="_blank">
+                                                                <i class="la la-file-o"></i>
+                                                            </a>
+                                                        @else
+                                                            <p>@lang('hm::booking-request.not_given')</p>
+                                                        @endif
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -215,12 +232,13 @@
                                 @if ($roomBooking->requester->photo)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('storage/app/' . $roomBooking->requester->photo) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->photo) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->photo) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->photo) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
@@ -239,12 +257,13 @@
                                 @if ($roomBooking->requester->nid_doc)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->nid_doc) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->nid_doc) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->nid_doc) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
@@ -263,12 +282,13 @@
                                 @if ($roomBooking->requester->passport_doc)
                                     <figure class="card card-img-top border-grey border-lighten-2"
                                             itemprop="associatedMedia" itemscope="">
-                                        <a href="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                        <a href="{{ url("/file/get?filePath=" .  $roomBooking->requester->passport_doc) }}"
+                                           target="_blank"
                                            itemprop="contentUrl"
                                            data-size="480x360">
                                             <img class="gallery-thumbnail card-img-top"
                                                  style="height: 150px;width: 150px;"
-                                                 src="{{ asset('/storage/app/' . $roomBooking->requester->passport_doc) }}"
+                                                 src="{{ url("/file/get?filePath=" .  $roomBooking->requester->passport_doc) }}"
                                                  itemprop="thumbnail">
                                         </a>
                                         <div class="card-body px-0">
@@ -288,16 +308,23 @@
 
                             <br>
                             <div class="row">
-                                <div class="col-md-12">
-                                    <p>
-                                        <span class="text-bold-600">@lang('labels.remarks')</span>
+                                <div class="col-md-4">
+                                    <p><span class="text-bold-600">@lang('labels.remarks')</span></p>
+                                    {{ $roomBooking->comment }}
+                                </div>
+                                <div class="col-md-4">
+                                    <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span>
                                     </p>
                                     {{ $roomBooking->note }}
                                 </div>
+                                <div class="col-md-4">
+                                    <p>
+                                        <span class="text-bold-600">@lang('labels.forward') @lang('labels.remarks')</span>
+                                    </p>
+                                    {{ $roomBooking->forward ? $roomBooking->forward->comment : '' }}
+                                </div>
                             </div>
                         </div>
-
-
 
                         @if($type == 'booking')
                             @include('hm::booking-request.partials.modal.request-forward', ['forwardToUsers' => $forwardToUsers, 'roomBookingId' => $roomBooking->id])
@@ -326,28 +353,35 @@
                                         <i class="ft-list"></i> @lang('hm::bill.title')
                                     </a>
                                     <button class="btn btn-success mr-1" type="button" id="PrintCommand"><i
-                                            class="ft-printer"></i> @lang('labels.print')
+                                                class="ft-printer"></i> @lang('labels.print')
                                     </button>
                                 </div>
                             </div>
                         @else
                             {{ Form::open(['method' => 'put', 'id' => 'booking-request-status-form']) }}
                             <div class="card-body">
-                                <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span></p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
-                                            {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 3, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
+                                @if (Auth::user()->hasAnyRole([
+                                    'ROLE_DIRECTOR_GENERAL',
+                                    'ROLE_DIRECTOR_ADMIN',
+                                    'ROLE_DIRECTOR_TRAINING',
+                                ]))
+                                    <p><span class="text-bold-600">@lang('hm::booking-request.note_of_authority')</span>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                {{ Form::hidden('status', $roomBooking->status, ['id' => 'status-input-hidden']) }}
+                                                {!! Form::textarea('note', $roomBooking->note, ['class' => 'form-control required' . ($errors->has('note') ? ' is-invalid' : ''), 'placeholder' => trans('labels.note'), 'cols' => 5, 'rows' => 3, 'data-rule-maxlength' => 2, 'data-msg-maxlength'=>"At least 300 characters"]) !!}
 
-                                            @if ($errors->has('note'))
-                                                <span class="invalid-feedback" role="alert">
+                                                @if ($errors->has('note'))
+                                                    <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('note') }}</strong>
                                             </span>
-                                            @endif
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                             <div class="card-footer">
                                 <a class="btn btn-warning mr-1" role="button"
@@ -359,19 +393,19 @@
                                         @if($roomBooking->status != 'pending')
                                             <button class="btn btn-secondary mr-1" type="button"
                                                     onclick="changeStatus('pending')"><i
-                                                    class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
+                                                        class="ft-alert-circle"></i> @lang('hm::booking-request.pending')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'rejected')
                                             <button class="btn btn-danger mr-1" type="button"
                                                     onclick="changeStatus('rejected')"><i
-                                                    class="ft-x-circle"></i> @lang('hm::booking-request.reject')
+                                                        class="ft-x-circle"></i> @lang('hm::booking-request.reject')
                                             </button>
                                         @endif
                                         @if($roomBooking->status != 'approved')
                                             <button class="btn btn-success mr-1" type="button"
                                                     onclick="changeStatus('approved')"><i
-                                                    class="ft-check"></i> @lang('hm::booking-request.approve')
+                                                        class="ft-check"></i> @lang('hm::booking-request.approve')
                                             </button>
                                         @endif
                                         <button class="btn btn-facebook mr-1 pull-right" type="button"

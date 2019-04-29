@@ -21,11 +21,14 @@ class UserRepository extends AbstractBaseRepository
      */
     protected $modelName = User::class;
 
-    public function getUsersExceptLoginInUser($roleId, $userType = null)
+    public function getUsersExceptLoginInUser($roleId, $userType = null, $rolesNeeded = null)
     {
         $userType = $userType ? : "Admim";
-        return $this->model->where('user_type', $userType)->whereHas('roles', function($query) use ($roleId){
+        return $this->model->where('user_type', $userType)->whereHas('roles', function($query) use ($roleId, $rolesNeeded){
             $query->where('roles.id', '!=', $roleId);
-        })->pluck('name', 'id');
+            if ($rolesNeeded){
+                $query->whereIn('roles.name', $rolesNeeded);
+            }
+        });
     }
 }

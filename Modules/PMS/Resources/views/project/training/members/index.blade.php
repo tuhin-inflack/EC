@@ -10,7 +10,13 @@
                     <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                     <div class="heading-elements">
                         <ul class="list-inline mb-0">
-                            <li><button class="btn btn-primary btn-sm submit-btn"><i class="ft-plus white"></i> @lang('pms::project.add')</button></li>
+                            <li><a href="{{ route('project-training.show',[$project->id, $training->id]) }}"
+                                   class="btn btn-primary btn-sm"><i class="ft-link"></i> @lang('pms::project.previous')
+                                </a></li>
+                            <li>
+                                <button class="btn btn-primary btn-sm submit-btn"><i
+                                            class="ft-plus white"></i> @lang('pms::project.add')</button>
+                            </li>
                             <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                             <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                             <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
@@ -23,7 +29,7 @@
                             <thead>
                             <tr>
                                 <th>@lang('labels.serial')</th>
-                                <th>test</th>
+                                <th>Member Id</th>
                                 <th>@lang('labels.name')</th>
                                 <th>@lang('labels.gender')</th>
                                 <th>@lang('labels.mobile')</th>
@@ -34,7 +40,7 @@
                             <tbody>
                             @foreach($members as $member)
                                 <tr>
-                                    <th scope="row">{{ $loop->iteration }}</th>
+                                    <td scope="row"></td>
                                     <td>{{ $member['id'] }}</td>
                                     <td><a href="">{{ $member['name'] }}</a></td>
                                     <td>{{ $member['gender'] }}</td>
@@ -45,7 +51,8 @@
                             @endforeach
                             </tbody>
                         </table>
-                        <form action="{{ route('projectTraining-members.store', [$project->id, $training->id]) }}" method="post" style="display: none" id="form">
+                        <form action="{{ route('projectTraining-members.store', [$project->id, $training->id]) }}"
+                              method="post" style="display: none" id="form">
                             @csrf
                             <input type="text" name="members">
                             <input type="text" name="project_id" value="{{ $project->id }}">
@@ -74,16 +81,19 @@
 
         $(document).ready(function () {
             let $memberTable = $('.member-table').DataTable({
+                columnDefs: [{
+                    orderable: false,
+                    className: 'select-checkbox',
+                    targets: 0,
+                }, {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                }],
                 select: {
-                    style: 'multi'
+                    style: 'multi',
+                    selector: 'td:first-child'
                 },
-                columnDefs: [
-                    {
-                        targets: [1],
-                        visible: false,
-                        searchable: false
-                    }
-                ]
             });
 
             let selectedMembers = [];
@@ -105,9 +115,9 @@
             });
 
             $('.submit-btn').on('click', function () {
-                console.log(selectedMembers);
+                // console.log(selectedMembers);
                 $('input[name="members"]').val(selectedMembers);
-                console.log($('input[name="members"]').val());
+                // console.log($('input[name="members"]').val());
                 $('#form').submit();
             });
         });

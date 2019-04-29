@@ -7,7 +7,8 @@
 
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i>@if($page == 'create') @lang('pms::project_proposal.request_form') @else @lang('pms::project_proposal.edit_request_form')@endif</h4>
+                class="la la-briefcase"></i>@if($page == 'create') @lang('pms::project_proposal.request_form') @else @lang('pms::project_proposal.edit_request_form')@endif
+    </h4>
     <div class="row">
         <div class="col-md-8 offset-2">
             <fieldset>
@@ -57,11 +58,12 @@
                         <label class="required">{{trans('rms::research_proposal.attachment')}}</label>
                         {!! Form::file('attachment[]', ['class' => 'form-control required' . ($errors->has('attachment') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'accept' => '.doc, .docx, .xlx, .xlsx, .csv, .pdf', 'multiple' => 'multiple']) !!}
 
-                        @if ($errors->has('attachment'))
-                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('attachment') }}</strong>
-                                </span>
+                        @if ($errors->has('attachment.*'))
+                            @foreach(range(0, count($errors->get('attachment.*')) - 1) as $index)
+                                <strong style="color: red">{{ $errors->first('attachment.' . $index) }}</strong><br>
+                            @endforeach
                         @endif
+
                     </div>
                 </div>
             </fieldset>
@@ -69,7 +71,9 @@
     </div>
 </div>
 <div class="form-actions text-center">
-    {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+    @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+        {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary'] ) !!}
+    @endif
 
     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
         <i class="ft-x"></i> {{trans('labels.cancel')}}

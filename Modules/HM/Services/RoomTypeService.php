@@ -42,4 +42,13 @@ class RoomTypeService
     {
         return $this->roomTypeRepository->pluck();
     }
+
+    public function getRoomTypesThatHasRooms()
+    {
+        return $this->findAll()->filter(function ($roomType) {
+            if ($roomType->rooms->count()) {
+                return $roomType;
+            }
+        });
+    }
 }

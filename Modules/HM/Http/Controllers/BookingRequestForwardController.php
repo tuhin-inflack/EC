@@ -31,7 +31,7 @@ class BookingRequestForwardController extends Controller
             Session::flash('success', trans('labels.save_fail'));
         }
 
-        return redirect()->back();
+        return redirect()->route('booking-requests.index');
     }
 
 }
