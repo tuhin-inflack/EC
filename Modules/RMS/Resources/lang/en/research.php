@@ -35,5 +35,6 @@ return [
     'Send for publication' => 'Send for publication',
     'planned' => 'Planned',
     'achieved' => 'Achieved',
+    'select_detail_proposal' => 'Select research proposal',
     'No started task is found' => 'No started task is found',
 ];
