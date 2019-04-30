@@ -293,6 +293,21 @@
                     </ul>
                 </li>
 
+                <!-- / CV Evaluation Menu items -->
+                <li class="nav-item">
+                    <a href="#" class=""><i class="la ft-briefcase"></i><span class="menu-title"
+                                                                            data-i18n="nav.templates.main">@lang('hrm::employee.cv_evaluation')</span></a>
+                    <ul class="menu-content">
+                        <!-- This Should Only be visible to Employee -->
+                        <li class="{{ is_active_match('hrm/cv/list') }}">
+                            <a href="{{ url('hrm/cv/list') }}">
+                                <i class="la ft-grid"></i>
+                                <span class="menu-title" data-i18n="nav.dash.main">@lang('hrm::employee.cv_list')</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
             </ul>
         @endauth
     </div>

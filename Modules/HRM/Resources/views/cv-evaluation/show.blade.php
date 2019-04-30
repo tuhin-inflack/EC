@@ -19,53 +19,69 @@
         </div>
         <div class="card-content collapse show" style="">
             <div class="card-body">
-
                 <div class="tab-content ">
                     <div class="tab-pane active show" role="tabpanel" id="general" aria-labelledby="general-tab"
                          aria-expanded="true">
                         <table class="table ">
                             <tbody>
-
                             <tr>
-                                <th class="">@lang('hrm::photocopy_management.list_table_title')</th>
-                                <td>{{$request['title']}}</td>
+                                <th class="">@lang('hrm::employee.applicant_name')</th>
+                                <td>{{$cv['applicant_name']}}</td>
                             </tr>
                             <tr>
-                                <th class="">@lang('hrm::photocopy_management.type')</th>
-                                <td>{{$request['type']}}</td>
+                                <th class="">@lang('hrm::employee.post_title')</th>
+                                <td>{{$cv['applied_for']}}</td>
                             </tr>
                             <tr>
-                                <th class="">@lang('hrm::photocopy_management.priority')</th>
-                                <td>{{$request['priority']}}</td>
+                                <th class="">@lang('hrm::employee.year_of_experience')</th>
+                                <td>{{$cv['year_of_experience']}}</td>
                             </tr>
                             <tr>
-                                <th class="">@lang('hrm::photocopy_management.no_of_pages')</th>
-                                <td>{{$request['pages']}}</td>
-                            </tr>
-                            <tr>
-                                <th class="">@lang('hrm::photocopy_management.requester')</th>
-                                <td>{{$request['user']}}</td>
+                                <th class="">@lang('hrm::employee.apply_date')</th>
+                                <td>{{$cv['apply_date']}}</td>
                             </tr>
                             <tr>
                                 <th class="">@lang('labels.remarks')</th>
                                 <td></td>
                             </tr>
+                            <tr>
+                                <th class="">@lang('hrm::employee.cv')</th>
+                                <td>
+                                    <object data="{{asset('/files/pdf-sample.pdf')}}" width="600" height="800"></object>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
-                        {{--<a href="{{url('/hrm/employee/')}}"--}}
-                        <a class="btn btn-small btn-info" href="{{ route('photocopy-management.list') }}">@lang('labels.back_page') </a>
-                        {{--<a class="btn btn-small btn-info" href="{{ route('photocopy-management.list') }}">@lang('labels.edit') </a>--}}
-
                     </div>
-
-
                 </div>
             </div>
+
+            <div class="card-footer">
+                <form method="post" action="{{route('cv.update', 1)}}">
+                    @csrf
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="marks" class="label">@lang('hrm::employee.marks')</label>
+                            <input type="number" id="marks" name="marks" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="comment" class="label">@lang('hrm::employee.comment')</label>
+                            <textarea id="comment" name="comment" class="form-control"></textarea>
+                        </div>
+                        {{--<a href="{{url('/hrm/employee/')}}"--}}
+                        <button class="btn btn-small btn-success" type="submit" name="submit">@lang('hrm::employee.submit_marks') </button>
+                        <a class="btn btn-small btn-danger" href="{{ route('cv.list') }}">@lang('labels.back_page') </a>
+                        {{--<a class="btn btn-small btn-info" href="{{ route('photocopy-management.list') }}">@lang('labels.edit') </a>--}}
+                    </div>
+                </form>
+            </div>
         </div>
+
         <div class="card-content collapse show">
             <div class="card-body">
             </div>
         </div>
+
     </div>
 
 @endsection
