@@ -3,7 +3,7 @@
 @push('page-css')
 @endpush
 @section('content')
-    <section id="product-list">
+    <section id="asset-list">
         <div class="row">
             <div class="col-12">
                 <div class="card">
@@ -35,11 +35,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Chair</td>
-                                        <td>100</td>
-                                        <td>
+
+                                    @for( $i=1; $i<=2 ; $i++)
+
+                                        <tr>
+                                            <th scope="row">{{$i}}</th>
+                                            <td><a href="{{route('fixed-asset.show',$i)}}">Chair</a></td>
+                                            <td>100</td>
+                                            <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false"
@@ -72,47 +75,9 @@
                                                         {!! Form::close() !!}
                                                     </span>
                                                 </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Table</td>
-                                        <td>200</td>
-                                        <td>
-                                                <span class="dropdown">
-                                                    <button id="imsProductList" type="button" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"
-                                                            class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i>
-                                                    </button>
-                                                    <span aria-labelledby="imsProductList"
-                                                          class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-
-                                                        {!!
-
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
-
-                                                        {!!
-                                                           Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                           'type' => 'submit',
-                                                           'class' => 'dropdown-item',
-                                                           'title' => 'Delete the user',
-                                                           'onclick'=>'return confirm("Confirm delete?")',
-                                                                   ))
-                                                                   !!}
-                                                        {!! Form::close() !!}
-                                                    </span>
-                                                </span>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endfor
                                     </tbody>
                                 </table>
                             </div>

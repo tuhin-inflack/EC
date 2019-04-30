@@ -43,7 +43,7 @@ class FixedAssetController extends Controller
      */
     public function show($id)
     {
-        return view('ims::show');
+        return view('ims::fixed-asset.show');
     }
 
     /**
@@ -75,5 +75,16 @@ class FixedAssetController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Add Appreciation-Depreciation Value
+     * @param string $type
+
+     */
+    public function change_value($type)
+    {
+
+        return view('ims::fixed-asset.change-value', compact('type'));
     }
 }
