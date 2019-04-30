@@ -101,6 +101,7 @@ return [
     'Cafeteria' => 'Cafeteria',
     'HM' => 'HM',
     'HRM' => 'HRM',
+    'IMS' => 'IMS',
     'PMS' => 'PMS',
     'RMS' => 'RMS',
     'TMS' => 'TMS',
