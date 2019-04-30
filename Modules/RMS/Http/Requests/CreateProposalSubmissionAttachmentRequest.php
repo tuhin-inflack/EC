@@ -15,6 +15,7 @@ class CreateProposalSubmissionAttachmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'attachments' => 'required',
             'attachments.*' => 'required|mimes:doc,pdf,docx,csv,xlsx,xls|max:3072'
         ];
     }
@@ -32,6 +33,7 @@ class CreateProposalSubmissionAttachmentRequest extends FormRequest
     public function messages()
     {
         return [
+            'attachments.required' => __('rms::reviewer-add-attachments.validations.required'),
             'attachments.*.required' => __('rms::reviewer-add-attachments.validations.required'),
             'attachments.*.mimes' => __('rms::reviewer-add-attachments.validations.mimes') . '(:values)',
             'attachments.*.max' => __('rms::reviewer-add-attachments.validations.max', ['value'=>':max'])

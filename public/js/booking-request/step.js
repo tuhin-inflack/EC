@@ -22,14 +22,18 @@ function setRequesterAsGuest() {
 
 function renderRoomInfos() {
     let roomInfos = $('.repeater-room-infos').repeaterVal().roomInfos;
+    let startTime = new Date($('#start_date').val());
+    let endTime = new Date($('#end_date').val());
+    let daysCount = Math.ceil(Math.abs(endTime.getTime() - startTime.getTime()) / (1000 * 60 * 60 * 24));
+
     let roomInfoRows = roomInfos.map(roomInfo => {
         return `<tr>
         <td>${roomTypes.find(roomType => roomType.id == roomInfo.room_type_id).name}</td>
         <td>${roomInfo.quantity || 0}</td>
         <td>${$('#start_date').val() + ' To ' + $('#end_date').val()}</td>
         <td>${getRateType(roomInfo.rate.split('_')[0])}</td>
-        <td>${roomInfo.rate.split('_')[1]} x ${roomInfo.quantity}</td>
-        <td>${Number.parseFloat(roomInfo.rate.split('_')[1] * roomInfo.quantity).toFixed(2)}</td>
+        <td>${roomInfo.rate.split('_')[1]} x ${roomInfo.quantity} x ${daysCount}</td>
+        <td>${Number.parseFloat(roomInfo.rate.split('_')[1] * roomInfo.quantity * daysCount).toFixed(2)}</td>
         </tr>`;
     });
 
@@ -210,8 +214,6 @@ $('.booking-request-tab-steps').steps({
                 renderGuestInfos();
             } else {
                 $('.guests-info-div').show();
-                // $('.guests-info-div').hide();
-                // $('#guests-info-table').find('tbody').html('');
             }
 
             let isReferencePresent = $('#referee-select').val();

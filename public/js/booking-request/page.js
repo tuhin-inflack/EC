@@ -1,6 +1,8 @@
 $(document).ready(function () {
     initializeSelectReferee();
 
+    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+
     // datepicker
     $('#start_date').pickadate({
         min: new Date()
@@ -55,21 +57,14 @@ $(document).ready(function () {
         });
 
     // validation
-    jQuery.validator.addMethod("greaterThanOrEqual",
+    jQuery.validator.addMethod(
+        "greaterThanOrEqual",
         function (value, element, params) {
             let comparingDate = params == '#start_date' ? $(params).val() : params;
             return Date.parse(value) >= Date.parse(comparingDate);
-        }, 'Must be greater than or equal to {0}.');
-
-    // jQuery.validator.addMethod("CheckRoomValidation",
-    //     function (value, element, params) {
-    //         if (validationStatus) {
-    //             return true
-    //         } else {
-    //             return false;
-    //         }
-    //     }, customErrorMessage);
-
+        },
+        'Must be greater than or equal to {0}.'
+    );
 
     $('.booking-request-tab-steps').validate({
         ignore: 'input[type=hidden]', // ignore hidden fields
@@ -92,7 +87,6 @@ $(document).ready(function () {
                 error.insertAfter(element);
             }
         },
-
         rules: {
             end_date: {
                 greaterThanOrEqual: '#start_date'
@@ -100,19 +94,12 @@ $(document).ready(function () {
             first_name: {
                 maxlength: 50
             },
-            // 'room-show': {
-            //     CheckRoomValidation: 0
-            // },
             contact: {
                 minlength: 11,
                 maxlength: 11
             },
             address: {
                 maxlength: 300
-            },
-            nid: {
-                minlength: 10,
-                maxlength: 10
             },
         },
     });
@@ -142,8 +129,8 @@ $(document).ready(function () {
                     // hide add more button
                     $guestInfoRepeater.find('button[data-repeater-create]').hide();
                     // render trainees table
-                    $('.trainee-list').html(traineesListFromTraining(data));
-                    traineesInfoListFromTraining(data);
+                    $('.trainee-list').html(drawGuestListTableFromTrainees(data));
+                    drawTableBodyForGuestInfosOfTrainees(data);
                 })
                 .fail(function () {
                     alert('Failed to get content from server');
@@ -153,7 +140,7 @@ $(document).ready(function () {
 
     try {
         if (typeof roomInfos != undefined) {
-            dynamicallySelectRateForRooms();
+            dynamicallySelectRateForRooms(JSON.parse(roomInfos));
         }
     } catch (e) {
         console.debug(e)
@@ -210,7 +197,7 @@ function getRefereeInformation(employeeId) {
     $('#bard-referee-div').show();
 }
 
-function dynamicallySelectRateForRooms() {
+function dynamicallySelectRateForRooms(roomInfos) {
     $('.room-type-select').parents('.form.row').find('select.rate-select').each((index, selectElement) => {
         let roomInfo = roomInfos[index];
         let selectedRoomType = roomTypes.find(roomType => roomType.id == roomInfo.room_type_id);
@@ -221,25 +208,24 @@ function dynamicallySelectRateForRooms() {
         <option value="bard-emp_${selectedRoomType.bard_emp_rate}">BARD EMP ${selectedRoomType.bard_emp_rate}</option>
         <option value="special_${selectedRoomType.special_rate}">Special ${selectedRoomType.special_rate}</option>`);
         // set value of select
-        $(selectElement).val(`${roomInfo.rate_type}_${roomInfo.rate}`).trigger('change');
+        let roomRateValue = roomInfo.hasOwnProperty('rate_type') ? `${roomInfo.rate_type}_${roomInfo.rate}` : `${roomInfo.rate}`;
+        $(selectElement).val(roomRateValue).trigger('change');
     });
 }
 
-function traineesListFromTraining(trainees) {
+function drawGuestListTableFromTrainees(trainees) {
     let tableRows = '';
 
     trainees.forEach((trainee, index) => {
-        let splitedName = nameSpliter(trainee.bangla_name);
-
         tableRows += `<tr>
-        <input type="hidden" name="guests[${index}][first_name]" value="${splitedName.first_tName}"/>
-        <input type="hidden" name="guests[${index}][last_name]" value="${splitedName.last_tName}"/>
+        <input type="hidden" name="guests[${index}][first_name]" value="${trainee.trainee_first_name}"/>
+        <input type="hidden" name="guests[${index}][last_name]" value="${trainee.trainee_last_name}"/>
         <input type="hidden" name="guests[${index}][gender]" value="${trainee.trainee_gender.toLowerCase()}"/>
  
         <input type="hidden" name="guests[${index}][relation]" value="trainee"/>
         <input type="hidden" name="guests[${index}][address]" value="Bangladesh"/>
-        <td>${splitedName.first_tName}</td>
-        <td>${splitedName.last_tName}</td>
+        <td>${trainee.trainee_first_name}</td>
+        <td>${trainee.trainee_last_name}</td>
         <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
         <td>${trainee.mobile}</td>
         </tr>`;
@@ -260,14 +246,12 @@ function traineesListFromTraining(trainees) {
     </table>`;
 }
 
-function traineesInfoListFromTraining(trainees) {
+function drawTableBodyForGuestInfosOfTrainees(trainees) {
     let tbody = '';
 
     trainees.forEach((trainee) => {
-        let splitedName = nameSpliter(trainee.bangla_name);
-        console.log(splitedName);
         tbody += `<tr>
-            <td>${splitedName.first_tName} ${splitedName.last_tName}</td>
+            <td>${trainee.trainee_first_name} ${trainee.trainee_last_name}</td>
             <td>বাংলাদেশ</td>
             <td>${trainee.trainee_gender.toLowerCase() == 'male' ? male : female}</td>
             <td>শিক্ষানবিস</td>
@@ -276,14 +260,4 @@ function traineesInfoListFromTraining(trainees) {
     });
 
     $('#guests-info-table').find('tbody').html(tbody);
-}
-
-function nameSpliter(fullName) {
-    let splitedFirsttName = fullName.substring(0, fullName.lastIndexOf(" "));
-    let splitedLastName = fullName.substring(fullName.lastIndexOf(" ") + 1, fullName.length);
-
-    return {
-        first_tName:  splitedFirsttName,
-        last_tName:  splitedLastName,
-    };
 }

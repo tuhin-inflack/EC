@@ -26,6 +26,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
     private $projectProposalService;
     private $featureRepository;
     private $flowConversationService;
+    private $featureName;
 
 
     public function __construct(WorkflowService $workflowService,
@@ -39,6 +40,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $this->projectProposalService = $projectProposalService;
         $this->featureRepository = $featureRepository;
         $this->flowConversationService = $flowConversationService;
+        $this->featureName = config('constants.project_proposal_feature_name');
     }
 
     public function generateItems(): DashboardItemSummary
@@ -48,7 +50,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $user = $this->userService->getLoggedInUser();
         $designationId = $this->userService->getDesignationId($user->username);
 
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => $this->featureName]);
         $workflows = $this->workflowService->getWorkflowDetailsByUserAndFeature($user->id, [$designationId], $feature->id);
         foreach ($workflows as $key => $workflow) {
             $dashboardItem = new DashboardItem();
@@ -68,12 +70,10 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureItemId($workflow->workflowMaster->feature->id);
             $dashboardItem->setFeatureName($workflowMaster->feature->name);
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url
             $dashboardItem->setCheckUrl(route('project-proposal-submitted-review', ['proposalId' => $workflowMaster->ref_table_id, 'wfMasterId' => $workflowMaster->id, 'wfConvId' => $workflowConversation->id, 'featureId' => $feature->id, 'ruleDetailsId' => $workflowRuleDetails->id ]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id
             $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }
@@ -95,7 +95,7 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
         $dashboardItemSummary = new DashboardItemSummary();
         $dashboardItems = array();
         $user = $this->userService->getLoggedInUser();
-        $feature = $this->featureRepository->findOneBy(['name' => config('constants.project_proposal_feature_name')]);
+        $feature = $this->featureRepository->findOneBy(['name' => $this->featureName]);
         $workflows = $this->workflowService->getRejectedItems($user->id, $feature->id);
         foreach ($workflows as $key => $workflowMaster) {
             $dashboardItem = new DashboardItem();
@@ -113,12 +113,12 @@ class ProjectProposalItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem->setFeatureName($feature->name);
 
             $dashboardItem->setWorkFlowConversationId($workflowConversation->id);
-            //TODO: set appropriate url (done)
             $dashboardItem->setCheckUrl(route('project-proposal-submitted-resubmit', ['proposalId' =>  $workflowMaster->ref_table_id, 'feature_id' => $feature->id]));
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
-            //TODO: add dynamic items as array. Receive data from $workflowMaster reference id (done)
+            $dashboardItem->setCloseUrl(route('project-proposal-submitted-close', ['wfMasterId'=> $workflowMaster->id]));
+
             $dashboardItem->setDynamicValues($projectData);
             array_push($dashboardItems, $dashboardItem);
         }

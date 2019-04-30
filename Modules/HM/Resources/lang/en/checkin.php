@@ -7,7 +7,7 @@
  */
 
 return [
-    'check_in_number' => 'Check In Number',
+    'check_in_number' => 'Checkin Id',
     'booking_id' => 'Booking ID',
     'estimated_check_out_time' => 'Estimated Check Out Time',
     'estimated_no_of_day' => 'Estimated # of Day',

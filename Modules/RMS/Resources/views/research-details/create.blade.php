@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'Details submission form')
+@section('title', trans('rms::research_details.submit_detail'))
 
 @section('content')
     <div class="container">
@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Details submission</h4>
+                                    <h4 class="card-title">@lang('rms::research_details.submit_detail')</h4>
                                     <a class="heading-elements-toggle"><i
                                                 class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
@@ -27,7 +27,7 @@
                                         {!! Form::open(['route' =>  'research-details.store', 'class' => '', 'enctype' => 'multipart/form-data']) !!}
 
                                         <div class="form-body">
-                                            <h4 class="form-section"><i class="la la-briefcase"></i> Research details submission form</h4>
+                                            <h4 class="form-section"><i class="la la-briefcase"></i> @lang('rms::research_details.research_detail_submission_form')</h4>
 
                                             <div class="row">
                                                 <div class="col-md-8 offset-2">
@@ -38,7 +38,6 @@
                                                             {{--@if($page == 'create')--}}
                                                             {!! Form::hidden('research_detail_invitation_id', $researchDetailInvitationId) !!}
                                                             {{--@endif--}}
-
                                                             <div class="form-group mb-1 col-sm-12 col-md-12">
                                                                 <label class="required">{{ trans('labels.name') }}</label>
                                                                 <br>
@@ -87,8 +86,7 @@
                                                 {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
 
                                                 <a class="btn btn-warning mr-1" role="button"
-                                                   href="{{route('invited-research-proposal.index')}}"><i
-                                                            class="ft-x"></i> {{trans('labels.cancel')}}
+                                                   href="{{route('invitations')}}"><i class="ft-x"></i> {{trans('labels.cancel')}}
                                                 </a>
                                             </div>
 

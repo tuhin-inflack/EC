@@ -10,8 +10,11 @@
                         <h4 class="card-title">@lang('pms::project_proposal.project_invitation_brief_list')</h4>
 
                         <div class="heading-elements">
-                            <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm"><i
-                                        class="ft-plus white"></i> @lang('pms::project_proposal.new_proposal_request')</a>
+                            @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
+                                <a href="{{route('project-request.create')}}" class="btn btn-primary btn-sm">
+                                    <i class="ft-plus white"></i> @lang('pms::project_proposal.new_proposal_request')
+                                </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-content collapse show">
@@ -42,10 +45,12 @@
                                                             aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
-                                                    <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
+                                                    @if(can_submit_brief_project_proposal($request))
+                                                        <span aria-labelledby="btnSearchDrop2" class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{route('project-proposal-submission.create', $request->id)}}"
                                                            class="dropdown-item"><i class="ft-fast-forward"></i>@lang('pms::project_proposal.proposal_submission')</a>
                                                     </span>
+                                                    @endif
                                                 </span>
                                             </td>
                                         </tr>

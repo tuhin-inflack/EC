@@ -55,7 +55,7 @@ return [
     'nid_no' => 'NID No',
     'nid_copy' => 'NID Copy',
     'passport_copy' => 'Passport Copy',
-    'guest_information' => 'Passport Copy',
+    'guest_information' => 'Guest Information',
     'age' => 'Age',
     'relation' => 'Relation',
     'bard_reference' => 'BARD Reference',
@@ -100,4 +100,5 @@ return [
     'approval_reject_mail' => 'Your booking request has been Rejected. Please check out the booking information below',
     'recipient_addressing' => 'Dear',
     'bengali' => 'Bengali',
+    'not_given' => 'Not Given',
 ];

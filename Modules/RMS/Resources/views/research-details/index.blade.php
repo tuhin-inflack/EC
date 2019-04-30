@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'Research details list')
+@section('title', trans('rms::research_details.research_detail_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Research details list</h4>
+                        <h4 class="card-title">@lang('rms::research_details.research_detail_list')</h4>
                         {{--<div class="heading-elements">--}}
                         {{--<a href="" class="btn btn-primary btn-sm"><i--}}
                         {{--class="ft-plus white"></i> </a>--}}
@@ -27,7 +27,6 @@
                                         <th scope="col">@lang('rms::research_proposal.attached_file')</th>
                                         <th scope="col">@lang('rms::research_proposal.submission_date')</th>
                                         <th scope="col">@lang('labels.status')</th>
-                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -36,8 +35,10 @@
                                          $statusAr = [
                                                 'APPROVED' => 'bg-success',
                                                 'REJECTED' => 'bg-danger',
+                                                'CLOSED' => 'bg-danger',
                                                 'PENDING' => 'bg-warning',
                                                 'REVIEWED' => 'bg-info',
+
                                             ];
                                     @endphp
                                     @if(count($researchDetails)>0)
@@ -47,25 +48,14 @@
                                                 <td>{{ $sl++ }}</td>
                                                 <td>{{ $researchDetail->title }}</td>
                                                 <td>{{ $researchDetail->user->name }}</td>
-                                                <td>Attachments</td>
+                                                {{--<td><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('labels.attachments')</a></td>--}}
+                                                <td><a href="{{url('rms/research-proposal-details/attachment-download/'.$researchDetail->id)}}">@lang('labels.attachments')</a></td>
+
                                                 <td>{{ $researchDetail->created_at }}</td>
                                                 <td>
                                                     <span class="badge {{ $statusAr[$researchDetail->status] }}">@lang('labels.status_' . strtolower($researchDetail->status))</span>
                                                 </td>
-                                                <td>
-                                                <span class="dropdown">
-                                                    <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
-                                                            aria-haspopup="true" aria-expanded="false"
-                                                            class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i>
-                                                    </button>
-                                                    {{--<span aria-labelledby="btnSearchDrop2"--}}
-                                                    {{--class="dropdown-menu mt-1 dropdown-menu-right">--}}
-                                                    {{--<a href="{{ route('details.create', [1]) }}"--}}
-                                                    {{--class="dropdown-item"><i class="ft-alert-octagon"></i>Submit details</a>--}}
-                                                    {{--</span>--}}
-                                                </span>
-                                                </td>
+
                                             </tr>
                                         @endforeach
                                     @endif
@@ -119,7 +109,7 @@
         $(document).ready(function () {
             let table = $('.research-detail-table').DataTable({
                 "columnDefs": [
-                    {"orderable": false, "targets": 6}
+                    {"orderable": false, "targets": 5}
                 ],
                 "language": {
                     "search": "{{ trans('labels.search') }}",
@@ -141,7 +131,8 @@
         {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
 
-                <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
+        <option value="{{ trans('rms::research_proposal.pending') }}">{{ trans('rms::research_proposal.pending') }}</option>
+        <option value="{{ trans('rms::research_proposal.closed') }}">{{ trans('rms::research_proposal.closed') }}</option>
         <option value="{{ trans('rms::research_proposal.status_approved') }}">{{ trans('rms::research_proposal.status_approved') }}</option>
         <option value="{{ trans('rms::research_proposal.status_rejected') }}">{{ trans('rms::research_proposal.status_rejected') }}</option>
         </select>

@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Modules\HM\Entities\HostelBudgetTitle;
 
 class HostelBudgetTitlesTableSeeder extends Seeder
 {
@@ -12,13 +10,13 @@ class HostelBudgetTitlesTableSeeder extends Seeder
      *
      * @return void
      */
-
-
     public function run()
     {
-        Model::unguard();
+        
 
-        // $this->call("OthersTableSeeder");
+        \DB::table('hostel_budget_titles')->delete();
+
+
         $data = [
             [
                 'name' => '2015 July - 2016 Jun',
@@ -88,9 +86,7 @@ class HostelBudgetTitlesTableSeeder extends Seeder
 
         foreach ($data as $item) {
             $item['status'] = 0;
-            \DB::table('hostel_budget_titles')->insert(($item));
+            \DB::table('hostel_budget_titles')->insert($item);
         }
     }
-
-
 }

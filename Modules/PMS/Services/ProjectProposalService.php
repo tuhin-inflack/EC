@@ -14,6 +14,8 @@ use App\Entities\workflow\WorkflowMaster;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Services\Notification\ReviewUrlGenerator;
+use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
@@ -26,9 +28,11 @@ use Chumper\Zipper\Facades\Zipper;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\PMS\Entities\ProjectProposal;
 use Modules\PMS\Entities\ProjectProposalFile;
 use Modules\PMS\Repositories\ProjectProposalRepository;
+use Illuminate\Support\Facades\Session;
 
 class ProjectProposalService
 {
@@ -39,6 +43,9 @@ class ProjectProposalService
     private $workflowService;
     private $userService;
     private $dashboardService;
+    private $employeeService;
+    private $shareConversationService;
+    private $remarkService;
     /**
      * @var WorkflowMasterService
      */
@@ -66,13 +73,21 @@ class ProjectProposalService
         FeatureService $featureService,
         WorkflowService $workflowService,
         UserService $userService,
-        ReviewUrlGenerator $reviewUrlGenerator
+        ReviewUrlGenerator $reviewUrlGenerator,
+        EmployeeServices $employeeService,
+        ShareConversationService $shareConversationService,
+        RemarkService $remarkService,
+        WorkflowMasterService $workflowMasterService
     )
     {
         $this->projectProposalRepository = $projectProposalRepository;
         $this->workflowService = $workflowService;
         $this->featureService = $featureService;
         $this->userService = $userService;
+        $this->employeeService = $employeeService;
+        $this->shareConversationService = $shareConversationService;
+        $this->remarkService = $remarkService;
+        $this->workflowMasterService = $workflowMasterService;
 
         $this->setActionRepository($projectProposalRepository);
         $this->reviewUrlGenerator = $reviewUrlGenerator;
@@ -84,11 +99,14 @@ class ProjectProposalService
      */
     public function getProposalsForUser(User $user)
     {
-        if ($this->userService->isDirectorGeneral() || $this->userService->isProjectDivisionUser($user)) {
-            return $this->findAll();
-        } else {
-            return $this->findBy(['auth_user_id' => $user->id]);
-        }
+        return $this->projectProposalRepository->findAll()
+            ->filter(function($projectProposal) use ($user){
+
+                return $user->employee->designation->short_name == "DG"
+                    || ($user->employee->employeeDepartment->department_code == "PMS"
+                        && $user->employee->designation->short_name != "FM")
+                    || ($projectProposal->auth_user_id == $user->id);
+            });
     }
 
     public function store(array $data)
@@ -112,6 +130,11 @@ class ProjectProposalService
             }
 
             // Initiating Workflow
+            $divisionalDirector = $this->employeeService->getDivisionalDirectorByDepartmentId(Auth::user()->employee->department_id);
+            if(is_null($divisionalDirector)) {
+                Session::flash('error', 'Divisional Director is not defined for your department');
+                return redirect()->back();
+            }
             $featureName = config('constants.project_proposal_feature_name');
             $feature = $this->featureService->findBy(['name' => $featureName])->first();
             $workflowData = [
@@ -119,7 +142,9 @@ class ProjectProposalService
                 'rule_master_id' => $feature->workflowRuleMaster->id,
                 'ref_table_id' => $proposalSubmission->id,
                 'message' => $data['message'],
+                'designationTo' => ['1'=> $divisionalDirector->designation_id] ,
             ];
+            if($this->userService->isProjectDivisionUser(Auth::user())) $workflowData['skipped'] = [1];
             $this->workflowService->createWorkflow($workflowData);
             // Workflow initiate done
 
@@ -140,6 +165,24 @@ class ProjectProposalService
 
             return $proposalSubmission;
         });
+    }
+
+    public function updateProposal(ProjectProposal $proposal, $data = [])
+    {
+        foreach ($data['attachments'] as $file) {
+            $fileName = $file->getClientOriginalName();
+            $path = $this->upload($file, 'project-submissions');
+
+            $file = new ProjectProposalFile([
+                'proposal_id' => $proposal->id,
+                'attachments' => $path,
+                'file_name' => $fileName
+            ]);
+
+            $proposal->projectProposalFiles()->save($file);
+        }
+
+        return $this->update($proposal, $data);
     }
 
     public function getProposalById($id)
@@ -181,7 +224,17 @@ class ProjectProposalService
 
     public function getProjectProposalBySubmissionDate()
     {
-        return ProjectProposal::orderBy('id', 'DESC')->limit(5)->get();
+        return ProjectProposal::orderBy('id', 'DESC')
+            ->limit(5)
+            ->get()
+            ->filter(function($projectProposal) {
+
+                return auth()->user()->employee->designation->short_name == "DG"
+                    || (auth()->user()->employee->employeeDepartment->department_code == "PMS"
+                        && auth()->user()->employee->designation->short_name != "FM")
+                    || ($projectProposal->auth_user_id == auth()->user()->id);
+            });
+
     }
 
     // Methods for triggering notifications

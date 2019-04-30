@@ -53,7 +53,7 @@
 </div>--}}
 <div class="container">
     <div id="crypto-stats-3" class="row" style="margin-top: 32px">
-        @foreach(array_keys(\Nwidart\Modules\Facades\Module::all()) as $module)
+        @foreach($modules as $module)
         @can(strtolower($module).'-access')
             <div class="col-xl-4 col-12">
                 <div class="card crypto-card-3 pull-up">

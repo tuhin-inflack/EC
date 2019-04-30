@@ -4,101 +4,181 @@
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
 
-    @if(!is_null($shareConversations))
+    {{--Research Brief  share conversation items --}}
+    @if(isset($shareConversations['research_brief_share']))
         <section id="shareConversation">
-            <div class="card">
+            <div class="card researchBriefCard">
                 <div class="card-body">
 
-                    <h2>Share Conversation</h2>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.message')</th>
-                        <th>@lang('labels.details')</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($shareConversations as $shareConversation)
-                            <tr>
-                                <td>{{ $shareConversation->feature->name }}</td>
-                                <td>{{$shareConversation->message}}</td>
-                                <td>
-                                    Research proposal: {{ $shareConversation->researchProposal->title }}<br/>
-                                </td>
+                    <h2>@lang('rms::research.research_proposal_pending_items')</h2>
+                    <form id="research_bulk_action_form" action="{{ route('research.bulk.action') }}" method="post"
+                          name="test">
+                        @csrf
+                        <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
+                            <thead>
+                            @if($bulkActionForApprove)
+                                <th style="width: 20px;"></th>@endif
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+                            </thead>
+                            <tbody>
+                            {{--                            {{ dd($shareConversations) }}--}}
+                            @foreach($shareConversations['research_brief_share'] as $shareConversation)
+                                <tr>
+                                    @if($bulkActionForApprove)
 
-                                <td>
-                                    <a class="btn btn-primary btn-sm"
-                                       href="{{ route('research-proposal-submission.review', [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">Details</a>
+                                     <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                     <td class="abc">{{$shareConversation->message}}</td>
+                                    <td>
+                                        {{--                                      dd($shareConversation->feature->name);--}}
+                                        @php
+                                            // working for research proposal (brief)
+                                                $invitation_title =  isset($shareConversation->researchProposal->requester->title) ? $shareConversation->researchProposal->requester->title : '';
+                                                $title =  isset($shareConversation->researchProposal->title) ? $shareConversation->researchProposal->title : '';
+                                                $submittedBy = isset($shareConversation->researchProposal->submittedBy->name) ? $shareConversation->researchProposal->submittedBy->name : '';
+                                                $reviewUrl = 'research-proposal-submission.review';
 
-                                    {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
-                                    {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                                        @endphp
+                                        Invitation Title :   {{ $invitation_title }}</br>
+                                        Research Title : {{  $title }}<br/>
+                                        Initiator Name: {{ $submittedBy }}
+                                        <br/>
+                                    </td>
 
+                                        <td style="">
+                                        <a class="btn btn-primary btn-sm"
+                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
+
+                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="form" id="approvalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
                 </div>
             </div>
         </section>
     @endif
-    @if(!empty($researchRejectedItems->dashboardItems))
+
+    {{--Research  Detail share conversation items --}}
+    @if(isset($shareConversations['research_detail_share']))
+        <section id="shareConversation">
+            <div class="card researchDetailCard">
+                <div class="card-body">
+
+                    <h2>@lang('rms::research_details.research_detail_pending_item')</h2>
+                    <form id="research_detail_bulk_action_form" action="{{ route('research.bulk.action') }}"
+                          method="post" name="test">
+                        @csrf
+                        <table id="{{ ($bulkActionForApprove) ? 'researchDetailBulk' : '' }}"
+                               class="table table-bordered">
+                            <thead>
+                            @if($bulkActionForApprove)
+                                <th style="width: 20px"></th>@endif
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+                            </thead>
+                            <tbody>
+                            {{--                            {{ dd($shareConversations) }}--}}
+                            {{--4 = Research detail feature id--}}
+                            @foreach($shareConversations['research_detail_share'] as $shareConversation)
+                                <tr>
+                                    @if($bulkActionForApprove)
+                                        <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                    <td>{{$shareConversation->message}}</td>
+                                    <td>
+                                        {{--                                      dd($shareConversation->feature->name);--}}
+                                        @php
+                                            // working for research detail proposal
+                                               $invitation_title =  isset($shareConversation->researchDetail->researchDetailInvitation->title) ? $shareConversation->researchDetail->researchDetailInvitation->title : '';
+                                               $title =  isset($shareConversation->researchDetail->title) ? $shareConversation->researchDetail->title : '';
+                                               $submittedBy =  isset($shareConversation->researchDetail->user->name) ? $shareConversation->researchDetail->user->name : '';
+                                               $reviewUrl = 'research-detail.review';
+
+                                        @endphp
+                                        Invitation Title :  {{ $invitation_title }}</br>
+                                        Research Title : {{  $title }}<br/>
+                                        Initiator Name: {{ $submittedBy }}
+                                        <br/>
+                                    </td>
+
+                                    <td>
+                                        <a class="btn btn-primary btn-sm"
+                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
+
+                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="form" id="DetailApprovalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{--research proposal brief  pending item--}}
+    @if(!empty($pendingTasks->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
+                    <h4>@lang('rms::research.research_proposal_pending_items')</h4>
 
-                    <h2>Research reviewed by Research director</h2>
-                    <table class="table table-bordered">
+                    <table class="table table-hover table-striped table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
-                        <th>@lang('labels.message')</th>
-                        <th>@lang('labels.details')</th>
-                        <th>@lang('labels.action')</th>
+                        <tr>
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+
+                        </tr>
                         </thead>
                         <tbody>
-                        @foreach($researchRejectedItems->dashboardItems as $item)
+                        @foreach($pendingTasks->dashboardItems as $item)
+
                             <tr>
-                                <td>{{$item->featureName}}</td>
+                                {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
                                 <td>{{$item->message}}</td>
                                 <td>
-                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
-                                </td>
+                                    Invitation Title : {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
+                                    Initiator Name : {{ $item->dynamicValues['initiator_name'] }}<br/>
 
-                                <td>
-                                    <a href="{{url($item->checkUrl)}}"
-                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
-                                    <a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
-                                       class="btn btn-danger btn-sm">@lang('labels.closed')</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </section>
-    @endif
-    @if(!empty($researchPendingTasks->dashboardItems))
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
-                    <h4>@lang('rms::research.research_pending_items')</h4>
-                    <table class="table table-bordered">
-                        <thead>
-                        <th>@lang('labels.feature')</th>
-                        <th>@lang('labels.message')</th>
-                        <th>@lang('labels.details')</th>
-                        <th>@lang('labels.action')</th>
-                        </thead>
-                        <tbody>
-                        @foreach($researchPendingTasks->dashboardItems as $item)
-
-                            <tr>
-                                <td>{{$item->featureName}}</td>
-                                <td>{{ $item->message }}</td>
-
-                                <td>
-                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    <br/>
                                 </td>
                                 <td><a href="{{url($item->checkUrl)}}"
                                        class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
@@ -106,76 +186,7 @@
                         @endforeach
                         </tbody>
                     </table>
-
-                </div>
-            </div>
-        </section>
-    @endif
-    @if(!empty($pendingTasks->dashboardItems))
-        <section id="pending-tasks">
-            <div class="card">
-                <div class="card-body">
-                    <h4>@lang('rms::research.research_proposal_pending_items')</h4>
-
-                    <form id="frm-example" action="{{ route('test1') }}" method="post" name="test">
-                        @csrf
-                        <table id="example" class="table table-hover table-striped table-bordered">
-                            <thead>
-                            <tr>
-                                <th></th>
-                                <th>@lang('labels.feature')</th>
-                                <th>@lang('labels.message')</th>
-                                <th>@lang('labels.details')</th>
-                                <th>@lang('labels.action')</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($pendingTasks->dashboardItems as $item)
-                                <tr>
-                                    <td>{{ $item->dynamicValues['id'] }}</td>
-                                    <td>{{$item->featureName}}</td>
-                                    <td>{{$item->message}}</td>
-                                    <td>
-                                        Proposal Title : {{ $item->dynamicValues['research_title'] }}<br/>
-                                        Research Title : {{ $item->dynamicValues['proposal_title'] }}<br/>
-                                    </td>
-                                    <td><a href="{{url($item->checkUrl)}}"
-                                           class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
-
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                        {{--{!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}--}}
-                        <hr/>
-
-
-                        <div class="form-group" id="remark">
-                            {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                            {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,
-                             'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                            <div class="help-block"></div>
-                        </div>
-                        <div class="form-group {{ $errors->has('message') ? 'error' : '' }}" id="message">
-                            {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                            {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2,
-                            'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                            {{--{!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}--}}
-                            <div class="help-block"></div>
-                            @if ($errors->has('message'))
-                                <div class="help-block">{{ $errors->first('message') }}</div>
-                            @endif
-                        </div>
-                        {{--<hr>--}}
-
-                        <p><b>Selected rows data:</b></p>
-                        <pre id="example-console-rows"></pre>
-
-                        <p><b>Form data as submitted to the server:</b></p>
-                        <pre id="example-console-form"></pre>
-                        <button type="submit" class="btn" name="Approve">Approve</button>
-                    </form>
+                    {{--{!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}--}}
 
 
                 </div>
@@ -183,15 +194,15 @@
         </section>
     @endif
 
+    {{--Research proposal brief rejected/getback items--}}
     @if(!empty($rejectedItems->dashboardItems))
         <section id="pending-tasks">
             <div class="card">
                 <div class="card-body">
 
-                    <h2>@lang('labels.rejected_items')</h2>
+                    <h2>@lang('rms::research_proposal.research_brief_get_back_items')</h2>
                     <table class="table table-bordered">
                         <thead>
-                        <th>@lang('labels.feature')</th>
                         <th>@lang('labels.message')</th>
                         <th>@lang('labels.details')</th>
                         <th>@lang('labels.action')</th>
@@ -200,7 +211,6 @@
                         @foreach($rejectedItems->dashboardItems as $item)
 
                             <tr>
-                                <td>{{$item->featureName}}</td>
                                 <td>{{$item->message}}</td>
                                 <td>
                                     Research proposal title : {{ $item->dynamicValues['proposal_title'] }}<br/>
@@ -224,6 +234,169 @@
             </div>
         </section>
     @endif
+
+    {{-------------Research detail pending items from workflow----------------}}
+    @if(!empty($researchDetailPendingItems->dashboardItems))
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+                    <h4>@lang('rms::research_details.research_detail_pending_item')</h4>
+
+                    <table class="table table-hover table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($researchDetailPendingItems->dashboardItems as $item)
+                            {{--{{ dd($item) }}--}}
+                            <tr>
+                                {{--<td>{{ $item->dynamicValues['id'] }}</td>--}}
+                                <td>{{$item->message}}</td>
+                                <td>
+                                    Invitation Title: {{ $item->dynamicValues['invitation_title'] }}<br/>
+                                    Research Title : {{ $item->dynamicValues['title'] }}<br/>
+                                    Initiator Name : {{ $item->dynamicValues['initiator_name'] }}
+
+                                </td>
+                                <td>
+                                    <a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a>
+                                </td>
+
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{--{!! Form::open(['route' =>  'research-proposal-submission.reviewUpdate',  'enctype' => 'multipart/form-data', 'novalidate', 'id' => 'ReviewForm']) !!}--}}
+
+
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{---------------Research Detail Rejected/sendback items from workflow ------------------}}
+    @if(!empty($researchDetailRejectedItems->dashboardItems))
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>@lang('rms::research_details.research_detail_send_back_item')</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($researchDetailRejectedItems->dashboardItems as $item)
+
+                            <tr>
+                                <td>{{$item->message}}</td>
+                                <td>
+                                    Research Detail title : {{ $item->dynamicValues['detail_title'] }}<br/>
+                                    Research Invitation title : {{ $item->dynamicValues['remarks'] }}
+
+                                </td>
+
+                                <td>
+                                    <a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
+                                    <a href="{{ route('detail-workflow-close', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                       class="btn btn-danger btn-sm">@lang('labels.closed')</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
+
+
+    {{--research paper rejected workflow dashboard items--}}
+    @if(!empty($researchRejectedItems->dashboardItems))
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+
+                    <h2>@lang('rms::research.research_back_from_director_research')</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.feature')</th>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($researchRejectedItems->dashboardItems as $item)
+                            <tr>
+                                <td>{{$item->featureName}}</td>
+                                <td>{{$item->message}}</td>
+                                <td>
+                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Publication info: {{  $item->dynamicValues['publication_description'] }}<br/>
+                                    Submitted by : {{  $item->dynamicValues['submitted_by'] }}
+                                </td>
+
+                                <td>
+                                    <a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm">@lang('labels.resubmit')</a>
+                                    <a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"
+                                       class="btn btn-danger btn-sm">@lang('labels.closed')</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
+
+    {{--research paper workflow dashboard items--}}
+    @if(!empty($researchPendingTasks->dashboardItems))
+        <section id="pending-tasks">
+            <div class="card">
+                <div class="card-body">
+                    <h4>@lang('rms::research.research__paper_pending_items')</h4>
+                    <table class="table table-bordered">
+                        <thead>
+                        <th>@lang('labels.message')</th>
+                        <th>@lang('labels.details')</th>
+                        <th>@lang('labels.action')</th>
+                        </thead>
+                        <tbody>
+                        @foreach($researchPendingTasks->dashboardItems as $item)
+
+                            <tr>
+                                <td>{{ $item->message }}</td>
+
+                                <td>
+                                    Research Title: {{ $item->dynamicValues['research_title'] }}<br/>
+                                    Publication info: {{  $item->dynamicValues['publication_description'] }}<br/>
+                                    Submitted by : {{  $item->dynamicValues['submitted_by'] }}
+                                </td>
+                                <td><a href="{{url($item->checkUrl)}}"
+                                       class="btn btn-primary btn-sm"> @lang('labels.details')</a></td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </section>
+    @endif
+
 
     @if(Auth::user()->hasAnyRole('ROLE_DIRECTOR_GENERAL') || Auth::user()->hasAnyRole('ROLE_RESEARCH_DIRECTOR'))
         <section>
@@ -277,13 +450,13 @@
                                         <tbody>
 
 
-                                        @foreach($tasks as $task)
+                                        {{--@foreach($tasks as $task)
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>@lang('rms::research.' .$task->name)</td>
                                                 <td>{{ isset($task->researches->title) ? $task->researches->title : '' }}</td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach--}}
 
                                         @if(count($tasks))
 
@@ -297,7 +470,7 @@
                                         @else
 
                                             <tr>
-                                                <td colspan="3" class="text-center">No started task is found</td>
+                                                <td colspan="3" class="text-center">@lang('rms::research.No started task is found')</td>
                                             </tr>
                                         @endif
 
@@ -393,7 +566,7 @@
         </section>
     @endif
 
-    <section>
+    {{--<section>
         <div class="row">
             <div class="col-6">
                 <div class="card">
@@ -465,16 +638,16 @@
                                     @foreach($proposals as $proposal)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            {{--@php--}}
-                                            {{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}
-                                            {{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}
-                                            {{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}
-                                            {{--$featureName = 'Research Proposal';--}}
-                                            {{--@endphp--}}
+                                            --}}{{--@php--}}{{--
+                                            --}}{{--$wfMasterId = $proposal->workflowMasters->first()->id;--}}{{--
+                                            --}}{{--$wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;--}}{{--
+                                            --}}{{--// $featureName = $proposal->workflowMasters[1]->feature->name;--}}{{--
+                                            --}}{{--$featureName = 'Research Proposal';--}}{{--
+                                            --}}{{--@endphp--}}{{--
                                             <td>
                                                 <a href="#">{{ $proposal->title }}</a>
                                             </td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{ date('d/m/y h:i:a', strtotime($proposal->created_at)) }}</td>
                                             <td>{{ $proposal->submittedBy->name }}</td>
                                         </tr>
                                     @endforeach
@@ -486,7 +659,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>--}}
 @stop
 
 @push('page-css')
@@ -502,11 +675,61 @@
     <script>
 
         // testing new one
-
         $(document).ready(function () {
-            $("#remark").hide();
-            $("#message").hide();
-            var table = $('#example').DataTable({
+
+            // bulk action for research brief
+            var table = $('#bulkApprove').DataTable({
+                'columnDefs': [
+                    {
+                        'targets': 0,
+                        'checkboxes': {
+                            'selectRow': true
+                        }
+                    }
+                ],
+                'select': {
+                    'style': 'multi',
+                },
+                'order': [[1, 'asc']],
+
+            });
+
+            // Handle form submission event
+            $('#research_bulk_action_form').on('submit', function (e) {
+                var form = this;
+                var rows_selected = table.column(0).checkboxes.selected();
+                $.each(rows_selected, function (index, rowId) {
+                    $(form).append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', 'items[]')
+                            .val(rowId)
+                    );
+                });
+            });
+            $('#approvalReject').hide();
+            $('#research_bulk_action_form').on('click', function (e) {
+                if (table.rows('.selected').count() > 0) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+            });
+
+            // $("#researchBriefCard:checkbox").click(function (event) {
+            $('div.researchBriefCard input[type="checkbox"]').click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#approvalReject").show();
+                } else {
+                    $("#approvalReject").hide();
+                }
+
+            });
+
+
+
+// bulk action for research details
+            var detailTable = $('#researchDetailBulk').DataTable({
                 'columnDefs': [
                     {
                         'targets': 0,
@@ -521,48 +744,44 @@
                 'order': [[1, 'asc']],
 
             });
-            $('#frm-example').on('click', function (e) {
-                if (table.rows('.selected').count() > 0) {
-
-                    $("#remark").show();
-                    $("#message").show();
-
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-            });
-
-            $(":checkbox").click(function (event) {
-                if ($(this).is(":checked")) {
-                    $("#remark").show();
-                    $("#message").show();
-                } else {
-                    $("#remark").hide();
-                    $("#message").hide();
-                }
-
-            });
             // Handle form submission event
-            $('#frm-example').on('submit', function (e) {
-                var form = this;
-                var rows_selected = table.column(0).checkboxes.selected();
-                $.each(rows_selected, function (index, rowId) {
-                    $(form).append(
+            $('#research_detail_bulk_action_form').on('submit', function (e) {
+                var DetailForm = this;
+                var DetailRows_selected = detailTable.column(0).checkboxes.selected();
+                $.each(DetailRows_selected, function (index, rowId) {
+                    $(DetailForm).append(
                         $('<input>')
                             .attr('type', 'hidden')
-                            .attr('name', 'id[]')
+                            .attr('name', 'items[]')
                             .val(rowId)
                     );
                 });
-                $('#example-console-rows').text(rows_selected.join(","));
-                $('#example-console-form').text($(form).serialize());
-                // $('input[name="id\[\]"]', form).remove();
-                // e.preventDefault();
+            });
+            $('#DetailApprovalReject').hide();
+            $('#research_detail_bulk_action_form').on('click', function (e) {
+                if (detailTable.rows('.selected').count() > 0) {
+                    $("#DetailApprovalReject").show();
+                } else {
+                    $("#DetailApprovalReject").hide();
+                }
             });
 
+            $('div.researchDetailCard input[type="checkbox"]').click(function (event) {
+                if ($(this).is(":checked")) {
+                    $("#DetailApprovalReject").show();
+                } else {
+                    $("#DetailApprovalReject").hide();
+                }
+
+            });
         });
 
+        $('#DetailApprovalReject').on('click', function () {
+            $('.test1').hide();
+        })
+
+
+        // end bulk action
         var ctx = document.getElementById("myChart");
         var myChart = new Chart(ctx, {
             type: 'bar',

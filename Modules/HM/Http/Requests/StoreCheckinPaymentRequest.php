@@ -21,9 +21,10 @@ class StoreCheckinPaymentRequest extends FormRequest
                 }
             }],
             'type' => 'required|in:cash,card,check',
-            'check_number' => 'nullable|size:11',
+            'check_number' => 'nullable|min:11',
         ];
     }
+
 
     /**
      * Determine if the user is authorized to make this request.

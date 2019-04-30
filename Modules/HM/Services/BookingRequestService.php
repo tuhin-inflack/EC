@@ -11,7 +11,9 @@ namespace Modules\HM\Services;
 
 use App\Services\RoleService;
 use App\Traits\CrudTrait;
+use App\Traits\FileTrait;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
@@ -33,6 +35,7 @@ use phpDocumentor\Reflection\Types\Object_;
 class BookingRequestService
 {
     use CrudTrait;
+    use FileTrait;
     /**
      * @var RoomBookingRepository
      */
@@ -79,8 +82,6 @@ class BookingRequestService
 
     public function store(array $data, $type = 'booking')
     {
-
-
         return DB::transaction(function () use ($data, $type) {
             $data['start_date'] = Carbon::createFromFormat("j F, Y", $data['start_date']);
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
@@ -134,9 +135,7 @@ class BookingRequestService
     {
         $roomBookingRequester = new RoomBookingRequester($data);
 
-        $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-        $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
+        list($photoPath, $nidDocPath, $passportDocPath) = $this->storeRequesterFiles($data);
 
         $roomBookingRequester->photo = $photoPath;
         $roomBookingRequester->nid_doc = $nidDocPath;
@@ -170,10 +169,11 @@ class BookingRequestService
      */
     private function saveGuestInfos($data, $roomBooking): void
     {
+        /*$photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;*/
         if (array_key_exists('guests', $data)) {
             $roomBooking->guestInfos()->saveMany(
                 collect($data['guests'])->map(function ($guest) use ($roomBooking) {
-                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $guest['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/guests') : null;
+                    $guest['nid_doc'] = array_key_exists('nid_doc', $guest) ? $this->upload($guest['nid_doc'], 'booking-requests') : null;
                     return new BookingGuestInfo($guest);
                 })
             );
@@ -204,30 +204,17 @@ class BookingRequestService
                 ]);
             }
 
-
             if (isset($data['deleted-roominfos'])) {
                 BookingRoomInfo::destroy($data['deleted-roominfos']);
             }
 
+            $this->removeOldFileAttachments(
+                ['photo', 'nid_doc', 'passport_doc'],
+                $data,
+                $roomBooking->requester->toArray()
+            );
 
-            if (array_key_exists('photo', $data)) {
-                Storage::delete($roomBooking->requester->photo);
-                $photoPath = array_key_exists('photo', $data) ? $data['photo']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['photo'] = $photoPath;
-            }
-
-            if (array_key_exists('nid_doc', $data)) {
-                Storage::delete($roomBooking->requester->nid_doc);
-                $nidDocPath = array_key_exists('nid_doc', $data) ? $data['nid_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['nid_doc'] = $nidDocPath;
-            }
-
-            if (array_key_exists('passport_doc', $data)) {
-                Storage::delete($roomBooking->requester->passport_doc);
-                $passportDocPath = array_key_exists('passport_doc', $data) ? $data['passport_doc']->store('booking-requests/' . $roomBooking->shortcode . '/requester') : null;
-                $data['passport_doc'] = $passportDocPath;
-            }
-
+            list($data['photo'], $data['nid_doc'], $data['passport_doc']) = $this->storeRequesterFiles($data);
 
             $roomBooking->requester->update($data);
 
@@ -235,6 +222,15 @@ class BookingRequestService
 
             return $roomBooking;
         });
+    }
+
+    private function removeOldFileAttachments(array $keys, array $requestData, array $bookingRequester)
+    {
+        foreach ($keys as $key) {
+            if (array_key_exists($key, $requestData) && $bookingRequester[$key]) {
+                $this->deleteFile($bookingRequester[$key]);
+            }
+        }
     }
 
     private function updateGuestInfo($roomBooking, $data): void
@@ -325,7 +321,11 @@ class BookingRequestService
     {
         return $this->bookingRequesteForwardRepository->getModel()->updateOrCreate(
             ['room_booking_id' => $roomBooking->id],
-            ['forwarded_to' => $data['forwardTo'], 'forwarded_by' => Auth::user()->id]
+            [
+                'forwarded_to' => $data['forwardTo'],
+                'forwarded_by' => Auth::user()->id,
+                'comment' => $data['comment']
+            ]
         );
     }
 
@@ -356,7 +356,7 @@ class BookingRequestService
      * @param $approvedBookingCheckinRecords
      * @return \Illuminate\Support\Collection
      */
-    private function getBookedRooms($approvedBookingCheckinRecords): \Illuminate\Support\Collection
+    private function getBookedRooms(Collection $approvedBookingCheckinRecords): \Illuminate\Support\Collection
     {
         $collectionOfBookedRooms = collect();
         $approvedBookingCheckinRecords->each(function ($booking) use ($collectionOfBookedRooms) {
@@ -374,16 +374,18 @@ class BookingRequestService
     }
 
     /**
-     * @param $rooms
      * @return mixed
      */
     private function getTotalRoomsByRoomType()
     {
-        $rooms = $this->roomService->findAll();
+        $roomTypes = $this->roomTypeService->findAll();
 
-        $totalRoomsByRoomType = $rooms->groupBy('room_type_id')->map(function ($rooms) {
-            return $rooms->count();
+        $totalRoomsByRoomType = [];
+
+        $roomTypes->each(function ($roomType) use (&$totalRoomsByRoomType) {
+            $totalRoomsByRoomType[$roomType->id] = $roomType->rooms->count();
         });
+
         return $totalRoomsByRoomType;
     }
 
@@ -436,14 +438,28 @@ class BookingRequestService
      * @param $totalRoomsByRoomType
      * @return mixed
      */
-    private
-    function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
+    private function getAvailableRooms($roomTypeId, $sumOfBookedRoomTypes, $totalRoomsByRoomType)
     {
-        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray())) {
+        if (array_key_exists($roomTypeId, $sumOfBookedRoomTypes->toArray()) &&
+            array_key_exists($roomTypeId, $totalRoomsByRoomType)) {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId] - $sumOfBookedRoomTypes[$roomTypeId];
         } else {
             $availableRooms = $totalRoomsByRoomType[$roomTypeId];
         }
         return $availableRooms;
     }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    private function storeRequesterFiles($data): array
+    {
+        $photoPath = array_key_exists('photo', $data) ? $this->upload($data['photo'], 'booking-requests') : null;
+        $nidDocPath = array_key_exists('nid_doc', $data) ? $this->upload($data['nid_doc'], 'booking-requests') : null;
+        $passportDocPath = array_key_exists('passport_doc', $data) ? $this->upload($data['passport_doc'], 'booking-requests') : null;
+
+        return array($photoPath, $nidDocPath, $passportDocPath);
+    }
 }
+

@@ -135,4 +135,15 @@ class ResearchDetailInvitationService
     {
         return ResearchDetailInvitation::orderBy('end_date', 'desc')->limit()->get();
     }
+
+    public function getDetailInvitationReceivedByUser()
+    {
+        return $this->researchDetailInvitationRepository->findAll()
+            ->filter(function ($researchDetailInvitaion) {
+               return ((auth()->user()->id == $researchDetailInvitaion->researchApprovedProposal->auth_user_id
+                       || auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                   && !$researchDetailInvitaion->proposalsUnderReviewOrApproved->count()
+                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchDetailInvitaion->end_date)));
+            });
+    }
 }

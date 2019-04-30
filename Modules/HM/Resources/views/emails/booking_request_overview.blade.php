@@ -188,14 +188,16 @@
                                                                     </td>
 
                                                                 </tr>
-                                                                <tr>
-                                                                    <td style="margin-right: 20px">@lang('hm::booking-request.check_in')</td>
-                                                                    <td>: {{  $roomBooking->start_date }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="margin-right: 20px">@lang('hm::booking-request.check_out')</td>
-                                                                    <td>: {{ $roomBooking->end_date }}</td>
-                                                                </tr>
+                                                                @if ($roomBooking->type == 'checkin')
+                                                                    <tr>
+                                                                        <td style="margin-right: 20px">@lang('hm::booking-request.check_in')</td>
+                                                                        <td>: {{  $roomBooking->start_date }}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td style="margin-right: 20px">@lang('hm::booking-request.check_out')</td>
+                                                                        <td>: {{ $roomBooking->end_date }}</td>
+                                                                    </tr>
+                                                                @endif
                                                                 <tr>
                                                                     <td style="margin-right: 20px">@lang('hm::booking-request.no_of_guests')</td>
                                                                     <td>: {{ $roomBooking->guestInfos->count() }}</td>
@@ -287,7 +289,7 @@
                                                                 @foreach($roomBooking->guestInfos as $guestInfo)
                                                                     <tr style="border-bottom: 1px solid gray;">
                                                                         <td style="text-align: center">{{ $loop->iteration }}</td>
-                                                                        <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->last_name}}</td>
+                                                                        <td style="text-align: center">{{ $guestInfo->first_name . " " .$guestInfo->middle_name. " " .$guestInfo->last_name}}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->age ? : '' }}</td>
                                                                         <td style="text-align: center">{{ trans("hm::booking-request.$guestInfo->gender")  }}</td>
                                                                         <td style="text-align: center">{{ $guestInfo->address }}</td>
