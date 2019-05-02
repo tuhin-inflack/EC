@@ -17,7 +17,8 @@ Route::prefix('ims')->group(function() {
 
     Route::prefix('product')->group(function() {
         Route::get('list', 'Product\ProductController@index')->name('inventory.product.list');
-        Route::get('add', 'Product\ProductController@create')->name('inventory.product.create');
+        Route::get('create', 'Product\ProductController@create')->name('inventory.product.create');
+        Route::post('/', 'Product\ProductController@store')->name('inventory.product.store');
         Route::get('transfer', 'Product\TransferController@create')->name('inventory.product.transfer');
     });
 
@@ -32,7 +33,7 @@ Route::prefix('ims')->group(function() {
 
     Route::prefix('inventory')->group(function() {
         Route::get('/', 'Inventory\InventoryController@index')->name('inventory.list');
-        Route::get('/add', 'Inventory\InventoryController@edit')->name('inventory.add');
+        Route::get('/create', 'Inventory\InventoryController@create')->name('inventory.create');
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
     });
 

@@ -5,9 +5,24 @@ namespace Modules\IMS\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\IMS\Http\Requests\CreateProductRequest;
+use Modules\IMS\Services\ProductService;
 
 class ProductController extends Controller
 {
+
+    /**
+     * @var ProductService
+     */
+    private $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        /** @var ProductService $productService */
+        $this->productService = $productService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -31,8 +46,11 @@ class ProductController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
+        $this->productService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory.product.list');
     }
 
     /**
