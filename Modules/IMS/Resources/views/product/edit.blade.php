@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::product.create_page_title'))
+@section('title', trans('ims::product.edit_page_title'))
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::product.create_page_title')</h4>
+                        <h4 class="card-title">@lang('ims::product.edit_page_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('ims::product.partials.form', ['page' => 'create'])
+                            @include('ims::product.partials.form', ['page' => 'edit'])
                         </div>
                     </div>
                 </div>

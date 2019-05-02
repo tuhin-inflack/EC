@@ -20,6 +20,8 @@ Route::prefix('ims')->group(function() {
         Route::get('create', 'Product\ProductController@create')->name('inventory.product.create');
         Route::post('/', 'Product\ProductController@store')->name('inventory.product.store');
         Route::get('{product}', 'Product\ProductController@show')->name('inventory.product.show');
+        Route::get('{product}/edit', 'Product\ProductController@edit')->name('inventory.product.edit');
+        Route::put('{product}/update','Product\ProductController@update')->name('inventory.product.update');
         Route::get('transfer', 'Product\TransferController@create')->name('inventory.product.transfer');
     });
 

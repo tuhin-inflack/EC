@@ -8,4 +8,5 @@ return [
     'transfer_menu_title' => 'পণ্য হস্তান্তর',
     'transfer_page_title' => 'পণ্য হস্তান্তর',
     'details' => 'পণ্য বিবরণ',
+    'edit_page_title' => 'পণ্য সম্পাদনা',
 ];
