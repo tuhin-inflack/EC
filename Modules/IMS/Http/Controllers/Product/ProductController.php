@@ -52,16 +52,16 @@ class ProductController extends Controller
     {
         $this->productService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('inventory.product.list');
+        return redirect()->route('inventory.product.index');
     }
 
     /**
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Product $product)
     {
-        return view('ims::show');
+        return view('ims::product.show', compact('product'));
     }
 
     /**

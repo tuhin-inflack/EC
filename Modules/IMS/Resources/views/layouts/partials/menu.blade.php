@@ -13,8 +13,8 @@
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::product.title')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory.product.list') }}">
-                        <a href="{{ route('inventory.product.list') }}">
+                    <li class="{{ is_active_route('inventory.product.index') }}">
+                        <a href="{{ route('inventory.product.index') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::product.list_menu_title')</span>
                         </a>

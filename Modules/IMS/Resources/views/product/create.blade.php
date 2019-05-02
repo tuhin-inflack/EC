@@ -18,7 +18,7 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('inventory.product.list') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('inventory.product.index') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-list white">@lang('ims::product-list-table.links.list')</i>
                             </a>
                         </div>

@@ -94,7 +94,7 @@
 </div>
 
 <div class="form-actions mb-lg-3">
-    <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory.warehouse.list') }}" style="margin-left: 2px;">
+    <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory.product.index') }}" style="margin-left: 2px;">
         <i class="la la-times"></i> {{trans('labels.cancel')}}
     </a>
     <button type="submit" class="btn btn-primary pull-right">
