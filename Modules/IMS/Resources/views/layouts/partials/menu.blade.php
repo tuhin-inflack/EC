@@ -19,12 +19,6 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::product.list_menu_title')</span>
                         </a>
                     </li>
-                    <li class="{{ is_active_route('inventory.product.create') }}">
-                        <a href="{{ route('inventory.product.create') }}">
-                            <i class="la la-plus-circle"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::product.create_menu_title')</span>
-                        </a>
-                    </li>
                     <li class="{{ is_active_route('inventory.product.transfer') }}">
                         <a href="{{ route('inventory.product.transfer') }}">
                             <i class="la la-exchange"></i>

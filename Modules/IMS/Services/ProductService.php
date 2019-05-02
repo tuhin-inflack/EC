@@ -36,4 +36,9 @@ class ProductService
             return $product;
         });
     }
+
+    public function getAllProducts()
+    {
+        return $this->productRepository->findAll();
+    }
 }

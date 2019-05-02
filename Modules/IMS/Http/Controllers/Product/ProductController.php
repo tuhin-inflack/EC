@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\Product;
 use Modules\IMS\Http\Requests\CreateProductRequest;
 use Modules\IMS\Services\ProductService;
 
@@ -27,9 +28,10 @@ class ProductController extends Controller
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        return view('ims::product.index');
+        $products = $this->productService->getAllProducts();
+        return view('ims::product.index', compact('products'));
     }
 
     /**
