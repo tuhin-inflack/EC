@@ -14,6 +14,7 @@ class CreateResearchRequest extends FormRequest
     public function rules()
     {
         return [
+            'research_detail_submission_id' => 'required',
             'title' => 'required|max:100'
         ];
     }

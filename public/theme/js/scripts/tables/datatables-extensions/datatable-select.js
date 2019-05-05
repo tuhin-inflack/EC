@@ -42,7 +42,7 @@ $('.dataex-select-cell').DataTable( {
 /**********************************
 *      DataTables Scrolling       *
 **********************************/
-
+/*
 $('.dataex-select-checkbox').DataTable( {
     columnDefs: [ {
         orderable: false,
@@ -54,7 +54,7 @@ $('.dataex-select-checkbox').DataTable( {
         selector: 'td:first-child'
     },
     order: [[ 1, 'asc' ]]
-} );
+} );*/
 
 /*********************
 *      Buttons       *

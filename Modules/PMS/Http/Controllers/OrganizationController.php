@@ -33,6 +33,7 @@ class OrganizationController extends Controller
     /**
      * OrganizationController constructor.
      * @param OrganizationService $organizationService
+     * @param DivisionService $divisionService
      * @param AttributeValueService $attributeValueService
      */
     public function __construct(
@@ -48,7 +49,6 @@ class OrganizationController extends Controller
 
     public function create(Project $project)
     {
-
         $organizableType = Config::get('constants.project');
         $organizations = $this->organizationService->getUnmappedOrganizations($project);
         return view('pms::organization.create')->with([
@@ -60,7 +60,6 @@ class OrganizationController extends Controller
     }
     public function show(Project $project, Organization $organization)
     {
-
         if (!$project->organizations->where('id', $organization->id)->count()) {
             abort(404);
         }

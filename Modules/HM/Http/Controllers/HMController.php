@@ -32,7 +32,8 @@ class HMController extends Controller
         $hostels = $this->hostelService->getAll();
 
         foreach ($hostels as $hostel){
-            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($hostel->rooms);
+            $availableRooms = $this->roomService->getAvailableRoomsOfHostel($hostel);
+            $roomDetails[$hostel->name] = $this->roomService->sortRoomsByLevel($availableRooms);
         }
 
         $allRoomsCountBasedOnStatus = $this->hostelService->getRoomsCountBasedOnStatus();

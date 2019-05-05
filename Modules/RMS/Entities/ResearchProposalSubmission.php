@@ -32,11 +32,14 @@ class ResearchProposalSubmission extends Model
     {
         return $this->belongsTo(User::class, 'auth_user_id', 'id');
     }
+
     public function organizations()
     {
         return $this->morphToMany(Organization::class, 'organizable');
     }
-    public function requester(){
+
+    public function requester()
+    {
         return $this->belongsTo(ResearchRequest::class, 'research_request_id', 'id');
     }
 
@@ -47,6 +50,6 @@ class ResearchProposalSubmission extends Model
 
     public function researchRequests()
     {
-        return $this->hasMany(ResearchRequest::class, 'ressearch_request_id', 'id');
+        return $this->hasMany(ResearchRequest::class, 'research_request_id', 'id');
     }
 }

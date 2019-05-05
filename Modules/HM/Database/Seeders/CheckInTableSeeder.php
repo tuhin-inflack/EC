@@ -121,8 +121,8 @@ class CheckInTableSeeder extends Seeder
                     "booking_type" => "general",
                     "status" => "approved",
                     "employee_id" => 1,
-                    "type" => "checkin",
-                    "comment" => "No Comment !!"
+                    "type" =>"checkin",
+                    "comment" => "No Comment !!",
                 ],
                 'room_numbers' => "1",
                 'room_booking_requesters' => [
@@ -141,8 +141,8 @@ class CheckInTableSeeder extends Seeder
                     "booking_type" => "general",
                     "status" => "approved",
                     "employee_id" => 2,
-                    "type" => "checkin",
-                    "comment" => "No Comment !!"
+                    "type" =>"checkin",
+                    "comment" => "No Comment !!",
                 ],
                 'room_numbers' => "2",
                 'room_booking_requesters' => [

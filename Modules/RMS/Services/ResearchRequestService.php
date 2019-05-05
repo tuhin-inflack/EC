@@ -3,6 +3,7 @@
 namespace Modules\RMS\Services;
 
 use App\Constants\NotificationType;
+use App\Entities\User;
 use App\Events\NotificationGeneration;
 use App\Models\NotificationInfo;
 use App\Traits\CrudTrait;
@@ -67,7 +68,7 @@ class ResearchRequestService
 
             $notificationData = [
                 'ref_table_id' => $researchRequest->id,
-                'message' => Config::get('rms-notification.research_invite_submitted'). ' by '. Auth::user()->name,
+                'message' => Config::get('rms-notification.research_invite_submitted') . ' by ' . Auth::user()->name,
                 'to_users_designation' => Config::get('constants.research_invite_submit'),
                 'to_employee_id' => $data['to']
 
@@ -90,7 +91,7 @@ class ResearchRequestService
             $data['end_date'] = Carbon::createFromFormat("j F, Y", $data['end_date']);
             $data['status'] = 'PENDING';
             $request = $this->update($researchRequest, $data);
-            foreach ($researchRequest->researchRequestAttachments as $attachment){
+            foreach ($researchRequest->researchRequestAttachments as $attachment) {
                 ResearchRequestAttachment::destroy($attachment->id);
                 Storage::disk('internal')->delete($attachment->attachments);
             }
@@ -123,7 +124,7 @@ class ResearchRequestService
 
         $fileName = time() . '.zip';
 
-        $zipFilePath =  Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
+        $zipFilePath = Storage::disk('internal')->getAdapter()->getPathPrefix() . $fileName;
 
         Zipper::make($zipFilePath)->add($filePaths)->close();
 
@@ -132,6 +133,25 @@ class ResearchRequestService
 
     public function getResearchInvitationByDeadline()
     {
-        return ResearchRequest::orderBy('end_date', 'DESC')->limit(5)->get();
+        return ResearchRequest::orderBy('end_date', 'DESC')
+            ->where('end_date', '>=', Carbon::today())
+            ->limit(5)
+            ->get()
+            ->filter(function ($researchRequest) {
+                return ((in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                        || auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                    && !$researchRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count());
+            });
+    }
+
+    public function getInvitationsReceivedByUser()
+    {
+        return $this->researchRequestRepository->findAll()
+            ->filter(function ($researchRequest) {
+               return ((in_array(auth()->user()->id, $researchRequest->researchRequestReceivers->pluck('to')->toArray())
+                       || auth()->user()->employee->employeeDepartment->department_code == "RMS")
+                   && !$researchRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count()
+                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchRequest->end_date)));
+            });
     }
 }

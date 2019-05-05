@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', 'Research details invitation list')
+@section('title',  trans('rms::research_details.research_detail_invitation_list') )
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Research details invitation list</h4>
+                        <h4 class="card-title">@lang('rms::research_details.research_detail_invitation_list')</h4>
                         {{--<div class="heading-elements">--}}
                         {{--<a href="" class="btn btn-primary btn-sm"><i--}}
                         {{--class="ft-plus white"></i> </a>--}}
@@ -31,28 +31,34 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>a</td>
-                                        <td>b</td>
-                                        <td>c</td>
-                                        <td>d</td>
-                                        <td>e</td>
-                                        <td>
+                                    @foreach($detailsInvitations as $invitation)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $invitation->title }}</td>
+                                            <td>{{ $invitation->remarks }}</td>
+                                            <td><a href="{{url('rms/research-proposal-details/invitations/attachment-download/'.$invitation->id)}}">@lang('labels.attachments')</a></td>
+
+
+                                            <td>{{ $invitation->end_date }}</td>
+                                            <td>{{ $invitation->created_at }}</td>
+                                            <td>
                                                 <span class="dropdown">
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true" aria-expanded="false"
                                                             class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
-                                                    <span aria-labelledby="btnSearchDrop2"
-                                                          class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('details.create', [1]) }}"
-                                                           class="dropdown-item"><i class="ft-alert-octagon"></i>Submit details</a>
+                                                    @if(can_submit_detail_research_proposal($invitation))
+                                                        <span aria-labelledby="btnSearchDrop2"
+                                                              class="dropdown-menu mt-1 dropdown-menu-right">
+                                                        <a href="{{ route('details.create', [$invitation->id]) }}"
+                                                           class="dropdown-item"><i class="ft-alert-octagon"></i>@lang('rms::research_details.submit_detail')</a>
                                                     </span>
+                                                    @endif
                                                 </span>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

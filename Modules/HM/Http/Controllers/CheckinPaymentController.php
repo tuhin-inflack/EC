@@ -60,13 +60,10 @@ class CheckinPaymentController extends Controller
      */
     public function store(StoreCheckinPaymentRequest $request, RoomBooking $roomBooking)
     {
-//        dd($request->all());
-
         if ($roomBooking->type != 'checkin') {
             abort(404);
         }
         $checkinPayment = $this->checkinPaymentService->save(array_merge($request->all(), ['checkin_id' => $roomBooking->id, 'shortcode' => time()]));
-
 
         if ($checkinPayment && !empty($roomBooking->requester->email)) {
             Mail::to($roomBooking->requester->email)->send(new SendPaymentInfoMail($roomBooking, $checkinPayment, $request->amount, $request->type));

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
+use Modules\RMS\Services\ResearchDetailSubmissionService;
 use Modules\RMS\Services\ResearchService;
 use Prophecy\Doubler\Generator\TypeHintReference;
 
@@ -38,6 +39,7 @@ class ResearchController extends Controller
     private $remarksService;
     private $dashboardWorkflowService;
     private $featureService;
+    private $researchDetailSubmissionService;
 
     /**
      * ResearchController constructor.
@@ -49,7 +51,8 @@ class ResearchController extends Controller
      * @param FeatureService $featureService ;
      */
     public function __construct(UserService $userService, ResearchService $researchService, TaskService $taskService,
-                                RemarkService $remarkService, DashboardWorkflowService $dashboardWorkflowService, FeatureService $featureService)
+                                RemarkService $remarkService, DashboardWorkflowService $dashboardWorkflowService, FeatureService $featureService,
+                                ResearchDetailSubmissionService $researchDetailSubmissionService)
     {
 
         $this->userService = $userService;
@@ -58,6 +61,7 @@ class ResearchController extends Controller
         $this->remarksService = $remarkService;
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->featureService = $featureService;
+        $this->researchDetailSubmissionService = $researchDetailSubmissionService;
     }
 
     /**
@@ -81,7 +85,9 @@ class ResearchController extends Controller
         $auth_user_id = Auth::user()->id;
         $departmentName = $this->userService->getDepartmentName($username);
         $designation = $this->userService->getDesignation($username);
-        return view('rms::research.create', compact('auth_user_id', 'name', 'designation', 'departmentName'));
+        $proposals = $this->researchDetailSubmissionService->getRemainingApprovedDetailProposal();
+
+        return view('rms::research.create', compact('auth_user_id', 'name', 'designation', 'departmentName', 'proposals'));
     }
 
     /**
@@ -93,7 +99,7 @@ class ResearchController extends Controller
     {
         $research = $this->researchService->store($request->all());
 
-        foreach (Config::get('default-values.tasks') as $task){
+        foreach (Config::get('default-values.tasks') as $task) {
             $this->taskService->store($research, $task);
         }
 

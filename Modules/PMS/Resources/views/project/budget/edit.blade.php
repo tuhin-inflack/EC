@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.form', ['page' => 'edit'])
+                                        @include('pms::project.budget.partials.form', ['page' => 'edit'])
                                     </div>
                                 </div>
                             </div>
@@ -37,82 +37,14 @@
 @push('page-js')
     <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script>
-        // select2 placeholder localization
+        // localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
+        let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
 
-        $(document).ready(function () {
-
-            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
-
-            $('.economy-code-select, .section-type-select').select2({
-                placeholder: selectPlaceholder
-            });
-
-            $('input[name=unit_rate], input[name=quantity]').keyup(() => {
-                calcutateTotalExpense();
-            });
-
-            $('.section-type-select').change(function (e) {
-                toggleComponents((e.target.value === "price_contingency" || e.target.value === "physical_contingency"));
-            });
-
-            toggleComponents(($('.section-type-select').val() === "price_contingency" || $('.section-type-select').val() === "physical_contingency"));
-
-        });
-
-        var validator = $('.project-budget-form').validate({
-            ignore: 'input[type=hidden]', // ignore hidden fields
-            errorClass: 'danger',
-            successClass: 'success',
-            highlight: function (element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-            unhighlight: function (element, errorClass) {
-                $(element).removeClass(errorClass);
-            },
-            errorPlacement: function (error, element) {
-                if (element.attr('type') == 'radio') {
-                    error.insertBefore(element.parents().siblings('.radio-error'));
-                }
-                else if (element[0].tagName == "SELECT") {
-                    error.insertAfter(element.siblings('.select2-container'));
-                }
-                else if (element.attr('id') == 'ckeditor') {
-                    error.insertAfter(element.siblings('#cke_ckeditor'));
-                } else {
-                    error.insertAfter(element);
-                }
-            },
-        });
-
-        function toggleComponents(bool) {
-
-            let components = $(`select[name=economy_code_id], input[name=unit], input[name=unit_rate], input[name=quantity]`);
-
-            components.prop( "disabled", bool);
-
-            if (bool)
-                components.removeAttr('required');
-            else
-                components.attr('required','required');
-
-            $('input[name=total_expense]').prop( "readonly", !bool);
-            $('input[name=total_expense_percentage]').prop( "disabled", !bool);
-
-            validator.resetForm();
-        }
-
-        function calcutateTotalExpense() {
-            var unitRate = $('input[name=unit_rate]').val();
-            var quantity = $('input[name=quantity]').val();
-
-            var totalExpense = Number(unitRate) * Number(quantity);
-
-            $('input[name=total_expense]').val(totalExpense);
-        }
-
+        let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $project->id) }}";
 
     </script>
+    <script src="{{ asset('js/dpp-budget/page.js') }}"></script>
 @endpush
 
 @push('page-css')

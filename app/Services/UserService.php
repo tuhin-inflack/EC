@@ -115,8 +115,21 @@ class UserService
 
     public function getAdminExceptLoggedInUserRole()
     {
-        $loggedInUserRoleId = $this->getLoggedInUser()->roles[0]->id;
-        return $this->userRepository->getUsersExceptLoginInUser($loggedInUserRoleId, 'Admin');
+        $authUserId = $this->getLoggedInUser()->id;
+        return $this->findBy(['id' => '8, 9, 10'])
+            ->where('id', '!=', $authUserId)
+            ->pluck('name', 'id');
+
+        /*$loggedInUserRoleId = $this->getLoggedInUser()->roles[0]->id;
+        return $this->userRepository->getUsersExceptLoginInUser(
+            $loggedInUserRoleId,
+            'Employee',
+            [
+                'ROLE_DIRECTOR_GENERAL',
+                'ROLE_DIRECTOR_ADMIN',
+                'ROLE_DIRECTOR_TRAINING',
+            ]
+        )->pluck('name', 'id');*/
     }
 
     /**

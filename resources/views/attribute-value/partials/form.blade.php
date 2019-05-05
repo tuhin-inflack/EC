@@ -23,25 +23,30 @@
             <div class="form-group">
                 <label for="date"
                        class="form-label required">@lang('labels.date')</label>
-                {!! Form::text('date', $pageType == 'create' ? null : \Carbon\Carbon::parse($attributeValue->date)->format('F Y'), [
-                    'class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''),
-                    'required', $pageType == 'edit' ? 'disabled' : '',
-                    'autocomplete' => 'off'
-                ]) !!}
+                <div class="input-group">
+                    {!! Form::text('date', $pageType == 'create' ? null : \Carbon\Carbon::parse($attributeValue->date)->format('F Y'), [
+                        'class' => 'form-control' . ($errors->has('date') ? ' is-invalid' : ''),
+                        'required', $pageType == 'edit' ? 'disabled' : '',
+                        'autocomplete' => 'off'
+                    ]) !!}
 
-                @if ($errors->has('date'))
-                    <span class="invalid-feedback">
+                    @if ($errors->has('date'))
+                        <span class="invalid-feedback">
                         <strong>{{ $errors->first('date') }}</strong>
                     </span>
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="value"
+                <label for="transaction_type"
                        class="form-label required">@lang('attribute.transaction_type')</label>
+                @if ($errors->has('transaction_type'))
+                    <strong class="help-block danger small font-weight-bold">{{ $errors->first('transaction_type') }}</strong>
+                @endif
                 <div class="row">
                     <div class="col-md-6">
                         <label for="deposit">
@@ -64,28 +69,28 @@
                         {{ Form::radio('transaction_type', 'withdraw', null, ['required']) }}
                     </div>
                 </div>
-
-                @if ($errors->has('transaction_type'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('transaction_type') }}</strong>
-                    </span>
-                @endif
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="value"
+                <label for="achieved_value"
                        class="form-label required">@lang('attribute.achieved_value')
                     <i>( {{ $attribute->unit }} )</i></label>
-                {!! Form::number('achieved_value', $pageType == 'create' ? null : $attributeValue->achieved_value, ['class' => 'form-control' . ($errors->has('achieved_value') ? ' is-invalid' : ''), 'required', 'min' => 0]) !!}
+                <div class="input-group">
+                    {!! Form::number('achieved_value', $pageType == 'create' ? null : $attributeValue->achieved_value, [
+                            'class' => 'form-control' . ($errors->has('achieved_value') ? ' is-invalid' : ''),
+                            'required',
+                            'min' => 0
+                        ]) !!}
 
-                @if ($errors->has('achieved_value'))
-                    <span class="invalid-feedback">
-                        <strong>{{ $errors->first('achieved_value') }}</strong>
-                    </span>
-                @endif
+                    @if ($errors->has('achieved_value'))
+                        <span class="invalid-feedback">
+                            <strong>{{ $errors->first('achieved_value') }}</strong>
+                        </span>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

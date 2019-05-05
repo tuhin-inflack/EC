@@ -57,7 +57,9 @@ class ShareConversationService
         $this->setActionRepository($this->shareConversationRepository);
     }
 
-    public function shareFromWorkflow($data) {
+    public function shareFromWorkflow($data)
+    {
+//        dd($data);
         $workflowConversation = $this->workflowConversationService->findOne($data['workflow_conversation_id']);
         $workflowConversation->status = WorkflowConversationStatus::CLOSED;
         $workflowConversation->update();
@@ -71,6 +73,7 @@ class ShareConversationService
 
     public function saveShareConversation($data, ShareConversation $currentConv = null)
     {
+//        dd($data);
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
 
         if ($shareRuleDesignation->is_parent && $currentConv) {
@@ -99,25 +102,38 @@ class ShareConversationService
     public function getShareConversationByDesignation($designationId)
     {
         $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
-        if (count($shareConversations) > 0) {
-            return $shareConversations;
-        } else {
-            return null;
+        $shareConversationData = [];
+        foreach ($shareConversations as $conversation) {
+                //      1 ==  Research proposal / brief
+            if ($conversation->feature_id == 1) {
+                $shareConversationData['research_brief_share'][] = $conversation;
+                //      4 == Research detail
+            } elseif ($conversation->feature_id == 4) {
+                $shareConversationData['research_detail_share'][] = $conversation;
+            }
         }
+        return $shareConversationData;
     }
 
     public function updateConversation($data, $shareConversationId)
     {
         $shareConversation = $this->findOne($shareConversationId);
         $shareConversation->update(['status' => 'CLOSE']);
-        $user = $this->userService->findOne($shareConversation->from_user_id);
+        //$user = $this->userService->findOne($shareConversation->from_user_id);
 
+//        $notificationData = [
+//            'ref_table_id' => $data['ref_table_id'],
+//            'message' => 'Research proposal feedback given',
+//            'to_employee_id' => [$user->employee->id],
+//        ];
+//        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+    }
 
-        $notificationData = [
-            'ref_table_id' => $data['ref_table_id'],
-            'message' => 'Research proposal feedback given',
-            'to_employee_id' => [$user->employee->id],
-        ];
-        event(new NotificationGeneration(new NotificationInfo(NotificationType::RESEARCH_PROPOSAL_SUBMISSION, $notificationData)));
+    // Generic method to get share conversation by designation ID
+    public function getShareConversationByDesignationId($designationId)
+    {
+        $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
+
+        return $shareConversations;
     }
 }

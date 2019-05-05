@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <ul>
-                                        @foreach($research->researchProposalSubmissionAttachments as $file)
+                                        @foreach($research->distinctResearchProposalSubmissionAttachments->unique('file_name') as $file)
                                             <li>
                                                 <a href="{{url('rms/research-proposal-submission/file-download/'.$file->id)}}">{{ $file->file_name }}</a>
                                             </li>
@@ -71,6 +71,9 @@
                                             <b><a href="{{url('rms/research-proposal-submission/attachment-download/'.$research->id)}}">@lang('rms::research_proposal.download_all_attachments')</a></b>
                                         </li>
                                     </ul>
+                                    @if(Request()->viewOnly !=1)
+                                        @include('rms::proposal.review.reviewer-add-attachments')
+                                    @endif
                                 </div>
                                 <div class="col-md-12">
                                     {!! Form::open(['route' => [ 'research-proposal-submission.feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
@@ -82,14 +85,14 @@
                                     </div>
                                     <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
                                         {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2, 'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
-                                        <div class="help-block"></div>
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                        {{--<div class="help-block"></div>--}}
                                         @if ($errors->has('message'))
-                                            <div class="help-block">{{ $errors->first('message') }}</div>
+                                            <div class="help-block">{{ trans('labels.This field is required') }}</div>
                                         @endif
                                     </div>
                                     @if(!is_null($ruleDesignations))
-                                        <div class="col-md-6">
+                                        <div class="">
                                             <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                                 <label>{{__('labels.share')}}</label>
                                                 <select name="designation_id" class="form-control">
@@ -113,12 +116,16 @@
                                     {!! Form::hidden('share_rule_id', $shareConversation->shareRuleDesignation->share_rule_id) !!}
                                     {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
                                     {!! Form::hidden('ref_table_id', $researchProposalSubmissionId) !!}
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">@lang('labels.share')</button>
                                     @if($shareConversation->shareRuleDesignation->can_approve==true)
-                                        {!! Form::button(' <i class="ft-check"></i> Approve', ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                        {!! Form::button(' <i class="ft-check"></i> '. trans('labels.status_approved'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif
-                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">Share
-                                    </button>
+                                    @if($shareConversation->shareRuleDesignation->can_reject)
+                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchProposalSubmissionId, $shareConversationId]) }}"
+                                           class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    @endif
                                     {!! Form::close() !!}
+
                                 </div>
 
                             </div>

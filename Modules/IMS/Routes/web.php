@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('ims')->group(function() {
+Route::prefix('ims')->group(function () {
 
     Route::get('/', 'IMSController@index')->name('inventory');
 
@@ -25,7 +25,7 @@ Route::prefix('ims')->group(function() {
         Route::get('transfer', 'Product\TransferController@create')->name('inventory.product.transfer');
     });
 
-    Route::prefix('warehouse')->group(function() {
+    Route::prefix('warehouse')->group(function () {
         Route::get('list', 'Warehouse\WarehouseController@index')->name('inventory.warehouse.list');
         Route::get('add', 'Warehouse\WarehouseController@create')->name('inventory.warehouse.create');
         Route::post('/', 'Warehouse\WarehouseController@store')->name('inventory.warehouse.store');
@@ -34,10 +34,19 @@ Route::prefix('ims')->group(function() {
         Route::put('{warehouse}/update','Warehouse\WarehouseController@update')->name('inventory.warehouse.update');
     });
 
-    Route::prefix('inventory')->group(function() {
+    Route::prefix('inventory')->group(function () {
         Route::get('/', 'Inventory\InventoryController@index')->name('inventory.list');
         Route::get('/create', 'Inventory\InventoryController@create')->name('inventory.create');
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
+    });
+
+    //fixed-asset route
+    Route::prefix('fixed-asset')->group(function () {
+        Route::get('/', 'FixedAsset\FixedAssetController@index')->name('fixed-asset.list');
+        Route::get('/add', 'FixedAsset\FixedAssetController@create')->name('fixed-asset.add');
+        Route::post('/add', 'FixedAsset\FixedAssetController@store')->name('fixed-asset.add');
+        Route::get('/{id}', 'FixedAsset\FixedAssetController@show')->name('fixed-asset.show');
+        Route::get('add/{type}', 'FixedAsset\FixedAssetController@change_value')->name('fixed-asset.add_appreciation_depreciation');
     });
 
 });

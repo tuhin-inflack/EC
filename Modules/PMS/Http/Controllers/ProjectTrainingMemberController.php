@@ -31,9 +31,12 @@ class ProjectTrainingMemberController extends Controller
     {
         $members = array();
 
+        $trainingMembers = $training->members->pluck('member_id');
+
         foreach ($project->organizations as $organization) {
-            $members = array_merge($organization->members->toArray(), $members);
+            $members = array_merge($organization->members->whereNotIn('id', $trainingMembers)->toArray(), $members);
         }
+
         return view('pms::project.training.members.index', compact('members', 'project', 'training'));
     }
 

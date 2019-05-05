@@ -32,6 +32,7 @@
                                             'REJECTED' => 'bg-danger',
                                             'PENDING' => 'bg-warning',
                                             'REVIEWED' => 'bg-info',
+                                            'CLOSED' => 'bg-danger',
                                         );
                                     @endphp
 
@@ -41,17 +42,16 @@
                                             @php
                                                 $wfMasterId = $proposal->workflowMasters->first()->id;
                                                 $wfConvId = $proposal->workflowMasters->first()->workflowConversations->first()->id;
-                                                $featureId = $proposal->workflowMasters->first()->feature->id;
                                                 $wfRuleDetailsId = $proposal->workflowMasters->first()->ruleMaster->ruleDetails->first()->id;
                                             @endphp
                                             <td>
-                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId]) }}">{{ $proposal->title }}</a>
+                                                <a href="{{ route('project-proposal-submitted-review', [$proposal->id, $wfMasterId, $wfConvId, $featureId, $wfRuleDetailsId, 'viewOnly'=>1]) }}">{{ $proposal->title }}</a>
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
                                             </td>
                                             <td>{{ $proposal->ProposalSubmittedBy->name }}</td>
-                                            <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
+                                            <td>{{date('d/m/y hi:a', strtotime($proposal->created_at))}}</td>
                                             <td>
                                                 <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
                                             </td>
@@ -106,6 +106,7 @@
                     {{ trans('labels.filtered') }}
                 <select id="filter-select" class="form-control form-control-sm" style="width: 100px">
                     <option value="{{ trans('pms::project_proposal.pending') }}">{{ trans('pms::project_proposal.pending') }}</option>
+                    <option value="{{ trans('pms::project_proposal.closed') }}">{{ trans('pms::project_proposal.closed') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_approved') }}">{{ trans('pms::project_proposal.status_approved') }}</option>
                         <option value="{{ trans('pms::project_proposal.status_rejected') }}">{{ trans('pms::project_proposal.status_rejected') }}</option>
                         </select>

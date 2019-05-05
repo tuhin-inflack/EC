@@ -51,8 +51,6 @@
     <script>
         $(document).ready(function () {
             monthYearDatePicker('input[name=date]');
-
-
         });
     </script>
 @endpush

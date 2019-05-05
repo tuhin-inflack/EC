@@ -50,7 +50,7 @@ class ProjectProposalReviewerAttachmentService
 
                 $file = new ProjectProposalFile([
                     'attachments' => $path,
-                    'submissions_id' => $data['project_proposal_submission_id'],
+                    'proposal_id' => $data['project_proposal_submission_id'],
                     'file_name' => $attachment->getClientOriginalName()
                 ]);
 

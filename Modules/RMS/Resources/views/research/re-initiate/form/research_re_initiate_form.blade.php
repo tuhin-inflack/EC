@@ -38,9 +38,25 @@
                         <div data-repeater-list="fileRepeater">
 
                             @if(isset($research->publication->attachments))
+                                <div data-repeater-item style="display: none">
+                                    <div class="row mb-1">
+                                        <div class="col-9 col-xl-10">
+
+                                            <input name="file" type="file" id="file" class="form-control">
+                                            <span class="file-custom"></span>
+
+                                        </div>
+                                        <div class="col-2 col-xl-1">
+                                            <button type="button" data-repeater-delete
+                                                    class="btn btn-icon btn-danger mr-1">
+                                                <i class="ft-x"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
                                 @foreach($research->publication->attachments as $attachment)
-                                    <div>
-                                        <input type="hidden" name="oldFiles[]" value=""/>
+
+                                    <div data-repeater-item>
+                                        <input type="hidden" name="oldFiles[]" value="{{ $attachment->id }}"/>
                                         <div class="row mb-1">
                                             <div class="col-9 col-xl-10">
                                                 <li class="list-group-item">
@@ -58,21 +74,23 @@
                                         </div>
                                     </div>
                                 @endforeach
-                            @endif
-                            <div data-repeater-item>
-                                <div class="row mb-1">
-                                    <div class="col-9 col-xl-10">
+                            @else
+                                <div data-repeater-item>
+                                    <div class="row mb-1">
+                                        <div class="col-9 col-xl-10">
 
-                                        <input name="file" type="file" id="file" class="form-control">
-                                        <span class="file-custom"></span>
+                                            <input name="file" type="file" id="file" class="form-control">
+                                            <span class="file-custom"></span>
 
-                                    </div>
-                                    <div class="col-2 col-xl-1">
-                                        <button type="button" data-repeater-delete class="btn btn-icon btn-danger mr-1">
-                                            <i class="ft-x"></i></button>
+                                        </div>
+                                        <div class="col-2 col-xl-1">
+                                            <button type="button" data-repeater-delete
+                                                    class="btn btn-icon btn-danger mr-1">
+                                                <i class="ft-x"></i></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         <button type="button" data-repeater-create class="btn btn-primary">
                             <i class="ft-plus"></i> Add new file
