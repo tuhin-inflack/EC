@@ -11,6 +11,7 @@ namespace Modules\IMS\Services;
 
 use App\Traits\CrudTrait;
 use Carbon\Carbon;
+use Closure;
 use Illuminate\Support\Facades\DB;
 use Modules\IMS\Entities\Warehouse;
 use Modules\IMS\Repositories\WarehouseRepository;
@@ -51,4 +52,22 @@ class WarehouseService
         });
     }
 
+    public function getAllWarehousesForDropdown(Closure $impementedValue = null, Closure $implementedKey = null)
+    {
+        $warehouses = $this->warehouseRepository->findAll();
+
+        $warehouseOptions = [];
+
+        foreach ($warehouses as $warehouse){
+            $warehouseId = $implementedKey ? $implementedKey($warehouse) : $warehouse->id;
+
+            $impementedValue = $impementedValue ? : function($warehouse) {
+                return $warehouse->name;
+            };
+
+            $warehouseOptions[$warehouseId] = $impementedValue($warehouse);
+        }
+
+        return $warehouseOptions;
+    }
 }
