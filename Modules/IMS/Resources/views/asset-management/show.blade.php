@@ -1,4 +1,4 @@
-@extends('hrm::layouts.master')
+@extends('ims::layouts.master')
 @section('title', trans('labels.details'))
 
 
@@ -55,8 +55,7 @@
             </div>
         </div>
         <div class="card-content collapse show">
-            <div class="card-body">
-            </div>
+            <div class="card-body"></div>
         </div>
     </div>
 
