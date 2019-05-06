@@ -11,6 +11,8 @@ return [
     'create' => 'সম্পদ যোগ করুন',
     'detail' => 'স্থায়ী সম্পদ বিস্তারিত',
     'added' => 'যোগ করা হয়েছে',
+    'appreciation' => 'উপচয়',
+    'depreciation' => 'অবচয়',
     'add_appreciation' => 'মূল্যায়ন যোগ করুন',
     'add_depreciation' => 'অবক্ষয় যোগ করুন',
     'purchase_date' => 'ক্রয়ের তারিখ',

@@ -32,6 +32,8 @@
                                         <th>@lang('ims::asset.name')</th>
                                         <th>@lang('ims::asset.price')</th>
                                         <th>@lang('ims::asset.purchase_date')</th>
+                                        <th>@lang('ims::asset.appreciation')</th>
+                                        <th>@lang('ims::asset.depreciation')</th>
                                         <th>{{trans('labels.status')}}</th>
                                         <th>{{trans('labels.action')}}</th>
                                     </tr>
@@ -45,6 +47,8 @@
                                             <td><a href="{{route('asset.show', $key)}}">{{$asset['title']}}</a></td>
                                             <td>{{$asset['price']}}</td>
                                             <td>{{$asset['purchase_date']}}</td>
+                                            <td>{{$asset['appreciation']}}</td>
+                                            <td>{{$asset['depreciation']}}</td>
                                             <td>{{$asset['status']}}</td>
                                             <td>
                                                 <span class="dropdown">

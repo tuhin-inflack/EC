@@ -11,6 +11,8 @@ return [
     'create' => 'Create Fixed Asset',
     'detail' => 'Fixed Asset Detail',
     'added' => 'Added',
+    'appreciation' => 'Appreciation',
+    'depreciation' => 'Depreciation',
     'add_appreciation' => 'Add Appreciation',
     'add_depreciation' => 'Add Depreciation',
     'purchase_date'  => 'Purchase Date',

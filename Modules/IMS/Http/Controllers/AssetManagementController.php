@@ -15,9 +15,9 @@ class AssetManagementController extends Controller
     public function index()
     {
         $assets = [
-            ['title' => 'Monitor','type' => 'Electronics', 'price' => '11200 BDT', 'status' => 'Active', 'purchase_date' => '2019-01-15'],
-            ['title' => 'Almirah','type' => 'Furniture', 'price' => '25000 BDT', 'status' => 'Active', 'purchase_date' => '2018-04-11'],
-            ['title' => 'Test Asset','type' => 'Test Type', 'price' => '1100 BDT', 'status' => 'Active', 'purchase_date' => '2018-01-25'],
+            ['title' => 'Monitor','type' => 'Electronics', 'price' => '11200 BDT', 'status' => 'Active','appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2019-01-15'],
+            ['title' => 'Almirah','type' => 'Furniture', 'price' => '25000 BDT', 'status' => 'Active','appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2018-04-11'],
+            ['title' => 'Test Asset','type' => 'Test Type', 'price' => '1100 BDT', 'status' => 'Active', 'appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2018-01-25'],
         ];
         return view('ims::asset-management.index', compact('assets'));
     }
@@ -49,9 +49,9 @@ class AssetManagementController extends Controller
     public function show($id)
     {
         $assets = [
-            ['title' => 'Monitor','type' => 'Electronics', 'price' => '11200 BDT', 'status' => 'Active', 'purchase_date' => '2019-01-15'],
-            ['title' => 'Almirah','type' => 'Furniture', 'price' => '25000 BDT', 'status' => 'Active', 'purchase_date' => '2018-04-11'],
-            ['title' => 'Test Asset','type' => 'Test Type', 'price' => '1100 BDT', 'status' => 'Active', 'purchase_date' => '2018-01-25'],
+            ['title' => 'Monitor','type' => 'Electronics', 'price' => '11200 BDT', 'status' => 'Active','appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2019-01-15'],
+            ['title' => 'Almirah','type' => 'Furniture', 'price' => '25000 BDT', 'status' => 'Active','appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2018-04-11'],
+            ['title' => 'Test Asset','type' => 'Test Type', 'price' => '1100 BDT', 'status' => 'Active', 'appreciation' => 'N/A', 'depreciation' => 'N/A', 'purchase_date' => '2018-01-25'],
         ];
         $asset = $assets[$id];
 
