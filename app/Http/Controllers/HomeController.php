@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\UserRepository;
 use App\Services\Notification\AppNotificationService;
-use Illuminate\Http\Request;
+use Nwidart\Modules\Facades\Module;
 
 class HomeController extends Controller
 {
@@ -33,7 +32,8 @@ class HomeController extends Controller
     public function landing()
     {
         $notifications = $this->appNotificationService->getUnreadNotifications();
-        return view('welcome', compact('notifications'));
+        $modules = array_keys(Module::all());
+        return view('welcome', compact('modules','notifications'));
     }
 
 }
