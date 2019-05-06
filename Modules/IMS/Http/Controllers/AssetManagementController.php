@@ -5,6 +5,7 @@ namespace Modules\IMS\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
 
 class AssetManagementController extends Controller
 {
@@ -28,7 +29,7 @@ class AssetManagementController extends Controller
      */
     public function create()
     {
-        return view('ims::create');
+        return view('ims::asset-management.create');
     }
 
     /**
@@ -38,7 +39,9 @@ class AssetManagementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Session::flash('message', 'Demo! Data Not Saved');
+
+        return redirect()->back();
     }
 
     /**

@@ -2,14 +2,14 @@
 
 
 return [
-    'title' => 'Fixed Asset',
-    'list_menu_title' => 'Fixed Asset List',
-    'list_page_title' => 'Fixed Asset List',
-    'add_menu_title' => 'Create Fixed Asset',
-    'name' => 'Fixed asset name',
-    'price' => 'Fixed Asset Price',
-    'create' => 'Create Fixed Asset',
-    'detail' => 'Fixed Asset Detail',
+    'title' => 'Asset Management',
+    'list_menu_title' => 'Asset List',
+    'list_page_title' => 'Asset List',
+    'add_menu_title' => 'Create Asset',
+    'name' => 'Asset name',
+    'price' => 'Asset Price',
+    'create' => 'Create Asset',
+    'detail' => 'Asset Detail',
     'added' => 'Added',
     'appreciation' => 'Appreciation',
     'depreciation' => 'Depreciation',
