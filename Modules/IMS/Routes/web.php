@@ -45,4 +45,15 @@ Route::prefix('ims')->group(function () {
         Route::get('add/{type}', 'FixedAsset\FixedAssetController@change_value')->name('fixed-asset.add_appreciation_depreciation');
     });
 
+    //Routes for Asset Management
+    Route::prefix('asset')->group(function () {
+        Route::get('/', 'AssetManagementController@index')->name('asset.list');
+        Route::get('/add', 'AssetManagementController@create')->name('asset.add');
+        Route::post('/add', 'AssetManagementController@store')->name('asset.store');
+        Route::get('/{id}', 'AssetManagementController@show')->name('asset.show');
+        Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
+    });
+
+
+
 });
