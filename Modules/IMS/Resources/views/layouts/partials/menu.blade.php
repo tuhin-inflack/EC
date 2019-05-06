@@ -90,17 +90,13 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.add_menu_title')</span>
                         </a>
                     </li>
-                    <li class="{{ is_active_route('inventory.create') }}">
-                        <a href="{{ route('inventory.create') }}">
+
                     <li class="{{ is_active_route('fixed-asset.list') }}">
                         <a href="{{ route('fixed-asset.list') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.list_menu_title')</span>
                         </a>
                     </li>
-
-
-
                 </ul>
             </li>
             <!-- //Fixed Asset -->
