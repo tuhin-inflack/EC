@@ -39,5 +39,7 @@ return [
     'research_paper_pending_item' => 'রিসার্চ পেপার পেন্ডিং আইটেম',
     'select_detail_proposal' => 'গবেষণা প্রস্তাব নির্বাচন করুন',
     'No started task is found' => 'কোন কৃত কাজ পাওয়া যায়নি',
+    'share_to' => 'যাকে পাঠাবেন',
+    'share_btn' => 'পাঠিয়ে দিন',
 ];
 

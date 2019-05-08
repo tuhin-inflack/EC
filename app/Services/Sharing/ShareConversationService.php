@@ -73,9 +73,13 @@ class ShareConversationService
 
     public function saveShareConversation($data, ShareConversation $currentConv = null)
     {
-//        dd($data);
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
 
+        if($shareRuleDesignation)
+        {
+            // For all designation used designation id 0
+            $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], 0);
+        }
         if ($shareRuleDesignation->is_parent && $currentConv) {
             $workflowDetail = $currentConv->workflowDetails;
             $workflowDetail->status = WorkflowStatus::PENDING;
@@ -104,12 +108,15 @@ class ShareConversationService
         $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
         $shareConversationData = [];
         foreach ($shareConversations as $conversation) {
-                //      1 ==  Research proposal / brief
+            //      1 ==  Research proposal / brief
             if ($conversation->feature_id == 1) {
                 $shareConversationData['research_brief_share'][] = $conversation;
                 //      4 == Research detail
             } elseif ($conversation->feature_id == 4) {
                 $shareConversationData['research_detail_share'][] = $conversation;
+            }
+            elseif ($conversation->feature_id == 4) {
+                $shareConversationData['research_workflow'][] = $conversation;
             }
         }
         return $shareConversationData;
@@ -132,8 +139,6 @@ class ShareConversationService
     // Generic method to get share conversation by designation ID
     public function getShareConversationByDesignationId($designationId)
     {
-        $shareConversations = $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
-
-        return $shareConversations;
+        return $this->findBy(['designation_id' => $designationId, 'status' => 'ACTIVE']);
     }
 }

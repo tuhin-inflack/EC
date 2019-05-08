@@ -4,10 +4,13 @@ namespace Modules\RMS\Http\Controllers;
 
 use App\Constants\WorkflowStatus;
 use App\Services\Remark\RemarkService;
+use App\Services\Sharing\ShareConversationService;
+use App\Services\Sharing\ShareRulesService;
 use App\Services\TaskService;
 use App\Services\UserService;
 use App\Services\workflow\DashboardWorkflowService;
 use App\Services\workflow\FeatureService;
+use App\Services\workflow\WorkflowService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,6 +18,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
@@ -40,7 +44,10 @@ class ResearchController extends Controller
     private $dashboardWorkflowService;
     private $featureService;
     private $researchDetailSubmissionService;
-
+    private $workflowService;
+    private $shareRuleService;
+    private $employeeService;
+    private $shareConversationService;
     /**
      * ResearchController constructor.
      * @param UserService $userService
@@ -52,7 +59,11 @@ class ResearchController extends Controller
      */
     public function __construct(UserService $userService, ResearchService $researchService, TaskService $taskService,
                                 RemarkService $remarkService, DashboardWorkflowService $dashboardWorkflowService, FeatureService $featureService,
-                                ResearchDetailSubmissionService $researchDetailSubmissionService)
+                                ResearchDetailSubmissionService $researchDetailSubmissionService,
+                                WorkflowService $workflowService,
+                                ShareRulesService $shareRuleService,
+                                EmployeeServices $employeeService,
+                                ShareConversationService $shareConversationService)
     {
 
         $this->userService = $userService;
@@ -62,6 +73,10 @@ class ResearchController extends Controller
         $this->dashboardWorkflowService = $dashboardWorkflowService;
         $this->featureService = $featureService;
         $this->researchDetailSubmissionService = $researchDetailSubmissionService;
+        $this->workflowService = $workflowService;
+        $this->shareRuleService = $shareRuleService;
+        $this->employeeService = $employeeService;
+        $this->shareConversationService = $shareConversationService;
     }
 
     /**
@@ -127,16 +142,36 @@ class ResearchController extends Controller
         return view('rms::edit');
     }
 
-    public function review($researchId, $featureId, $workflowMasterId, $workflowConversationId)
+    public function review($researchId, $featureId, $workflowMasterId, $workflowConversationId, $ruleDetailsId)
     {
         $research = $this->researchService->findOne($researchId);
         $remarks = $this->remarksService->findBy(['feature_id' => $featureId, 'ref_table_id' => $researchId]);
         $feature = $this->featureService->findOne($featureId);
-        return view('rms::research.review.show', compact('researchId', 'research', 'feature', 'featureId', 'workflowMasterId', 'workflowConversationId', 'remarks'));
+        $ruleDetails = $this->workflowService->getRuleDetailsByRuleId($ruleDetailsId);
+
+        if ($ruleDetails->is_shareable) {
+            //$shareRule = $this->shareRuleService->findOne($ruleDetails->share_rule_id);
+            $ruleDesignations =  $this->employeeService->getEmployeesForDropdown(function ($employee){
+                $designation = !is_null($employee->designation) ? $employee->designation->name : 'No Designation';
+                return $employee->first_name. ' ' . $employee->last_name . ' - ' . $designation . ' - ' . $employee->employeeDepartment->name;
+            });
+            $wfConversation = $this->workflowService->getWorkflowConversationById($workflowConversationId);
+            $wfDetailsId = $wfConversation->workflow_details_id;
+        } else {
+            $ruleDesignations = [];
+            $wfDetailsId = 0;
+        };
+
+        return view('rms::research.review.show', compact('researchId', 'research', 'feature', 'featureId', 'workflowMasterId', 'workflowConversationId', 'remarks', 'ruleDetails', 'ruleDesignations'));
     }
 
     public function reviewUpdate(Request $request)
     {
+        $employeeDesignation = $this->employeeService->findOne($request->input('employee_id'));
+        $designationId = $employeeDesignation->designation_id;
+        $request->merge(['designation_id'=> $designationId]);
+        if($request->input('status') == "SHARE") return $this->share($request);
+
         $research = $this->researchService->findOrFail($request->input('item_id'));
         $this->researchService->update($research, ['status' => $request->input('status')]);
 
@@ -146,6 +181,16 @@ class ResearchController extends Controller
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
         return redirect('/rms');
+    }
+
+    public function share(Request $request)
+    {
+        $data = $request->all();
+        unset($data['status']);
+        $this->shareConversationService->shareFromWorkflow($data);
+        Session::flash('message', trans('labels.save_success'));
+
+        return redirect(route('pms'));
     }
 
     public function createPublication($researchId)

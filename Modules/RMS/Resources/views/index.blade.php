@@ -28,8 +28,8 @@
                                 <tr>
                                     @if($bulkActionForApprove)
 
-                                     <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
-                                     <td class="abc">{{$shareConversation->message}}</td>
+                                        <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                    <td class="abc">{{$shareConversation->message}}</td>
                                     <td>
                                         {{--                                      dd($shareConversation->feature->name);--}}
                                         @php
@@ -46,7 +46,7 @@
                                         <br/>
                                     </td>
 
-                                        <td style="">
+                                    <td style="">
                                         <a class="btn btn-primary btn-sm"
                                            href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
 

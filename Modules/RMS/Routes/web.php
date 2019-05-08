@@ -23,7 +23,7 @@ Route::prefix('rms')->middleware(['auth'])->group(function () {
         Route::get('{research}', 'ResearchController@show')->name('research.show');
 
         //            research workflow
-        Route::get('review/{researchId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}', 'ResearchController@review');
+        Route::get('review/{researchId?}/{featureId?}/{workflowMasterId?}/{workflowConversationId?}/{ruleDetailsId}', 'ResearchController@review');
         Route::post('/reviewUpdate', 'ResearchController@reviewUpdate')->name('research.reviewUpdate');
         Route::get('/re-initiate/{researchId?}/', 'ResearchController@reInitiate');
         Route::post('/research-re-initiated/{researchId?}/', 'ResearchController@storeReInitiate')->name('research-re-initiated');
