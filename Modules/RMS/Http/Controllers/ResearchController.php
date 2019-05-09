@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\RMS\Entities\Research;
 use Modules\RMS\Http\Requests\CreateResearchRequest;
+use Modules\RMS\Http\Requests\PostResearchBriefFeedbackRequest;
 use Modules\RMS\Services\ResearchDetailSubmissionService;
 use Modules\RMS\Services\ResearchService;
 use Prophecy\Doubler\Generator\TypeHintReference;
@@ -191,6 +192,49 @@ class ResearchController extends Controller
         Session::flash('message', trans('labels.save_success'));
 
         return redirect(route('pms'));
+    }
+
+    public function shareReview($researchId, $workflowMasterId, $shareConversationId)
+    {
+        $shareConversation = $this->shareConversationService->findOne($shareConversationId);
+        if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
+            $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
+            $ruleDesignations = $shareRule->rulesDesignation;
+        } else {
+            $ruleDesignations = null;
+        }
+        $research = $this->researchService->findOne($researchId);
+        $featureName = Config::get('rms.research_feature_name');
+        $feature = $this->featureService->findBy(['name' => $featureName])->first();
+        $remarks = $this->remarksService->findBy(['feature_id' => $feature->id, 'ref_table_id' => $researchId]);
+
+        return view('rms::research.review.shareable-review', compact('research', 'feature',
+            'remarks', 'researchId', 'workflowMasterId', 'shareConversationId', 'ruleDesignations', 'shareConversation'));
+    }
+
+    public function shareFeedback(Request $request, $shareConversationId)
+    {
+
+        $data = $request->all();
+        //dd($data);
+        $data['from_user_id'] = Auth::user()->id;
+        $currentConv = $this->shareConversationService->findOne($shareConversationId);
+
+        if ($request->status == WorkflowStatus::REVIEW) {
+            $data['request_ref_id'] = $currentConv->request_ref_id;
+            $this->shareConversationService->saveShareConversation($data, $currentConv);
+        }
+
+        if ($request->status == WorkflowStatus::APPROVED) {
+            $workflowDetail = $currentConv->workflowDetails;
+            $this->workflowService->approveWorkflow($workflowDetail->workflow_master_id);
+            $research = $this->researchService->findOrFail($request->input('ref_table_id'));
+            $this->researchService->update($research, ['status' => 'APPROVED']);
+
+        }
+        $this->shareConversationService->updateConversation($data, $shareConversationId);
+        Session::flash('success', trans('labels.save_success'));
+        return redirect('/rms');
     }
 
     public function createPublication($researchId)

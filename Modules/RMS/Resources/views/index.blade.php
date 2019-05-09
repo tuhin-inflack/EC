@@ -3,7 +3,6 @@
 
 @section('content')
     {{--<h1>@lang('rms::research_proposal.rms')</h1>--}}
-
     {{--Research Brief  share conversation items --}}
     @if(isset($shareConversations['research_brief_share']))
         <section id="shareConversation">
@@ -133,6 +132,76 @@
                         </table>
 
                         <div class="form" id="DetailApprovalReject">
+                            <div class="card-footer">
+                                <div class="form-group">
+                                    @if($bulkActionForApprove)
+                                        <button type="submit" name="action_type" value="APPROVED"
+                                                class="btn btn-success">@lang('rms::research_details.approved')</button>
+                                        <button type="submit" name="action_type" value="REJECTED"
+                                                class="btn btn-danger">@lang('rms::research_details.rejected')</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if(isset($shareConversations['research_workflow']))
+        <section id="shareConversation">
+            <div class="card researchBriefCard">
+                <div class="card-body">
+
+                    <h2>@lang('rms::research.research_pending_item')</h2>
+                    <form id="research_bulk_action_form" action="{{ route('research.bulk.action') }}" method="post"
+                          name="test">
+                        @csrf
+                        <table id="{{ ($bulkActionForApprove) ? 'bulkApprove' : '' }}" class="table table-bordered">
+                            <thead>
+                            @if($bulkActionForApprove)
+                                <th style="width: 20px;"></th>@endif
+                            <th>@lang('labels.message')</th>
+                            <th>@lang('labels.details')</th>
+                            <th>@lang('labels.action')</th>
+                            </thead>
+                            <tbody>
+                            {{--                            {{ dd($shareConversations) }}--}}
+                            @foreach($shareConversations['research_workflow'] as $shareConversation)
+                                <tr>
+                                    @if($bulkActionForApprove)
+                                        <td>{{ $shareConversation->feature->name . '|' .   $shareConversation->id. '-' . $shareConversation->ref_table_id}}</td>@endif
+                                    <td class="abc">{{$shareConversation->message}}</td>
+                                    <td>
+                                        {{--                                      dd($shareConversation->feature->name);--}}
+                                        @php
+                                            // working for research proposal (brief)
+                                                $invitation_title =  isset($shareConversation->research->requester->title) ? $shareConversation->research->requester->title : '';
+                                                $title =  isset($shareConversation->research->title) ? $shareConversation->research->title : '';
+                                                $submittedBy = isset($shareConversation->research->researchSubmittedByUser->name) ? $shareConversation->research->researchSubmittedByUser->name : '';
+                                                $reviewUrl = 'research.review';
+                                        @endphp
+                                        Invitation Title :   {{ $invitation_title }}</br>
+                                        Research Title : {{  $title }}<br/>
+                                        Initiator Name: {{ $submittedBy }}
+                                        <br/>
+                                    </td>
+
+                                    <td style="">
+                                        <a class="btn btn-primary btn-sm"
+                                           href="{{ route($reviewUrl, [$shareConversation->ref_table_id, $shareConversation->workflowDetails->workflow_master_id, $shareConversation->id]) }}">@lang('labels.details')</a>
+
+                                        {{--<a href="{{ route('research-workflow-close-reviewer', [$item->workFlowMasterId, $item->dynamicValues['id']]) }}"--}}
+                                        {{--class="btn btn-danger btn-sm">@lang('labels.closed')</a>--}}
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+
+                        <div class="form" id="approvalReject">
                             <div class="card-footer">
                                 <div class="form-group">
                                     @if($bulkActionForApprove)

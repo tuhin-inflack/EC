@@ -75,7 +75,7 @@ class ShareConversationService
     {
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
 
-        if($shareRuleDesignation)
+        if(is_null($shareRuleDesignation))
         {
             // For all designation used designation id 0
             $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], 0);
@@ -115,7 +115,7 @@ class ShareConversationService
             } elseif ($conversation->feature_id == 4) {
                 $shareConversationData['research_detail_share'][] = $conversation;
             }
-            elseif ($conversation->feature_id == 4) {
+            elseif ($conversation->feature_id == 3) {
                 $shareConversationData['research_workflow'][] = $conversation;
             }
         }

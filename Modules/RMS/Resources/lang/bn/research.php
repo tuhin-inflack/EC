@@ -41,5 +41,8 @@ return [
     'No started task is found' => 'কোন কৃত কাজ পাওয়া যায়নি',
     'share_to' => 'যাকে পাঠাবেন',
     'share_btn' => 'পাঠিয়ে দিন',
+    'research_details' => 'গবেষণা বিস্তারিত',
+    'research' => 'গবেষণা',
+    'research_pending_item' => 'গবেষণা পেন্ডিং আইটেম',
 ];
 

@@ -39,5 +39,9 @@ return [
     'select_detail_proposal' => 'Select research proposal',
     'No started task is found' => 'No started task is found',
     'share_to' => 'Who to Send to',
-    'share_btn' => 'Send for Review'
+    'share_btn' => 'Send for Review',
+    'research_details' => 'Research Details',
+    'research' => 'Research',
+    'research_pending_item' => 'Research Pending Item',
+
 ];
