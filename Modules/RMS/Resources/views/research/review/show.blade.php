@@ -43,12 +43,12 @@
 
                                                         @foreach($remarks as $remark)
                                                             {{--{{ dd($remark) }}--}}
+                                                            <hr/>
                                                             <p class="text-bold-600 mb-0">
                                                                 {{ $remark->user->name }}
                                                             </p>
                                                             <p class="small m-0 comment-time">{{ date("j F, Y, g:i a",strtotime($remark->created_at)) }}</p>
                                                             <p class="m-0 comment-text">{{ $remark->remarks }}</p>
-                                                            <hr/>
                                                         @endforeach
 
                                                     </div>

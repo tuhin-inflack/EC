@@ -168,9 +168,11 @@ class ResearchController extends Controller
 
     public function reviewUpdate(Request $request)
     {
-        $employeeDesignation = $this->employeeService->findOne($request->input('employee_id'));
-        $designationId = $employeeDesignation->designation_id;
-        $request->merge(['designation_id'=> $designationId]);
+        if(!empty($request->input('employee_id'))){
+            $employeeDesignation = $this->employeeService->findOne($request->input('employee_id'));
+            $designationId = $employeeDesignation->designation_id;
+            $request->merge(['designation_id'=> $designationId]);
+        }
         if($request->input('status') == "SHARE") return $this->share($request);
 
         $research = $this->researchService->findOrFail($request->input('item_id'));
@@ -181,6 +183,7 @@ class ResearchController extends Controller
 //        Send Notifications
 //        $this->researchService->sendNotification($request);
         //Send user to research dashboard
+        Session::flash('message', trans('labels.save_success'));
         return redirect('/rms');
     }
 
@@ -191,7 +194,7 @@ class ResearchController extends Controller
         $this->shareConversationService->shareFromWorkflow($data);
         Session::flash('message', trans('labels.save_success'));
 
-        return redirect(route('pms'));
+        return redirect('rms');
     }
 
     public function shareReview($researchId, $workflowMasterId, $shareConversationId)
@@ -200,6 +203,7 @@ class ResearchController extends Controller
         if (isset($shareConversation->shareRuleDesignation->sharable_id)) {
             $shareRule = $this->shareRuleService->findOne($shareConversation->shareRuleDesignation->sharable_id);
             $ruleDesignations = $shareRule->rulesDesignation;
+            //dd($ruleDesignations);
         } else {
             $ruleDesignations = null;
         }
@@ -216,7 +220,6 @@ class ResearchController extends Controller
     {
 
         $data = $request->all();
-        //dd($data);
         $data['from_user_id'] = Auth::user()->id;
         $currentConv = $this->shareConversationService->findOne($shareConversationId);
 

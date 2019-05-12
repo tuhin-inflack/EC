@@ -74,10 +74,9 @@ class ShareConversationService
     public function saveShareConversation($data, ShareConversation $currentConv = null)
     {
         $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], $data['designation_id']);
-
+        // For all designation used designation id 0
         if(is_null($shareRuleDesignation))
         {
-            // For all designation used designation id 0
             $shareRuleDesignation = $this->shareRuleDesignationRepository->getShareRuleDesignationByRuleAndDesignation($data['share_rule_id'], 0);
         }
         if ($shareRuleDesignation->is_parent && $currentConv) {

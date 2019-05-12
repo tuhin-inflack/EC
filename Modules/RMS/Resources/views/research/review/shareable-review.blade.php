@@ -96,8 +96,7 @@
                                         <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
                                             <label>{{__('labels.share')}}</label>
                                             <select name="designation_id" class="form-control">
-                                                <option value=""
-                                                        placeholder=""> {!!  trans('labels.select') !!}</option>
+                                                <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
 
                                                 @foreach($ruleDesignations as $ruleDesignation)
                                                     <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
@@ -131,7 +130,7 @@
                                     {!! Form::hidden('ref_table_id', $researchId) !!}
                                     <button type="submit" name="status" value="REVIEW" class="btn btn-primary">@lang('labels.share')</button>
                                     @if($shareConversation->shareRuleDesignation->can_approve==true)
-                                        {!! Form::button(' <i class="ft-check"></i> '. trans('labels.status_approved'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                        {!! Form::button(' <i class="ft-check"></i> '. trans('labels.approve'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
                                     @endif
                                     @if($shareConversation->shareRuleDesignation->can_reject)
                                         <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchId, $shareConversationId]) }}"
