@@ -16,7 +16,7 @@
                         {{ Form::hidden('project_proposal_id', $projectProposal->id) }}
                     @endif
                     <div class="form-group mb-1 col-sm-12 col-md-12">
-                        <label class="required">{{ trans('labels.name') }}</label>
+                        <label class="required">{{ trans('labels.title') }}</label>
                         <br>
                         {!! Form::text('title', $page == 'create' ? old('title') : $projectRequestDetail->title, ['class' => 'form-control required' . ($errors->has('designation') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
 
