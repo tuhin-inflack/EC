@@ -131,7 +131,8 @@ class ResearchController extends Controller
     public function show(Research $research)
     {
         $ganttChart = $this->taskService->getTasksGanttChartData($research->tasks);
-        return view('rms::research.show', compact('research', 'ganttChart'));
+        $isCreator = (Auth::user()->id == $research->submitted_by) ? true : false;
+        return view('rms::research.show', compact('research', 'ganttChart', 'isCreator'));
     }
 
     /**
@@ -243,8 +244,14 @@ class ResearchController extends Controller
     public function createPublication($researchId)
     {
         $research = $this->researchService->findOne($researchId);
-
-        return view('rms::research.create-publication', compact('research'));
+        $isCreator = (Auth::user()->id == $research->submitted_by) ? true : false;
+        if($isCreator)
+            return view('rms::research.create-publication', compact('research'));
+        else
+        {
+            Session::flash('error', 'You are not permitted to create publication');
+            return redirect()->back();
+        }
     }
 
     public function storePublication(Request $request, $researchId)
