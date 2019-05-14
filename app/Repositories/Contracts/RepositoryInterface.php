@@ -9,6 +9,7 @@
 namespace App\Repositories\Contracts;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -30,6 +31,7 @@ interface RepositoryInterface
      * Find a resource by criteria
      *
      * @param array $criteria
+     * @param $relation
      * @return Model|null
      */
     public function findOneBy(array $criteria, $relation);

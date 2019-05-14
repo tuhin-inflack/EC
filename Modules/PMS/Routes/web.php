@@ -29,6 +29,7 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
             Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
             Route::get('/get-budget-expense', 'ProjectBudgetController@getBudgetExpense')->name('project-budget.get-budget-expense');
         });
+
         // training under a project
         Route::prefix('{project}')->group(function () {
             Route::prefix('training')->group(function () {
@@ -153,6 +154,16 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::post('/', 'ProjectDetailsProposalController@store')->name('project-details-proposal-submission.store');
         Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-details-proposal.attachment-download');
         Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-details-proposal-submission.file-download');
+
+        Route::prefix('{projectRequest}/budget')->group(function () {
+            Route::get('export/{tableType}', 'ProjectBudgetController@exportExcel')->name('project-budget.export-excel');
+            Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
+            Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
+            Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
+            Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
+            Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
+            Route::get('/get-budget-expense', 'ProjectBudgetController@getBudgetExpense')->name('project-budget.get-budget-expense');
+        });
     });
 
     Route::prefix('project-proposal-submitted')->group(function () {

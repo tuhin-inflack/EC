@@ -42,9 +42,12 @@ class ProjectDetailProposalService
 
     /**
      * ProjectRequestService constructor.
-     * @param ProjectDetailProposalRepository $projectProposalRepository
+     * @param ProjectDetailProposalRepository $projectDetailProposalRepository
      * @param FeatureService $featureService
      * @param WorkflowService $workflowService
+     * @param UserService $userService
+     * @param EmployeeServices $employeeService
+     * @param WorkflowMasterService $workflowMasterService
      */
 
     public function __construct(ProjectDetailProposalRepository $projectDetailProposalRepository,

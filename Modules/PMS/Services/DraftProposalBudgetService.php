@@ -6,15 +6,15 @@
  * Time: 5:18 PM
  */
 
-namespace App\Services\DraftProposalBudget;
+namespace Modules\PMS\Services;
 
-use App\Entities\DraftProposalBudget\DraftProposalBudgetFiscalValue;
-use App\Repositories\DraftProposalBudget\DraftProposalBudgetRepository;
 use App\Services\workflow\FeatureService;
 use App\Traits\CrudTrait;
 use App\Traits\ExcelExportTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Lang;
+use Modules\PMS\Entities\DraftProposalBudgetFiscalValue;
+use Modules\PMS\Repositories\DraftProposalBudgetRepository;
 use stdClass;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
@@ -124,22 +124,24 @@ class DraftProposalBudgetService
         foreach ($budgetable->budgets as $budget){
             if($budget->section_type === $sectionType) {
 
-                if(!isset($totalBasedOnEconomyCode[$budget->economyCode->economyHead->code])){
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code] = new stdClass;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->unitRate = 0;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->quantity = 0;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->govSource = 0;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->ownFinancingSource = 0;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->otherSource = 0;
-                    $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->totalExpense = 0;
+                $economyHeadCode = $budget->economyCode->economyHead->code;
+
+                if(!isset($totalBasedOnEconomyCode[$economyHeadCode])){
+                    $totalBasedOnEconomyCode[$economyHeadCode] = new stdClass;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->unitRate = 0;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->quantity = 0;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->govSource = 0;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->ownFinancingSource = 0;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->otherSource = 0;
+                    $totalBasedOnEconomyCode[$economyHeadCode]->totalExpense = 0;
                 }
 
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->unitRate += $budget->unit_rate;
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->quantity += $budget->quantity;
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->govSource += $budget->gov_source;
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->ownFinancingSource += $budget->own_financing_source;
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->otherSource += $budget->other_source;
-                $totalBasedOnEconomyCode[$budget->economyCode->economyHead->code]->totalExpense += $budget->total_expense;
+                $totalBasedOnEconomyCode[$economyHeadCode]->unitRate += $budget->unit_rate;
+                $totalBasedOnEconomyCode[$economyHeadCode]->quantity += $budget->quantity;
+                $totalBasedOnEconomyCode[$economyHeadCode]->govSource += $budget->gov_source;
+                $totalBasedOnEconomyCode[$economyHeadCode]->ownFinancingSource += $budget->own_financing_source;
+                $totalBasedOnEconomyCode[$economyHeadCode]->otherSource += $budget->other_source;
+                $totalBasedOnEconomyCode[$economyHeadCode]->totalExpense += $budget->total_expense;
             }
         }
 

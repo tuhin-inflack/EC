@@ -111,6 +111,7 @@ return [
     'comment' => 'মন্তব্য',
     'login' => 'লগইন',
     'provide_your_account_details' => 'আপনার অ্যাকাউন্ট বিবরণ প্রদান করুন',
+    'provide' => 'প্রদান করুন',
     'first' => 'প্রথম',
     'last' => 'শেষ',
     'submit' => 'জমা দিন',

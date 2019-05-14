@@ -83,7 +83,9 @@ class ProjectDetailsProposalController extends Controller
      */
     public function store(CreateProjectProposalRequest $request)
     {
-        $this->projectDetailsProposalService->store($request->all());
+        dump($request->all());
+        die();
+        $project = $this->projectDetailsProposalService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('pms');
     }

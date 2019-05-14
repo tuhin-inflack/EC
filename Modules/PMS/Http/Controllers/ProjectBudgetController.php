@@ -3,15 +3,16 @@
 namespace Modules\PMS\Http\Controllers;
 
 use App\Entities\DraftProposalBudget\DraftProposalBudget;
-use App\Services\DraftProposalBudget\DraftProposalBudgetService;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\Accounts\Services\EconomyCodeService;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Entities\ProjectRequest;
 use Modules\PMS\Http\Requests\CreateProjectBudgetRequest;
 use Modules\PMS\Http\Requests\UpdateProjectBudgetRequest;
+use Modules\PMS\Services\DraftProposalBudgetService;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class ProjectBudgetController extends Controller
 {
@@ -26,27 +27,27 @@ class ProjectBudgetController extends Controller
 
     /**
      * Display a listing of the resource.
-     * @param Project $project
+     * @param ProjectRequest $project
      * @return Response
      */
-    public function index(Project $project)
+    public function index(ProjectRequest $project)
     {
         $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
         $projectBudgets = $this->draftProposalBudgetService->getEconomyCodeWiseSortedBudgets($project);
         return view('pms::project.budget.index', compact('project', 'data', 'projectBudgets'));
     }
 
-    public function getBudgetExpense(Project $project)
+    public function getBudgetExpense(ProjectRequest $project)
     {
         return $this->draftProposalBudgetService->getTotalExpenseOfRevenueAndCapital($project);
     }
 
     /**
-     * @param Project $project
+     * @param ProjectRequest $project
      * @param $tableType
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return BinaryFileResponse
      */
-    public function exportExcel(Project $project, $tableType){
+    public function exportExcel(ProjectRequest $project, $tableType){
         $data = (object) $this->draftProposalBudgetService->prepareDataForBudgetView($project);
         $viewName = 'pms::project.budget.partials.' . $tableType;
         return $this->draftProposalBudgetService->exportExcel(compact('project', 'data'), $viewName, $project->title .'-' .$tableType);
@@ -54,10 +55,10 @@ class ProjectBudgetController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     * @param Project $project
+     * @param ProjectRequest $project
      * @return Response
      */
-    public function create(Project $project)
+    public function create(ProjectRequest $project)
     {
         $economyCodeOptions = $this->economyCodeService->getEconomyCodesForDropdown();
         $sectionTypes = $this->draftProposalBudgetService->getSectionTypesOfDraftProposalBudget();
