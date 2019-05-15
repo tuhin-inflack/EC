@@ -24,7 +24,7 @@
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
                                         <th scope="col">@lang('labels.name')</th>
-                                        <th scope="col">@lang('ims::inventory.short_code')</th>
+                                        {{--<th scope="col">@lang('ims::inventory.short_code')</th>--}}
                                         <th scope="col">@lang('ims::inventory.type')</th>
                                         <th scope="col">@lang('ims::inventory.unit')</th>
                                         <th scope="col">@lang('labels.action')</th>
@@ -32,31 +32,20 @@
                                     </thead>
                                     <tbody>
 
-                                    {{--@foreach($projects as $project)
+                                    @foreach($categories as $category)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a>
+                                                <a href="">{{ $category->name }}</a>
                                             </td>
                                             <td>
-
-                                                @if(isset($project->budget))
-                                                    {{$project->budget}}
+                                                @if($category->type == 1)
+                                                    <p>@lang('ims::inventory.fixed_asset')</p>
                                                 @else
-                                                    <p class="text-danger">Not Added</p>
-                                                @endif
-
-                                            </td>
-                                            <td>
-                                                @if(isset($project->duration))
-                                                    {{$project->duration}}
-                                                @else
-                                                    <p class="text-danger">Not Added</p>
+                                                    <p>@lang('ims::inventory.stationery')</p>
                                                 @endif
                                             </td>
-                                            <td>{{ $project->projectSubmittedByUser->name }}</td>
-                                            <td>{{ date('d/m/Y, h:iA', strtotime($project->created_at)) }}</td>
-                                            <td>@lang('pms::project_proposal.' . $project->status)</td>
+                                            <td>{{ $category->unit }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -66,15 +55,15 @@
                                                 </button>
                                                 <span aria-labelledby="btnSearchDrop2"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{ route('project.show', $project->id) }}"
+                                                    <a href=""
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href="{{ route('project-budget.index', $project->id) }}"
+                                                    <a href=""
                                                        class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
                                                 </span>
                                             </span>
                                             </td>
                                         </tr>
-                                    @endforeach--}}
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

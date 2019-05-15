@@ -28,7 +28,8 @@ class InventoryCategoryController extends Controller
      */
     public function index()
     {
-        return view('ims::inventory.category.index');
+        $categories = $this->inventoryItemCategoryService->getAllCategories();
+        return view('ims::inventory.category.index', compact('categories'));
     }
 
     /**

@@ -29,4 +29,9 @@ class InventoryItemCategoryService
         $category = $this->inventoryItemCategoryRepository->save($data);
         return $category;
     }
+
+    public function getAllCategories()
+    {
+        return $this->inventoryItemCategoryRepository->findAll();
+    }
 }
