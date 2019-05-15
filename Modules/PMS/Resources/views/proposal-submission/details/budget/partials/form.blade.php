@@ -1,7 +1,7 @@
 @if($page === 'create')
-{!! Form::open(['route' =>  ['project-detail-proposal-budget.store', $project->id], 'class' => 'form project-budget-form']) !!}
+{!! Form::open(['route' =>  ['project-detail-proposal-budget.store', $projectDetailProposal->id], 'class' => 'form project-budget-form']) !!}
 @else
-{!! Form::open(['route' =>  ['project-detail-proposal-budget.update', $project->id, $draftProposalBudget->id], 'class' => 'form project-budget-form']) !!}
+{!! Form::open(['route' =>  ['project-detail-proposal-budget.update', $projectDetailProposal->id, $draftProposalBudget->id], 'class' => 'form project-budget-form']) !!}
 @method('put')
 @endif
 
@@ -188,7 +188,7 @@
     <button type="submit" class="btn btn-primary">
         <i class="la la-check-square-o"></i>@lang('labels.save')
     </button>
-    <a class="btn btn-warning mr-1" role="button" href="{{url(route('project-detail-proposal-budget.index', ['projectDetailProposal' => $project->id]))}}">
+    <a class="btn btn-warning mr-1" role="button" href="{{url(route('project-detail-proposal-budget.index', ['projectDetailProposal' => $projectDetailProposal->id]))}}">
         <i class="ft-x"></i> @lang('labels.cancel')
     </a>
 </div>

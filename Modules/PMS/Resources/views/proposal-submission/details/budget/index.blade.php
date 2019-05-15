@@ -27,7 +27,7 @@
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a href="{{route('project-detail-proposal-budget.export-excel', [$projectDetailProposal->id, 'annexure-4'])}}">
+                                            <li><a href="{{route('project-detail-proposal-budget.export-excel', ['projectDetailProposal' => $projectDetailProposal->id, 'tableType' => 'annexure-4'])}}">
                                                     <i class="la la-file-text-o"></i>
                                                 </a>
                                             </li>

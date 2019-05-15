@@ -41,7 +41,7 @@
         let selectPlaceholder = '{!! trans('labels.select') !!}';
         let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
 
-        let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $project->id) }}";
+        let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $projectDetailProposal->id) }}";
 
     </script>
     <script src="{{ asset('js/dpp-budget/page.js') }}"></script>
