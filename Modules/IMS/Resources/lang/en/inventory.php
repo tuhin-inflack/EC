@@ -9,5 +9,10 @@ return [
     'warehouse' => [
         'list_menu_title' => 'Warehouse wise inventory',
         'list_page_title' => 'Warehouse wise inventory',
-    ]
+    ],
+    'inventory_item_category' => 'Inventory Item Category',
+    'item_category_list' => 'Item Category List',
+    'short_code' => 'Short Code',
+    'type' => 'Type',
+    'unit' => 'Unit',
 ];

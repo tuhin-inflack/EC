@@ -40,6 +40,11 @@ Route::prefix('ims')->group(function () {
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
     });
 
+    // Inventory Category
+    Route::prefix('inventory-item-category')->group(function (){
+        Route::get('/','Inventory\InventoryCategoryController@index')->name('inventory-item-category.list');
+    });
+
     //fixed-asset route
     Route::prefix('fixed-asset')->group(function () {
         Route::get('/', 'FixedAsset\FixedAssetController@index')->name('fixed-asset.list');
