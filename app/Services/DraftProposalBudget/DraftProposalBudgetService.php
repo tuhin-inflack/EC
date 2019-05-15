@@ -173,7 +173,7 @@ class DraftProposalBudgetService
 
             foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
 
-                if ($budgetFiscalYear){
+                if ($budgetFiscalYear) {
 
                     $fiscalValue = new DraftProposalBudgetFiscalValue([
                         'budget_id' => $draftProposalBudget->id,
@@ -201,16 +201,17 @@ class DraftProposalBudgetService
 
             foreach ($data['fiscal_year'] as $key => $budgetFiscalYear) {
 
-                if ($budgetFiscalYear){
+                if ($budgetFiscalYear) {
+
                     $fiscalValue = new DraftProposalBudgetFiscalValue([
                         'budget_id' => $draftProposalBudget->id,
                         'fiscal_year' => $budgetFiscalYear,
                         'monetary_amount' => $data['monetary_amount'][$key],
                         'monetary_percentage' => $data['monetary_percentage'][$key],
                     ]);
-                }
 
-                $draftProposalBudget->budgetFiscalValue()->save($fiscalValue);
+                    $draftProposalBudget->budgetFiscalValue()->save($fiscalValue);
+                }
             }
 
             return $draftProposalBudget;

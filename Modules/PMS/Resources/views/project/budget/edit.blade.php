@@ -40,6 +40,7 @@
         // localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
         let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
+        let fieldRequired = "{{ trans('labels.This field is required') }}";
 
         let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $project->id) }}";
 
