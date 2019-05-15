@@ -5,9 +5,23 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\IMS\Services\InventoryItemCategoryService;
 
 class InventoryCategoryController extends Controller
 {
+
+    /**
+     * @var InventoryItemCategoryService
+     */
+    private $inventoryItemCategoryService;
+
+    public function __construct(InventoryItemCategoryService $inventoryItemCategoryService)
+    {
+        /** @var InventoryItemCategoryService $inventoryItemCategoryService */
+        $this->inventoryItemCategoryService = $inventoryItemCategoryService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -23,7 +37,7 @@ class InventoryCategoryController extends Controller
      */
     public function create()
     {
-        return view('ims::create');
+        return view('ims::inventory.category.create');
     }
 
     /**
@@ -33,7 +47,9 @@ class InventoryCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->inventoryItemCategoryService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory-item-category.index');
     }
 
     /**

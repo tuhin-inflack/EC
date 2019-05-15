@@ -42,7 +42,9 @@ Route::prefix('ims')->group(function () {
 
     // Inventory Category
     Route::prefix('inventory-item-category')->group(function (){
-        Route::get('/','Inventory\InventoryCategoryController@index')->name('inventory-item-category.list');
+        Route::get('/','Inventory\InventoryCategoryController@index')->name('inventory-item-category.index');
+        Route::get('/create','Inventory\InventoryCategoryController@create')->name('inventory-item-category.create');
+        Route::post('/','Inventory\InventoryCategoryController@store')->name('inventory-item-category.store');
     });
 
     //fixed-asset route

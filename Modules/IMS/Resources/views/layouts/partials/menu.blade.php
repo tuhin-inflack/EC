@@ -84,8 +84,8 @@
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::inventory.inventory_item_category')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory-item-category.list') }}">
-                        <a href="{{ route('inventory-item-category.list') }}">
+                    <li class="{{ is_active_route('inventory-item-category.index') }}">
+                        <a href="{{ route('inventory-item-category.index') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.item_category_list')</span>
                         </a>

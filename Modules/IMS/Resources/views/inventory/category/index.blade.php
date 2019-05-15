@@ -10,7 +10,7 @@
                         <h4 class="card-title">{{trans('ims::inventory.item_category_list')}}</h4>
 
                         <div class="heading-elements">
-                            <a href="" class="btn btn-primary btn-sm">
+                            <a href="{{ route('inventory-item-category.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white"></i> {{trans('ims::inventory.create_new_category')}}
                             </a>
                         </div>

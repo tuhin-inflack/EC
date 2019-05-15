@@ -16,4 +16,8 @@ return [
     'short_code' => 'শর্ট কোড',
     'type' => 'নমুনা',
     'unit' => 'একক',
+    'add_new_item_category' => 'নতুন আইটেম ক্যাটাগরি সংযোজন',
+    'new_item_category' => 'নতুন আইটেম ক্যাটাগরি',
+    'fixed_asset' => 'স্থায়ী সম্পদ',
+    'stationery' => 'স্টেশনারি',
 ];
