@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.partials.form', ['page' => 'edit'])
+                                        @include('pms::proposal-submission.details.budget.partials.form', ['page' => 'edit'])
                                     </div>
                                 </div>
                             </div>

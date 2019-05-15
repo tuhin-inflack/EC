@@ -38,12 +38,12 @@
         @endfor
     </tr>
 
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'revenue')
             @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
             <tr>
                 <td>{{ $budget->economyCode->economyHead->code }}</td>
-                <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}"><i class="la la-edit"></i></a>{{ $budget->economyCode->code }}</td>
+                <td><a href="{{ route('project-detail-proposal-budget.edit', [$projectDetailProposal->id, $budget->id]) }}"><i class="la la-edit"></i></a>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->bangla_name }}</td>
                 <td>{{ $budget->unit }}</td>
                 <td>{{ $budget->unit_rate }}</td>
@@ -51,9 +51,13 @@
                 <td>{{ $budget->total_expense }}</td>
                 <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                 @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
-                    <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                    <td>{{ number_format( (float) ($budgetFiscalValue->monetary_amount * 100000 )  / $budget->total_expense, 4, '.', '') }}</td>
-                    <td>{{ number_format( ( ($budgetFiscalValue->monetary_amount * 100000 ) / $budget->total_expense ) * $weight, 4, '.', '')}}</td>
+                    @php
+                        $monetaryAmount = $budgetFiscalValue->monetary_amount ? $budgetFiscalValue->monetary_amount * 100000 : ($budgetFiscalValue->monetary_percentage * $budget->total_expense)/ 100;
+                        $monetaryAmountInLac = $monetaryAmount / 100000;
+                    @endphp
+                    <td>{{ $monetaryAmountInLac }}</td>
+                    <td>{{ number_format( (float) $monetaryAmount  / $budget->total_expense, 4, '.', '') }}</td>
+                    <td>{{ number_format( ( $monetaryAmount / $budget->total_expense ) * $weight, 4, '.', '')}}</td>
                 @endforeach
             </tr>
         @endif
@@ -74,12 +78,12 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'capital')
             @php $grandTotalWeight += $weight = $budget->total_expense / $data->grandTotalExpense; @endphp
             <tr>
                 <td>{{ $budget->economyCode->economyHead->code }}</td>
-                <td><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}"><i class="la la-edit"></i></a>{{ $budget->economyCode->code }}</td>
+                <td><a href="{{ route('project-detail-proposal-budget.edit', [$projectDetailProposal->id, $budget->id]) }}"><i class="la la-edit"></i></a>{{ $budget->economyCode->code }}</td>
                 <td>{{ $budget->economyCode->bangla_name }}</td>
                 <td>{{ $budget->unit }}</td>
                 <td>{{ $budget->unit_rate }}</td>
@@ -87,9 +91,13 @@
                 <td>{{ $budget->total_expense }}</td>
                 <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                 @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
-                    <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                    <td>{{ number_format( (float) ($budgetFiscalValue->monetary_amount * 100000 ) / $budget->total_expense, 4, '.', '') }}</td>
-                    <td>{{ number_format( ( ($budgetFiscalValue->monetary_amount * 100000 ) / $budget->total_expense ) * $weight, 4, '.', '')}}</td>
+                    @php
+                        $monetaryAmount = $budgetFiscalValue->monetary_amount ? $budgetFiscalValue->monetary_amount * 100000 : ($budgetFiscalValue->monetary_percentage * $budget->total_expense)/ 100;
+                        $monetaryAmountInLac = $monetaryAmount / 100000;
+                    @endphp
+                    <td>{{ $monetaryAmountInLac }}</td>
+                    <td>{{ number_format( (float) $monetaryAmount  / $budget->total_expense, 4, '.', '') }}</td>
+                    <td>{{ number_format( ( $monetaryAmount / $budget->total_expense ) * $weight, 4, '.', '')}}</td>
                 @endforeach
             </tr>
         @endif
@@ -110,11 +118,11 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'physical_contingency')
             @php $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense; @endphp
             <tr>
-                <td colspan="2"><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}"><i class="la la-edit"></i></a></td>
+                <td colspan="2"><a href="{{ route('project-detail-proposal-budget.edit', [$projectDetailProposal->id, $budget->id]) }}"><i class="la la-edit"></i></a></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -122,9 +130,13 @@
                 <td>{{ $data->physicalContingencyExpense }}</td>
                 <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                 @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
-                    <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                    <td>{{ number_format( (float) ($budgetFiscalValue->monetary_amount * 100000 ) / $data->physicalContingencyExpense, 3, '.', '') }}</td>
-                    <td>{{ number_format( ( ($budgetFiscalValue->monetary_amount * 100000 ) / $data->physicalContingencyExpense ) * $weight, 3, '.', '')}}</td>
+                    @php
+                        $monetaryAmount = $budgetFiscalValue->monetary_amount ? $budgetFiscalValue->monetary_amount * 100000 : ($budgetFiscalValue->monetary_percentage * $data->physicalContingencyExpense)/ 100;
+                        $monetaryAmountInLac = $monetaryAmount / 100000;
+                    @endphp
+                    <td>{{ $monetaryAmountInLac }}</td>
+                    <td>{{ number_format( (float) $monetaryAmount  / $data->physicalContingencyExpense, 4, '.', '') }}</td>
+                    <td>{{ number_format( ( $monetaryAmount / $data->physicalContingencyExpense ) * $weight, 4, '.', '')}}</td>
                 @endforeach
             </tr>
         @endif
@@ -135,11 +147,11 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'price_contingency')
             @php $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense; @endphp
             <tr>
-                <td colspan="2"><a href="{{ route('project-budget.edit', [$project->id, $budget->id]) }}"><i class="la la-edit"></i></a></td>
+                <td colspan="2"><a href="{{ route('project-detail-proposal-budget.edit', [$projectDetailProposal->id, $budget->id]) }}"><i class="la la-edit"></i></a></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -147,9 +159,13 @@
                 <td>{{ $data->priceContingencyExpense }}</td>
                 <td>{{ number_format( (float) $weight, 3, '.', '') }}</td>
                 @foreach($budget->budgetFiscalValue as $budgetFiscalValue)
-                    <td>{{ $budgetFiscalValue->monetary_amount }}</td>
-                    <td>{{ number_format( (float) ($budgetFiscalValue->monetary_amount * 100000 ) / $data->physicalContingencyExpense, 3, '.', '') }}</td>
-                    <td>{{ number_format( ( ($budgetFiscalValue->monetary_amount * 100000 ) / $data->physicalContingencyExpense ) * $weight, 3, '.', '')}}</td>
+                    @php
+                        $monetaryAmount = $budgetFiscalValue->monetary_amount ? $budgetFiscalValue->monetary_amount * 100000 : ($budgetFiscalValue->monetary_percentage * $data->priceContingencyExpense)/ 100;
+                        $monetaryAmountInLac = $monetaryAmount / 100000;
+                    @endphp
+                    <td>{{ $monetaryAmountInLac }}</td>
+                    <td>{{ number_format( (float) $monetaryAmount  / $data->priceContingencyExpense, 4, '.', '') }}</td>
+                    <td>{{ number_format( ( $monetaryAmount / $data->priceContingencyExpense ) * $weight, 4, '.', '')}}</td>
                 @endforeach
             </tr>
         @endif

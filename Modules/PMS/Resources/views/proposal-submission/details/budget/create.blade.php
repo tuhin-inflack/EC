@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.partials.form', ['page' => 'create'])
+                                        @include('pms::proposal-submission.details.budget.partials.form', ['page' => 'create'])
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +41,7 @@
         let selectPlaceholder = '{!! trans('labels.select') !!}';
         let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
 
-        let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $project->id) }}";
+        let totalExpenseUrl = "{{ route('project-detail-proposal-budget.get-budget-expense', ['projectDetailProposal' => $project->id]) }}";
 
     </script>
     <script src="{{ asset('js/dpp-budget/page.js') }}"></script>

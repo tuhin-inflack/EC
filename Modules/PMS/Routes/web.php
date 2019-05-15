@@ -19,16 +19,6 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('/create', 'ProjectController@create')->name('project.create');
         Route::post('/', 'ProjectController@store')->name('project.store');
         Route::get('{project}', 'ProjectController@show')->name('project.show');
-        // project budgeting
-        Route::prefix('{project}/budget')->group(function () {
-            Route::get('export/{tableType}', 'ProjectBudgetController@exportExcel')->name('project-budget.export-excel');
-            Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
-            Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
-            Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
-            Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
-            Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
-            Route::get('/get-budget-expense', 'ProjectBudgetController@getBudgetExpense')->name('project-budget.get-budget-expense');
-        });
 
         // training under a project
         Route::prefix('{project}')->group(function () {
@@ -155,14 +145,14 @@ Route::prefix('pms')->middleware(['auth'])->group(function () {
         Route::get('attachment-download/{projectProposal}', 'ProjectProposalController@proposalAttachmentDownload')->name('project-details-proposal.attachment-download');
         Route::get('file-download/{projectProposalFile}', 'ProjectProposalController@fileDownload')->name('project-details-proposal-submission.file-download');
 
-        Route::prefix('{projectRequest}/budget')->group(function () {
-            Route::get('export/{tableType}', 'ProjectBudgetController@exportExcel')->name('project-budget.export-excel');
-            Route::get('/', 'ProjectBudgetController@index')->name('project-budget.index');
-            Route::get('create', 'ProjectBudgetController@create')->name('project-budget.create');
-            Route::post('store', 'ProjectBudgetController@store')->name('project-budget.store');
-            Route::get('{draftProposalBudget}/edit', 'ProjectBudgetController@edit')->name('project-budget.edit');
-            Route::put('{draftProposalBudget}/update', 'ProjectBudgetController@update')->name('project-budget.update');
-            Route::get('/get-budget-expense', 'ProjectBudgetController@getBudgetExpense')->name('project-budget.get-budget-expense');
+        Route::prefix('{projectDetailProposal}/budget')->group(function () {
+            Route::get('export/{tableType}', 'ProjectDetailProposalBudgetController@exportExcel')->name('project-detail-proposal-budget.export-excel');
+            Route::get('/', 'ProjectDetailProposalBudgetController@index')->name('project-detail-proposal-budget.index');
+            Route::get('create', 'ProjectDetailProposalBudgetController@create')->name('project-detail-proposal-budget.create');
+            Route::post('store', 'ProjectDetailProposalBudgetController@store')->name('project-detail-proposal-budget.store');
+            Route::get('{draftProposalBudget}/edit', 'ProjectDetailProposalBudgetController@edit')->name('project-detail-proposal-budget.edit');
+            Route::put('{draftProposalBudget}/update', 'ProjectDetailProposalBudgetController@update')->name('project-detail-proposal-budget.update');
+            Route::get('/get-budget-expense', 'ProjectDetailProposalBudgetController@getBudgetExpense')->name('project-detail-proposal-budget.get-budget-expense');
         });
     });
 

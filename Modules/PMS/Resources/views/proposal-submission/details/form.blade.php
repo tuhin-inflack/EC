@@ -37,10 +37,10 @@
                 <textarea class="form-control" name="message" id="message"></textarea>
             </div>
         </div>
-        <button type="submit" name="with_budget" value="1" class="btn btn-outline-success">
+        <button type="submit" name="to_budget" value="1" class="btn btn-outline-success">
             <i class="la la-check-square-o"></i> @lang('labels.save') @lang('labels.and') @lang('labels.provide') @lang('pms::project_proposal.project_budget')
         </button>
-        <button type="submit" name="with_budget" value="0" class="btn btn-primary">
+        <button type="submit" name="to_budget" value="0" class="btn btn-primary">
             <i class="la la-check-square-o"></i> @lang('labels.save')
         </button>
         <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">

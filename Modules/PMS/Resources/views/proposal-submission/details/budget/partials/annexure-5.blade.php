@@ -228,7 +228,7 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'physical_contingency')
             @php
                 $grandTotalWeight += $weight = $data->physicalContingencyExpense / $data->grandTotalExpense;
@@ -257,7 +257,7 @@
             <td></td>
         @endfor
     </tr>
-    @foreach($project->budgets as $budget)
+    @foreach($projectDetailProposal->budgets as $budget)
         @if($budget->section_type === 'price_contingency')
             @php
                 $grandTotalWeight += $weight = $data->priceContingencyExpense / $data->grandTotalExpense;
