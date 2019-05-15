@@ -9,7 +9,7 @@
                     <a class="btn btn-outline-info round" href="{{  route('research-budget.index', $research->id) }}">
                         <i class="ft-folder"></i> @lang('rms::research_budget.title') @lang('labels.details')
                     </a>
-                    @if(is_null($research->publication))
+                    @if(is_null($research->publication) && $isCreator)
                         <a class="btn btn-outline-success round" href="{{  route('research-publication.create', $research->id) }}">
                             <i class="ft-plus"></i> @lang('rms::research.research_publication_create')
                         </a>

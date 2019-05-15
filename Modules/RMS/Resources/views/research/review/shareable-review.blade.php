@@ -1,5 +1,5 @@
 @extends('rms::layouts.master')
-@section('title', trans('rms::research.title') . ' '. trans('labels.details'))
+@section('title', trans('rms::research.research_details'))
 
 @section('content')
 
@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"
-                            id="basic-layout-form">@lang('rms::research.title') @lang('labels.details')
+                            id="basic-layout-form">@lang('rms::research.research_details')
                         </h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements">
@@ -30,7 +30,8 @@
                                             <label class="black">@lang('labels.title'): </label>
                                             <p class="card-text">{{ $research->title }}</p>
 
-                                            <label class="black">@lang('rms::research_proposal.submission_date'): </label>
+                                            <label class="black">@lang('rms::research_proposal.submission_date')
+                                                : </label>
                                             <p> {{ date('d/m/y', strtotime($research->created_at)) }} </p>
                                             <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
                                             <p> {{ $research->researchSubmittedByUser->name }} </p>
@@ -86,56 +87,57 @@
                                         </dl>
                                     @endif
                                 </div>
+
                                 <div class="col-md-12">
-                                    {!! Form::open(['route' =>  'research.reviewUpdate',  'enctype' => 'multipart/form-data']) !!}
+                                    {!! Form::open(['route' => [ 'research.share-feedback',$shareConversationId],  'enctype' => 'multipart/form-data', 'novalidate']) !!}
                                     <hr/>
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            <label for="share">@lang('rms::research.share_to')</label>
-                                            <select class="select2 form-control required" name="employee_id">
-                                                <option value=""></option>
-                                                @foreach($ruleDesignations as $key=>$designation)
-                                                    <option value="{{$key}}">{{$designation}}</option>
+                                    @if(!is_null($ruleDesignations))
+
+                                        <div class="form-group {{ $errors->has('designation_id') ? 'error' : '' }}">
+                                            <label>{{__('labels.share')}}</label>
+                                            <select name="designation_id" class="form-control">
+                                                <option value="" placeholder=""> {!!  trans('labels.select') !!}</option>
+
+                                                @foreach($ruleDesignations as $ruleDesignation)
+                                                    <option value="{{$ruleDesignation->designation_id}}">{{$ruleDesignation->getDesignation->name}}</option>
                                                 @endforeach
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                                            {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2, 'required']) !!}
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="form-group">
-                                            {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                            {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
-                                        </div>
-                                    </div>
+                                            @if ($errors->has('designation_id'))
+                                                <div class="help-block">{{ trans('labels.This field is required') }}</div>
+                                            @endif
 
+                                        </div>
+
+                                    @endif
+                                    <div class="form-group">
+                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2,  'placeholder' => '', 'data-validation-required-message'=>trans('labels.This field is required')]) !!}
+                                        <div class="help-block"></div>
+                                    </div>
+                                    <div class="form-group {{ $errors->has('message') ? 'error' : '' }}">
+                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                        {{--<div class="help-block"></div>--}}
+                                        @if ($errors->has('message'))
+                                            <div class="help-block">{{ trans('labels.This field is required') }}</div>
+                                        @endif
+                                    </div>
 
                                     {!! Form::hidden('feature', $feature->name) !!}
                                     {!! Form::hidden('feature_id', $feature->id) !!}
-                                    {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
-                                    {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
-                                    {!! Form::hidden('item_id', $researchId) !!}
-                                    <input name="share_rule_id" type="hidden" value="{{$ruleDetails->share_rule_id}}">
-                                    {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
-                                    {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
-                                    {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            {!! Form::button(' <i class="ft-check"></i> '.trans('labels.approve'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                            @if($ruleDetails->is_shareable)
-                                                {!! Form::button(' <i class="ft-share"></i> '.trans('rms::research.share_btn'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'SHARE'] ) !!}
-                                            @endif
-                                            {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
-                                            {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                            <a href="{{ route('research-workflow-close-reviewer', [$workflowMasterId, $researchId]) }}" class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
-
-                                        </div>
-                                    </div>
+                                    {!! Form::hidden('share_rule_id', $shareConversation->shareRuleDesignation->share_rule_id) !!}
+                                    {{--{!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}--}}
+                                    {!! Form::hidden('ref_table_id', $researchId) !!}
+                                    <button type="submit" name="status" value="REVIEW" class="btn btn-primary">@lang('labels.share')</button>
+                                    @if($shareConversation->shareRuleDesignation->can_approve==true)
+                                        {!! Form::button(' <i class="ft-check"></i> '. trans('labels.approve'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                    @endif
+                                    @if($shareConversation->shareRuleDesignation->can_reject)
+                                        <a href="{{ route('workflow-close-reviewer', [$workflowMasterId, $researchId, $shareConversationId]) }}"
+                                           class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    @endif
                                     {!! Form::close() !!}
+
                                 </div>
 
                             </div>

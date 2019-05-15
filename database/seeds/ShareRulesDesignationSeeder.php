@@ -148,6 +148,13 @@ class ShareRulesDesignationSeeder extends Seeder
 //               DG
                 ['share_rule_id' => 24, 'department_id' => 2, 'designation_id' => 16, 'is_sharable' => true, 'sharable_id' => 23,'can_reject' => true, 'can_approve' => false, 'is_parent' => false],
                 ['share_rule_id' => 24, 'department_id' => 2, 'designation_id' => 23, 'is_sharable' => true, 'sharable_id' => 14,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+
+                // Research Workflow
+                ['share_rule_id' => 25, 'department_id' => 1, 'designation_id' => 0, 'is_sharable' => true, 'sharable_id' => 26,'can_reject' => false, 'can_approve' => false, 'is_parent' => false],
+                ['share_rule_id' => 25, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 25,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+                ['share_rule_id' => 25, 'department_id' => 1, 'designation_id' => 17, 'is_sharable' => true, 'sharable_id' => 26,'can_reject' => true, 'can_approve' => true, 'is_parent' => false],
+                ['share_rule_id' => 26, 'department_id' => 1, 'designation_id' => 22, 'is_sharable' => true, 'sharable_id' => 25,'can_reject' => true, 'can_approve' => false, 'is_parent' => true],
+
             ]
         );
     }

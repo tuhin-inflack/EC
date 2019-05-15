@@ -51,6 +51,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
             $dashboardItem = new DashboardItem();
             $workflowMaster = $workflow->workflowMaster;
             $proposal = $this->researchService->findOne($workflowMaster->ref_table_id);
+            $workflowRuleDetails = $workflow->ruleDetails;
             $researchData = [
                 'research_title' => $proposal->title,
                 'publication_description' => $proposal->publication->description,
@@ -66,7 +67,7 @@ class ResearchItemGenerator extends BaseDashboardItemGenerator
 
             $dashboardItem->setCheckUrl(
                 '/rms/researches/review/' . $workflowMaster->ref_table_id .
-                '/' . $workflowMaster->feature->id . '/' . $workflowMaster->id . '/' . $workflowConversation->id);
+                '/' . $workflowMaster->feature->id . '/' . $workflowMaster->id . '/' . $workflowConversation->id.'/'. $workflowRuleDetails->id);
             $dashboardItem->setWorkFlowMasterId($workflowMaster->id);
             $dashboardItem->setWorkFlowMasterStatus($workflowMaster->status);
             $dashboardItem->setMessage($workflowConversation->message);
