@@ -40,13 +40,19 @@ Route::prefix('ims')->group(function () {
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
     });
 
-    // Inventory Category
+    // Inventory Item Category
     Route::prefix('inventory-item-category')->group(function (){
         Route::get('/','Inventory\InventoryCategoryController@index')->name('inventory-item-category.index');
         Route::get('/create','Inventory\InventoryCategoryController@create')->name('inventory-item-category.create');
         Route::post('/','Inventory\InventoryCategoryController@store')->name('inventory-item-category.store');
         Route::get('{inventoryItemCategory}/edit','Inventory\InventoryCategoryController@edit')->name('inventory-item-category.edit');
         Route::put('{inventoryItemCategory}/update','Inventory\InventoryCategoryController@update')->name('inventory-item-category.update');
+    });
+
+
+    //Location
+    Route::prefix('location')->group(function (){
+        Route::get('/','Location\LocationController@index')->name('location.index');
     });
 
     //fixed-asset route

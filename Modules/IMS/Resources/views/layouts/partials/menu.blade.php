@@ -94,6 +94,23 @@
             </li>
             <!-- //Inventory Item Category -->
 
+            <!-- Location -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::location.location')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('location.index') }}">
+                        <a href="{{ route('location.index') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::location.location_list')</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- //Location -->
+
             <!-- Fixed Asset -->
             <li class="nav-item">
                 <a href="#">
