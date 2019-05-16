@@ -20,4 +20,5 @@ return [
     'new_item_category' => 'নতুন আইটেম ক্যাটাগরি',
     'fixed_asset' => 'স্থায়ী সম্পদ',
     'stationery' => 'স্টেশনারি',
+    'item_category_edit' => 'আইটেম ক্যাটাগরি সম্পাদনা',
 ];

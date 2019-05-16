@@ -1,10 +1,15 @@
-{{ Form::open(['route' =>  'inventory-item-category.store', 'class' => 'inventory-tab-steps wizard-circle']) }}
+@if($page == 'create')
+    {{ Form::open(['route' =>  'inventory-item-category.store', 'class' => 'inventory-tab-steps wizard-circle']) }}
+@else
+    {{ Form::open(['route' =>  ['inventory-item-category.update', $inventoryItemCategory->id], 'class' => 'inventory-tab-steps wizard-circle']) }}
+    @method('PUT')
+@endif
 
 <h4 class="form-section"><i class="la la-building"></i> @lang('ims::inventory.new_item_category')</h4>
 <div class="row">
     <div class="col-6">
         {!! Form::label('name', __('labels.name'), ['class' => 'form-label required']) !!}
-        {!! Form::text('name', old('name'),['class' => "form-control", "required ", "placeholder" => __('labels.name'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
+        {!! Form::text('name', $page == 'create' ? old('name') : $inventoryItemCategory->name,['class' => "form-control", "required ", "placeholder" => __('labels.name'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
         'data-msg-required' => Lang::get('labels.This field is required')]) !!}
         <div class="help-block"></div>
         @if ($errors->has('name'))
@@ -27,11 +32,11 @@
     <div class="form-group col-md-6">
         {!! Form::label('type', __('ims::inventory.type'), ['class' => 'form-label required']) !!}
         <div class="skin skin-flat">
-            {!! Form::radio('type', '1', old('type'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', '1', $page == 'create' ? old('type') == '1' : ($inventoryItemCategory->type == '1'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::inventory.fixed_asset')</label>
         </div>
         <div class="skin skin-flat">
-            {!! Form::radio('type', '2', old('type'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', '2', $page == 'create' ? old('type') == '2' : ($inventoryItemCategory->type == '2'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::inventory.stationery')</label>
         </div>
         <div class="row col-md-12 radio-error">
@@ -44,7 +49,7 @@
 <div class="row mt-lg-2">
     <div class="col-6">
         {!! Form::label('unit', __('ims::inventory.unit'), ['class' => 'form-label required']) !!}
-        {!! Form::text('unit', old('unit'),['class' => "form-control", "required ", "placeholder" => __('ims::inventory.unit'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
+        {!! Form::text('unit', $page == 'create' ? old('unit') : $inventoryItemCategory->unit,['class' => "form-control", "required ", "placeholder" => __('ims::inventory.unit'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
         'data-msg-required' => Lang::get('labels.This field is required')]) !!}
         <div class="help-block"></div>
         @if ($errors->has('unit'))
@@ -56,7 +61,7 @@
 </div>
 
 <div class="form-actions mb-lg-3">
-    <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory.warehouse.list') }}" style="margin-left: 2px;">
+    <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory-item-category.index') }}" style="margin-left: 2px;">
         <i class="la la-times"></i> {{trans('labels.cancel')}}
     </a>
     <button type="submit" class="btn btn-primary pull-right">

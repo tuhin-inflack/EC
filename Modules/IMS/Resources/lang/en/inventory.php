@@ -18,4 +18,5 @@ return [
     'new_item_category' => 'New Item Category',
     'fixed_asset' => 'Fixed Asset',
     'stationery' => 'Stationery',
+    'item_category_edit' => 'Update Item Category',
 ];

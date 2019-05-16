@@ -9,6 +9,7 @@
 namespace Modules\IMS\Services;
 
 
+use Modules\IMS\Entities\InventoryItemCategory;
 use Modules\IMS\Repositories\InventoryItemCategoryRepository;
 
 class InventoryItemCategoryService
@@ -33,5 +34,10 @@ class InventoryItemCategoryService
     public function getAllCategories()
     {
         return $this->inventoryItemCategoryRepository->findAll();
+    }
+
+    public function updateInventoryItemCategory(InventoryItemCategory $inventoryItemCategory, array $data)
+    {
+        return $inventoryItemCategory->update($data);
     }
 }

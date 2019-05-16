@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\InventoryItemCategory;
 use Modules\IMS\Services\InventoryItemCategoryService;
 
 class InventoryCategoryController extends Controller
@@ -68,9 +69,9 @@ class InventoryCategoryController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(InventoryItemCategory $inventoryItemCategory)
     {
-        return view('ims::edit');
+        return view('ims::inventory.category.edit', compact('inventoryItemCategory'));
     }
 
     /**
@@ -79,9 +80,11 @@ class InventoryCategoryController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, InventoryItemCategory $inventoryItemCategory)
     {
-        //
+        $this->inventoryItemCategoryService->updateInventoryItemCategory($inventoryItemCategory, $request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory-item-category.index');
     }
 
     /**

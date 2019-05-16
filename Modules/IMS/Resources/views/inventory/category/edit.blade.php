@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::inventory.add_new_item_category'))
+@section('title', trans('ims::inventory.item_category_edit'))
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::inventory.add_new_item_category')</h4>
+                        <h4 class="card-title">@lang('ims::inventory.item_category_edit')</h4>
                         <a class="heading-elements-toggle" href=""><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('ims::inventory.category.form', ['page' => 'create'])
+                            @include('ims::inventory.category.form', ['page' => 'edit'])
                         </div>
                     </div>
                 </div>
