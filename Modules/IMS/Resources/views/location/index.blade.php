@@ -10,7 +10,7 @@
                         <h4 class="card-title">{{trans('ims::location.location_list')}}</h4>
 
                         <div class="heading-elements">
-                            <a href="{{ route('inventory-item-category.create') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('location.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white"></i> {{trans('ims::location.create_new_location')}}
                             </a>
                         </div>
@@ -24,7 +24,6 @@
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
                                         <th scope="col">@lang('labels.name')</th>
-                                        {{--<th scope="col">@lang('ims::inventory.short_code')</th>--}}
                                         <th scope="col">@lang('ims::location.department')</th>
                                         <th scope="col">@lang('ims::location.type')</th>
                                         <th scope="col">@lang('ims::location.description')</th>

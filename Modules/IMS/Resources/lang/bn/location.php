@@ -12,4 +12,8 @@ return [
     'department' => 'বিভাগ',
     'type' => 'নমুনা',
     'description' => 'বিবরণ',
+    'add_new_location' => 'নতুন অবস্থান সংযোজন',
+    'new_location' => 'নতুন অবস্থান',
+    'store' => 'গুদাম',
+    'general' => 'সাধারণ',
 ];

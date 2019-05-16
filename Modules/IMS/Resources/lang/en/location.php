@@ -13,4 +13,8 @@ return [
     'department' => 'Department',
     'type' => 'Type',
     'description' => 'Description',
+    'add_new_location' => 'Add New Location',
+    'new_location' => 'New Location',
+    'store' => 'Store',
+    'general' => 'General',
 ];

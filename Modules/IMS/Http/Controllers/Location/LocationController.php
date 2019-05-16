@@ -5,9 +5,29 @@ namespace Modules\IMS\Http\Controllers\Location;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\HRM\Services\DepartmentService;
+use Modules\IMS\Services\LocationService;
 
 class LocationController extends Controller
 {
+    /**
+     * @var DepartmentService
+     */
+    private $departmentService;
+    /**
+     * @var LocationService
+     */
+    private $locationService;
+
+    public function __construct(DepartmentService $departmentService, LocationService $locationService)
+    {
+        /** @var DepartmentService $departmentService */
+        $this->departmentService = $departmentService;
+        /** @var LocationService $locationService */
+        $this->locationService = $locationService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -23,7 +43,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        return view('ims::create');
+        $departments = $this->departmentService->getDepartmentsForDropdown();
+        return view('ims::location.create', compact('departments'));
     }
 
     /**
@@ -33,7 +54,9 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->locationService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('location.index');
     }
 
     /**

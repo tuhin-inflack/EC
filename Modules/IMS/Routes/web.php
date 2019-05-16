@@ -53,6 +53,8 @@ Route::prefix('ims')->group(function () {
     //Location
     Route::prefix('location')->group(function (){
         Route::get('/','Location\LocationController@index')->name('location.index');
+        Route::get('/create','Location\LocationController@create')->name('location.create');
+        Route::post('/','Location\LocationController@store')->name('location.store');
     });
 
     //fixed-asset route
