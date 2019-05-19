@@ -34,7 +34,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('ims::location.index');
+        $locations = $this->locationService->getAllLocations();
+        return view('ims::location.index', compact('locations'));
     }
 
     /**

@@ -32,20 +32,21 @@
                                     </thead>
                                     <tbody>
 
-                                    {{--@foreach($categories as $category)
+                                    @foreach($locations as $location)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="">{{ $category->name }}</a>
+                                                <a href="">{{ $location->name }}</a>
                                             </td>
+                                            <td>{{ $location->departments->name }}</td>
                                             <td>
-                                                @if($category->type == 1)
-                                                    <p>@lang('ims::inventory.fixed_asset')</p>
+                                                @if($location->type == 1)
+                                                    <p>@lang('ims::location.store')</p>
                                                 @else
-                                                    <p>@lang('ims::inventory.stationery')</p>
+                                                    <p>@lang('ims::location.general')</p>
                                                 @endif
                                             </td>
-                                            <td>{{ $category->unit }}</td>
+                                            <td>{{ $location->description }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown"
@@ -56,7 +57,7 @@
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="{{ route('inventory-item-category.edit', $category->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
                                                         {!!
@@ -81,7 +82,7 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    @endforeach--}}
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -27,4 +27,9 @@ class LocationService
         $location = $this->locationRepository->save($data);
         return $location;
     }
+
+    public function getAllLocations()
+    {
+        return $this->locationRepository->findAll();
+    }
 }
