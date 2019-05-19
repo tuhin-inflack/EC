@@ -32,6 +32,12 @@ Route::prefix('ims')->group(function () {
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
     });
 
+    Route::prefix('inventory-request')->group(function () {
+        Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.list');
+        Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
+        Route::get('/warehouse/list', 'Inventory\InventoryRequestController@show')->name('inventory-request.list.by.warehouse');
+    });
+
     //fixed-asset route
     Route::prefix('fixed-asset')->group(function () {
         Route::get('/', 'FixedAsset\FixedAssetController@index')->name('fixed-asset.list');
@@ -49,7 +55,5 @@ Route::prefix('ims')->group(function () {
         Route::get('/{id}', 'AssetManagementController@show')->name('asset.show');
         Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
     });
-
-
 
 });

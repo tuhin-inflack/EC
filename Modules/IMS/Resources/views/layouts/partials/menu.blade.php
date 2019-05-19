@@ -36,6 +36,27 @@
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::inventory.inventory')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('inventory-request.create') }}">
+                        <a href="{{ route('inventory-request.create') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_add')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('inventory.warehouse.list') }}">
+                        <a href="{{ route('inventory.warehouse.list') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_list')</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::warehouse.title')</span>
                 </a>
                 <ul class="menu-content">
