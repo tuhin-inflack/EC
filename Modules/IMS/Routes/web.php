@@ -55,6 +55,8 @@ Route::prefix('ims')->group(function () {
         Route::get('/','Location\LocationController@index')->name('location.index');
         Route::get('/create','Location\LocationController@create')->name('location.create');
         Route::post('/','Location\LocationController@store')->name('location.store');
+        Route::get('{location}/edit','Location\LocationController@edit')->name('location.edit');
+        Route::put('{location}/update','Location\LocationController@update')->name('location.update');
     });
 
     //fixed-asset route

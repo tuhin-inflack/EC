@@ -7,6 +7,8 @@
  */
 namespace Modules\IMS\Services;
 
+use Illuminate\Support\Facades\DB;
+use Modules\IMS\Entities\Location;
 use Modules\IMS\Repositories\LocationRepository;
 
 class LocationService
@@ -31,5 +33,12 @@ class LocationService
     public function getAllLocations()
     {
         return $this->locationRepository->findAll();
+    }
+
+    public function updateLocation(Location $location, array $data)
+    {
+        return DB::transaction(function () use ($location, $data){
+            return $location->update($data);
+        });
     }
 }

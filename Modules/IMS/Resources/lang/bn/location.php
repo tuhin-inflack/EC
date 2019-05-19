@@ -16,4 +16,5 @@ return [
     'new_location' => 'নতুন অবস্থান',
     'store' => 'গুদাম',
     'general' => 'সাধারণ',
+    'location_edit' => 'অবস্থান সম্পাদনা',
 ];

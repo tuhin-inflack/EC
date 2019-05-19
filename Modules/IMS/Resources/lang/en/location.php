@@ -17,4 +17,5 @@ return [
     'new_location' => 'New Location',
     'store' => 'Store',
     'general' => 'General',
+    'location_edit' => 'Location Edit',
 ];

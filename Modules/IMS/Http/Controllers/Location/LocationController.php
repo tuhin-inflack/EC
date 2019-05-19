@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\DepartmentService;
+use Modules\IMS\Entities\Location;
 use Modules\IMS\Services\LocationService;
 
 class LocationController extends Controller
@@ -75,9 +76,10 @@ class LocationController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Location $location)
     {
-        return view('ims::edit');
+        $departments = $this->departmentService->getDepartmentsForDropdown();
+        return view('ims::location.edit', compact('location', 'departments'));
     }
 
     /**
@@ -86,9 +88,11 @@ class LocationController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Location $location)
     {
-        //
+        $this->locationService->updateLocation($location, $request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('location.index');
     }
 
     /**
