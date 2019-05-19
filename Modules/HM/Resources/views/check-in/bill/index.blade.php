@@ -106,11 +106,6 @@
                                                     </div>
                                                     <div class="col-md-12">
                                                         <p style="float: right">
-                                                            @php
-                                                                $totalBill = $checkin->roomInfos->sum(function ($roomInfo) use ($duration) {
-                                                                    return $roomInfo->rate * $roomInfo->quantity * $duration;
-                                                                });
-                                                            @endphp
                                                             <b>
                                                                 {{ trans('hm::checkin.grand_total_bill') }}
                                                                 - {{ number_format($totalBill, 2) }}&#2547;

@@ -12,18 +12,15 @@ use Modules\HM\Services\CheckinService;
 
 class CheckinBillController extends Controller
 {
-    /**
-     * @var BookingRequestService
-     */
-    private $bookingRequestService;
+    private $checkinService;
 
     /**
      * CheckinBillController constructor.
-     * @param BookingRequestService $bookingRequestService
+     * @param CheckinService $checkinService
      */
-    public function __construct(BookingRequestService $bookingRequestService)
+    public function __construct(CheckinService $checkinService)
     {
-        $this->bookingRequestService = $bookingRequestService;
+        $this->checkinService = $checkinService;
     }
 
     /**
@@ -33,14 +30,17 @@ class CheckinBillController extends Controller
      */
     public function index(RoomBooking $roomBooking)
     {
-        $duration = $this->bookingRequestService->getCheckedInDuration($roomBooking);
+        $duration = $this->checkinService->getCheckedInDuration($roomBooking);
 
-        $endDate = $this->bookingRequestService->getCheckedInEndDate($roomBooking);
+        $endDate = $this->checkinService->getCheckedInEndDate($roomBooking);
+
+        $totalBill = $this->checkinService->getTotalBill($roomBooking);
 
         return view('hm::check-in.bill.index')->with([
             'checkin' => $roomBooking,
             'duration' => $duration,
             'endDate' => $endDate,
+            'totalBill' => $totalBill
         ]);
     }
 }
