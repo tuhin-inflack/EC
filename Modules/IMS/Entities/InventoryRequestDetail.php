@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class InventoryRequestDetail extends Model
 {
-    protected $table = 'inventory_request_details';
-    protected $fillable = [];
+    protected $fillable = ['inventory_request_id', 'category_id', 'quantity'];
+
+    public function request(){
+        return $this->belongsTo(InventoryRequest::class, 'inventory_request_id');
+    }
 }
