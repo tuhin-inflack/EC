@@ -3,7 +3,6 @@
 @section('title', trans('ims::inventory.inventory_request'))
 
 @section('content')
-
     <div class="card">
         <div class="card-header">
             <h4 class="card-title">@lang('ims::inventory.inventory_request_add')</h4>
@@ -64,7 +63,7 @@
                     <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory.product.list') }}" style="margin-left: 2px;">
                         <i class="ft-x"></i> {{trans('labels.cancel')}}
                     </a>
-                    <button type="submit" class="btn btn-primary pull-right">
+                    <button type="submit" class="btn btn-primary">
                         <i class="la la-check-square-o"></i> {{trans('labels.save')}}
                     </button>
                 </div>
@@ -72,6 +71,4 @@
             </div>
         </div>
     </div>
-
-
 @stop
