@@ -50,6 +50,13 @@ Route::prefix('ims')->group(function () {
         Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
     });
 
-
+    //Auction route
+    Route::prefix('auction')->group(function () {
+        Route::get('/', 'FixedAsset\FixedAssetController@index')->name('auction.list');
+        Route::get('/create', 'FixedAsset\FixedAssetController@create')->name('auction.add');
+        Route::post('/create', 'FixedAsset\FixedAssetController@store')->name('auction.add');
+        Route::get('/{id}', 'FixedAsset\FixedAssetController@show')->name('auction.show');
+    
+    });
 
 });

@@ -102,9 +102,6 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.list_menu_title')</span>
                         </a>
                     </li>
-
-
-
                 </ul>
             </li>
             <!-- //Fixed Asset -->
@@ -132,6 +129,29 @@
                 </ul>
             </li>
             <!-- // Asset Management-->
+
+            <!-- Auction -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::auction.title')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('auction.add') }}">
+                        <a href="{{ route('auction.add') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::auction.add_menu_title')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_route('auction.list') }}">
+                        <a href="{{ route('auction.list') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::auction.list_menu_title')</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- // Auction -->
 
         </ul>
     </div>
