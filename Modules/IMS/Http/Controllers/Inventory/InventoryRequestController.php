@@ -5,16 +5,26 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\IMS\Services\InventoryRequestService;
 
 class InventoryRequestController extends Controller
 {
+
+    private $inventoryRequestService;
+
+    public function __construct(InventoryRequestService $inventoryRequestService)
+    {
+        $this->inventoryRequestService = $inventoryRequestService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('ims::inventory.request.index');
+        $inventoryRequests = $this->inventoryRequestService->findAll();
+        return view('ims::inventory.request.index')->with(compact('inventoryRequests'));
     }
 
     /**
