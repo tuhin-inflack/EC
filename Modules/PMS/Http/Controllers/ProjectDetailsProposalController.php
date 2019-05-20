@@ -86,7 +86,7 @@ class ProjectDetailsProposalController extends Controller
         $projectDetailProposal = $this->projectDetailsProposalService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
 
-        return $request->all()['to_budget'] ? redirect()->route('project-budget.index', ['projectDetailProposal' => $projectDetailProposal->id]): redirect()->route('pms');
+        return $request->all()['to_budget'] ? redirect()->route('project-detail-proposal-budget.index', ['projectDetailProposal' => $projectDetailProposal->id]): redirect()->route('pms');
     }
 
     /**
