@@ -10,6 +10,7 @@ namespace Modules\IMS\Services;
 
 
 use App\Traits\CrudTrait;
+use Modules\IMS\Entities\InventoryHistory;
 use Modules\IMS\Repositories\InventoryRepository;
 use Modules\IMS\Repositories\InventoryRequestRepository;
 
@@ -20,7 +21,8 @@ class InventoryService
     private $inventoryRequestRepository;
     private $inventoryRepository;
 
-    public function __construct(InventoryRequestRepository $inventoryRequestRepository, InventoryRepository $inventoryRepository)
+    public function __construct(InventoryRequestRepository $inventoryRequestRepository,
+                                InventoryRepository $inventoryRepository)
     {
         $this->inventoryRequestRepository = $inventoryRequestRepository;
         $this->inventoryRepository = $inventoryRepository;
@@ -34,6 +36,8 @@ class InventoryService
         if(!is_null($inventoryRequest))
         {
             $data['location_id'] = $inventoryRequest->to_location_id;
+            $data['type'] = $inventoryRequest->type;
+            $data['status'] = $inventoryRequest->status;
             $data['category_id'] = $inventoryRequest->detail->category_id;
             $data['quantity'] = $inventoryRequest->detail->quantity;
         }
@@ -48,4 +52,8 @@ class InventoryService
         $this->save($data);
     }
 
+    public function saveInventoryHistory($data)
+    {
+
+    }
 }
