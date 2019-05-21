@@ -74,7 +74,7 @@ class DepartmentService {
             $departmentId = $implementedKey ? $implementedKey($department) : $department->id;
 
             $implementedValue = $implementedValue ? : function($department) {
-                return $department->department_code . ' - ' . $department->name;
+                return $department->name;
             };
 
             $departmentOptions[$departmentId] = $implementedValue($department);
