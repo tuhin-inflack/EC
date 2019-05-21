@@ -103,10 +103,9 @@ class BookingRequestService
             }
             if ($roomBooking && !empty($data['email'])) {
                 Mail::to($data['email'])->send(new BookingRequestMail($roomBooking));
-                $usersForEmailNotification = $this->roleService->getUserEmailByRoles();
-                foreach ($usersForEmailNotification as $email) {
-                    Mail::to($email)->send(new BookingRequestMail($roomBooking));
-                }
+                // Sending mail to director admin
+                // TODO: Remove hard coded director admin's email address
+                Mail::to('kamrul_61@yahoo.com')->send(new BookingRequestMail($roomBooking));
             }
 
             return $roomBooking;
