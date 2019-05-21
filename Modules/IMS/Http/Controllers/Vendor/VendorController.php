@@ -28,7 +28,8 @@ class VendorController extends Controller
      */
     public function index()
     {
-        return view('ims::vendor.index');
+        $vendors = $this->vendorService->getAllVendors();
+        return view('ims::vendor.index', compact('vendors'));
     }
 
     /**

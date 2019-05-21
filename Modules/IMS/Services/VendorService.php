@@ -28,4 +28,9 @@ class VendorService
         $vendor = $this->vendorRepository->save($data);
         return $vendor;
     }
+
+    public function getAllVendors()
+    {
+        return $this->vendorRepository->findAll();
+    }
 }

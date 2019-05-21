@@ -29,21 +29,13 @@
                                     </thead>
                                     <tbody>
 
-                                    {{--@foreach($locations as $location)
+                                    @foreach($vendors as $vendor)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="">{{ $location->name }}</a>
+                                                <a href="">{{ $vendor->name }}</a>
                                             </td>
-                                            <td>{{ $location->departments->name }}</td>
-                                            <td>
-                                                @if($location->type == 1)
-                                                    <p>@lang('ims::location.store')</p>
-                                                @else
-                                                    <p>@lang('ims::location.general')</p>
-                                                @endif
-                                            </td>
-                                            <td>{{ $location->description }}</td>
+                                            <td>{{ $vendor->description }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown"
@@ -54,7 +46,7 @@
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="{{ route('location.edit', $location->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
                                                         {!!
@@ -79,7 +71,7 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                    @endforeach--}}
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
