@@ -43,7 +43,10 @@ class InventoryRequestController extends Controller
             ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
         );
 
-        return view('ims::inventory.request.create', compact('employeeOptions'));
+        $fromLocations = [];
+        $toLocations = [];
+
+        return view('ims::inventory.request.create', compact('employeeOptions', 'fromLocations', 'toLocations'));
     }
 
     /**

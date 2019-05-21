@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('labels.new').' '. trans('ims::inventory.inventory_request'))
+@section('title', trans('labels.new') .' '. trans('ims::inventory.inventory_request'))
 
 @section('content')
     <div class="card">
