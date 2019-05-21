@@ -89,6 +89,14 @@ class DepartmentsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
+            9 => array (
+                'id' => 10,
+                'name' => 'Inventory Department',
+                'department_code' => 'ID',
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
         ));
 
 

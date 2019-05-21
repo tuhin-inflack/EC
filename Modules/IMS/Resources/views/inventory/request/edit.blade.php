@@ -21,7 +21,7 @@
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                @include('ims::inventory.request.form', ['page' => 'create'])
+                @include('ims::inventory.request.form', ['page' => 'edit'])
             </div>
         </div>
     </div>

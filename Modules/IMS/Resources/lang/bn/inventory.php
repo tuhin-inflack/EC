@@ -15,7 +15,7 @@ return [
     // Inventory Request
     'inventory_request' => 'ইনভেন্টরি অনুরোধ',
     'inventory_request_title' => 'ইনভেন্টরি অনুরোধ শিরনাম',
-    'inventory_request_type' => 'ইনভেন্টরি অনুরোধ শিরনাম',
+    'inventory_request_type' => 'ইনভেন্টরি অনুরোধের ধরণ',
     'inventory_request_types' => [
         'requisition' => 'চাহিদাপত্র',
         'transfer' => 'হস্তান্তর',

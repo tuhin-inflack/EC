@@ -19,6 +19,8 @@ class CreateInventoryRequestsTable extends Migration
             $table->enum('type', ['requisition', 'transfer', 'scrap', 'abandon'])->default('requisition');
             $table->integer('from_location_id');
             $table->integer('to_location_id');
+            $table->integer('requester_id');
+            $table->integer('receiver_id');
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });

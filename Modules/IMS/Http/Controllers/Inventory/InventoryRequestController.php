@@ -5,6 +5,8 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryRequestService;
 
@@ -12,10 +14,12 @@ class InventoryRequestController extends Controller
 {
 
     private $inventoryRequestService;
+    private $employeeService;
 
-    public function __construct(InventoryRequestService $inventoryRequestService)
+    public function __construct(InventoryRequestService $inventoryRequestService, EmployeeServices $employeeService)
     {
         $this->inventoryRequestService = $inventoryRequestService;
+        $this->employeeService = $employeeService;
     }
 
     /**
@@ -34,6 +38,8 @@ class InventoryRequestController extends Controller
      */
     public function create()
     {
+        $employees = $this->employeeService->getEmployeesForDropdown(null, null, ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]);
+        dd($employees);
         return view('ims::inventory.request.create');
     }
 
