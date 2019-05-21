@@ -37,20 +37,21 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($products as $product)
                                         <tr>
-                                            <th scope="row">1</th>
-                                            <td>Chair</td>
-                                            <td>C</td>
-                                            <td>hs-120</td>
-                                            <td>AB12345678910</td>
+                                            <th scope="row">{{ $loop->iteration }}</th>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->code }}</td>
+                                            <td>{{ $product->sh_code }}</td>
+                                            <td>{{ $product->bar_code }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
                                                     <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="{{ route('inventory.product.show', $product->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{ route('inventory.product.edit', $product->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
                                                         {!!
@@ -75,44 +76,7 @@
                                                 </span>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Table</td>
-                                            <td>T</td>
-                                            <td>hs-130</td>
-                                            <td>CD10987654321</td>
-                                            <td>
-                                                <span class="dropdown">
-                                                    <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i>
-                                                    </button>
-                                                    <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-
-                                                        {!!
-
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
-
-                                                        {!!
-                                                           Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                           'type' => 'submit',
-                                                           'class' => 'dropdown-item',
-                                                           'title' => 'Delete the user',
-                                                           'onclick'=>'return confirm("Confirm delete?")',
-                                                                   ))
-                                                                   !!}
-                                                        {!! Form::close() !!}
-                                                    </span>
-                                                </span>
-                                            </td>
-                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

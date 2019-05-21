@@ -1,7 +1,6 @@
 @extends('ims::layouts.master')
 @section('title', trans('labels.details'))
 
-
 @section('content')
     {{--{{ dd($employee) }}--}}
     <div class="card">
@@ -13,7 +12,7 @@
                     <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
                     <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
                     <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
-                    {{--<li><a data-action="close"><i class="ft-x"></i></a></li>--}}
+                    {{--<li><a data-action="close"><i class="ft-x"isFlowCompleted></i></a></li>--}}
                 </ul>
             </div>
         </div>
@@ -37,6 +36,14 @@
                             <tr>
                                 <th class="">@lang('ims::asset.purchase_date')</th>
                                 <td>{{$asset['purchase_date']}}</td>
+                            </tr>
+                            <tr>
+                                <th class="">@lang('ims::asset.appreciation')</th>
+                                <td>{{$asset['appreciation']}}</td>
+                            </tr>
+                            <tr>
+                                <th class="">@lang('ims::asset.depreciation')</th>
+                                <td>{{$asset['depreciation']}}</td>
                             </tr>
                             <tr>
                                 <th class="">@lang('labels.status')</th>
