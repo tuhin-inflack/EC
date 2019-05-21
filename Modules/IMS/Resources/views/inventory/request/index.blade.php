@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::inventory.inventory_request_list'))
+@section('title', trans('ims::inventory.inventory_request') .' '. trans('labels.list'))
 
 @section('content')
     <section id="product-list">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::inventory.inventory_request_list')</h4>
+                        <h4 class="card-title">@lang('ims::inventory.inventory_request') @lang('labels.list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -49,66 +49,23 @@
                                                         <i class="la la-cog"></i>
                                                     </button>
                                                     <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
+                                                        {!! Form::open([
+                                                            'method'=>'DELETE',
+                                                            'url' => route('inventory-request.destroy', 1),
+                                                            'style' => 'display:inline']); !!}
 
-                                                        {!!
+                                                        {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
+                                                                'type' => 'submit',
+                                                                'class' => 'dropdown-item text-danger',
+                                                                'title' => 'Delete the user',
+                                                                'onclick'=>'return confirm("Confirm delete?")',
+                                                                )); !!}
 
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
+                                                        {!! Form::close(); !!}
 
-                                                         {!!
-                                                            Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                            'type' => 'submit',
-                                                            'class' => 'dropdown-item',
-                                                            'title' => 'Delete the user',
-                                                            'onclick'=>'return confirm("Confirm delete?")',
-                                                                    ))
-                                                                    !!}
-                                                        {!! Form::close() !!}
-                                                    </span>
-                                                </span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">2</th>
-                                            <td>Table</td>
-                                            <td>T</td>
-                                            <td>hs-130</td>
-                                            <td>CD10987654321</td>
-                                            <td>
-                                                <span class="dropdown">
-                                                    <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i>
-                                                    </button>
-                                                    <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="#" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-
-                                                        {!!
-
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
-
-                                                        {!!
-                                                           Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                           'type' => 'submit',
-                                                           'class' => 'dropdown-item',
-                                                           'title' => 'Delete the user',
-                                                           'onclick'=>'return confirm("Confirm delete?")',
-                                                                   ))
-                                                                   !!}
-                                                        {!! Form::close() !!}
                                                     </span>
                                                 </span>
                                             </td>

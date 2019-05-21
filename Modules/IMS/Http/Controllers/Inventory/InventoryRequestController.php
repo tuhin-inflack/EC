@@ -5,6 +5,7 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryRequestService;
 
 class InventoryRequestController extends Controller
@@ -33,7 +34,6 @@ class InventoryRequestController extends Controller
      */
     public function create()
     {
-
         return view('ims::inventory.request.create');
     }
 
@@ -59,12 +59,12 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param InventoryRequest $inventoryRequest
      * @return Response
      */
-    public function edit($id)
+    public function edit(InventoryRequest $inventoryRequest)
     {
-        return view('ims::edit');
+        return view('ims::inventory.request.edit', compact('inventoryRequest'));
     }
 
     /**

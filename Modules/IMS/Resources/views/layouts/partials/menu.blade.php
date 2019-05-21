@@ -48,7 +48,7 @@
                     <li class="{{ is_active_route('inventory-request.index') }}">
                         <a href="{{ route('inventory-request.index') }}">
                             <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_list')</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request') @lang('labels.list')</span>
                         </a>
                     </li>
                 </ul>

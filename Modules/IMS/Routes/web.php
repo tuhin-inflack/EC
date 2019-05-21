@@ -36,7 +36,10 @@ Route::prefix('ims')->group(function () {
     Route::prefix('inventory-request')->group(function () {
         Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.index');
         Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
-        Route::get('/warehouse/list', 'Inventory\InventoryRequestController@show')->name('inventory-request.list.by.warehouse');
+        Route::post('/create', 'Inventory\InventoryRequestController@store')->name('inventory-request.store');
+        Route::get('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@edit')->name('inventory-request.edit');
+        Route::post('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
+        Route::delete('{inventoryRequest}/delete', 'Inventory\InventoryRequestController@destroy')->name('inventory-request.destroy');
     });
 
     //fixed-asset route

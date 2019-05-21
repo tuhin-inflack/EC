@@ -11,9 +11,15 @@ return [
         'list_page_title' => 'Warehouse wise inventory',
     ],
     'inventory' => 'Inventory',
+
+    // Inventory Request
     'inventory_request' => 'Inventory Request',
-    'inventory_request_add' => 'New Inventory Request',
-    'inventory_request_list' => 'ইনভেন্টরি অনুরোধ তালিকা',
-    'inventory_request_form' => 'ইনভেন্টরি অনুরোধ ফর্ম',
-    'inventory_request_btn' => 'ইনভেন্টরি অনুরোধ করুন',
+    'inventory_request_title' => 'Inventory Request Title',
+    'inventory_request_type' => 'Inventory Request Type',
+    'inventory_request_types' => [
+        'requisition' => 'Requisition',
+        'transfer' => 'Transfer',
+        'scrap' => 'Scrap',
+        'abandon' => 'Abandon',
+    ]
 ];
