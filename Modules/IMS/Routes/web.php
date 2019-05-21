@@ -77,6 +77,11 @@ Route::prefix('ims')->group(function () {
         Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
     });
 
+    //Vendor
+    Route::prefix('vendor')->group(function () {
+       Route::get('/','Vendor\VendorController@index')->name('vendor.index');
+    });
+
 
 
 });
