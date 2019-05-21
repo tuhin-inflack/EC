@@ -82,6 +82,7 @@ Route::prefix('ims')->group(function () {
        Route::get('/','Vendor\VendorController@index')->name('vendor.index');
        Route::get('/create','Vendor\VendorController@create')->name('vendor.create');
        Route::post('/','Vendor\VendorController@store')->name('vendor.store');
+       Route::get('/{vendor}','Vendor\VendorController@show')->name('vendor.show');
     });
 
 

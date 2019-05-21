@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\Vendor;
 use Modules\IMS\Services\VendorService;
 
 class VendorController extends Controller
@@ -58,9 +59,9 @@ class VendorController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show($id)
+    public function show(Vendor $vendor)
     {
-        return view('ims::show');
+        return view('ims::vendor.show', compact('vendor'));
     }
 
     /**

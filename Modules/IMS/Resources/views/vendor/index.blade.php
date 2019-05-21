@@ -23,7 +23,7 @@
                                     <tr>
                                         <th scope="col">@lang('labels.serial')</th>
                                         <th scope="col">@lang('labels.name')</th>
-                                        <th scope="col">@lang('ims::location.description')</th>
+                                        <th scope="col">@lang('ims::vendor.description')</th>
                                         <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
@@ -33,7 +33,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="">{{ $vendor->name }}</a>
+                                                <a href="{{ route('vendor.show', $vendor->id) }}">{{ $vendor->name }}</a>
                                             </td>
                                             <td>{{ $vendor->description }}</td>
                                             <td>
@@ -45,7 +45,7 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{ route('vendor.show', $vendor->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                         <a href="" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
