@@ -6,7 +6,7 @@ return [
     'list_menu_title' => 'Auction List',
     'list_page_title' => 'Auction List',
     'add_menu_title' => 'Create Auction',
-    'name' => 'Acction name',
+    'name' => 'Auction name',
     'description' => 'Auction Details',
     'create' => 'Auction Asset',
     'detail' => 'Auction Detail',

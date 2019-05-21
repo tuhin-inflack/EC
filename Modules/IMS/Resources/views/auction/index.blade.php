@@ -1,5 +1,5 @@
 @extends('ims::layouts.master')
-@section('title', 'Note')
+@section('title', 'Auction')
 @push('page-css')
 @endpush
 @section('content')
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::fixed-asset.list_page_title')</h4>
+                        <h4 class="card-title">@lang('ims::auction.list_page_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -17,8 +17,8 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('fixed-asset.add') }}" class="btn btn-primary btn-sm">
-                                <i class="ft-plus white">@lang('ims::fixed-asset.create')</i>
+                            <a href="{{ route('auction.add') }}" class="btn btn-primary btn-sm">
+                                <i class="ft-plus white">@lang('ims::auction.create')</i>
                             </a>
                         </div>
                     </div>
@@ -29,8 +29,8 @@
                                     <thead>
                                     <tr>
                                         <th>{{trans('labels.serial')}}</th>
-                                        <th>@lang('ims::fixed-asset-list-table.name')</th>
-                                        <th>@lang('ims::fixed-asset-list-table.price')</th>
+                                        <th>@lang('ims::auction.name')</th>
+                                        <th>@lang('ims::auction.description')</th>
                                         <th>{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
@@ -40,7 +40,7 @@
 
                                         <tr>
                                             <th scope="row">{{$i}}</th>
-                                            <td><a href="{{route('fixed-asset.show',$i)}}">Chair</a></td>
+                                            <td><a href="{{route('auction.show',$i)}}">Chair</a></td>
                                             <td>100</td>
                                             <td>
                                                 <span class="dropdown">

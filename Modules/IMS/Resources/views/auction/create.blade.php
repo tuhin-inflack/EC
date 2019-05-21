@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::fixed-asset.add_menu_title')</h4>
+                        <h4 class="card-title">@lang('ims::auction.add_menu_title')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
                             <a href="{{ route('fixed-asset.list') }}" class="btn btn-primary btn-sm">
-                                <i class="ft-list white">@lang('ims::fixed-asset.list_page_title')</i>
+                                <i class="ft-list white">@lang('ims::auction.list_menu_title')</i>
                             </a>
                         </div>
                     </div>
@@ -38,12 +38,19 @@
                                                required>
                                     </div>
                                     <!-- Auction Date -->
-                                    <div class="col-6">
-                                        <label for="auction_date">@lang('ims::auction.date')</label>
-                                        <input type="date" min="0" id="auction_date" name="auction_date" class="form-control"
-                                               placeholder="@lang('ims::auction.description')" required>
+                                    
+                                    <div class="col">
+                                        <label class="required">@lang('ims::auction.date')</label>
+                                        {{ Form::text('auction_date', date('j F, Y'), [
+                                            'id' => 'auction_date',
+                                            'class' => 'form-control required' . ($errors->has('auction_date') ? ' is-invalid' : ''),
+                                            'placeholder' => 'Pick a date',
+                                            'required' => 'required',
+                                            
+                                        ]) }}
+                                        {{ Form::hidden('auction_date', date('j F, Y')) }}    
                                     </div>
-
+                                    
                                 </div>
 
                                 <div class="row">
@@ -63,6 +70,7 @@
 
                                 @endphp
 
+                                <!-- Scrap Product -->
                                 <div class="repeater-default">
                                         <div data-repeater-list="car">
                                             <div data-repeater-item>
@@ -154,5 +162,14 @@
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
+    <script type="text/javascript">
+   
+        // datepicker
+        $('#auction_date').pickadate({
+            min: new Date()
+        });
+    
+    </script>
+    
 @endpush
         
