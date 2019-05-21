@@ -50,6 +50,8 @@ Route::prefix('ims')->group(function () {
         Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
     });
 
-
+    Route::prefix('auctions/sales')->group(function () {
+        Route::get('create', 'AuctionSaleController@create')->name('auctions.sales.create');
+    });
 
 });
