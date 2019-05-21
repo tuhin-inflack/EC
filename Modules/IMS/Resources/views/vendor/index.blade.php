@@ -9,7 +9,7 @@
                     <div class="card-header">
                         <h4 class="card-title">{{trans('ims::vendor.vendor_list')}}</h4>
                         <div class="heading-elements">
-                            <a href="" class="btn btn-primary btn-sm">
+                            <a href="{{ route('vendor.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white"></i> {{trans('ims::vendor.create_new_vendor')}}
                             </a>
                         </div>

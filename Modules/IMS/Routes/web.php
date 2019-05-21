@@ -80,6 +80,8 @@ Route::prefix('ims')->group(function () {
     //Vendor
     Route::prefix('vendor')->group(function () {
        Route::get('/','Vendor\VendorController@index')->name('vendor.index');
+       Route::get('/create','Vendor\VendorController@create')->name('vendor.create');
+       Route::post('/','Vendor\VendorController@store')->name('vendor.store');
     });
 
 

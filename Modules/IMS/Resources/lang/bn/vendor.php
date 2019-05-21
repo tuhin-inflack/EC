@@ -10,4 +10,5 @@ return [
     'vendor' => 'বিক্রেতা',
     'vendor_list' => 'বিক্রেতা তালিকা',
     'create_new_vendor' => 'নতুন বিক্রেতা তৈরি',
+    'add_new_vendor' => 'নতুন বিক্রেতা সংযোজন',
 ];

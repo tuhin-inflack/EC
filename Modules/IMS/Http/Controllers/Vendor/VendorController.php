@@ -5,9 +5,23 @@ namespace Modules\IMS\Http\Controllers\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\IMS\Services\VendorService;
 
 class VendorController extends Controller
 {
+
+    /**
+     * @var VendorService
+     */
+    private $vendorService;
+
+    public function __construct(VendorService $vendorService)
+    {
+        /** @var VendorService $vendorService */
+        $this->vendorService = $vendorService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -23,7 +37,7 @@ class VendorController extends Controller
      */
     public function create()
     {
-        return view('ims::create');
+        return view('ims::vendor.create');
     }
 
     /**
@@ -33,7 +47,9 @@ class VendorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->vendorService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('vendor.index');
     }
 
     /**
