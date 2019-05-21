@@ -1,4 +1,5 @@
 @extends('ims::layouts.master')
+@section('title', trans('ims::auction.auction_sales'))
 
 @section('content')
     <div class="container">
@@ -28,17 +29,23 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="" class="form-label">@lang('ims::auction.vendor')</label>
-                                                {{ Form::select('vendor_id', [1,2,3], null, [
-                                                    'class' => 'form-control'
-                                                ]) }}
+                                                {{ Form::select('vendor_id',
+                                                    [
+                                                        '1' => 'Vendor 1',
+                                                        '2' => 'Vendor 2',
+                                                        '3' => 'Vendor 3',
+                                                    ],
+                                                    null,
+                                                    [
+                                                        'class' => 'form-control'
+                                                    ]
+                                                ) }}
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label for="" class="form-label">@lang('labels.date')</label>
-                                                {{ Form::text('date', null, [
-                                                    'class' => 'form-control'
-                                                ]) }}
+                                                {{ Form::text('date', date('d/m/Y'), ['class' => 'form-control']) }}
                                             </div>
                                         </div>
                                     </div>
@@ -60,24 +67,39 @@
                                             <tbody data-repeater-list="sales">
                                             <tr data-repeater-item>
                                                 <td>
-                                                    <select name="inventory_item_category_id" class="form-control">
-                                                        <option value="">Option 1</option>
-                                                        <option value="">Option 2</option>
-                                                        <option value="">Option 3</option>
-                                                        <option value="">Option 4</option>
-                                                    </select>
+                                                    {{ Form::select('inventory_item_category_id',
+                                                        [
+                                                            '1' => 'Option 1',
+                                                            '2' => 'Option 2',
+                                                            '3' => 'Option 3',
+                                                        ],
+                                                        null,
+                                                        ['class' => 'form-control']
+                                                    ) }}
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="quantity" min="0" class="form-control">
+                                                    {{ Form::number('quantity', null, [
+                                                        'class' => 'form-control',
+                                                        'min' => 1
+                                                    ]) }}
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="unit_price" min="0" class="form-control">
+                                                    {{ Form::number('unit_price', null, [
+                                                        'class' => 'form-control',
+                                                        'min' => 1
+                                                    ]) }}
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="tax" min="0" class="form-control">
+                                                    {{ Form::number('tax', null, [
+                                                        'class' => 'form-control',
+                                                        'min' => 1
+                                                    ]) }}
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="vat" min="0" class="form-control">
+                                                    {{ Form::number('vat', null, [
+                                                        'class' => 'form-control',
+                                                        'min' => 1
+                                                    ]) }}
                                                 </td>
                                                 <td class="total">
                                                     0
@@ -97,8 +119,7 @@
                                                 <th id="sum-vat">0</th>
                                                 <th id="sum-total">0</th>
                                                 <th class="text-center">
-                                                    <button type="button" class="btn btn-primary" data-repeater-create
-                                                            class>
+                                                    <button type="button" class="btn btn-primary" data-repeater-create>
                                                         <i class="ft ft-plus"></i> @lang('labels.add')
                                                     </button>
                                                 </th>
@@ -147,12 +168,9 @@
             if (element.name.includes('quantity')) {
                 quantity = element.value;
                 unitPrice = $(element).closest('tr').find('input[name*=unit_price]').val();
-            } else if (element.name.includes('unit_price')) {
-                quantity = $(element).closest('tr').find('input[name*=quantity]').val();
-                unitPrice = element.value;
             } else {
                 quantity = $(element).closest('tr').find('input[name*=quantity]').val();
-                unitPrice = $(element).closest('tr').find('input[name*=unit_price]').val();
+                unitPrice = element.value;
             }
 
             return quantity * unitPrice;
@@ -172,13 +190,22 @@
             $('#sum-total').html(sumTotal);
         }
 
+        function setRowTotal(element) {
+            if (!element.hasAttribute('name')) return;
+
+            if ((element.name.includes('quantity') || element.name.includes('unit_price'))) {
+                let rowTotal = getRowTotal(element);
+
+                $(element).closest('tr')
+                    .find('td.total')
+                    .html(rowTotal);
+            }
+        }
+
         function calculateFormChanges() {
             let element = event.target;
-            let rowTotal = element.hasOwnProperty('name') ? getRowTotal(element) : 0;
 
-            $(element).closest('tr')
-                .find('td.total')
-                .html(rowTotal);
+            setRowTotal(element);
 
             let sales = $('.repeater-sales').repeaterVal().sales;
 
