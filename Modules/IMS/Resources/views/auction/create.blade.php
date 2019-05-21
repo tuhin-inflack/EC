@@ -59,13 +59,13 @@
                                 <h4 class="form-section"><i
                                     class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
                                 @php
-                                    $roomTypes=['Imran Hossain',"Mohmmad Abdul sattart"]
+                                    $roomTypes=['Imran Hossain',"Mohmmad Abdul sattar"]
 
                                 @endphp
 
-                                <div class="repeater-room-infos">
-                                        <div data-repeater-list="roomInfos">
-                                            <div data-repeater-item="" style="">
+                                <div class="repeater-default">
+                                        <div data-repeater-list="car">
+                                            <div data-repeater-item>
                                                 <div class="form row">
                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                                         <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
@@ -99,7 +99,7 @@
                                        
                                         <div class="form-group overflow-auto">
                                             <div class="col-12">
-                                                <button type="button" data-repeater-create="" id="add_more_room"
+                                                <button type="button" data-repeater-create id="add_more_room"
                                                         class="pull-right btn btn-sm btn-outline-primary">
                                                     <i class="ft-plus"></i> @lang('labels.add')
                                                 </button>
@@ -149,7 +149,7 @@
     <script src="{{ asset('js/booking-request/step.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
-    
+
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
