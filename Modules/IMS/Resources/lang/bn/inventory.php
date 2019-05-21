@@ -11,9 +11,15 @@ return [
         'list_page_title' => 'কোষাগার অনুযায়ী পণ্যগার',
     ],
     'inventory' => 'ইনভেন্টরি',
-    'inventory_request_add' => 'নতুন ইনভেন্টরি অনুরোধ',
+
+    // Inventory Request
     'inventory_request' => 'ইনভেন্টরি অনুরোধ',
-    'inventory_request_list' => 'ইনভেন্টরি অনুরোধ তালিকা',
-    'inventory_request_form' => 'ইনভেন্টরি অনুরোধ ফর্ম',
-    'inventory_request_btn' => 'ইনভেন্টরি অনুরোধ করুন',
+    'inventory_request_title' => 'ইনভেন্টরি অনুরোধ শিরনাম',
+    'inventory_request_type' => 'ইনভেন্টরি অনুরোধের ধরণ',
+    'inventory_request_types' => [
+        'requisition' => 'চাহিদাপত্র',
+        'transfer' => 'হস্তান্তর',
+        'scrap' => 'স্ক্র্যাপ',
+        'abandon' => 'বর্জিত করা',
+    ]
 ];

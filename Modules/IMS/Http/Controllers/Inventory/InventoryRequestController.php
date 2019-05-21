@@ -5,16 +5,31 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\HRM\Services\EmployeeServices;
+use Modules\IMS\Entities\InventoryRequest;
+use Modules\IMS\Services\InventoryRequestService;
 
 class InventoryRequestController extends Controller
 {
+
+    private $inventoryRequestService;
+    private $employeeService;
+
+    public function __construct(InventoryRequestService $inventoryRequestService, EmployeeServices $employeeService)
+    {
+        $this->inventoryRequestService = $inventoryRequestService;
+        $this->employeeService = $employeeService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
     public function index()
     {
-        return view('ims::inventory.request.index');
+        $inventoryRequests = $this->inventoryRequestService->findAll();
+        return view('ims::inventory.request.index')->with(compact('inventoryRequests'));
     }
 
     /**
@@ -23,8 +38,12 @@ class InventoryRequestController extends Controller
      */
     public function create()
     {
+        $employeeOptions = $this->employeeService->getEmployeesForDropdown(
+            null, null,
+            ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
+        );
 
-        return view('ims::inventory.request.create');
+        return view('ims::inventory.request.create', compact('employeeOptions'));
     }
 
     /**
@@ -49,12 +68,12 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param InventoryRequest $inventoryRequest
      * @return Response
      */
-    public function edit($id)
+    public function edit(InventoryRequest $inventoryRequest)
     {
-        return view('ims::edit');
+        return view('ims::inventory.request.edit', compact('inventoryRequest'));
     }
 
     /**

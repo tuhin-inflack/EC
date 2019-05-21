@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateInventoriesTable extends Migration
+class CreateInventoryRequestDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateInventoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventories', function (Blueprint $table) {
+        Schema::create('inventory_request_details', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('location_id');
-            $table->integer('inventory_item_category_id');
-            $table->integer('quantity');
+            $table->integer('inventory_request_id');
+            $table->integer('category_id');
+            $table->double('quantity');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateInventoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventories');
+        Schema::dropIfExists('inventory_request_details');
     }
 }

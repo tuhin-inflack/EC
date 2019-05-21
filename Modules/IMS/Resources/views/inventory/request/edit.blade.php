@@ -1,11 +1,11 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('labels.new').' '. trans('ims::inventory.inventory_request'))
+@section('title', trans('labels.edit').' '. trans('ims::inventory.inventory_request'))
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">@lang('labels.new') @lang('ims::inventory.inventory_request')</h4>
+            <h4 class="card-title">@lang('labels.edit') @lang('ims::inventory.inventory_request')</h4>
             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
             <div class="heading-elements" style="top: 5px;">
                 <ul class="list-inline mb-1">
@@ -21,7 +21,7 @@
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                @include('ims::inventory.request.form', ['page' => 'create'])
+                @include('ims::inventory.request.form', ['page' => 'edit'])
             </div>
         </div>
     </div>
