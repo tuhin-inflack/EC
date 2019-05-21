@@ -9,5 +9,16 @@ return [
     'warehouse' => [
         'list_menu_title' => 'কোষাগার অনুযায়ী পণ্যগার',
         'list_page_title' => 'কোষাগার অনুযায়ী পণ্যগার',
-    ]
+    ],
+    'inventory_item_category' => 'ইনভেন্টরি আইটেম ক্যাটাগরি',
+    'item_category_list' => 'আইটেম ক্যাটাগরি তালিকা',
+    'create_new_category' => 'নতুন ক্যাটাগরি তৈরি',
+    'short_code' => 'শর্ট কোড',
+    'type' => 'নমুনা',
+    'unit' => 'একক',
+    'add_new_item_category' => 'নতুন আইটেম ক্যাটাগরি সংযোজন',
+    'new_item_category' => 'নতুন আইটেম ক্যাটাগরি',
+    'fixed_asset' => 'স্থায়ী সম্পদ',
+    'stationery' => 'স্টেশনারি',
+    'item_category_edit' => 'আইটেম ক্যাটাগরি সম্পাদনা',
 ];

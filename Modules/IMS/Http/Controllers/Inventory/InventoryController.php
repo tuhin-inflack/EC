@@ -5,9 +5,23 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Modules\IMS\Entities\Warehouse;
+use Modules\IMS\Services\WarehouseService;
 
 class InventoryController extends Controller
 {
+
+    /**
+     * @var WarehouseService
+     */
+    private $warehouseService;
+
+    public function __construct(WarehouseService $warehouseService)
+    {
+        /** @var WarehouseService $warehouseService */
+        $this->warehouseService = $warehouseService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
@@ -19,11 +33,13 @@ class InventoryController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param Warehouse $warehouse
      * @return Response
      */
-    public function create()
+    public function create(Warehouse $warehouse)
     {
-        return view('ims::create');
+        $warehouses = $this->warehouseService->getAllWarehousesForDropdown();
+        return view('ims::inventory.create', compact('warehouses'));
     }
 
     /**

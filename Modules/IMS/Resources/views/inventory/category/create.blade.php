@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::warehouse.create_page_title'))
+@section('title', trans('ims::inventory.add_new_item_category'))
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::warehouse.create_page_title')</h4>
+                        <h4 class="card-title">@lang('ims::inventory.add_new_item_category')</h4>
                         <a class="heading-elements-toggle" href=""><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -18,14 +18,14 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('inventory.warehouse.list') }}" class="btn btn-primary btn-sm">
-                                <i class="ft-list white">@lang('ims::warehouse-create-form.links.list')</i>
+                            <a href="{{ route('inventory-item-category.index') }}" class="btn btn-primary btn-sm">
+                                <i class="ft-list white">@lang('ims::inventory.item_category_list')</i>
                             </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('ims::warehouse.partials.form', ['page' => 'create'])
+                            @include('ims::inventory.category.form', ['page' => 'create'])
                         </div>
                     </div>
                 </div>
@@ -39,6 +39,8 @@
     <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
     <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('theme/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
 @endpush
 
 @push('page-js')
@@ -63,7 +65,7 @@
 
 
             // validation
-            $('.warehouse-tab-steps').validate({
+            $('.inventory-tab-steps').validate({
                 ignore: 'input[type=hidden]', // ignore hidden fields
                 errorClass: 'danger',
                 successClass: 'success',

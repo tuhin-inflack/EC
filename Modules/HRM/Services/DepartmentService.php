@@ -11,6 +11,7 @@ namespace Modules\HRM\Services;
 
 use App\Http\Responses\DataResponse;
 use App\Traits\CrudTrait;
+use Closure;
 use Illuminate\Http\Response;
 use Modules\HRM\Repositories\DepartmentRepository;
 use Modules\HRM\Repositories\EmployeeDepartmentRepository;
@@ -62,4 +63,23 @@ class DepartmentService {
 			return new Response( trans('labels.delete_success') );
 		}
 	}
+
+	public function getDepartmentsForDropdown(Closure $implementedValue = null, Closure $implementedKey = null)
+    {
+        $departments = $this->departmentRepository->findAll();
+
+        $departmentOptions = [];
+
+        foreach ($departments as $department) {
+            $departmentId = $implementedKey ? $implementedKey($department) : $department->id;
+
+            $implementedValue = $implementedValue ? : function($department) {
+                return $department->department_code . ' - ' . $department->name;
+            };
+
+            $departmentOptions[$departmentId] = $implementedValue($department);
+        }
+
+        return $departmentOptions;
+    }
 }

@@ -5,7 +5,7 @@ return [
     'warehouse_department_date' => 'কোষাগার',
     'fields' => [
         'warehouse' => [
-            'title' => 'Choose Warehouse'
+            'title' => 'কোষাগার নির্বাচন করুন'
         ],
         'department' => [
             'title' => 'Choose Department'
