@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::product.list_page_title'))
+@section('title', trans('ims::inventory.inventory_request_list'))
 
 @section('content')
     <section id="product-list">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::product.list_page_title')</h4>
+                        <h4 class="card-title">@lang('ims::inventory.inventory_request_list')</h4>
                         <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -17,8 +17,8 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('inventory.product.create') }}" class="btn btn-primary btn-sm">
-                                <i class="ft-plus white">@lang('ims::product-list-table.links.add')</i>
+                            <a href="{{ route('inventory-request.create') }}" class="btn btn-primary btn-sm">
+                                <i class="ft-plus white"> @lang('labels.new') @lang('ims::inventory.inventory_request')</i>
                             </a>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                     <thead>
                                         <tr>
                                             <th>{{trans('labels.serial')}}</th>
-                                            <th>@lang('ims::product-list-table.columns.name')</th>
+                                            <th>@lang('labels.title')</th>
                                             <th>@lang('ims::product-list-table.columns.code')</th>
                                             <th>@lang('ims::product-list-table.columns.hs_code')</th>
                                             <th>@lang('ims::product-list-table.columns.bar_code')</th>

@@ -34,7 +34,7 @@ Route::prefix('ims')->group(function () {
     });
 
     Route::prefix('inventory-request')->group(function () {
-        Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.list');
+        Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.index');
         Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
         Route::get('/warehouse/list', 'Inventory\InventoryRequestController@show')->name('inventory-request.list.by.warehouse');
     });

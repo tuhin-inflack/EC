@@ -3,13 +3,10 @@
 namespace Modules\IMS\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InventoryRequest extends Model
 {
-    use SoftDeletes;
-
-    protected $fillable = ['from_location_id', 'to_location_id', 'quantity' ];
+    protected $fillable = ['title', 'type', 'from_location_id', 'to_location_id', 'status'];
 
     public function detail()
     {

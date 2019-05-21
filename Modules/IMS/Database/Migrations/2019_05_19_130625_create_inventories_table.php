@@ -18,7 +18,6 @@ class CreateInventoriesTable extends Migration
             $table->integer('location_id');
             $table->integer('inventory_item_category_id');
             $table->integer('quantity');
-
             $table->timestamps();
         });
     }
