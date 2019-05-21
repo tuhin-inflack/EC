@@ -2,12 +2,13 @@
 
 
 return [
-    'title' => 'Auction Asset',
-    'list_menu_title' => 'Auction Asset List',
-    'list_page_title' => 'Auction Asset List',
-    'add_menu_title' => 'Create Auction Asset',
-    'name' => 'FAuctionxed asset name',
-    'price' => 'Auction Asset Price',
-    'create' => 'Auction Fixed Asset',
-    'detail' => 'Auction Asset Detail',
+    'title' => 'Auction',
+    'list_menu_title' => 'Auction List',
+    'list_page_title' => 'Auction List',
+    'add_menu_title' => 'Create Auction',
+    'name' => 'Acction name',
+    'description' => 'Auction Details',
+    'create' => 'Auction Asset',
+    'detail' => 'Auction Detail',
+    'scrap_add' => 'Add Scrap Product',
 ];

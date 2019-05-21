@@ -1,7 +1,6 @@
 @extends('ims::layouts.master')
 @section('title', 'Note')
-@push('page-css')
-@endpush
+
 @section('content')
 
     <div class="container">
@@ -29,26 +28,84 @@
                             <form action="{{ route('fixed-asset.add') }}" method="POST">
                                 @csrf
                                 <h4 class="form-section"><i
-                                            class="la la-puzzle-piece"></i> @lang('ims::fixed-asset.title')</h4>
+                                            class="la la-puzzle-piece"></i> @lang('ims::auction.title')</h4>
                                 <div class="row">
-                                    <!-- Asset Name -->
-                                    <div class="col-6">
-                                        <label for="fixed_asset_name"> @lang('ims::fixed-asset.name')</label>
-                                        <input id="fixed_asset_name" name="fixed_asset_name" type="text"
-                                               class="form-control" placeholder="@lang('ims::fixed-asset.name')"
+                                    <!-- Auction Title -->
+                                    <div class="col">
+                                        <label for="auction_title"> @lang('ims::auction.name')</label>
+                                        <input id="auction_title" name="auction_title" type="text"
+                                               class="form-control" placeholder="@lang('ims::auction.name')"
                                                required>
                                     </div>
-                                    <!-- Asset Price -->
+                                    <!-- Auction Date -->
                                     <div class="col-6">
-
-                                        <label for="fixed_asset_price">@lang('ims::fixed-asset.price')</label>
-                                        <input type="number" min="0" id="fixed_asset_price" class="form-control"
-                                               placeholder="@lang('ims::fixed-asset.price')" required>
+                                        <label for="auction_date">@lang('ims::auction.date')</label>
+                                        <input type="date" min="0" id="auction_date" name="auction_date" class="form-control"
+                                               placeholder="@lang('ims::auction.description')" required>
                                     </div>
 
                                 </div>
 
+                                <div class="row">
+                                    <!-- Auction Description -->
+                                    <div class="col">
+                                        <label for="auction_description">@lang('ims::auction.description')</label>
+                                        <input type="text" min="0" id="auction_description" name="auction_description" class="form-control"
+                                               placeholder="@lang('ims::auction.description')" required>
+                                    </div>
+                                    
+                                </div>
 
+                                <h4 class="form-section"><i
+                                    class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
+                                @php
+                                    $roomTypes=['Imran Hossain',"Mohmmad Abdul sattart"]
+
+                                @endphp
+
+                                <div class="repeater-room-infos">
+                                        <div data-repeater-list="roomInfos">
+                                            <div data-repeater-item="" style="">
+                                                <div class="form row">
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
+                                                        <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
+                                                        <br>
+                                                        {!! Form::select('room_type_id', $roomTypes, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                                        <span class="select-error"></span>
+                                                    </div>
+                                                    <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                        <label class="required"
+                                                                for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
+                                                        <br>
+                                                        {!! Form::number('quantity', null, [
+                                                            'class' => 'form-control required', 'placeholder' => 'e.g. 2',
+                                                            'data-msg-required' => trans('labels.This field is required'),
+                                                            'min' => 1,
+                                                            'data-msg-min'=> trans('labels.At least 1 characters'),
+                                                            'max' => 100,
+                                                            'data-msg-max'=> trans('labels.At most 100 characters'),
+                                                        ]) !!}
+                                                    </div>
+                                                   
+                                                    <div class="form-group col-sm-12 col-md-1 text-center mt-2">
+                                                        <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                                            <i class="ft-x"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group overflow-auto">
+                                            <div class="col-12">
+                                                <button type="button" data-repeater-create="" id="add_more_room"
+                                                        class="pull-right btn btn-sm btn-outline-primary">
+                                                    <i class="ft-plus"></i> @lang('labels.add')
+                                                </button>
+                                            </div>
+                                        </div>
+                                </div>        
                                 <!-- Labels -->
                                 <div class="form-actions mb-lg-3">
                                     <a class="btn btn-warning pull-right" role="button"
@@ -69,7 +126,33 @@
 
 @endsection
 
-@push('page-js')
+@push('page-css')
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/forms/icheck/icheck.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/checkboxes-radios.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/forms/wizard.css') }}">
 
+    <link rel="stylesheet" href="{{  asset('theme/vendors/css/pickers/pickadate/pickadate.css') }}">
+    <link rel="stylesheet" href="{{ asset('theme/vendors/css/pickers/daterange/daterangepicker.css')  }}">
+    <link rel="stylesheet" href="{{ asset('theme/css/plugins/pickers/daterange/daterange.css')  }}">
+@endpush
+
+@push('page-js')
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/pickers/dateTime/pick-a-datetime.js') }}"></script>
+
+    <script src="{{ asset('theme/vendors/js/pickers/daterange/daterangepicker.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/extensions/jquery.steps.min.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/wizard-steps.js') }}"></script>
+    {{-- @include('hm::booking-request.partials.javascript') --}}
+    <script src="{{ asset('js/booking-request/step.js') }}"></script>
+    <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>
+    
+    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+    <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
 @endpush
+        

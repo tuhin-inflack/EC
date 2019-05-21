@@ -52,10 +52,10 @@ Route::prefix('ims')->group(function () {
 
     //Auction route
     Route::prefix('auction')->group(function () {
-        Route::get('/', 'FixedAsset\FixedAssetController@index')->name('auction.list');
-        Route::get('/create', 'FixedAsset\FixedAssetController@create')->name('auction.add');
-        Route::post('/create', 'FixedAsset\FixedAssetController@store')->name('auction.add');
-        Route::get('/{id}', 'FixedAsset\FixedAssetController@show')->name('auction.show');
+        Route::get('/', 'Auction\AuctionController@index')->name('auction.list');
+        Route::get('/create', 'Auction\AuctionController@create')->name('auction.add');
+        Route::post('/create', 'Auction\AuctionController@store')->name('auction.add');
+        Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
     
     });
 
