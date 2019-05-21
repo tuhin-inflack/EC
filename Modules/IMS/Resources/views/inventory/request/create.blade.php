@@ -26,3 +26,9 @@
         </div>
     </div>
 @stop
+
+@push('page-js')
+    <script type="text/javascript">
+        $('.select').select2();
+    </script>
+@endpush

@@ -7,7 +7,7 @@
 
 <h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.inventory_request')</h4>
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-7">
         <div class="form-group">
             {!! Form::label('title', trans('ims::inventory.inventory_request_title'), ['class' => 'form-label required']) !!}
 
@@ -25,6 +25,26 @@
             @endif
         </div>
     </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            {!! Form::label('receiver_id', trans('labels.receiver'), ['class' => 'form-label required']) !!}
+            {!! Form::select('receiver_id',
+                $employeeOptions,
+                $page === 'create' ? null : $inventoryRequest->type,
+                [
+                    'class'=>'form-control select required' . ($errors->has('employee_id') ? ' is-invalid' : ''),
+                ])
+            !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('receiver_id'))
+                <span class="invalid-feedback">{{ $errors->first('receiver_id') }}</span>
+            @endif
+        </div>
+    </div>
+</div>
+<div class="row">
+
     <div class="col-md-3">
         <div class="form-group">
             {!! Form::label('type', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
@@ -32,7 +52,7 @@
                 trans('ims::inventory.inventory_request_types'),
                 $page === 'create' ? null : $inventoryRequest->type,
                 [
-                    'class'=>'form-control required'
+                    'class'=>'form-control select required'
                 ])
             !!}
 

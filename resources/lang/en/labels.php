@@ -149,6 +149,7 @@ return [
     'nid_number' => 'NID Number',
     'open' => 'Open',
     'closed' => 'Closed',
+    'receiver' => 'Receiver',
     'message_to_receiver' => 'Message to receiver',
     'resubmit' => 'Resubmit',
     'research_closed' => 'Research proposal closed successfully',

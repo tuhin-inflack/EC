@@ -38,9 +38,12 @@ class InventoryRequestController extends Controller
      */
     public function create()
     {
-        $employees = $this->employeeService->getEmployeesForDropdown(null, null, ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]);
-        dd($employees);
-        return view('ims::inventory.request.create');
+        $employeeOptions = $this->employeeService->getEmployeesForDropdown(
+            null, null,
+            ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
+        );
+
+        return view('ims::inventory.request.create', compact('employeeOptions'));
     }
 
     /**
