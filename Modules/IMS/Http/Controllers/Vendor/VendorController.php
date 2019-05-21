@@ -69,9 +69,9 @@ class VendorController extends Controller
      * @param int $id
      * @return Response
      */
-    public function edit($id)
+    public function edit(Vendor $vendor)
     {
-        return view('ims::edit');
+        return view('ims::vendor.edit', compact('vendor'));
     }
 
     /**
@@ -80,9 +80,11 @@ class VendorController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Vendor $vendor)
     {
-        //
+        $this->vendorService->updateVendor($vendor, $request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('vendor.index');
     }
 
     /**

@@ -1,6 +1,6 @@
 @extends('ims::layouts.master')
 
-@section('title', trans('ims::vendor.add_new_vendor'))
+@section('title', trans('ims::vendor.vendor_edit'))
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">@lang('ims::vendor.add_new_vendor')</h4>
+                        <h4 class="card-title">@lang('ims::vendor.vendor_edit')</h4>
                         <a class="heading-elements-toggle" href=""><i class="la la-ellipsis-v font-medium-3"></i></a>
                         <div class="heading-elements" style="top: 5px;">
                             <ul class="list-inline mb-1">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('ims::vendor.partials.form', ['page' => 'create'])
+                            @include('ims::vendor.partials.form', ['page' => 'edit'])
                         </div>
                     </div>
                 </div>

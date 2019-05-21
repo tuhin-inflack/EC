@@ -8,6 +8,8 @@
 
 namespace Modules\IMS\Services;
 
+use Illuminate\Support\Facades\DB;
+use Modules\IMS\Entities\Vendor;
 use Modules\IMS\Repositories\VendorRepository;
 
 class VendorService
@@ -32,5 +34,12 @@ class VendorService
     public function getAllVendors()
     {
         return $this->vendorRepository->findAll();
+    }
+
+    public function updateVendor(Vendor $vendor, array $data)
+    {
+        return DB::transaction(function () use ($vendor, $data){
+            return $vendor->update($data);
+        });
     }
 }

@@ -1,9 +1,14 @@
-{{ Form::open(['route' =>  'vendor.store', 'class' => 'vendor-tab-steps wizard-circle']) }}
-<h4 class="form-section"><i class="la la-building"></i> @lang('ims::location.new_location')</h4>
+@if($page == 'create')
+    {{ Form::open(['route' =>  'vendor.store', 'class' => 'vendor-tab-steps wizard-circle']) }}
+@else
+    {{ Form::open(['route' =>  ['vendor.update', $vendor->id], 'class' => 'location-tab-steps wizard-circle']) }}
+    @method('PUT')
+@endif
+<h4 class="form-section"><i class="la la-building"></i> @lang('ims::vendor.new_vendor')</h4>
 <div class="row">
     <div class="col-6">
         {!! Form::label('name', __('labels.name'), ['class' => 'form-label required']) !!}
-        {!! Form::text('name', old('name'), ['class' => "form-control", "required ", "placeholder" => __('labels.name'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
+        {!! Form::text('name', $page == 'create' ? old('name') : $vendor->name, ['class' => "form-control", "required ", "placeholder" => __('labels.name'), 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters'),
         'data-msg-required' => Lang::get('labels.This field is required')]) !!}
         <div class="help-block"></div>
         @if ($errors->has('name'))
@@ -14,7 +19,7 @@
     </div>
     <div class="col-6">
         {!! Form::label('description', __('ims::location.description'), ['class' => 'form-label required']) !!}
-        {!! Form::textarea('description', old('description'), ['class' => "form-control", "required ", "placeholder" => __('ims::location.description'), 'data-rule-maxlength' => 5000, 'data-msg-maxlength'=>Lang::get('labels.At most 5000 characters'),
+        {!! Form::textarea('description', $page == 'create' ? old('description') : $vendor->description, ['class' => "form-control", "required ", "placeholder" => __('ims::location.description'), 'data-rule-maxlength' => 5000, 'data-msg-maxlength'=>Lang::get('labels.At most 5000 characters'),
         'data-msg-required' => Lang::get('labels.This field is required')]) !!}
         <div class="help-block"></div>
         @if ($errors->has('description'))

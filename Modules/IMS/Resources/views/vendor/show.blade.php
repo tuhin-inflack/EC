@@ -17,6 +17,11 @@
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
                         </div>
+                        <div class="heading-elements mt-2" style="margin-right: 10px;">
+                            <a href="{{ route('vendor.index') }}" class="btn btn-primary btn-sm">
+                                <i class="ft-list white">@lang('ims::vendor.vendor_list')</i>
+                            </a>
+                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">

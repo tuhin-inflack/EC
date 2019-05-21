@@ -13,4 +13,6 @@ return [
     'add_new_vendor' => 'Add New Vendor',
     'vendor_details' => 'Vendor Details',
     'description' => 'Description',
+    'vendor_edit' => 'Vendor Edit',
+    'new_vendor' => 'New Vendor',
 ];

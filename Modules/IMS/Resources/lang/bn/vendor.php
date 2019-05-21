@@ -13,4 +13,6 @@ return [
     'add_new_vendor' => 'নতুন বিক্রেতা সংযোজন',
     'vendor_details' => 'বিক্রেতা বিস্তারিত',
     'description' => 'বিবরণ',
+    'vendor_edit' => 'বিক্রেতা সম্পাদনা',
+    'new_vendor' => 'নতুন বিক্রেতা',
 ];
