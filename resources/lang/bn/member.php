@@ -1,9 +1,9 @@
 <?php
 return [
-    'add_member' => ' মেম্বার যোগ করুন',
-    'edit_member' => ' মেম্বার সম্পাদন করুন',
-    'member' => 'মেম্বার',
-    'member_adding_form' => 'মেম্বার যোগ করার ফর্ম',
-    'member_editing_form' => 'েম্বার সম্পাদন করার ফর্ম',
-    'member_list' => 'মেম্বার তালিকা',
+    'add_member' => ' সদস্য যোগ করুন',
+    'edit_member' => ' সদস্য সম্পাদন করুন',
+    'member' => 'সদস্য',
+    'member_adding_form' => 'সদস্য যোগ করার ফর্ম',
+    'member_editing_form' => 'সদস্য সম্পাদন করার ফর্ম',
+    'member_list' => 'সদস্য তালিকা',
 ];

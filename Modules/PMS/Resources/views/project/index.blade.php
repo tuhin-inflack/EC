@@ -58,7 +58,7 @@
                                             </td>
                                             <td>{{ $project->projectSubmittedByUser->name }}</td>
                                             <td>{{ date('d/m/Y, h:iA', strtotime($project->created_at)) }}</td>
-                                            <td>@lang('pms::project_proposal.' . $project->status)</td>
+                                            <td>@lang('pms::project_proposal.in_progress')</td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
