@@ -173,6 +173,24 @@
             </li>
             <!-- // Asset Management-->
 
+            <!-- Vendor -->
+            <li class="nav-item">
+                <a href="#">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::vendor.vendor')</span>
+                </a>
+                <ul class="menu-content">
+                    <li class="{{ is_active_route('vendor.index') }}">
+                        <a href="{{ route('vendor.index') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::vendor.vendor_list')</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!-- //Vendor -->
+
+
             <!-- Auction -->
             <li class="nav-item">
                 <a href="#">

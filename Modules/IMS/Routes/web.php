@@ -95,6 +95,16 @@ Route::prefix('ims')->group(function () {
         Route::post('/create', 'Auction\AuctionController@store')->name('auction.add');
         Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
     });
+    //Vendor
+    Route::prefix('vendor')->group(function () {
+       Route::get('/','Vendor\VendorController@index')->name('vendor.index');
+       Route::get('/create','Vendor\VendorController@create')->name('vendor.create');
+       Route::post('/','Vendor\VendorController@store')->name('vendor.store');
+       Route::get('/{vendor}','Vendor\VendorController@show')->name('vendor.show');
+       Route::get('{vendor}/edit','Vendor\VendorController@edit')->name('vendor.edit');
+       Route::put('{vendor}/update','Vendor\VendorController@update')->name('vendor.update');
+    });
+
 
     // Auction sales
     Route::prefix('auctions/sales')->group(function () {
