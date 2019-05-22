@@ -30,7 +30,7 @@
             {!! Form::label('receiver_id', trans('labels.receiver'), ['class' => 'form-label required']) !!}
             {!! Form::select('receiver_id',
                 $employeeOptions,
-                $page === 'create' ? null : $inventoryRequest->type,
+                $page === 'create' ? null : $inventoryRequest->receiver_id,
                 [
                     'class'=>'form-control select required' . ($errors->has('employee_id') ? ' is-invalid' : ''),
                 ])
