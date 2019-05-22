@@ -9,17 +9,21 @@ use Illuminate\Support\Facades\Auth;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryRequestService;
+use Modules\IMS\Services\LocationService;
 
 class InventoryRequestController extends Controller
 {
 
     private $inventoryRequestService;
     private $employeeService;
+    private $locationService;
 
-    public function __construct(InventoryRequestService $inventoryRequestService, EmployeeServices $employeeService)
+    public function __construct(InventoryRequestService $inventoryRequestService,
+                                EmployeeServices $employeeService, LocationService $locationService)
     {
         $this->inventoryRequestService = $inventoryRequestService;
         $this->employeeService = $employeeService;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -43,8 +47,7 @@ class InventoryRequestController extends Controller
             ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
         );
 
-        $fromLocations = [];
-        $toLocations = [];
+        $fromLocations = $toLocations = $this->locationService->getLocationsForDropdown();
 
         return view('ims::inventory.request.create', compact('employeeOptions', 'fromLocations', 'toLocations'));
     }
