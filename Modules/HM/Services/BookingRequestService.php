@@ -563,34 +563,5 @@ class BookingRequestService
         return (!is_null($roomBooking)
             && !is_null($roomBooking->requester->$attribute));
     }
-
-    public function getCheckedInDuration(RoomBooking $roomBooking)
-    {
-        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
-
-        $endDate = $this->getCheckedInEndDate($roomBooking);
-
-        $duration = $startDate->diffInDays($endDate);
-
-        return $duration ?: 1;
-    }
-
-    /**
-     * @param RoomBooking $roomBooking
-     * @return Carbon
-     */
-    public function getCheckedInEndDate(RoomBooking $roomBooking)
-    {
-        if ($roomBooking->actual_end_date) {
-            $actualEndDate = Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date);
-            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
-
-            $endDate = $endDate->greaterThanOrEqualTo($actualEndDate) ? $endDate : $actualEndDate;
-        } else {
-            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
-        }
-
-        return $endDate;
-    }
 }
 
