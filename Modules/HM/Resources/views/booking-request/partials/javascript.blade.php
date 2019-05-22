@@ -1,4 +1,4 @@
-                mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmn<script>
+    <script>
     /*
     *  Creation of js variables from php variables to be used in page.js and step.js
     * */
