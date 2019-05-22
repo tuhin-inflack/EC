@@ -46,7 +46,7 @@
 <div class="row">
     <div class="col-md-2">
         <div class="form-group">
-            {!! Form::label('type', trans('ims::inventory.inventory_location'), ['class' => 'form-label required']) !!}
+            {!! Form::label('type', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
             {!! Form::select('type',
                 trans('ims::inventory.inventory_request_types'),
                 $page === 'create' ? null : $inventoryRequest->type,
