@@ -35,11 +35,11 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('js/hostel-budget/sum.js') }}"></script>
     <script>
-
-
         $(document).ready(function () {
+            calculateBudgetSum('budget_amount');
+            
             $('.item-select').select2({
                 tags: true,
                 delimiter: ',',

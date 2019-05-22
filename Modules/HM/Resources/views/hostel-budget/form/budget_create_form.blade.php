@@ -24,7 +24,7 @@
                             <div data-repeater-item="" style="">
                                 <div class="form row">
                                     <div class="form-group  mb-1 col-sm-12 col-md-5 {{ $errors->hostelBudget->has("hostel_budgets.".$key.".hostel_budget_section_id") ? 'error' : '' }}">
-
+               
                                         {{ Form::label('hostel_budget_title_id', trans('hm::hostel_budget.section') ,  ['class' => 'form-label required'])}}
                                         {{ Form::select('hostel_budget_section_id', $budgetSections, $budget['hostel_budget_section_id'], ['placeholder' =>'Select budget section',   'class' => ' form-control .( $errors->has("hostel_budgets.".$key.".hostel_budget_section_id") ? "is-invalid" : "")', 'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.section')])]) }}
                                         <div class="help-block"></div>
@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="form-group  mb-1 col-sm-12 col-md-5 {{ $errors->hostelBudget->has("hostel_budgets.".$key.".budget_amount") ? 'error' : '' }}">
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                        {{ Form::number('budget_amount', $budget['budget_amount'], ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
+                                        {{ Form::number('budget_amount', $budget['budget_amount'], ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->hostelBudget->has("hostel_budgets.".$key.".budget_amount"))
                                             <div class="help-block">  {{ $errors->hostelBudget->first('hostel_budgets.*.budget_amount') }}</div>
@@ -64,9 +64,9 @@
 
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-
+                                    
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_amount', null, ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
+                                    {{ Form::number('budget_amount', null, ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
                                     <div class="help-block"></div>
 
                                 </div>
@@ -83,13 +83,16 @@
                 </div>
                 <div class="form-group overflow-auto">
                     <div class="col-12">
+                        <div class="text-center">
+                            <b>@lang('labels.total'): <span id="total_budget_amount">0</span></b>
+                        </div>
                         <button type="button" data-repeater-create=""
                                 class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
                             <i class="ft-plus"></i> {{ trans('labels.add') }}
                         </button>
                     </div>
                 </div>
-
+                
                 <div class="form-actions text-center">
                     <button type="submit" class="btn btn-primary submit">
                         <i class="la la-check-square-o"></i> {{ trans('labels.save') }}

@@ -42,7 +42,7 @@
                                 @if(auth()->user()->hasAnyRole(['ROLE_DIRECTOR_ADMIN']))
                                     <div class="form-group mb-1 col-sm-12 col-md-4">
                                         {{ Form::label('budget_amount', trans('hm::hostel_budget.approve_amount'), ['class' => 'required']) }}
-                                        {{ Form::number('budget_approved_amount', $budget->budget_amount, ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>'Please enter budget amount']) }}
+                                        {{ Form::number('budget_approved_amount', $budget->budget_amount, ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>'Please enter budget amount']) }}
                                         <div class="help-block"></div>
                                         @if ($errors->has('budget_approved_amount'))
                                             <div class="help-block">  {{ $errors->first('budget_approved_amount') }}</div>
@@ -52,8 +52,20 @@
 
                             </div>
                             <hr>
+                            
                         </div>
                     @endforeach
+                    <div class="form row">
+                            <div class="form-group mb-1 col-sm-12 col-md-4">
+                                <b>@lang('labels.total'):</b> 
+                            </div>
+                            <div class="form-group mb-1 col-sm-12 col-md-4">
+                                <b>{{ $budgetWithTitles->hostelBudgets->sum('budget_amount' ) }}</b>
+                            </div>
+                            <div class="form-group mb-1 col-sm-12 col-md-4">
+                                <b id="total_budget_amount">{{ $budgetWithTitles->hostelBudgets->sum('budget_amount' ) }}</b>
+                            </div>
+                        </div>
                 </div>
 
 
