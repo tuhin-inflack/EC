@@ -31,7 +31,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        return view('ims::inventory.request.create');
+        return view('ims::inventory.create');
     }
 
     /**

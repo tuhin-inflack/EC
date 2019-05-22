@@ -16,7 +16,7 @@ class CreateInventoryRequestsTable extends Migration
         Schema::create('inventory_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->enum('type', ['requisition', 'transfer', 'scrap', 'abandon'])->default('requisition');
+            $table->enum('request_type', ['requisition', 'transfer', 'scrap', 'abandon'])->default('requisition');
             $table->integer('from_location_id');
             $table->integer('to_location_id');
             $table->integer('requester_id');
