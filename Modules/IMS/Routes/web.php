@@ -36,8 +36,18 @@ Route::prefix('ims')->group(function () {
 
     Route::prefix('inventory')->group(function () {
         Route::get('/', 'Inventory\InventoryController@index')->name('inventory.list');
-        Route::get('/create', 'Inventory\InventoryController@create')->name('inventory.create');
+        Route::get('/save/{reqId}', 'Inventory\InventoryController@save')->name('inventory.save');
+        Route::get('/add', 'Inventory\InventoryController@edit')->name('inventory.add');
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
+    });
+
+    Route::prefix('inventory-request')->group(function () {
+        Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.index');
+        Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
+        Route::post('/create', 'Inventory\InventoryRequestController@store')->name('inventory-request.store');
+        Route::get('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@edit')->name('inventory-request.edit');
+        Route::post('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
+        Route::delete('{inventoryRequest}/delete', 'Inventory\InventoryRequestController@destroy')->name('inventory-request.destroy');
     });
 
     // Inventory Item Category
@@ -85,5 +95,4 @@ Route::prefix('ims')->group(function () {
         Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
     
     });
-
 });

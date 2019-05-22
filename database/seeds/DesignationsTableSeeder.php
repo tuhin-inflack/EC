@@ -287,6 +287,26 @@ class DesignationsTableSeeder extends Seeder
                 'updated_at' => '2019-02-07 21:30:06',
                 'deleted_at' => NULL,
             ),
+            27 =>
+            array (
+                'id' => 28,
+                'name' => 'Estate Come Store Officer',
+                'short_name' => 'ESO',
+                'department_id' => 10,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
+            28 =>
+            array (
+                'id' => 29,
+                'name' => 'Store Officer',
+                'short_name' => 'SO',
+                'department_id' => 10,
+                'created_at' => '2019-02-07 21:30:06',
+                'updated_at' => '2019-02-07 21:30:06',
+                'deleted_at' => NULL,
+            ),
         ));
         
         

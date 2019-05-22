@@ -83,11 +83,12 @@ class EmployeeServices
      *
      * @param Closure $implementedValue Anonymous Implementation of Value
      * @param Closure $implementedKey Anonymous Implementation Key index
+     * @param array|null $query
      * @return array
      */
-    public function getEmployeesForDropdown(Closure $implementedValue = null, Closure $implementedKey = null)
+    public function getEmployeesForDropdown(Closure $implementedValue = null, Closure $implementedKey = null, array $query = null)
     {
-        $employees = $this->employeeRepository->findAll();
+        $employees = $query ? $this->employeeRepository->findBy($query) : $this->employeeRepository->findAll();
 
         $employeeOptions = [];
 
