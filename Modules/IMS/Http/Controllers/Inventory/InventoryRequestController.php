@@ -8,6 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
+use Modules\IMS\Services\InventoryItemCategoryService;
 use Modules\IMS\Services\InventoryRequestService;
 use Modules\IMS\Services\LocationService;
 
@@ -17,13 +18,18 @@ class InventoryRequestController extends Controller
     private $inventoryRequestService;
     private $employeeService;
     private $locationService;
+    private $inventoryItemCategoryService;
 
     public function __construct(InventoryRequestService $inventoryRequestService,
-                                EmployeeServices $employeeService, LocationService $locationService)
+                                EmployeeServices $employeeService,
+                                LocationService $locationService,
+                                InventoryItemCategoryService $inventoryItemCategoryService
+    )
     {
         $this->inventoryRequestService = $inventoryRequestService;
         $this->employeeService = $employeeService;
         $this->locationService = $locationService;
+        $this->inventoryItemCategoryService = $inventoryItemCategoryService;
     }
 
     /**
@@ -48,8 +54,15 @@ class InventoryRequestController extends Controller
         );
 
         $fromLocations = $toLocations = $this->locationService->getLocationsForDropdown();
+        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
 
-        return view('ims::inventory.request.create', compact('employeeOptions', 'fromLocations', 'toLocations'));
+        return view('ims::inventory.request.create',
+            compact('employeeOptions',
+                'fromLocations',
+                'toLocations',
+                'itemCategories'
+            )
+        );
     }
 
     /**

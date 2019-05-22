@@ -103,39 +103,37 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th rowspan="2" width="4%"># SL</th>
-                <th rowspan="2">@lang('ims::product.title')</th>
-                <th colspan="2">@lang('labels.quantity')</th>
+                <th>@lang('ims::product.title')</th>
+                <th>@lang('labels.quantity')</th>
+                <th width="1%"><i class="la la-plus-circle text-info"></i></th>
             </tr>
             </thead>
             <tbody id="category-table">
             @if($page === 'create')
-                @for($i = 0; $i <= 4; $i++)
-                    <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td><input type="text" name="fiscal_year[{{ $i }}]" class="form-control"></td>
-                        <td><input type="number" name="monetary_amount[{{ $i }}]" min="0" class="form-control"></td>
-                    </tr>
-                @endfor
+                <tr>
+                    <td>
+{{--                        <input type="text" name="category_id[0]" class="form-control">--}}
+                        {!! Form::select('category_id',
+                            $itemCategories, null,
+                            [
+                                'class' => 'form-control select required'
+                            ])
+                        !!}
+                    </td>
+                    <td><input type="number" name="quantity[0]" min="0" class="form-control"></td>
+                    <td><i class="la la-trash-o text-danger"></i></td>
+                </tr>
             @elseif($page === 'edit')
                 @for($i = 0; $i <= 4; $i++)
                     <tr>
-                        <td>{{ $i + 1 }}</td>
-                        <td>
-                            <input type="text" name="fiscal_year[{{$i}}]" class="form-control"
-                                   value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->fiscal_year : null}}">
-                        </td>
-                        <td>
-                            <input type="number" name="monetary_amount[{{$i}}]" min="0" class="form-control" value="{{ isset($draftProposalBudget->budgetFiscalValue[$i]) ?
-                                   $draftProposalBudget->budgetFiscalValue[$i]->monetary_amount : null }}">
-                        </td>
+                        <td><input type="text" name="category_id[0]" class="form-control"></td>
+                        <td><input type="number" name="quantity[0]" min="0" class="form-control"></td>
+                        <td><i class="la la-trash-o text-danger"></i></td>
                     </tr>
                 @endfor
             @endif
             </tbody>
         </table>
-        <input type="hidden" name="check_distributed_fiscalyear" value="0">
     </div>
 </div>
 <div class="form-actions text-center">
