@@ -5,16 +5,34 @@ namespace Modules\IMS\Http\Controllers\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\Product;
+use Modules\IMS\Http\Requests\CreateProductRequest;
+use Modules\IMS\Http\Requests\UpdateProductRequest;
+use Modules\IMS\Services\ProductService;
 
 class ProductController extends Controller
 {
+
+    /**
+     * @var ProductService
+     */
+    private $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        /** @var ProductService $productService */
+        $this->productService = $productService;
+    }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        return view('ims::product.index');
+        $products = $this->productService->getAllProducts();
+        return view('ims::product.index', compact('products'));
     }
 
     /**
@@ -31,35 +49,42 @@ class ProductController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateProductRequest $request)
     {
+        $this->productService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory.product.index');
     }
 
     /**
      * Show the specified resource.
      * @return Response
      */
-    public function show()
+    public function show(Product $product)
     {
-        return view('ims::show');
+        return view('ims::product.show', compact('product'));
     }
 
     /**
      * Show the form for editing the specified resource.
      * @return Response
      */
-    public function edit()
+    public function edit(Product $product)
     {
-        return view('ims::edit');
+        return view('ims::product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
+     * @param UpdateProductRequest $request
+     * @param Product $product
      * @return Response
      */
-    public function update(Request $request)
+    public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->productService->updateProduct($product, $request->all());
+        Session::flash('success', trans('labels.save_success'));
+        return redirect()->route('inventory.product.index');
     }
 
     /**
