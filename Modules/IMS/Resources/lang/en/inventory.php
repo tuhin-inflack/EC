@@ -21,5 +21,14 @@ return [
         'transfer' => 'Transfer',
         'scrap' => 'Scrap',
         'abandon' => 'Abandon',
-    ]
+    ],
+    'inventory_item_category' => 'Inventory Item Category',
+    'item_category_list' => 'Item Category List',
+    'short_code' => 'Short Code',
+    'type' => 'Type',
+    'unit' => 'Unit',
+    'new_item_category' => 'New Item Category',
+    'fixed_asset' => 'Fixed Asset',
+    'stationery' => 'Stationery',
+    'item_category_edit' => 'Update Item Category',
 ];

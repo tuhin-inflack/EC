@@ -44,10 +44,9 @@
     </div>
 </div>
 <div class="row">
-
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="form-group">
-            {!! Form::label('type', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
+            {!! Form::label('type', trans('ims::inventory.inventory_location'), ['class' => 'form-label required']) !!}
             {!! Form::select('type',
                 trans('ims::inventory.inventory_request_types'),
                 $page === 'create' ? null : $inventoryRequest->type,
@@ -59,6 +58,42 @@
             <div class="help-block"></div>
             @if ($errors->has('type'))
                 <span class="invalid-feedback">{{ $errors->first('type') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            {!! Form::label('from_location_id', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
+
+            {!! Form::select('from_location_id',
+                $fromLocations,
+                $page === 'create' ? null : $inventoryRequest->from_location_id,
+                [
+                    'class'=>'form-control select required'
+                ])
+            !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('from_location_id'))
+                <span class="invalid-feedback">{{ $errors->first('from_location_id') }}</span>
+            @endif
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="form-group">
+            {!! Form::label('to_location_id', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
+
+            {!! Form::select('to_location_id',
+                $toLocations,
+                $page === 'create' ? null : $inventoryRequest->to_location_id,
+                [
+                    'class' => 'form-control select required'
+                ])
+            !!}
+
+            <div class="help-block"></div>
+            @if ($errors->has('to_location_id'))
+                <span class="invalid-feedback">{{ $errors->first('to_location_id') }}</span>
             @endif
         </div>
     </div>
