@@ -163,13 +163,6 @@
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::asset.title')</span>
                 </a>
                 <ul class="menu-content">
-                    {{--<li class="{{ is_active_route('asset.add') }}">--}}
-
-                        {{--<a href="{{ route('asset.add') }}">--}}
-                            {{--<i class="la la-plus-circle"></i>--}}
-                            {{--<span class="menu-title" data-i18n="nav.dash.main">@lang('ims::asset.add_menu_title')</span>--}}
-                        {{--</a>--}}
-                    {{--</li>--}}
                     <li class="{{ is_active_route('asset.list') }}">
                         <a href="{{ route('asset.list') }}">
                             <i class="la la-list-alt"></i>
@@ -202,6 +195,15 @@
                 </ul>
             </li>
             <!-- // Auction -->
+
+            <!-- Auction Sales-->
+            <li class="{{ is_active_route('auctions.sales.create') }}">
+                <a href="{{ route('auctions.sales.create') }}">
+                    <i class="la la-building"></i>
+                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::auction.auction_sales')</span>
+                </a>
+            </li>
+            <!-- // Auction Sales-->
 
         </ul>
     </div>
