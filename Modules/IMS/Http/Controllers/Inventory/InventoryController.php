@@ -80,6 +80,6 @@ class InventoryController extends Controller
 
     public function save($reqId = 1)
     {
-        $this->inventoryService->saveInventory($reqId);
+        $this->inventoryService->inventoryChangeOnRequestApproval($reqId);
     }
 }

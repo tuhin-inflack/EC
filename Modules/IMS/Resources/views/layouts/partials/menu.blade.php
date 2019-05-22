@@ -82,8 +82,8 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.list_menu_title')</span>
                         </a>
                     </li>
-                    <li class="{{ is_active_route('inventory.create') }}">
-                        <a href="{{ route('inventory.create') }}">
+                    <li class="{{ is_active_route('inventory.add') }}">
+                        <a href="{{ route('inventory.add') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.add_menu_title')</span>
                         </a>

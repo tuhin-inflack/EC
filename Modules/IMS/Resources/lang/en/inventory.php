@@ -11,6 +11,7 @@ return [
         'list_page_title' => 'Warehouse wise inventory',
     ],
     'inventory' => 'Inventory',
+    'inventory_location' => 'Inventory Location',
 
     // Inventory Request
     'inventory_request' => 'Inventory Request',

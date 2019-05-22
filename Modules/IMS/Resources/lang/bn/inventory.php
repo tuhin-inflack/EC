@@ -11,6 +11,7 @@ return [
         'list_page_title' => 'কোষাগার অনুযায়ী পণ্যগার',
     ],
     'inventory' => 'ইনভেন্টরি',
+    'inventory_location' => 'ইনভেন্টরি লোকেশন',
 
     // Inventory Request
     'inventory_request' => 'ইনভেন্টরি অনুরোধ',
