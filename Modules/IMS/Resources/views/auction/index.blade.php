@@ -40,8 +40,8 @@
 
                                         <tr>
                                             <th scope="row">{{$i}}</th>
-                                            <td><a href="{{route('auction.show',$i)}}">Chair</a></td>
-                                            <td>100</td>
+                                            <td><a href="{{route('auction.show',$i)}}">sample Auction name</a></td>
+                                            <td>sample Auction Description</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown"

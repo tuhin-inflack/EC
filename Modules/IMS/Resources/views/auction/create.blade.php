@@ -18,7 +18,7 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('fixed-asset.list') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('auction.list') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-list white">@lang('ims::auction.list_menu_title')</i>
                             </a>
                         </div>
@@ -76,15 +76,17 @@
                                             <div data-repeater-item>
                                                 <div class="form row">
                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                        <label class="required">{{ trans('hm::booking-request.room_type') }}</label>
+                                                        <!--Scrap Category -->
+                                                        <label class="required">{{ trans('ims::auction.category') }}</label>
                                                         <br>
                                                         {!! Form::select('room_type_id', $roomTypes, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                                         <span class="select-error"></span>
                                                     </div>
                                                     <div class="form-group mb-1 col-sm-12 col-md-2">
                                                         <label class="required"
-                                                                for="quantity">{{ trans('hm::booking-request.quantity') }}</label>
+                                                                for="quantity">{{ trans('ims::auction.quantity') }}</label>
                                                         <br>
+                                                        <!-- Scrap Quantity -->
                                                         {!! Form::number('quantity', null, [
                                                             'class' => 'form-control required', 'placeholder' => 'e.g. 2',
                                                             'data-msg-required' => trans('labels.This field is required'),
@@ -117,7 +119,7 @@
                                 <!-- Labels -->
                                 <div class="form-actions mb-lg-3">
                                     <a class="btn btn-warning pull-right" role="button"
-                                       href="{{ route('fixed-asset.list') }}" style="margin-left: 2px;">
+                                       href="{{ route('auction.list') }}" style="margin-left: 2px;">
                                         <i class="ft-x"></i> {{trans('labels.cancel')}}
                                     </a>
                                     <button type="submit" class="btn btn-primary pull-right">
