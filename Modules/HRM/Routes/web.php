@@ -140,7 +140,6 @@ Route::prefix('hrm')->group(function () {
     });
     #--------------- // Contact Type Urls ---------------------------------
 
-
     Route::resources(
         [
             'employee' => 'EmployeeController',
@@ -149,6 +148,23 @@ Route::prefix('hrm')->group(function () {
             'job-circular' => 'JobCircularController'
         ]
     );
+
+    // Routes for Photocopy Management
+    Route::prefix('photocopy')->group(function () {
+        Route::get('/list', 'PhotocopyManagementController@index')->name('photocopy-management.list');
+        Route::get('/show/{requestId}', 'PhotocopyManagementController@show')->name('photocopy-management.show');
+        Route::get('/create', 'PhotocopyManagementController@create')->name('employee-punishment.create');
+        Route::post('/create', 'PhotocopyManagementController@store')->name('employee-punishment.store');
+    });
+
+    // Routes for CV Evaluation
+    Route::prefix('cv')->group(function () {
+        Route::get('/list', 'CVEvaluationController@index')->name('cv.list');
+        Route::get('/show/{requestId}', 'CVEvaluationController@show')->name('cv.show');
+        Route::get('/create', 'CVEvaluationController@create')->name('cv.create');
+        Route::post('/create', 'CVEvaluationController@store')->name('cv.store');
+        Route::post('/update/{cvId}', 'CVEvaluationController@update')->name('cv.update');
+    });
 });
 
 //} );

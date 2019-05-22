@@ -17,4 +17,6 @@ return [
     'store' => 'গুদাম',
     'general' => 'সাধারণ',
     'location_edit' => 'অবস্থান সম্পাদনা',
+    'from_location' => 'অবস্থান থেকে',
+    'to_location' => 'অবস্থানের নিকট',
 ];

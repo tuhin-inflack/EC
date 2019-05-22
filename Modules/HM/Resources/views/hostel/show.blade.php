@@ -192,14 +192,16 @@
                             columns: [0, 1, 2, 3, 4, 5, 6, 7],
                         }
                     },
-                    {
-                        extend: 'pdf', className: 'pdf',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7],
-                        }
-                    },
+                    // {
+                    //     extend: 'pdf', className: 'pdf',
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                    //     }
+                    // },
                     {
                         extend: 'print', className: 'print',
+                        text: 'PDF',
+
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6, 7],
                         }

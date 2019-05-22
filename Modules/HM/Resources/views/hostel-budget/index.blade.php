@@ -110,7 +110,8 @@
                         }
                     },
                     {
-                        extend: 'pdf', className: 'pdf',
+                        extend: 'pdf',
+                        className: 'pdf',
                         exportOptions: {
                             columns: [0, 1],
                         }

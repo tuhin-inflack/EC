@@ -63,5 +63,16 @@ return [
     'punishment_reason_placeholder' => 'Reason of Punishment',
     'show_punishment' => 'Show Punishment',
 
-
+    // CV Evaluation
+    'cv' => 'CV',
+    'cv_evaluation' => 'CV Evaluation',
+    'cv_list' => 'CV List',
+    'applicant_name' => 'Applicant Name',
+    'post_title' => 'Post Title',
+    'year_of_experience' => 'Experience (Year)',
+    'apply_date' => 'Apply Date',
+    'marks' => 'Give Marks',
+    'submit_marks' => 'Submit Mark',
+    'comment' => 'Comment',
+    'shortlist' => 'Shortlist'
 ];
