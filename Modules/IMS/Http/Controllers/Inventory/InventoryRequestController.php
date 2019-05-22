@@ -39,7 +39,7 @@ class InventoryRequestController extends Controller
     public function index()
     {
         $inventoryRequests = $this->inventoryRequestService->findAll();
-        return view('ims::inventory.request.index')->with(compact('inventoryRequests'));
+        return view('ims::inventory.request.index', compact('inventoryRequests'));
     }
 
     /**
