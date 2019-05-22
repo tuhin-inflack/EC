@@ -56,16 +56,18 @@
                         </div>
                     @endforeach
                     <div class="form row">
-                            <div class="form-group mb-1 col-sm-12 col-md-4">
-                                <b>@lang('labels.total'):</b> 
-                            </div>
-                            <div class="form-group mb-1 col-sm-12 col-md-4">
-                                <b>{{ $budgetWithTitles->hostelBudgets->sum('budget_amount' ) }}</b>
-                            </div>
+                        <div class="form-group mb-1 col-sm-12 col-md-4">
+                            <b>@lang('labels.total'):</b>
+                        </div>
+                        <div class="form-group mb-1 col-sm-12 col-md-4">
+                            <b>{{ $budgetWithTitles->hostelBudgets->sum('budget_amount' ) }}</b>
+                        </div>
+                        @if(auth()->user()->hasAnyRole('ROLE_DIRECTOR_ADMIN'))
                             <div class="form-group mb-1 col-sm-12 col-md-4">
                                 <b id="total_budget_amount">{{ $budgetWithTitles->hostelBudgets->sum('budget_amount' ) }}</b>
                             </div>
-                        </div>
+                        @endif
+                    </div>
                 </div>
 
 
