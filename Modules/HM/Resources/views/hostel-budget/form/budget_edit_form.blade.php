@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-4">
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_amount', $budget->budget_amount, ['placeholder' => '','required' => 'required', 'class' => 'form-control']) }}
+                                    {{ Form::number('budget_amount', $budget->budget_amount, ['min' => 1, 'placeholder' => '','required' => 'required', 'class' => 'form-control']) }}
                                     <div class="help-block"></div>
                                 </div>
 
@@ -45,12 +45,15 @@
 
 
                 <div class="form-group overflow-auto">
-                <div class="col-12">
-                <button type="button" data-repeater-create=""
-                class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
-                <i class="ft-plus"></i> Add
-                </button>
-                </div>
+                    <div class="text-center">
+                        <b>@lang('labels.total'): <span id="total_budget_amount">0</span></b>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" data-repeater-create=""
+                            class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
+                            <i class="ft-plus"></i> @lang('labels.add')
+                        </button>
+                    </div>
                 </div>
 
                 <div class="form-actions text-center">

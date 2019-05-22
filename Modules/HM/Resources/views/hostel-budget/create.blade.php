@@ -35,11 +35,11 @@
     <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"
             type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}" type="text/javascript"></script>
-
+    <script src="{{ asset('js/hostel-budget/sum.js') }}"></script>    
     <script>
-
-
         $(document).ready(function () {
+            calculateBudgetSum('budget_amount');
+
             $('.item-select').select2({
                 tags: true,
                 delimiter: ',',
@@ -53,6 +53,13 @@
                         tags: true,
                     });
                     $(this).slideDown();
+                },
+                hide: function(deleteElement) {
+                    $(this).slideDown(deleteElement);
+                    let removedBudget = $(this).repeaterVal().hostel_budgets[0];
+                    let removedAmount = parseFloat(removedBudget.budget_amount);
+                    let sumAmount = parseFloat($('#total_budget_amount').html());
+                    $('#total_budget_amount').html(sumAmount - removedAmount);
                 }
             });
 
