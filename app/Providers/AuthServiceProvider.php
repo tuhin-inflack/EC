@@ -58,7 +58,7 @@ class AuthServiceProvider extends ServiceProvider
         });
 
         Gate::define('pms-access', function ($user) {
-            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_PROJECT']);
+            return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_PROJECT', 'ROLE_FACULTY']);
         });
 
         Gate::define('rms-access', function ($user) {
