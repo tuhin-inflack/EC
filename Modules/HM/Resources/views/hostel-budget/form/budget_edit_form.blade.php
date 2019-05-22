@@ -46,7 +46,7 @@
 
                 <div class="form-group overflow-auto">
                     <div class="text-center">
-                        <b>@lang('labels.total'): <span id="total_budget_amount">0</span></b>
+                        <b>@lang('labels.total'): <span id="total_budget_amount">{{ $budgetWithTitles->hostelBudgets->sum('budget_amount') }}</span></b>
                     </div>
                     <div class="col-12">
                         <button type="button" data-repeater-create=""
