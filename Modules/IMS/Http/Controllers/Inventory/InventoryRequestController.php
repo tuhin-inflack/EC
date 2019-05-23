@@ -55,6 +55,7 @@ class InventoryRequestController extends Controller
 
         $fromLocations = $toLocations = $this->locationService->getLocationsForDropdown();
         $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
 
         return view('ims::inventory.request.create',
             compact('employeeOptions',

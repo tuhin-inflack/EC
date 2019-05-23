@@ -38,6 +38,7 @@
 
             $('.repeater-category-request, .repeater-new-category-request, .repeater-bought-category-request').repeater({
                 // isFirstItemUndeletable: true,
+                initEmpty: true,
                 show: function () {
                     $(this).slideDown();
                     // TODO: Find all Select Tag and add select2 into them
