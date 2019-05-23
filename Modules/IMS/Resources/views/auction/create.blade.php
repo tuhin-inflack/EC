@@ -25,7 +25,7 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('fixed-asset.add') }}" method="POST">
+                            <form action="{{ route('auction.add') }}" method="POST">
                                 @csrf
                                 <h4 class="form-section"><i
                                             class="la la-puzzle-piece"></i> @lang('ims::auction.title')</h4>
