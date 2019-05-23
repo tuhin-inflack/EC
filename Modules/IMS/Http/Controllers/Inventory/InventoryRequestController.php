@@ -72,7 +72,8 @@ class InventoryRequestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        return redirect()->route('inventory-request.index');
     }
 
     /**
