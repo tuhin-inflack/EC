@@ -42,7 +42,7 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>
-                                                <a href="">{{ $proposal->title }}</a>
+                                                {{ $proposal->title }}
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
