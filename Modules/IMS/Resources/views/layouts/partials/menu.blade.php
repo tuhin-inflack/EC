@@ -205,7 +205,7 @@
                         </a>
                     </li>
                     <li class="{{ is_active_route('auction.index') }}">
-                        <a href="{{ route('auction.list') }}">
+                        <a href="{{ route('auction.index') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::auction.list_menu_title')</span>
                         </a>

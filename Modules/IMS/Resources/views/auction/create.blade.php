@@ -18,14 +18,14 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('auction.list') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('auction.index') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-list white">@lang('ims::auction.list_menu_title')</i>
                             </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('auction.add') }}" method="POST">
+                            <form action="{{ route('auction.create') }}" method="POST">
                                 @csrf
                                 <h4 class="form-section"><i
                                             class="la la-puzzle-piece"></i> @lang('ims::auction.title')</h4>
@@ -119,7 +119,7 @@
                                 <!-- Labels -->
                                 <div class="form-actions mb-lg-3">
                                     <a class="btn btn-warning pull-right" role="button"
-                                       href="{{ route('auction.list') }}" style="margin-left: 2px;">
+                                       href="{{ route('auction.index') }}" style="margin-left: 2px;">
                                         <i class="ft-x"></i> {{trans('labels.cancel')}}
                                     </a>
                                     <button type="submit" class="btn btn-primary pull-right">
