@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('auction.add') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('auction.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white">@lang('ims::auction.create')</i>
                             </a>
                         </div>
