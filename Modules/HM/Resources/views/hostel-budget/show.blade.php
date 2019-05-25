@@ -150,18 +150,19 @@
                         },
                         footer: true
                     },
-                    {
-                        extend: 'pdf',
-                        className: 'pdf',
-                        exportOptions: {
-                            columns: [0, 1, 2, 3],
-
-                        },
-                        footer: true
-                    },
+                    // {
+                    //     extend: 'pdf',
+                    //     className: 'pdf',
+                    //     exportOptions: {
+                    //         columns: [0, 1, 2, 3],
+                    //
+                    //     },
+                    //     footer: true
+                    // },
                     {
                         extend: 'print',
                         className: 'print',
+                        text: 'pdf',
                         exportOptions: {
                             columns: [0, 1, 2, 3],
 

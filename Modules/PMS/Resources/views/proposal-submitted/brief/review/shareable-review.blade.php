@@ -121,7 +121,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    @if($shareConversation->shareRuleDesignation->can_approve==true)
+                                    @if($shareConversation->shareRuleDesignation->can_approve==true)o
                                         <button value="APPROVED" name="status" type="submit" class="btn btn-success">{{trans(('labels.approve'))}}</button>
                                     @endif
                                     <button type="submit" name="status" value="REVIEW" class="btn btn-info">@lang('pms::approved-proposal.share_btn')</button>

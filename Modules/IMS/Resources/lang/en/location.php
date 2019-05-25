@@ -18,4 +18,6 @@ return [
     'store' => 'Store',
     'general' => 'General',
     'location_edit' => 'Location Edit',
+    'from_location' => 'From Location',
+    'to_location' => 'To Location',
 ];

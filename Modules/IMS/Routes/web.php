@@ -36,8 +36,19 @@ Route::prefix('ims')->group(function () {
 
     Route::prefix('inventory')->group(function () {
         Route::get('/', 'Inventory\InventoryController@index')->name('inventory.list');
+        Route::get('/save/{reqId}', 'Inventory\InventoryController@save')->name('inventory.save');
         Route::get('/create', 'Inventory\InventoryController@create')->name('inventory.create');
+        Route::get('/add', 'Inventory\InventoryController@edit')->name('inventory.add');
         Route::get('/warehouse/list', 'Inventory\InventoryController@show')->name('inventory.list.by.warehouse');
+    });
+
+    Route::prefix('inventory-request')->group(function () {
+        Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.index');
+        Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
+        Route::post('/create', 'Inventory\InventoryRequestController@store')->name('inventory-request.store');
+        Route::get('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@edit')->name('inventory-request.edit');
+        Route::post('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
+        Route::delete('{inventoryRequest}/delete', 'Inventory\InventoryRequestController@destroy')->name('inventory-request.destroy');
     });
 
     // Inventory Item Category
@@ -78,6 +89,27 @@ Route::prefix('ims')->group(function () {
         Route::get('add/{type}', 'AssetManagementController@change_value')->name('asset.add_appreciation_depreciation');
     });
 
+    //Auction route
+    Route::prefix('auction')->group(function () {
+        Route::get('/', 'Auction\AuctionController@index')->name('auction.index');
+        Route::get('/create', 'Auction\AuctionController@create')->name('auction.create');
+        Route::post('/create', 'Auction\AuctionController@store')->name('auction.create');
+        Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
+    });
+    //Vendor
+    Route::prefix('vendor')->group(function () {
+       Route::get('/','Vendor\VendorController@index')->name('vendor.index');
+       Route::get('/create','Vendor\VendorController@create')->name('vendor.create');
+       Route::post('/','Vendor\VendorController@store')->name('vendor.store');
+       Route::get('/{vendor}','Vendor\VendorController@show')->name('vendor.show');
+       Route::get('{vendor}/edit','Vendor\VendorController@edit')->name('vendor.edit');
+       Route::put('{vendor}/update','Vendor\VendorController@update')->name('vendor.update');
+    });
 
+
+    // Auction sales
+    Route::prefix('auctions/sales')->group(function () {
+        Route::get('create', 'AuctionSaleController@create')->name('auctions.sales.create');
+    });
 
 });

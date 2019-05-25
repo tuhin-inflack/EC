@@ -64,4 +64,17 @@ return [
     'punishment_reason_placeholder' => 'সংক্ষেপে শাস্তির কারন লিখুন',
     'show_punishment' => 'শাস্তি সম্পর্কিত তথ্য',
 
+    // CV Evaluation
+    'cv' => 'সিভি',
+    'cv_evaluation' => 'সিভি মূল্যায়ন',
+    'cv_list' => 'সিভি তালিকা',
+    'applicant_name' => 'আবেদনকারীর নাম',
+    'post_title' => 'পোষ্টের শিরোনাম',
+    'year_of_experience' => 'অভিজ্ঞতা (বছর)',
+    'apply_date' => 'আবেদনের তারিখ',
+    'marks' => 'নম্বর দিন',
+    'submit_marks' => 'নম্বর সংরক্ষন করুন',
+    'comment' => 'মন্তব্য',
+    'shortlist' => 'শর্টলিস্ট'
+
 ];
