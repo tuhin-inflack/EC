@@ -29,7 +29,10 @@ class AuctionService{
             $auctionArray['title']=$data['auction_title'];
             $auctionArray['date'] = Carbon::createFromFormat('d/m/Y', $data['auction_date']);
             return $this->save($auctionArray);
-            // $collectionOfAuctionDetails = collect($data['scrap_products']);
+            $collectionOfAuctionDetails = collect($data['scrap_products']);
+            $collectionOfAuctionSaleDetails = collect($data['sales']);
+            // convert to model and save it in the db using save many
+
         });
 
     }
