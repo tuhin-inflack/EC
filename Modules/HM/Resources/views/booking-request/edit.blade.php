@@ -115,6 +115,7 @@
         // url to get trainees of selected training
         let traineesUrl = '{!! url('/tms/get-trainees-of-training') !!}';
     </script>
+    @include('hm::booking-request.partials.javascript')
     <script src="{{ asset('js/booking-request/step.js') }}"></script>
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}"></script>
     <script src="{{ asset('theme/js/scripts/forms/checkbox-radio.js') }}"></script>

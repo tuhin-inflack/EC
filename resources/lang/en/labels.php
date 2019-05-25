@@ -103,6 +103,7 @@ return [
     'Cafeteria' => 'Cafeteria',
     'HM' => 'HM',
     'HRM' => 'HRM',
+    'IMS' => 'IMS',
     'PMS' => 'PMS',
     'RMS' => 'RMS',
     'TMS' => 'TMS',
@@ -173,7 +174,7 @@ return [
     'quantity' => 'Quantity',
     'notification' => 'Notification',
     'clear_all' => 'Clear All',
-    'no_notification' => 'No notificaitons available',
+    'no_notification' => 'No notification available',
     'read_notification' => 'Read all notifications',
     'wise' => 'Wise',
     'share' => 'Share',
@@ -188,5 +189,5 @@ return [
     'thanks' => 'Thanks',
     'achieved value cannot be greater than current balance' => 'Achieved value cannot be greater than current balance',
     'summation of above fields must be equal to total amount' => 'Summation of above fields must be equal to total amount',
-    'invalid file type' => 'অবৈধ ফাইল টাইপ',
+    'invalid file type' => 'Invalid file type',
 ];

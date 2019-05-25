@@ -24,12 +24,12 @@
                             <div data-repeater-item="" style="">
                                 <div class="form row">
                                     <div class="form-group  mb-1 col-sm-12 col-md-5 {{ $errors->hostelBudget->has("hostel_budgets.".$key.".hostel_budget_section_id") ? 'error' : '' }}">
-               
+
                                         {{ Form::label('hostel_budget_title_id', trans('hm::hostel_budget.section') ,  ['class' => 'form-label required'])}}
                                         {{ Form::select('hostel_budget_section_id', $budgetSections, $budget['hostel_budget_section_id'], ['placeholder' =>'Select budget section',   'class' => ' form-control .( $errors->has("hostel_budgets.".$key.".hostel_budget_section_id") ? "is-invalid" : "")', 'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.section')])]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->hostelBudget->has("hostel_budgets.".$key.".hostel_budget_section_id"))
-                                            <div class="help-block">  {{ $errors->hostelBudget->first('hostel_budgets.*.hostel_budget_section_id') }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required')  }}</div>
                                         @endif
 
                                     </div>
@@ -38,7 +38,7 @@
                                         {{ Form::number('budget_amount', $budget['budget_amount'], ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->hostelBudget->has("hostel_budgets.".$key.".budget_amount"))
-                                            <div class="help-block">  {{ $errors->hostelBudget->first('hostel_budgets.*.budget_amount') }}</div>
+                                            <div class="help-block">  {{ trans('labels.This field is required')  }}</div>
                                         @endif
                                     </div>
                                     <div class="form-group col-sm-12 col-md-2 text-center mt-2">
@@ -52,23 +52,19 @@
                             </div>
                         @endforeach
                     @else
-                        <div data-repeater-item="" style="">
+                        <div data-repeater-item="" >
                             <div class="form row">
                                 <div class="form-group mb-1 col-sm-12 col-md-5">
                                     {{--<br>--}}
                                     {{ Form::label('hostel_budget_section_id', trans('hm::hostel_budget.section'), ['class' => 'required']) }}
                                     {{--selectize-select--}}
-                                    {{ Form::select('hostel_budget_section_id', $budgetSections, null, ['placeholder' =>'Select budget section',   'class' => 'item-select   form-control ', 'required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.section')])]) }}
+                                    {{ Form::select('hostel_budget_section_id', $budgetSections, null, ['placeholder' =>'Select budget section',   'class' => 'item-select   form-control ', 'required' => 'required', 'data-validation-required-message'=>trans('labels.This field is required')]) }}
                                     <div class="help-block"></div>
-
-
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-5">
-                                    
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                    {{ Form::number('budget_amount', null, ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
+                                    {{ Form::number('budget_amount', null, ['class' => 'form-control',  'required', 'data-validation-required-message'=> trans('labels.Please enter a valid number'), 'min'=>"0",]) }}
                                     <div class="help-block"></div>
-
                                 </div>
                                 <div class="form-group col-sm-12 col-md-2 text-center mt-2" id="cd">
                                     <button type="button" class="btn btn-outline-danger"
@@ -92,7 +88,7 @@
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="form-actions text-center">
                     <button type="submit" class="btn btn-primary submit">
                         <i class="la la-check-square-o"></i> {{ trans('labels.save') }}

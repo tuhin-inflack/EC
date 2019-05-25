@@ -31,7 +31,6 @@
                                     <tr>
                                         <th>{{trans('labels.serial')}}</th>
                                         <th>{{trans('labels.name')}}</th>
-                                        <th>{{ trans('labels.status') }}</th>
                                         <th>{{trans('labels.action')}}</th>
                                     </tr>
                                     </thead>
@@ -50,7 +49,6 @@
                                             <tr>
                                                 <th scope="row">{{ $loop->iteration }}</th>
                                                 <td>{{ $title->name }}</td>
-                                                <td></td>
                                                 <td>
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
                                                             aria-haspopup="true"

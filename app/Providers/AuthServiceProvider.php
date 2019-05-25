@@ -49,6 +49,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN', 'ROLE_HOSTEL_MANAGER', 'ROLE_DIRECTOR_TRAINING']);
         });
 
+        Gate::define('ims-access', function ($user) {
+            return $user->hasRole(['ROLE_DIRECTOR_ADMIN']);
+        });
+
         Gate::define('admin-hm-access', function ($user) {
             return $user->hasAnyRole(['ROLE_DIRECTOR_GENERAL', 'ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_TRAINING']);
         });
