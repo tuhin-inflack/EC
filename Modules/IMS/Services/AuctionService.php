@@ -22,16 +22,14 @@ class AuctionService{
         $this->setActionRepository($this->_auctionRepository);
     }
 
-    public function AuctionStore(array $data)
+    public function auctionStore(array $data)
     {
 
-        // dd($data);
         return DB::transaction(function () use ($data) {
             $auctionArray['title']=$data['auction_title'];
             $auctionArray['date'] = Carbon::createFromFormat('d/m/Y', $data['auction_date']);
-            $this->save($auctionArray);
+            return $this->save($auctionArray);
             // $collectionOfAuctionDetails = collect($data['scrap_products']);
-
         });
 
     }
