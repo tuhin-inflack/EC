@@ -72,6 +72,11 @@
                                         </a>
                                     @endif
                                 @endif
+                                    @if(can_submit_brief_research_proposal($researchRequest))
+                                    <a class="btn btn-primary mr-1" role="button" href="{{route('research-proposal-submission.create',$researchRequest->id)}}">
+                                        <i class="ft-x"></i> @lang('rms::research_proposal.research_proposal_submission')
+                                    </a>
+                                    @endif
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>

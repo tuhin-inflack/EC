@@ -70,6 +70,11 @@
                                         </a>
                                     @endif
                                 @endif
+                                    @if(can_submit_detail_research_proposal($researchDetailInvitation))
+                                    <a class="btn btn-primary mr-1" role="button" href="{{ route('details.create', [$researchDetailInvitation->id]) }}">
+                                        <i class="ft-x"></i> @lang('rms::research_details.submit_detail')
+                                    </a>
+                                    @endif
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('invitations')}}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>

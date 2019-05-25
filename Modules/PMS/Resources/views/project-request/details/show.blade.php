@@ -70,6 +70,11 @@
                                             </a>
                                         @endif
                                     @endif
+                                        @if(can_submit_detail_project_proposal($projectRequestDetail))
+                                        <a class="btn btn-primary mr-1" role="button" href="{{route('project-details-proposal-submission.create', $projectRequestDetail->id)}}">
+                                            <i class="ft-x"></i> @lang('pms::project_proposal.proposal_submission')
+                                        </a>
+                                        @endif
                                     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request-details.index')}}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>
