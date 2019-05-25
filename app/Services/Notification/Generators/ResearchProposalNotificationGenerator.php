@@ -85,7 +85,7 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
 
     public function sendEmailNotification($data)
     {
-        $user = $this->userService->findOne($data['to']);
+        $user = $this->userService->findOne($data['user_id']);
 
         $this->sendEmail($user->email, new WorkflowEmailNotification($data['title'], $data['message'], $data['url']));
     }
