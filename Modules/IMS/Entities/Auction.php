@@ -12,4 +12,6 @@ class Auction extends Model
     protected $table = 'auction';
     protected $fillable = ['title', 'status', 'date' ];
 
+   
+
 }

@@ -41,14 +41,14 @@
                                     
                                     <div class="col">
                                         <label class="required">@lang('ims::auction.date')</label>
-                                        {{ Form::text('auction_date', date('j F, Y'), [
+                                        {{ Form::text('auction_date', date('d/m/Y'), [
                                             'id' => 'auction_date',
                                             'class' => 'form-control required' . ($errors->has('auction_date') ? ' is-invalid' : ''),
                                             'placeholder' => 'Pick a date',
                                             'required' => 'required',
                                             
                                         ]) }}
-                                        {{ Form::hidden('auction_date', date('j F, Y')) }}    
+                                        {{ Form::hidden('auction_date', date('d/m/Y')) }}    
                                     </div>
                                     
                                 </div>
@@ -72,14 +72,14 @@
 
                                 <!-- Scrap Product -->
                                 <div class="repeater-default">
-                                        <div data-repeater-list="car">
+                                        <div data-repeater-list="scrap_product">
                                             <div data-repeater-item>
                                                 <div class="form row">
                                                     <div class="form-group mb-1 col-sm-12 col-md-3">
                                                         <!--Scrap Category -->
                                                         <label class="required">{{ trans('ims::auction.category') }}</label>
                                                         <br>
-                                                        {!! Form::select('room_type_id', $roomTypes, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                                        {!! Form::select('room_type_id', $roomTypes, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Category', 'onChange' => '', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                                         <span class="select-error"></span>
                                                     </div>
                                                     <div class="form-group mb-1 col-sm-12 col-md-2">

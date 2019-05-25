@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\IMS\Services\AuctionService;
+use Illuminate\Support\Facades\Session;
 class AuctionController extends Controller
 {
 
@@ -42,7 +43,15 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        if ($this->_auctionService->AuctionStore($request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
+        //return redirect()->route('auction.index');
+
+        
     }
 
     /**
