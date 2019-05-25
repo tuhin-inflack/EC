@@ -57,6 +57,7 @@ Route::prefix('ims')->group(function () {
         Route::post('/','Location\LocationController@store')->name('location.store');
         Route::get('{location}/edit','Location\LocationController@edit')->name('location.edit');
         Route::put('{location}/update','Location\LocationController@update')->name('location.update');
+        Route::get('{location}','Location\LocationController@show')->name('location.show');
     });
 
     //fixed-asset route

@@ -56,7 +56,7 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{ route('location.show', $location->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                         <a href="{{ route('location.edit', $location->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
