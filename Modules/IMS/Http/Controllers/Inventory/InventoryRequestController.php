@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryItemCategoryService;
@@ -55,6 +56,7 @@ class InventoryRequestController extends Controller
 
         $fromLocations = $toLocations = $this->locationService->getLocationsForDropdown();
         $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
 
         return view('ims::inventory.request.create',
             compact('employeeOptions',
@@ -72,7 +74,10 @@ class InventoryRequestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->inventoryRequestService->store($request->all());
+        Session::flash('success', trans('labels.save_success'));
+
+        return redirect()->route('inventory-request.index');
     }
 
     /**

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InventoryRequest extends Model
 {
-    protected $fillable = ['title', 'request_type', 'from_location_id', 'to_location_id', 'requester_id', 'receiver_id','status'];
+    protected $fillable = ['title', 'request_type', 'from_location_id', 'to_location_id', 'requester_id', 'receiver_id', 'status'];
 
     public function details()
     {
