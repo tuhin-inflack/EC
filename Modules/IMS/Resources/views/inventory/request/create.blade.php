@@ -36,6 +36,12 @@
             // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
             $('.select').select2();
 
+            $('select[name=request_type]').change(function (e) {
+                toggleCategoryEntry(e.target.value);
+            });
+
+            toggleCategoryEntry($('select[name=request_type]').val());
+
             $('.repeater-category-request, .repeater-new-category-request, .repeater-bought-category-request').repeater({
                 // isFirstItemUndeletable: true,
                 initEmpty: true,
@@ -51,6 +57,14 @@
                 }
             });
         });
+
+        function toggleCategoryEntry(type) {
+            if (type == "requisition"){
+                $('#toggle-category-entry').show();
+            } else {
+                $('#toggle-category-entry').hide();
+            }
+        }
 
     </script>
 @endpush

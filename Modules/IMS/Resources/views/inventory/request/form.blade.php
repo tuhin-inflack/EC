@@ -133,6 +133,7 @@
         </div>
     </div>
 </div>
+<div id="toggle-category-entry">
 <h4 class="form-section"><i class="la la-tag"></i> @lang('labels.new') @lang('ims::inventory.inventory_request')</h4>
 <div class="row">
     <div class="col-md-12">
@@ -222,6 +223,7 @@
             </table>
         </div>
     </div>
+</div>
 </div>
 <div class="form-actions text-center">
     <button type="submit" class="btn btn-primary">
