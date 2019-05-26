@@ -66,7 +66,7 @@
                                 <h4 class="form-section"><i
                                     class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
                                 @php
-                                    $scrapCategory=['Imran Hossain',"Mohmmad Abdul sattar"]
+                                    $scrapCategory=['Chair - 100 Available ',"Table - 200 Available"]
 
                                 @endphp
 
