@@ -166,11 +166,23 @@
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
     <script type="text/javascript">
-   
         // datepicker
         $('#auction_date').pickadate({
             min: new Date()
         });
+
+         // form-repeater
+        $('.repeater-default').repeater({
+            show: function () {
+                $(".room-type-select").change(function() {
+                    $(".room-type-select").not(this).find("option[value=" + $(this).val() + "]").remove();
+                });
+            }
+
+        });
+
+        
+        
     
     </script>
     
