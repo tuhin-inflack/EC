@@ -87,6 +87,7 @@ class AuctionController extends Controller
      */
     public function update(Request $request,Auction $auction)
     {
+        // return $request;
         if ($this->_auctionService->auctionUpdate($auction,$request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {

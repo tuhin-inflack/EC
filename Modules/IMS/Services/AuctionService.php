@@ -61,7 +61,18 @@ class AuctionService{
             {
                 $collectionOfAuctionDetails = collect($data['scrap_product']);
                 // convert to model and update it 
-                
+                $newCollectionOfAuctionDetails=$collectionOfAuctionDetails->map(function($auctionDetail) use ($auction){
+                    $auction->details()->UpdateOrCreate(
+                        [
+                            'id' => $auctionDetail['id'],
+                        ], [
+                            'auction_id' => $auction->id,
+                            'category_id' => $auctionDetail['category_id'],
+                            'quantity' => $auctionDetail['quantity']
+                        ]
+                    );
+                });
+                return $newCollectionOfAuctionDetails; 
             }
             
         });
