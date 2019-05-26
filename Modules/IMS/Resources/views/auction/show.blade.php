@@ -28,16 +28,14 @@
                                     <thead>
                                     <tr>
                                         <th>@lang('ims::auction.name')</th>
-                                        <th>@lang('ims::auction.description')</th>
                                         <th>@lang('ims::fixed-asset-list-table.added')</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>Sample Auction Name</td>
-                                        <td>Sample Auction Description</td>
-                                        <td>Today 8.10 AM</td>
+                                        <td>{{$auction->title}}</td>
+                                        <td>{{$auction->date}}</td>
                                     </tr>
 
                                     </tbody>
@@ -78,15 +76,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-
-                                    @for( $i=1; $i<=10 ; $i++)
+                                    @foreach ($auctionDetails as $auctionDetail)
                                         <tr>
-                                            <th scope="row">{{$i}}</th>
-                                            <td>Sample Category</td>
-                                            <td>20</td>
+                                            <th scope="row">{{$loop->iteration}}</th>
+                                            <!--Auction Detail have a relation with Scrap Product -->
+                                            <td>{{$auctionDetail->id}}</td>
+                                            <td>{{$auctionDetail->quantity}}</td>
                                         </tr>
-                                    @endfor
-                                    </tbody>
+                                    @endforeach
+                                </tbody>
                                 </table>
                             </div>
                         </div>

@@ -94,6 +94,8 @@ Route::prefix('ims')->group(function () {
         Route::get('/create', 'Auction\AuctionController@create')->name('auction.create');
         Route::post('/create', 'Auction\AuctionController@store')->name('auction.create');
         Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
+        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auction.edit');
+        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auction.update');
     });
     //Vendor
     Route::prefix('vendor')->group(function () {

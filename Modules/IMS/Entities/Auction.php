@@ -15,7 +15,7 @@ class Auction extends Model
     
     public function details()
     {
-        return $this->hasMany(AuctionDetail::class, 'auction_id', 'id');
+        return $this->hasMany(AuctionDetails::class, 'auction_id', 'id');
     }
    
 

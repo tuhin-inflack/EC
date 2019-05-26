@@ -12,6 +12,6 @@ class AuctionDetails extends Model
     protected $table = 'auction_details';
     protected $fillable = ['auction_id', 'category_id', 'quantity' ];
 
-   
+   //todo: AuctionDetail Related to Scrap Product 
 
 }
