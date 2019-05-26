@@ -68,7 +68,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        return view('ims::location.show');
+        return view('ims::location.show', compact('location'));
     }
 
     /**
