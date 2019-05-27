@@ -25,6 +25,7 @@ return [
     ],
     'inventory_item_category' => 'Inventory Item Category',
     'item_category_list' => 'Item Category List',
+    'create_new_category' => 'Create New Category',
     'short_code' => 'Short Code',
     'type' => 'Type',
     'unit' => 'Unit',
