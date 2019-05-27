@@ -29,6 +29,7 @@ return [
     'short_code' => 'Short Code',
     'type' => 'Type',
     'unit' => 'Unit',
+    'add_new_item_category' => 'Add New Item Category',
     'new_item_category' => 'New Item Category',
     'fixed_asset' => 'Fixed Asset',
     'stationery' => 'Stationery',
