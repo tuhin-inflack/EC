@@ -23,6 +23,7 @@ return [
         'scrap' => 'Scrap',
         'abandon' => 'Abandon',
     ],
+    'already_bought_inventory' => 'Already Bought Inventory',
     'inventory_item_category' => 'Inventory Item Category',
     'item_category_list' => 'Item Category List',
     'short_code' => 'Short Code',

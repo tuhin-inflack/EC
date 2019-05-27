@@ -28,13 +28,13 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                         <tr>
-                                            <th>{{trans('labels.serial')}}</th>
+                                            <th>@lang('labels.serial')</th>
                                             <th>@lang('ims::inventory.inventory_request_title')</th>
                                             <th>@lang('labels.receiver')</th>
                                             <th>@lang('ims::inventory.inventory_request_type')</th>
                                             <th>@lang('ims::location.from_location')</th>
                                             <th>@lang('ims::location.to_location')</th>
-                                            <th>{{trans('labels.action')}}</th>
+                                            <th>@lang('labels.action')</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -53,7 +53,7 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="javascript:;" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="{{ route('inventory-request.edit', $inventoryRequest->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
                                                         {!! Form::open([
                                                             'method'=>'DELETE',

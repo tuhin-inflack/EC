@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('ims')->group(function () {
+Route::prefix('ims')->middleware(['auth'])->group(function () {
 
     Route::get('/', 'IMSController@index')->name('inventory');
 

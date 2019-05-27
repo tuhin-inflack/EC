@@ -16,7 +16,9 @@
                     'class' => 'form-control'. ($errors->has('title') ? ' is-invalid' : ''),
                     "required",
                     "placeholder" => trans('ims::inventory.inventory_request_title'),
-                    "data-validation-required-message" => trans('validation.required', ['attribute' => trans('ims::inventory.inventory_request_title')])
+                    'data-msg-required' => trans('validation.required', ['attribute' => trans('ims::inventory.inventory_request_title')]),
+                    'data-rule-maxlength' => 100,
+                    'data-msg-maxlength'=> trans('labels.At most 100 characters'),
                 ])
             !!}
             <div class="help-block"></div>
@@ -29,10 +31,11 @@
         <div class="form-group">
             {!! Form::label('receiver_id', trans('labels.receiver'), ['class' => 'form-label required']) !!}
             {!! Form::select('receiver_id',
-                $employeeOptions,
+                ['' => trans('labels.select')] + $employeeOptions,
                 $page === 'create' ? null : $inventoryRequest->receiver_id,
                 [
                     'class'=>'form-control select required' . ($errors->has('employee_id') ? ' is-invalid' : ''),
+                    'data-msg-required' => trans('validation.required', ['attribute' => trans('labels.receiver')]),
                 ])
             !!}
 
@@ -48,10 +51,11 @@
         <div class="form-group">
             {!! Form::label('request_type', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
             {!! Form::select('request_type',
-                trans('ims::inventory.inventory_request_types'),
+                ['' => trans('labels.select')] + trans('ims::inventory.inventory_request_types'),
                 $page === 'create' ? null : $inventoryRequest->type,
                 [
-                    'class'=>'form-control select required'
+                    'class'=>'form-control select required',
+                    'data-msg-required' => trans('validation.required', ['attribute' => trans('ims::inventory.inventory_request_type')]),
                 ])
             !!}
 
@@ -66,10 +70,11 @@
             {!! Form::label('from_location_id', trans('ims::location.from_location'), ['class' => 'form-label required']) !!}
 
             {!! Form::select('from_location_id',
-                $fromLocations,
+                ['' => trans('labels.select')] + $fromLocations,
                 $page === 'create' ? null : $inventoryRequest->from_location_id,
                 [
-                    'class'=>'form-control select required'
+                    'class'=>'form-control select required',
+                    'data-msg-required' => trans('validation.required', ['attribute' => trans('ims::location.from_location')]),
                 ])
             !!}
 
@@ -84,10 +89,11 @@
             {!! Form::label('to_location_id', trans('ims::location.to_location'), ['class' => 'form-label required']) !!}
 
             {!! Form::select('to_location_id',
-                $toLocations,
+                ['' => trans('labels.select')] + $toLocations,
                 $page === 'create' ? null : $inventoryRequest->to_location_id,
                 [
-                    'class' => 'form-control select required'
+                    'class' => 'form-control select required',
+                    'data-msg-required' => trans('validation.required', ['attribute' => trans('ims::location.to_location')]),
                 ])
             !!}
 
@@ -105,8 +111,9 @@
             <table class="table table-bordered repeater-category-request">
                 <thead>
                     <tr>
-                        <th width="60%">@lang('ims::product.title')</th>
-                        <th>@lang('labels.quantity')</th>
+                        <th width="50%">@lang('ims::product.title')</th>
+                        <th width="15%">@lang('ims::inventory.unit')</th>
+                        <th width="34%">@lang('labels.quantity')</th>
                         <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
                     </tr>
                 </thead>
@@ -116,14 +123,18 @@
                             {!! Form::select('category_id',
                                     $itemCategories,
                                     null,
-                                    ['class' => 'form-control required']
+                                    ['class' => 'form-control repeater-select required']
                                 )
                             !!}
                         </td>
+                        <td class="show-unit-name"></td>
                         <td>
                             {{ Form::number('quantity', null, [
                                 'class' => 'form-control',
-                                'min' => 1
+                                'data-rule-min' => 1,
+                                'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
+                                'data-rule-number' => 'true',
+                                'data-msg-number' => trans('labels.Please enter a valid number'),
                             ]) }}
                         </td>
                         <td><i data-repeater-delete class="la la-trash-o text-danger" style="cursor: pointer"></i></td>
@@ -143,7 +154,7 @@
                     <tr>
                         <th>@lang('ims::product.title') @lang('labels.name')</th>
                         <th>@lang('ims::inventory.unit')</th>
-                        <th>@lang('ims::inventory.type')</th>
+                        <th width="20%">@lang('ims::inventory.type')</th>
                         <th>@lang('labels.quantity')</th>
                         <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
                     </tr>
@@ -171,14 +182,20 @@
                                         '2' => trans('ims::inventory.stationery'),
                                     ],
                                     null,
-                                    ['class' => 'form-control required']
+                                    ['class' => 'form-control repeater-select required']
                                 )
                             !!}
                         </td>
                         <td>
                             {{ Form::number('quantity',
                                     null,
-                                    ['class' => 'form-control', 'min' => 1]
+                                    [
+                                        'class' => 'form-control',
+                                        'data-rule-min' => 1,
+                                        'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
+                                        'data-rule-number' => 'true',
+                                        'data-msg-number' => trans('labels.Please enter a valid number'),
+                                    ]
                                 )
                             }}
                         </td>
@@ -189,15 +206,16 @@
         </div>
     </div>
 </div>
-<h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.inventory_request')</h4>
+<h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.already_bought_inventory')</h4>
 <div class="row">
     <div class="col-md-12">
         <div class="table-responsive form-group">
             <table class="table table-bordered repeater-bought-category-request">
                 <thead>
                     <tr>
-                        <th width="60%">@lang('ims::product.title')</th>
-                        <th>@lang('labels.quantity')</th>
+                        <th width="50%">@lang('ims::product.title')</th>
+                        <th width="15%">@lang('ims::inventory.unit')</th>
+                        <th width="34%">@lang('labels.quantity')</th>
                         <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
                     </tr>
                 </thead>
@@ -207,14 +225,18 @@
                             {!! Form::select('category_id',
                                     $itemCategories,
                                     null,
-                                    ['class' => 'form-control']
+                                    ['class' => 'form-control repeater-select required']
                                 )
                             !!}
                         </td>
+                        <td class="show-unit-name"></td>
                         <td>
                             {{ Form::number('quantity', null, [
                                 'class' => 'form-control',
-                                'min' => 1
+                                'data-rule-min' => 1,
+                                'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
+                                'data-rule-number' => 'true',
+                                'data-msg-number' => trans('labels.Please enter a valid number'),
                             ]) }}
                         </td>
                         <td><i data-repeater-delete class="la la-trash-o text-danger" style="cursor: pointer"></i></td>
