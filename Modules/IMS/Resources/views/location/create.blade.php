@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12">
-                <div class="card">
+                <div class="card" tabindex="-1">
                     <div class="card-header">
                         <h4 class="card-title">@lang('ims::location.add_new_location')</h4>
                         <a class="heading-elements-toggle" href=""><i class="la la-ellipsis-v font-medium-3"></i></a>
@@ -106,7 +106,9 @@
                 placeholder: {
                     id: '',
                     text: '{{ __('ims::warehouse-create-form.fields.department.placeholder') }}'
-                }
+                },
+                dropdownParent : $(".card"),
+                width: 'auto'
             });
         });
     </script>
