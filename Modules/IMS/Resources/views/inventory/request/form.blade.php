@@ -52,7 +52,7 @@
             {!! Form::label('request_type', trans('ims::inventory.inventory_request_type'), ['class' => 'form-label required']) !!}
             {!! Form::select('request_type',
                 ['' => trans('labels.select')] + trans('ims::inventory.inventory_request_types'),
-                $page === 'create' ? null : $inventoryRequest->type,
+                $page === 'create' ? $type : $inventoryRequest->type,
                 [
                     'class'=>'form-control select required',
                     'data-msg-required' => trans('validation.required', ['attribute' => trans('ims::inventory.inventory_request_type')]),
@@ -104,149 +104,10 @@
         </div>
     </div>
 </div>
-<h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.inventory_request')</h4>
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-bordered repeater-category-request">
-                <thead>
-                    <tr>
-                        <th width="50%">@lang('ims::product.title')</th>
-                        <th width="15%">@lang('ims::inventory.unit')</th>
-                        <th width="34%">@lang('labels.quantity')</th>
-                        <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
-                    </tr>
-                </thead>
-                <tbody data-repeater-list="category">
-                    <tr data-repeater-item>
-                        <td>
-                            {!! Form::select('category_id',
-                                    $itemCategories,
-                                    null,
-                                    ['class' => 'form-control repeater-select required']
-                                )
-                            !!}
-                        </td>
-                        <td class="show-unit-name"></td>
-                        <td>
-                            {{ Form::number('quantity', null, [
-                                'class' => 'form-control',
-                                'data-rule-min' => 1,
-                                'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
-                                'data-rule-number' => 'true',
-                                'data-msg-number' => trans('labels.Please enter a valid number'),
-                            ]) }}
-                        </td>
-                        <td><i data-repeater-delete class="la la-trash-o text-danger" style="cursor: pointer"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<div id="toggle-category-entry">
-<h4 class="form-section"><i class="la la-tag"></i> @lang('labels.new') @lang('ims::inventory.inventory_request')</h4>
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive">
-            <table class="table table-bordered repeater-new-category-request">
-                <thead>
-                    <tr>
-                        <th>@lang('ims::product.title') @lang('labels.name')</th>
-                        <th>@lang('ims::inventory.unit')</th>
-                        <th width="20%">@lang('ims::inventory.type')</th>
-                        <th>@lang('labels.quantity')</th>
-                        <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
-                    </tr>
-                </thead>
-                <tbody data-repeater-list="new-category">
-                    <tr data-repeater-item>
-                        <td>
-                            {{ Form::text('name',
-                                    null,
-                                    ['class' => 'form-control']
-                                )
-                            }}
-                        </td>
-                        <td>
-                            {{ Form::text('unit',
-                                    null,
-                                    ['class' => 'form-control']
-                                )
-                            }}
-                        </td>
-                        <td>
-                            {!! Form::select('type',
-                                    [
-                                        '1' => trans('ims::inventory.fixed_asset'),
-                                        '2' => trans('ims::inventory.stationery'),
-                                    ],
-                                    null,
-                                    ['class' => 'form-control repeater-select required']
-                                )
-                            !!}
-                        </td>
-                        <td>
-                            {{ Form::number('quantity',
-                                    null,
-                                    [
-                                        'class' => 'form-control',
-                                        'data-rule-min' => 1,
-                                        'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
-                                        'data-rule-number' => 'true',
-                                        'data-msg-number' => trans('labels.Please enter a valid number'),
-                                    ]
-                                )
-                            }}
-                        </td>
-                        <td><i data-repeater-delete class="la la-trash-o text-danger" style="cursor: pointer"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-<h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.already_bought_inventory')</h4>
-<div class="row">
-    <div class="col-md-12">
-        <div class="table-responsive form-group">
-            <table class="table table-bordered repeater-bought-category-request">
-                <thead>
-                    <tr>
-                        <th width="50%">@lang('ims::product.title')</th>
-                        <th width="15%">@lang('ims::inventory.unit')</th>
-                        <th width="34%">@lang('labels.quantity')</th>
-                        <th width="1%"><i data-repeater-create class="la la-plus-circle text-info" style="cursor: pointer"></i></th>
-                    </tr>
-                </thead>
-                <tbody data-repeater-list="bought-category">
-                    <tr data-repeater-item>
-                        <td>
-                            {!! Form::select('category_id',
-                                    $itemCategories,
-                                    null,
-                                    ['class' => 'form-control repeater-select required']
-                                )
-                            !!}
-                        </td>
-                        <td class="show-unit-name"></td>
-                        <td>
-                            {{ Form::number('quantity', null, [
-                                'class' => 'form-control',
-                                'data-rule-min' => 1,
-                                'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
-                                'data-rule-number' => 'true',
-                                'data-msg-number' => trans('labels.Please enter a valid number'),
-                            ]) }}
-                        </td>
-                        <td><i data-repeater-delete class="la la-trash-o text-danger" style="cursor: pointer"></i></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-</div>
+@foreach($extra['loaded-views'] as $loadedView)
+    @include('ims::inventory.request.partials.'. $loadedView)
+@endforeach
+
 <div class="form-actions text-center">
     <button type="submit" class="btn btn-primary">
         <i class="la la-check-square-o"></i>@lang('labels.save')

@@ -45,9 +45,10 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param string $type
      * @return Response
      */
-    public function create()
+    public function create(string $type = null)
     {
         $employeeOptions = $this->employeeService->getEmployeesForDropdown(
             null, null,
@@ -58,11 +59,15 @@ class InventoryRequestController extends Controller
         $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
         $itemCategories = ['' => 'Select'] + $itemCategories;
 
+        $extra['loaded-views'] = $this->inventoryRequestService->prepareViews($type);
+
         return view('ims::inventory.request.create',
             compact('employeeOptions',
                 'fromLocations',
                 'toLocations',
-                'itemCategories'
+                'itemCategories',
+                'type',
+                'extra'
             )
         );
     }
