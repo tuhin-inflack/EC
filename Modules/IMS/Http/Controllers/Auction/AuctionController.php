@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Modules\IMS\Services\AuctionService;
 use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\Auction;
 class AuctionController extends Controller
 {
 
@@ -24,7 +25,8 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        return view('ims::auction.index');
+        $auctions = $this->_auctionService->findAll();
+        return view('ims::auction.index', compact('auctions'));
     }
 
     /**
@@ -43,13 +45,12 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
-        if ($this->_auctionService->AuctionStore($request->all())) {
+        if ($this->_auctionService->auctionStore($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
             Session::flash('error', trans('labels.save_fail'));
         }
-        //return redirect()->route('auction.index');
+        return redirect()->route('auction.index');
 
         
     }
@@ -61,7 +62,9 @@ class AuctionController extends Controller
      */
     public function show($id)
     {
-        return view('ims::auction.show');
+        $auction=$this->_auctionService->findOne($id);
+        $auctionDetails=$auction->details()->get();
+        return view('ims::auction.show',compact('auction','auctionDetails'));
     }
 
     /**
@@ -71,7 +74,9 @@ class AuctionController extends Controller
      */
     public function edit($id)
     {
-        return view('ims::auction.edit');
+        $auction=$this->_auctionService->findOne($id);
+        $auctionDetails=$auction->details()->get();
+        return view('ims::auction.edit',compact('auction','auctionDetails'));
     }
 
     /**
@@ -80,9 +85,15 @@ class AuctionController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,Auction $auction)
     {
-        //
+        // return $request;
+        if ($this->_auctionService->auctionUpdate($auction,$request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
+        return redirect()->route('auction.index');
     }
 
     /**

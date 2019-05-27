@@ -25,8 +25,8 @@
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('auction.create') }}" method="POST">
-                                @csrf
+                            {{ Form::open(['route'=>['auction.update',$auction->id]]) }}
+                                @method('PUT')    
                                 <h4 class="form-section"><i
                                             class="la la-puzzle-piece"></i> @lang('ims::auction.title')</h4>
                                 <div class="row">
@@ -35,13 +35,14 @@
                                         <label for="auction_title"> @lang('ims::auction.name')</label>
                                         <input id="auction_title" name="auction_title" type="text"
                                                class="form-control" placeholder="@lang('ims::auction.name')"
+                                               value="{{$auction->title}}"
                                                required>
                                     </div>
-                                    <!-- Auction Date -->
-                                    
+                                    <!-- Auction Date --> 
                                     <div class="col">
                                         <label class="required">@lang('ims::auction.date')</label>
-                                        {{ Form::text('auction_date', date('d/m/Y'), [
+                                        {{ Form::text('auction_date', 
+                                            date('d/m/Y', strtotime($auction->date)), [
                                             'id' => 'auction_date',
                                             'class' => 'form-control required' . ($errors->has('auction_date') ? ' is-invalid' : ''),
                                             'placeholder' => 'Pick a date',
@@ -52,52 +53,55 @@
                                     </div>
                                     
                                 </div>
-
-                               
+                             
 
                                 <h4 class="form-section"><i
                                     class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
                                 @php
-                                    $scrapCategory=['Chair - 100 Available ',"Table - 200 Available"]
+                                   $scrapCategory=['Chair - 100 Available ',"Table - 200 Available"]
 
                                 @endphp
 
                                 <!-- Scrap Products -->
                                 <div class="repeater-default">
                                         <div data-repeater-list="scrap_product">
-                                            <div data-repeater-item>
-                                                <div class="form row">
-                                                     <!--Scrap Category -->
-                                                    <div class="form-group mb-1 col-sm-12 col-md-3">   
-                                                        <label class="required">{{ trans('ims::auction.category') }}</label>
-                                                        <br>
-                                                        {!! Form::select('category_id', $scrapCategory, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Category', 'onChange' => '', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
-                                                        <span class="select-error"></span>
-                                                    </div>
-                                                     <!-- Scrap Quantity -->
-                                                    <div class="form-group mb-1 col-sm-12 col-md-2">
-                                                        <label class="required"
-                                                                for="quantity">{{ trans('ims::auction.quantity') }}</label>
-                                                        <br>
+                                           @foreach ($auctionDetails as $auctionDetail)
+                                                <div data-repeater-item>
+                                                    <div class="form row">
+                                                        
+                                                        {!! Form::hidden('id', $auctionDetail->id) !!}
+                                                        <!--Scrap Category -->
+                                                        <div class="form-group mb-1 col-sm-12 col-md-3">   
+                                                            <label class="required">{{ trans('ims::auction.category') }}</label>
+                                                            <br>
+                                                            {!! Form::select('category_id', $scrapCategory, $auctionDetail->category_id, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Category', 'onChange' => '', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                                            <span class="select-error"></span>
+                                                        </div>
+                                                        <!-- Scrap Quantity -->
+                                                        <div class="form-group mb-1 col-sm-12 col-md-2">
+                                                            <label class="required"
+                                                                    for="quantity">{{ trans('ims::auction.quantity') }}</label>
+                                                            <br>
+                                                           
+                                                            {!! Form::number('quantity', $auctionDetail->quantity, [
+                                                                'class' => 'form-control required', 'placeholder' => 'e.g. 2',
+                                                                'data-msg-required' => trans('labels.This field is required'),
+                                                                'min' => 1,
+                                                                'data-msg-min'=> trans('labels.At least 1 characters'),
+                                                                'max' => 100,
+                                                                'data-msg-max'=> trans('labels.At most 100 characters'),
+                                                            ]) !!}
+                                                        </div>
                                                        
-                                                        {!! Form::number('quantity', null, [
-                                                            'class' => 'form-control required', 'placeholder' => 'e.g. 2',
-                                                            'data-msg-required' => trans('labels.This field is required'),
-                                                            'min' => 1,
-                                                            'data-msg-min'=> trans('labels.At least 1 characters'),
-                                                            'max' => 100,
-                                                            'data-msg-max'=> trans('labels.At most 100 characters'),
-                                                        ]) !!}
+                                                        <div class="form-group col-sm-12 col-md-1 text-center mt-2">
+                                                            <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
+                                                                <i class="ft-x"></i>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                   
-                                                    <div class="form-group col-sm-12 col-md-1 text-center mt-2">
-                                                        <button type="button" class="btn btn-outline-danger" data-repeater-delete="">
-                                                            <i class="ft-x"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <hr>
-                                            </div>
+                                                    <hr>
+                                                </div>        
+                                           @endforeach
                                         </div>
                                        
                                         <div class="form-group overflow-auto">
@@ -119,7 +123,7 @@
                                         <i class="la la-check-square-o"></i> {{trans('labels.save')}}
                                     </button>
                                 </div>
-                            </form>
+                            {{ Form::close() }}
                         </div>
                     </div>
                 </div>
@@ -158,23 +162,11 @@
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
     <script type="text/javascript">
+   
         // datepicker
         $('#auction_date').pickadate({
             min: new Date()
         });
-
-         // form-repeater
-        $('.repeater-default').repeater({
-            show: function () {
-                $(".room-type-select").change(function() {
-                    $(".room-type-select").not(this).find("option[value=" + $(this).val() + "]").remove();
-                });
-            }
-
-        });
-
-        
-        
     
     </script>
     
