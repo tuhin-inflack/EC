@@ -58,6 +58,7 @@ Route::prefix('ims')->group(function () {
         Route::post('/','Inventory\InventoryCategoryController@store')->name('inventory-item-category.store');
         Route::get('{inventoryItemCategory}/edit','Inventory\InventoryCategoryController@edit')->name('inventory-item-category.edit');
         Route::put('{inventoryItemCategory}/update','Inventory\InventoryCategoryController@update')->name('inventory-item-category.update');
+        Route::get('{inventoryItemCategory}','Inventory\InventoryCategoryController@show')->name('inventory-item-category.show');
     });
 
 
