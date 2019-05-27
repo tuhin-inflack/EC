@@ -71,7 +71,12 @@
                                                     <div class="form-group mb-1 col-sm-12 col-md-3">   
                                                         <label class="required">{{ trans('ims::auction.category') }}</label>
                                                         <br>
-                                                        {!! Form::select('category_id', $scrapCategory, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Category', 'onChange' => '', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                                        {!! Form::select('category_id', $scrapCategory, null, [
+                                                            'class' => 'form-control room-type-select required', 
+                                                            'placeholder' => 'Select Category', 
+                                                            'onChange' => '', 
+                                                            'data-msg-required' => Lang::get('labels.This field is required')
+                                                        ]) !!}
                                                         <span class="select-error"></span>
                                                     </div>
                                                      <!-- Scrap Quantity -->
@@ -163,15 +168,6 @@
             min: new Date()
         });
 
-         // form-repeater
-        $('.repeater-default').repeater({
-            show: function () {
-                $(".room-type-select").change(function() {
-                    $(".room-type-select").not(this).find("option[value=" + $(this).val() + "]").remove();
-                });
-            }
-
-        });
 
         
         

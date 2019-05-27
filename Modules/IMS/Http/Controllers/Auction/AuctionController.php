@@ -45,6 +45,7 @@ class AuctionController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         if ($this->_auctionService->auctionStore($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
