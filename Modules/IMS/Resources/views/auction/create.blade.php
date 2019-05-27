@@ -41,14 +41,7 @@
                                     
                                     <div class="col">
                                         <label class="required">@lang('ims::auction.date')</label>
-                                        {{ Form::text('auction_date', date('d/m/Y'), [
-                                            'id' => 'auction_date',
-                                            'class' => 'form-control required' . ($errors->has('auction_date') ? ' is-invalid' : ''),
-                                            'placeholder' => 'Pick a date',
-                                            'required' => 'required',
-                                            
-                                        ]) }}
-                                        {{ Form::hidden('auction_date', date('d/m/Y')) }}    
+                                        {{ Form::text('auction_date', date('d/m/Y'), ['class' => 'form-control']) }}
                                     </div>
                                     
                                 </div>
@@ -164,9 +157,12 @@
 
     <script type="text/javascript">
         // datepicker
-        $('#auction_date').pickadate({
-            min: new Date()
-        });
+        $('input[name=auction_date]').pickadate({
+                min: new Date(),
+                format: 'dd/mm/yyyy'
+            });
+
+        $('#auction_date').pickadate();
 
 
         
