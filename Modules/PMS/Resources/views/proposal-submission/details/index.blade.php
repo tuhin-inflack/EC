@@ -20,8 +20,9 @@
                                         <th scope="col">@lang('labels.title')</th>
                                         <th scope="col">@lang('pms::project_proposal.attached_file')</th>
                                         <th scope="col">@lang('pms::project_proposal.submitted_by')</th>
-                                        <th scope="col">@lang('rms::research_proposal.submission_date')</th>
+                                        <th scope="col">@lang('pms::project_proposal.submission_date')</th>
                                         <th scope="col">@lang('labels.status')</th>
+                                        <th scope="col">@lang('labels.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -41,7 +42,7 @@
                                         <tr>
                                             <th scope="row">{{$loop->iteration}}</th>
                                             <td>
-                                                <a href="">{{ $proposal->title }}</a>
+                                                {{ $proposal->title }}
                                             </td>
                                             <td>
                                                 <a href="{{url('pms/project-proposal-submission/attachment-download/'.$proposal->id)}}">@lang('labels.attachments')</a>
@@ -50,6 +51,11 @@
                                             <td>{{ date('d/m/y hi:a', strtotime($proposal->created_at)) }}</td>
                                             <td>
                                                 <span class="badge {{ $statusAr[strtoupper($proposal->status)] }}">@lang('labels.status_' . strtolower($proposal->status))</span>
+                                            </td>
+                                            <td>
+                                                <a class="round" href="{{ route('project-detail-proposal-budget.index', $proposal->id) }}">
+                                                    <i class="ft-folder"></i> @lang('pms::project_budget.title')
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

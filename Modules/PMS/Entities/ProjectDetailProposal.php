@@ -30,4 +30,9 @@ class ProjectDetailProposal extends Model
     {
         return $this->belongsTo(ProjectRequestDetail::class, 'project_request_id', 'id');
     }
+
+    public function budgets()
+    {
+        return $this->morphMany(DraftProposalBudget::class, 'budgetable', 'budgetable_type', 'budgetable_id', 'id');
+    }
 }

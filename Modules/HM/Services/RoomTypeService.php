@@ -49,6 +49,6 @@ class RoomTypeService
             if ($roomType->rooms->count()) {
                 return $roomType;
             }
-        });
+        })->values();
     }
 }

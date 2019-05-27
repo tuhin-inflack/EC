@@ -58,11 +58,6 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
         foreach ($recipients as $recipient) {
             $notificationData['to_user_id'] = $recipient['id'];
             $this->saveAppNotification($notificationData);
-
-            $user = $this->userService->findOne($recipient['id']);
-            $projectProposal = $this->projectProposalService->findOne($this->getProjectProposalId($notificationInfo));
-
-            $this->sendProjectProposalEmailNotification($notificationInfo, $notificationType, $projectProposal, $user);
         }
     }
 
@@ -88,7 +83,9 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
 
     public function sendEmailNotification($data)
     {
-        $this->sendEmail($data['user']->email, new WorkflowEmailNotification($data['projectProposal'], $data['message'], $data['url']));
+        $user = $this->userService->findOne($data['user_id']);
+
+        $this->sendEmail($user->email, new WorkflowEmailNotification($data['title'], $data['message'], $data['url']));
     }
 
     /**
@@ -98,31 +95,6 @@ class ProjectProposalNotificationGenerator extends BaseNotificationGenerator imp
     private function getProjectProposalId(NotificationInfo $notificationInfo)
     {
         return $notificationInfo->dynamicValues['notificationData']['ref_table_id'];
-    }
-
-    /**
-     * @param NotificationInfo $notificationInfo
-     * @param NotificationType $notificationType
-     * @param ProjectProposal $projectProposal
-     * @param User $user
-     */
-    private function sendProjectProposalEmailNotification(
-        NotificationInfo $notificationInfo,
-        NotificationType $notificationType,
-        ProjectProposal $projectProposal,
-        User $user
-    ): void
-    {
-        if ($notificationType->is_email_notification) {
-            $emailData = [
-                'user' => $user,
-                'projectProposal' => $projectProposal,
-                'message' => $this->getNotificationMessage($notificationInfo),
-                'url' => $notificationInfo->getDynamicValues()['notificationData']['url']
-            ];
-
-            $this->sendEmailNotification($emailData);
-        }
     }
 
     /**

@@ -80,7 +80,8 @@ class ProjectRequestController extends Controller
      */
     public function show(ProjectRequest $projectRequest)
     {
-        return view('pms::project-request.brief.show', compact('projectRequest'));
+        $requests = $this->projectRequestService->getInvitationReceivedByUser();
+        return view('pms::project-request.brief.show', compact('projectRequest', 'requests'));
     }
 
     /**

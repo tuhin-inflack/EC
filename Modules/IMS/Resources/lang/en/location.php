@@ -20,4 +20,5 @@ return [
     'location_edit' => 'Location Edit',
     'from_location' => 'From Location',
     'to_location' => 'To Location',
+    'location_details' => 'Location Details',
 ];

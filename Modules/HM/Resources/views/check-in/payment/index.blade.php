@@ -94,14 +94,16 @@
                                         <br>
                                         <div class="row">
                                             <div class="col-md-4">
-                                                <span class="text-bold-600">@lang('hm::checkin.total_bill'): {{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) }}</span>
+                                                <span class="text-bold-600">@lang('hm::checkin.total_bill')
+                                                    : {{ $totalBill }}</span>
                                             </div>
                                             <div class="col-md-4">
                                                 <span class="text-bold-600">@lang('hm::checkin.total_payment')
                                                     : {{ $checkin->payments()->sum('amount') }}</span>
                                             </div>
                                             <div class="col-md-4">
-                                                <span class="text-bold-600">@lang('hm::checkin.total_due'): {{ $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') }}</span>
+                                                <span class="text-bold-600">@lang('hm::checkin.total_due')
+                                                    : {{ $dueAmount }}</span>
                                             </div>
                                         </div>
 
@@ -113,13 +115,14 @@
                                    href="{{ route('check-in.show',  $checkin->id) }}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>
-                                @if(($checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount') ) != 0 )
-                                <a class="btn btn-success mr-1" role="button"
-                                   href="{{ route('check-in-payments.create', $checkin->id) }}">
-                                    <i class="ft-credit-card"></i> @lang('hm::checkin.make_payment')
-                                </a>
+                                @if($dueAmount != 0 )
+                                    <a class="btn btn-success mr-1" role="button"
+                                       href="{{ route('check-in-payments.create', $checkin->id) }}">
+                                        <i class="ft-credit-card"></i> @lang('hm::checkin.make_payment')
+                                    </a>
                                 @endif
-                                <button class="btn btn-primary" type="button" id="PrintCommand"><i class="ft ft-printer"></i> @lang('labels.print')</button>
+                                <button class="btn btn-primary" type="button" id="PrintCommand"><i
+                                            class="ft ft-printer"></i> @lang('labels.print')</button>
                             </div>
                         </div>
                     </div>

@@ -28,7 +28,7 @@
 
                                         <label class="black">@lang('rms::research_proposal.submission_date'): </label>
                                         <p> {{ date('d/m/y', strtotime($proposal->created_at)) }} </p>
-                                        <label class="black">@lang('rms::research_proposal.submitted_by'): </label>
+                                        <label class="black">@lang('rms::research_proposal.submitted_by') (@lang('labels.designation')): </label>
                                         <p> {{ $proposal->proposalSubmittedBy->name }} </p>
                                     </div>
                                     @if(count($remarks))

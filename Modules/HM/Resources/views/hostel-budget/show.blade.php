@@ -107,10 +107,10 @@
     <script src="{{ asset('theme/vendors/js/forms/icheck/icheck.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('theme/js/scripts/tables/datatables/datatable-advanced.js') }}"
             type="text/javascript"></script>
+    <script src="{{ asset('js/hostel-budget/sum.js') }}"></script>
     <script>
-
-
         $(document).ready(function () {
+            calculateBudgetSum('budget_approved_amount');
 
             $('.item-select').select2({
 //                    placeholder: 'Select item',

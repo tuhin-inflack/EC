@@ -58,7 +58,7 @@
                                             </td>
                                             <td>{{ $project->projectSubmittedByUser->name }}</td>
                                             <td>{{ date('d/m/Y, h:iA', strtotime($project->created_at)) }}</td>
-                                            <td>@lang('pms::project_proposal.' . $project->status)</td>
+                                            <td>@lang('pms::project_proposal.in_progress')</td>
                                             <td>
                                                 <span class="dropdown">
                                                 <button id="btnSearchDrop2" type="button" data-toggle="dropdown"
@@ -70,8 +70,6 @@
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
                                                     <a href="{{ route('project.show', $project->id) }}"
                                                        class="dropdown-item"><i class="ft-eye"></i>@lang('labels.details')</a>
-                                                    <a href="{{ route('project-budget.index', $project->id) }}"
-                                                       class="dropdown-item"><i class="ft-folder"></i>@lang('pms::project_budget.title')</a>
                                                 </span>
                                             </span>
                                             </td>

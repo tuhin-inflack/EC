@@ -143,7 +143,7 @@ class ResearchDetailInvitationService
                return ((auth()->user()->id == $researchDetailInvitaion->researchApprovedProposal->auth_user_id
                        || auth()->user()->employee->employeeDepartment->department_code == "RMS")
                    && !$researchDetailInvitaion->proposalsUnderReviewOrApproved->count()
-                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchDetailInvitaion->end_date)));
+                   && Carbon::today()->lessThanOrEqualTo(Carbon::parse($researchDetailInvitaion->end_date->format('Y-m-d'))));
             });
     }
 }

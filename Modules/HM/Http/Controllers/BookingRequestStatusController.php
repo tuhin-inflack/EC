@@ -53,11 +53,6 @@ class BookingRequestStatusController extends Controller
         if ($this->bookingRequestService->approveBookingRequest($roomBooking, $request->all())) {
             if (isset($roomBooking->requester->email)) {
                 Mail::to($roomBooking->requester->email)->send(new BookingApprovalMail($roomBooking));
-                $usersForEmailNotification = $this->roleService->getUserEmailByRoles();
-                foreach ($usersForEmailNotification as $email) {
-                    Mail::to($email)->send(new BookingRequestMail($roomBooking));
-                }
-
             }
             Session::flash('success', trans('labels.update_success'));
         } else {
