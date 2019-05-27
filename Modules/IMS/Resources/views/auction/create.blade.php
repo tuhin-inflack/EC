@@ -53,15 +53,7 @@
                                     
                                 </div>
 
-                                <div class="row">
-                                    <!-- Auction Description -->
-                                    <div class="col">
-                                        <label for="auction_description">@lang('ims::auction.description')</label>
-                                        <input type="text" min="0" id="auction_description" name="auction_description" class="form-control"
-                                               placeholder="@lang('ims::auction.description')" required>
-                                    </div>
-                                    
-                                </div>
+                               
 
                                 <h4 class="form-section"><i
                                     class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
