@@ -72,5 +72,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('tms-access', function ($user) {
             return $user->hasAnyRole(['ROLE_DIRECTOR_ADMIN', 'ROLE_DIRECTOR_TRAINING']);
         });
+        Gate::define('ims-access', function ($user) {
+            return true;
+        });
     }
 }
