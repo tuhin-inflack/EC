@@ -11,20 +11,20 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryItemCategoryService;
 use Modules\IMS\Services\InventoryRequestService;
-use Modules\IMS\Services\LocationService;
+use Modules\IMS\Services\InventoryLocationService;
 
 class InventoryRequestController extends Controller
 {
-
     private $inventoryRequestService;
     private $employeeService;
     private $locationService;
     private $inventoryItemCategoryService;
 
-    public function __construct(InventoryRequestService $inventoryRequestService,
-                                EmployeeServices $employeeService,
-                                LocationService $locationService,
-                                InventoryItemCategoryService $inventoryItemCategoryService
+    public function __construct(
+        InventoryRequestService $inventoryRequestService,
+        EmployeeServices $employeeService,
+        InventoryLocationService $locationService,
+        InventoryItemCategoryService $inventoryItemCategoryService
     )
     {
         $this->inventoryRequestService = $inventoryRequestService;
@@ -45,9 +45,10 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param string $type
      * @return Response
      */
-    public function create()
+    public function create(string $type = null)
     {
         $employeeOptions = $this->employeeService->getEmployeesForDropdown(
             null, null,
@@ -58,11 +59,15 @@ class InventoryRequestController extends Controller
         $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
         $itemCategories = ['' => 'Select'] + $itemCategories;
 
+        $extra['loaded-views'] = $this->inventoryRequestService->prepareViews($type);
+
         return view('ims::inventory.request.create',
             compact('employeeOptions',
                 'fromLocations',
                 'toLocations',
-                'itemCategories'
+                'itemCategories',
+                'type',
+                'extra'
             )
         );
     }
@@ -74,20 +79,15 @@ class InventoryRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $this->inventoryRequestService->store($request->all());
-        Session::flash('success', trans('labels.save_success'));
+        // TODO: request validation
+        
+        if ($this->inventoryRequestService->store($request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
 
         return redirect()->route('inventory-request.index');
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('ims::show');
     }
 
     /**
@@ -100,24 +100,4 @@ class InventoryRequestController extends Controller
         return view('ims::inventory.request.edit', compact('inventoryRequest'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
-     * @return Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

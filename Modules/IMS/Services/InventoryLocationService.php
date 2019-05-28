@@ -9,19 +9,18 @@ namespace Modules\IMS\Services;
 
 use Closure;
 use Illuminate\Support\Facades\DB;
-use Modules\IMS\Entities\Location;
-use Modules\IMS\Repositories\LocationRepository;
+use Modules\IMS\Entities\InventoryLocation;
+use Modules\IMS\Repositories\InventoryLocationRepository;
 
-class LocationService
+class InventoryLocationService
 {
     /**
-     * @var LocationRepository
+     * @var InventoryLocationRepository
      */
     private $locationRepository;
 
-    public function __construct(LocationRepository $locationRepository)
+    public function __construct(InventoryLocationRepository $locationRepository)
     {
-        /** @var LocationService $locationRepository */
         $this->locationRepository = $locationRepository;
     }
 
@@ -36,7 +35,7 @@ class LocationService
         return $this->locationRepository->findAll();
     }
 
-    public function updateLocation(Location $location, array $data)
+    public function updateLocation(InventoryLocation $location, array $data)
     {
         return DB::transaction(function () use ($location, $data){
             return $location->update($data);

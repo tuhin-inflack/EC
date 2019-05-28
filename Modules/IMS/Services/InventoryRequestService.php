@@ -80,4 +80,29 @@ class InventoryRequestService
 
         });
     }
+
+    public function prepareViews($type){
+
+        switch ($type){
+            case 'requisition':
+                return ['category', 'new-category', 'bought-category'];
+
+                break;
+            case 'transfer':
+                return ['category'];
+
+                break;
+            case 'scrap':
+                return ['category'];
+
+                break;
+            case 'abandon':
+                return ['category'];
+
+                break;
+            default:
+                return [];
+                break;
+        }
+    }
 }
