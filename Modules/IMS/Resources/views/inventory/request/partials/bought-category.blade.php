@@ -15,7 +15,7 @@
                 <tr data-repeater-item>
                     <td>
                         {!! Form::select('category_id',
-                                $itemCategories,
+                                $categories['bought'],
                                 null,
                                 ['class' => 'form-control repeater-select required']
                             )

@@ -7,6 +7,7 @@
  */
 namespace Modules\IMS\Services;
 
+use App\Traits\CrudTrait;
 use Closure;
 use Illuminate\Support\Facades\DB;
 use Modules\IMS\Entities\InventoryLocation;
@@ -14,6 +15,7 @@ use Modules\IMS\Repositories\InventoryLocationRepository;
 
 class InventoryLocationService
 {
+    use CrudTrait;
     /**
      * @var InventoryLocationRepository
      */
@@ -22,6 +24,7 @@ class InventoryLocationService
     public function __construct(InventoryLocationRepository $locationRepository)
     {
         $this->locationRepository = $locationRepository;
+        $this->setActionRepository($locationRepository);
     }
 
     public function store(array $data)
@@ -53,7 +56,7 @@ class InventoryLocationService
      */
     public function getLocationsForDropdown(Closure $implementedValue = null, Closure $implementedKey = null, array $query = null)
     {
-        $locations = $query ? $this->locationRepository->findBy($query) : $this->locationRepository->findAll();
+        $locations = $query ? $this->findBy($query) : $this->findAll();
 
         $locationOptions = [];
 
@@ -68,5 +71,31 @@ class InventoryLocationService
         }
 
         return $locationOptions;
+    }
+
+
+    private function getSpecificStoreLocation($name){
+        return $this->getLocationsForDropdown(
+            function($location) {
+                return $location->name;
+            },
+            null,
+            [
+                'is_default' => true,
+                'name' => $name
+            ]
+        );
+    }
+
+    public function getMainStoreLocation(){
+        return $this->getSpecificStoreLocation('main store');
+    }
+
+    public function getScrapLocation(){
+        return $this->getSpecificStoreLocation('scrap location');
+    }
+
+    public function getAbandonLocation(){
+        return $this->getSpecificStoreLocation('abandon location');
     }
 }

@@ -9,12 +9,14 @@
 namespace Modules\IMS\Services;
 
 
+use App\Traits\CrudTrait;
 use Closure;
 use Modules\IMS\Entities\InventoryItemCategory;
 use Modules\IMS\Repositories\InventoryItemCategoryRepository;
 
 class InventoryItemCategoryService
 {
+    use CrudTrait;
     /**
      * @var InventoryItemCategoryRepository
      */
@@ -24,6 +26,7 @@ class InventoryItemCategoryService
     {
         /** @var InventoryItemCategoryRepository $inventoryItemCategoryRepository */
         $this->inventoryItemCategoryRepository = $inventoryItemCategoryRepository;
+        $this->setActionRepository($inventoryItemCategoryRepository);
     }
 
     public function store(array $data)

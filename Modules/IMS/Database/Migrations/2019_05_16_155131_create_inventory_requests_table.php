@@ -20,7 +20,7 @@ class CreateInventoryRequestsTable extends Migration
             $table->integer('from_location_id');
             $table->integer('to_location_id');
             $table->integer('requester_id');
-            $table->integer('receiver_id');
+            $table->integer('receiver_id')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });

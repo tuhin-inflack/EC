@@ -21,7 +21,7 @@ return [
         'requisition' => 'চাহিদাপত্র',
         'transfer' => 'হস্তান্তর',
         'scrap' => 'স্ক্র্যাপ',
-        'abandon' => 'বর্জিত করা',
+        'abandon' => 'বর্জিত',
     ],
     'already_bought_inventory' => 'ইতিমধ্যেই কেনা ইনভেন্টরি',
     'inventory_item_category' => 'ইনভেন্টরি আইটেম ক্যাটাগরি',
