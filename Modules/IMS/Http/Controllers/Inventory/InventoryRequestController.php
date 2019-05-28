@@ -11,7 +11,7 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryItemCategoryService;
 use Modules\IMS\Services\InventoryRequestService;
-use Modules\IMS\Services\LocationService;
+use Modules\IMS\Services\InventoryLocationService;
 
 class InventoryRequestController extends Controller
 {
@@ -23,7 +23,7 @@ class InventoryRequestController extends Controller
 
     public function __construct(InventoryRequestService $inventoryRequestService,
                                 EmployeeServices $employeeService,
-                                LocationService $locationService,
+                                InventoryLocationService $locationService,
                                 InventoryItemCategoryService $inventoryItemCategoryService
     )
     {

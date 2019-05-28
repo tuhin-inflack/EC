@@ -26,11 +26,11 @@ class InventoryRequest extends Model
 
     public function fromLocation()
     {
-        return $this->hasOne(Location::class, 'id', 'from_location_id');
+        return $this->hasOne(InventoryLocation::class, 'id', 'from_location_id');
     }
 
     public function toLocation()
     {
-        return $this->hasOne(Location::class, 'id', 'to_location_id');
+        return $this->hasOne(InventoryLocation::class, 'id', 'to_location_id');
     }
 }

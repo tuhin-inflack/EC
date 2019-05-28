@@ -7,25 +7,25 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\HRM\Services\DepartmentService;
-use Modules\IMS\Entities\Location;
-use Modules\IMS\Services\LocationService;
+use Modules\IMS\Entities\InventoryLocation;
+use Modules\IMS\Services\InventoryLocationService;
 
-class LocationController extends Controller
+class InventoryLocationController extends Controller
 {
     /**
      * @var DepartmentService
      */
     private $departmentService;
     /**
-     * @var LocationService
+     * @var InventoryLocationService
      */
     private $locationService;
 
-    public function __construct(DepartmentService $departmentService, LocationService $locationService)
+    public function __construct(DepartmentService $departmentService, InventoryLocationService $locationService)
     {
         /** @var DepartmentService $departmentService */
         $this->departmentService = $departmentService;
-        /** @var LocationService $locationService */
+        /** @var InventoryLocationService $locationService */
         $this->locationService = $locationService;
     }
 
@@ -73,10 +73,10 @@ class LocationController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     * @param int $id
+     * @param InventoryLocation $location
      * @return Response
      */
-    public function edit(Location $location)
+    public function edit(InventoryLocation $location)
     {
         $departments = $this->departmentService->getDepartmentsForDropdown();
         return view('ims::location.edit', compact('location', 'departments'));
@@ -88,7 +88,7 @@ class LocationController extends Controller
      * @param int $id
      * @return Response
      */
-    public function update(Request $request, Location $location)
+    public function update(Request $request, InventoryLocation $location)
     {
         $this->locationService->updateLocation($location, $request->all());
         Session::flash('success', trans('labels.save_success'));
