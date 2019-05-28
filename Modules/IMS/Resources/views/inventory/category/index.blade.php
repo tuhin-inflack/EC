@@ -36,7 +36,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="">{{ $category->name }}</a>
+                                                <a href="{{ route('inventory-item-category.show', $category->id) }}">{{ $category->name }}</a>
                                             </td>
                                             <td>
                                                 @if($category->type == 1)
@@ -55,7 +55,7 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="#" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{ route('inventory-item-category.show', $category->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                         <a href="{{ route('inventory-item-category.edit', $category->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
 
