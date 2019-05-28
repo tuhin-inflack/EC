@@ -40,14 +40,14 @@ class InventoryRequestController extends Controller
             $employees,
             $fromLocations,
             $toLocations,
-            $itemCategories
+            $categories
         ) = $this->inventoryRequestService->prepareViews($type);
 
         return view('ims::inventory.request.create',
             compact('employees',
                 'fromLocations',
                 'toLocations',
-                'itemCategories',
+                'categories',
                 'type',
                 'loadedViews'
             )

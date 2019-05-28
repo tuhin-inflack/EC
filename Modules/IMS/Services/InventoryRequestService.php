@@ -128,15 +128,21 @@ class InventoryRequestService
                     'is_default' => false
                 ]
             );
-        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-        $itemCategories = ['' => 'Select'] + $itemCategories;
+        $categories['items'] = ['' => 'Select'] +
+            $this->inventoryItemCategoryService->getItemCategoryForDropdown(
+                null, null,
+                [
+                    'is_active' => false
+                ]
+            );
+        $categories['bought'] = ['' => 'Select'] + $this->inventoryItemCategoryService->getItemCategoryForDropdown();
 
         return [
             ['category', 'new-category', 'bought-category'],
             $employees,
             $fromLocations,
             $toLocations,
-            $itemCategories
+            $categories
         ];
     }
 
@@ -160,15 +166,15 @@ class InventoryRequestService
                     'is_default' => false
                 ]
             );
-        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-        $itemCategories = ['' => 'Select'] + $itemCategories;
+        $categories['items'] = ['' => 'Select'] + $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $categories['bought'] = 0;
 
         return [
             ['category'],
             $employees,
             $fromLocations,
             $toLocations,
-            $itemCategories
+            $categories
         ];
     }
 
@@ -185,15 +191,15 @@ class InventoryRequestService
                 ]
             );
         $toLocations = $this->locationService->getScrapLocation();
-        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-        $itemCategories = ['' => 'Select'] + $itemCategories;
+        $categories['items'] = ['' => 'Select'] + $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $categories['bought'] = 0;
 
         return [
             ['category'],
             $employees,
             $fromLocations,
             $toLocations,
-            $itemCategories
+            $categories
         ];
     }
 
@@ -210,15 +216,15 @@ class InventoryRequestService
                 ]
             );
         $toLocations = $this->locationService->getAbandonLocation();
-        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-        $itemCategories = ['' => 'Select'] + $itemCategories;
+        $categories['items'] = ['' => 'Select'] + $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $categories['bought'] = 0;
 
         return [
             ['category'],
             $employees,
             $fromLocations,
             $toLocations,
-            $itemCategories
+            $categories
         ];
     }
 }
