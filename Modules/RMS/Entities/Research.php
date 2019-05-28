@@ -2,7 +2,6 @@
 
 namespace Modules\RMS\Entities;
 
-use App\Entities\DraftProposalBudget\DraftProposalBudget;
 use App\Entities\monthlyUpdate\MonthlyUpdate;
 use App\Entities\Organization\Organization;
 use App\Entities\Task;

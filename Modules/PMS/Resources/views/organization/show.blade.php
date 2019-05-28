@@ -4,6 +4,63 @@
 @section('content')
     <div class="row">
         <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">@lang('organization.organization')</h4>
+                    <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
+                    <div class="heading-elements">
+                        <ul class="list-inline mb-0">
+                            <li><a data-action="collapse"><i class="ft-minus"></i></a></li>
+                            <li><a data-action="reload"><i class="ft-rotate-cw"></i></a></li>
+                            <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-text">
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('pms::project.title')</dt>
+                            <dd class="col-sm-9"><a href="{{ route('project.show', $project->id) }}">{{ $project->title }}</a></dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('pms::project_proposal.organization_name')</dt>
+                            <dd class="col-sm-9">{{ $organization->name }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('labels.email_address')</dt>
+                            <dd class="col-sm-9">{{ $organization->email }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('labels.mobile')</dt>
+                            <dd class="col-sm-9">{{ $organization->mobile }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('labels.address')</dt>
+                            <dd class="col-sm-9">{{ $organization->address }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('division.division')</dt>
+                            <dd class="col-sm-9">{{ $organization->division->name }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('district.district')</dt>
+                            <dd class="col-sm-9">{{ $organization->district->name }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('thana.thana')</dt>
+                            <dd class="col-sm-9">{{ $organization->thana->name }}</dd>
+                        </dl>
+                        <dl class="row">
+                            <dt class="col-sm-3">@lang('union.union')</dt>
+                            <dd class="col-sm-9">{{ $organization->union->name }}</dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
             @include('pms::organization-member.partials.table')
         </div>
     </div>

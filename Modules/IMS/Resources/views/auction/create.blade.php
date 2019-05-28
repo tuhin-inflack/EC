@@ -18,14 +18,14 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('auction.list') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('auction.index') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-list white">@lang('ims::auction.list_menu_title')</i>
                             </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            <form action="{{ route('fixed-asset.add') }}" method="POST">
+                            <form action="{{ route('auction.create') }}" method="POST">
                                 @csrf
                                 <h4 class="form-section"><i
                                             class="la la-puzzle-piece"></i> @lang('ims::auction.title')</h4>
@@ -41,52 +41,45 @@
                                     
                                     <div class="col">
                                         <label class="required">@lang('ims::auction.date')</label>
-                                        {{ Form::text('auction_date', date('j F, Y'), [
+                                        {{ Form::text('auction_date', date('d/m/Y'), [
                                             'id' => 'auction_date',
                                             'class' => 'form-control required' . ($errors->has('auction_date') ? ' is-invalid' : ''),
                                             'placeholder' => 'Pick a date',
                                             'required' => 'required',
                                             
                                         ]) }}
-                                        {{ Form::hidden('auction_date', date('j F, Y')) }}    
+                                        {{ Form::hidden('auction_date', date('d/m/Y')) }}    
                                     </div>
                                     
                                 </div>
 
-                                <div class="row">
-                                    <!-- Auction Description -->
-                                    <div class="col">
-                                        <label for="auction_description">@lang('ims::auction.description')</label>
-                                        <input type="text" min="0" id="auction_description" name="auction_description" class="form-control"
-                                               placeholder="@lang('ims::auction.description')" required>
-                                    </div>
-                                    
-                                </div>
+                               
 
                                 <h4 class="form-section"><i
                                     class="la la-puzzle-piece"></i> @lang('ims::auction.scrap_add')</h4>
                                 @php
-                                    $roomTypes=['Imran Hossain',"Mohmmad Abdul sattar"]
+                                    $scrapCategory=['Chair - 100 Available ',"Table - 200 Available"]
 
                                 @endphp
 
-                                <!-- Scrap Product -->
+                                <!-- Scrap Products -->
                                 <div class="repeater-default">
-                                        <div data-repeater-list="car">
+                                        <div data-repeater-list="scrap_product">
                                             <div data-repeater-item>
                                                 <div class="form row">
-                                                    <div class="form-group mb-1 col-sm-12 col-md-3">
-                                                        <!--Scrap Category -->
+                                                     <!--Scrap Category -->
+                                                    <div class="form-group mb-1 col-sm-12 col-md-3">   
                                                         <label class="required">{{ trans('ims::auction.category') }}</label>
                                                         <br>
-                                                        {!! Form::select('room_type_id', $roomTypes, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Room Type', 'onChange' => 'getRoomTypeRates(event, this.value)', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+                                                        {!! Form::select('category_id', $scrapCategory, null, ['class' => 'form-control room-type-select required', 'placeholder' => 'Select Category', 'onChange' => '', 'data-msg-required' => Lang::get('labels.This field is required')]) !!}
                                                         <span class="select-error"></span>
                                                     </div>
+                                                     <!-- Scrap Quantity -->
                                                     <div class="form-group mb-1 col-sm-12 col-md-2">
                                                         <label class="required"
                                                                 for="quantity">{{ trans('ims::auction.quantity') }}</label>
                                                         <br>
-                                                        <!-- Scrap Quantity -->
+                                                       
                                                         {!! Form::number('quantity', null, [
                                                             'class' => 'form-control required', 'placeholder' => 'e.g. 2',
                                                             'data-msg-required' => trans('labels.This field is required'),
@@ -119,7 +112,7 @@
                                 <!-- Labels -->
                                 <div class="form-actions mb-lg-3">
                                     <a class="btn btn-warning pull-right" role="button"
-                                       href="{{ route('auction.list') }}" style="margin-left: 2px;">
+                                       href="{{ route('auction.index') }}" style="margin-left: 2px;">
                                         <i class="ft-x"></i> {{trans('labels.cancel')}}
                                     </a>
                                     <button type="submit" class="btn btn-primary pull-right">
@@ -165,11 +158,23 @@
     <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
     <script type="text/javascript">
-   
         // datepicker
         $('#auction_date').pickadate({
             min: new Date()
         });
+
+         // form-repeater
+        $('.repeater-default').repeater({
+            show: function () {
+                $(".room-type-select").change(function() {
+                    $(".room-type-select").not(this).find("option[value=" + $(this).val() + "]").remove();
+                });
+            }
+
+        });
+
+        
+        
     
     </script>
     

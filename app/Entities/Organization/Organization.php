@@ -43,14 +43,17 @@ class Organization extends Model
     {
         return $this->belongsTo(Division::class, 'division_id');
     }
+
     public function district()
     {
         return $this->belongsTo(District::class, 'district_id');
     }
+
     public function thana()
     {
         return $this->belongsTo(Thana::class, 'thana_id');
     }
+
     public function union()
     {
         return $this->belongsTo(Union::class, 'union_id');

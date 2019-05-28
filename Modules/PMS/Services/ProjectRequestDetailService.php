@@ -152,7 +152,7 @@ class ProjectRequestDetailService
                 return ((auth()->user()->id == $projectRequestDetail->projectApprovedProposal->auth_user_id
                         || auth()->user()->employee->employeeDepartment->department_code == "PMS")
                     && !$projectRequestDetail->proposalsUnderReviewOrApproved->count()
-                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequestDetail->end_date)));
+                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequestDetail->end_date->format('Y-m-d'))));
             });
     }
 

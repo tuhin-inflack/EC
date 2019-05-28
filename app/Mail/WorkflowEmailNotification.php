@@ -11,23 +11,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class WorkflowEmailNotification extends Mailable
 {
     use Queueable, SerializesModels;
-    /**
-     * @var Model
-     */
-    private $model;
+
+    private $title;
     private $message;
     private $url;
 
     /**
      * Create a new message instance.
      *
-     * @param Model $model
+     * @param $title
      * @param $message
      * @param $url
      */
-    public function __construct(Model $model, $message, $url)
+    public function __construct($title, $message, $url)
     {
-        $this->model = $model;
+        $this->_title = $title;
         $this->message = $message;
         $this->url = $url;
     }
@@ -41,7 +39,7 @@ class WorkflowEmailNotification extends Mailable
     {
         return $this->markdown('emails.workflow.notification_email')
             ->with([
-                'title' => $this->model->title,
+                'title' => $this->title,
                 'message' => $this->message,
                 'url' => $this->url
             ]);

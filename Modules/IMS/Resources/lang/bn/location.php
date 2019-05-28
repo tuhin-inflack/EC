@@ -19,4 +19,5 @@ return [
     'location_edit' => 'অবস্থান সম্পাদনা',
     'from_location' => 'অবস্থান থেকে',
     'to_location' => 'অবস্থানের নিকট',
+    'location_details' => 'অবস্থান বিস্তারিত',
 ];

@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="form-group  mb-1 col-sm-12 col-md-5 {{ $errors->hostelBudget->has("hostel_budgets.".$key.".budget_amount") ? 'error' : '' }}">
                                     {{ Form::label('budget_amount', trans('hm::hostel_budget.amount'), ['class' => 'required']) }}
-                                        {{ Form::number('budget_amount', $budget['budget_amount'], ['class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
+                                        {{ Form::number('budget_amount', $budget['budget_amount'], ['min' => 1, 'class' => 'form-control', 'placeholder' => '','required' => 'required', 'data-validation-required-message'=>trans('validation.required', ['attribute' => __('hm::hostel_budget.amount')])]) }}
                                         <div class="help-block"></div>
                                         @if ($errors->hostelBudget->has("hostel_budgets.".$key.".budget_amount"))
                                             <div class="help-block">  {{ trans('labels.This field is required')  }}</div>
@@ -79,6 +79,9 @@
                 </div>
                 <div class="form-group overflow-auto">
                     <div class="col-12">
+                        <div class="text-center">
+                            <b>@lang('labels.total'): <span id="total_budget_amount">0</span></b>
+                        </div>
                         <button type="button" data-repeater-create=""
                                 class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
                             <i class="ft-plus"></i> {{ trans('labels.add') }}

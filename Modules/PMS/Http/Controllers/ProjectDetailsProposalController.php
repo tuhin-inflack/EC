@@ -55,11 +55,11 @@ class ProjectDetailsProposalController extends Controller
         $this->featureService = $featureService;
         $this->projectProposalDetailReviewerAttachmentService = $projectProposalDetailReviewerAttachmentService;
     }
+
     /**
      * Display a listing of the resource.
      * @return Response
      */
-
     public function index()
     {
         $proposals = $this->projectDetailsProposalService->getProposalsForUser(Auth::user());
@@ -83,9 +83,10 @@ class ProjectDetailsProposalController extends Controller
      */
     public function store(CreateProjectProposalRequest $request)
     {
-        $this->projectDetailsProposalService->store($request->all());
+        $projectDetailProposal = $this->projectDetailsProposalService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('pms');
+
+        return $request->all()['to_budget'] ? redirect()->route('project-detail-proposal-budget.index', ['projectDetailProposal' => $projectDetailProposal->id]): redirect()->route('pms');
     }
 
     /**

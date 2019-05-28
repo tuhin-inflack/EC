@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\HRM\Entities\Designation;
 use Modules\PMS\Entities\ProjectDetailProposal;
 use Modules\PMS\Entities\ProjectProposal;
+use Modules\RMS\Entities\Research;
 use Modules\RMS\Entities\ResearchDetailSubmission;
 use Modules\RMS\Entities\ResearchProposalSubmission;
 
@@ -51,6 +52,10 @@ class ShareConversation extends Model
     public function researchDetail()
     {
         return $this->belongsTo(ResearchDetailSubmission::class, 'ref_table_id', 'id');
+    }
 
+    public function research()
+    {
+        return $this->belongsTo(Research::class, 'ref_table_id', 'id');
     }
 }

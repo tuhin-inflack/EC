@@ -63,13 +63,18 @@
                                 <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $researchDetailInvitation->remarks }}</p></dd>
                             </dl>
                             <div class="form-actions text-center">
-                                @if(Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse($researchDetailInvitation->end_date)))
+                                @if(Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($researchDetailInvitation->end_date->format('Y-m-d'))))
                                     @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
                                         <a href="{{ route('research-proposal-details.invitation.edit', ['researchDetailInvitation'=>$researchDetailInvitation->id]) }}" class="btn btn-primary mr-1">
                                             <i class="ft-plus white"></i> @lang('labels.edit')
                                         </a>
                                     @endif
                                 @endif
+                                    @if(can_submit_detail_research_proposal($researchDetailInvitation))
+                                    <a class="btn btn-primary mr-1" role="button" href="{{ route('details.create', [$researchDetailInvitation->id]) }}">
+                                        <i class="ft-x"></i> @lang('rms::research_details.submit_detail')
+                                    </a>
+                                    @endif
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('invitations')}}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>

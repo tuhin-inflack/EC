@@ -10,7 +10,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">@lang('labels.create') @lang('pms::project_budget.budgeting')</h4>
+                                    <h4 class="card-title">@lang('labels.edit') @lang('pms::project_budget.budgeting')</h4>
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
@@ -22,7 +22,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.partials.form', ['page' => 'create'])
+                                        @include('pms::proposal-submission.details.budget.partials.form', ['page' => 'edit'])
                                     </div>
                                 </div>
                             </div>
@@ -40,8 +40,9 @@
         // localization
         let selectPlaceholder = '{!! trans('labels.select') !!}';
         let checksumMessage = "{{ trans('labels.summation of above fields must be equal to total amount') }}";
+        let fieldRequired = "{{ trans('labels.This field is required') }}";
 
-        let totalExpenseUrl = "{{ route('project-budget.get-budget-expense', $project->id) }}";
+        let totalExpenseUrl = "{{ route('project-detail-proposal-budget.get-budget-expense', $projectDetailProposal->id) }}";
 
     </script>
     <script src="{{ asset('js/dpp-budget/page.js') }}"></script>

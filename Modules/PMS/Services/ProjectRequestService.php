@@ -180,7 +180,7 @@ class ProjectRequestService
                 return ((in_array(auth()->user()->id, $projectRequest->projectRequestReceivers->pluck('receiver')->toArray())
                         || auth()->user()->employee->employeeDepartment->department_code == "PMS")
                     && !$projectRequest->proposalsSubmittedByInvitedUserUnderReviewOrApproved->count()
-                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequest->end_date)));
+                    && Carbon::today()->lessThanOrEqualTo(Carbon::parse($projectRequest->end_date->format('Y-m-d'))));
             });
     }
 

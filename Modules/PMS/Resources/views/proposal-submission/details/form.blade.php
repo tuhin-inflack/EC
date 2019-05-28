@@ -8,7 +8,7 @@
                 {!! Form::hidden('auth_user_id', Auth::user()->id) !!}
                 {!! Form::hidden('project_request_id', $projectRequestId) !!}
                 <div class="form-group mb-1 col-sm-12 col-md-12">
-                    <label class="required">{{ trans('labels.name') }}</label>
+                    <label class="required">{{ trans('labels.title') }}</label>
                     <br>
                     {!! Form::text('title', old('title'), ['class' => 'form-control required' . ($errors->has('title') ? ' is-invalid' : ''), 'data-msg-required' => Lang::get('labels.This field is required'), 'placeholder' => 'Title', 'data-rule-maxlength' => 100, 'data-msg-maxlength'=>Lang::get('labels.At most 100 characters')]) !!}
                     @if ($errors->has('title'))
@@ -33,15 +33,18 @@
     <div class="form-actions text-center">
         <div class="col-md-8 offset-2">
             <div class="form-group">
-                <label for="message">{{__('labels.message_to_receiver')}}</label>
+                <label for="message">@lang('labels.message_to_receiver')</label>
                 <textarea class="form-control" name="message" id="message"></textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">
-            <i class="la la-check-square-o"></i> {{trans('labels.save')}}
+        <button type="submit" name="to_budget" value="1" class="btn btn-outline-success">
+            <i class="la la-check-square-o"></i> @lang('labels.save') @lang('labels.and') @lang('labels.provide') @lang('pms::project_proposal.project_budget')
+        </button>
+        <button type="submit" name="to_budget" value="0" class="btn btn-primary">
+            <i class="la la-check-square-o"></i> @lang('labels.save')
         </button>
         <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
-            <i class="ft-x"></i> {{trans('labels.cancel')}}
+            <i class="ft-x"></i> @lang('labels.cancel')
         </a>
     </div>
 </div>

@@ -7,9 +7,6 @@
             <div class="content-header-left col-md-6 col-12">
                 <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
                     <div class="btn-group" role="group">
-                        <a class="btn btn-outline-info round" href="{{ route('project-budget.index', $project->id) }}">
-                            <i class="ft-folder"></i> @lang('pms::project_budget.title') @lang('labels.details')
-                        </a>
                         <a class="btn btn-outline-info round"
                            href="{{ route('project-training.index', $project->id) }}">
                             <i class="ft-plus"></i> @lang('pms::project.training_list')
@@ -290,7 +287,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.status')</dt>
-                                    <dd class="col-sm-9">@lang('pms::project_proposal.' . $project->status)</dd>
+                                    <dd class="col-sm-9">@lang('pms::project_proposal.in_progress')</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('member.member')</dt>

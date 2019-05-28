@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Modules\PMS\Entities\Project;
+use Modules\PMS\Entities\ProjectDetailProposal;
 use Modules\RMS\Entities\Research;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             'project' => Project::class,
+            'project_detail_proposal' => ProjectDetailProposal::class,
             'research' => Research::class
         ]);
     }

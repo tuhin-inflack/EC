@@ -80,18 +80,14 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
         foreach ($users as $user) {
             $notificationData['to_user_id'] = $user['id'];
             $this->appNotificationService->save($notificationData);
-
-            $researchProposal = $this->researchProposalSubmissionService->findOne($notificationData['ref_table_id']);
-
-            $this->sendReserachPropsoalEmailNotification($data, $notificationType, $user, $researchProposal);
         }
     }
 
     public function sendEmailNotification($data)
     {
-        $user = (object) $data['user'];
+        $user = $this->userService->findOne($data['user_id']);
 
-        $this->sendEmail($user->email, new WorkflowEmailNotification($data['researchProposal'], $data['message'], $data['url']));
+        $this->sendEmail($user->email, new WorkflowEmailNotification($data['title'], $data['message'], $data['url']));
     }
 
     /**
@@ -126,30 +122,5 @@ class ResearchProposalNotificationGenerator extends BaseNotificationGenerator im
     private function getNotificationMessage($data): string
     {
         return $data->dynamicValues['message'];
-    }
-
-    /**
-     * @param NotificationInfo $data
-     * @param NotificationType $notificationType
-     * @param array $user
-     * @param ResearchProposalSubmission $researchProposal
-     */
-    private function sendReserachPropsoalEmailNotification(
-        NotificationInfo $data,
-        NotificationType $notificationType,
-        array $user,
-        $researchProposal
-    ): void
-    {
-        if ($notificationType->is_email_notification) {
-            $emailData = [
-                'user' => $user,
-                'researchProposal' => $researchProposal,
-                'message' => $this->getNotificationMessage($data),
-                'url' => $data->dynamicValues['url']
-            ];
-
-            $this->sendEmailNotification($emailData);
-        }
     }
 }

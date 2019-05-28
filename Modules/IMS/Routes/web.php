@@ -70,6 +70,7 @@ Route::prefix('ims')->middleware(['auth'])->group(function () {
         Route::get('/','Location\InventoryLocationController@index')->name('location.index');
         Route::get('/create','Location\InventoryLocationController@create')->name('location.create');
         Route::post('/','Location\InventoryLocationController@store')->name('location.store');
+        Route::get('{location}','Location\InventoryLocationController@show')->name('location.show');
         Route::get('{location}/edit','Location\InventoryLocationController@edit')->name('location.edit');
         Route::put('{location}/update','Location\InventoryLocationController@update')->name('location.update');
     });
@@ -94,10 +95,12 @@ Route::prefix('ims')->middleware(['auth'])->group(function () {
 
     //Auction route
     Route::prefix('auction')->group(function () {
-        Route::get('/', 'Auction\AuctionController@index')->name('auction.list');
-        Route::get('/create', 'Auction\AuctionController@create')->name('auction.add');
-        Route::post('/create', 'Auction\AuctionController@store')->name('auction.add');
+        Route::get('/', 'Auction\AuctionController@index')->name('auction.index');
+        Route::get('/create', 'Auction\AuctionController@create')->name('auction.create');
+        Route::post('/create', 'Auction\AuctionController@store')->name('auction.create');
         Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
+        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auction.edit');
+        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auction.update');
     });
     //Vendor
     Route::prefix('vendor')->group(function () {

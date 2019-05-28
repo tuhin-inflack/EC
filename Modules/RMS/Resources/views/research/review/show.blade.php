@@ -43,12 +43,12 @@
 
                                                         @foreach($remarks as $remark)
                                                             {{--{{ dd($remark) }}--}}
+                                                            <hr/>
                                                             <p class="text-bold-600 mb-0">
                                                                 {{ $remark->user->name }}
                                                             </p>
                                                             <p class="small m-0 comment-time">{{ date("j F, Y, g:i a",strtotime($remark->created_at)) }}</p>
                                                             <p class="m-0 comment-text">{{ $remark->remarks }}</p>
-                                                            <hr/>
                                                         @endforeach
 
                                                     </div>
@@ -78,12 +78,7 @@
                                                     <ul class="list-inline">
                                                         @foreach($research->publication->attachments as $attachment)
                                                             <li class="list-group-item">
-                                                                <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}"
-                                                                   class="badge bg-info white" style="overflow: hidden; max-width: 80px;"
-                                                                   title="{{ $attachment->name }}">
-                                                                    {{ $attachment->name  }}</a><br><label
-                                                                        class="label"><strong>{{$attachment->ext}}</strong>
-                                                                    file</label></li>
+                                                                <a href="{{ route('file.download', ['filePath' => $attachment->path, 'displayName' => $research->title.'-publication.'.$attachment->ext]) }}" class="badge bg-info white" style="overflow: hidden; max-width: 80px;" title="{{ $attachment->name }}">{{ $attachment->name  }}</a><br><label class="label"><strong>{{$attachment->ext}}</strong>file</label></li>
                                                         @endforeach
                                                     </ul>
                                                 @endif
@@ -94,27 +89,52 @@
                                 <div class="col-md-12">
                                     {!! Form::open(['route' =>  'research.reviewUpdate',  'enctype' => 'multipart/form-data']) !!}
                                     <hr/>
-                                    <div class="form-group">
-                                        {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="share">@lang('rms::research.share_to')</label>
+                                            <select class="select2 form-control required" name="employee_id">
+                                                <option value=""></option>
+                                                @foreach($ruleDesignations as $key=>$designation)
+                                                    <option value="{{$key}}">{{$designation}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="form-group">
-                                        {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
-                                        {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            {!! Form::label('remarks', trans('labels.remarks'), ['class' => 'black']) !!}
+                                            {!! Form::textarea('remarks', null, ['class' => 'form-control comment-input', 'rows' => 2, 'required']) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            {!! Form::label('message', trans('labels.message_to_receiver'), ['class' => 'black']) !!}
+                                            {!! Form::textarea('message', null, ['class' => 'form-control comment-input', 'rows' => 2]) !!}
+                                        </div>
                                     </div>
 
+
                                     {!! Form::hidden('feature', $feature->name) !!}
+                                    {!! Form::hidden('feature_id', $feature->id) !!}
                                     {!! Form::hidden('workflow_master_id', $workflowMasterId) !!}
                                     {!! Form::hidden('workflow_conversation_id', $workflowConversationId) !!}
                                     {!! Form::hidden('item_id', $researchId) !!}
+                                    <input name="share_rule_id" type="hidden" value="{{$ruleDetails->share_rule_id}}">
                                     {{--                                    {!! Form::button(' <i class="ft-skip-back"></i> Back', ['type' => 'submit', 'class' => 'btn btn-warning mr-1', 'name' => 'type', 'value' => 'publish'] ) !!}--}}
                                     {{--<a class="btn btn-warning mr-1" role="button" href="{{ route('rms.index') }}">--}}
                                     {{--<i class="ft-x"></i> @lang('labels.cancel')</a>--}}
-                                    {!! Form::button(' <i class="ft-check"></i> '.trans('labels.status_approved'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
-                                    {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
-                                    {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
-                                    <a href="{{ route('research-workflow-close-reviewer', [$workflowMasterId, $researchId]) }}" class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
+                                    <div class="col-md-10">
+                                        <div class="form-group">
+                                            {!! Form::button(' <i class="ft-check"></i> '.trans('labels.approve'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'APPROVED'] ) !!}
+                                            @if($ruleDetails->is_shareable)
+                                                {!! Form::button(' <i class="ft-share"></i> '.trans('rms::research.share_btn'), ['type' => 'submit', 'class' => 'btn btn-success mr-1', 'name' => 'status', 'value' => 'SHARE'] ) !!}
+                                            @endif
+                                            {!! Form::button('  <i class="ft-skip-back"></i> '. trans('labels.send_back'), ['type' => 'submit', 'class' => 'btn btn-info mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}
+                                            {{--{!! Form::button('  <i class="ft-x"></i>'.trans('labels.reject'), ['type' => 'submit', 'class' => 'btn btn-danger mr-1', 'name' => 'status', 'value' => 'REJECTED'] ) !!}--}}
+                                            <a href="{{ route('research-workflow-close-reviewer', [$workflowMasterId, $researchId]) }}" class="btn btn-danger "> <i class="ft-x"></i> @lang('labels.reject')</a>
 
+                                        </div>
+                                    </div>
                                     {!! Form::close() !!}
                                 </div>
 

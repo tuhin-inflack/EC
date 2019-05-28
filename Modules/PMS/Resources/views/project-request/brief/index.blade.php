@@ -38,7 +38,7 @@
                                             <td><a href="{{ route('project-request.show', $request->id) }}">{{ $request->title }}</a></td>
                                             <td>{{ substr($request->remarks, 0,100) }} {{ strlen($request->remarks)>100 ? "..." : "" }}</td>
                                             <td><a href="{{url('pms/project-requests/attachment-download/'.$request->id)}}">@lang('labels.attachments')</a></td>
-                                            <td>{{ $request->end_date }}</td>
+                                            <td>{{ $request->end_date->format('d/m/Y') }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="btnSearchDrop2" type="button" data-toggle="dropdown"

@@ -39,7 +39,7 @@
                                             <td><a href="{{url('rms/research-proposal-details/invitations/attachment-download/'.$invitation->id)}}">@lang('labels.attachments')</a></td>
 
 
-                                            <td>{{ $invitation->end_date }}</td>
+                                            <td>{{ $invitation->end_date->format('d/m/Y') }}</td>
                                             <td>{{ $invitation->created_at }}</td>
                                             <td>
                                                 <span class="dropdown">
