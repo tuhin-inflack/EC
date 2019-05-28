@@ -11,7 +11,7 @@ use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
 use Modules\IMS\Services\InventoryItemCategoryService;
 use Modules\IMS\Services\InventoryRequestService;
-use Modules\IMS\Services\LocationService;
+use Modules\IMS\Services\InventoryLocationService;
 
 class InventoryRequestController extends Controller
 {
@@ -23,7 +23,7 @@ class InventoryRequestController extends Controller
 
     public function __construct(InventoryRequestService $inventoryRequestService,
                                 EmployeeServices $employeeService,
-                                LocationService $locationService,
+                                InventoryLocationService $locationService,
                                 InventoryItemCategoryService $inventoryItemCategoryService
     )
     {
@@ -45,9 +45,10 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param string $type
      * @return Response
      */
-    public function create()
+    public function create(string $type = null)
     {
         $employeeOptions = $this->employeeService->getEmployeesForDropdown(
             null, null,
@@ -58,11 +59,15 @@ class InventoryRequestController extends Controller
         $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
         $itemCategories = ['' => 'Select'] + $itemCategories;
 
+        $extra['loaded-views'] = $this->inventoryRequestService->prepareViews($type);
+
         return view('ims::inventory.request.create',
             compact('employeeOptions',
                 'fromLocations',
                 'toLocations',
-                'itemCategories'
+                'itemCategories',
+                'type',
+                'extra'
             )
         );
     }

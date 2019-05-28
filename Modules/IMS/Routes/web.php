@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('ims')->group(function () {
+Route::prefix('ims')->middleware(['auth'])->group(function () {
 
     Route::get('/', 'IMSController@index')->name('inventory');
 
@@ -44,8 +44,12 @@ Route::prefix('ims')->group(function () {
 
     Route::prefix('inventory-request')->group(function () {
         Route::get('/', 'Inventory\InventoryRequestController@index')->name('inventory-request.index');
-        Route::get('/create', 'Inventory\InventoryRequestController@create')->name('inventory-request.create');
-        Route::post('/create', 'Inventory\InventoryRequestController@store')->name('inventory-request.store');
+        Route::get('create/{type?}', 'Inventory\InventoryRequestController@create')
+            ->name('inventory-request.create')
+            ->where('type', 'requisition|transfer|scrap|abandon');
+        Route::post('create/{type?}', 'Inventory\InventoryRequestController@store')
+            ->name('inventory-request.store')
+            ->where('type', 'requisition|transfer|scrap|abandon');
         Route::get('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@edit')->name('inventory-request.edit');
         Route::post('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
         Route::delete('{inventoryRequest}/delete', 'Inventory\InventoryRequestController@destroy')->name('inventory-request.destroy');
@@ -64,12 +68,12 @@ Route::prefix('ims')->group(function () {
 
     //Location
     Route::prefix('location')->group(function (){
-        Route::get('/','Location\LocationController@index')->name('location.index');
-        Route::get('/create','Location\LocationController@create')->name('location.create');
-        Route::post('/','Location\LocationController@store')->name('location.store');
-        Route::get('{location}/edit','Location\LocationController@edit')->name('location.edit');
-        Route::put('{location}/update','Location\LocationController@update')->name('location.update');
-        Route::get('{location}','Location\LocationController@show')->name('location.show');
+        Route::get('/','Location\InventoryLocationController@index')->name('location.index');
+        Route::get('/create','Location\InventoryLocationController@create')->name('location.create');
+        Route::post('/','Location\InventoryLocationController@store')->name('location.store');
+        Route::get('{location}','Location\InventoryLocationController@show')->name('location.show');
+        Route::get('{location}/edit','Location\InventoryLocationController@edit')->name('location.edit');
+        Route::put('{location}/update','Location\InventoryLocationController@update')->name('location.update');
     });
 
     //fixed-asset route

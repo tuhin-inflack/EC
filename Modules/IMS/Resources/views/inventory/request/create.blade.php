@@ -28,27 +28,25 @@
 @stop
 
 @push('page-js')
-    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
     <script type="text/javascript">
-
+        let reloadHostUrl = "{{ route('inventory-request.create') }}";
         $(document).ready(function () {
-            // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
             $('.select').select2();
 
             $('select[name=request_type]').change(function (e) {
-                toggleCategoryEntry(e.target.value);
+                console.log(e.target.value);
+                window.location = reloadHostUrl + "/" + e.target.value;
             });
-
-            toggleCategoryEntry($('select[name=request_type]').val());
 
             $('.repeater-category-request, .repeater-new-category-request, .repeater-bought-category-request').repeater({
                 // isFirstItemUndeletable: true,
                 initEmpty: true,
                 show: function () {
-                    $(this).slideDown();
-                    // TODO: Find all Select Tag and add select2 into them
-                    // $(this).find('select').select2();
+                    prepareRepeater(this);
                 },
                 hide: function (deleteElement) {
                     if (confirm('Are you sure you want to delete this element?')) {
@@ -58,12 +56,43 @@
             });
         });
 
-        function toggleCategoryEntry(type) {
-            if (type == "requisition"){
-                $('#toggle-category-entry').show();
-            } else {
-                $('#toggle-category-entry').hide();
+
+        let validator = $('.inventory-request-form').validate({
+            ignore: [],
+            errorClass: 'danger',
+            successClass: 'success',
+            highlight: function (element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            unhighlight: function (element, errorClass) {
+                $(element).removeClass(errorClass);
+            },
+            errorPlacement: function (error, element) {
+                if (element.attr('type') == 'radio') {
+                    error.insertBefore(element.parents().siblings('.radio-error'));
+                } else if (element[0].tagName == "SELECT") {
+                    error.insertAfter(element.siblings('.select2-container'));
+                } else if (element.attr('id') == 'ckeditor') {
+                    error.insertAfter(element.siblings('#cke_ckeditor'));
+                } else {
+                    error.insertAfter(element);
+                }
+            },
+            rules: {
+                // name: {
+                //     remote: ""
+                // }
+            },
+            submitHandler: function (form, event) {
+                form.submit();
             }
+        });
+
+        function prepareRepeater(instance) {
+            $(instance).slideDown();
+            $(instance).find('.repeater-select').select2();
+            let fromLocationId = $('select[name=from_location_id]').val();
+
         }
 
     </script>

@@ -28,29 +28,32 @@
                                 <table class="table table-striped table-bordered alt-pagination">
                                     <thead>
                                         <tr>
-                                            <th>{{trans('labels.serial')}}</th>
-                                            <th>@lang('labels.title')</th>
-                                            <th>@lang('ims::product-list-table.columns.code')</th>
-                                            <th>@lang('ims::product-list-table.columns.hs_code')</th>
-                                            <th>@lang('ims::product-list-table.columns.bar_code')</th>
-                                            <th>{{trans('labels.action')}}</th>
+                                            <th>@lang('labels.serial')</th>
+                                            <th>@lang('ims::inventory.inventory_request_title')</th>
+                                            <th>@lang('labels.receiver')</th>
+                                            <th>@lang('ims::inventory.inventory_request_type')</th>
+                                            <th>@lang('ims::location.from_location')</th>
+                                            <th>@lang('ims::location.to_location')</th>
+                                            <th>@lang('labels.action')</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1</th>
-                                            <td>Chair</td>
-                                            <td>C</td>
-                                            <td>hs-120</td>
-                                            <td>AB12345678910</td>
-                                            <td>
+                                        @foreach($inventoryRequests as $inventoryRequest)
+                                            <tr>
+                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <td>{{ $inventoryRequest->title }}</td>
+                                                <td>{{ $inventoryRequest->receiver->name }}</td>
+                                                <td>{{ ucwords($inventoryRequest->request_type) }}</td>
+                                                <td>{{ $inventoryRequest->fromLocation->name }}</td>
+                                                <td>{{ $inventoryRequest->toLocation->name }}</td>
+                                                <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
                                                         <i class="la la-cog"></i>
                                                     </button>
                                                     <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="javascript:;" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                        <a href="{{ route('inventory-request.edit', $inventoryRequest->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                         <div class="dropdown-divider"></div>
                                                         {!! Form::open([
                                                             'method'=>'DELETE',
@@ -60,7 +63,7 @@
                                                         {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
                                                                 'type' => 'submit',
                                                                 'class' => 'dropdown-item text-danger',
-                                                                'title' => 'Delete the user',
+                                                                'title' => 'Delete',
                                                                 'onclick'=>'return confirm("Confirm delete?")',
                                                                 )); !!}
 
@@ -68,8 +71,9 @@
 
                                                     </span>
                                                 </span>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
