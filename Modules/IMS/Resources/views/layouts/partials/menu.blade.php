@@ -198,14 +198,14 @@
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::auction.title')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('auction.add') }}">
-                        <a href="{{ route('auction.create') }}">
+                    <li class="{{ is_active_route('auctions.create') }}">
+                        <a href="{{ route('auctions.create') }}">
                             <i class="la la-plus-circle"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::auction.add_menu_title')</span>
                         </a>
                     </li>
-                    <li class="{{ is_active_route('auction.index') }}">
-                        <a href="{{ route('auction.index') }}">
+                    <li class="{{ is_active_route('auctions.index') }}">
+                        <a href="{{ route('auctions.index') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::auction.list_menu_title')</span>
                         </a>

@@ -89,13 +89,13 @@ Route::prefix('ims')->group(function () {
     });
 
     //Auction route
-    Route::prefix('auction')->group(function () {
-        Route::get('/', 'Auction\AuctionController@index')->name('auction.index');
-        Route::get('/create', 'Auction\AuctionController@create')->name('auction.create');
-        Route::post('/create', 'Auction\AuctionController@store')->name('auction.create');
-        Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
-        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auction.edit');
-        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auction.update');
+    Route::prefix('auctions')->group(function () {
+        Route::get('/', 'Auction\AuctionController@index')->name('auctions.index');
+        Route::get('/create', 'Auction\AuctionController@create')->name('auctions.create');
+        Route::post('/create', 'Auction\AuctionController@store')->name('auctions.store');
+        Route::get('/{id}', 'Auction\AuctionController@show')->name('auctions.show');
+        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auctions.edit');
+        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auctions.update');
     });
     //Vendor
     Route::prefix('vendor')->group(function () {

@@ -51,7 +51,7 @@ class AuctionController extends Controller
         } else {
             Session::flash('error', trans('labels.save_fail'));
         }
-        return redirect()->route('auction.index');
+        return redirect()->route('auctions.index');
 
         
     }
@@ -94,7 +94,7 @@ class AuctionController extends Controller
         } else {
             Session::flash('error', trans('labels.save_fail'));
         }
-        return redirect()->route('auction.index');
+        return redirect()->route('auctions.index');
     }
 
     /**
