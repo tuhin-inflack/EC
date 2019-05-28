@@ -61,7 +61,7 @@
                                                 <label class="required">{{ trans('ims::auction.category') }}</label>
                                                 <br>
                                                 {!! Form::select('category_id', $scrapCategory, null, [
-                                                'class' => 'form-control room-type-select required',
+                                                'class' => 'form-control category-type-select required',
                                                 'placeholder' => 'Select Category',
                                                 'onChange' => '',
                                                 'data-msg-required' => Lang::get('labels.This field is required')
@@ -153,34 +153,42 @@
 <script src="{{ asset('js/booking-request/page.js') }}"></script>
 
 <script type="text/javascript">
+        //global array contains all id's
+        let allValues=[0,1];
         // datepicker
         $('input[name=auction_date]').pickadate({
                 min: new Date(),
                 format: 'dd/mm/yyyy'
-            });
+        });
 
         $('#auction_date').pickadate();
 
-        $('#add_scrap_product').click(function(){      
-                    var scrapProducts = {0:"Chair - 100 Available", 1:"Table - 200 Available"}; 
-                    let allSelectedValues=[];   
-                    let difference=[];   
-                    print("There are " +$('.room-type-select').not(':last').length +"Available");
-                    $('.room-type-select').not(':last').each(function(){
-                        //this returns only the selected value 
-                        let selectedValue=$(this).val();
-                        if(selectedValue)
-                            allSelectedValues.push(parseInt(selectedValue));
-                    });
-                    print(allSelectedValues);
-                    //get the difference between the two array
-                    difference = allValues.filter(x => !allSelectedValues.includes(x));
-                    lastSelectElement=$('.room-type-select').last();
-                    lastSelectElement.empty()
-                    difference.forEach(element => {
-                        lastSelectElement.append('<option value="'+element+'">'+scrapProducts[element]+'</option>')
-                    });
+        $('#add_scrap_product').click(function(){
+                
+                var scrapProducts = {0:"Chair - 100 Available", 1:"Table - 200 Available"}; 
+                let allSelectedValues=[];   
+                let difference=[];   
+                // print("There are " +$('. category-type-select').not(':last').length +"Available");
+                $('.category-type-select').not(':last').each(function(){
+                    //this returns only the selected value 
+                    let selectedValue=$(this).val();
+                    if(selectedValue)
+                        allSelectedValues.push(parseInt(selectedValue));
+                });
+                //get the difference between the two array
+                difference = allValues.filter(x => !allSelectedValues.includes(x));
+                lastSelectElement=$('.category-type-select').last();
+                lastSelectElement.empty()
+                difference.forEach(element => {
+                    lastSelectElement.append('<option value="'+element+'">'+scrapProducts[element]+'</option>')
+                });
         });
+
+
+        function print(value)
+        {
+            console.log(value);
+        }
 
     
 </script>
