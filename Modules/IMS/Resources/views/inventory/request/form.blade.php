@@ -27,11 +27,12 @@
             @endif
         </div>
     </div>
+    @if($employees['required'])
     <div class="col-md-5">
         <div class="form-group">
             {!! Form::label('receiver_id', trans('labels.receiver'), ['class' => 'form-label required']) !!}
             {!! Form::select('receiver_id',
-                ['' => trans('labels.select')] + $employeeOptions,
+                ['' => trans('labels.select')] + $employees['options'],
                 $page === 'create' ? null : $inventoryRequest->receiver_id,
                 [
                     'class'=>'form-control select required' . ($errors->has('employee_id') ? ' is-invalid' : ''),
@@ -45,6 +46,7 @@
             @endif
         </div>
     </div>
+    @endif
 </div>
 <div class="row">
     <div class="col-md-6">
@@ -52,7 +54,7 @@
             {!! Form::label('from_location_id', trans('ims::location.from_location'), ['class' => 'form-label required']) !!}
 
             {!! Form::select('from_location_id',
-                ['' => trans('labels.select')] + $fromLocations,
+                $fromLocations,
                 $page === 'create' ? null : $inventoryRequest->from_location_id,
                 [
                     'class'=>'form-control select required',
@@ -71,7 +73,7 @@
             {!! Form::label('to_location_id', trans('ims::location.to_location'), ['class' => 'form-label required']) !!}
 
             {!! Form::select('to_location_id',
-                ['' => trans('labels.select')] + $toLocations,
+                $toLocations,
                 $page === 'create' ? null : $inventoryRequest->to_location_id,
                 [
                     'class' => 'form-control select required',

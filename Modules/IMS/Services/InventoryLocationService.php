@@ -56,7 +56,7 @@ class InventoryLocationService
      */
     public function getLocationsForDropdown(Closure $implementedValue = null, Closure $implementedKey = null, array $query = null)
     {
-        $locations = $query ? $this->locationRepository->findBy($query) : $this->locationRepository->findAll();
+        $locations = $query ? $this->findBy($query) : $this->findAll();
 
         $locationOptions = [];
 
@@ -71,5 +71,44 @@ class InventoryLocationService
         }
 
         return $locationOptions;
+    }
+
+    public function getMainStoreLocation(){
+        return $this->getLocationsForDropdown(
+            function($location) {
+                return $location->name;
+            },
+            null,
+            [
+                'is_default' => true,
+                'name' => 'main store'
+            ]
+        );
+    }
+
+    public function getScrapLocation(){
+        return $this->getLocationsForDropdown(
+            function($location) {
+                return $location->name;
+            },
+            null,
+            [
+                'is_default' => true,
+                'name' => 'scrap location'
+            ]
+        );
+    }
+
+    public function getAbandonLocation(){
+        return $this->getLocationsForDropdown(
+            function($location) {
+                return $location->name;
+            },
+            null,
+            [
+                'is_default' => true,
+                'name' => 'abandon location'
+            ]
+        );
     }
 }

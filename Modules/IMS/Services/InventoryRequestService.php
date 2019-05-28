@@ -97,41 +97,128 @@ class InventoryRequestService
 
         switch ($type){
             case 'requisition':
-                $employeeOptions = $this->employeeService->getEmployeesForDropdown(
-                    null, null,
-                    ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
-                );
-                $fromLocations  = $toLocations = $this->locationService->getLocationsForDropdown();
-                $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-                $itemCategories = ['' => 'Select'] + $itemCategories;
-
-                return [
-                    ['category', 'new-category', 'bought-category'],
-                    $employeeOptions,
-                    $fromLocations,
-                    $toLocations,
-                    $itemCategories
-                ];
-
+                return $this->getViewDataForRequisition();
                 break;
-            case 'transfer' || 'scrap' || 'abandon':
-                $employeeOptions = $this->employeeService->getEmployeesForDropdown(
-                    null, null,
-                    ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
-                );
-                $fromLocations  = $toLocations = $this->locationService->getLocationsForDropdown();
-                $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-                $itemCategories = ['' => 'Select'] + $itemCategories;
-
-                return [
-                    ['category'],
-                    $employeeOptions,
-                    $fromLocations,
-                    $toLocations,
-                    $itemCategories
-                ];
-
+            case 'transfer':
+                return $this->getViewDataForTransfer();
+                break;
+            case 'scrap':
+                return $this->getViewDataForScrap();
+                break;
+            case 'abandon':
+                return $this->getViewDataForAbandon();
                 break;
         }
+    }
+
+    private function getViewDataForRequisition(){
+        $departmentId = Auth::user()->employee->department_id;
+        $employees['options'] = ['' => trans('labels.select')] + $this->employeeService->getEmployeesForDropdown(
+            null, null,
+            ['department_id' => $departmentId, 'is_divisional_director' => false]
+        );
+        $employees['required'] = 1;
+
+        $fromLocations  = $this->locationService->getMainStoreLocation();
+        $toLocations = ['' => trans('labels.select')] +
+            $this->locationService->getLocationsForDropdown(
+                null, null,
+                [
+                    'department_id' => $departmentId,
+                    'is_default' => false
+                ]
+            );
+        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
+
+        return [
+            ['category', 'new-category', 'bought-category'],
+            $employees,
+            $fromLocations,
+            $toLocations,
+            $itemCategories
+        ];
+    }
+
+    private function getViewDataForTransfer(){
+        $departmentId = Auth::user()->employee->department_id;
+        $employees['options'] = array();
+        $employees['required'] = 0;
+        $fromLocations  = ['' => trans('labels.select')] +
+            $this->locationService->getLocationsForDropdown(
+                null, null,
+                [
+                    'department_id' => $departmentId,
+                    'is_default' => false
+                ]
+            );
+        $toLocations = ['' => trans('labels.select')] +
+            $this->locationService->getLocationsForDropdown(
+                null, null,
+                [
+                    'department_id' => $departmentId,
+                    'is_default' => false
+                ]
+            );
+        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
+
+        return [
+            ['category'],
+            $employees,
+            $fromLocations,
+            $toLocations,
+            $itemCategories
+        ];
+    }
+
+    private function getViewDataForScrap(){
+        $departmentId = Auth::user()->employee->department_id;
+        $employees['options'] = array();
+        $employees['required'] = 0;
+        $fromLocations  = ['' => trans('labels.select')] +
+            $this->locationService->getLocationsForDropdown(
+                null, null,
+                [
+                    'department_id' => $departmentId,
+                    'is_default' => false
+                ]
+            );
+        $toLocations = $this->locationService->getScrapLocation();
+        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
+
+        return [
+            ['category'],
+            $employees,
+            $fromLocations,
+            $toLocations,
+            $itemCategories
+        ];
+    }
+
+    private function getViewDataForAbandon(){
+        $departmentId = Auth::user()->employee->department_id;
+        $employees['options'] = array();
+        $employees['required'] = 0;
+        $fromLocations  = ['' => trans('labels.select')] +
+            $this->locationService->getLocationsForDropdown(
+                null, null,
+                [
+                    'department_id' => $departmentId,
+                    'is_default' => false
+                ]
+            );
+        $toLocations = $this->locationService->getAbandonLocation();
+        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
+        $itemCategories = ['' => 'Select'] + $itemCategories;
+
+        return [
+            ['category'],
+            $employees,
+            $fromLocations,
+            $toLocations,
+            $itemCategories
+        ];
     }
 }
