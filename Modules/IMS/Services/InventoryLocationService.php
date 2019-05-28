@@ -73,7 +73,8 @@ class InventoryLocationService
         return $locationOptions;
     }
 
-    public function getMainStoreLocation(){
+
+    private function getSpecificStoreLocation($name){
         return $this->getLocationsForDropdown(
             function($location) {
                 return $location->name;
@@ -81,34 +82,20 @@ class InventoryLocationService
             null,
             [
                 'is_default' => true,
-                'name' => 'main store'
+                'name' => $name
             ]
         );
+    }
+
+    public function getMainStoreLocation(){
+        return $this->getSpecificStoreLocation('main store');
     }
 
     public function getScrapLocation(){
-        return $this->getLocationsForDropdown(
-            function($location) {
-                return $location->name;
-            },
-            null,
-            [
-                'is_default' => true,
-                'name' => 'scrap location'
-            ]
-        );
+        return $this->getSpecificStoreLocation('scrap location');
     }
 
     public function getAbandonLocation(){
-        return $this->getLocationsForDropdown(
-            function($location) {
-                return $location->name;
-            },
-            null,
-            [
-                'is_default' => true,
-                'name' => 'abandon location'
-            ]
-        );
+        return $this->getSpecificStoreLocation('abandon location');
     }
 }
