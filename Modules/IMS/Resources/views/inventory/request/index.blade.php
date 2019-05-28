@@ -16,11 +16,6 @@
                                 <li><a data-action="expand"><i class="ft-maximize"></i></a></li>
                             </ul>
                         </div>
-                        <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('inventory-request.create') }}" class="btn btn-primary btn-sm">
-                                <i class="ft-plus white"> @lang('labels.new') @lang('ims::inventory.inventory_request')</i>
-                            </a>
-                        </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body card-dashboard">
@@ -47,30 +42,30 @@
                                                 <td>{{ $inventoryRequest->fromLocation->name }}</td>
                                                 <td>{{ $inventoryRequest->toLocation->name }}</td>
                                                 <td>
-                                                <span class="dropdown">
-                                                    <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">
-                                                        <i class="la la-cog"></i>
-                                                    </button>
-                                                    <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="{{ route('inventory-request.edit', $inventoryRequest->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        {!! Form::open([
-                                                            'method'=>'DELETE',
-                                                            'url' => route('inventory-request.destroy', 1),
-                                                            'style' => 'display:inline']); !!}
+{{--                                                <span class="dropdown">--}}
+{{--                                                    <button id="imsProductList" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-info dropdown-toggle">--}}
+{{--                                                        <i class="la la-cog"></i>--}}
+{{--                                                    </button>--}}
+{{--                                                    <span aria-labelledby="imsProductList" class="dropdown-menu mt-1 dropdown-menu-right">--}}
+{{--                                                        <a href="javascript:;" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>--}}
+{{--                                                        <a href="{{ route('inventory-request.edit', $inventoryRequest->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>--}}
+{{--                                                        <div class="dropdown-divider"></div>--}}
+{{--                                                        {!! Form::open([--}}
+{{--                                                            'method'=>'DELETE',--}}
+{{--                                                            'url' => route('inventory-request.destroy', 1),--}}
+{{--                                                            'style' => 'display:inline']); !!}--}}
 
-                                                        {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                                'type' => 'submit',
-                                                                'class' => 'dropdown-item text-danger',
-                                                                'title' => 'Delete',
-                                                                'onclick'=>'return confirm("Confirm delete?")',
-                                                                )); !!}
+{{--                                                        {!! Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(--}}
+{{--                                                                'type' => 'submit',--}}
+{{--                                                                'class' => 'dropdown-item text-danger',--}}
+{{--                                                                'title' => 'Delete',--}}
+{{--                                                                'onclick'=>'return confirm("Confirm delete?")',--}}
+{{--                                                                )); !!}--}}
 
-                                                        {!! Form::close(); !!}
+{{--                                                        {!! Form::close(); !!}--}}
 
-                                                    </span>
-                                                </span>
+{{--                                                    </span>--}}
+{{--                                                </span>--}}
                                                 </td>
                                             </tr>
                                         @endforeach

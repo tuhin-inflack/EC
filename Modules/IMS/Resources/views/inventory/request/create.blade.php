@@ -32,15 +32,10 @@
     <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
     <script type="text/javascript">
-        let reloadHostUrl = "{{ route('inventory-request.create') }}";
+
         $(document).ready(function () {
             $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
             $('.select').select2();
-
-            $('select[name=request_type]').change(function (e) {
-                console.log(e.target.value);
-                window.location = reloadHostUrl + "/" + e.target.value;
-            });
 
             $('.repeater-category-request, .repeater-new-category-request, .repeater-bought-category-request').repeater({
                 // isFirstItemUndeletable: true,

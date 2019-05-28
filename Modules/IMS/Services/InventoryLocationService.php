@@ -7,6 +7,7 @@
  */
 namespace Modules\IMS\Services;
 
+use App\Traits\CrudTrait;
 use Closure;
 use Illuminate\Support\Facades\DB;
 use Modules\IMS\Entities\InventoryLocation;
@@ -14,6 +15,7 @@ use Modules\IMS\Repositories\InventoryLocationRepository;
 
 class InventoryLocationService
 {
+    use CrudTrait;
     /**
      * @var InventoryLocationRepository
      */
@@ -22,6 +24,7 @@ class InventoryLocationService
     public function __construct(InventoryLocationRepository $locationRepository)
     {
         $this->locationRepository = $locationRepository;
+        $this->setActionRepository($locationRepository);
     }
 
     public function store(array $data)

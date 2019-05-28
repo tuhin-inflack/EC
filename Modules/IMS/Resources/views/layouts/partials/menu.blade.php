@@ -13,12 +13,32 @@
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::inventory.inventory_request')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory-request.create') }}">
-                        <a href="{{ route('inventory-request.create') }}">
+                    <li class="{{ is_active_url('ims/inventory-request/create/requisition') }}">
+                        <a href="{{ route('inventory-request.create', 'requisition') }}">
                             <i class="la la-plus-circle"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.new') @lang('ims::inventory.inventory_request')</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.requisition') @lang('ims::inventory.inventory_request')</span>
                         </a>
                     </li>
+                    <li class="{{ is_active_url('ims/inventory-request/create/transfer') }}">
+                        <a href="{{ route('inventory-request.create', 'transfer') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.transfer') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_url('ims/inventory-request/create/scrap') }}">
+                        <a href="{{ route('inventory-request.create', 'scrap') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.scrap') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ is_active_url('ims/inventory-request/create/abandon') }}">
+                        <a href="{{ route('inventory-request.create', 'abandon') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.abandon') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+
                     <li class="{{ is_active_route('inventory-request.index') }}">
                         <a href="{{ route('inventory-request.index') }}">
                             <i class="la la-list-alt"></i>
