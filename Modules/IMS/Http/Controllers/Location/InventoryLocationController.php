@@ -35,7 +35,7 @@ class InventoryLocationController extends Controller
      */
     public function index()
     {
-        $locations = $this->locationService->getAllLocations();
+        $locations = $this->locationService->getAllLocationsExceptDefaults();
         return view('ims::location.index', compact('locations'));
     }
 
@@ -66,7 +66,7 @@ class InventoryLocationController extends Controller
      * @param int $id
      * @return Response
      */
-    public function show(Location $location)
+    public function show(InventoryLocation $location)
     {
         return view('ims::location.show', compact('location'));
     }
@@ -93,15 +93,5 @@ class InventoryLocationController extends Controller
         $this->locationService->updateLocation($location, $request->all());
         Session::flash('success', trans('labels.save_success'));
         return redirect()->route('location.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

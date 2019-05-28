@@ -4,7 +4,7 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class LocationsTableSeeder extends Seeder
+class InventoryLocationsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,9 +13,9 @@ class LocationsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('locations')->truncate();
+        DB::table('inventory_locations')->truncate();
 
-        DB::table('locations')->insert([
+        DB::table('inventory_locations')->insert([
             [
                 'name' => 'main store',
                 'department_id' => null,

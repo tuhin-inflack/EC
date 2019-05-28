@@ -16,9 +16,10 @@ class CreateInventoryLocationsTable extends Migration
         Schema::create('inventory_locations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('department_id');
-            $table->tinyInteger('type');
+            $table->unsignedInteger('department_id')->nullable();
+            $table->enum('type', ['store', 'general']);
             $table->text('description');
+            $table->boolean('is_default')->default(false);
             $table->timestamps();
         });
     }

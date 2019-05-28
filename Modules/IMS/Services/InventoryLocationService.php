@@ -30,9 +30,9 @@ class InventoryLocationService
         return $location;
     }
 
-    public function getAllLocations()
+    public function getAllLocationsExceptDefaults()
     {
-        return $this->locationRepository->findAll();
+        return $this->locationRepository->findBy(['is_default' => false]);
     }
 
     public function updateLocation(InventoryLocation $location, array $data)

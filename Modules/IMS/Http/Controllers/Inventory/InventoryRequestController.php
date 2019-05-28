@@ -80,7 +80,7 @@ class InventoryRequestController extends Controller
     public function store(Request $request)
     {
         // TODO: request validation
-        
+
         if ($this->inventoryRequestService->store($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
