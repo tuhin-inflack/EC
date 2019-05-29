@@ -32,11 +32,11 @@
     <div class="form-group col-md-6">
         {!! Form::label('type', __('ims::inventory.type'), ['class' => 'form-label required']) !!}
         <div class="skin skin-flat">
-            {!! Form::radio('type', '1', $page == 'create' ? old('type') == '1' : ($inventoryItemCategory->type == '1'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', 'fixed asset', $page == 'create' ? old('type') == 'fixed asset' : ($inventoryItemCategory->type == 'fixed asset'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::inventory.fixed_asset')</label>
         </div>
         <div class="skin skin-flat">
-            {!! Form::radio('type', '2', $page == 'create' ? old('type') == '2' : ($inventoryItemCategory->type == '2'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', 'stationery', $page == 'create' ? old('type') == 'stationery' : ($inventoryItemCategory->type == 'stationery'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::inventory.stationery')</label>
         </div>
         <div class="row col-md-12 radio-error">

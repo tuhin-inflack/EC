@@ -1,7 +1,7 @@
 @if($page == 'create')
-    {{ Form::open(['route' =>  'location.store', 'class' => 'location-tab-steps wizard-circle']) }}
+    {{ Form::open(['route' =>  'inventory-locations.store', 'class' => 'location-tab-steps wizard-circle']) }}
 @else
-    {{ Form::open(['route' =>  ['location.update', $location->id], 'class' => 'location-tab-steps wizard-circle']) }}
+    {{ Form::open(['route' =>  ['inventory-locations.update', $location->id], 'class' => 'location-tab-steps wizard-circle']) }}
     @method('PUT')
 @endif
 <h4 class="form-section"><i class="la la-building"></i> @lang('ims::location.new_location')</h4>
@@ -28,11 +28,11 @@
     <div class="form-group col-md-6">
         {!! Form::label('type', __('ims::location.type'), ['class' => 'form-label required']) !!}
         <div class="skin skin-flat">
-            {!! Form::radio('type', '1', $page == 'create' ? old('type') == '1' : ($location->type == '1'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', 'store', $page == 'create' ? old('type') == 'store' : ($location->type == 'store'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::location.store')</label>
         </div>
         <div class="skin skin-flat">
-            {!! Form::radio('type', '2', $page == 'create' ? old('type') == '2' : ($location->type == '2'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
+            {!! Form::radio('type', 'general', $page == 'create' ? old('type') == 'general' : ($location->type == 'general'), ['class' => 'required', 'data-msg-required' => trans('labels.This field is required')]) !!}
             <label>@lang('ims::location.general')</label>
         </div>
         <div class="row col-md-12 radio-error">
@@ -42,9 +42,8 @@
         </div>
     </div>
     <div class="col-6">
-        {!! Form::label('description', __('ims::location.description'), ['class' => 'form-label required']) !!}
-        {!! Form::textarea('description', $page == 'create' ? old('description') : $location->description, ['class' => "form-control", "required ", "placeholder" => __('ims::location.description'), 'data-rule-maxlength' => 5000, 'data-msg-maxlength'=>Lang::get('labels.At most 5000 characters'),
-        'data-msg-required' => Lang::get('labels.This field is required')]) !!}
+        {!! Form::label('description', __('ims::location.description'), ['class' => 'form-label']) !!}
+        {!! Form::textarea('description', $page == 'create' ? old('description') : $location->description, ['class' => "form-control", "placeholder" => __('ims::location.description'), 'data-rule-maxlength' => 5000, 'data-msg-maxlength'=>Lang::get('labels.At most 5000 characters')]) !!}
         <div class="help-block"></div>
         @if ($errors->has('description'))
             <span class="invalid-feedback" role="alert">
@@ -55,7 +54,7 @@
 </div>
 
 <div class="form-actions mb-lg-3">
-    <a class="btn btn-warning pull-right" role="button" href="{{ route('location.index') }}" style="margin-left: 2px;">
+    <a class="btn btn-warning pull-right" role="button" href="{{ route('inventory-locations.index') }}" style="margin-left: 2px;">
         <i class="la la-times"></i> {{trans('labels.cancel')}}
     </a>
     <button type="submit" class="btn btn-primary pull-right">

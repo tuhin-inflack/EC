@@ -191,4 +191,6 @@ return [
     'achieved value cannot be greater than current balance' => 'অর্জিত মান বর্তমান জমা/বিতরণ চেয়ে বড় হতে পারে না',
     'summation of above fields must be equal to total amount' => 'উপরের ক্ষেত্রের সমষ্টি মোট পরিমাণের সমান হতে হবে',
     'invalid file type' => 'অবৈধ ফাইল টাইপ',
+    'inactive'=> 'নিষ্ক্রিয়',
+    'active' => 'সক্রিয়'
 ];

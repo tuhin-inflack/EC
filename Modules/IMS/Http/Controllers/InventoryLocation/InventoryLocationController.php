@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\IMS\Http\Controllers\Location;
+namespace Modules\IMS\Http\Controllers\InventoryLocation;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -20,13 +20,17 @@ class InventoryLocationController extends Controller
      * @var InventoryLocationService
      */
     private $locationService;
+    /**
+     * @var InventoryLocationService
+     */
+    private $inventoryLocationService;
 
-    public function __construct(DepartmentService $departmentService, InventoryLocationService $locationService)
+    public function __construct(DepartmentService $departmentService, InventoryLocationService $inventoryLocationService)
     {
         /** @var DepartmentService $departmentService */
         $this->departmentService = $departmentService;
-        /** @var InventoryLocationService $locationService */
-        $this->locationService = $locationService;
+        /** @var InventoryLocationService $inventoryLocationService */
+        $this->inventoryLocationService = $inventoryLocationService;
     }
 
     /**
@@ -35,8 +39,8 @@ class InventoryLocationController extends Controller
      */
     public function index()
     {
-        $locations = $this->locationService->getAllLocationsExceptDefaults();
-        return view('ims::location.index', compact('locations'));
+        $inventoryLocations = $this->inventoryLocationService->getAllLocationsExceptDefaults();
+        return view('ims::inventory_location.index', compact('inventoryLocations'));
     }
 
     /**
@@ -46,7 +50,7 @@ class InventoryLocationController extends Controller
     public function create()
     {
         $departments = $this->departmentService->getDepartmentsForDropdown();
-        return view('ims::location.create', compact('departments'));
+        return view('ims::inventory_location.create', compact('departments'));
     }
 
     /**
@@ -56,9 +60,9 @@ class InventoryLocationController extends Controller
      */
     public function store(Request $request)
     {
-        $this->locationService->store($request->all());
+        $this->inventoryLocationService->store($request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('location.index');
+        return redirect()->route('inventory-locations.index');
     }
 
     /**
@@ -68,7 +72,7 @@ class InventoryLocationController extends Controller
      */
     public function show(InventoryLocation $location)
     {
-        return view('ims::location.show', compact('location'));
+        return view('ims::inventory_location.show', compact('location'));
     }
 
     /**
@@ -79,7 +83,7 @@ class InventoryLocationController extends Controller
     public function edit(InventoryLocation $location)
     {
         $departments = $this->departmentService->getDepartmentsForDropdown();
-        return view('ims::location.edit', compact('location', 'departments'));
+        return view('ims::inventory_location.edit', compact('location', 'departments'));
     }
 
     /**
@@ -90,8 +94,8 @@ class InventoryLocationController extends Controller
      */
     public function update(Request $request, InventoryLocation $location)
     {
-        $this->locationService->updateLocation($location, $request->all());
+        $this->inventoryLocationService->updateLocation($location, $request->all());
         Session::flash('success', trans('labels.save_success'));
-        return redirect()->route('location.index');
+        return redirect()->route('inventory-locations.index');
     }
 }

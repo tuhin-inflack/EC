@@ -40,6 +40,7 @@ Route::middleware(['auth', 'can:ims-access'])->prefix('ims')->group(function () 
     // Inventory Item Category
     Route::prefix('inventory-item-category')->group(function (){
         Route::get('/','Inventory\InventoryCategoryController@index')->name('inventory-item-category.index');
+        Route::get('/departmental-item-categories','Inventory\InventoryCategoryController@departmentalItemCategory')->name('inventory-item-category.departmental-item-categories');
         Route::get('/create','Inventory\InventoryCategoryController@create')->name('inventory-item-category.create');
         Route::post('/','Inventory\InventoryCategoryController@store')->name('inventory-item-category.store');
         Route::get('{inventoryItemCategory}/edit','Inventory\InventoryCategoryController@edit')->name('inventory-item-category.edit');
@@ -48,13 +49,13 @@ Route::middleware(['auth', 'can:ims-access'])->prefix('ims')->group(function () 
     });
 
     // Location
-    Route::prefix('location')->group(function (){
-        Route::get('/','Location\InventoryLocationController@index')->name('location.index');
-        Route::get('/create','Location\InventoryLocationController@create')->name('location.create');
-        Route::post('/','Location\InventoryLocationController@store')->name('location.store');
-        Route::get('{location}','Location\InventoryLocationController@show')->name('location.show');
-        Route::get('{location}/edit','Location\InventoryLocationController@edit')->name('location.edit');
-        Route::put('{location}/update','Location\InventoryLocationController@update')->name('location.update');
+    Route::prefix('inventory-locations')->group(function (){
+        Route::get('/','InventoryLocation\InventoryLocationController@index')->name('inventory-locations.index');
+        Route::get('/create','InventoryLocation\InventoryLocationController@create')->name('inventory-locations.create');
+        Route::post('/','InventoryLocation\InventoryLocationController@store')->name('inventory-locations.store');
+        Route::get('{location}','InventoryLocation\InventoryLocationController@show')->name('inventory-locations.show');
+        Route::get('{location}/edit','InventoryLocation\InventoryLocationController@edit')->name('inventory-locations.edit');
+        Route::put('{location}/update','InventoryLocation\InventoryLocationController@update')->name('inventory-locations.update');
     });
 
     // Auction route

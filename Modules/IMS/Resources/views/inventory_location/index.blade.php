@@ -10,7 +10,7 @@
                         <h4 class="card-title">{{trans('ims::location.location_list')}}</h4>
 
                         <div class="heading-elements">
-                            <a href="{{ route('location.create') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('inventory-locations.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white"></i> {{trans('ims::location.create_new_location')}}
                             </a>
                         </div>
@@ -32,21 +32,21 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($locations as $location)
+                                    @foreach($inventoryLocations as $inventoryLocation)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="{{ route('location.show', $location->id) }}">{{ $location->name }}</a>
+                                                <a href="{{ route('inventory-locations.show', $inventoryLocation->id) }}">{{ $inventoryLocation->name }}</a>
                                             </td>
-                                            <td>{{ $location->departments->name }}</td>
+                                            <td>{{ $inventoryLocation->departments->name }}</td>
                                             <td>
-                                                @if($location->type == 1)
+                                                @if($inventoryLocation->type == 'store')
                                                     <p>@lang('ims::location.store')</p>
                                                 @else
                                                     <p>@lang('ims::location.general')</p>
                                                 @endif
                                             </td>
-                                            <td>{{ $location->description }}</td>
+                                            <td>{{ $inventoryLocation->description }}</td>
                                             <td>
                                                 <span class="dropdown">
                                                     <button id="imsProductList" type="button" data-toggle="dropdown"
@@ -56,10 +56,10 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('location.show', $location->id) }}"
+                                                        <a href="{{ route('inventory-locations.show', $inventoryLocation->id) }}"
                                                            class="dropdown-item"><i
                                                                     class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="{{ route('location.edit', $location->id) }}"
+                                                        <a href="{{ route('inventory-locations.edit', $inventoryLocation->id) }}"
                                                            class="dropdown-item"><i
                                                                     class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                     </span>
