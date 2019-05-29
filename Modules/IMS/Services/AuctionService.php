@@ -33,15 +33,20 @@ class AuctionService{
             $auctionArray['title']=$data['auction_title'];
             $auctionArray['date'] = Carbon::createFromFormat('d/m/Y', $data['auction_date']);
             $auction=$this->save($auctionArray);
-            $collectionOfAuctionDetails = collect($data['scrap_product']);
             // convert to model and save it in the db using save many
-            $auctionDetails=$collectionOfAuctionDetails->map(function($auctionDetail) use ($auction){
-                     $auctionDetail['auction_id']=$auction->id;
-                     return new AuctionDetails($auctionDetail);
-
-            }); 
-            return $auction->details()->saveMany($auctionDetails);
-        
+            if(isset($data['scrap_product']))
+            {
+                $collectionOfAuctionDetails = collect($data['scrap_product']);
+                $auctionDetails=$collectionOfAuctionDetails->map(function($auctionDetail) use ($auction){
+                         $auctionDetail['auction_id']=$auction->id;
+                         return new AuctionDetails($auctionDetail);
+    
+                });
+                return $auction->details()->saveMany($auctionDetails); 
+            } else 
+            {
+                return $auction;
+            }
         });
 
     }
