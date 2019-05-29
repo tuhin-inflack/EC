@@ -5,32 +5,17 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Modules\HRM\Services\EmployeeServices;
 use Modules\IMS\Entities\InventoryRequest;
-use Modules\IMS\Services\InventoryItemCategoryService;
 use Modules\IMS\Services\InventoryRequestService;
-use Modules\IMS\Services\LocationService;
 
 class InventoryRequestController extends Controller
 {
-
     private $inventoryRequestService;
-    private $employeeService;
-    private $locationService;
-    private $inventoryItemCategoryService;
 
-    public function __construct(InventoryRequestService $inventoryRequestService,
-                                EmployeeServices $employeeService,
-                                LocationService $locationService,
-                                InventoryItemCategoryService $inventoryItemCategoryService
-    )
+    public function __construct(InventoryRequestService $inventoryRequestService)
     {
         $this->inventoryRequestService = $inventoryRequestService;
-        $this->employeeService = $employeeService;
-        $this->locationService = $locationService;
-        $this->inventoryItemCategoryService = $inventoryItemCategoryService;
     }
 
     /**
@@ -45,24 +30,26 @@ class InventoryRequestController extends Controller
 
     /**
      * Show the form for creating a new resource.
+     * @param string $type
      * @return Response
      */
-    public function create()
+    public function create(string $type)
     {
-        $employeeOptions = $this->employeeService->getEmployeesForDropdown(
-            null, null,
-            ['department_id' => Auth::user()->employee->department_id, 'is_divisional_director' => false]
-        );
-
-        $fromLocations = $toLocations = $this->locationService->getLocationsForDropdown();
-        $itemCategories = $this->inventoryItemCategoryService->getItemCategoryForDropdown();
-        $itemCategories = ['' => 'Select'] + $itemCategories;
+        list(
+            $loadedViews,
+            $employees,
+            $fromLocations,
+            $toLocations,
+            $categories
+        ) = $this->inventoryRequestService->prepareViews($type);
 
         return view('ims::inventory.request.create',
-            compact('employeeOptions',
+            compact('employees',
                 'fromLocations',
                 'toLocations',
-                'itemCategories'
+                'categories',
+                'type',
+                'loadedViews'
             )
         );
     }
@@ -74,20 +61,15 @@ class InventoryRequestController extends Controller
      */
     public function store(Request $request)
     {
-        $this->inventoryRequestService->store($request->all());
-        Session::flash('success', trans('labels.save_success'));
+        // TODO: request validation
+
+        if ($this->inventoryRequestService->store($request->all())) {
+            Session::flash('success', trans('labels.save_success'));
+        } else {
+            Session::flash('error', trans('labels.save_fail'));
+        }
 
         return redirect()->route('inventory-request.index');
-    }
-
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Response
-     */
-    public function show($id)
-    {
-        return view('ims::show');
     }
 
     /**
@@ -108,16 +90,7 @@ class InventoryRequestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return redirect();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

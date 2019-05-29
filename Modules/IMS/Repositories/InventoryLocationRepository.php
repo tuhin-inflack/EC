@@ -9,9 +9,9 @@
 namespace Modules\IMS\Repositories;
 
 use App\Repositories\AbstractBaseRepository;
-use Modules\IMS\Entities\Location;
+use Modules\IMS\Entities\InventoryLocation;
 
-class LocationRepository extends AbstractBaseRepository
+class InventoryLocationRepository extends AbstractBaseRepository
 {
-    protected $modelName = Location::class;
+    protected $modelName = InventoryLocation::class;
 }

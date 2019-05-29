@@ -9,36 +9,36 @@
             </li>
             <li class="nav-item">
                 <a href="#">
-                    <i class="la la-puzzle-piece"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::product.title')</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory.product.index') }}">
-                        <a href="{{ route('inventory.product.index') }}">
-                            <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::product.list_menu_title')</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('inventory.product.transfer') }}">
-                        <a href="{{ route('inventory.product.transfer') }}">
-                            <i class="la la-exchange"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::product.transfer_menu_title')</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li class="nav-item">
-                <a href="#">
                     <i class="la la-building"></i>
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::inventory.inventory_request')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory-request.create') }}">
-                        <a href="{{ route('inventory-request.create') }}">
+                    <li class="{{ is_active_url('ims/inventory-request/create/requisition') }}">
+                        <a href="{{ route('inventory-request.create', 'requisition') }}">
                             <i class="la la-plus-circle"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('labels.new') @lang('ims::inventory.inventory_request')</span>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.requisition') @lang('ims::inventory.inventory_request')</span>
                         </a>
                     </li>
+                    <li class="{{ is_active_url('ims/inventory-request/create/transfer') }}">
+                        <a href="{{ route('inventory-request.create', 'transfer') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.transfer') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+                    <li class="{{ is_active_url('ims/inventory-request/create/scrap') }}">
+                        <a href="{{ route('inventory-request.create', 'scrap') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.scrap') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+
+                    <li class="{{ is_active_url('ims/inventory-request/create/abandon') }}">
+                        <a href="{{ route('inventory-request.create', 'abandon') }}">
+                            <i class="la la-plus-circle"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.inventory_request_types.abandon') @lang('ims::inventory.inventory_request')</span>
+                        </a>
+                    </li>
+
                     <li class="{{ is_active_route('inventory-request.index') }}">
                         <a href="{{ route('inventory-request.index') }}">
                             <i class="la la-list-alt"></i>
@@ -48,26 +48,6 @@
                 </ul>
             </li>
 
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-building"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::warehouse.title')</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('inventory.warehouse.list') }}">
-                        <a href="{{ route('inventory.warehouse.list') }}">
-                            <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::warehouse.list_menu_title')</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('inventory.warehouse.create') }}">
-                        <a href="{{ route('inventory.warehouse.create') }}">
-                            <i class="la la-plus-circle"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::warehouse.create_menu_title')</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
 
             <!-- Inventory -->
             <li class="nav-item">
@@ -86,12 +66,6 @@
                         <a href="{{ route('inventory.add') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.add_menu_title')</span>
-                        </a>
-                    </li>
-                    <li class="{{ is_active_route('inventory.list.by.warehouse') }}">
-                        <a href="{{ route('inventory.list.by.warehouse') }}">
-                            <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.warehouse.list_menu_title')</span>
                         </a>
                     </li>
                 </ul>
@@ -132,47 +106,6 @@
             </li>
             <!-- //Location -->
 
-            <!-- Fixed Asset -->
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-building"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::fixed-asset.title')</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('fixed-asset.add') }}">
-                        <a href="{{ route('fixed-asset.add') }}">
-                            <i class="la la-plus-circle"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.add_menu_title')</span>
-                        </a>
-                    </li>
-
-                    <li class="{{ is_active_route('fixed-asset.list') }}">
-                        <a href="{{ route('fixed-asset.list') }}">
-                            <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::fixed-asset.list_menu_title')</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!-- //Fixed Asset -->
-
-            <!-- Asset Management-->
-            <li class="nav-item">
-                <a href="#">
-                    <i class="la la-building"></i>
-                    <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::asset.title')</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ is_active_route('asset.list') }}">
-                        <a href="{{ route('asset.list') }}">
-                            <i class="la la-list-alt"></i>
-                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::asset.list_menu_title')</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <!-- // Asset Management-->
-
             <!-- Vendor -->
             <li class="nav-item">
                 <a href="#">
@@ -189,7 +122,6 @@
                 </ul>
             </li>
             <!-- //Vendor -->
-
 
             <!-- Auction -->
             <li class="nav-item">

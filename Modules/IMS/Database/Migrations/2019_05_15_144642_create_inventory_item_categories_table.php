@@ -17,8 +17,9 @@ class CreateInventoryItemCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('short_code')->nullable();
-            $table->tinyInteger('type');
-            $table->string('unit');
+            $table->enum('type', ['fixed asset', 'stationery']);
+            $table->string('unit')->default('piece');
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }
