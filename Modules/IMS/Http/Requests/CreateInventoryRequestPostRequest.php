@@ -19,9 +19,9 @@ class CreateInventoryRequestPostRequest extends FormRequest
             'to_location_id' => 'required',
             'request_type' => 'required|in:requisition,transfer,scrap,abandon',
             'receiver_id' => $this->request_type === "requisition" ? 'required' : '',
-            'category' => 'required|array|min:1',
-            'new-category' => $this->request_type  === "requisition" ? 'required|array|min:1' : '',
-            'bought-category' => $this->request_type  === "requisition" ? 'required|array|min:1' : '',
+            'category' => $this->request_type  === "requisition" ? 'required_without_all:new-category,bought-category|array|min:1' : 'required|array|min:1',
+            'new-category' => $this->request_type  === "requisition" ? 'required_without_all:category,bought-category|array|min:1' : '',
+            'bought-category' => $this->request_type  === "requisition" ? 'required_without_all:category,new-category|array|min:1' : '',
         ];
     }
 
@@ -30,10 +30,26 @@ class CreateInventoryRequestPostRequest extends FormRequest
         return [
             'category.min:1' => trans('ims::inventory.category') . ' ' . trans('labels.add'),
             'category.required' => trans('ims::inventory.category') . ' ' . trans('labels.add'),
+            'category.required_without_all' => trans('validation.required_without_all',
+                [
+                    'attribute' => trans('ims::inventory.category'),
+                    'values' => trans('ims::inventory.bought-category') ."/".trans('ims::inventory.new-category')
+                ]
+            ),
             'new-category.min:1' => trans('ims::inventory.new-category') . ' ' . trans('labels.add'),
-            'new-category.required' => trans('ims::inventory.new-category') . ' ' . trans('labels.add'),
+            'new-category.required_without_all' => trans('validation.required_without_all',
+                [
+                    'attribute' => trans('ims::inventory.new-category'),
+                    'values' => trans('ims::inventory.category') ."/".trans('ims::inventory.bought-category')
+                ]
+            ),
             'bought-category.min:1' => trans('ims::inventory.bought-category') . ' ' . trans('labels.add'),
-            'bought-category.required' => trans('ims::inventory.bought-category') . ' ' . trans('labels.add'),
+            'bought-category.required_without_all' => trans('validation.required_without_all',
+                [
+                    'attribute' => trans('ims::inventory.bought-category'),
+                    'values' => trans('ims::inventory.category') ."/".trans('ims::inventory.new-category')
+                ]
+            ),
         ];
     }
 

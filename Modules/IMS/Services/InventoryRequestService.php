@@ -45,6 +45,8 @@ class InventoryRequestService
             $inventoryRequest = $this->save($data);
 
             foreach ($data['category'] as $category) {
+//                if (!$category['category_id'] && !$category['quantity'])
+//                    continue;
 
                 $inventoryRequestDetail = new InventoryRequestDetail([
                     'category_id' => $category['category_id'],
@@ -132,7 +134,7 @@ class InventoryRequestService
             $this->inventoryItemCategoryService->getItemCategoryForDropdown(
                 null, null,
                 [
-                    'is_active' => false
+                    'is_active' => true
                 ]
             );
         $categories['bought'] = ['' => 'Select'] + $this->inventoryItemCategoryService->getItemCategoryForDropdown();

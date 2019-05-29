@@ -20,14 +20,18 @@
                         {!! Form::select('category_id',
                                 $categories['items'],
                                 null,
-                                ['class' => 'form-control repeater-select required']
+                                [
+                                    'class' => 'form-control repeater-select required',
+                                    'data-msg-required' => trans('labels.This field is required'),
+                                ]
                             )
                         !!}
                     </td>
                     <td class="show-unit-name"></td>
                     <td>
                         {{ Form::number('quantity', null, [
-                            'class' => 'form-control',
+                            'class' => 'form-control required',
+                            'data-msg-required' => trans('labels.This field is required'),
                             'data-rule-min' => 1,
                             'data-msg-min'=> trans('validation.min.numeric', ['attribute' => trans('labels.quantity'), 'min' => 1]),
                             'data-rule-number' => 'true',

@@ -20,7 +20,9 @@
                     <td>
                         {{ Form::text('name',
                                 null,
-                                ['class' => 'form-control']
+                                [
+                                    'class' => 'form-control category-unique-check required'
+                                ]
                             )
                         }}
                     </td>

@@ -31,7 +31,8 @@
 @stop
 
 @push('page-js')
-    <script type="text/javascript">
-        $('.select').select2();
-    </script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/inventory-request/page.js') }}"></script>
 @endpush
