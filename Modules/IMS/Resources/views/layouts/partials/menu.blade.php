@@ -85,19 +85,25 @@
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.item_category_list')</span>
                         </a>
                     </li>
+                    <li class="{{ is_active_route('inventory-item-category.departmental-item-categories') }}">
+                        <a href="{{ route('inventory-item-category.departmental-item-categories') }}">
+                            <i class="la la-list-alt"></i>
+                            <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::inventory.departmental_item_category_list')</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <!-- //Inventory Item Category -->
 
-            <!-- Location -->
+            <!-- Inventory Location -->
             <li class="nav-item">
                 <a href="#">
                     <i class="la la-building"></i>
                     <span class="menu-title" data-i18n="nav.templates.main">@lang('ims::location.location')</span>
                 </a>
                 <ul class="menu-content">
-                    <li class="{{ is_active_route('location.index') }}">
-                        <a href="{{ route('location.index') }}">
+                    <li class="{{ is_active_route('inventory-locations.index') }}">
+                        <a href="{{ route('inventory-locations.index') }}">
                             <i class="la la-list-alt"></i>
                             <span class="menu-title" data-i18n="nav.dash.main">@lang('ims::location.location_list')</span>
                         </a>

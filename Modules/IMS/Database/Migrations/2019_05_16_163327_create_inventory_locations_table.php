@@ -18,7 +18,7 @@ class CreateInventoryLocationsTable extends Migration
             $table->string('name');
             $table->unsignedInteger('department_id')->nullable();
             $table->enum('type', ['store', 'general']);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->boolean('is_default')->default(false);
             $table->timestamps();
         });

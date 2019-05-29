@@ -1,5 +1,5 @@
 @extends('ims::layouts.master')
-@section('title', trans('ims::inventory.item_category_list'))
+@section('title', trans('ims::inventory.departmental_item_category_list'))
 
 @section('content')
     <section id="role-list">
@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">{{trans('ims::inventory.item_category_list')}}</h4>
+                        <h4 class="card-title">{{trans('ims::inventory.departmental_item_category_list')}}</h4>
 
                         <div class="heading-elements">
                             <a href="{{ route('inventory-item-category.create') }}" class="btn btn-primary btn-sm">
@@ -33,22 +33,22 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach($categories as $category)
+                                    @foreach($departmentalCategories as $departmentalCategory)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>
-                                                <a href="{{ route('inventory-item-category.show', $category->id) }}">{{ $category->name }}</a>
+                                                <a href="{{ route('inventory-item-category.show', $departmentalCategory->id) }}">{{ $departmentalCategory->name }}</a>
                                             </td>
                                             <td>
-                                                @if($category->type == 'fixed asset')
+                                                @if($departmentalCategory->type == 'fixed asset')
                                                     <p>@lang('ims::inventory.fixed_asset')</p>
                                                 @else
                                                     <p>@lang('ims::inventory.stationery')</p>
                                                 @endif
                                             </td>
-                                            <td>{{ $category->unit }}</td>
+                                            <td>{{ $departmentalCategory->unit }}</td>
                                             <td>
-                                                @if($category->is_active == 0)
+                                                @if($departmentalCategory->is_active == 0)
                                                     <p>@lang('labels.inactive')</p>
                                                 @else
                                                     <p>@lang('labels.active')</p>
@@ -63,28 +63,8 @@
                                                     </button>
                                                     <span aria-labelledby="imsProductList"
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
-                                                        <a href="{{ route('inventory-item-category.show', $category->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                        <a href="{{ route('inventory-item-category.edit', $category->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-
-                                                        {!!
-
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
-
-                                                        {!!
-                                                           Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                           'type' => 'submit',
-                                                           'class' => 'dropdown-item',
-                                                           'title' => 'Delete the user',
-                                                           'onclick'=>'return confirm("Confirm delete?")',
-                                                                   ))
-                                                                   !!}
-                                                        {!! Form::close() !!}
+                                                        <a href="{{ route('inventory-item-category.show', $departmentalCategory->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                        <a href="{{ route('inventory-item-category.edit', $departmentalCategory->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                     </span>
                                                 </span>
                                             </td>

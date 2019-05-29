@@ -11,6 +11,8 @@ namespace Modules\IMS\Services;
 
 use App\Traits\CrudTrait;
 use Closure;
+use Illuminate\Support\Facades\Auth;
+use Modules\IMS\Entities\Inventory;
 use Modules\IMS\Entities\InventoryItemCategory;
 use Modules\IMS\Repositories\InventoryItemCategoryRepository;
 
@@ -71,5 +73,15 @@ class InventoryItemCategoryService
         }
 
         return $inventoryItemCategoryOptions;
+    }
+
+    public function getDepartmentalItemCategories()
+    {
+        $employeeDepartment = Auth::user()->employee->employeeDepartment;
+        $locationIds = $employeeDepartment->inventoryLocations->pluck('id');
+
+        $inventories = Inventory::whereIn('location_id', $locationIds)->get();
+        $categoryIds = $inventories->pluck('inventory_item_category_id');
+        return $itemCategories = InventoryItemCategory::whereIn('id', $categoryIds)->get();
     }
 }

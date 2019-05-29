@@ -5,7 +5,9 @@ namespace Modules\IMS\Http\Controllers\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Modules\IMS\Entities\Inventory;
 use Modules\IMS\Entities\InventoryItemCategory;
 use Modules\IMS\Services\InventoryItemCategoryService;
 
@@ -95,5 +97,11 @@ class InventoryCategoryController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function departmentalItemCategory()
+    {
+        $departmentalCategories = $this->inventoryItemCategoryService->getDepartmentalItemCategories();
+        return view('ims::inventory.category.departmental', compact('departmentalCategories'));
     }
 }

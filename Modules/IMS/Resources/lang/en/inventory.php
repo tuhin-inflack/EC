@@ -26,6 +26,7 @@ return [
     'already_bought_inventory' => 'Already Bought Inventory',
     'inventory_item_category' => 'Inventory Item Category',
     'item_category_list' => 'Item Category List',
+    'departmental_item_category_list' => 'Departmental Item Category List',
     'create_new_category' => 'Create New Category',
     'short_code' => 'Short Code',
     'type' => 'Type',

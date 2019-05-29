@@ -26,6 +26,7 @@ return [
     'already_bought_inventory' => 'ইতিমধ্যেই কেনা ইনভেন্টরি',
     'inventory_item_category' => 'ইনভেন্টরি আইটেম ক্যাটাগরি',
     'item_category_list' => 'আইটেম ক্যাটাগরি তালিকা',
+    'departmental_item_category_list' => 'বিভাগীয় আইটেম ক্যাটাগরি তালিকা',
     'create_new_category' => 'নতুন ক্যাটাগরি তৈরি',
     'short_code' => 'শর্ট কোড',
     'type' => 'নমুনা',

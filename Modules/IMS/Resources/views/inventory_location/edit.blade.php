@@ -18,14 +18,14 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('location.index') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('inventory-locations.index') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-list white">@lang('ims::location.location_list')</i>
                             </a>
                         </div>
                     </div>
                     <div class="card-content collapse show">
                         <div class="card-body">
-                            @include('ims::location.partials.form', ['page' => 'edit'])
+                            @include('ims::inventory_location.partials.form', ['page' => 'edit'])
                         </div>
                     </div>
                 </div>
