@@ -8,7 +8,7 @@
                             class="ft-menu font-large-1"></i></a></li>
                 <li class="nav-item">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/logo.png') }}">
+                        <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/ec.svg') }}">
                         <h3 class="brand-text">{{ trans('labels.BARD ERP') }}</h3>
                     </a>
                 </li>

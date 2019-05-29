@@ -93,7 +93,7 @@ return [
     'status_closed' => 'বাতিলকৃত',
     'complete' => 'সমাপ্ত',
     'no_doc_available' => 'কোন নথি উপলব্ধ নেই',
-    'BARD ERP' => 'বার্ড',
+    'BARD ERP' => 'ইসি',
     'change_password' => 'পাসওয়ার্ড পরিবর্তন করুন',
     'logout' => 'প্রস্থান',
     'password_change' => 'পাসওয়ার্ড পরিবর্তন',

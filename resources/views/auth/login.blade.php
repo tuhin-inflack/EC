@@ -2,7 +2,7 @@
 @section('title', trans('labels.login'))
 @section('content')
     <section class="flexbox-container">
-        <div class="col-12 d-flex align-items-center justify-content-center">
+        {{--<div class="col-12 d-flex align-items-center justify-content-center">
             <div class="row">
                 <div class="col-6">
                     <a href="{{ route('public-booking-requests.create') }}" class="btn btn-primary" style="font-size: large">@lang('hm::booking-request.create_booking_request')</a>
@@ -11,15 +11,15 @@
                     <a href="{{ route('training-registration.index') }}" class="btn btn-primary" style="font-size: large">@lang('tms::training.registration_for_training')</a>
                 </div>
             </div>
-        </div>
+        </div>--}}
         <br>
         <div class="col-12 d-flex align-items-center justify-content-center">
             <div class="col-md-4 col-10 box-shadow-2 p-0">
                 <div class="card border-grey border-lighten-3 m-0">
                     <div class="card-header border-0">
                         <div class="card-title text-center">
-                            <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/logo.png') }}">
-                            <h3>বাংলাদেশ পল্লী উন্নয়ন একাডেমি (বার্ড), কুমিল্লা</h3>
+                            <img class="brand-logo" alt="bard erp logo" src="{{ asset('images/ec.svg') }}" style="height: 100px;">
+                            <h3>বাংলাদেশ নির্বাচন কমিশন</h3>
                         </div>
                     </div>
                     <div class="card-content">

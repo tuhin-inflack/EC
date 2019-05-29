@@ -92,7 +92,7 @@ return [
     'status_closed' => 'Closed',
     'complete' => 'Finish',
     'no_doc_available' => 'No Document Available',
-    'BARD ERP' => 'BARD',
+    'BARD ERP' => 'EC',
     'change_password' => 'Change Password',
     'logout' => 'Logout',
     'password_change' => 'Password Change',
