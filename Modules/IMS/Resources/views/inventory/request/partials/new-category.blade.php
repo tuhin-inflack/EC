@@ -1,6 +1,9 @@
 <h4 class="form-section"><i class="la la-tag"></i> @lang('labels.new') @lang('ims::inventory.inventory_request')</h4>
 <div class="row">
     <div class="col-md-12">
+        @if ($errors->has('new-category'))
+            <span class="invalid-feedback" style="display: block">{{ $errors->first('new-category') }}</span>
+        @endif
         <div class="table-responsive">
             <table class="table table-bordered repeater-new-category-request">
                 <thead>
@@ -17,7 +20,9 @@
                     <td>
                         {{ Form::text('name',
                                 null,
-                                ['class' => 'form-control']
+                                [
+                                    'class' => 'form-control category-unique-check required'
+                                ]
                             )
                         }}
                     </td>

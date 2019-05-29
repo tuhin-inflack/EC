@@ -7,6 +7,8 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Session;
 use Modules\IMS\Entities\InventoryRequest;
+use Modules\IMS\Http\Requests\CreateInventoryRequestPostRequest;
+use Modules\IMS\Http\Requests\UpdateInventoryRequestPutRequest;
 use Modules\IMS\Services\InventoryRequestService;
 
 class InventoryRequestController extends Controller
@@ -36,7 +38,7 @@ class InventoryRequestController extends Controller
     public function create(string $type)
     {
         list(
-            $loadedViews,
+            $bladesName,
             $employees,
             $fromLocations,
             $toLocations,
@@ -49,20 +51,18 @@ class InventoryRequestController extends Controller
                 'toLocations',
                 'categories',
                 'type',
-                'loadedViews'
+                'bladesName'
             )
         );
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param Request $request
+     * @param CreateInventoryRequestPostRequest $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(CreateInventoryRequestPostRequest $request)
     {
-        // TODO: request validation
-
         if ($this->inventoryRequestService->store($request->all())) {
             Session::flash('success', trans('labels.save_success'));
         } else {
@@ -84,11 +84,11 @@ class InventoryRequestController extends Controller
 
     /**
      * Update the specified resource in storage.
-     * @param Request $request
-     * @param int $id
+     * @param UpdateInventoryRequestPutRequest $request
+     * @param InventoryRequest $inventoryRequest
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateInventoryRequestPutRequest $request, InventoryRequest $inventoryRequest)
     {
         return redirect();
     }

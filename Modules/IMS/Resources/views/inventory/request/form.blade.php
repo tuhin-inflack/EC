@@ -1,10 +1,3 @@
-@if($page === 'create')
-{!! Form::open(['route' =>  ['inventory-request.store', $type], 'class' => 'form inventory-request-form']) !!}
-@else
-{!! Form::open(['route' =>  ['inventory-request.update', $inventoryRequest->id], 'class' => 'form inventory-request-form']) !!}
-@method('put')
-@endif
-
 <h4 class="form-section"><i class="la la-tag"></i>@lang('ims::inventory.inventory_request')</h4>
 <div class="row">
     <div class="col-md-7">
@@ -88,8 +81,8 @@
         </div>
     </div>
 </div>
-@foreach($loadedViews as $loadedView)
-    @include('ims::inventory.request.partials.'. $loadedView)
+@foreach($bladesName as $bladeName)
+    @include('ims::inventory.request.partials.'. $bladeName)
 @endforeach
 
 <div class="form-actions text-center">
@@ -100,4 +93,3 @@
         <i class="ft-x"></i> @lang('labels.cancel')
     </a>
 </div>
-{!! Form::close() !!}

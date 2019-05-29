@@ -21,14 +21,18 @@
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                @include('ims::inventory.request.form', ['page' => 'edit'])
+                {!! Form::open(['route' =>  ['inventory-request.update', $inventoryRequest->id], 'class' => 'form inventory-request-form']) !!}
+                    @method('put')
+                    @include('ims::inventory.request.form', ['page' => 'edit'])
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
 @stop
 
 @push('page-js')
-    <script type="text/javascript">
-        $('.select').select2();
-    </script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/inventory-request/page.js') }}"></script>
 @endpush

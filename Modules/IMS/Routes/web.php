@@ -29,14 +29,9 @@ Route::middleware(['auth', 'can:ims-access'])->prefix('ims')->group(function () 
         Route::get('create/{type}', 'Inventory\InventoryRequestController@create')
             ->name('inventory-request.create')
             ->where('type', 'requisition|transfer|scrap|abandon');
-
-
-        Route::post('create/{type}', 'Inventory\InventoryRequestController@store')
-            ->name('inventory-request.store')
-            ->where('type', 'requisition|transfer|scrap|abandon');
-
+        Route::post('create/', 'Inventory\InventoryRequestController@store')->name('inventory-request.store');
         Route::get('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@edit')->name('inventory-request.edit');
-        Route::post('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
+        Route::put('{inventoryRequest}/edit', 'Inventory\InventoryRequestController@update')->name('inventory-request.update');
         Route::delete('{inventoryRequest}/delete', 'Inventory\InventoryRequestController@destroy')->name('inventory-request.destroy');
     });
 
