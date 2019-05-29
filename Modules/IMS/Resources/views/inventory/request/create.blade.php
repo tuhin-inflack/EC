@@ -21,7 +21,9 @@
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                @include('ims::inventory.request.form', ['page' => 'create'])
+                {!! Form::open(['route' =>  ['inventory-request.store'], 'class' => 'form inventory-request-form']) !!}
+                    @include('ims::inventory.request.form', ['page' => 'create'])
+                {!! Form::close() !!}
             </div>
         </div>
     </div>

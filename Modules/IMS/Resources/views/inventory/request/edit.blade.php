@@ -21,7 +21,10 @@
         </div>
         <div class="card-content collapse show">
             <div class="card-body">
-                @include('ims::inventory.request.form', ['page' => 'edit'])
+                {!! Form::open(['route' =>  ['inventory-request.update', $inventoryRequest->id], 'class' => 'form inventory-request-form']) !!}
+                    @method('put')
+                    @include('ims::inventory.request.form', ['page' => 'edit'])
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
