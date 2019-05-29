@@ -47,26 +47,6 @@
                                                           class="dropdown-menu mt-1 dropdown-menu-right">
                                                         <a href="{{ route('vendor.show', $vendor->id) }}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
                                                         <a href="{{ route('vendor.edit', $vendor->id) }}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
-                                                        <div class="dropdown-divider"></div>
-
-                                                        {!!
-
-                                                            Form::open([
-                                                              'method'=>'DELETE',
-                                                              'url' => [''],
-                                                              'style' => 'display:inline'
-                                                                ])
-                                                         !!}
-
-                                                        {!!
-                                                           Form::button('<i class="ft-trash"></i> '.trans('labels.delete'), array(
-                                                           'type' => 'submit',
-                                                           'class' => 'dropdown-item',
-                                                           'title' => 'Delete the user',
-                                                           'onclick'=>'return confirm("Confirm delete?")',
-                                                                   ))
-                                                                   !!}
-                                                        {!! Form::close() !!}
                                                     </span>
                                                 </span>
                                             </td>
