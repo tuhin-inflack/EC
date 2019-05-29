@@ -25,7 +25,7 @@ class AuctionController extends Controller
      */
     public function index()
     {
-        $auctions = $this->_auctionService->findAll();
+        $auctions = $this->_auctionService->findAll(null,null,['column'=>'date','direction'=>'desc']);
         return view('ims::auction.index', compact('auctions'));
     }
 
