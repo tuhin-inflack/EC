@@ -74,7 +74,7 @@
             </div>
         @endcan
         @endforeach
-        <div class="col-xl-4 col-12">
+        <div class="col-xl-4 col-12" style="display: none;">
             <div class="card crypto-card-3 pull-up">
                 <div class="card-content">
                     <div class="card-body pb-0">

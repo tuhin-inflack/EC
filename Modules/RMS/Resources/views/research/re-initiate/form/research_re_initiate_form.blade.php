@@ -1,7 +1,7 @@
 {!! Form::model($publication, ['route' =>  ['research-re-initiated', $publication->id], 'class' => '', 'enctype' => 'multipart/form-data']) !!}
 <div class="form-body">
     <h4 class="form-section"><i
-                class="la la-briefcase"></i> {{trans('rms::research_proposal.research_proposal_creation_form')}}
+                class="la la-briefcase"></i> {{trans('rms::research.research_publication_form')}}
     </h4>
 
     <div class="row">
@@ -117,14 +117,14 @@
 
                 </div>
             </fieldset>
-        </div>
-        <div class="pull-right">
-            {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.save') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
+            <div class="form-group">
+                {!! Form::button('<i class="la la-check-square-o"></i> '.trans('labels.submit') , ['type' => 'submit', 'class' => 'btn btn-primary', 'name' => 'type', 'value' => 'publish'] ) !!}
 
-            <a class="btn btn-warning mr-1" role="button"
-               href="{{route('rms.index')}}">
-                <i class="ft-x"></i> {{trans('labels.cancel')}}
-            </a>
+                <a class="btn btn-warning mr-1" role="button"
+                   href="{{route('rms.index')}}">
+                    <i class="ft-x"></i> {{trans('labels.cancel')}}
+                </a>
+            </div>
         </div>
     </div>
 

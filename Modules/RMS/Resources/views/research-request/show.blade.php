@@ -45,7 +45,7 @@
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3">@lang('rms::research_proposal.last_sub_date')</dt>
-                                <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($researchRequest->created_at)) }}</dd>
+                                <dd class="col-sm-9">{{ date('d/m/Y', strtotime($researchRequest->end_date)) }}</dd>
                             </dl>
                             <dl class="row">
                                 <dt class="col-sm-3">@lang('labels.attachments')</dt>
@@ -65,13 +65,18 @@
                                 <dd class="col-sm-9"><p style="font-size: 15px;text-align: justify">{{ $researchRequest->remarks }}</p></dd>
                             </dl>
                             <div class="form-actions text-center">
-                                @if(Carbon\Carbon::now()->lessThanOrEqualTo(Carbon\Carbon::parse($researchRequest->end_date)))
+                                @if(Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($researchRequest->end_date->format('Y-m-d'))))
                                     @if(auth()->user()->employee->employeeDepartment->department_code == "RMS")
                                         <a href="{{ route('research-request.edit', $researchRequest->id) }}" class="btn btn-primary mr-1">
                                             <i class="ft-plus white"></i> @lang('labels.edit')
                                         </a>
                                     @endif
                                 @endif
+                                    @if(can_submit_brief_research_proposal($researchRequest))
+                                    <a class="btn btn-primary mr-1" role="button" href="{{route('research-proposal-submission.create',$researchRequest->id)}}">
+                                        <i class="ft-x"></i> @lang('rms::research_proposal.research_proposal_submission')
+                                    </a>
+                                    @endif
                                 <a class="btn btn-warning mr-1" role="button" href="{{route('research-request.index')}}">
                                     <i class="ft-x"></i> @lang('labels.cancel')
                                 </a>

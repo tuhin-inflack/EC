@@ -59,6 +59,25 @@ jQuery.validator.addMethod(
     checksumMessage
 );
 
+jQuery.validator.addMethod(
+    "isGiven",
+    function (value, element, params) {
+        let tds = $(element).parent().parent().find('input');
+        let monetaryAmount = 0;
+        let monetaryPercentage = 0;
+
+        tds.each(function (i, el) {
+            if (i === 1 )
+                monetaryAmount = parseFloat($(el).val());
+            else if (i === 2)
+                monetaryPercentage = parseFloat($(el).val());
+        });
+
+        return (value) ? true : !(!Number.isNaN(monetaryAmount) || !Number.isNaN(monetaryPercentage));
+    },
+    fieldRequired
+);
+
 let validator = $('.project-budget-form').validate({
     ignore: [],
     errorClass: 'danger',
@@ -85,8 +104,13 @@ let validator = $('.project-budget-form').validate({
             checksum: ['input[name=gov_source]', 'input[name=own_financing_source]', 'input[name=other_source]']
         },
         check_distributed_fiscalyear: {
-            checkFiscalSum: '#fiscal-values',
-        }
+            checkFiscalSum: '#fiscal-list',
+        },
+        'fiscal_year[0]': { isGiven: true },
+        'fiscal_year[1]': { isGiven: true },
+        'fiscal_year[2]': { isGiven: true },
+        'fiscal_year[3]': { isGiven: true },
+        'fiscal_year[4]': { isGiven: true },
     },
     submitHandler: function (form, event) {
         $(form).find('input[name=check_distributed_collection]').remove();

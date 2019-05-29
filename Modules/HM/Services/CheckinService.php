@@ -13,6 +13,7 @@ use App\Traits\CrudTrait;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Modules\HM\Entities\RoomBooking;
 use Modules\HM\Repositories\BookingGuestInfoRepository;
 use Modules\HM\Repositories\CheckinRepository;
 use Modules\HM\Repositories\RoomBookingRepository;
@@ -92,5 +93,57 @@ class CheckinService
     {
       return  $this->checkinRepository->getCheckinInfoRoomIdAndCheckinId($roomId, $checkinId);
 
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @return int
+     */
+    public function getCheckedInDuration(RoomBooking $roomBooking)
+    {
+        $startDate = Carbon::createFromFormat('Y-m-d', $roomBooking->start_date);
+
+        $endDate = $this->getCheckedInEndDate($roomBooking);
+
+        $duration = $startDate->diffInDays($endDate);
+
+        return $duration ?: 1;
+    }
+
+    /**
+     * @param RoomBooking $roomBooking
+     * @return Carbon
+     */
+    public function getCheckedInEndDate(RoomBooking $roomBooking)
+    {
+        if ($roomBooking->actual_end_date) {
+            $actualEndDate = Carbon::createFromFormat('Y-m-d', $roomBooking->actual_end_date);
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+
+            $endDate = $endDate->greaterThanOrEqualTo($actualEndDate) ? $endDate : $actualEndDate;
+        } else {
+            $endDate = Carbon::createFromFormat('Y-m-d', $roomBooking->end_date);
+        }
+
+        return $endDate;
+    }
+
+    public function getTotalBill(RoomBooking $roomBooking): float
+    {
+        $duration = $this->getCheckedInDuration($roomBooking);
+
+        $totalRoomRates = $roomBooking->roomInfos->sum(function ($roomInfo) {
+            return floatval(bcmul($roomInfo->rate, $roomInfo->quantity));
+        });
+
+        return floatval(bcmul($duration, $totalRoomRates));
+    }
+
+    public function getDueAmount(RoomBooking $roomBooking): float
+    {
+        $totalBill = $this->getTotalBill($roomBooking);
+        $totalPayments = $roomBooking->payments()->sum('amount');
+
+        return floatval(bcsub($totalBill, $totalPayments));
     }
 }

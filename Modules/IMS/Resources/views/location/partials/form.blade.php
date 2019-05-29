@@ -55,11 +55,11 @@
 </div>
 
 <div class="form-actions mb-lg-3">
-    <button type="submit" class="btn btn-primary pull-right">
-        <i class="la la-check-square-o"></i> {{trans('labels.save')}}
-    </button>
     <a class="btn btn-warning pull-right" role="button" href="{{ route('location.index') }}" style="margin-left: 2px;">
         <i class="la la-times"></i> {{trans('labels.cancel')}}
     </a>
+    <button type="submit" class="btn btn-primary pull-right">
+        <i class="la la-check-square-o"></i> {{trans('labels.save')}}
+    </button>
 </div>
 {{ Form::close() }}

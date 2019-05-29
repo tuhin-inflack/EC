@@ -28,7 +28,43 @@
 @stop
 
 @push('page-js')
+    <script src="{{ asset('theme/vendors/js/forms/repeater/jquery.repeater.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('theme/js/scripts/forms/form-repeater.js') }}"></script>
     <script type="text/javascript">
-        $('.select').select2();
+
+        $(document).ready(function () {
+            // $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+            $('.select').select2();
+
+            $('select[name=request_type]').change(function (e) {
+                toggleCategoryEntry(e.target.value);
+            });
+
+            toggleCategoryEntry($('select[name=request_type]').val());
+
+            $('.repeater-category-request, .repeater-new-category-request, .repeater-bought-category-request').repeater({
+                // isFirstItemUndeletable: true,
+                initEmpty: true,
+                show: function () {
+                    $(this).slideDown();
+                    // TODO: Find all Select Tag and add select2 into them
+                    // $(this).find('select').select2();
+                },
+                hide: function (deleteElement) {
+                    if (confirm('Are you sure you want to delete this element?')) {
+                        $(this).slideUp(deleteElement);
+                    }
+                }
+            });
+        });
+
+        function toggleCategoryEntry(type) {
+            if (type == "requisition"){
+                $('#toggle-category-entry').show();
+            } else {
+                $('#toggle-category-entry').hide();
+            }
+        }
+
     </script>
 @endpush

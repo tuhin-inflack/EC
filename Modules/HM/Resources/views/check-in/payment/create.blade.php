@@ -46,13 +46,10 @@
                                     </table>
                                 </div>
                                 <div class="col-md-6">
-                                    @php
-                                        $totalAmont = $checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $checkin->payments()->sum('amount');
-                                    @endphp
                                     <table class="table table-bordered">
                                         <tr>
                                             <td width="40%">@lang('labels.total')</td>
-                                            <td id="total-amount">{{ $totalAmont }}</td>
+                                            <td id="total-amount">{{ $dueAmount }}</td>
                                         </tr>
                                         <tr>
                                             <td>@lang('labels.due')</td>
@@ -62,7 +59,9 @@
                                             <td>@lang('labels.amount')</td>
                                             <td>
                                                 {{ Form::number('amount', old('amount') ? old('amount') : null, [
-                                                        'class' => 'form-control required', 'min' => 0, 'max' => $totalAmont,
+                                                        'class' => 'form-control required',
+                                                        'min' => 0,
+                                                        'max' => $dueAmount,
                                                         'data-msg-required' => trans('labels.This field is required'),
                                                     ])
                                                 }}
@@ -75,7 +74,11 @@
                                             <td>@lang('labels.method')</td>
                                             <td>
                                                 {{ Form::select('type',
-                                                    ['cash' => trans('hm::checkin.cash'), 'card' => trans('hm::checkin.card'), 'check' => trans('hm::checkin.check')],
+                                                    [
+                                                        'cash' => trans('hm::checkin.cash'),
+                                                        'card' => trans('hm::checkin.card'),
+                                                        'check' => trans('hm::checkin.check')
+                                                    ],
                                                     old('type') ? old('type') : null,
                                                     array('class' => 'form-control required' . ($errors->has('payment_method') ? ' is-invalid' : '') ))
                                                 }}
@@ -83,12 +86,14 @@
                                                 {{ Form::text('check_number',
                                                     old('check_number') ? old('check_number') : null,
                                                     [
-                                                        'placeholder' => 'XXXXXXX Check No.', 'class' => 'form-control', 'style' => 'display: none',
+                                                        'placeholder' => 'XXXXXXX Check No.',
+                                                        'class' => 'form-control',
+                                                        'style' => 'display: none',
                                                         'data-msg-required' => trans('labels.This field is required'),
                                                         'data-rule-minlength' => 11,
                                                         'data-msg-minlength'=> trans('labels.At least 11 characters'),
-                                                    ])
-                                                }}
+                                                    ]
+                                                ) }}
 
                                                 @if($errors->has('check_number'))
                                                     <span class="danger">{{ $errors->first('check_number') }}</span>
@@ -143,7 +148,7 @@
             $('input[name=amount]').keyup(function (e) {
                 var totalAmount = Number($('#total-amount').text());
                 var dueAmount = totalAmount;
-                if (this.value <= totalAmount) {
+                if (this.value < totalAmount) {
                     dueAmount = Number(totalAmount - this.value);
                 } else {
                     dueAmount = 0;

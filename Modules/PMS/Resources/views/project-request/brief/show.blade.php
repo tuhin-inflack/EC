@@ -45,7 +45,7 @@
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('pms::project_proposal.last_sub_date')</dt>
-                                    <dd class="col-sm-9">{{ date('d/m/Y,  h:iA', strtotime($projectRequest->end_date)) }}</dd>
+                                    <dd class="col-sm-9">{{ date('d/m/Y', strtotime($projectRequest->end_date)) }}</dd>
                                 </dl>
                                 <dl class="row">
                                     <dt class="col-sm-3">@lang('labels.attachments')</dt>
@@ -66,13 +66,20 @@
                                 </dl>
 
                                 <div class="form-actions text-center">
-                                    @if(\Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($projectRequest->end_date)))
+                                    @if(\Carbon\Carbon::today()->lessThanOrEqualTo(Carbon\Carbon::parse($projectRequest->end_date->format('Y-m-d'))))
                                         @if(auth()->user()->employee->employeeDepartment->department_code == "PMS")
                                             <a href="{{ route('project-request.edit', $projectRequest->id) }}" class="btn btn-primary mr-1">
                                                 <i class="ft-plus white"></i> @lang('labels.edit')
                                             </a>
                                         @endif
                                     @endif
+
+                                    @if(can_submit_brief_project_proposal($projectRequest))
+                                        <a class="btn btn-primary mr-1" role="button" href="{{route('project-proposal-submission.create', $projectRequest->id)}}">
+                                            <i class="ft-x"></i> @lang('pms::project_proposal.proposal_submission')
+                                        </a>
+                                    @endif
+
                                     <a class="btn btn-warning mr-1" role="button" href="{{route('project-request.index')}}">
                                         <i class="ft-x"></i> @lang('labels.cancel')
                                     </a>

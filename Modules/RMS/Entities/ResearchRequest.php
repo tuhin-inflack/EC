@@ -9,6 +9,11 @@ class ResearchRequest extends Model
     protected $fillable = ['title','end_date','remarks', 'status'];
     protected $table = 'research_requests';
 
+    /**
+     * @var array
+     */
+    protected $dates = ['end_date'];
+
     public function researchRequestAttachments()
     {
         return $this->hasMany(ResearchRequestAttachment::class, 'research_request_id', 'id');

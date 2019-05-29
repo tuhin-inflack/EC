@@ -97,7 +97,7 @@ class WorkflowService
             $designationId = $this->getDesignationByRule($ruleDetail, $data);
             for ($i = 0; $i < $ruleDetail->number_of_responder; $i++) {
                 $workflowDetail = new WorkflowDetail(['workflow_master_id' => $workflowMaster->id, 'rule_detail_id' => $ruleDetail->id,
-                    'designation_id' => $designationId, 'notification_order' => $notificationOrder, 'creator_id' => Auth::user()->id,
+                    'designation_id' => $designationId, 'notification_order' => $notificationOrder, 'responder_id' => $ruleDetail->is_group_notification ? null : $data['responder_id'], 'creator_id' => Auth::user()->id,
                     'is_group_notification' => $ruleDetail->is_group_notification, 'status' => $notificationOrder == 1 ? WorkflowStatus::PENDING : WorkflowStatus::INITIATED]);
                 array_push($workflowDetailList, $workflowDetail);
                 $notificationOrder++;

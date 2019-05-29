@@ -18,7 +18,7 @@
                 </div>
                 <div class="card-content collapse show">
                     <div class="card-body">
-                        {!! Form::model($member, ['route' =>  [$module . '-organization-members.update', $organization->id, $member->id], 'method' => 'PUT', 'class' => 'form']) !!}
+                        {!! Form::model($member, ['route' =>  [$module . '-organization-members.update', $organization->id, $member->id], 'method' => 'PUT', 'class' => 'form organization-members', 'novalidate']) !!}
                         @include('pms::organization-member.partials.create_edit_form', [
                             'mode' => trans('member.edit_member'),
                             'form-mode' => trans('member.member_adding_form')
@@ -30,3 +30,34 @@
         </div>
     </div>
 @endsection
+@push('page-js')
+    <script src="{{ asset('theme/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.member-gender-select').select2();
+            $("input,select,textarea").not("[type=submit]").jqBootstrapValidation("destroy");
+            $(".organization-members").validate({
+                ignore: 'input[type=hidden]', // ignore hidden fields
+                errorClass: 'danger',
+                successClass: 'success',
+                highlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                unhighlight: function (element, errorClass) {
+                    $(element).removeClass(errorClass);
+                },
+                errorPlacement: function (error, element) {
+                    if (element.attr('type') == 'radio') {
+                        error.insertBefore(element.parents().siblings('.radio-error'));
+                    } else if (element[0].tagName == "SELECT") {
+                        error.insertAfter(element.siblings('.select2-container'));
+                    } else if (element.attr('id') == 'start_date' || element.attr('id') == 'end_date') {
+                        error.insertAfter(element.parents('.input-group'));
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

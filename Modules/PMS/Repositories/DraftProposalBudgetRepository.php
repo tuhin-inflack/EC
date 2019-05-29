@@ -6,11 +6,11 @@
  * Time: 3:35 PM
  */
 
-namespace App\Repositories\DraftProposalBudget;
+namespace Modules\PMS\Repositories;
 
 
-use App\Entities\DraftProposalBudget\DraftProposalBudget;
 use App\Repositories\AbstractBaseRepository;
+use Modules\PMS\Entities\DraftProposalBudget;
 
 class DraftProposalBudgetRepository extends AbstractBaseRepository
 {

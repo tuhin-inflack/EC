@@ -43,6 +43,11 @@ class ShareRulesSeeder extends Seeder
                 22 => ['name' => 'DDP can share with JDP and PD', 'is_group' => 1],
                 23 => ['name' => 'ADG can share with PD and DG', 'is_group' => 1],
                 24 => ['name' => 'DG can share with ADG and PD', 'is_group' => 1],
+
+                // research sharing rule
+                25 => ['name' => 'DR Can Share With Any Employee', 'is_group' => 1],
+                26 => ['name' => 'Any Employee Can Share with DR', 'is_group' => 1],
+                27 => ['name' => 'DR Can Share with DG', 'is_group' => 1],
             ]
         );
     }

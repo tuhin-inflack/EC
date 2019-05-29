@@ -10,6 +10,9 @@ namespace App\Repositories;
 
 
 use App\Repositories\Contracts\RepositoryInterface;
+use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,6 +39,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
 
     /**
      * Constructor
+     * @throws Exception
      */
     public function __construct()
     {
@@ -45,7 +49,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
     /**
      * Instantiate Model
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function setModel()
     {
@@ -55,11 +59,11 @@ abstract class AbstractBaseRepository implements RepositoryInterface
 
             //check object is a instanceof Illuminate\Database\Eloquent\Model
             if (!$this->model instanceof Model) {
-                throw new \Exception("{$this->modelName} must be an instance of Illuminate\Database\Eloquent\Model");
+                throw new Exception("{$this->modelName} must be an instance of Illuminate\Database\Eloquent\Model");
             }
 
         } else {
-            throw new \Exception('No model name defined');
+            throw new Exception('No model name defined');
         }
     }
 
@@ -173,6 +177,8 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      *
      * @param string $key
      * @param array $values
+     * @param null $relation
+     * @param array|null $orderBy
      * @return Collection
      */
     public function findIn($key, array $values, $relation = null, array $orderBy = null)
@@ -185,7 +191,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      * @param null $perPage
      * @param null $relation
      * @param array|null $orderBy
-     * @return Contracts\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder[]|Collection|Model[]
+     * @return Collection|LengthAwarePaginator|Builder[]|Collection|Model[]
      */
     public function findAll($perPage = null, $relation = null, array $orderBy = null)
     {
@@ -201,7 +207,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      * @param $id
      * @param null $relation
      * @param array|null $orderBy
-     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|Collection|Model|Model[]|mixed
+     * @return Builder|Builder[]|Collection|Model|Model[]|mixed
      */
     public function findOrFail($id, $relation = null, array $orderBy = null)
     {
@@ -225,6 +231,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      *
      * @param Model $model
      * @param array $data
+     * @return bool
      */
     public function update(Model $model, array $data)
     {
@@ -246,7 +253,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
      *
      * @param Model $model
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function delete(Model $model)
     {
@@ -256,7 +263,7 @@ abstract class AbstractBaseRepository implements RepositoryInterface
     /**
      * @param $relation
      * @param array|null $orderBy [[Column], [Direction]]
-     * @return \Illuminate\Database\Eloquent\Builder|Model
+     * @return Builder|Model
      */
     private function prepareModelForRelationAndOrder($relation, array $orderBy = null)
     {

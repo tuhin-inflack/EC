@@ -45,12 +45,15 @@
 
 
                 <div class="form-group overflow-auto">
-                <div class="col-12">
-                <button type="button" data-repeater-create=""
-                class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
-                <i class="ft-plus"></i> Add
-                </button>
-                </div>
+                    <div class="text-center">
+                        <b>@lang('labels.total'): <span id="total_budget_amount">{{ $budgetWithTitles->hostelBudgets->sum('budget_amount') }}</span></b>
+                    </div>
+                    <div class="col-12">
+                        <button type="button" data-repeater-create=""
+                            class="pull-right btn btn-sm btn-outline-primary addMoreBudgetSection">
+                            <i class="ft-plus"></i> @lang('labels.add')
+                        </button>
+                    </div>
                 </div>
 
                 <div class="form-actions text-center">

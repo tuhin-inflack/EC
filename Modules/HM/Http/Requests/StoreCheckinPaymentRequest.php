@@ -3,9 +3,24 @@
 namespace Modules\HM\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Modules\HM\Services\CheckinService;
 
 class StoreCheckinPaymentRequest extends FormRequest
 {
+    /**
+     * @var CheckinService
+     */
+    private $checkinService;
+
+    /**
+     * StoreCheckinPaymentRequest constructor.
+     * @param CheckinService $checkinService
+     */
+    public function __construct(CheckinService $checkinService)
+    {
+        $this->checkinService = $checkinService;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -16,7 +31,7 @@ class StoreCheckinPaymentRequest extends FormRequest
         return [
             'shortcode' => 'nullable|size:11|unique:checkin_payments',
             'amount' => ['required','numeric','max:99999999','min:1',  function ($attribute, $value, $fail) {
-                if ($value > ($this->roomBooking->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }) - $this->roomBooking->payments()->sum('amount'))) {
+                if ($value > $this->checkinService->getDueAmount($this->roomBooking)) {
                     $fail($attribute.' cannot be greater than total.');
                 }
             }],

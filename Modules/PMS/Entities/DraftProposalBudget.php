@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entities\DraftProposalBudget;
+namespace Modules\PMS\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Accounts\Entities\EconomyCode;

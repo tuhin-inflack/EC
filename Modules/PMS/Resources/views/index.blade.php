@@ -34,7 +34,7 @@
                                             <td>{{$shareConversation['message']}}</td>
                                             <td>Proposal Title: {{$shareConversation['proposal_title']}}<br>
                                                 Project Title: {{$shareConversation['project_title']}}<br>
-                                                Requested By: {{$shareConversation['project_submitted_by']}}
+                                                Submitted By: {{$shareConversation['project_submitted_by']}}
                                             </td>
                                             <td>
                                                 <a class="btn btn-primary btn-sm" href="{{ url($shareConversation['review_url']) }}">
@@ -83,7 +83,7 @@
                                                         <br>
                                                         <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}
                                                         <br>
-                                                        <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                                        <span class="label">Submitted By</span>: {{$item->dynamicValues['requested_by']}}
                                                     </td>
                                                     {{--<td><input type="checkbox" class="wf-item-checkbox" name="pending_select[]"></td>--}}
                                                     <td>
@@ -123,7 +123,7 @@
                                                         <br>
                                                         <span class="label">Project Title</span>: {{$item->dynamicValues['project_request_title']}}
                                                         <br>
-                                                        <span class="label">Requested By</span>: {{$item->dynamicValues['requested_by']}}
+                                                        <span class="label">Submitted By</span>: {{$item->dynamicValues['requested_by']}}
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-primary btn-sm"

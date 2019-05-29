@@ -4,19 +4,10 @@
 @section('content')
     <div class="container">
         <div class="content-header row">
-            <div class="content-header-left col-md-6 col-12">
-                <div class="btn-group float-md-left" role="group" aria-label="Button group with nested dropdown">
-                    <div class="btn-group" role="group">
-                        <a class="btn btn-outline-info round" href="{{  route('project.show', $project->id) }}">
-                            <i class="ft-eye"></i> @lang('pms::project.title') @lang('labels.details')
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="content-header-right col-md-6 col-12">
+            <div class="col-md-12 col-12">
                 <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
                     <div class="btn-group" role="group">
-                        <a href="{{route('project-budget.create', $project->id)}}" class="btn btn-primary btn-sm">
+                        <a href="{{route('project-detail-proposal-budget.create', $projectDetailProposal->id)}}" class="btn btn-primary btn-sm">
                             <i class="ft-plus white"></i> @lang('labels.create') @lang('pms::project_budget.budgeting')
                         </a>
                     </div>
@@ -36,7 +27,7 @@
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a href="{{route('project-budget.export-excel', [$project->id, 'annexure-4'])}}">
+                                            <li><a href="{{route('project-detail-proposal-budget.export-excel', ['projectDetailProposal' => $projectDetailProposal->id, 'tableType' => 'annexure-4'])}}">
                                                     <i class="la la-file-text-o"></i>
                                                 </a>
                                             </li>
@@ -48,7 +39,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                    @include('pms::project.budget.partials.annexure-4')
+                                    @include('pms::proposal-submission.details.budget.partials.annexure-4')
                                     </div>
                                 </div>
                             </div>
@@ -66,7 +57,7 @@
                                     <a class="heading-elements-toggle"><i class="la la-ellipsis-h font-medium-3"></i></a>
                                     <div class="heading-elements">
                                         <ul class="list-inline mb-0">
-                                            <li><a href="{{route('project-budget.export-excel', [$project->id, 'annexure-5'])}}">
+                                            <li><a href="{{route('project-detail-proposal-budget.export-excel', [$projectDetailProposal->id, 'annexure-5'])}}">
                                                     <i class="la la-file-text-o"></i>
                                                 </a>
                                             </li>
@@ -78,7 +69,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        @include('pms::project.budget.partials.annexure-5')
+                                        @include('pms::proposal-submission.details.budget.partials.annexure-5')
                                     </div>
                                 </div>
                             </div>

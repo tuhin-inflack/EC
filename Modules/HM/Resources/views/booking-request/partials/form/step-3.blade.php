@@ -166,9 +166,9 @@
                                         'placeholder' => 'e.g. 18',
                                         'data-msg-required' => Lang::get('labels.This field is required'),
                                         'min' => 1,
-                                        'data-msg-min'=> trans('labels.At least 1 characters'),
+                                        'data-msg-min'=> trans('labels.Field can\'t be geater than 1'),
                                         'max' => 100,
-                                        'data-msg-max'=> trans('labels.At most 100 characters'),
+                                        'data-msg-max'=> trans('labels.Field can\'t be geater than 100'),
                                     ]) !!}
                                 </div>
                                 <div class="form-group mb-1 col-sm-12 col-md-3">

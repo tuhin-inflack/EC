@@ -26,18 +26,28 @@
                                     <div class="card-body" id="Data">
                                         <div class="row">
                                             <div class="col-12">
-                                                <h4><i class="la  la-user"></i> {{ trans('hm::booking-request.personal_information') }}</h4>
+                                                <h4>
+                                                    <i class="la  la-user"></i> {{ trans('hm::booking-request.personal_information') }}
+                                                </h4>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-md-4">
-                                                        <strong>@lang('labels.name'): </strong><span id="primary-contact-name">{{ $checkin->requester->first_name }} {{ $checkin->requester->middle_name }} {{ $checkin->requester->last_name }}</span><br>
-                                                        <strong>@lang('hm::booking-request.contact'): </strong><span id="primary-contact-contact">{{ $checkin->requester->contact }}</span>
+                                                        <strong>@lang('labels.name'): </strong><span
+                                                                id="primary-contact-name">
+                                                            {{ $checkin->requester->first_name }} {{ $checkin->requester->middle_name }} {{ $checkin->requester->last_name }}</span><br>
+                                                        <strong>@lang('hm::booking-request.contact'): </strong><span
+                                                                id="primary-contact-contact">
+                                                            {{ $checkin->requester->contact }}</span>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <strong>@lang('hm::booking-request.start_date'): </strong><span id="start_date_display">{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</span>
+                                                        <strong>@lang('hm::booking-request.start_date'): </strong><span
+                                                                id="start_date_display">
+                                                            {{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}</span>
                                                     </div>
                                                     <div class="col-md-4">
-                                                        <strong>@lang('hm::booking-request.end_date'): </strong><span id="end_date_display">{{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</span>
+                                                        <strong>@lang('hm::booking-request.end_date'): </strong><span
+                                                                id="end_date_display">
+                                                            {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -45,12 +55,15 @@
                                         <br><br>
                                         <div class="row">
                                             <div class="col-12">
-                                                <h4><i class="la  la-building-o"></i> {{ trans('hm::booking-request.room_type') }}</h4>
+                                                <h4>
+                                                    <i class="la  la-building-o"></i> {{ trans('hm::booking-request.room_type') }}
+                                                </h4>
                                                 <hr>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="table-responsive">
-                                                            <table id="billing-table" class="table table-bordered table-striped">
+                                                            <table id="billing-table"
+                                                                   class="table table-bordered table-striped">
                                                                 <thead>
                                                                 <tr>
                                                                     <th>{{ trans('hm::booking-request.room_type') }}</th>
@@ -62,32 +75,43 @@
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    @foreach($checkin->roomInfos as $roomInfo)
-                                                                        <tr>
-                                                                            <td>{{ $roomInfo->roomType->name }}</td>
-                                                                            <td>{{ $roomInfo->quantity }}</td>
-                                                                            <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }} To {{ \Carbon\Carbon::parse($checkin->end_date)->format('d/m/Y') }}</td>
-                                                                            <td>
-                                                                                @if($roomInfo->rate_type == 'govt')
+                                                                @foreach($checkin->roomInfos as $roomInfo)
+                                                                    <tr>
+                                                                        <td>{{ $roomInfo->roomType->name }}</td>
+                                                                        <td>{{ $roomInfo->quantity }}</td>
+                                                                        <td>{{ \Carbon\Carbon::parse($checkin->start_date)->format('d/m/Y') }}
+                                                                            To {{ \Carbon\Carbon::parse($endDate)->format('d/m/Y') }}</td>
+                                                                        <td>
+                                                                            @if($roomInfo->rate_type == 'govt')
                                                                                 {{ trans('hm::roomtype.govt_type') }}
-                                                                                    @elseif($roomInfo->rate_type == 'ge')
-                                                                                    {{ trans('hm::roomtype.general_type') }}
-                                                                                @elseif($roomInfo->rate_type == 'bard-emp')
-                                                                                    {{ trans('hm::roomtype.bard_emp_type') }}
-                                                                                @elseif($roomInfo->rate_type == 'special')
-                                                                                    {{ trans('hm::roomtype.special_type') }}
-
-                                                                                 @endif
-                                                                            </td>
-                                                                            <td>{{ $roomInfo->rate }} x {{ $roomInfo->quantity }}</td>
-                                                                            <td>{{ number_format($roomInfo->rate   *  $roomInfo->quantity, 2) }}</td>
-                                                                        </tr>
-                                                                    @endforeach
+                                                                            @elseif($roomInfo->rate_type == 'ge')
+                                                                                {{ trans('hm::roomtype.general_type') }}
+                                                                            @elseif($roomInfo->rate_type == 'bard-emp')
+                                                                                {{ trans('hm::roomtype.bard_emp_type') }}
+                                                                            @elseif($roomInfo->rate_type == 'special')
+                                                                                {{ trans('hm::roomtype.special_type') }}
+                                                                            @endif
+                                                                        </td>
+                                                                        <td>
+                                                                            {{ $roomInfo->rate }}
+                                                                            x {{ $roomInfo->quantity }}
+                                                                            x {{ $duration }}
+                                                                        </td>
+                                                                        <td>{{ number_format($roomInfo->rate *  $roomInfo->quantity * $duration, 2) }}</td>
+                                                                    </tr>
+                                                                @endforeach
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12"><p style="float: right"><b>{{ trans('hm::checkin.grand_total_bill') }} - {{ number_format($checkin->roomInfos->sum(function ($roomInfo) { return $roomInfo->rate * $roomInfo->quantity; }), 2) }}  &#2547;</b></p></div>
+                                                    <div class="col-md-12">
+                                                        <p style="float: right">
+                                                            <b>
+                                                                {{ trans('hm::checkin.grand_total_bill') }}
+                                                                - {{ number_format($totalBill, 2) }}&#2547;
+                                                            </b>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -95,12 +119,15 @@
                                             <br><br>
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <h4><i class="la  la-users"></i> {{ trans('hm::booking-request.guest_information') }}</h4>
+                                                    <h4>
+                                                        <i class="la  la-users"></i> {{ trans('hm::booking-request.guest_information') }}
+                                                    </h4>
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="table-responsive">
-                                                                <table id="guests-info-table" class="table table-bordered table-striped">
+                                                                <table id="guests-info-table"
+                                                                       class="table table-bordered table-striped">
                                                                     <thead>
                                                                     <tr>
                                                                         <th>{{ trans('labels.name') }}</th>
@@ -113,10 +140,26 @@
                                                                     <tbody>
                                                                     @foreach($checkin->guestInfos as $guestInfo)
                                                                         <tr>
-                                                                            <td>{{ $guestInfo->first_name }}  {{ $guestInfo->middle_name }} {{ $guestInfo->last_name }}</td>
+                                                                            <td>
+                                                                                {{ $guestInfo->first_name }}
+                                                                                {{ $guestInfo->middle_name }}
+                                                                                {{ $guestInfo->last_name }}
+                                                                            </td>
                                                                             <td>{{ $guestInfo->age }}</td>
-                                                                            <td>{{ $guestInfo->gender == 'male' ? trans('hm::booking-request.male') : trans('hm::booking-request.female') }}</td>
-                                                                            <td>@if($guestInfo->relation == 'family') @lang('hm::booking-request.relation_family') @elseif($guestInfo->relation == 'friend') @lang('hm::booking-request.relation_friend') @else @lang('hm::booking-request.relation_coworker') @endif</td>
+                                                                            <td>
+                                                                                {{ $guestInfo->gender == 'male'
+                                                                                ? trans('hm::booking-request.male')
+                                                                                : trans('hm::booking-request.female') }}
+                                                                            </td>
+                                                                            <td>
+                                                                                @if($guestInfo->relation == 'family')
+                                                                                    @lang('hm::booking-request.relation_family')
+                                                                                @elseif($guestInfo->relation == 'friend')
+                                                                                    @lang('hm::booking-request.relation_friend')
+                                                                                @else
+                                                                                    @lang('hm::booking-request.relation_coworker')
+                                                                                @endif
+                                                                            </td>
                                                                             <td>{{ $guestInfo->address}}</td>
                                                                         </tr>
                                                                     @endforeach
@@ -132,12 +175,15 @@
                                             <br><br>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <h4><i class="la  la-building-o"></i> {{ trans('hm::bill.payment_details') }}</h4>
+                                                    <h4>
+                                                        <i class="la  la-building-o"></i> {{ trans('hm::bill.payment_details') }}
+                                                    </h4>
                                                     <hr>
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="table-responsive">
-                                                                <table id="guests-info-table" class="table table-bordered table-striped">
+                                                                <table id="guests-info-table"
+                                                                       class="table table-bordered table-striped">
                                                                     <thead>
                                                                     <tr>
                                                                         <th>@lang('labels.serial')</th>
@@ -154,14 +200,14 @@
                                                                             <td>BILL{{$payment->shortcode}}</td>
                                                                             <td>{{ \Carbon\Carbon::parse($payment->create_at)->format('d/m/Y') }}</td>
                                                                             <td>{{ $payment->amount }}</td>
-                                                                            <td>@if($payment->type == 'cash')
+                                                                            <td>
+                                                                                @if($payment->type == 'cash')
                                                                                     {{ trans('hm::checkin.cash') }}
-                                                                                    @elseif($payment->type == 'card')
+                                                                                @elseif($payment->type == 'card')
                                                                                     {{ trans('hm::checkin.card') }}
-                                                                                    @else
+                                                                                @else
                                                                                     {{ trans('hm::checkin.check') }}
-                                                                                    @endif
-
+                                                                                @endif
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -173,10 +219,9 @@
                                                 </div>
                                             </div>
                                         @endif
-
+                                        <button class="btn btn-primary" type="button" id="PrintCommand"><i
+                                                    class="ft ft-printer"></i> @lang('labels.print')</button>
                                     </div>
-                                    <button class="btn btn-primary" type="button" id="PrintCommand"><i class="ft ft-printer"></i> @lang('labels.print')</button>
-
                                 </div>
                             </div>
                         </div>
