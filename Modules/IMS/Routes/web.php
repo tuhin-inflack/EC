@@ -61,18 +61,13 @@ Route::middleware(['auth', 'can:ims-access'])->prefix('ims')->group(function () 
     });
 
     // Auction route
-    Route::prefix('auction')->group(function () {
-        Route::get('/', 'Auction\AuctionController@index')->name('auction.index');
-        Route::get('/create', 'Auction\AuctionController@create')->name('auction.create');
-        Route::post('/create', 'Auction\AuctionController@store')->name('auction.create');
-        Route::get('/{id}', 'Auction\AuctionController@show')->name('auction.show');
-        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auction.edit');
-        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auction.update');
-
-        // Auction sales
-        Route::prefix('sales')->group(function () {
-            Route::get('create', 'AuctionSaleController@create')->name('auctions.sales.create');
-        });
+    Route::prefix('auctions')->group(function () {
+        Route::get('/', 'Auction\AuctionController@index')->name('auctions.index');
+        Route::get('/create', 'Auction\AuctionController@create')->name('auctions.create');
+        Route::post('/create', 'Auction\AuctionController@store')->name('auctions.store');
+        Route::get('/{id}', 'Auction\AuctionController@show')->name('auctions.show');
+        Route::get('/{id}/edit', 'Auction\AuctionController@edit')->name('auctions.edit');
+        Route::put('/{auction}/update', 'Auction\AuctionController@update')->name('auctions.update');
     });
 
     // Vendor
@@ -84,4 +79,11 @@ Route::middleware(['auth', 'can:ims-access'])->prefix('ims')->group(function () 
        Route::get('{vendor}/edit','Vendor\VendorController@edit')->name('vendor.edit');
        Route::put('{vendor}/update','Vendor\VendorController@update')->name('vendor.update');
     });
+
+
+    // Auction sales
+    Route::prefix('auctions/sales')->group(function () {
+        Route::get('create', 'AuctionSaleController@create')->name('auctions.sales.create');
+    });
+
 });

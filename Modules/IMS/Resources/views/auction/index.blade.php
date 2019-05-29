@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <div class="heading-elements mt-2" style="margin-right: 10px;">
-                            <a href="{{ route('auction.create') }}" class="btn btn-primary btn-sm">
+                            <a href="{{ route('auctions.create') }}" class="btn btn-primary btn-sm">
                                 <i class="ft-plus white">@lang('ims::auction.create')</i>
                             </a>
                         </div>
@@ -38,7 +38,7 @@
                                     @foreach ($auctions as $auction)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration}}</th>
-                                    <td><a href="{{route('auction.show',$auction->id)}}">{{ $auction->title}}</a></td>
+                                    <td><a href="{{route('auctions.show',$auction->id)}}">{{ $auction->title}}</a></td>
                                         <td>{{$auction->date}}</td>
                                         <td>
                                             <span class="dropdown">
@@ -49,8 +49,8 @@
                                                 </button>
                                                 <span aria-labelledby="imsProductList"
                                                       class="dropdown-menu mt-1 dropdown-menu-right">
-                                                    <a href="{{route('auction.show', $auction->id)}}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
-                                                    <a href="{{route('auction.edit',$auction->id)}}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
+                                                    <a href="{{route('auctions.show', $auction->id)}}" class="dropdown-item"><i class="ft-eye"></i> @lang('labels.details')</a>
+                                                    <a href="{{route('auctions.edit',$auction->id)}}" class="dropdown-item"><i class="ft-edit-2"></i> @lang('labels.edit')</a>
                                                    
                                                     
                                                     {!! Form::close() !!}
